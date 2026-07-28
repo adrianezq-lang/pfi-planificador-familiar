@@ -1,0 +1,47 @@
+{
+  "Leche": [
+    {
+      "buscar": "leche proteínas Hacendado",
+      "porcentaje": 60
+    },
+    {
+      "buscar": "leche entera sin lactosa Hacendado",
+      "porcentaje": 40
+    }
+  ],
+
+  "Atún": [
+    {
+      "buscar": "atún en aceite de oliva Hacendado pack 6 latas",
+      "porcentaje": 100
+    }
+  ],
+
+  "Queso rallado": [
+    {
+      "buscar": "mezcla cuatro quesos rallados Hacendado",
+      "porcentaje": 100
+    }
+  ],
+
+  "Mozzarella rallada": [
+    {
+      "buscar": "mozzarella rallada Hacendado",
+      "porcentaje": 100
+    }
+  ],
+
+  "Garbanzos secos": [
+    {
+      "buscar": "garbanzo pedrosillano seco Hacendado",
+      "porcentaje": 100
+    }
+  ],
+
+  "Garbanzos cocidos": [
+    {
+      "buscar": "garbanzo pedrosillano cocido Hacendado tarro",
+      "porcentaje": 100
+    }
+  ]
+}

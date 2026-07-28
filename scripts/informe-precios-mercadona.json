@@ -1,0 +1,355 @@
+{
+  "actualizado": "2026-07-28T10:33:31.893Z",
+  "codigoPostal": "48950",
+  "almacen": "4293",
+  "totalObjetivos": 51,
+  "actualizados": 44,
+  "pendientes": 7,
+  "coincidencias": [
+    {
+      "ingrediente": "Carne picada",
+      "productoId": "2869",
+      "nombreComercial": "Preparado de carne picada vacuno y cerdo",
+      "precio": 4.1,
+      "puntuacion": 1250
+    },
+    {
+      "ingrediente": "Leche",
+      "productoId": "10379",
+      "nombreComercial": "Leche entera Hacendado",
+      "precio": 5.76,
+      "puntuacion": 600
+    },
+    {
+      "ingrediente": "Yogures",
+      "productoId": "20221",
+      "nombreComercial": "Yogur natural edulcorado Hacendado 0% MG 0% azúcares añadidos",
+      "precio": 1.05,
+      "puntuacion": 600
+    },
+    {
+      "ingrediente": "Arroz",
+      "productoId": "5044",
+      "nombreComercial": "Arroz redondo Hacendado",
+      "precio": 1.2,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Pasta corta",
+      "productoId": "35777",
+      "nombreComercial": "Macarrón rayado integral Hacendado",
+      "precio": 1.15,
+      "puntuacion": 350
+    },
+    {
+      "ingrediente": "Tomate frito",
+      "productoId": "17132",
+      "nombreComercial": "Tomate frito Hacendado",
+      "precio": 1.35,
+      "puntuacion": 600
+    },
+    {
+      "ingrediente": "Tomate triturado",
+      "productoId": "16043",
+      "nombreComercial": "Tomate triturado Hacendado",
+      "precio": 1,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Atún",
+      "productoId": "18086",
+      "nombreComercial": "Atún en aceite de girasol Hacendado",
+      "precio": 6.5,
+      "puntuacion": 700
+    },
+    {
+      "ingrediente": "Calabacín",
+      "productoId": "69338",
+      "nombreComercial": "Calabacín verde",
+      "precio": 0.75,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Pimiento rojo",
+      "productoId": "69310",
+      "nombreComercial": "Pimiento rojo",
+      "precio": 0.9,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Pimiento tricolor",
+      "productoId": "69495",
+      "nombreComercial": "Pimientos tricolor",
+      "precio": 1.9,
+      "puntuacion": 350
+    },
+    {
+      "ingrediente": "Pepino",
+      "productoId": "69584",
+      "nombreComercial": "Pepino",
+      "precio": 0.31,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Pollo",
+      "productoId": "2781",
+      "nombreComercial": "Pollo entero",
+      "precio": 5.7,
+      "puntuacion": 350
+    },
+    {
+      "ingrediente": "Pechugas de pollo",
+      "productoId": "3682",
+      "nombreComercial": "Pechugas enteras familiar de pollo",
+      "precio": 7.2,
+      "puntuacion": 300
+    },
+    {
+      "ingrediente": "Lomo",
+      "productoId": "3395",
+      "nombreComercial": "Filetes lomo de cerdo familiar",
+      "precio": 6.36,
+      "puntuacion": 750
+    },
+    {
+      "ingrediente": "Hamburguesas",
+      "productoId": "3497",
+      "nombreComercial": "Arreglo para puchero vacuno, cerdo y pollo",
+      "precio": 7.54,
+      "puntuacion": 200
+    },
+    {
+      "ingrediente": "Salmón",
+      "productoId": "13335",
+      "nombreComercial": "Comida perro adulto Supreme Compy salmón fresco con frutas y verduras",
+      "precio": 26.5,
+      "puntuacion": 350
+    },
+    {
+      "ingrediente": "Lubina",
+      "productoId": "81241.1",
+      "nombreComercial": "Lubina limpia con cabeza",
+      "precio": 4.78,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Dorada",
+      "productoId": "81234.1",
+      "nombreComercial": "Dorada limpia con cabeza",
+      "precio": 4.08,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Bacalao",
+      "productoId": "87211",
+      "nombreComercial": "Bacalao al punto de sal descongelado",
+      "precio": 9.5,
+      "puntuacion": 1100
+    },
+    {
+      "ingrediente": "Garbanzos cocidos",
+      "productoId": "26029",
+      "nombreComercial": "Garbanzo cocido Hacendado",
+      "precio": 0.8,
+      "puntuacion": 600
+    },
+    {
+      "ingrediente": "Garbanzos secos",
+      "productoId": "26029",
+      "nombreComercial": "Garbanzo cocido Hacendado",
+      "precio": 0.8,
+      "puntuacion": 200
+    },
+    {
+      "ingrediente": "Lentejas secas",
+      "productoId": "5330",
+      "nombreComercial": "Lenteja pardina Hacendado",
+      "precio": 1.95,
+      "puntuacion": 600
+    },
+    {
+      "ingrediente": "Alubias blancas secas",
+      "productoId": "26019",
+      "nombreComercial": "Alubia cocida blanca Hacendado",
+      "precio": 0.75,
+      "puntuacion": 600
+    },
+    {
+      "ingrediente": "Alubias rojas secas",
+      "productoId": "26000",
+      "nombreComercial": "Alubia cocida roja Hacendado",
+      "precio": 1.2,
+      "puntuacion": 600
+    },
+    {
+      "ingrediente": "Queso rallado",
+      "productoId": "22216",
+      "nombreComercial": "Queso rallado emmental gratinar Hacendado",
+      "precio": 1.65,
+      "puntuacion": 1000
+    },
+    {
+      "ingrediente": "Mozzarella rallada",
+      "productoId": "51126",
+      "nombreComercial": "Queso lonchas mozzarella de vaca Hacendado",
+      "precio": 1.8,
+      "puntuacion": 350
+    },
+    {
+      "ingrediente": "Queso en lonchas",
+      "productoId": "50545",
+      "nombreComercial": "Queso lonchas cremoso de vaca Hacendado",
+      "precio": 2.8,
+      "puntuacion": 1000
+    },
+    {
+      "ingrediente": "Queso curado",
+      "productoId": "50968",
+      "nombreComercial": "Queso curado mezcla Hacendado",
+      "precio": 18.06,
+      "puntuacion": 850
+    },
+    {
+      "ingrediente": "Queso roquefort",
+      "productoId": "86276",
+      "nombreComercial": "Queso roquefort  de oveja Hacendado",
+      "precio": 1.95,
+      "puntuacion": 750
+    },
+    {
+      "ingrediente": "Bacon",
+      "productoId": "16252",
+      "nombreComercial": "Bacón Hacendado cintas",
+      "precio": 2.2,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Chorizo",
+      "productoId": "23145",
+      "nombreComercial": "Chorizo sarta dulce extra de León Hacendado",
+      "precio": 4.2,
+      "puntuacion": 3700
+    },
+    {
+      "ingrediente": "Salchichas",
+      "productoId": "17569",
+      "nombreComercial": "Salchichas estilo Frankfurt Serrana Hacendado de cerdo y pollo",
+      "precio": 1.8,
+      "puntuacion": 750
+    },
+    {
+      "ingrediente": "Bases de pizza",
+      "productoId": "63648",
+      "nombreComercial": "Bases de pizza artesanas extrafinas y crujientes Hacendado ultracongeladas",
+      "precio": 1.8,
+      "puntuacion": 600
+    },
+    {
+      "ingrediente": "Pan de hamburguesa",
+      "productoId": "63140",
+      "nombreComercial": "Merluza empanada pan fino Hacendado ultracongelada",
+      "precio": 4,
+      "puntuacion": 350
+    },
+    {
+      "ingrediente": "Pan de perrito",
+      "productoId": "63140",
+      "nombreComercial": "Merluza empanada pan fino Hacendado ultracongelada",
+      "precio": 4,
+      "puntuacion": 350
+    },
+    {
+      "ingrediente": "Mayonesa",
+      "productoId": "13406",
+      "nombreComercial": "Mayonesa Hacendado",
+      "precio": 1.2,
+      "puntuacion": 350
+    },
+    {
+      "ingrediente": "Ketchup",
+      "productoId": "23579",
+      "nombreComercial": "Ketchup Hacendado",
+      "precio": 1.05,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Mostaza",
+      "productoId": "23410",
+      "nombreComercial": "Mostaza clásica Hacendado",
+      "precio": 1.25,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Guacamole",
+      "productoId": "3840",
+      "nombreComercial": "Guacamole Hacendado",
+      "precio": 3.95,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Salsa BBQ",
+      "productoId": "17346",
+      "nombreComercial": "Salsa Barbacoa Hacendado",
+      "precio": 1.15,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Ajo en polvo",
+      "productoId": "34138",
+      "nombreComercial": "Cebolla en polvo Hacendado",
+      "precio": 0.94,
+      "puntuacion": 600
+    },
+    {
+      "ingrediente": "Pimentón dulce",
+      "productoId": "60573",
+      "nombreComercial": "Pimentón dulce Hacendado",
+      "precio": 1.3,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Pimentón picante",
+      "productoId": "34183",
+      "nombreComercial": "Pimentón picante Hacendado",
+      "precio": 1.35,
+      "puntuacion": 10000
+    }
+  ],
+  "noEncontrados": [
+    {
+      "ingrediente": "Huevos",
+      "buscar": "huevos tamaño M docena",
+      "puntuacion": 0
+    },
+    {
+      "ingrediente": "Patatas",
+      "buscar": "patata malla",
+      "puntuacion": 100
+    },
+    {
+      "ingrediente": "Cebolla",
+      "buscar": "cebolla malla",
+      "puntuacion": 100
+    },
+    {
+      "ingrediente": "Zanahorias",
+      "buscar": "zanahoria bolsa",
+      "puntuacion": 100
+    },
+    {
+      "ingrediente": "Ajo",
+      "buscar": "ajos secos malla",
+      "puntuacion": 0
+    },
+    {
+      "ingrediente": "Almejas",
+      "buscar": "almeja fresca malla",
+      "puntuacion": 0
+    },
+    {
+      "ingrediente": "Mezcla cuatro quesos",
+      "buscar": "mezcla cuatro quesos rallados Hacendado",
+      "puntuacion": 50
+    }
+  ]
+}
