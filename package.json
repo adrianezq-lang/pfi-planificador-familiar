@@ -1,7 +1,7 @@
 {
   "name": "pfi-planificador-familiar",
   "private": true,
-  "version": "0.9.15",
+  "version": "1.5.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,12 +17,27 @@
     "test:presupuesto": "node --experimental-strip-types scripts/probar-presupuesto-mensual.mjs",
     "actualizar-mercadona": "node scripts/descargar-catalogo-mercadona.mjs && node scripts/actualizar-precios-mercadona.mjs",
     "predev": "node scripts/actualizar-si-necesario.mjs",
-    "prebuild": "node scripts/actualizar-si-necesario.mjs",
+    "prebuild": "node scripts/restaurar-integral.mjs && node scripts/actualizar-si-necesario.mjs",
     "test:v099": "node --experimental-strip-types scripts/probar-v099.mjs",
     "test:v0910": "node --experimental-strip-types scripts/probar-v0910.mjs",
     "test:v0911": "node --experimental-strip-types scripts/probar-v0911.mjs",
     "test:v0912": "node --experimental-strip-types scripts/probar-v0912.mjs",
-    "test:v0913": "node --experimental-strip-types scripts/probar-v0913.mjs"
+    "test:v0913": "node --experimental-strip-types scripts/probar-v0913.mjs",
+    "test:categorias": "node --experimental-strip-types scripts/probar-categorias.mjs",
+    "test:compra-mensual": "node scripts/probar-compra-mensual.cjs",
+    "test:pwa": "node scripts/probar-pwa.mjs",
+    "test:beta10": "node --experimental-strip-types scripts/probar-beta10-asociaciones.mjs",
+    "test:beta11": "node --experimental-strip-types scripts/probar-beta11-copias.mjs",
+    "test:beta111": "node --experimental-strip-types scripts/probar-beta111-uso-real.mjs",
+    "test:beta112": "node --experimental-strip-types scripts/probar-beta112-equivalencias.cjs",
+    "test:beta113": "node --experimental-strip-types scripts/probar-beta113-inventario-real.mjs",
+    "test:beta12": "node --experimental-strip-types scripts/probar-beta12-familia.mjs",
+    "test:beta121": "node scripts/probar-beta121-necesidades.mjs",
+    "test:beta13": "node scripts/probar-beta131-local.mjs",
+    "test:integral": "node scripts/probar-integral.mjs",
+    "test:raciones-excepciones": "node --experimental-strip-types scripts/probar-raciones-excepciones.mjs",
+    "test:v154": "node scripts/probar-v154-inventario-sobras.cjs",
+    "test:v155": "node --experimental-strip-types scripts/probar-v155-precios-online.mjs"
   },
   "dependencies": {
     "react": "^19.2.7",
@@ -36,5 +51,8 @@
     "oxlint": "^1.71.0",
     "typescript": "~6.0.2",
     "vite": "^8.1.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

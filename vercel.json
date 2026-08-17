@@ -1,0 +1,32 @@
+{
+  "headers": [
+    {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=0, must-revalidate" },
+        { "key": "Service-Worker-Allowed", "value": "/" }
+      ]
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/catalogo-mercadona.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/precios-mercadona.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=0, must-revalidate" }
+      ]
+    }
+  ],
+  "functions": {
+    "api/pfi/mercadona/actualizar-completo.js": { "maxDuration": 60 }
+  }
+}
