@@ -1,0 +1,5 @@
+{
+  "installCommand": "echo GymFlow preview: root install skipped",
+  "buildCommand": "npm --prefix gymflow install && npm --prefix gymflow run build && rm -rf dist && cp -R gymflow/dist dist",
+  "outputDirectory": "dist"
+}
