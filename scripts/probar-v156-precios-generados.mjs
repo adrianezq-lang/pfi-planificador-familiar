@@ -35,19 +35,19 @@ for (const [ingrediente, producto] of Object.entries(precios)) {
 
 function texto(ingrediente) {
   const producto = precios[ingrediente];
-  return `${producto?.nombreComercial ?? ''} ${producto?.seccion ?? ''} ${producto?.formato ?? ''}`
+  return `${producto?.nombreComercial ?? ''} ${producto?.seccion ?? ''} ${producto?.subcategoria ?? ''} ${producto?.formato ?? ''}`
     .toLocaleLowerCase('es')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '');
 }
 
 comprobar(/huevo/.test(texto('Huevos')), 'Huevos no apunta a huevos reales');
-comprobar(/patata/.test(texto('Patatas')) && !/(frita|snack|chips)/.test(texto('Patatas')), 'Patatas apunta a un producto incorrecto');
-comprobar(/cebolla/.test(texto('Cebolla')), 'Cebolla no apunta a cebolla fresca');
-comprobar(/zanahoria/.test(texto('Zanahorias')), 'Zanahorias no apunta a zanahoria fresca');
-comprobar(/ajo/.test(texto('Ajo')) && !/(granulado|polvo)/.test(texto('Ajo')), 'Ajo fresco apunta a un formato incorrecto');
-comprobar(/salmon/.test(texto('Salmón')) && !/(perro|gato|mascota|compy)/.test(texto('Salmón')), 'Salmón sigue asociado a un producto incorrecto');
-comprobar(/almeja/.test(texto('Almejas')), 'Almejas no apunta a almejas reales');
+comprobar(/patata/.test(texto('Patatas')) && !/(frita|snack|chips|cocida|congelad)/.test(texto('Patatas')), 'Patatas apunta a un producto incorrecto');
+comprobar(/cebolla/.test(texto('Cebolla')) && !/(caramelizada|frita|encurtida|polvo|congelad|preparada)/.test(texto('Cebolla')), 'Cebolla no apunta a cebolla fresca');
+comprobar(/zanahoria/.test(texto('Zanahorias')) && !/(en tiras|rallada|cocida|conserva|congelad|preparada)/.test(texto('Zanahorias')), 'Zanahorias no apunta a zanahoria fresca');
+comprobar(/ajo/.test(texto('Ajo')) && !/(tierno|granulado|polvo|congelad|pasta)/.test(texto('Ajo')), 'Ajo fresco apunta a un formato incorrecto');
+comprobar(/salmon/.test(texto('Salmón')) && /pescado fresco/.test(texto('Salmón')) && !/(perro|gato|mascota|compy|conserva|al natural|ahumado|marinado|congelad)/.test(texto('Salmón')), 'Salmón no apunta a pescado fresco');
+comprobar(/almeja/.test(texto('Almejas')) && !/(congelad|ultracongelad|conserva|lata)/.test(texto('Almejas')), 'Almejas no apunta a almeja fresca');
 comprobar(/hamburgues|burger/.test(texto('Hamburguesas')), 'Hamburguesas no apunta a hamburguesas reales');
 comprobar(/pan/.test(texto('Pan de hamburguesa')) && /(hamburgues|burger)/.test(texto('Pan de hamburguesa')), 'Pan de hamburguesa incorrecto');
 comprobar(/pan/.test(texto('Pan de perrito')) && /(perrito|hot dog|hotdog)/.test(texto('Pan de perrito')), 'Pan de perrito incorrecto');
@@ -63,4 +63,4 @@ comprobar(/6/.test(texto('Atún')), 'Atún no parece corresponder al pack de 6 o
 
 console.log('✓ Mercadona: 51/51 objetivos resueltos con precio válido');
 console.log('✓ frescos, pescados, panes, quesos y especias críticos verificados');
-console.log('✓ no hay asociaciones conocidas de mascotas/pescado/formatos incorrectos');
+console.log('✓ no hay asociaciones conocidas de mascotas, conservas, congelados o formatos incorrectos');
