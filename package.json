@@ -11,7 +11,7 @@
     "actualizar-precios": "node scripts/actualizar-precios-mercadona.mjs",
     "descargar-catalogo": "node scripts/descargar-catalogo-mercadona.mjs",
     "typecheck": "tsc -b",
-    "test:conversiones": "node scripts/probar-conversiones-compra.cjs",
+    "test:conversiones": "node scripts/probar-v156-conversiones-compra.cjs",
     "test:aprendizaje": "node --experimental-strip-types scripts/probar-aprendizaje.mjs",
     "test:menu-mensual": "node --experimental-strip-types scripts/probar-plan-mensual.mjs",
     "test:presupuesto": "node --experimental-strip-types scripts/probar-presupuesto-mensual.mjs",
@@ -38,7 +38,7 @@
     "test:raciones-excepciones": "node --experimental-strip-types scripts/probar-v156-core.mjs",
     "test:v154": "node --experimental-strip-types scripts/probar-v156-core.mjs",
     "test:v155": "node scripts/probar-v156-matching-mercadona.mjs",
-    "test:v156": "node --experimental-strip-types scripts/probar-v156-core.mjs && node scripts/probar-v156-matching-mercadona.mjs && node --experimental-strip-types scripts/probar-plan-mensual.mjs && node scripts/probar-conversiones-compra.cjs && node --experimental-strip-types scripts/probar-presupuesto-mensual.mjs && node --experimental-strip-types scripts/probar-aprendizaje.mjs && node scripts/probar-preferencias.mjs && node scripts/probar-pwa.mjs",
+    "test:v156": "node --experimental-strip-types scripts/probar-v156-core.mjs && node scripts/probar-v156-matching-mercadona.mjs && node --experimental-strip-types scripts/probar-plan-mensual.mjs && node scripts/probar-v156-conversiones-compra.cjs && node --experimental-strip-types scripts/probar-presupuesto-mensual.mjs && node --experimental-strip-types scripts/probar-aprendizaje.mjs && node scripts/probar-preferencias.mjs && node scripts/probar-pwa.mjs",
     "test:v156:mercadona": "node scripts/actualizar-precios-mercadona.mjs && node scripts/probar-v156-precios-generados.mjs"
   },
   "dependencies": {
