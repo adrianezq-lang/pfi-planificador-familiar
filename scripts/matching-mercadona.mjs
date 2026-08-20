@@ -23,14 +23,29 @@ function datosProducto(producto) {
     producto?.__subcategoria ?? producto?.subcategory_name ?? '',
   );
   const envase = normalizar(producto?.packaging ?? '');
+  const instrucciones = producto?.price_instructions ?? {};
+  const totalUnidades = Number(instrucciones.total_units ?? 0);
+  const unidad = normalizar(instrucciones.unit_name ?? '');
+  const formato = normalizar(
+    instrucciones.size_format ?? instrucciones.reference_format ?? '',
+  );
 
   return {
     nombre,
     seccion,
     subcategoria,
     envase,
-    contexto: `${nombre} ${seccion} ${subcategoria} ${envase}`.trim(),
+    totalUnidades: Number.isFinite(totalUnidades) ? totalUnidades : 0,
+    contexto: `${nombre} ${seccion} ${subcategoria} ${envase} ${unidad} ${formato} ${totalUnidades}`.trim(),
   };
+}
+
+function esFrutaOVerdura(seccion, subcategoria) {
+  return contiene(`${seccion} ${subcategoria}`, [
+    'fruta',
+    'verdura',
+    'hortaliza',
+  ]);
 }
 
 /**
@@ -41,15 +56,60 @@ function datosProducto(producto) {
 export function esProductoSeguro(objetivo, producto) {
   const ingrediente = normalizar(objetivo?.ingrediente ?? objetivo?.buscar ?? '');
   const busqueda = normalizar(objetivo?.buscar ?? objetivo?.ingrediente ?? '');
-  const { nombre, seccion, subcategoria, envase, contexto } = datosProducto(producto);
+  const {
+    nombre,
+    seccion,
+    subcategoria,
+    envase,
+    totalUnidades,
+    contexto,
+  } = datosProducto(producto);
 
   if (!ingrediente || !nombre) return false;
+
+  if (ingrediente === 'huevos') {
+    return (
+      nombre.includes('huevo') &&
+      contiene(`${seccion} ${subcategoria}`, ['huevo'])
+    );
+  }
+
+  if (ingrediente === 'patatas') {
+    return (
+      nombre.includes('patata') &&
+      esFrutaOVerdura(seccion, subcategoria) &&
+      !contiene(contexto, ['frita', 'snack', 'chips'])
+    );
+  }
+
+  if (ingrediente === 'cebolla') {
+    return nombre.includes('cebolla') && esFrutaOVerdura(seccion, subcategoria);
+  }
+
+  if (ingrediente === 'zanahorias') {
+    return nombre.includes('zanahoria') && esFrutaOVerdura(seccion, subcategoria);
+  }
+
+  if (ingrediente === 'ajo') {
+    return (
+      nombre.includes('ajo') &&
+      esFrutaOVerdura(seccion, subcategoria) &&
+      !contiene(contexto, ['granulado', 'polvo', 'especia'])
+    );
+  }
 
   if (ingrediente === 'salmon') {
     return (
       nombre.includes('salmon') &&
       contiene(`${seccion} ${subcategoria}`, ['pescado', 'marisco']) &&
-      !contiene(contexto, ['perro', 'gato', 'mascota', 'compy'])
+      !contiene(contexto, ['perro', 'gato', 'mascota', 'compy', 'listo para comer'])
+    );
+  }
+
+  if (ingrediente === 'almejas') {
+    return (
+      nombre.includes('almeja') &&
+      contiene(`${seccion} ${subcategoria}`, ['marisco', 'pescado'])
     );
   }
 
@@ -79,7 +139,8 @@ export function esProductoSeguro(objetivo, producto) {
   if (ingrediente === 'ajo en polvo') {
     return (
       nombre.includes('ajo') &&
-      nombre.includes('polvo') &&
+      contiene(nombre, ['polvo', 'granulado']) &&
+      contiene(`${seccion} ${subcategoria}`, ['especia']) &&
       !nombre.includes('cebolla')
     );
   }
@@ -125,7 +186,11 @@ export function esProductoSeguro(objetivo, producto) {
   if (ingrediente === 'atun' && busqueda.includes('pack 6')) {
     return (
       nombre.includes('atun') &&
-      (envase.includes('pack 6') || contiene(contexto, ['6 latas', 'pack 6']))
+      (
+        totalUnidades === 6 ||
+        envase.includes('pack 6') ||
+        contiene(contexto, ['6 latas', 'pack 6'])
+      )
     );
   }
 
