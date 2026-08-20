@@ -81,6 +81,33 @@ function parchearMenuSemanal() {
   guardar(ruta, contenido);
 }
 
+function parchearPlanMensual() {
+  const ruta = 'src/services/planMensual.ts';
+  let contenido = leer(ruta);
+
+  if (!contenido.includes('CENAS_SABADO,')) {
+    contenido = reemplazarObligatorio(
+      contenido,
+      "import {\n  CENAS_VIERNES,",
+      "import {\n  CENAS_SABADO,\n  CENAS_VIERNES,",
+      'import CENAS_SABADO en planMensual',
+    );
+  }
+
+  if (!contenido.includes('export function aplicarCenasFijasPlan')) {
+    const marcador = 'export function calcularEquilibrioSemana(menu: DiaMenu[]): ResumenEquilibrio {';
+    const funcion = `export function aplicarCenasFijasPlan(plan: SemanaMenu[]): SemanaMenu[] {\n  return plan.map((semana, indiceSemana) => ({\n    ...semana,\n    menu: semana.menu.map((dia) => {\n      if (normalizar(dia.dia) === 'viernes') {\n        const cena = CENAS_VIERNES[indiceSemana % CENAS_VIERNES.length];\n        return { ...dia, cena: [...cena] };\n      }\n      if (normalizar(dia.dia) === 'sabado') {\n        const cena = CENAS_SABADO[indiceSemana % CENAS_SABADO.length];\n        return { ...dia, cena: [...cena] };\n      }\n      return dia;\n    }),\n  }));\n}\n\n`;
+    contenido = reemplazarObligatorio(
+      contenido,
+      marcador,
+      `${funcion}${marcador}`,
+      'aplicarCenasFijasPlan',
+    );
+  }
+
+  guardar(ruta, contenido);
+}
+
 function parchearMigracionMenu() {
   const ruta = 'src/hooks/useMenu.ts';
   let contenido = leer(ruta);
@@ -173,6 +200,7 @@ function parchearPwa() {
 
 parchearMenuMensual();
 parchearMenuSemanal();
+parchearPlanMensual();
 parchearMigracionMenu();
 parchearMatchingMercadona();
 parchearObjetivosMercadona();
