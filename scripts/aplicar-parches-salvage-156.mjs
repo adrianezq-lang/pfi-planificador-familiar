@@ -85,28 +85,24 @@ function parchearMigracionMenu() {
   const ruta = 'src/hooks/useMenu.ts';
   let contenido = leer(ruta);
 
-  if (!contenido.includes('CENAS_SABADO')) {
-    contenido = reemplazarObligatorio(
-      contenido,
-      "import {\n  CENAS_VIERNES,",
-      "import {\n  CENAS_SABADO,\n  CENAS_VIERNES,",
-      'import CENAS_SABADO',
-    );
-  }
-
+  // Fuerza una nueva ejecución de la migración antigua si esa versión del
+  // archivo sigue presente en el paquete recuperado. CENAS_VIERNES ya apunta
+  // a pizza, por lo que el viernes queda corregido también para datos guardados.
   contenido = contenido
     .replaceAll('CLAVE_MIGRACION_VIERNES_V095', 'CLAVE_MIGRACION_CENAS_V156')
     .replaceAll('migrarViernesV095', 'migrarCenasV156')
     .replace('pfi-migracion-viernes-v095', 'pfi-migracion-cenas-v156');
 
-  const sabadoAnterior = `        if (dia.dia === 'Sábado' && dia.cena.includes('Hamburguesas')) {\n          return {\n            ...dia,\n            cena:\n              indiceSemana % 2 === 0\n                ? ['Pizza jamón y queso', 'Pizza BBQ']\n                : ['Pizza BBQ', 'Pizza 4 quesos'],\n          };\n        }`;
-  const sabadoNuevo = `        if (dia.dia === 'Sábado') {\n          return {\n            ...dia,\n            cena: [...CENAS_SABADO[indiceSemana % CENAS_SABADO.length]],\n          };\n        }`;
-  contenido = reemplazarObligatorio(
-    contenido,
-    sabadoAnterior,
-    sabadoNuevo,
-    'migración de cena del sábado',
-  );
+  // La migración histórica movía algunas hamburguesas del sábado a pizza.
+  // Se elimina si está presente para no volver a colocar pizza en sábado.
+  const sabadoAnterior = `        if (dia.dia === 'Sábado' && dia.cena.includes('Hamburguesas')) {\n          return {\n            ...dia,\n            cena:\n              indiceSemana % 2 === 0\n                ? ['Pizza jamón y queso', 'Pizza BBQ']\n                : ['Pizza BBQ', 'Pizza 4 quesos'],\n          };\n        }\n`;
+  contenido = contenido.replace(sabadoAnterior, '');
+
+  // Si el checkout ya traía el parche nuevo, evitamos dejar un import sin uso
+  // en caso de que el bloque del sábado haya sido retirado por la restauración.
+  if (!contenido.includes('CENAS_SABADO[')) {
+    contenido = contenido.replace(/^\s*CENAS_SABADO,\n/m, '');
+  }
 
   guardar(ruta, contenido);
 }
