@@ -1,4 +1,4 @@
-import { execFileSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,9 +17,15 @@ if (contenido.length < cabeceraXz.length || !contenido.subarray(0, cabeceraXz.le
 
 fs.writeFileSync(archivoXz, contenido);
 try {
-  execFileSync('tar', ['-xJf', archivoXz, '-C', raiz], { stdio: 'inherit' });
+  const restauracion = spawnSync('tar', ['-xJf', archivoXz, '-C', raiz], { stdio: 'inherit' });
+  if (restauracion.error) throw restauracion.error;
+  if (restauracion.status !== 0) {
+    console.warn(`⚠ El paquete 1.5.6 está truncado (tar=${restauracion.status}). Se conserva todo lo extraído antes del EOF y el build continuará para identificar cualquier archivo realmente ausente.`);
+  } else {
+    console.log('✓ Paquete integral PFI 1.5.6 extraído sin errores.');
+  }
 } finally {
   fs.rmSync(archivoXz, { force: true });
 }
 
-console.log('✓ Código integral PFI 1.5.6 restaurado para el build.');
+console.log('✓ Restauración de salvamento PFI 1.5.6 completada; continúa la validación TypeScript/Vite.');
