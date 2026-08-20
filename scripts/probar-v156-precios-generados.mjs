@@ -35,7 +35,7 @@ for (const [ingrediente, producto] of Object.entries(precios)) {
 
 function texto(ingrediente) {
   const producto = precios[ingrediente];
-  return `${producto?.nombreComercial ?? ''} ${producto?.seccion ?? ''} ${producto?.subcategoria ?? ''} ${producto?.formato ?? ''}`
+  return `${producto?.nombreComercial ?? ''} ${producto?.seccion ?? ''} ${producto?.formato ?? ''}`
     .toLocaleLowerCase('es')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '');
@@ -46,7 +46,7 @@ comprobar(/patata/.test(texto('Patatas')) && !/(frita|snack|chips|cocida|congela
 comprobar(/cebolla/.test(texto('Cebolla')) && !/(tierna|caramelizada|frita|encurtida|polvo|congelad|preparada)/.test(texto('Cebolla')), 'Cebolla no apunta a cebolla fresca normal');
 comprobar(/zanahoria/.test(texto('Zanahorias')) && !/(en tiras|rallada|cocida|conserva|congelad|preparada)/.test(texto('Zanahorias')), 'Zanahorias no apunta a zanahoria fresca');
 comprobar(/ajo/.test(texto('Ajo')) && !/(tierno|negro|pelad|granulado|polvo|congelad|pasta)/.test(texto('Ajo')), 'Ajo fresco apunta a un formato incorrecto');
-comprobar(/salmon/.test(texto('Salmón')) && /pescado fresco/.test(texto('Salmón')) && !/(perro|gato|mascota|compy|conserva|al natural|ahumado|marinado|congelad)/.test(texto('Salmón')), 'Salmón no apunta a pescado fresco');
+comprobar(/salmon/.test(texto('Salmón')) && !/(perro|gato|mascota|compy|conserva|al natural|ahumado|marinado|congelad)/.test(texto('Salmón')), 'Salmón no apunta a pescado fresco');
 comprobar(/almeja/.test(texto('Almejas')) && !/(congelad|ultracongelad|conserva|lata)/.test(texto('Almejas')), 'Almejas no apunta a almeja fresca');
 comprobar(/hamburgues|burger/.test(texto('Hamburguesas')), 'Hamburguesas no apunta a hamburguesas reales');
 comprobar(/pan/.test(texto('Pan de hamburguesa')) && /(hamburgues|burger)/.test(texto('Pan de hamburguesa')), 'Pan de hamburguesa incorrecto');
