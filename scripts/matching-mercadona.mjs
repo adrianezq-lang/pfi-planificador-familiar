@@ -87,6 +87,7 @@ export function esProductoSeguro(objetivo, producto) {
       nombre.includes('cebolla') &&
       esFrutaOVerdura(seccion, subcategoria) &&
       !contiene(contexto, [
+        'tierna',
         'caramelizada',
         'frita',
         'encurtida',
@@ -120,6 +121,9 @@ export function esProductoSeguro(objetivo, producto) {
       esFrutaOVerdura(seccion, subcategoria) &&
       !contiene(contexto, [
         'tierno',
+        'negro',
+        'pelado',
+        'pelados',
         'granulado',
         'polvo',
         'especia',
