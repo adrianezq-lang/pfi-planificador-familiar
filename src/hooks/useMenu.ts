@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-  CENAS_VIERNES,
   menuMensualInicial,
   type SemanaMenu,
 } from '../data/MenuMensual';
@@ -11,6 +10,7 @@ import {
   recalcularPreparacionesPlan,
 } from '../services/menu';
 import {
+  aplicarCenasFijasPlan,
   copiarPlanMensual,
   normalizarPlanMensual,
 } from '../services/planMensual';
@@ -27,7 +27,7 @@ const CLAVE_MENU = 'pfi-menu';
 const CLAVE_PLAN_MENSUAL = 'pfi-menu-mensual-v1';
 const CLAVE_SEMANA_ACTIVA = 'pfi-semana-activa';
 const EVENTO_MENU = 'pfi-menu-actualizado';
-const CLAVE_MIGRACION_VIERNES_V095 = 'pfi-migracion-viernes-v095';
+const CLAVE_MIGRACION_CENAS_V156 = 'pfi-migracion-cenas-v156';
 const CLAVE_MIGRACION_POSTRES_V0911 = 'pfi-migracion-postres-v0911';
 const CLAVE_MIGRACION_POSTRES_V0912 = 'pfi-migracion-postres-v0912';
 const CLAVE_FIRMA_POSTRES_V0912 = 'pfi-firma-postres-recetario-v0912';
@@ -39,39 +39,19 @@ function indiceSemanaActual(): number {
   return Math.max(0, Math.min(3, Math.floor((fecha.getDate() - 1) / 7)));
 }
 
-function migrarViernesV095(plan: SemanaMenu[]): SemanaMenu[] {
-  if (localStorage.getItem(CLAVE_MIGRACION_VIERNES_V095) === '1') {
+function migrarCenasV156(plan: SemanaMenu[]): SemanaMenu[] {
+  if (localStorage.getItem(CLAVE_MIGRACION_CENAS_V156) === '1') {
     return plan;
   }
 
-  const migradoBase = plan.map((semana, indiceSemana) => ({
-    ...semana,
-    menu: semana.menu.map((dia) => {
-        if (dia.dia === 'Viernes') {
-          return {
-            ...dia,
-            cena: [...CENAS_VIERNES[indiceSemana % CENAS_VIERNES.length]],
-          };
-        }
-        if (dia.dia === 'Sábado' && dia.cena.includes('Hamburguesas')) {
-          return {
-            ...dia,
-            cena:
-              indiceSemana % 2 === 0
-                ? ['Pizza jamón y queso', 'Pizza BBQ']
-                : ['Pizza BBQ', 'Pizza 4 quesos'],
-          };
-        }
-        return dia;
-      }),
-  }));
-  const migrado = recalcularPreparacionesPlan(migradoBase);
+  const migrado = recalcularPreparacionesPlan(
+    aplicarCenasFijasPlan(plan),
+  );
 
-  localStorage.setItem(CLAVE_MIGRACION_VIERNES_V095, '1');
+  localStorage.setItem(CLAVE_MIGRACION_CENAS_V156, '1');
   localStorage.setItem(CLAVE_PLAN_MENSUAL, JSON.stringify(migrado));
   return migrado;
 }
-
 
 function migrarPostresV0911(plan: SemanaMenu[]): SemanaMenu[] {
   if (localStorage.getItem(CLAVE_MIGRACION_POSTRES_V0911) === '1') {
@@ -86,7 +66,6 @@ function migrarPostresV0911(plan: SemanaMenu[]): SemanaMenu[] {
   localStorage.setItem(CLAVE_PLAN_MENSUAL, JSON.stringify(migrado));
   return migrado;
 }
-
 
 function migrarPostresV0912(plan: SemanaMenu[]): SemanaMenu[] {
   if (localStorage.getItem(CLAVE_MIGRACION_POSTRES_V0912) === '1') {
@@ -139,7 +118,6 @@ function migrarPostresV0912(plan: SemanaMenu[]): SemanaMenu[] {
   return migrado;
 }
 
-
 function migrarPostresV0913(plan: SemanaMenu[]): SemanaMenu[] {
   if (localStorage.getItem(CLAVE_MIGRACION_POSTRES_V0913) === '1') {
     return plan;
@@ -179,18 +157,22 @@ function migrarPostresV0913(plan: SemanaMenu[]): SemanaMenu[] {
   return migrado;
 }
 
+function aplicarMigraciones(plan: SemanaMenu[]): SemanaMenu[] {
+  return migrarPostresV0913(
+    migrarPostresV0912(
+      migrarPostresV0911(
+        migrarCenasV156(plan),
+      ),
+    ),
+  );
+}
+
 function cargarPlan(): SemanaMenu[] {
   try {
     const guardado = localStorage.getItem(CLAVE_PLAN_MENSUAL);
     if (guardado) {
-      const plan = migrarPostresV0913(
-        migrarPostresV0912(
-          migrarPostresV0911(
-            migrarViernesV095(
-              normalizarPlanMensual(JSON.parse(guardado) as unknown),
-            ),
-          ),
-        ),
+      const plan = aplicarMigraciones(
+        normalizarPlanMensual(JSON.parse(guardado) as unknown),
       );
       localStorage.setItem(CLAVE_PLAN_MENSUAL, JSON.stringify(plan));
       return plan;
@@ -212,11 +194,7 @@ function cargarPlan(): SemanaMenu[] {
       }
     }
 
-    plan = migrarPostresV0913(
-      migrarPostresV0912(
-        migrarPostresV0911(migrarViernesV095(plan)),
-      ),
-    );
+    plan = aplicarMigraciones(plan);
     localStorage.setItem(CLAVE_PLAN_MENSUAL, JSON.stringify(plan));
     return plan;
   } catch {

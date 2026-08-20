@@ -30,13 +30,22 @@ plan.forEach((semana, indice) => {
   }
 
   const viernes = semana.menu.find((dia) => dia.dia === 'Viernes');
+  const sabado = semana.menu.find((dia) => dia.dia === 'Sábado');
   const domingo = semana.menu.find((dia) => dia.dia === 'Domingo');
-  const cenasViernes = new Set(['Hamburguesas', 'Perritos calientes', 'Kebab']);
-  if (!viernes?.cena.some((plato) => cenasViernes.has(plato))) {
-    throw new Error(`La semana ${indice + 1} no mantiene la rotación del viernes`);
+  const miercoles = semana.menu.find((dia) => dia.dia === 'Miércoles');
+  const cenasSabado = new Set(['Hamburguesas', 'Perritos calientes', 'Kebab']);
+
+  if (!viernes?.cena.some((plato) => plato.toLocaleLowerCase('es').includes('pizza'))) {
+    throw new Error(`La semana ${indice + 1} no mantiene pizza el viernes`);
+  }
+  if (!sabado?.cena.some((plato) => cenasSabado.has(plato))) {
+    throw new Error(`La semana ${indice + 1} no mantiene la rotación del sábado`);
   }
   if (!domingo?.comida.includes('Comemos fuera')) {
     throw new Error(`La semana ${indice + 1} no mantiene la comida fuera del domingo`);
+  }
+  if (!miercoles?.comida.includes('Ensalada de pasta')) {
+    throw new Error(`La semana ${indice + 1} no mantiene la ensalada de pasta semanal`);
   }
 
   semana.menu.forEach((dia, indiceDia) => {
@@ -61,7 +70,7 @@ plan.forEach((semana, indice) => {
   });
 });
 
-console.log('✓ cuatro semanas completas');
-console.log('✓ todas las semanas superan el 90% de equilibrio');
-console.log('✓ viernes con hamburguesa, perritos o kebab y comida fuera del domingo');
-console.log('✓ comida y cena mantienen postres diferenciados y el domingo queda sin postre');
+console.log('✓ cuatro semanas completas y equilibradas');
+console.log('✓ pizza fijada el viernes y rotación de sábado separada');
+console.log('✓ ensalada de pasta semanal y comida fuera del domingo');
+console.log('✓ postres diferenciados y domingo sin postre');

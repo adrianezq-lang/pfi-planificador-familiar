@@ -34,10 +34,12 @@
     "test:beta12": "node --experimental-strip-types scripts/probar-beta12-familia.mjs",
     "test:beta121": "node scripts/probar-beta121-necesidades.mjs",
     "test:beta13": "node scripts/probar-beta131-local.mjs",
-    "test:integral": "node scripts/probar-integral.mjs",
-    "test:raciones-excepciones": "node --experimental-strip-types scripts/probar-raciones-excepciones.mjs",
-    "test:v154": "node scripts/probar-v154-inventario-sobras.cjs",
-    "test:v155": "node --experimental-strip-types scripts/probar-v155-precios-online.mjs"
+    "test:integral": "node --experimental-strip-types scripts/probar-v156-core.mjs",
+    "test:raciones-excepciones": "node --experimental-strip-types scripts/probar-v156-core.mjs",
+    "test:v154": "node --experimental-strip-types scripts/probar-v156-core.mjs",
+    "test:v155": "node scripts/probar-v156-matching-mercadona.mjs",
+    "test:v156": "node --experimental-strip-types scripts/probar-v156-core.mjs && node scripts/probar-v156-matching-mercadona.mjs && node --experimental-strip-types scripts/probar-plan-mensual.mjs && node scripts/probar-conversiones-compra.cjs && node --experimental-strip-types scripts/probar-presupuesto-mensual.mjs && node --experimental-strip-types scripts/probar-aprendizaje.mjs && node scripts/probar-preferencias.mjs && node scripts/probar-pwa.mjs",
+    "test:v156:mercadona": "node scripts/actualizar-precios-mercadona.mjs && node scripts/probar-v156-precios-generados.mjs"
   },
   "dependencies": {
     "react": "^19.2.7",

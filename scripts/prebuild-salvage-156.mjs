@@ -26,7 +26,6 @@ function normalizar(texto = '') {
 
 function listarCodigo(directorio) {
   if (!fs.existsSync(directorio)) return [];
-
   const encontrados = [];
   for (const entrada of fs.readdirSync(directorio, { withFileTypes: true })) {
     const ruta = path.join(directorio, entrada.name);
@@ -41,6 +40,9 @@ function listarCodigo(directorio) {
 
 console.log('PFI 1.5.6 · restauración de salvamento');
 ejecutarNode(['scripts/restaurar-integral.mjs'], 'Restauración 1.5.6');
+
+console.log('PFI 1.5.6 · reaplicando correcciones posteriores al paquete truncado');
+ejecutarNode(['scripts/aplicar-parches-salvage-156.mjs'], 'Parches de salvamento 1.5.6');
 
 const packageJson = JSON.parse(
   fs.readFileSync(path.join(raiz, 'package.json'), 'utf8'),
@@ -77,44 +79,47 @@ for (const [nombre, patron] of capacidades) {
   console.log(`✓ Capacidad presente: ${nombre}`);
 }
 
-for (const archivo of ['public/sw.js', 'public/manifest.webmanifest']) {
+for (const archivo of [
+  'public/sw.js',
+  'public/manifest.webmanifest',
+  'public/pwa-192x192.png',
+  'public/pwa-512x512.png',
+]) {
   if (!fs.existsSync(path.join(raiz, archivo))) {
     throw new Error(`Falta un archivo PWA crítico: ${archivo}`);
   }
 }
 
 const pruebas = [
-  ['scripts/probar-integral.mjs', []],
-  ['scripts/probar-raciones-excepciones.mjs', ['--experimental-strip-types']],
-  ['scripts/probar-v154-inventario-sobras.cjs', []],
-  ['scripts/probar-v155-precios-online.mjs', ['--experimental-strip-types']],
+  ['scripts/probar-v156-core.mjs', ['--experimental-strip-types']],
+  ['scripts/probar-v156-matching-mercadona.mjs', []],
+  ['scripts/probar-plan-mensual.mjs', ['--experimental-strip-types']],
+  ['scripts/probar-conversiones-compra.cjs', []],
+  ['scripts/probar-presupuesto-mensual.mjs', ['--experimental-strip-types']],
+  ['scripts/probar-aprendizaje.mjs', ['--experimental-strip-types']],
+  ['scripts/probar-preferencias.mjs', []],
+  ['scripts/probar-pwa.mjs', []],
 ];
 
-console.log('PFI 1.5.6 · pruebas funcionales supervivientes');
-let ejecutadas = 0;
-const ausentes = [];
+console.log('PFI 1.5.6 · suite funcional reconstruida');
 for (const [script, flags] of pruebas) {
   const ruta = path.join(raiz, script);
   if (!fs.existsSync(ruta)) {
-    ausentes.push(script);
-    console.warn(`⚠ Test perdido por el paquete truncado: ${script}`);
-    continue;
+    throw new Error(`Falta una prueba obligatoria de PFI 1.5.6: ${script}`);
   }
   console.log(`→ ${script}`);
   ejecutarNode([...flags, script], script);
-  ejecutadas += 1;
 }
+console.log(`✓ Suite funcional: ${pruebas.length}/${pruebas.length} pruebas superadas`);
 
-console.log(`✓ Tests funcionales ejecutados: ${ejecutadas}/${pruebas.length}`);
-if (ausentes.length > 0) {
-  console.warn(`⚠ Tests ausentes: ${ausentes.join(', ')}`);
-  console.warn('  Se sustituyen temporalmente por comprobaciones estructurales + TypeScript + Vite; no se considera todavía apto para producción.');
-}
+console.log('PFI 1.5.6 · validación real de precios Mercadona');
+ejecutarNode(
+  ['scripts/actualizar-precios-mercadona.mjs'],
+  'Actualización completa de precios Mercadona',
+);
+ejecutarNode(
+  ['scripts/probar-v156-precios-generados.mjs'],
+  'Validación de precios Mercadona generados',
+);
 
-if (process.env.VERCEL_ENV === 'preview') {
-  console.log('✓ Preview: se omite la actualización completa de Mercadona para acelerar la validación.');
-} else {
-  ejecutarNode(['scripts/actualizar-si-necesario.mjs'], 'Actualización Mercadona');
-}
-
-console.log('✓ Salvamento PFI 1.5.6 preparado para la validación TypeScript/Vite.');
+console.log('✓ PFI 1.5.6 preparada para TypeScript + Vite.');

@@ -7,6 +7,11 @@ export type SemanaMenu = {
 };
 
 export const CENAS_VIERNES = [
+  ['Pizza jamón y queso', 'Pizza BBQ'],
+  ['Pizza BBQ', 'Pizza 4 quesos'],
+] as const;
+
+export const CENAS_SABADO = [
   ['Hamburguesas'],
   ['Perritos calientes'],
   ['Kebab'],
@@ -21,8 +26,8 @@ export const menuMensualInicial: SemanaMenu[] = [
       { dia: 'Martes', comida: ['Lubina', 'Patatas'], cena: ['Crema de calabacín', 'Tortilla francesa'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
       { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Fajitas', 'Nachos', 'Guacamole'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
       { dia: 'Jueves', comida: ['Garbanzos fritos', 'Arroz blanco'], cena: ['Filete de ternera', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Viernes', comida: ['Macarrones boloñesa'], cena: ['Hamburguesas'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Sábado', comida: ['Salmón', 'Arroz blanco'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
+      { dia: 'Viernes', comida: ['Macarrones boloñesa'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
+      { dia: 'Sábado', comida: ['Salmón', 'Arroz blanco'], cena: ['Hamburguesas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
       { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: '' },
     ],
   },
@@ -34,8 +39,8 @@ export const menuMensualInicial: SemanaMenu[] = [
       { dia: 'Martes', comida: ['Arroz con pollo'], cena: ['Crema de verduras', 'Tortilla de patata'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
       { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Bacalao', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
       { dia: 'Jueves', comida: ['Alubias blancas con almejas'], cena: ['Lomo', 'Patatas'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Viernes', comida: ['Carbonara tradicional'], cena: ['Perritos calientes'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Sábado', comida: ['Dorada', 'Patatas'], cena: ['Pizza BBQ', 'Pizza 4 quesos'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
+      { dia: 'Viernes', comida: ['Carbonara tradicional'], cena: ['Pizza BBQ', 'Pizza 4 quesos'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
+      { dia: 'Sábado', comida: ['Dorada', 'Patatas'], cena: ['Perritos calientes'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
       { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: '' },
     ],
   },
@@ -47,8 +52,8 @@ export const menuMensualInicial: SemanaMenu[] = [
       { dia: 'Martes', comida: ['Salmón', 'Patatas'], cena: ['Crema de calabaza', 'Tortilla francesa'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
       { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Fajitas', 'Nachos', 'Guacamole'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
       { dia: 'Jueves', comida: ['Garbanzos fritos', 'Arroz blanco'], cena: ['Filete de ternera', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Viernes', comida: ['Macarrones con chorizo'], cena: ['Kebab'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Sábado', comida: ['Lubina', 'Patatas'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
+      { dia: 'Viernes', comida: ['Macarrones con chorizo'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
+      { dia: 'Sábado', comida: ['Lubina', 'Patatas'], cena: ['Kebab'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
       { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: '' },
     ],
   },
@@ -60,8 +65,8 @@ export const menuMensualInicial: SemanaMenu[] = [
       { dia: 'Martes', comida: ['Pollo al horno', 'Patatas'], cena: ['Crema de calabacín', 'Tortilla francesa'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
       { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Bacalao', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
       { dia: 'Jueves', comida: ['Alubias blancas con almejas'], cena: ['Lomo', 'Ensalada'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Viernes', comida: ['Macarrones con roquefort'], cena: ['Hamburguesas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Sábado', comida: ['Salmón', 'Arroz blanco'], cena: ['Pizza BBQ', 'Pizza 4 quesos'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
+      { dia: 'Viernes', comida: ['Macarrones con roquefort'], cena: ['Pizza BBQ', 'Pizza 4 quesos'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
+      { dia: 'Sábado', comida: ['Salmón', 'Arroz blanco'], cena: ['Hamburguesas'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
       { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: '' },
     ],
   },

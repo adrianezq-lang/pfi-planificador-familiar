@@ -6,6 +6,7 @@ import {
   crearDescargadorMercadona,
   crearSesionMercadona,
 } from './mercadona-sesion.mjs';
+import { esProductoSeguro } from './matching-mercadona.mjs';
 
 const RUTA_OBJETIVOS = path.resolve(
   'scripts/productos-objetivo.json',
@@ -220,6 +221,10 @@ function buscarMejorProducto(
   let mejorPuntuacion = 0;
 
   productos.forEach((producto) => {
+    if (!esProductoSeguro(objetivo, producto)) {
+      return;
+    }
+
     const puntuacion = puntuarProducto(
       objetivo.buscar,
       producto,
