@@ -1,5 +1,6 @@
 import type { DiaMenu } from '../data/Menusemanal';
 import {
+  CENAS_SABADO,
   CENAS_VIERNES,
   menuMensualInicial,
   type SemanaMenu,
@@ -97,6 +98,23 @@ export function normalizarPlanMensual(valor: unknown): SemanaMenu[] {
   }
 
   return recalcularPreparacionesPlan(semanas);
+}
+
+export function aplicarCenasFijasPlan(plan: SemanaMenu[]): SemanaMenu[] {
+  return plan.map((semana, indiceSemana) => ({
+    ...semana,
+    menu: semana.menu.map((dia) => {
+      if (normalizar(dia.dia) === 'viernes') {
+        const cena = CENAS_VIERNES[indiceSemana % CENAS_VIERNES.length];
+        return { ...dia, cena: [...cena] };
+      }
+      if (normalizar(dia.dia) === 'sabado') {
+        const cena = CENAS_SABADO[indiceSemana % CENAS_SABADO.length];
+        return { ...dia, cena: [...cena] };
+      }
+      return dia;
+    }),
+  }));
 }
 
 export function calcularEquilibrioSemana(menu: DiaMenu[]): ResumenEquilibrio {
