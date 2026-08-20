@@ -78,38 +78,83 @@ export function esProductoSeguro(objetivo, producto) {
     return (
       nombre.includes('patata') &&
       esFrutaOVerdura(seccion, subcategoria) &&
-      !contiene(contexto, ['frita', 'snack', 'chips'])
+      !contiene(contexto, ['frita', 'snack', 'chips', 'cocida', 'congelad'])
     );
   }
 
   if (ingrediente === 'cebolla') {
-    return nombre.includes('cebolla') && esFrutaOVerdura(seccion, subcategoria);
+    return (
+      nombre.includes('cebolla') &&
+      esFrutaOVerdura(seccion, subcategoria) &&
+      !contiene(contexto, [
+        'caramelizada',
+        'frita',
+        'encurtida',
+        'polvo',
+        'congelad',
+        'ultracongelad',
+        'preparada',
+      ])
+    );
   }
 
   if (ingrediente === 'zanahorias') {
-    return nombre.includes('zanahoria') && esFrutaOVerdura(seccion, subcategoria);
+    return (
+      nombre.includes('zanahoria') &&
+      esFrutaOVerdura(seccion, subcategoria) &&
+      !contiene(contexto, [
+        'en tiras',
+        'rallada',
+        'cocida',
+        'conserva',
+        'congelad',
+        'ultracongelad',
+        'preparada',
+      ])
+    );
   }
 
   if (ingrediente === 'ajo') {
     return (
       nombre.includes('ajo') &&
       esFrutaOVerdura(seccion, subcategoria) &&
-      !contiene(contexto, ['granulado', 'polvo', 'especia'])
+      !contiene(contexto, [
+        'tierno',
+        'granulado',
+        'polvo',
+        'especia',
+        'congelad',
+        'ultracongelad',
+        'pasta',
+      ])
     );
   }
 
   if (ingrediente === 'salmon') {
     return (
       nombre.includes('salmon') &&
-      contiene(`${seccion} ${subcategoria}`, ['pescado', 'marisco']) &&
-      !contiene(contexto, ['perro', 'gato', 'mascota', 'compy', 'listo para comer'])
+      contiene(`${seccion} ${subcategoria}`, ['pescado fresco']) &&
+      !contiene(contexto, [
+        'perro',
+        'gato',
+        'mascota',
+        'compy',
+        'listo para comer',
+        'conserva',
+        'al natural',
+        'ahumado',
+        'marinado',
+        'congelad',
+        'ultracongelad',
+      ])
     );
   }
 
   if (ingrediente === 'almejas') {
     return (
       nombre.includes('almeja') &&
-      contiene(`${seccion} ${subcategoria}`, ['marisco', 'pescado'])
+      contiene(`${seccion} ${subcategoria}`, ['marisco', 'pescado']) &&
+      !contiene(contexto, ['congelad', 'ultracongelad', 'conserva', 'lata'])
     );
   }
 
