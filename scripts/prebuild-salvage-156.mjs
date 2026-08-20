@@ -44,6 +44,11 @@ ejecutarNode(['scripts/restaurar-integral.mjs'], 'Restauración 1.5.6');
 console.log('PFI 1.5.6 · reaplicando correcciones posteriores al paquete truncado');
 ejecutarNode(['scripts/aplicar-parches-salvage-156.mjs'], 'Parches de salvamento 1.5.6');
 
+ejecutarNode(
+  ['scripts/preparar-imports-node-156.mjs'],
+  'Preparación de imports TypeScript para Node',
+);
+
 const packageJson = JSON.parse(
   fs.readFileSync(path.join(raiz, 'package.json'), 'utf8'),
 );
