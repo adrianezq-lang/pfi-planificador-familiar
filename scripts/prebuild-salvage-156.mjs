@@ -99,7 +99,7 @@ const pruebas = [
   ['scripts/probar-v156-core.mjs', ['--experimental-strip-types']],
   ['scripts/probar-v156-matching-mercadona.mjs', []],
   ['scripts/probar-plan-mensual.mjs', ['--experimental-strip-types']],
-  ['scripts/probar-conversiones-compra.cjs', []],
+  ['scripts/probar-v156-conversiones-compra.cjs', []],
   ['scripts/probar-presupuesto-mensual.mjs', ['--experimental-strip-types']],
   ['scripts/probar-aprendizaje.mjs', ['--experimental-strip-types']],
   ['scripts/probar-preferencias.mjs', []],
