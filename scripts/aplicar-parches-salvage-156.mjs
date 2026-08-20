@@ -85,21 +85,14 @@ function parchearMigracionMenu() {
   const ruta = 'src/hooks/useMenu.ts';
   let contenido = leer(ruta);
 
-  // Fuerza una nueva ejecución de la migración antigua si esa versión del
-  // archivo sigue presente en el paquete recuperado. CENAS_VIERNES ya apunta
-  // a pizza, por lo que el viernes queda corregido también para datos guardados.
   contenido = contenido
     .replaceAll('CLAVE_MIGRACION_VIERNES_V095', 'CLAVE_MIGRACION_CENAS_V156')
     .replaceAll('migrarViernesV095', 'migrarCenasV156')
     .replace('pfi-migracion-viernes-v095', 'pfi-migracion-cenas-v156');
 
-  // La migración histórica movía algunas hamburguesas del sábado a pizza.
-  // Se elimina si está presente para no volver a colocar pizza en sábado.
   const sabadoAnterior = `        if (dia.dia === 'Sábado' && dia.cena.includes('Hamburguesas')) {\n          return {\n            ...dia,\n            cena:\n              indiceSemana % 2 === 0\n                ? ['Pizza jamón y queso', 'Pizza BBQ']\n                : ['Pizza BBQ', 'Pizza 4 quesos'],\n          };\n        }\n`;
   contenido = contenido.replace(sabadoAnterior, '');
 
-  // Si el checkout ya traía el parche nuevo, evitamos dejar un import sin uso
-  // en caso de que el bloque del sábado haya sido retirado por la restauración.
   if (!contenido.includes('CENAS_SABADO[')) {
     contenido = contenido.replace(/^\s*CENAS_SABADO,\n/m, '');
   }
@@ -132,6 +125,42 @@ function parchearMatchingMercadona() {
   guardar(ruta, contenido);
 }
 
+function parchearObjetivosMercadona() {
+  const ruta = 'scripts/productos-objetivo.json';
+  const objetivos = JSON.parse(leer(ruta));
+  if (!Array.isArray(objetivos)) {
+    throw new Error('productos-objetivo.json no contiene una lista');
+  }
+
+  const busquedas = new Map([
+    ['Huevos', 'huevo'],
+    ['Patatas', 'patata'],
+    ['Cebolla', 'cebolla'],
+    ['Zanahorias', 'zanahoria'],
+    ['Ajo', 'ajo'],
+    ['Salmón', 'salmón'],
+    ['Almejas', 'almeja'],
+    ['Mezcla cuatro quesos', '4 quesos'],
+    ['Ajo en polvo', 'ajo granulado Hacendado'],
+  ]);
+
+  let aplicados = 0;
+  const actualizados = objetivos.map((entrada) => {
+    if (!entrada || typeof entrada !== 'object') return entrada;
+    const nuevaBusqueda = busquedas.get(entrada.ingrediente);
+    if (!nuevaBusqueda) return entrada;
+    aplicados += 1;
+    return { ...entrada, buscar: nuevaBusqueda };
+  });
+
+  if (aplicados !== busquedas.size) {
+    throw new Error(`Solo se han podido actualizar ${aplicados}/${busquedas.size} objetivos Mercadona`);
+  }
+
+  guardar(ruta, `${JSON.stringify(actualizados, null, 2)}\n`);
+  console.log(`✓ objetivos Mercadona reaplicados: ${aplicados}/${busquedas.size}`);
+}
+
 function parchearPwa() {
   const ruta = 'public/sw.js';
   let contenido = leer(ruta);
@@ -146,6 +175,7 @@ parchearMenuMensual();
 parchearMenuSemanal();
 parchearMigracionMenu();
 parchearMatchingMercadona();
+parchearObjetivosMercadona();
 parchearPwa();
 
 console.log('✓ parches de salvamento PFI 1.5.6 reaplicados tras la restauración');
