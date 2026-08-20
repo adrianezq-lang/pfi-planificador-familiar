@@ -4,26 +4,28 @@ function comprobar(condicion, mensaje) {
   if (!condicion) throw new Error(mensaje);
 }
 
-const ruta = 'public/precios-mercadona.json';
-comprobar(fs.existsSync(ruta), 'No se ha generado public/precios-mercadona.json');
+const rutaPrecios = 'public/precios-mercadona.json';
+const rutaObjetivos = 'scripts/productos-objetivo.json';
+comprobar(fs.existsSync(rutaPrecios), 'No se ha generado public/precios-mercadona.json');
+comprobar(fs.existsSync(rutaObjetivos), 'No existe scripts/productos-objetivo.json');
 
-const precios = JSON.parse(fs.readFileSync(ruta, 'utf8'));
-const requeridos = [
-  'Salmón',
-  'Hamburguesas',
-  'Pan de hamburguesa',
-  'Pan de perrito',
-  'Ajo en polvo',
-  'Mozzarella rallada',
-  'Garbanzos secos',
-  'Alubias blancas secas',
-  'Alubias rojas secas',
-  'Atún',
-];
+const precios = JSON.parse(fs.readFileSync(rutaPrecios, 'utf8'));
+const objetivos = JSON.parse(fs.readFileSync(rutaObjetivos, 'utf8'));
+comprobar(Array.isArray(objetivos) && objetivos.length === 51, `Se esperaban 51 objetivos Mercadona y hay ${Array.isArray(objetivos) ? objetivos.length : 0}`);
 
-for (const ingrediente of requeridos) {
-  comprobar(precios[ingrediente], `Falta un precio crítico de Mercadona: ${ingrediente}`);
+const ingredientesObjetivo = objetivos.map((entrada) =>
+  typeof entrada === 'string' ? entrada : entrada?.ingrediente,
+);
+
+for (const ingrediente of ingredientesObjetivo) {
+  comprobar(typeof ingrediente === 'string' && ingrediente.trim(), 'Hay un objetivo Mercadona sin ingrediente válido');
+  comprobar(precios[ingrediente], `Falta un precio objetivo de Mercadona: ${ingrediente}`);
 }
+
+comprobar(
+  Object.keys(precios).length === ingredientesObjetivo.length,
+  `El catálogo de precios debe resolver 51/51 objetivos y ha resuelto ${Object.keys(precios).length}/51`,
+);
 
 for (const [ingrediente, producto] of Object.entries(precios)) {
   comprobar(typeof producto?.nombreComercial === 'string' && producto.nombreComercial.trim(), `${ingrediente}: nombre comercial inválido`);
@@ -39,12 +41,19 @@ function texto(ingrediente) {
     .replace(/[\u0300-\u036f]/g, '');
 }
 
-comprobar(!/(perro|gato|mascota|compy)/.test(texto('Salmón')), 'Salmón sigue asociado a mascotas');
-comprobar(/hamburgues/.test(texto('Hamburguesas')), 'Hamburguesas no apunta a hamburguesas reales');
-comprobar(/pan/.test(texto('Pan de hamburguesa')) && /hamburgues/.test(texto('Pan de hamburguesa')), 'Pan de hamburguesa incorrecto');
+comprobar(/huevo/.test(texto('Huevos')), 'Huevos no apunta a huevos reales');
+comprobar(/patata/.test(texto('Patatas')) && !/(frita|snack|chips)/.test(texto('Patatas')), 'Patatas apunta a un producto incorrecto');
+comprobar(/cebolla/.test(texto('Cebolla')), 'Cebolla no apunta a cebolla fresca');
+comprobar(/zanahoria/.test(texto('Zanahorias')), 'Zanahorias no apunta a zanahoria fresca');
+comprobar(/ajo/.test(texto('Ajo')) && !/(granulado|polvo)/.test(texto('Ajo')), 'Ajo fresco apunta a un formato incorrecto');
+comprobar(/salmon/.test(texto('Salmón')) && !/(perro|gato|mascota|compy)/.test(texto('Salmón')), 'Salmón sigue asociado a un producto incorrecto');
+comprobar(/almeja/.test(texto('Almejas')), 'Almejas no apunta a almejas reales');
+comprobar(/hamburgues|burger/.test(texto('Hamburguesas')), 'Hamburguesas no apunta a hamburguesas reales');
+comprobar(/pan/.test(texto('Pan de hamburguesa')) && /(hamburgues|burger)/.test(texto('Pan de hamburguesa')), 'Pan de hamburguesa incorrecto');
 comprobar(/pan/.test(texto('Pan de perrito')) && /(perrito|hot dog|hotdog)/.test(texto('Pan de perrito')), 'Pan de perrito incorrecto');
-comprobar(/ajo/.test(texto('Ajo en polvo')) && !/cebolla/.test(texto('Ajo en polvo')), 'Ajo en polvo incorrecto');
+comprobar(/ajo/.test(texto('Ajo en polvo')) && /(granulado|polvo)/.test(texto('Ajo en polvo')) && !/cebolla/.test(texto('Ajo en polvo')), 'Ajo en polvo/granulado incorrecto');
 comprobar(/mozzarella/.test(texto('Mozzarella rallada')) && /rallad/.test(texto('Mozzarella rallada')), 'Mozzarella rallada incorrecta');
+comprobar(/(4 quesos|cuatro quesos)/.test(texto('Mezcla cuatro quesos')) && /rallad/.test(texto('Mezcla cuatro quesos')), 'Mezcla cuatro quesos incorrecta');
 
 for (const ingrediente of ['Garbanzos secos', 'Alubias blancas secas', 'Alubias rojas secas']) {
   comprobar(!/(cocid|tarro)/.test(texto(ingrediente)), `${ingrediente} sigue asociado a legumbre cocida`);
@@ -52,6 +61,6 @@ for (const ingrediente of ['Garbanzos secos', 'Alubias blancas secas', 'Alubias 
 
 comprobar(/6/.test(texto('Atún')), 'Atún no parece corresponder al pack de 6 objetivo');
 
-console.log(`✓ ${Object.keys(precios).length} precios generados con formato válido`);
-console.log('✓ los productos críticos están presentes');
+console.log('✓ Mercadona: 51/51 objetivos resueltos con precio válido');
+console.log('✓ frescos, pescados, panes, quesos y especias críticos verificados');
 console.log('✓ no hay asociaciones conocidas de mascotas/pescado/formatos incorrectos');
