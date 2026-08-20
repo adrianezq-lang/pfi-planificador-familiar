@@ -5,7 +5,7 @@
   },
   {
     "ingrediente": "Huevos",
-    "buscar": "huevos tamaño M docena"
+    "buscar": "huevo"
   },
   {
     "ingrediente": "Leche",
@@ -37,15 +37,15 @@
   },
   {
     "ingrediente": "Patatas",
-    "buscar": "patata malla"
+    "buscar": "patata"
   },
   {
     "ingrediente": "Cebolla",
-    "buscar": "cebolla malla"
+    "buscar": "cebolla"
   },
   {
     "ingrediente": "Zanahorias",
-    "buscar": "zanahoria bolsa"
+    "buscar": "zanahoria"
   },
   {
     "ingrediente": "Calabacín",
@@ -65,7 +65,7 @@
   },
   {
     "ingrediente": "Ajo",
-    "buscar": "ajos secos malla"
+    "buscar": "ajo"
   },
   {
     "ingrediente": "Pollo",
@@ -85,7 +85,7 @@
   },
   {
     "ingrediente": "Salmón",
-    "buscar": "salmón fresco porciones"
+    "buscar": "salmón"
   },
   {
     "ingrediente": "Lubina",
@@ -101,7 +101,7 @@
   },
   {
     "ingrediente": "Almejas",
-    "buscar": "almeja fresca malla"
+    "buscar": "almeja"
   },
   {
     "ingrediente": "Garbanzos cocidos",
@@ -145,7 +145,7 @@
   },
   {
     "ingrediente": "Mezcla cuatro quesos",
-    "buscar": "mezcla cuatro quesos rallados Hacendado"
+    "buscar": "4 quesos"
   },
   {
     "ingrediente": "Bacon",
@@ -193,7 +193,7 @@
   },
   {
     "ingrediente": "Ajo en polvo",
-    "buscar": "ajo en polvo Hacendado"
+    "buscar": "ajo granulado Hacendado"
   },
   {
     "ingrediente": "Pimentón dulce",
