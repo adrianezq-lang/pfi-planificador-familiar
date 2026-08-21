@@ -1,0 +1,47 @@
+name: Recuperar payload PFI 1.5.6
+
+on:
+  push:
+    branches:
+      - pfi-1.5.6-ui-1.5.5
+    paths:
+      - '.github/workflows/recuperar-payload156.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  recuperar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout payload integral
+        uses: actions/checkout@v4
+        with:
+          ref: pfi-1.5.6-integral
+          fetch-depth: 0
+
+      - name: Reconstruir y extraer payload156 disponible
+        shell: bash
+        run: |
+          set -u
+          mapfile -t piezas < <(find payload156 -maxdepth 1 -type f -name 'c*.b64' | sort)
+          echo "Piezas encontradas: ${#piezas[@]}"
+          printf '%s\n' "${piezas[@]}"
+          cat "${piezas[@]}" | tr -d '\n\r\t ' | base64 -d > /tmp/pfi156-payload.tar.xz
+          xz -t /tmp/pfi156-payload.tar.xz || true
+          rm -rf /tmp/pfi156-extraido
+          mkdir -p /tmp/pfi156-extraido
+          tar -xJf /tmp/pfi156-payload.tar.xz -C /tmp/pfi156-extraido || true
+          echo 'Archivos extraídos:'
+          find /tmp/pfi156-extraido -type f | sort | sed -n '1,250p'
+
+      - name: Guardar extracción en rama aislada
+        run: |
+          rm -rf recovered/payload156
+          mkdir -p recovered/payload156
+          cp -R /tmp/pfi156-extraido/. recovered/payload156/ || true
+          git config user.name 'PFI Recovery Bot'
+          git config user.email 'actions@github.com'
+          git add recovered/payload156
+          git commit -m 'Guarda extracción parcial de payload156 PFI 1.5.6' || true
+          git push origin HEAD:pfi-1.5.6-payload156-recovery --force
