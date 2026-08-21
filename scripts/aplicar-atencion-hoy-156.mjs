@@ -15,14 +15,12 @@ if (!contenido.includes("from '../components/AtencionHoy")) {
 }
 
 if (!contenido.includes('<AtencionHoy semanaActiva={semanaActiva} navegar={navegar} />')) {
-  const marcador = `      </section>\n\n      <section\n        className={\`budget-grid${`;
+  const marcador = "      </section>\n\n      <section\n        className={`budget-grid${";
   if (!contenido.includes(marcador)) {
     throw new Error('No se encontró la separación entre Inicio y presupuesto.');
   }
-  contenido = contenido.replace(
-    marcador,
-    `      </section>\n\n      <AtencionHoy semanaActiva={semanaActiva} navegar={navegar} />\n\n      <section\n        className={\`budget-grid${`,
-  );
+  const reemplazo = "      </section>\n\n      <AtencionHoy semanaActiva={semanaActiva} navegar={navegar} />\n\n      <section\n        className={`budget-grid${";
+  contenido = contenido.replace(marcador, reemplazo);
 }
 
 fs.writeFileSync(ruta, contenido, 'utf8');
