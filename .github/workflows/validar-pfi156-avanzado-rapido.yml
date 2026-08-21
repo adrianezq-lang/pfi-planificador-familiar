@@ -36,6 +36,10 @@ jobs:
           APPLY=$?
           node scripts/reforzar-funciones-avanzadas-156.mjs > recovered/validation-fast/reinforce.log 2>&1
           REINFORCE=$?
+          node scripts/reforzar-coherencia-inventario-156.mjs > recovered/validation-fast/coherencia-apply.log 2>&1
+          COHERENCIA_APPLY=$?
+          node scripts/probar-coherencia-inventario-156.mjs > recovered/validation-fast/coherencia-tests.log 2>&1
+          COHERENCIA_TESTS=$?
           node scripts/preparar-marcas-stock-real-156.mjs > recovered/validation-fast/stock-markers.log 2>&1
           STOCK_MARKERS=$?
           node scripts/aplicar-stock-real-156.mjs > recovered/validation-fast/stock-apply.log 2>&1
@@ -44,8 +48,12 @@ jobs:
           POSTRES_APPLY=$?
           node scripts/probar-pestana-postres-156.mjs > recovered/validation-fast/postres-tests.log 2>&1
           POSTRES_TESTS=$?
+          node scripts/aplicar-copia-seguridad-156.mjs > recovered/validation-fast/backup-apply.log 2>&1
+          BACKUP_APPLY=$?
           node scripts/preparar-imports-node-156.mjs >> recovered/validation-fast/imports.log 2>&1
           IMPORTS2=$?
+          node --experimental-strip-types scripts/probar-copia-seguridad-156.mjs > recovered/validation-fast/backup-tests.log 2>&1
+          BACKUP_TESTS=$?
           node --experimental-strip-types scripts/probar-stock-real-156.mjs > recovered/validation-fast/stock-tests.log 2>&1
           STOCK_TESTS=$?
           node --experimental-strip-types scripts/probar-funciones-avanzadas-156.mjs > recovered/validation-fast/tests.log 2>&1
@@ -60,16 +68,20 @@ jobs:
             echo "markers=$MARKERS"
             echo "apply=$APPLY"
             echo "reinforce=$REINFORCE"
+            echo "coherencia_apply=$COHERENCIA_APPLY"
+            echo "coherencia_tests=$COHERENCIA_TESTS"
             echo "stock_markers=$STOCK_MARKERS"
             echo "stock_apply=$STOCK_APPLY"
             echo "stock_tests=$STOCK_TESTS"
             echo "postres_apply=$POSTRES_APPLY"
             echo "postres_tests=$POSTRES_TESTS"
+            echo "backup_apply=$BACKUP_APPLY"
+            echo "backup_tests=$BACKUP_TESTS"
             echo "imports_post=$IMPORTS2"
             echo "tests=$TESTS"
             echo "typecheck=$TYPECHECK"
             echo "vite=$VITE"
-            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$STOCK_MARKERS" -eq 0 ] && [ "$STOCK_APPLY" -eq 0 ] && [ "$STOCK_TESTS" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
+            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$COHERENCIA_APPLY" -eq 0 ] && [ "$COHERENCIA_TESTS" -eq 0 ] && [ "$STOCK_MARKERS" -eq 0 ] && [ "$STOCK_APPLY" -eq 0 ] && [ "$STOCK_TESTS" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$BACKUP_APPLY" -eq 0 ] && [ "$BACKUP_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
               echo "resultado=OK"
             else
               echo "resultado=ERROR"
