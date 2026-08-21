@@ -18,7 +18,119 @@ function insertarAyudantes() {
   const marcador = `function cambiarPlato(\n  menu: DiaMenu[],`;
   if (!contenido.includes(marcador)) throw new Error('No se encontró el punto de inserción de ayudantes del asistente.');
 
-  const helpers = `function raizPalabra(palabra: string): string {\n  if (palabra.length > 5 && palabra.endsWith('es')) return palabra.slice(0, -2);\n  if (palabra.length > 4 && palabra.endsWith('s')) return palabra.slice(0, -1);\n  return palabra;\n}\n\nfunction palabrasSignificativas(texto: string): string[] {\n  const ignorar = new Set(['tengo', 'queda', 'quedan', 'quedar', 'quedan', 'casa', 'medio', 'media', 'paquete', 'envase', 'bote', 'bolsa', 'brick', 'brik', 'unidad', 'unidades', 'hacendado', 'aproximadamente']);\n  return normalizar(texto)\n    .split(' ')\n    .map(raizPalabra)\n    .filter((palabra) => palabra.length >= 3 && !ignorar.has(palabra));\n}\n\nfunction unidadStockSolicitada(texto: string): string | null {\n  if (/\\bcabezas?\\b/.test(texto)) return 'cabeza';\n  if (/\\bdientes?\\b/.test(texto)) return 'diente';\n  if (/\\bhuevos?\\b/.test(texto)) return 'huevo';\n  if (/\\blatas?\\b/.test(texto)) return 'lata';\n  if (/\\b(?:kg|kilos?|kilogramos?)\\b/.test(texto)) return 'kg';\n  if (/\\b(?:g|gramos?)\\b/.test(texto)) return 'g';\n  if (/\\b(?:ml|mililitros?)\\b/.test(texto)) return 'ml';\n  if (/\\b(?:l|litros?)\\b/.test(texto)) return 'l';\n  if (/\\b(?:paquetes?|envases?|botes?|bolsas?|bricks?|briks?)\\b/.test(texto)) return 'envase';\n  return null;\n}\n\nfunction buscarProductoInventario(texto: string, unidadPedida: string | null): ProductoDespensa | null {\n  const palabrasMensaje = new Set(palabrasSignificativas(texto));\n  let mejor: ProductoDespensa | null = null;\n  let mejorPuntuacion = 0;\n\n  cargarDespensa().forEach((producto) => {\n    const palabrasProducto = palabrasSignificativas(producto.nombre);\n    let puntos = palabrasProducto.reduce(\n      (total, palabra) => total + (palabrasMensaje.has(palabra) ? 3 : 0),\n      0,\n    );\n    const config = configuracionStockReal(producto);\n    if (unidadPedida && raizPalabra(config.unidadContenido) === raizPalabra(unidadPedida)) puntos += 5;\n    if (unidadPedida === 'envase') puntos += 1;\n    if (puntos > mejorPuntuacion) {\n      mejor = producto;\n      mejorPuntuacion = puntos;\n    }\n  });\n\n  return mejorPuntuacion >= 3 ? mejor : null;\n}\n\nfunction cantidadStockDesdeTexto(\n  texto: string,\n  producto: ProductoDespensa,\n  unidadPedida: string | null,\n): { envases: number; descripcion: string } | null {\n  const config = configuracionStockReal(producto);\n  const fraccionEnvase = /\\b(?:medio|media)\\s+(?:paquete|envase|bote|bolsa|brick|brik)\\b/.test(texto)\n    ? 0.5\n    : /\\bun\\s+cuarto\\s+(?:de\\s+)?(?:paquete|envase|bote|bolsa|brick|brik)\\b/.test(texto)\n      ? 0.25\n      : null;\n\n  if (fraccionEnvase !== null) {\n    const cantidadReal = cantidadRealDesdeEnvases(fraccionEnvase, config);\n    return {\n      envases: fraccionEnvase,\n      descripcion: config.unidadContenido === 'envase'\n        ? \\`${'${'}formatearNumeroStock(fraccionEnvase)} envase\\`\n        : \\`${'${'}formatearNumeroStock(cantidadReal)} ${'${'}etiquetaUnidadStock(config.unidadContenido, cantidadReal)}\\`,\n    };\n  }\n\n  const numero = texto.match(/\\b(\\d+(?:[.,]\\d+)?)\\b/);\n  if (!numero) return null;\n  let cantidad = Number(numero[1].replace(',', '.'));\n  if (!Number.isFinite(cantidad) || cantidad < 0) return null;\n\n  if (unidadPedida === 'kg') cantidad *= 1000;\n  if (unidadPedida === 'l') cantidad *= 1000;\n  const unidadNormalizada = unidadPedida === 'kg' ? 'g' : unidadPedida === 'l' ? 'ml' : unidadPedida;\n\n  if (unidadNormalizada === 'envase' || (!unidadNormalizada && config.unidadContenido === 'envase')) {\n    return { envases: cantidad, descripcion: \\`${'${'}formatearNumeroStock(cantidad)} ${'${'}cantidad === 1 ? 'envase' : 'envases'}\\` };\n  }\n\n  const unidadConfig = raizPalabra(config.unidadContenido);\n  if (unidadNormalizada && raizPalabra(unidadNormalizada) !== unidadConfig) return null;\n  const envases = envasesDesdeCantidadReal(cantidad, config);\n  return {\n    envases,\n    descripcion: \\`${'${'}formatearNumeroStock(cantidad)} ${'${'}etiquetaUnidadStock(config.unidadContenido, cantidad)}\\`,\n  };\n}\n\nfunction procesarAjusteStockNatural(texto: string): ResultadoAsistentePfi | null {\n  if (!/\\b(?:me\\s+quedan?|quedan?|tengo|hay)\\b/.test(texto)) return null;\n  const unidadPedida = unidadStockSolicitada(texto);\n  const producto = buscarProductoInventario(texto, unidadPedida);\n  if (!producto) return null;\n  const cantidad = cantidadStockDesdeTexto(texto, producto, unidadPedida);\n  if (!cantidad) return null;\n\n  actualizarStockProductoDespensa(producto.productoId, cantidad.envases);\n  return {\n    entendido: true,\n    respuesta: \\`He actualizado ${'${'}producto.nombre}: quedan ${'${'}cantidad.descripcion}. Compra tendrá este stock en cuenta.\\`,\n  };\n}\n\n`;
+  const helpers = String.raw`function raizPalabra(palabra: string): string {
+  if (palabra.length > 5 && palabra.endsWith('es')) return palabra.slice(0, -2);
+  if (palabra.length > 4 && palabra.endsWith('s')) return palabra.slice(0, -1);
+  return palabra;
+}
+
+function palabrasSignificativas(texto: string): string[] {
+  const ignorar = new Set(['tengo', 'queda', 'quedan', 'quedar', 'casa', 'medio', 'media', 'paquete', 'envase', 'bote', 'bolsa', 'brick', 'brik', 'unidad', 'unidades', 'hacendado', 'aproximadamente']);
+  return normalizar(texto)
+    .split(' ')
+    .map(raizPalabra)
+    .filter((palabra) => palabra.length >= 3 && !ignorar.has(palabra));
+}
+
+function unidadStockSolicitada(texto: string): string | null {
+  if (/\bcabezas?\b/.test(texto)) return 'cabeza';
+  if (/\bdientes?\b/.test(texto)) return 'diente';
+  if (/\bhuevos?\b/.test(texto)) return 'huevo';
+  if (/\blatas?\b/.test(texto)) return 'lata';
+  if (/\b(?:kg|kilos?|kilogramos?)\b/.test(texto)) return 'kg';
+  if (/\b(?:g|gramos?)\b/.test(texto)) return 'g';
+  if (/\b(?:ml|mililitros?)\b/.test(texto)) return 'ml';
+  if (/\b(?:l|litros?)\b/.test(texto)) return 'l';
+  if (/\b(?:paquetes?|envases?|botes?|bolsas?|bricks?|briks?)\b/.test(texto)) return 'envase';
+  return null;
+}
+
+function buscarProductoInventario(texto: string, unidadPedida: string | null): ProductoDespensa | null {
+  const palabrasMensaje = new Set(palabrasSignificativas(texto));
+  let mejor: ProductoDespensa | null = null;
+  let mejorPuntuacion = 0;
+
+  cargarDespensa().forEach((producto) => {
+    const palabrasProducto = palabrasSignificativas(producto.nombre);
+    let puntos = palabrasProducto.reduce(
+      (total, palabra) => total + (palabrasMensaje.has(palabra) ? 3 : 0),
+      0,
+    );
+    const config = configuracionStockReal(producto);
+    if (unidadPedida && raizPalabra(config.unidadContenido) === raizPalabra(unidadPedida)) puntos += 5;
+    if (unidadPedida === 'envase') puntos += 1;
+    if (puntos > mejorPuntuacion) {
+      mejor = producto;
+      mejorPuntuacion = puntos;
+    }
+  });
+
+  return mejorPuntuacion >= 3 ? mejor : null;
+}
+
+function cantidadStockDesdeTexto(
+  texto: string,
+  producto: ProductoDespensa,
+  unidadPedida: string | null,
+): { envases: number; descripcion: string } | null {
+  const config = configuracionStockReal(producto);
+  const fraccionEnvase = /\b(?:medio|media)\s+(?:paquete|envase|bote|bolsa|brick|brik)\b/.test(texto)
+    ? 0.5
+    : /\bun\s+cuarto\s+(?:de\s+)?(?:paquete|envase|bote|bolsa|brick|brik)\b/.test(texto)
+      ? 0.25
+      : null;
+
+  if (fraccionEnvase !== null) {
+    const cantidadReal = cantidadRealDesdeEnvases(fraccionEnvase, config);
+    return {
+      envases: fraccionEnvase,
+      descripcion: config.unidadContenido === 'envase'
+        ? formatearNumeroStock(fraccionEnvase) + ' envase'
+        : formatearNumeroStock(cantidadReal) + ' ' + etiquetaUnidadStock(config.unidadContenido, cantidadReal),
+    };
+  }
+
+  const numero = texto.match(/\b(\d+(?:[.,]\d+)?)\b/);
+  if (!numero) return null;
+  let cantidad = Number(numero[1].replace(',', '.'));
+  if (!Number.isFinite(cantidad) || cantidad < 0) return null;
+
+  if (unidadPedida === 'kg') cantidad *= 1000;
+  if (unidadPedida === 'l') cantidad *= 1000;
+  const unidadNormalizada = unidadPedida === 'kg' ? 'g' : unidadPedida === 'l' ? 'ml' : unidadPedida;
+
+  if (unidadNormalizada === 'envase' || (!unidadNormalizada && config.unidadContenido === 'envase')) {
+    return {
+      envases: cantidad,
+      descripcion: formatearNumeroStock(cantidad) + ' ' + (cantidad === 1 ? 'envase' : 'envases'),
+    };
+  }
+
+  const unidadConfig = raizPalabra(config.unidadContenido);
+  if (unidadNormalizada && raizPalabra(unidadNormalizada) !== unidadConfig) return null;
+  const envases = envasesDesdeCantidadReal(cantidad, config);
+  return {
+    envases,
+    descripcion: formatearNumeroStock(cantidad) + ' ' + etiquetaUnidadStock(config.unidadContenido, cantidad),
+  };
+}
+
+function procesarAjusteStockNatural(texto: string): ResultadoAsistentePfi | null {
+  if (!/\b(?:me\s+quedan?|quedan?|tengo|hay)\b/.test(texto)) return null;
+  const unidadPedida = unidadStockSolicitada(texto);
+  const producto = buscarProductoInventario(texto, unidadPedida);
+  if (!producto) return null;
+  const cantidad = cantidadStockDesdeTexto(texto, producto, unidadPedida);
+  if (!cantidad) return null;
+
+  actualizarStockProductoDespensa(producto.productoId, cantidad.envases);
+  return {
+    entendido: true,
+    respuesta: 'He actualizado ' + producto.nombre + ': quedan ' + cantidad.descripcion + '. Compra tendrá este stock en cuenta.',
+  };
+}
+
+`;
 
   contenido = contenido.replace(marcador, `${helpers}${marcador}`);
 }
