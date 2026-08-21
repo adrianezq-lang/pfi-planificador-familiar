@@ -12,6 +12,31 @@ assert.ok(
   !app.includes('<span className="app-version">v0.9.15</span>'),
   'No debe quedar la versión antigua visible',
 );
+assert.ok(
+  app.includes('<Compra menu={menu} semanaActiva={semanaActiva} />'),
+  'Compra debe recibir la semana seleccionada del plan',
+);
+
+assert.ok(
+  compra.includes('semanaActiva: number'),
+  'Compra debe identificar la semana activa',
+);
+assert.ok(
+  compra.includes('obtenerClaveCompra(semanaActiva)'),
+  'Las marcas deben usar la semana activa',
+);
+assert.ok(
+  compra.includes("fecha.getMonth() + 1"),
+  'Las marcas de Compra deben quedar separadas también por mes',
+);
+assert.ok(
+  compra.includes('setComprados(cargarListaLocal(claveComprados))'),
+  'Al cambiar de semana deben cargarse sus propias marcas',
+);
+assert.ok(
+  compra.includes('setRegistrados(cargarListaLocal(claveRegistrados))'),
+  'Al cambiar de semana debe cargarse su historial de inventario',
+);
 
 assert.ok(
   compra.includes('Guardar en inventario'),
@@ -34,7 +59,7 @@ assert.ok(
   'Limpiar marcas no puede olvidar qué compras ya se registraron',
 );
 assert.ok(
-  !compra.includes('guardarListaLocal(CLAVE_REGISTRADOS, [])'),
+  !compra.includes('guardarListaLocal(claveRegistrados, [])'),
   'Limpiar marcas no puede borrar el registro semanal de inventario',
 );
 assert.ok(
@@ -50,4 +75,4 @@ assert.ok(
   'Las claves registradas deben deduplicarse',
 );
 
-console.log('✓ Compra: sin doble registro, limpieza segura, stock natural y versión coherente');
+console.log('✓ Compra: semanas aisladas, sin doble registro, limpieza segura, stock natural y versión coherente');
