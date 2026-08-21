@@ -19,6 +19,7 @@ import {
 } from '../services/excepcionesSemana';
 import { EVENTO_INVENTARIO } from '../services/inventario';
 import { generarResumenAtencionHoy } from '../services/atencionHoy';
+import { describirCantidadStock } from '../services/stockReal';
 import '../styles/atencion-hoy.css';
 
 type DestinoAtencion = 'menu' | 'despensa';
@@ -124,14 +125,15 @@ function AtencionHoy({ semanaActiva, navegar }: AtencionHoyProps) {
             cantidad={resumen.stock.length}
             onClick={() => navegar('despensa')}
           >
-            {resumen.stock.slice(0, 3).map((producto) => (
-              <div key={producto.id} className="attention-today__item">
-                <strong>{producto.nombre}</strong>
-                <span>
-                  Queda {producto.stockActual.toLocaleString('es-ES', { maximumFractionDigits: 2 })} {producto.unidad}
-                </span>
-              </div>
-            ))}
+            {resumen.stock.slice(0, 3).map((producto) => {
+              const cantidad = describirCantidadStock(producto, producto.stockActual);
+              return (
+                <div key={producto.id} className="attention-today__item">
+                  <strong>{producto.nombre}</strong>
+                  <span>Queda {cantidad.texto}</span>
+                </div>
+              );
+            })}
             {resumen.stock.length > 3 && (
               <span className="attention-today__more">
                 +{resumen.stock.length - 3} más
