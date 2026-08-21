@@ -48,6 +48,8 @@ jobs:
           POSTRES_APPLY=$?
           node scripts/probar-pestana-postres-156.mjs > recovered/validation-fast/postres-tests.log 2>&1
           POSTRES_TESTS=$?
+          node scripts/preparar-marcas-backup-156.mjs > recovered/validation-fast/backup-markers.log 2>&1
+          BACKUP_MARKERS=$?
           node scripts/aplicar-copia-seguridad-156.mjs > recovered/validation-fast/backup-apply.log 2>&1
           BACKUP_APPLY=$?
           node scripts/preparar-imports-node-156.mjs >> recovered/validation-fast/imports.log 2>&1
@@ -75,13 +77,14 @@ jobs:
             echo "stock_tests=$STOCK_TESTS"
             echo "postres_apply=$POSTRES_APPLY"
             echo "postres_tests=$POSTRES_TESTS"
+            echo "backup_markers=$BACKUP_MARKERS"
             echo "backup_apply=$BACKUP_APPLY"
             echo "backup_tests=$BACKUP_TESTS"
             echo "imports_post=$IMPORTS2"
             echo "tests=$TESTS"
             echo "typecheck=$TYPECHECK"
             echo "vite=$VITE"
-            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$COHERENCIA_APPLY" -eq 0 ] && [ "$COHERENCIA_TESTS" -eq 0 ] && [ "$STOCK_MARKERS" -eq 0 ] && [ "$STOCK_APPLY" -eq 0 ] && [ "$STOCK_TESTS" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$BACKUP_APPLY" -eq 0 ] && [ "$BACKUP_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
+            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$COHERENCIA_APPLY" -eq 0 ] && [ "$COHERENCIA_TESTS" -eq 0 ] && [ "$STOCK_MARKERS" -eq 0 ] && [ "$STOCK_APPLY" -eq 0 ] && [ "$STOCK_TESTS" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$BACKUP_MARKERS" -eq 0 ] && [ "$BACKUP_APPLY" -eq 0 ] && [ "$BACKUP_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
               echo "resultado=OK"
             else
               echo "resultado=ERROR"
