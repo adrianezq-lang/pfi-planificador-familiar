@@ -27,13 +27,22 @@ jobs:
           mapfile -t piezas < <(find payload156 -maxdepth 1 -type f -name 'c*.b64' | sort)
           echo "Piezas encontradas: ${#piezas[@]}"
           printf '%s\n' "${piezas[@]}"
-          cat "${piezas[@]}" | tr -d '\n\r\t ' | base64 -d > /tmp/pfi156-payload.tar.xz
+          python3 - <<'PY'
+          import base64
+          from pathlib import Path
+          piezas = sorted(Path('payload156').glob('c*.b64'))
+          texto = ''.join(p.read_text().split() for p in piezas)
+          texto += '=' * ((4 - len(texto) % 4) % 4)
+          datos = base64.b64decode(texto, validate=False)
+          Path('/tmp/pfi156-payload.tar.xz').write_bytes(datos)
+          print(f'Bytes decodificados: {len(datos)}')
+          PY
           xz -t /tmp/pfi156-payload.tar.xz || true
           rm -rf /tmp/pfi156-extraido
           mkdir -p /tmp/pfi156-extraido
           tar -xJf /tmp/pfi156-payload.tar.xz -C /tmp/pfi156-extraido || true
           echo 'Archivos extraídos:'
-          find /tmp/pfi156-extraido -type f | sort | sed -n '1,250p'
+          find /tmp/pfi156-extraido -type f | sort | sed -n '1,350p'
 
       - name: Guardar extracción en rama aislada
         run: |
