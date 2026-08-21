@@ -98,9 +98,65 @@ comprobar(
   'El objetivo pack 6 de atún no puede resolverse con una lata grande individual',
 );
 
+comprobar(
+  !esProductoSeguro(
+    { ingrediente: 'Leche', buscar: 'leche proteínas Hacendado' },
+    producto('Chocolate extrafino con leche Hacendado almendras enteras', 'Cacao, café e infusiones', 'Chocolate', 'Tableta'),
+  ),
+  'La leche con proteínas no puede asociarse a chocolate con leche',
+);
+
+comprobar(
+  esProductoSeguro(
+    { ingrediente: 'Leche', buscar: 'leche proteínas Hacendado' },
+    producto('Bebida láctea +Proteínas Hacendado', 'Leche, huevos y mantequilla', 'Leche y bebidas vegetales', 'Brick'),
+  ),
+  'La bebida láctea con proteínas debe ser válida para la preferencia de leche',
+);
+
+comprobar(
+  !esProductoSeguro(
+    { ingrediente: 'Leche', buscar: 'leche entera sin lactosa Hacendado' },
+    producto('Leche entera Hacendado', 'Leche, huevos y mantequilla', 'Leche y bebidas vegetales', 'Brick'),
+  ),
+  'La preferencia sin lactosa no puede resolverse con leche normal',
+);
+
+comprobar(
+  !esProductoSeguro(
+    { ingrediente: 'Atún', buscar: 'atún en aceite de oliva Hacendado pack 6 latas' },
+    producto('Atún claro en aceite de girasol Hacendado', 'Conservas, caldos y cremas', 'Atún', 'Pack 6 latas'),
+  ),
+  'La preferencia de atún en oliva no puede resolverse con girasol',
+);
+
+comprobar(
+  !esProductoSeguro(
+    { ingrediente: 'Queso rallado', buscar: 'mezcla cuatro quesos rallados Hacendado' },
+    producto('Queso rallado emmental Hacendado', 'Charcutería y quesos', 'Queso lonchas, rallado y en porciones', 'Bolsa'),
+  ),
+  'La preferencia cuatro quesos no puede resolverse con emmental',
+);
+
+comprobar(
+  !esProductoSeguro(
+    { ingrediente: 'Garbanzos secos', buscar: 'garbanzo pedrosillano seco Hacendado' },
+    producto('Garbanzo Hacendado', 'Arroz, legumbres y pasta', 'Legumbres', 'Paquete'),
+  ),
+  'La preferencia de garbanzo pedrosillano seco exige pedrosillano',
+);
+
+comprobar(
+  !esProductoSeguro(
+    { ingrediente: 'Garbanzos cocidos', buscar: 'garbanzo pedrosillano cocido Hacendado tarro' },
+    producto('Garbanzo cocido Hacendado', 'Conservas', 'Legumbres', 'Tarro'),
+  ),
+  'La preferencia de garbanzo pedrosillano cocido exige pedrosillano',
+);
+
 console.log('✓ salmón protegido frente a mascotas');
 console.log('✓ hamburguesas protegidas frente a preparados de carne');
 console.log('✓ panes protegidos frente a pescado empanado');
 console.log('✓ ajo en polvo y mozzarella rallada distinguen el formato correcto');
 console.log('✓ legumbres secas distinguen producto seco/cocido');
-console.log('✓ el atún pack 6 exige formato múltiple');
+console.log('✓ preferencias de leche, atún, cuatro quesos y pedrosillano protegidas');
