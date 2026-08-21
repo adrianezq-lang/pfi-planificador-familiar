@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
 import {
   cargarConservacion,
   EVENTO_CONSERVACION,
@@ -149,7 +155,7 @@ function GrupoAtencion({
   icono: string;
   cantidad: number;
   onClick: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div className="attention-today__group">
