@@ -3,6 +3,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const raiz = process.cwd();
+const respaldoUi = path.join(raiz, '.pfi-ui-1.5.5');
+
+const rutasUiProtegidas = [
+  'src/App.tsx',
+  'src/main.tsx',
+  'src/index.css',
+  'src/assets',
+  'src/components',
+  'src/pages',
+  'src/styles',
+];
 
 function ejecutarNode(args, etiqueta) {
   const resultado = spawnSync(process.execPath, args, {
@@ -38,11 +49,72 @@ function listarCodigo(directorio) {
   return encontrados;
 }
 
+function copiarRuta(origenRelativo, destinoBase) {
+  const origen = path.join(raiz, origenRelativo);
+  if (!fs.existsSync(origen)) {
+    throw new Error(`No se puede proteger la interfaz: falta ${origenRelativo}`);
+  }
+
+  const destino = path.join(destinoBase, origenRelativo);
+  fs.mkdirSync(path.dirname(destino), { recursive: true });
+  const estado = fs.statSync(origen);
+  if (estado.isDirectory()) {
+    fs.cpSync(origen, destino, { recursive: true });
+  } else {
+    fs.copyFileSync(origen, destino);
+  }
+}
+
+function respaldarInterfaz155() {
+  fs.rmSync(respaldoUi, { recursive: true, force: true });
+  fs.mkdirSync(respaldoUi, { recursive: true });
+  rutasUiProtegidas.forEach((ruta) => copiarRuta(ruta, respaldoUi));
+  console.log(`✓ interfaz 1.5.5 protegida: ${rutasUiProtegidas.length} rutas`);
+}
+
+function restaurarInterfaz155() {
+  for (const rutaRelativa of rutasUiProtegidas) {
+    const origen = path.join(respaldoUi, rutaRelativa);
+    const destino = path.join(raiz, rutaRelativa);
+    fs.rmSync(destino, { recursive: true, force: true });
+    fs.mkdirSync(path.dirname(destino), { recursive: true });
+    if (fs.statSync(origen).isDirectory()) {
+      fs.cpSync(origen, destino, { recursive: true });
+    } else {
+      fs.copyFileSync(origen, destino);
+    }
+  }
+
+  const menu = fs.readFileSync(path.join(raiz, 'src/pages/Menu.tsx'), 'utf8');
+  const home = fs.readFileSync(path.join(raiz, 'src/pages/Home.tsx'), 'utf8');
+  const despensa = fs.readFileSync(path.join(raiz, 'src/pages/Despensa.tsx'), 'utf8');
+  const css = fs.readFileSync(path.join(raiz, 'src/index.css'), 'utf8');
+
+  const firmas = [
+    [menu.includes('PFI ya está aprendiendo de vuestra familia'), 'aprendizaje del menú'],
+    [menu.includes('Equilibrio PFI de esta semana'), 'equilibrio semanal'],
+    [home.includes('Menú del día') && home.includes('Preparar para mañana'), 'inicio de tarjetas'],
+    [despensa.includes('Todos los productos controlados'), 'despensa visual'],
+    [css.includes('.home-card') && css.includes('.pantry-summary-card'), 'estilos 1.5.5'],
+  ];
+
+  for (const [valida, etiqueta] of firmas) {
+    if (!valida) throw new Error(`La interfaz 1.5.5 no conserva ${etiqueta}`);
+  }
+
+  console.log('✓ interfaz 1.5.5 restaurada exactamente después del paquete 1.5.6');
+}
+
+respaldarInterfaz155();
+
 console.log('PFI 1.5.6 · restauración de salvamento');
 ejecutarNode(['scripts/restaurar-integral.mjs'], 'Restauración 1.5.6');
 
 console.log('PFI 1.5.6 · reaplicando correcciones posteriores al paquete truncado');
 ejecutarNode(['scripts/aplicar-parches-salvage-156.mjs'], 'Parches de salvamento 1.5.6');
+
+console.log('PFI 1.5.6 · restaurando la interfaz visual 1.5.5 elegida');
+restaurarInterfaz155();
 
 ejecutarNode(
   ['scripts/preparar-imports-node-156.mjs'],
@@ -127,4 +199,5 @@ ejecutarNode(
   'Validación de precios Mercadona generados',
 );
 
-console.log('✓ PFI 1.5.6 preparada para TypeScript + Vite.');
+fs.rmSync(respaldoUi, { recursive: true, force: true });
+console.log('✓ PFI 1.5.6 preparada para TypeScript + Vite con interfaz 1.5.5.');
