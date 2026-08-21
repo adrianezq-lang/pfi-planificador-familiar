@@ -1,0 +1,26 @@
+{
+  "name": "PFI - Planificador Familiar",
+  "short_name": "PFI",
+  "description": "Planificador familiar de menús, recetas, despensa y lista de la compra.",
+  "lang": "es-ES",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f1e8",
+  "theme_color": "#8fa58f",
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
