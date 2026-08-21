@@ -1,0 +1,2 @@
+PFI 1.5.6 · preview final solicitado el 21/08/2026.
+Este archivo solo fuerza un único despliegue Preview de la rama candidata; no afecta a la aplicación.
