@@ -24,6 +24,16 @@ try {
   } else {
     console.log('✓ Paquete integral PFI 1.5.6 extraído sin errores.');
   }
+
+  const diagnostico = spawnSync(
+    process.execPath,
+    ['scripts/diagnosticar-funciones-restauradas.mjs'],
+    { cwd: raiz, stdio: 'inherit' },
+  );
+  if (diagnostico.error) throw diagnostico.error;
+  if (diagnostico.status !== 0) {
+    throw new Error(`El diagnóstico de funciones restauradas falló con código ${diagnostico.status ?? 'desconocido'}.`);
+  }
 } finally {
   fs.rmSync(archivoXz, { force: true });
 }
