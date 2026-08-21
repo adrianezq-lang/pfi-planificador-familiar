@@ -34,6 +34,8 @@ jobs:
           MARKERS=$?
           node scripts/aplicar-funciones-avanzadas-156.mjs > recovered/validation-fast/apply.log 2>&1
           APPLY=$?
+          node scripts/reforzar-funciones-avanzadas-156.mjs > recovered/validation-fast/reinforce.log 2>&1
+          REINFORCE=$?
           node scripts/preparar-imports-node-156.mjs >> recovered/validation-fast/imports.log 2>&1
           IMPORTS2=$?
           node --experimental-strip-types scripts/probar-funciones-avanzadas-156.mjs > recovered/validation-fast/tests.log 2>&1
@@ -47,11 +49,12 @@ jobs:
             echo "imports=$IMPORTS"
             echo "markers=$MARKERS"
             echo "apply=$APPLY"
+            echo "reinforce=$REINFORCE"
             echo "imports_post=$IMPORTS2"
             echo "tests=$TESTS"
             echo "typecheck=$TYPECHECK"
             echo "vite=$VITE"
-            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
+            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
               echo "resultado=OK"
             else
               echo "resultado=ERROR"
