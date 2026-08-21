@@ -27,7 +27,7 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Ejecutar validación y compilación
+      - name: Ejecutar validación y compilación final
         shell: bash
         run: |
           set +e
@@ -49,7 +49,7 @@ jobs:
               echo "resultado=ERROR"
             fi
           } > recovered/validation/estado.txt
-          tail -n 100 recovered/validation/prebuild.log > recovered/validation/prebuild-tail.log
+          tail -n 140 recovered/validation/prebuild.log > recovered/validation/prebuild-tail.log
           cat recovered/validation/typecheck.log > recovered/validation/typecheck-full.log
           cat recovered/validation/vite.log > recovered/validation/vite-full.log
           exit 0
