@@ -79,8 +79,8 @@ let resultado = asistente.procesarComandoAsistentePfi('Esta semana no están los
 ok(resultado.entendido && excepciones.cargarExcepcionesSemana(0).soloAdultos, 'el asistente aplica “esta semana no están los niños”');
 resultado = asistente.procesarComandoAsistentePfi('El martes cenamos fuera', menu, 0);
 ok(resultado.entendido && excepciones.cargarExcepcionesSemana(0).comidasFuera.Martes?.cena === true, 'el asistente aplica una cena fuera concreta');
-resultado = asistente.procesarComandoAsistentePfi('Cambia la cena del lunes por Hamburguesas', menu, 0);
-ok(resultado.menu?.[0]?.cena?.[0] === 'Hamburguesas', 'el asistente modifica un plato del menú');
+resultado = asistente.procesarComandoAsistentePfi('Cambia la cena del lunes por hamburguesas', menu, 0);
+ok(resultado.menu?.[0]?.cena?.[0] === 'Hamburguesas', 'el asistente enlaza nombres escritos libremente con la receta canónica');
 resultado = asistente.procesarComandoAsistentePfi('He congelado 2 raciones de lentejas', menu, 0);
 const congelado = conservacion.cargarConservacion().find((i) => i.tipo === 'congelado');
 ok(resultado.entendido && congelado?.cantidad === 2 && congelado?.unidad === 'ración', 'el asistente registra congelados con cantidad y unidad naturales');
@@ -91,9 +91,11 @@ ok(listaCompra.includes('cantidadConservada'), 'Compra descuenta productos abier
 
 const menuUi = fs.readFileSync('src/pages/Menu.tsx', 'utf8');
 const appUi = fs.readFileSync('src/App.tsx', 'utf8');
+const compraUi = fs.readFileSync('src/pages/Compra.tsx', 'utf8');
 const despensaUi = fs.readFileSync('src/pages/Despensa.tsx', 'utf8');
 ok(menuUi.includes('<ExcepcionesSemanaPanel semanaActiva={semanaActiva} />'), 'Menú muestra las excepciones semanales');
 ok(appUi.includes('<AsistentePfiPanel'), 'el asistente PFI queda accesible desde toda la app');
+ok(compraUi.includes('EVENTO_EXCEPCIONES_SEMANA') && compraUi.includes('EVENTO_CONSERVACION'), 'Compra se recalcula al cambiar excepciones o conservación');
 ok(despensaUi.includes("vista === 'conservacion'") && despensaUi.includes('<ConservacionPanel />'), 'Despensa incluye la vista de abiertos, congelados y sobras');
 
 console.log('✓ Funciones avanzadas PFI 1.5.6: 3/3 módulos funcionales y conectados');
