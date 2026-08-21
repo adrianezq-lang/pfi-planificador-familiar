@@ -33,7 +33,11 @@ function contiene(ingrediente, palabras, indice = 0) {
   });
 }
 
-assert.equal(pendientes.length, 0, `Quedan ${pendientes.length} preferencias sin resolver`);
+assert.equal(
+  pendientes.length,
+  0,
+  `Quedan ${pendientes.length} preferencias sin resolver: ${JSON.stringify(pendientes)}`,
+);
 
 const leche = preferencias.Leche;
 assert.ok(Array.isArray(leche) && leche.length === 2, 'Leche debe conservar dos preferencias');
