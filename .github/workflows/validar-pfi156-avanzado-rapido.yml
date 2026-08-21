@@ -1,5 +1,5 @@
 name: Validar PFI 1.5.6 avanzado rápido
-# Revalidación profesional final 2: matching estricto y catálogo real
+# Revalidación profesional final 3: Compra segura, Atención hoy y catálogo real
 
 on:
   push:
@@ -51,6 +51,8 @@ jobs:
           STOCK_MARKERS=$?
           node scripts/aplicar-stock-real-156.mjs > recovered/validation-fast/stock-apply.log 2>&1
           STOCK_APPLY=$?
+          node scripts/reforzar-compra-profesional-156.mjs > recovered/validation-fast/compra-apply.log 2>&1
+          COMPRA_APPLY=$?
           node scripts/reforzar-asistente-stock-real-156.mjs > recovered/validation-fast/asistente-stock-apply.log 2>&1
           ASISTENTE_STOCK_APPLY=$?
           node scripts/aplicar-pestana-postres-156.mjs > recovered/validation-fast/postres-apply.log 2>&1
@@ -63,6 +65,8 @@ jobs:
           BACKUP_APPLY=$?
           node scripts/preparar-imports-node-156.mjs >> recovered/validation-fast/imports.log 2>&1
           IMPORTS2=$?
+          node scripts/probar-compra-profesional-156.mjs > recovered/validation-fast/compra-tests.log 2>&1
+          COMPRA_TESTS=$?
           node --experimental-strip-types scripts/probar-atencion-hoy-156.mjs > recovered/validation-fast/attention-tests.log 2>&1
           ATTENTION_TESTS=$?
           node --experimental-strip-types scripts/probar-asistente-stock-real-156.mjs > recovered/validation-fast/asistente-stock-tests.log 2>&1
@@ -97,6 +101,8 @@ jobs:
             echo "stock_markers=$STOCK_MARKERS"
             echo "stock_apply=$STOCK_APPLY"
             echo "stock_tests=$STOCK_TESTS"
+            echo "compra_apply=$COMPRA_APPLY"
+            echo "compra_tests=$COMPRA_TESTS"
             echo "asistente_stock_apply=$ASISTENTE_STOCK_APPLY"
             echo "asistente_stock_tests=$ASISTENTE_STOCK_TESTS"
             echo "postres_apply=$POSTRES_APPLY"
@@ -110,7 +116,7 @@ jobs:
             echo "tests=$TESTS"
             echo "typecheck=$TYPECHECK"
             echo "vite=$VITE"
-            if [ "$IMPORTS" -eq 0 ] && [ "$PREF_APPLY" -eq 0 ] && [ "$MATCHING" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$ATTENTION_APPLY" -eq 0 ] && [ "$ATTENTION_TESTS" -eq 0 ] && [ "$COHERENCIA_APPLY" -eq 0 ] && [ "$COHERENCIA_TESTS" -eq 0 ] && [ "$STOCK_MARKERS" -eq 0 ] && [ "$STOCK_APPLY" -eq 0 ] && [ "$STOCK_TESTS" -eq 0 ] && [ "$ASISTENTE_STOCK_APPLY" -eq 0 ] && [ "$ASISTENTE_STOCK_TESTS" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$BACKUP_MARKERS" -eq 0 ] && [ "$BACKUP_APPLY" -eq 0 ] && [ "$BACKUP_TESTS" -eq 0 ] && [ "$MERCADONA_PREF" -eq 0 ] && [ "$MERCADONA_PREF_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
+            if [ "$IMPORTS" -eq 0 ] && [ "$PREF_APPLY" -eq 0 ] && [ "$MATCHING" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$ATTENTION_APPLY" -eq 0 ] && [ "$ATTENTION_TESTS" -eq 0 ] && [ "$COHERENCIA_APPLY" -eq 0 ] && [ "$COHERENCIA_TESTS" -eq 0 ] && [ "$STOCK_MARKERS" -eq 0 ] && [ "$STOCK_APPLY" -eq 0 ] && [ "$STOCK_TESTS" -eq 0 ] && [ "$COMPRA_APPLY" -eq 0 ] && [ "$COMPRA_TESTS" -eq 0 ] && [ "$ASISTENTE_STOCK_APPLY" -eq 0 ] && [ "$ASISTENTE_STOCK_TESTS" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$BACKUP_MARKERS" -eq 0 ] && [ "$BACKUP_APPLY" -eq 0 ] && [ "$BACKUP_TESTS" -eq 0 ] && [ "$MERCADONA_PREF" -eq 0 ] && [ "$MERCADONA_PREF_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
               echo "resultado=OK"
             else
               echo "resultado=ERROR"
