@@ -1,0 +1,58 @@
+name: Validar PFI 1.5.6 avanzado rápido
+
+on:
+  push:
+    branches:
+      - pfi-1.5.6-ui-1.5.5
+    paths:
+      - '.github/workflows/validar-pfi156-avanzado-rapido.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: pfi-1.5.6-ui-1.5.5
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Aplicar y probar funciones avanzadas
+        shell: bash
+        run: |
+          set +e
+          mkdir -p recovered/validation-fast
+          node scripts/aplicar-funciones-avanzadas-156.mjs > recovered/validation-fast/apply.log 2>&1
+          APPLY=$?
+          node --experimental-strip-types scripts/probar-funciones-avanzadas-156.mjs > recovered/validation-fast/tests.log 2>&1
+          TESTS=$?
+          npm run typecheck > recovered/validation-fast/typecheck.log 2>&1
+          TYPECHECK=$?
+          npx vite build > recovered/validation-fast/vite.log 2>&1
+          VITE=$?
+          {
+            echo "commit=$(git rev-parse HEAD)"
+            echo "apply=$APPLY"
+            echo "tests=$TESTS"
+            echo "typecheck=$TYPECHECK"
+            echo "vite=$VITE"
+            if [ "$APPLY" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
+              echo "resultado=OK"
+            else
+              echo "resultado=ERROR"
+            fi
+          } > recovered/validation-fast/estado.txt
+          exit 0
+      - name: Publicar resultado
+        run: |
+          git config user.name 'PFI Validation Bot'
+          git config user.email 'actions@github.com'
+          git add -f recovered/validation-fast
+          git commit -m 'Guarda validación rápida PFI 1.5.6 avanzada' || true
+          git push origin HEAD:pfi-1.5.6-advanced-fast-validation --force
