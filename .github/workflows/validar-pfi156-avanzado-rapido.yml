@@ -30,6 +30,8 @@ jobs:
           mkdir -p recovered/validation-fast
           node scripts/preparar-imports-node-156.mjs > recovered/validation-fast/imports.log 2>&1
           IMPORTS=$?
+          node scripts/preparar-marcas-ui-avanzada-156.mjs > recovered/validation-fast/markers.log 2>&1
+          MARKERS=$?
           node scripts/aplicar-funciones-avanzadas-156.mjs > recovered/validation-fast/apply.log 2>&1
           APPLY=$?
           node scripts/preparar-imports-node-156.mjs >> recovered/validation-fast/imports.log 2>&1
@@ -43,12 +45,13 @@ jobs:
           {
             echo "commit=$(git rev-parse HEAD)"
             echo "imports=$IMPORTS"
+            echo "markers=$MARKERS"
             echo "apply=$APPLY"
             echo "imports_post=$IMPORTS2"
             echo "tests=$TESTS"
             echo "typecheck=$TYPECHECK"
             echo "vite=$VITE"
-            if [ "$IMPORTS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
+            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
               echo "resultado=OK"
             else
               echo "resultado=ERROR"
