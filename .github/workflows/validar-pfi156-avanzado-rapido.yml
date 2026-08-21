@@ -36,12 +36,16 @@ jobs:
           APPLY=$?
           node scripts/reforzar-funciones-avanzadas-156.mjs > recovered/validation-fast/reinforce.log 2>&1
           REINFORCE=$?
+          node scripts/aplicar-stock-real-156.mjs > recovered/validation-fast/stock-apply.log 2>&1
+          STOCK_APPLY=$?
           node scripts/aplicar-pestana-postres-156.mjs > recovered/validation-fast/postres-apply.log 2>&1
           POSTRES_APPLY=$?
           node scripts/probar-pestana-postres-156.mjs > recovered/validation-fast/postres-tests.log 2>&1
           POSTRES_TESTS=$?
           node scripts/preparar-imports-node-156.mjs >> recovered/validation-fast/imports.log 2>&1
           IMPORTS2=$?
+          node --experimental-strip-types scripts/probar-stock-real-156.mjs > recovered/validation-fast/stock-tests.log 2>&1
+          STOCK_TESTS=$?
           node --experimental-strip-types scripts/probar-funciones-avanzadas-156.mjs > recovered/validation-fast/tests.log 2>&1
           TESTS=$?
           npm run typecheck > recovered/validation-fast/typecheck.log 2>&1
@@ -54,13 +58,15 @@ jobs:
             echo "markers=$MARKERS"
             echo "apply=$APPLY"
             echo "reinforce=$REINFORCE"
+            echo "stock_apply=$STOCK_APPLY"
+            echo "stock_tests=$STOCK_TESTS"
             echo "postres_apply=$POSTRES_APPLY"
             echo "postres_tests=$POSTRES_TESTS"
             echo "imports_post=$IMPORTS2"
             echo "tests=$TESTS"
             echo "typecheck=$TYPECHECK"
             echo "vite=$VITE"
-            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
+            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$STOCK_APPLY" -eq 0 ] && [ "$STOCK_TESTS" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
               echo "resultado=OK"
             else
               echo "resultado=ERROR"
