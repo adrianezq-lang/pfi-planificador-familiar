@@ -116,6 +116,12 @@ ejecutarNode(['scripts/aplicar-parches-salvage-156.mjs'], 'Parches de salvamento
 console.log('PFI 1.5.6 · restaurando la interfaz visual 1.5.5 elegida');
 restaurarInterfaz155();
 
+console.log('PFI 1.5.6 · aplicando preferencias reales de Mercadona');
+ejecutarNode(
+  ['scripts/aplicar-preferencias-mercadona-156.mjs'],
+  'Preferencias reales de Mercadona',
+);
+
 ejecutarNode(
   ['scripts/preparar-imports-node-156.mjs'],
   'Preparación de imports TypeScript para Node',
@@ -197,6 +203,10 @@ ejecutarNode(
 ejecutarNode(
   ['scripts/probar-v156-precios-generados.mjs'],
   'Validación de precios Mercadona generados',
+);
+ejecutarNode(
+  ['scripts/probar-preferencias-resueltas-156.mjs'],
+  'Validación de preferencias Mercadona resueltas',
 );
 
 fs.rmSync(respaldoUi, { recursive: true, force: true });
