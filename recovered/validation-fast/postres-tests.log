@@ -1,0 +1,6 @@
+✓ Recetas tiene estado separado para Platos y Postres
+✓ el listado filtra realmente postres y platos
+✓ las dos pestañas se muestran con sus contadores
+✓ la cuadrícula usa solo las recetas de la pestaña activa
+✓ crear una receta desde Postres la da de alta como postre
+✓ pestaña Postres recuperada y aislada del recetario de platos

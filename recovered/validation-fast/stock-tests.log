@@ -1,0 +1,18 @@
+✓ los huevos se cuentan por unidades reales
+✓ 10 huevos equivalen a 10/12 de envase
+✓ 10/12 de envase vuelve a mostrarse como 10 huevos
+✓ el ajo usa la regla PFI de 3 cabezas por malla
+✓ 3 cabezas de ajo equivalen a 1 malla
+✓ los macarrones detectan el paquete de 500 g
+✓ 250 g equivalen a medio paquete de macarrones
+✓ la edición de pasta usa pasos naturales de 50 g
+✓ medio paquete pendiente repone 1 envase entero, nunca 0,5 envases
+✓ el coste de reposición cobra el envase entero
+✓ si hacen falta 4 huevos y hay 10, Compra no añade otra caja
+✓ si hacen falta 14 huevos y hay 10, Compra añade 1 caja
+✓ el motor conserva la necesidad exacta antes de redondear a cajas
+✓ sin stock, 4 huevos siguen requiriendo comprar 1 caja
+✓ Despensa muestra el stock en unidad natural
+✓ el detalle permite configurar la equivalencia de envase
+✓ Compra descuenta stock fraccionado también en productos manuales/perecederos controlados
+✓ Stock real PFI 1.5.6: huevos, ajo y paquetes parciales validados

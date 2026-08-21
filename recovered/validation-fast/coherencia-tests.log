@@ -1,0 +1,4 @@
+✓ Compra puede detectar si un ingrediente pertenece al inventario
+✓ Compra comprueba si el producto está controlado en Despensa
+✓ Abiertos/Congelados no vuelve a descontar un producto ya contabilizado en Inventario
+✓ coherencia de stock: Inventario es fuente de verdad y Conservación actúa como alternativa

@@ -1,0 +1,18 @@
+[36mvite v8.1.5 [32mbuilding client environment for production...[36m[39m
+[2Ktransforming...✓ 63 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                        0.90 kB │ gzip:  0.41 kB
+dist/assets/index-B8dp87I5.css                        58.85 kB │ gzip: 12.01 kB
+dist/assets/Title-BiEs3eDi.js                          0.43 kB │ gzip:  0.26 kB
+dist/assets/SelectorProductoIngrediente-D8uxSTWj.js    6.16 kB │ gzip:  2.41 kB
+dist/assets/ProductoDetalleModal-DJs24XwK.js           7.71 kB │ gzip:  2.71 kB
+dist/assets/Perfil-C4jfF1YH.js                         9.94 kB │ gzip:  3.47 kB
+dist/assets/Despensa-CwvmJbUB.js                      13.61 kB │ gzip:  4.40 kB
+dist/assets/CatalogoMercadona-CmXvx0_y.js             14.53 kB │ gzip:  4.68 kB
+dist/assets/Compra-D86FCqMm.js                        15.79 kB │ gzip:  5.46 kB
+dist/assets/Menu-CXYdw2zB.js                          17.89 kB │ gzip:  5.58 kB
+dist/assets/Recetas-C10ebfCe.js                       20.58 kB │ gzip:  6.38 kB
+dist/assets/index-DAEgVPqK.js                        301.75 kB │ gzip: 88.47 kB
+
+[32m✓ built in 197ms[39m

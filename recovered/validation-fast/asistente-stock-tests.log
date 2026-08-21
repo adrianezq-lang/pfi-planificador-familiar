@@ -1,0 +1,9 @@
+✓ el asistente entiende “me quedan 10 huevos”
+✓ 10 huevos se guardan como 10/12 de envase
+✓ el asistente entiende cabezas de ajo
+✓ 3 cabezas de ajo se guardan como 1 malla
+✓ el asistente entiende medio paquete
+✓ medio paquete se guarda como 0,5 envases
+✓ el asistente entiende gramos de pasta
+✓ 250 g de 500 g se guardan como medio envase
+✓ Asistente + stock real: actualización natural del inventario comprobada

@@ -1,0 +1,67 @@
+{
+  "actualizado": "2026-08-21T21:45:28.900Z",
+  "preferencias": {
+    "Leche": [
+      {
+        "buscar": "leche proteínas Hacendado",
+        "porcentaje": 60,
+        "productoId": "10676",
+        "nombreComercial": "Leche desnatada +Proteínas & calcio",
+        "puntuacion": 350
+      },
+      {
+        "buscar": "leche entera sin lactosa Hacendado",
+        "porcentaje": 40,
+        "productoId": "10698",
+        "nombreComercial": "Leche entera sin lactosa Hacendado",
+        "puntuacion": 10000
+      }
+    ],
+    "Atún": [
+      {
+        "buscar": "atún en aceite de oliva Hacendado pack 6 latas",
+        "porcentaje": 100,
+        "productoId": "18002",
+        "nombreComercial": "Atún claro en aceite de oliva Hacendado",
+        "puntuacion": 1200
+      }
+    ],
+    "Queso rallado": [
+      {
+        "buscar": "queso rallado 4 quesos Hacendado",
+        "porcentaje": 100,
+        "productoId": "21581",
+        "nombreComercial": "Queso rallado 4 quesos Hacendado",
+        "puntuacion": 10000
+      }
+    ],
+    "Mozzarella rallada": [
+      {
+        "buscar": "mozzarella rallada Hacendado",
+        "porcentaje": 100,
+        "productoId": "51110",
+        "nombreComercial": "Queso rallado mozzarella pizza-Roma de vaca Hacendado",
+        "puntuacion": 350
+      }
+    ],
+    "Garbanzos secos": [
+      {
+        "buscar": "garbanzo pedrosillano seco Hacendado",
+        "porcentaje": 100,
+        "productoId": "5202",
+        "nombreComercial": "Garbanzo pedrosillano Hacendado",
+        "puntuacion": 600
+      }
+    ],
+    "Garbanzos cocidos": [
+      {
+        "buscar": "garbanzo pedrosillano cocido Hacendado tarro",
+        "porcentaje": 100,
+        "productoId": "26033",
+        "nombreComercial": "Garbanzo cocido Pedrosillano Hacendado",
+        "puntuacion": 850
+      }
+    ]
+  },
+  "pendientes": []
+}

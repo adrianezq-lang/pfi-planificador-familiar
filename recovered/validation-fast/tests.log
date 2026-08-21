@@ -1,0 +1,21 @@
+✓ solo adultos crea un perfil temporal de 2 adultos
+✓ la excepción no modifica el perfil familiar permanente
+✓ una comida fuera elimina solo esa comida y su compra
+✓ una comida fuera elimina también su postre
+✓ toda la semana fuera elimina todas las necesidades del menú
+✓ las excepciones se guardan de forma independiente por semana
+✓ una excepción no contamina otras semanas
+✓ las sobras se guardan realmente
+✓ una sobra se puede consumir parcialmente
+✓ una sobra consumida completamente desaparece
+✓ el asistente aplica “esta semana no están los niños”
+✓ el asistente aplica una cena fuera concreta
+✓ el asistente enlaza nombres escritos libremente con la receta canónica
+✓ el asistente registra congelados con cantidad y unidad naturales
+✓ Compra está conectada a las excepciones semanales
+✓ Compra descuenta productos abiertos o congelados disponibles
+✓ Menú muestra las excepciones semanales
+✓ el asistente PFI queda accesible desde toda la app
+✓ Compra se recalcula al cambiar excepciones o conservación
+✓ Despensa incluye la vista de abiertos, congelados y sobras
+✓ Funciones avanzadas PFI 1.5.6: 3/3 módulos funcionales y conectados

@@ -1,0 +1,10 @@
+✓ la copia lleva identificador y versión
+✓ solo se exportan datos propios de PFI
+✓ datos de otras aplicaciones no se incluyen
+✓ la copia serializada se puede volver a leer
+✓ la restauración informa de los bloques recuperados
+✓ la restauración reemplaza datos PFI antiguos
+✓ la restauración no toca datos ajenos a PFI
+✓ archivos ajenos o manipulados se rechazan
+✓ Perfil muestra la copia de seguridad
+✓ Copia de seguridad PFI: exportación, validación y restauración comprobadas
