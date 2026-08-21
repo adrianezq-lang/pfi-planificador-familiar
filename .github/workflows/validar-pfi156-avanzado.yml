@@ -1,0 +1,63 @@
+name: Validar PFI 1.5.6 avanzado
+
+on:
+  push:
+    branches:
+      - pfi-1.5.6-ui-1.5.5
+    paths:
+      - '.github/workflows/validar-pfi156-avanzado.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: pfi-1.5.6-ui-1.5.5
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar validación y compilación
+        shell: bash
+        run: |
+          set +e
+          mkdir -p recovered/validation
+          npm run prebuild > recovered/validation/prebuild.log 2>&1
+          PREBUILD=$?
+          npm run typecheck > recovered/validation/typecheck.log 2>&1
+          TYPECHECK=$?
+          npx vite build > recovered/validation/vite.log 2>&1
+          VITE=$?
+          {
+            echo "commit=$(git rev-parse HEAD)"
+            echo "prebuild=$PREBUILD"
+            echo "typecheck=$TYPECHECK"
+            echo "vite=$VITE"
+            if [ "$PREBUILD" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
+              echo "resultado=OK"
+            else
+              echo "resultado=ERROR"
+            fi
+          } > recovered/validation/estado.txt
+          tail -n 100 recovered/validation/prebuild.log > recovered/validation/prebuild-tail.log
+          cat recovered/validation/typecheck.log > recovered/validation/typecheck-full.log
+          cat recovered/validation/vite.log > recovered/validation/vite-full.log
+          exit 0
+
+      - name: Publicar resultado aislado
+        run: |
+          git config user.name 'PFI Validation Bot'
+          git config user.email 'actions@github.com'
+          git add -f recovered/validation
+          git commit -m 'Guarda validación PFI 1.5.6 avanzada' || true
+          git push origin HEAD:pfi-1.5.6-advanced-validation --force
