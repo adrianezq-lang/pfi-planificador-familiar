@@ -1,0 +1,140 @@
+  6.36 €
+[21/51] Hamburguesas
+  Burger de vacuno y cerdo
+  3.95 €
+[22/51] Salmón
+  Salmón a rodajas
+  29.76 €
+[23/51] Lubina
+  Lubina limpia con cabeza
+  4.78 €
+[24/51] Dorada
+  Dorada limpia con cabeza
+  4.08 €
+[25/51] Bacalao
+  Bacalao al punto de sal descongelado
+  9.50 €
+[26/51] Almejas
+  Almeja japonesa
+  10.70 €
+[27/51] Garbanzos cocidos
+  Garbanzo cocido Hacendado
+  0.80 €
+[28/51] Garbanzos secos
+  Garbanzo Hacendado
+  2.15 €
+[29/51] Lentejas secas
+  Lenteja pardina Hacendado
+  1.95 €
+[30/51] Alubias blancas secas
+  Alubia blanca Hacendado
+  2.45 €
+[31/51] Alubias rojas secas
+  Alubia roja Hacendado
+  3.10 €
+[32/51] Queso rallado
+  Queso rallado emmental gratinar Hacendado
+  1.65 €
+[33/51] Mozzarella rallada
+  Queso rallado mozzarella pizza-Roma de vaca Hacendado
+  1.60 €
+[34/51] Queso en lonchas
+  Queso lonchas cremoso de vaca Hacendado
+  2.80 €
+[35/51] Queso curado
+  Queso curado mezcla Hacendado cortado en cuñitas
+  4.69 €
+[36/51] Queso roquefort
+  Queso roquefort  de oveja Hacendado
+  1.95 €
+[37/51] Mezcla cuatro quesos
+  Queso rallado 4 quesos Hacendado
+  1.75 €
+[38/51] Bacon
+  Bacón Hacendado cintas
+  1.95 €
+[39/51] Chorizo
+  Chorizo sarta dulce extra de León Hacendado
+  4.20 €
+[40/51] Salchichas
+  Salchichas cocidas estilo Frankfurt Hacendado de pollo y cerdo sabor ahumado
+  1.80 €
+[41/51] Bases de pizza
+  Bases de pizza artesanas extrafinas y crujientes Hacendado ultracongeladas
+  1.80 €
+[42/51] Pan de hamburguesa
+  Pan de burger Hacendado Rústico
+  0.95 €
+[43/51] Pan de perrito
+  Pan hot dog Hacendado
+  0.90 €
+[44/51] Mayonesa
+  Mayonesa Hacendado
+  1.20 €
+[45/51] Ketchup
+  Ketchup Hacendado
+  1.05 €
+[46/51] Mostaza
+  Mostaza clásica Hacendado
+  1.25 €
+[47/51] Guacamole
+  Guacamole Hacendado
+  3.95 €
+[48/51] Salsa BBQ
+  Salsa Barbacoa Hacendado
+  1.15 €
+[49/51] Ajo en polvo
+  Ajo granulado Hacendado
+  1.25 €
+[50/51] Pimentón dulce
+  Pimentón dulce Hacendado
+  1.30 €
+[51/51] Pimentón picante
+  Pimentón picante Hacendado
+  1.35 €
+
+=====================================
+Actualizados: 51
+Pendientes: 0
+Generado public/precios-mercadona.json
+Generado scripts/informe-precios-mercadona.json
+=====================================
+✓ Mercadona: 51/51 objetivos resueltos con precio válido
+✓ frescos, pescados, panes, quesos y especias críticos verificados
+✓ no hay asociaciones conocidas de mascotas, conservas, congelados o formatos incorrectos
+✓ PFI 1.5.6 preparada para TypeScript + Vite con interfaz 1.5.5.
+✓ regla de ajo 1.5.6 aplicada: 0,5 cabeza y una malla como envase real
+✓ regla acordada: 0,5 cabeza de ajo: 1 malla(s)
+✓ dato antiguo: 3 dientes de ajo: 1 malla(s)
+✓ necesidad alta: 35 dientes: 2 malla(s)
+✓ las recetas antiguas migran a la regla de 0,5 cabeza
+✓ despensa simplificada: solo se muestran los dos botones con importes
+✓ marcas de integración UI normalizadas para el parche avanzado
+✓ funciones avanzadas 1.5.6 aplicadas: excepciones, conservación y asistente
+✓ funciones avanzadas reforzadas: Compra reactiva y recetas canónicas en el asistente
+✓ imports Node normalizados: 17 en 6 archivos
+✓ solo adultos crea un perfil temporal de 2 adultos
+✓ la excepción no modifica el perfil familiar permanente
+✓ una comida fuera elimina solo esa comida y su compra
+✓ una comida fuera elimina también su postre
+✓ toda la semana fuera elimina todas las necesidades del menú
+✓ las excepciones se guardan de forma independiente por semana
+✓ una excepción no contamina otras semanas
+✓ las sobras se guardan realmente
+✓ una sobra se puede consumir parcialmente
+✓ una sobra consumida completamente desaparece
+✓ el asistente aplica “esta semana no están los niños”
+✓ el asistente aplica una cena fuera concreta
+✓ el asistente enlaza nombres escritos libremente con la receta canónica
+✓ el asistente registra congelados con cantidad y unidad naturales
+✓ Compra está conectada a las excepciones semanales
+✓ Compra descuenta productos abiertos o congelados disponibles
+✓ Menú muestra las excepciones semanales
+✓ el asistente PFI queda accesible desde toda la app
+✓ Compra se recalcula al cambiar excepciones o conservación
+✓ Despensa incluye la vista de abiertos, congelados y sobras
+✓ Funciones avanzadas PFI 1.5.6: 3/3 módulos funcionales y conectados
+✓ valoración compacta aplicada: los botones solo se muestran al tocar la receta
+✓ UI compacta: valoración oculta por defecto y desplegable al tocar la receta
+✓ una sola valoración puede quedar activa a la vez
+✓ se conservan Gustó, Sobró, Faltó y No gustó

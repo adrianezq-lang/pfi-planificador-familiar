@@ -1,0 +1,543 @@
+
+> pfi-planificador-familiar@1.5.6 prebuild
+> node scripts/prebuild-salvage-156.mjs && node scripts/aplicar-regla-ajo-156.mjs && node scripts/probar-regla-ajo-156.cjs && node scripts/aplicar-despensa-simple-156.mjs && node scripts/preparar-marcas-ui-avanzada-156.mjs && node scripts/aplicar-funciones-avanzadas-156.mjs && node scripts/reforzar-funciones-avanzadas-156.mjs && node scripts/preparar-imports-node-156.mjs && node --experimental-strip-types scripts/probar-funciones-avanzadas-156.mjs && node scripts/aplicar-ui-compacta-156.mjs && node scripts/probar-ui-compacta-156.mjs
+
+✓ interfaz 1.5.5 protegida: 7 rutas
+PFI 1.5.6 · restauración de salvamento
+xz: (stdin): Unexpected end of input
+tar: Unexpected EOF in archive
+tar: Unexpected EOF in archive
+tar: Error is not recoverable: exiting now
+⚠ El paquete 1.5.6 está truncado (tar=2). Se conserva todo lo extraído antes del EOF y el build continuará para identificar cualquier archivo realmente ausente.
+PFI 1.5.6 · diagnóstico de funciones antes de restaurar la UI 1.5.5
+→ archivos UI nuevos/cambiados respecto a 1.5.5: 1
+  [CAMBIADO] src/index.css
+→ archivos relacionados con excepciones/conservación/asistente: 14
+  [excepciones, conservacion, asistente] src/components/AsistentePfiPanel.tsx
+    3: import { procesarComandoAsistentePfi } from '../services/asistentePfi';
+    5: export default function AsistentePfiPanel({
+    14: const [abierto, setAbierto] = useState(false);
+    19: const resultado = procesarComandoAsistentePfi(texto, menu, semanaActiva);
+    29: onClick={() => setAbierto((valor) => !valor)}
+    30: aria-label="Abrir asistente PFI"
+    36: {abierto && (
+    37: <aside style={estilos.panel} aria-label="Asistente PFI">
+  [conservacion] src/components/ConservacionPanel.tsx
+    6: diasHastaCaducidad,
+    14: abierto: { titulo: 'Abiertos', icono: '🥫' },
+    15: congelado: { titulo: 'Congelados', icono: '🧊' },
+    16: sobra: { titulo: 'Sobras', icono: '🍲' },
+    21: const [tipo, setTipo] = useState<TipoConservacion>('abierto');
+    36: abierto: items.filter((i) => i.tipo === 'abierto').length,
+    37: congelado: items.filter((i) => i.tipo === 'congelado').length,
+    38: sobra: items.filter((i) => i.tipo === 'sobra').length,
+  [excepciones, conservacion] src/components/ExcepcionesSemanaPanel.tsx
+    4: cargarExcepcionesSemana,
+    5: describirExcepciones,
+    6: EVENTO_EXCEPCIONES_SEMANA,
+    7: guardarExcepcionesSemana,
+    8: hayExcepcionesActivas,
+    9: limpiarExcepcionesSemana,
+    10: type ExcepcionesSemana,
+    11: } from '../services/excepcionesSemana';
+  [excepciones] src/hooks/useMenu.ts
+    82: const planConExcepciones = plan.map((semana) => ({
+    89: const excepcionComida = domingo
+    94: const excepcionCena = domingo
+    103: dia.postreComidaManual === true || excepcionComida,
+    105: dia.postreCenaManual === true || excepcionCena,
+    110: planConExcepciones,
+  [conservacion] src/pages/CatalogoMercadona.tsx
+    96: const [productoAbierto, setProductoAbierto] =
+    207: const ingredientesProductoAbierto = productoAbierto
+    209: productoAbierto.productoId,
+    242: if (!productoAbierto) return;
+    246: productoAbierto.productoId;
+    252: productoAbierto.productoId,
+    444: onAbrir={() => setProductoAbierto(producto)}
+    507: onClick={() => setProductoAbierto(producto)}
+  [conservacion] src/pages/Compra.tsx
+    93: const [productoAbierto, setProductoAbierto] =
+    477: onAbrirProducto={setProductoAbierto}
+    490: onAbrirProducto={setProductoAbierto}
+    505: productoId={productoAbierto?.productoId ?? null}
+    506: productoInicial={productoAbierto}
+    507: onCerrar={() => setProductoAbierto(null)}
+  [conservacion] src/pages/Despensa.tsx
+    31: const [productoAbierto, setProductoAbierto] = useState<string | null>(null);
+    228: onAbrir={() => setProductoAbierto(producto.productoId)}
+    283: onAbrir={() => setProductoAbierto(producto.productoId)}
+    354: productoId={productoAbierto}
+    355: onCerrar={() => setProductoAbierto(null)}
+  [excepciones, conservacion] src/pages/Menu.tsx
+    305: <strong>Equilibrio PFI de esta semana</strong>
+    841: sobrado o faltado.
+  [conservacion] src/pages/Recetas.tsx
+    75: 'Congelados',
+    167: const [productoAbierto, setProductoAbierto] =
+    839: onClick={() => setProductoAbierto(producto)}
+    920: productoId={productoAbierto?.productoId ?? null}
+    921: productoInicial={productoAbierto}
+    922: onCerrar={() => setProductoAbierto(null)}
+  [conservacion] src/services/aprendizaje.ts
+    34: sobras: number;
+    349: sobras: (anteriorAjuste?.sobras ?? 0) + (resultado === 'sobro' ? 1 : 0),
+  [excepciones, conservacion, asistente] src/services/asistentePfi.ts
+    4: cargarExcepcionesSemana,
+    5: guardarExcepcionesSemana,
+    6: limpiarExcepcionesSemana,
+    7: type MomentoExcepcion,
+    8: } from './excepcionesSemana';
+    11: export type ResultadoAsistentePfi = {
+    41: function detectarMomento(texto: string): MomentoExcepcion | null {
+    54: sobra: [
+  [conservacion] src/services/categoriasCompra.ts
+    10: 'Congelados',
+    43: congelados: 'Congelados',
+    80: if (/\b(congelado|congelados)\b/.test(seccion)) return 'Congelados';
+  [conservacion] src/services/conservacion.ts
+    1: export type TipoConservacion = 'abierto' | 'congelado' | 'sobra';
+    22: if (tipo === 'sobra') return 3;
+    23: if (tipo === 'abierto') return 5;
+    34: return valor === 'abierto' || valor === 'congelado' || valor === 'sobra';
+    96: unidad: entrada.unidad.trim() || (entrada.tipo === 'sobra' ? 'ración' : 'ud'),
+    152: export function diasHastaCaducidad(item: ItemConservacion): number | null {
+    158: export function estaCaducado(item: ItemConservacion): boolean {
+    159: const dias = diasHastaCaducidad(item);
+  [excepciones] src/services/excepcionesSemana.ts
+    4: export type MomentoExcepcion = 'comida' | 'cena';
+    6: export type ExcepcionesSemana = {
+    9: comidasFuera: Record<string, Partial<Record<MomentoExcepcion, boolean>>>;
+    12: const CLAVE = 'pfi-excepciones-semana-v156';
+    14: export const EVENTO_EXCEPCIONES_SEMANA = 'pfi:excepciones-semana-actualizadas';
+    16: function vacias(): ExcepcionesSemana {
+    30: function normalizar(valor: unknown): ExcepcionesSemana {
+    32: const parcial = valor as Partial<ExcepcionesSemana>;
+✓ Restauración de salvamento PFI 1.5.6 completada; continúa la validación TypeScript/Vite.
+PFI 1.5.6 · reaplicando correcciones posteriores al paquete truncado
+✓ objetivos Mercadona reaplicados: 9/9
+✓ parches de salvamento PFI 1.5.6 reaplicados tras la restauración
+PFI 1.5.6 · restaurando la interfaz visual 1.5.5 elegida
+✓ interfaz 1.5.5 restaurada exactamente después del paquete 1.5.6
+✓ imports Node normalizados: 129 en 30 archivos
+✓ Capacidad presente: raciones/porciones
+✓ Capacidad presente: excepciones
+✓ Capacidad presente: inventario
+✓ Capacidad presente: sobras
+✓ Capacidad presente: despensa
+✓ Capacidad presente: Mercadona
+PFI 1.5.6 · suite funcional reconstruida
+→ scripts/probar-v156-core.mjs
+✓ perfil y raciones responden al número real de comensales
+✓ el modo solo adultos reduce cantidades automáticas
+✓ inventario y reposición funcionan con movimientos reales
+✓ las excepciones manuales de postre se respetan
+✓ pizza viernes, ensalada de pasta semanal y domingo fuera quedan fijados
+→ scripts/probar-v156-matching-mercadona.mjs
+✓ salmón protegido frente a mascotas
+✓ hamburguesas protegidas frente a preparados de carne
+✓ panes protegidos frente a pescado empanado
+✓ ajo en polvo y mozzarella rallada distinguen el formato correcto
+✓ legumbres secas distinguen producto seco/cocido
+✓ el atún pack 6 exige formato múltiple
+→ scripts/probar-plan-mensual.mjs
+✓ cuatro semanas completas y equilibradas
+✓ pizza fijada el viernes y rotación de sábado separada
+✓ ensalada de pasta semanal y comida fuera del domingo
+✓ postres diferenciados y domingo sin postre
+→ scripts/probar-v156-conversiones-compra.cjs
+✓ 5 zanahorias / bolsa 1 kg: 1
+✓ 11 zanahorias / bolsa 1 kg: 2
+✓ 3 vasos arroz / paquete 1 kg: 1
+✓ 6 vasos arroz / paquete 1 kg: 2
+✓ menú 1, stock 0, objetivo 1: 1
+✓ menú 1, stock 1, objetivo 1: 0
+✓ menú 2, stock 0, objetivo 1: 2
+→ scripts/probar-presupuesto-mensual.mjs
+✓ presupuesto mensual visible únicamente en la primera semana
+✓ total acumulado suma despensa mensual y semanas transcurridas
+→ scripts/probar-aprendizaje.mjs
+✓ valoraciones influyen en las sugerencias
+✓ complementos aprendidos y contextuales
+✓ “Faltó” ajusta 650 g → 700 g
+✓ corrección manual conserva 650 g → 700 g
+→ scripts/probar-preferencias.mjs
+
+⭐ Productos preferidos
+Preferencias configuradas: 6
+  Leche:
+    60% · leche proteínas Hacendado
+    40% · leche entera sin lactosa Hacendado
+  Atún: atún en aceite de oliva Hacendado pack 6 latas
+  Queso rallado: mezcla cuatro quesos rallados Hacendado
+  Mozzarella rallada: mozzarella rallada Hacendado
+  Garbanzos secos: garbanzo pedrosillano seco Hacendado
+  Garbanzos cocidos: garbanzo pedrosillano cocido Hacendado tarro
+
+✅ Preferencias leídas correctamente.
+→ scripts/probar-pwa.mjs
+✓ manifest PWA válido
+✓ iconos 192/512 presentes
+✓ service worker versionado como PFI 1.5.6
+✓ install/activate/fetch y app shell verificados
+✓ Suite funcional: 8/8 pruebas superadas
+PFI 1.5.6 · validación real de precios Mercadona
+=====================================
+PFI - Actualizador de Mercadona
+=====================================
+Zona: 48950 · almacén 4293
+Productos objetivo: 51
+Descargando categorías...
+Subcategorías encontradas: 151
+Subcategoría 1 de 151: Aceite, vinagre y sal
+Subcategoría 2 de 151: Especias
+Subcategoría 3 de 151: Mayonesa, ketchup y mostaza
+Subcategoría 4 de 151: Otras salsas
+Subcategoría 5 de 151: Agua
+Subcategoría 6 de 151: Isotónico y energético
+Subcategoría 7 de 151: Refresco de cola
+Subcategoría 8 de 151: Refresco de naranja y de limón
+Subcategoría 9 de 151: Tónica y bitter
+Subcategoría 10 de 151: Refresco de té y sin gas
+Subcategoría 11 de 151: Aceitunas y encurtidos
+Subcategoría 12 de 151: Frutos secos y fruta desecada
+Subcategoría 13 de 151: Patatas fritas y snacks
+Subcategoría 14 de 151: Arroz
+Subcategoría 15 de 151: Legumbres
+Subcategoría 16 de 151: Pasta y fideos
+Subcategoría 17 de 151: Azúcar y edulcorante
+Subcategoría 18 de 151: Chicles y caramelos
+Subcategoría 19 de 151: Chocolate
+Subcategoría 20 de 151: Golosinas
+Subcategoría 21 de 151: Mermelada y miel
+Subcategoría 22 de 151: Alimentación infantil
+Subcategoría 23 de 151: Biberón y chupete
+Subcategoría 24 de 151: Higiene y cuidado
+Subcategoría 25 de 151: Toallitas y pañales
+Subcategoría 26 de 151: Cerveza
+Subcategoría 27 de 151: Cerveza sin alcohol
+Subcategoría 28 de 151: Licores
+Subcategoría 29 de 151: Sidra y cava
+Subcategoría 30 de 151: Tinto de verano y sangría
+Subcategoría 31 de 151: Vino blanco
+Subcategoría 32 de 151: Vino lambrusco y espumoso
+Subcategoría 33 de 151: Vino rosado
+Subcategoría 34 de 151: Vino tinto
+Subcategoría 35 de 151: Cacao soluble y chocolate a la taza
+Subcategoría 36 de 151: Café cápsula y monodosis
+Subcategoría 37 de 151: Café molido y en grano
+Subcategoría 38 de 151: Café soluble y otras bebidas
+Subcategoría 39 de 151: Té e infusiones
+Subcategoría 40 de 151: Arreglos
+Subcategoría 41 de 151: Aves y pollo
+Subcategoría 42 de 151: Carne congelada
+Subcategoría 43 de 151: Cerdo
+Subcategoría 44 de 151: Conejo y cordero
+Subcategoría 45 de 151: Embutido
+Subcategoría 46 de 151: Hamburguesas y picadas
+Subcategoría 47 de 151: Vacuno
+Subcategoría 48 de 151: Empanados y elaborados
+Subcategoría 49 de 151: Cereales
+Subcategoría 50 de 151: Galletas
+Subcategoría 51 de 151: Tortitas
+Subcategoría 52 de 151: Aves y jamón cocido
+Subcategoría 53 de 151: Bacón y salchichas
+Subcategoría 54 de 151: Chopped y mortadela
+Subcategoría 55 de 151: Embutido curado
+Subcategoría 56 de 151: Jamón serrano
+Subcategoría 57 de 151: Paté y sobrasada
+Subcategoría 58 de 151: Queso curado, semicurado y tierno
+Subcategoría 59 de 151: Queso lonchas, rallado y en porciones
+Subcategoría 60 de 151: Queso untable, fresco y especialidades
+Subcategoría 61 de 151: Arroz y pasta
+Subcategoría 62 de 151: Carne
+Subcategoría 63 de 151: Fruta y verdura
+Subcategoría 64 de 151: Helados
+Subcategoría 65 de 151: Hielo
+Subcategoría 66 de 151: Marisco
+Subcategoría 67 de 151: Pescado
+Subcategoría 68 de 151: Pizzas
+Subcategoría 69 de 151: Rebozados
+Subcategoría 70 de 151: Tartas y churros
+Subcategoría 71 de 151: Atún y otras conservas de pescado
+Subcategoría 72 de 151: Berberechos y mejillones
+Subcategoría 73 de 151: Conservas de verdura y frutas
+Subcategoría 74 de 151: Gazpacho y cremas
+Subcategoría 75 de 151: Sopa y caldo
+Subcategoría 76 de 151: Tomate
+Subcategoría 77 de 151: Acondicionador y mascarilla
+Subcategoría 78 de 151: Champú
+Subcategoría 79 de 151: Coloración cabello
+Subcategoría 80 de 151: Fijación cabello
+Subcategoría 81 de 151: Afeitado y cuidado para hombre
+Subcategoría 82 de 151: Cuidado corporal
+Subcategoría 83 de 151: Cuidado e higiene facial
+Subcategoría 84 de 151: Depilación
+Subcategoría 85 de 151: Desodorante
+Subcategoría 86 de 151: Gel y jabón de manos
+Subcategoría 87 de 151: Higiene bucal
+Subcategoría 88 de 151: Higiene íntima
+Subcategoría 89 de 151: Manicura y pedicura
+Subcategoría 90 de 151: Perfume y colonia
+Subcategoría 91 de 151: Protector solar y aftersun
+Subcategoría 92 de 151: Fitoterapia
+Subcategoría 93 de 151: Parafarmacia
+Subcategoría 94 de 151: Fruta
+Subcategoría 95 de 151: Lechuga y ensalada preparada
+Subcategoría 96 de 151: Verdura
+Subcategoría 97 de 151: Huevos
+Subcategoría 98 de 151: Leche y bebidas vegetales
+Subcategoría 99 de 151: Mantequilla y margarina
+Subcategoría 100 de 151: Detergente y suavizante ropa
+Subcategoría 101 de 151: Estropajo, bayeta y guantes
+Subcategoría 102 de 151: Insecticida y ambientador
+Subcategoría 103 de 151: Lejía y líquidos fuertes
+Subcategoría 104 de 151: Limpiacristales
+Subcategoría 105 de 151: Limpiahogar y friegasuelos
+Subcategoría 106 de 151: Limpieza baño y WC
+Subcategoría 107 de 151: Limpieza cocina
+Subcategoría 108 de 151: Limpieza muebles y multiusos
+Subcategoría 109 de 151: Limpieza vajilla
+Subcategoría 110 de 151: Menaje y conservación de alimentos
+Subcategoría 111 de 151: Papel higiénico y celulosa
+Subcategoría 112 de 151: Pilas y bolsas de basura
+Subcategoría 113 de 151: Utensilios de limpieza y calzado
+Subcategoría 114 de 151: Bases de maquillaje y corrector
+Subcategoría 115 de 151: Colorete y polvos
+Subcategoría 116 de 151: Labios
+Subcategoría 117 de 151: Ojos
+Subcategoría 118 de 151: Pinceles y brochas
+Subcategoría 119 de 151: Marisco
+Subcategoría 120 de 151: Pescado congelado
+Subcategoría 121 de 151: Pescado fresco
+Subcategoría 122 de 151: Salazones y ahumados
+Subcategoría 123 de 151: Gato
+Subcategoría 124 de 151: Perro
+Subcategoría 125 de 151: Otros
+Subcategoría 126 de 151: Bollería de horno
+Subcategoría 127 de 151: Bollería envasada
+Subcategoría 128 de 151: Harina y preparado repostería
+Subcategoría 129 de 151: Pan de horno
+Subcategoría 130 de 151: Pan de molde y otras especialidades
+Subcategoría 131 de 151: Pan tostado y rallado
+Subcategoría 132 de 151: Picos, rosquilletas y picatostes
+Subcategoría 133 de 151: Tartas y pasteles
+Subcategoría 134 de 151: Velas y decoración
+Subcategoría 135 de 151: Listo para Comer
+Subcategoría 136 de 151: Pizzas
+Subcategoría 137 de 151: Platos preparados calientes
+Subcategoría 138 de 151: Platos preparados fríos
+Subcategoría 139 de 151: Bífidus
+Subcategoría 140 de 151: Flan y natillas
+Subcategoría 141 de 151: Gelatina y otros postres
+Subcategoría 142 de 151: Postres de soja
+Subcategoría 143 de 151: Yogures desnatados
+Subcategoría 144 de 151: Yogures griegos
+Subcategoría 145 de 151: Yogures líquidos
+Subcategoría 146 de 151: Yogures naturales y sabores
+Subcategoría 147 de 151: Yogures y postres infantiles
+Subcategoría 148 de 151: Fruta variada
+Subcategoría 149 de 151: Melocotón y piña
+Subcategoría 150 de 151: Naranja
+Subcategoría 151 de 151: Tomate y otros sabores
+Productos descargados: 4272
+Productos descargados: 4272
+[1/51] Carne picada
+  Preparado de carne picada vacuno y cerdo
+  4.10 €
+[2/51] Huevos
+  Huevos
+  5.25 €
+[3/51] Leche
+  Leche entera Hacendado
+  5.76 €
+[4/51] Yogures
+  Yogur natural edulcorado Hacendado 0% MG 0% azúcares añadidos
+  1.05 €
+[5/51] Arroz
+  Arroz redondo Hacendado
+  1.15 €
+[6/51] Pasta corta
+  Macarrón grueso Hacendado
+  0.90 €
+[7/51] Tomate frito
+  Tomate frito Hacendado
+  1.35 €
+[8/51] Tomate triturado
+  Tomate triturado Hacendado
+  1.00 €
+[9/51] Atún
+  Atún claro en aceite de girasol Hacendado
+  4.20 €
+[10/51] Patatas
+  Patata
+  0.46 €
+[11/51] Cebolla
+  Cebollas
+  3.60 €
+[12/51] Zanahorias
+  Zanahorias
+  1.20 €
+[13/51] Calabacín
+  Calabacín verde
+  0.75 €
+[14/51] Pimiento rojo
+  Pimiento rojo
+  0.50 €
+[15/51] Pimiento tricolor
+  Pimientos tricolor
+  1.90 €
+[16/51] Pepino
+  Pepino
+  0.31 €
+[17/51] Ajo
+  Ajos morados
+  1.85 €
+[18/51] Pollo
+  Pollo entero
+  6.65 €
+[19/51] Pechugas de pollo
+  Pechugas enteras familiar de pollo
+  7.44 €
+[20/51] Lomo
+  Filetes lomo de cerdo familiar
+  6.36 €
+[21/51] Hamburguesas
+  Burger de vacuno y cerdo
+  3.95 €
+[22/51] Salmón
+  Salmón a rodajas
+  29.76 €
+[23/51] Lubina
+  Lubina limpia con cabeza
+  4.78 €
+[24/51] Dorada
+  Dorada limpia con cabeza
+  4.08 €
+[25/51] Bacalao
+  Bacalao al punto de sal descongelado
+  9.50 €
+[26/51] Almejas
+  Almeja japonesa
+  10.70 €
+[27/51] Garbanzos cocidos
+  Garbanzo cocido Hacendado
+  0.80 €
+[28/51] Garbanzos secos
+  Garbanzo Hacendado
+  2.15 €
+[29/51] Lentejas secas
+  Lenteja pardina Hacendado
+  1.95 €
+[30/51] Alubias blancas secas
+  Alubia blanca Hacendado
+  2.45 €
+[31/51] Alubias rojas secas
+  Alubia roja Hacendado
+  3.10 €
+[32/51] Queso rallado
+  Queso rallado emmental gratinar Hacendado
+  1.65 €
+[33/51] Mozzarella rallada
+  Queso rallado mozzarella pizza-Roma de vaca Hacendado
+  1.60 €
+[34/51] Queso en lonchas
+  Queso lonchas cremoso de vaca Hacendado
+  2.80 €
+[35/51] Queso curado
+  Queso curado mezcla Hacendado cortado en cuñitas
+  4.69 €
+[36/51] Queso roquefort
+  Queso roquefort  de oveja Hacendado
+  1.95 €
+[37/51] Mezcla cuatro quesos
+  Queso rallado 4 quesos Hacendado
+  1.75 €
+[38/51] Bacon
+  Bacón Hacendado cintas
+  1.95 €
+[39/51] Chorizo
+  Chorizo sarta dulce extra de León Hacendado
+  4.20 €
+[40/51] Salchichas
+  Salchichas cocidas estilo Frankfurt Hacendado de pollo y cerdo sabor ahumado
+  1.80 €
+[41/51] Bases de pizza
+  Bases de pizza artesanas extrafinas y crujientes Hacendado ultracongeladas
+  1.80 €
+[42/51] Pan de hamburguesa
+  Pan de burger Hacendado Rústico
+  0.95 €
+[43/51] Pan de perrito
+  Pan hot dog Hacendado
+  0.90 €
+[44/51] Mayonesa
+  Mayonesa Hacendado
+  1.20 €
+[45/51] Ketchup
+  Ketchup Hacendado
+  1.05 €
+[46/51] Mostaza
+  Mostaza clásica Hacendado
+  1.25 €
+[47/51] Guacamole
+  Guacamole Hacendado
+  3.95 €
+[48/51] Salsa BBQ
+  Salsa Barbacoa Hacendado
+  1.15 €
+[49/51] Ajo en polvo
+  Ajo granulado Hacendado
+  1.25 €
+[50/51] Pimentón dulce
+  Pimentón dulce Hacendado
+  1.30 €
+[51/51] Pimentón picante
+  Pimentón picante Hacendado
+  1.35 €
+
+=====================================
+Actualizados: 51
+Pendientes: 0
+Generado public/precios-mercadona.json
+Generado scripts/informe-precios-mercadona.json
+=====================================
+✓ Mercadona: 51/51 objetivos resueltos con precio válido
+✓ frescos, pescados, panes, quesos y especias críticos verificados
+✓ no hay asociaciones conocidas de mascotas, conservas, congelados o formatos incorrectos
+✓ PFI 1.5.6 preparada para TypeScript + Vite con interfaz 1.5.5.
+✓ regla de ajo 1.5.6 aplicada: 0,5 cabeza y una malla como envase real
+✓ regla acordada: 0,5 cabeza de ajo: 1 malla(s)
+✓ dato antiguo: 3 dientes de ajo: 1 malla(s)
+✓ necesidad alta: 35 dientes: 2 malla(s)
+✓ las recetas antiguas migran a la regla de 0,5 cabeza
+✓ despensa simplificada: solo se muestran los dos botones con importes
+✓ marcas de integración UI normalizadas para el parche avanzado
+✓ funciones avanzadas 1.5.6 aplicadas: excepciones, conservación y asistente
+✓ funciones avanzadas reforzadas: Compra reactiva y recetas canónicas en el asistente
+✓ imports Node normalizados: 17 en 6 archivos
+✓ solo adultos crea un perfil temporal de 2 adultos
+✓ la excepción no modifica el perfil familiar permanente
+✓ una comida fuera elimina solo esa comida y su compra
+✓ una comida fuera elimina también su postre
+✓ toda la semana fuera elimina todas las necesidades del menú
+✓ las excepciones se guardan de forma independiente por semana
+✓ una excepción no contamina otras semanas
+✓ las sobras se guardan realmente
+✓ una sobra se puede consumir parcialmente
+✓ una sobra consumida completamente desaparece
+✓ el asistente aplica “esta semana no están los niños”
+✓ el asistente aplica una cena fuera concreta
+✓ el asistente enlaza nombres escritos libremente con la receta canónica
+✓ el asistente registra congelados con cantidad y unidad naturales
+✓ Compra está conectada a las excepciones semanales
+✓ Compra descuenta productos abiertos o congelados disponibles
+✓ Menú muestra las excepciones semanales
+✓ el asistente PFI queda accesible desde toda la app
+✓ Compra se recalcula al cambiar excepciones o conservación
+✓ Despensa incluye la vista de abiertos, congelados y sobras
+✓ Funciones avanzadas PFI 1.5.6: 3/3 módulos funcionales y conectados
+✓ valoración compacta aplicada: los botones solo se muestran al tocar la receta
+✓ UI compacta: valoración oculta por defecto y desplegable al tocar la receta
+✓ una sola valoración puede quedar activa a la vez
+✓ se conservan Gustó, Sobró, Faltó y No gustó

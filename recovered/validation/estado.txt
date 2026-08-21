@@ -1,0 +1,5 @@
+commit=bf477d1ebc7960de3831d6508e04fd8346c188d9
+prebuild=0
+typecheck=0
+vite=0
+resultado=OK
