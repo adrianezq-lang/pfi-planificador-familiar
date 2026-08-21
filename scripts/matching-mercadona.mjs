@@ -67,6 +67,23 @@ export function esProductoSeguro(objetivo, producto) {
 
   if (!ingrediente || !nombre) return false;
 
+  if (ingrediente === 'leche') {
+    const esLacteo = contiene(`${seccion} ${subcategoria}`, [
+      'leche y bebidas vegetales',
+      'leche',
+    ]);
+    if (!esLacteo || contiene(contexto, ['chocolate', 'cacao', 'bombon'])) {
+      return false;
+    }
+    if (busqueda.includes('proteina')) {
+      return contiene(contexto, ['proteina', 'protein']);
+    }
+    if (busqueda.includes('sin lactosa')) {
+      return contexto.includes('sin lactosa');
+    }
+    return true;
+  }
+
   if (ingrediente === 'huevos') {
     return (
       nombre.includes('huevo') &&
@@ -194,6 +211,13 @@ export function esProductoSeguro(objetivo, producto) {
     );
   }
 
+  if (ingrediente === 'queso rallado' && contiene(busqueda, ['cuatro quesos', '4 quesos'])) {
+    return (
+      contiene(nombre, ['cuatro quesos', '4 quesos']) &&
+      nombre.includes('rallad')
+    );
+  }
+
   if (ingrediente === 'mozzarella rallada') {
     return nombre.includes('mozzarella') && nombre.includes('rallad');
   }
@@ -208,7 +232,8 @@ export function esProductoSeguro(objetivo, producto) {
   if (ingrediente === 'garbanzos secos') {
     return (
       nombre.includes('garbanzo') &&
-      !contiene(contexto, ['cocido', 'cocida', 'tarro'])
+      !contiene(contexto, ['cocido', 'cocida', 'tarro']) &&
+      (!busqueda.includes('pedrosillano') || nombre.includes('pedrosillano'))
     );
   }
 
@@ -229,7 +254,11 @@ export function esProductoSeguro(objetivo, producto) {
   }
 
   if (ingrediente === 'garbanzos cocidos') {
-    return nombre.includes('garbanzo') && contiene(contexto, ['cocido', 'tarro']);
+    return (
+      nombre.includes('garbanzo') &&
+      contiene(contexto, ['cocido', 'tarro']) &&
+      (!busqueda.includes('pedrosillano') || nombre.includes('pedrosillano'))
+    );
   }
 
   if (ingrediente === 'atun' && busqueda.includes('pack 6')) {
@@ -239,7 +268,8 @@ export function esProductoSeguro(objetivo, producto) {
         totalUnidades === 6 ||
         envase.includes('pack 6') ||
         contiene(contexto, ['6 latas', 'pack 6'])
-      )
+      ) &&
+      (!busqueda.includes('aceite de oliva') || contexto.includes('oliva'))
     );
   }
 
