@@ -36,6 +36,8 @@ jobs:
           APPLY=$?
           node scripts/reforzar-funciones-avanzadas-156.mjs > recovered/validation-fast/reinforce.log 2>&1
           REINFORCE=$?
+          node scripts/preparar-marcas-stock-real-156.mjs > recovered/validation-fast/stock-markers.log 2>&1
+          STOCK_MARKERS=$?
           node scripts/aplicar-stock-real-156.mjs > recovered/validation-fast/stock-apply.log 2>&1
           STOCK_APPLY=$?
           node scripts/aplicar-pestana-postres-156.mjs > recovered/validation-fast/postres-apply.log 2>&1
@@ -58,6 +60,7 @@ jobs:
             echo "markers=$MARKERS"
             echo "apply=$APPLY"
             echo "reinforce=$REINFORCE"
+            echo "stock_markers=$STOCK_MARKERS"
             echo "stock_apply=$STOCK_APPLY"
             echo "stock_tests=$STOCK_TESTS"
             echo "postres_apply=$POSTRES_APPLY"
@@ -66,7 +69,7 @@ jobs:
             echo "tests=$TESTS"
             echo "typecheck=$TYPECHECK"
             echo "vite=$VITE"
-            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$STOCK_APPLY" -eq 0 ] && [ "$STOCK_TESTS" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
+            if [ "$IMPORTS" -eq 0 ] && [ "$MARKERS" -eq 0 ] && [ "$APPLY" -eq 0 ] && [ "$REINFORCE" -eq 0 ] && [ "$STOCK_MARKERS" -eq 0 ] && [ "$STOCK_APPLY" -eq 0 ] && [ "$STOCK_TESTS" -eq 0 ] && [ "$POSTRES_APPLY" -eq 0 ] && [ "$POSTRES_TESTS" -eq 0 ] && [ "$IMPORTS2" -eq 0 ] && [ "$TESTS" -eq 0 ] && [ "$TYPECHECK" -eq 0 ] && [ "$VITE" -eq 0 ]; then
               echo "resultado=OK"
             else
               echo "resultado=ERROR"
