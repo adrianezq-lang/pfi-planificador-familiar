@@ -17,6 +17,52 @@ function reemplazar(contenido, antes, despues, etiqueta) {
   return contenido.replace(antes, despues);
 }
 
+function parchearMatchingPreferencias() {
+  const ruta = 'scripts/matching-mercadona.mjs';
+  let c = leer(ruta);
+
+  if (!c.includes("if (ingrediente === 'leche')")) {
+    c = reemplazar(
+      c,
+      "  if (ingrediente === 'huevos') {",
+      "  if (ingrediente === 'leche') {\n    const esLacteo = contiene(`${seccion} ${subcategoria}`, [\n      'leche y bebidas vegetales',\n      'leche',\n    ]);\n    if (!esLacteo || contiene(contexto, ['chocolate', 'cacao', 'bombon'])) {\n      return false;\n    }\n    if (busqueda.includes('proteina')) {\n      return contiene(contexto, ['proteina', 'protein']);\n    }\n    if (busqueda.includes('sin lactosa')) {\n      return contexto.includes('sin lactosa');\n    }\n    return true;\n  }\n\n  if (ingrediente === 'huevos') {",
+      'filtro de leche',
+    );
+  }
+
+  if (!c.includes("ingrediente === 'queso rallado'")) {
+    c = reemplazar(
+      c,
+      "  if (ingrediente === 'mozzarella rallada') {",
+      "  if (ingrediente === 'queso rallado' && contiene(busqueda, ['cuatro quesos', '4 quesos'])) {\n    return (\n      contiene(nombre, ['cuatro quesos', '4 quesos']) &&\n      nombre.includes('rallad')\n    );\n  }\n\n  if (ingrediente === 'mozzarella rallada') {",
+      'filtro de cuatro quesos',
+    );
+  }
+
+  c = reemplazar(
+    c,
+    "  if (ingrediente === 'garbanzos secos') {\n    return (\n      nombre.includes('garbanzo') &&\n      !contiene(contexto, ['cocido', 'cocida', 'tarro'])\n    );\n  }",
+    "  if (ingrediente === 'garbanzos secos') {\n    return (\n      nombre.includes('garbanzo') &&\n      !contiene(contexto, ['cocido', 'cocida', 'tarro']) &&\n      (!busqueda.includes('pedrosillano') || nombre.includes('pedrosillano'))\n    );\n  }",
+    'garbanzo pedrosillano seco',
+  );
+
+  c = reemplazar(
+    c,
+    "  if (ingrediente === 'garbanzos cocidos') {\n    return nombre.includes('garbanzo') && contiene(contexto, ['cocido', 'tarro']);\n  }",
+    "  if (ingrediente === 'garbanzos cocidos') {\n    return (\n      nombre.includes('garbanzo') &&\n      contiene(contexto, ['cocido', 'tarro']) &&\n      (!busqueda.includes('pedrosillano') || nombre.includes('pedrosillano'))\n    );\n  }",
+    'garbanzo pedrosillano cocido',
+  );
+
+  c = reemplazar(
+    c,
+    "      (\n        totalUnidades === 6 ||\n        envase.includes('pack 6') ||\n        contiene(contexto, ['6 latas', 'pack 6'])\n      )\n    );",
+    "      (\n        totalUnidades === 6 ||\n        envase.includes('pack 6') ||\n        contiene(contexto, ['6 latas', 'pack 6'])\n      ) &&\n      (!busqueda.includes('aceite de oliva') || contexto.includes('oliva'))\n    );",
+    'atún en aceite de oliva',
+  );
+
+  guardar(ruta, c);
+}
+
 function parchearActualizador() {
   const ruta = 'scripts/actualizar-precios-mercadona.mjs';
   let c = leer(ruta);
@@ -115,7 +161,8 @@ function parchearAsociaciones() {
   guardar(ruta, c);
 }
 
+parchearMatchingPreferencias();
 parchearActualizador();
 escribirServicioRuntime();
 parchearAsociaciones();
-console.log('✓ preferencias Mercadona integradas: resolución real y recuperación de asociaciones');
+console.log('✓ preferencias Mercadona integradas: filtros estrictos, resolución real y recuperación de asociaciones');
