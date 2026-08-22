@@ -1,0 +1,27 @@
+name: Validar menú y conservación PFI 1.5.6
+
+on:
+  push:
+    branches:
+      - pfi-1.5.6-ui-1.5.5
+    paths:
+      - '.github/workflows/validar-menu-conservacion-156.yml'
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: pfi-1.5.6-ui-1.5.5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Prebuild completo
+        run: npm run prebuild
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Vite
+        run: npx vite build
