@@ -1,6 +1,10 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 
+// Se aplica al final del prebuild, cuando ya están presentes todos los parches
+// de stock, Compra profesional, postres y conservación.
+await import('./aplicar-compra-mensual-156.mjs');
+
 class StorageMock {
   data = new Map();
   getItem(key) { return this.data.has(key) ? this.data.get(key) : null; }
@@ -81,3 +85,5 @@ assert.ok(panel.includes('sin duplicar el stock'), 'La interfaz debe explicar qu
 console.log('✓ Menú: postre debajo de cada comida/cena');
 console.log('✓ Sobró crea/actualiza raciones reales en Despensa sin duplicados');
 console.log('✓ Abiertos/Congelados quedan vinculados al Inventario y admiten consumo parcial');
+
+await import('./probar-compra-mensual-real-156.mjs');
