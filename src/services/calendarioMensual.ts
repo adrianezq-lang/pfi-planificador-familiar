@@ -27,6 +27,12 @@ export function nombreMes(clave: string): string {
   }).replace(/^./, (letra) => letra.toUpperCase());
 }
 
+/**
+ * Divide el mes en semanas reales de calendario, de lunes a domingo,
+ * pero recortadas en los límites del propio mes.
+ * Ej.: septiembre de 2026 empieza martes, por lo que su primera semana
+ * es 1–6, no 1–7.
+ */
 export function semanasRealesDelMes(clave: string): SemanaCalendario[] {
   const fecha = obtenerFechaMes(clave);
   const ano = fecha.getFullYear();
@@ -34,21 +40,29 @@ export function semanasRealesDelMes(clave: string): SemanaCalendario[] {
   const ultimoDia = new Date(ano, mes + 1, 0).getDate();
   const primerDiaSemana = new Date(ano, mes, 1).getDay();
   const offsetLunes = (primerDiaSemana + 6) % 7;
-  const cantidad = Math.ceil((offsetLunes + ultimoDia) / 7);
   const semanas: SemanaCalendario[] = [];
 
-  for (let indice = 0; indice < cantidad; indice += 1) {
-    const inicioDia = Math.max(1, indice * 7 - offsetLunes + 1);
-    const finDia = Math.min(ultimoDia, inicioDia + 6);
+  let inicioDia = 1;
+  let indice = 0;
+
+  while (inicioDia <= ultimoDia) {
+    const longitudPrimeraSemana = 7 - offsetLunes;
+    const diasHastaDomingo = indice === 0 ? longitudPrimeraSemana : 7;
+    const finDia = Math.min(ultimoDia, inicioDia + diasHastaDomingo - 1);
     const inicio = new Date(ano, mes, inicioDia);
     const fin = new Date(ano, mes, finDia);
+
     semanas.push({
       indice,
       inicio: `${ano}-${String(mes + 1).padStart(2, '0')}-${String(inicioDia).padStart(2, '0')}`,
       fin: `${ano}-${String(mes + 1).padStart(2, '0')}-${String(finDia).padStart(2, '0')}`,
       etiqueta: `${inicio.getDate()}–${fin.getDate()} ${inicio.toLocaleDateString('es-ES', { month: 'short' }).replace('.', '')}`,
     });
+
+    inicioDia = finDia + 1;
+    indice += 1;
   }
+
   return semanas;
 }
 
