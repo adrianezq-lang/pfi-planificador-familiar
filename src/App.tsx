@@ -119,10 +119,9 @@ function App() {
             🏡
           </div>
           <div className="app-brand">
-            <h1>Planificador Familiar Inteligente</h1>
-            <p>Menús, compra, despensa y presupuesto en un mismo lugar</p>
+            <h1>PFI</h1>
           </div>
-          <span className="app-version">v0.9.15</span>
+          <span className="app-version">v1.5.6</span>
         </div>
       </header>
 
