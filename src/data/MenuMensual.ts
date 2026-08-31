@@ -3,7 +3,10 @@ import type { DiaMenu } from './Menusemanal';
 export type SemanaMenu = {
   id: string;
   nombre: string;
+  inicio: string;
+  fin: string;
   menu: DiaMenu[];
+  excluida?: boolean;
 };
 
 export const CENAS_VIERNES = [
@@ -12,57 +15,27 @@ export const CENAS_VIERNES = [
   ['Kebab'],
 ] as const;
 
-export const menuMensualInicial: SemanaMenu[] = [
-  {
-    id: 'semana-1',
-    nombre: 'Semana 1',
-    menu: [
-      { dia: 'Lunes', comida: ['Lentejas'], cena: ['Lomo', 'Ensalada'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Martes', comida: ['Lubina', 'Patatas'], cena: ['Crema de calabacín', 'Tortilla francesa'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Fajitas', 'Nachos', 'Guacamole'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Jueves', comida: ['Garbanzos fritos', 'Arroz blanco'], cena: ['Filete de ternera', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Viernes', comida: ['Macarrones boloñesa'], cena: ['Hamburguesas'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Sábado', comida: ['Salmón', 'Arroz blanco'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: '' },
-    ],
-  },
-  {
-    id: 'semana-2',
-    nombre: 'Semana 2',
-    menu: [
-      { dia: 'Lunes', comida: ['Cocido de garbanzos'], cena: ['Pechugas de pavo', 'Ensalada'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Martes', comida: ['Arroz con pollo'], cena: ['Crema de verduras', 'Tortilla de patata'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Bacalao', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Jueves', comida: ['Alubias blancas con almejas'], cena: ['Lomo', 'Patatas'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Viernes', comida: ['Carbonara tradicional'], cena: ['Perritos calientes'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Sábado', comida: ['Dorada', 'Patatas'], cena: ['Pizza BBQ', 'Pizza 4 quesos'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: '' },
-    ],
-  },
-  {
-    id: 'semana-3',
-    nombre: 'Semana 3',
-    menu: [
-      { dia: 'Lunes', comida: ['Alubias rojas'], cena: ['Pechugas de pollo', 'Arroz blanco'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Martes', comida: ['Salmón', 'Patatas'], cena: ['Crema de calabaza', 'Tortilla francesa'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Fajitas', 'Nachos', 'Guacamole'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Jueves', comida: ['Garbanzos fritos', 'Arroz blanco'], cena: ['Filete de ternera', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Viernes', comida: ['Macarrones con chorizo'], cena: ['Kebab'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Sábado', comida: ['Lubina', 'Patatas'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: '' },
-    ],
-  },
-  {
-    id: 'semana-4',
-    nombre: 'Semana 4',
-    menu: [
-      { dia: 'Lunes', comida: ['Lentejas'], cena: ['Pechugas de pavo', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Martes', comida: ['Pollo al horno', 'Patatas'], cena: ['Crema de calabacín', 'Tortilla francesa'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Bacalao', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Jueves', comida: ['Alubias blancas con almejas'], cena: ['Lomo', 'Ensalada'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Viernes', comida: ['Macarrones con roquefort'], cena: ['Hamburguesas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
-      { dia: 'Sábado', comida: ['Salmón', 'Arroz blanco'], cena: ['Pizza BBQ', 'Pizza 4 quesos'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
-      { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: '' },
-    ],
-  },
+const baseSemanas = [
+  ['Lentejas', 'Lomo', 'Ensalada'],
+  ['Cocido de garbanzos', 'Pechugas de pavo', 'Ensalada'],
+  ['Alubias rojas', 'Pechugas de pollo', 'Arroz blanco'],
+  ['Lentejas', 'Pechugas de pavo', 'Patatas'],
+] as const;
+
+const menuDias = (indice: number): DiaMenu[] => [
+  { dia: 'Lunes', comida: [baseSemanas[indice % 4][0]], cena: [baseSemanas[indice % 4][1], baseSemanas[indice % 4][2]], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
+  { dia: 'Martes', comida: ['Lubina', 'Patatas'], cena: ['Crema de calabacín', 'Tortilla francesa'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
+  { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Fajitas', 'Nachos', 'Guacamole'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
+  { dia: 'Jueves', comida: ['Garbanzos fritos', 'Arroz blanco'], cena: ['Filete de ternera', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
+  { dia: 'Viernes', comida: ['Macarrones boloñesa'], cena: [...CENAS_VIERNES[indice % CENAS_VIERNES.length]], postreComida: 'Fruta', postreCena: 'Yogur', preparar: '' },
+  { dia: 'Sábado', comida: ['Salmón', 'Arroz blanco'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: '' },
+  { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: '' },
 ];
+
+export const menuMensualInicial: SemanaMenu[] = Array.from({ length: 5 }, (_, indice) => ({
+  id: `semana-${indice + 1}`,
+  nombre: `Semana ${indice + 1}`,
+  inicio: '',
+  fin: '',
+  menu: menuDias(indice),
+}));
