@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { menuMensualInicial, type SemanaMenu } from '../data/MenuMensual';
 import type { DiaMenu } from '../data/Menusemanal';
-import { normalizarMenu, recalcularPreparaciones, recalcularPreparacionesPlan } from '../services/menu';
+import { recalcularPreparacionesPlan } from '../services/menu';
 import { copiarPlanMensual, normalizarPlanMensual } from '../services/planMensual';
 
 const CLAVE_MENU = 'pfi-menu';
@@ -23,11 +23,10 @@ function semanasDelMes(mes: string, base: SemanaMenu[]): SemanaMenu[] {
   const resultado: SemanaMenu[] = [];
   let cursor = new Date(primero);
   let indice = 0;
-
   while (cursor <= ultimo) {
     const inicio = new Date(cursor);
     const fin = new Date(cursor);
-    const diasHastaDomingo = 7 - inicio.getDay();
+    const diasHastaDomingo = (7 - inicio.getDay()) % 7;
     fin.setDate(Math.min(ultimo.getDate(), inicio.getDate() + diasHastaDomingo));
     const plantilla = base[indice % base.length] ?? base[0];
     resultado.push({
@@ -54,9 +53,8 @@ function cargarPlan(): MesPlan {
       const parsed = JSON.parse(guardado) as MesPlan;
       if (parsed.mes === mes && Array.isArray(parsed.semanas) && parsed.semanas.length > 0) return parsed;
     }
-  } catch { /* restauramos plantilla */ }
-  const semanas = semanasDelMes(mes, copiarPlanMensual(menuMensualInicial));
-  return { mes, semanas };
+  } catch { /* plantilla */ }
+  return { mes, semanas: semanasDelMes(mes, copiarPlanMensual(menuMensualInicial)) };
 }
 
 function guardarPlanLocal(plan: MesPlan, indice: number): void {
@@ -71,61 +69,35 @@ export function useMenu() {
   const inicial = cargarPlan();
   const [mesPlan, setMesPlan] = useState<MesPlan>(inicial);
   const [semanaActiva, setSemanaActiva] = useState(() => Number(localStorage.getItem(CLAVE_SEMANA_ACTIVA) || 0));
-
   const planMensual = mesPlan.semanas;
   const menu = useMemo(() => planMensual[semanaActiva]?.menu ?? [], [planMensual, semanaActiva]);
-
-  useEffect(() => {
-    localStorage.setItem(CLAVE_MENU, JSON.stringify(menu));
-  }, [menu]);
+  useEffect(() => { localStorage.setItem(CLAVE_MENU, JSON.stringify(menu)); }, [menu]);
 
   function cambiarMes(desplazamiento: number): void {
     const [anio, mes] = mesPlan.mes.split('-').map(Number);
-    const fecha = new Date(anio, mes - 1 + desplazamiento, 1);
-    const nuevoMes = claveMes(fecha);
+    const nuevoMes = claveMes(new Date(anio, mes - 1 + desplazamiento, 1));
     const nuevoPlan: MesPlan = { mes: nuevoMes, semanas: semanasDelMes(nuevoMes, menuMensualInicial) };
-    setMesPlan(nuevoPlan);
-    setSemanaActiva(0);
-    guardarPlanLocal(nuevoPlan, 0);
+    setMesPlan(nuevoPlan); setSemanaActiva(0); guardarPlanLocal(nuevoPlan, 0);
   }
-
   function seleccionarSemana(indice: number): void {
     const seguro = Math.max(0, Math.min(indice, planMensual.length - 1));
-    setSemanaActiva(seguro);
-    guardarPlanLocal(mesPlan, seguro);
+    setSemanaActiva(seguro); guardarPlanLocal(mesPlan, seguro);
   }
-
   function excluirSemana(indice: number, excluida = true): void {
     const semanas = planMensual.map((semana, i) => i === indice ? { ...semana, excluida } : semana);
     const nuevoPlan = { ...mesPlan, semanas };
-    setMesPlan(nuevoPlan);
-    guardarPlanLocal(nuevoPlan, semanaActiva);
+    setMesPlan(nuevoPlan); guardarPlanLocal(nuevoPlan, semanaActiva);
   }
-
   function guardar(nuevoMenu: DiaMenu[]): void {
     const semanas = recalcularPreparacionesPlan(planMensual.map((semana, i) => i === semanaActiva ? { ...semana, menu: nuevoMenu } : semana));
     const nuevoPlan = { ...mesPlan, semanas };
-    setMesPlan(nuevoPlan);
-    guardarPlanLocal(nuevoPlan, semanaActiva);
+    setMesPlan(nuevoPlan); guardarPlanLocal(nuevoPlan, semanaActiva);
   }
-
   function guardarPlan(nuevoPlan: SemanaMenu[], indice = 0): void {
     const semanas = normalizarPlanMensual(nuevoPlan);
     const plan = { mes: mesPlan.mes, semanas };
-    setMesPlan(plan);
-    setSemanaActiva(Math.max(0, Math.min(indice, semanas.length - 1)));
-    guardarPlanLocal(plan, indice);
+    const seguro = Math.max(0, Math.min(indice, semanas.length - 1));
+    setMesPlan(plan); setSemanaActiva(seguro); guardarPlanLocal(plan, seguro);
   }
-
-  return {
-    menu,
-    guardar,
-    planMensual,
-    guardarPlan,
-    semanaActiva,
-    seleccionarSemana,
-    mesActivo: mesPlan.mes,
-    cambiarMes,
-    excluirSemana,
-  };
+  return { menu, guardar, planMensual, guardarPlan, semanaActiva, seleccionarSemana, mesActivo: mesPlan.mes, cambiarMes, excluirSemana };
 }
