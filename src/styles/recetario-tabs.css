@@ -1,0 +1,6 @@
+.recetario-tabs{display:flex;gap:8px;padding:10px 16px;position:sticky;top:0;z-index:20;background:rgba(250,252,249,.96);border-bottom:1px solid #e6ebe5;backdrop-filter:blur(10px)}
+.recetario-tab{flex:1;border:1px solid #d9e2d8;border-radius:12px;background:#fff;padding:10px 14px;font:600 14px/1.2 inherit;color:#5f6d62;cursor:pointer;transition:.18s ease}
+.recetario-tab--active{background:#4f6f52;color:#fff;border-color:#4f6f52;box-shadow:0 3px 10px rgba(79,111,82,.18)}
+.recipes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.recipe-category{display:inline-block;padding:4px 9px;border-radius:999px;background:#eef3ec;color:#58705a;font-size:12px;font-weight:600}
+@media(max-width:640px){.recetario-tabs{padding:8px 12px}.recipes-grid{grid-template-columns:1fr}}
