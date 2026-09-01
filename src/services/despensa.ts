@@ -29,18 +29,22 @@ export type ProductoDespensa = {
   precio: number | null;
   stockActual: number;
   stockEsAproximado: boolean;
-  stockObjetivo: number;
+  /** Reserva opcional expresada en envases. 0 desactiva la reposición por reserva. */
+  stockMinimo: number;
   unidad: string;
   frecuencia: FrecuenciaDespensa;
   tipo: TipoProductoDespensa;
-  umbralAviso: number;
   actualizado: string;
 };
 
-const CLAVE_DESPENSA =
-  'pfi-despensa-productos';
-export const EVENTO_DESPENSA =
-  'pfi:despensa-actualizada';
+type ProductoDespensaGuardado = Partial<ProductoDespensa> & {
+  /** Campos de versiones anteriores, solo para migración. */
+  stockObjetivo?: number;
+  umbralAviso?: number;
+};
+
+const CLAVE_DESPENSA = 'pfi-despensa-productos';
+export const EVENTO_DESPENSA = 'pfi:despensa-actualizada';
 
 function crearId(): string {
   return `${Date.now()}-${Math.random()
@@ -49,13 +53,17 @@ function crearId(): string {
 }
 
 function emitirCambio(): void {
-  window.dispatchEvent(
-    new Event(EVENTO_DESPENSA),
-  );
+  window.dispatchEvent(new Event(EVENTO_DESPENSA));
+}
+
+function numeroNoNegativo(valor: unknown, alternativa = 0): number {
+  return typeof valor === 'number' && Number.isFinite(valor)
+    ? Math.max(0, valor)
+    : alternativa;
 }
 
 function normalizarProductoGuardado(
-  producto: Partial<ProductoDespensa>,
+  producto: ProductoDespensaGuardado,
 ): ProductoDespensa | null {
   if (
     typeof producto.id !== 'string' ||
@@ -64,6 +72,14 @@ function normalizarProductoGuardado(
   ) {
     return null;
   }
+
+  // Migración: el antiguo "objetivo" se descarta porque podía inflar la compra.
+  // Si el usuario había configurado un umbral de aviso, lo conservamos como
+  // reserva mínima; si no, la reserva queda desactivada (0).
+  const stockMinimo =
+    typeof producto.stockMinimo === 'number'
+      ? numeroNoNegativo(producto.stockMinimo)
+      : numeroNoNegativo(producto.umbralAviso, 0);
 
   return {
     id: producto.id,
@@ -81,15 +97,9 @@ function normalizarProductoGuardado(
       typeof producto.precio === 'number'
         ? producto.precio
         : null,
-    stockActual:
-      typeof producto.stockActual === 'number'
-        ? Math.max(0, producto.stockActual)
-        : 0,
+    stockActual: numeroNoNegativo(producto.stockActual),
     stockEsAproximado: producto.stockEsAproximado === true,
-    stockObjetivo:
-      typeof producto.stockObjetivo === 'number'
-        ? Math.max(0, producto.stockObjetivo)
-        : 0,
+    stockMinimo,
     unidad:
       typeof producto.unidad === 'string'
         ? producto.unidad
@@ -105,10 +115,6 @@ function normalizarProductoGuardado(
       producto.tipo === 'perecedero'
         ? 'perecedero'
         : 'despensa',
-    umbralAviso:
-      typeof producto.umbralAviso === 'number'
-        ? Math.max(0, producto.umbralAviso)
-        : 0,
     actualizado:
       typeof producto.actualizado === 'string'
         ? producto.actualizado
@@ -118,31 +124,19 @@ function normalizarProductoGuardado(
 
 function cargarDatosGuardados(): ProductoDespensa[] {
   try {
-    const guardado = localStorage.getItem(
-      CLAVE_DESPENSA,
-    );
+    const guardado = localStorage.getItem(CLAVE_DESPENSA);
 
-    if (!guardado) {
-      return [];
-    }
+    if (!guardado) return [];
 
     const datos = JSON.parse(guardado) as unknown;
-
-    if (!Array.isArray(datos)) {
-      return [];
-    }
+    if (!Array.isArray(datos)) return [];
 
     return datos
       .map((producto) =>
-        normalizarProductoGuardado(
-          producto as Partial<ProductoDespensa>,
-        ),
+        normalizarProductoGuardado(producto as ProductoDespensaGuardado),
       )
       .filter(
-        (
-          producto,
-        ): producto is ProductoDespensa =>
-          producto !== null,
+        (producto): producto is ProductoDespensa => producto !== null,
       );
   } catch {
     return [];
@@ -200,16 +194,12 @@ export function guardarDespensa(
 }
 
 export function añadirProductoDespensa(
-  producto: Omit<
-    ProductoDespensa,
-    'id' | 'actualizado'
-  >,
+  producto: Omit<ProductoDespensa, 'id' | 'actualizado'>,
 ): ProductoDespensa[] {
   const productos = cargarDespensa();
   const actualizado = new Date().toISOString();
   const existente = productos.find(
-    (elemento) =>
-      elemento.productoId === producto.productoId,
+    (elemento) => elemento.productoId === producto.productoId,
   );
 
   if (
@@ -275,7 +265,7 @@ function datosProductoDespensaDesdeCatalogo(
     precio: producto.precio,
     stockActual: 0,
     stockEsAproximado: false,
-    stockObjetivo: esPerecedero ? 0 : 1,
+    stockMinimo: 0,
     unidad: 'envase',
     frecuencia: esPerecedero
       ? 'semanal'
@@ -283,7 +273,6 @@ function datosProductoDespensaDesdeCatalogo(
     tipo: esPerecedero
       ? 'perecedero'
       : 'despensa',
-    umbralAviso: 0,
   };
 }
 
@@ -314,8 +303,6 @@ export function crearProductoDespensaDesdeCatalogo(
 ): ProductoDespensa[] {
   return crearProductosDespensaDesdeCatalogo([producto]);
 }
-
-
 
 export async function sincronizarProductosRecetasConDespensa(
   recetas: Receta[],
@@ -357,18 +344,12 @@ export async function sincronizarProductosRecetasConDespensa(
 
 export function actualizarProductoDespensa(
   id: string,
-  cambios: Partial<
-    Omit<ProductoDespensa, 'id' | 'productoId'>
-  >,
+  cambios: Partial<Omit<ProductoDespensa, 'id' | 'productoId'>>,
 ): ProductoDespensa[] {
   const productos = cargarDespensa();
-  const producto = productos.find(
-    (elemento) => elemento.id === id,
-  );
+  const producto = productos.find((elemento) => elemento.id === id);
 
-  if (!producto) {
-    return productos;
-  }
+  if (!producto) return productos;
 
   if (
     typeof cambios.stockActual === 'number' &&
@@ -390,6 +371,9 @@ export function actualizarProductoDespensa(
               0,
               obtenerStockActual(elemento.productoId),
             ),
+            stockMinimo: numeroNoNegativo(
+              cambios.stockMinimo ?? elemento.stockMinimo,
+            ),
             actualizado: new Date().toISOString(),
           }
         : elemento,
@@ -403,10 +387,7 @@ export function actualizarStockProductoDespensa(
   productoId: string,
   stockActual: number,
 ): ProductoDespensa[] {
-  registrarAjusteStock(
-    productoId,
-    stockActual,
-  );
+  registrarAjusteStock(productoId, stockActual);
 
   const productos = cargarDespensa();
   guardarDespensa(productos);
@@ -443,31 +424,23 @@ export function calcularReposicion(
 ): number {
   if (
     producto.tipo === 'perecedero' ||
-    producto.frecuencia === 'manual'
+    producto.frecuencia === 'manual' ||
+    producto.stockMinimo <= 0 ||
+    producto.stockActual >= producto.stockMinimo
   ) {
     return 0;
   }
 
   return Math.max(
     0,
-    producto.stockObjetivo - producto.stockActual,
+    Math.ceil(producto.stockMinimo - producto.stockActual),
   );
 }
 
 export function necesitaReposicion(
   producto: ProductoDespensa,
 ): boolean {
-  if (
-    producto.tipo === 'perecedero' ||
-    producto.frecuencia === 'manual'
-  ) {
-    return false;
-  }
-
-  return (
-    producto.stockActual <= producto.umbralAviso &&
-    calcularReposicion(producto) > 0
-  );
+  return calcularReposicion(producto) > 0;
 }
 
 export function calcularCosteReposicion(
