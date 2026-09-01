@@ -1,5 +1,6 @@
 import {
   createContext,
+  createElement,
   useCallback,
   useContext,
   useEffect,
@@ -27,15 +28,17 @@ export function RecetarioFiltroProvider({
   filtro: FiltroRecetario;
   children: ReactNode;
 }) {
-  return (
-    <ContextoFiltroRecetario.Provider value={filtro}>
-      {children}
-    </ContextoFiltroRecetario.Provider>
+  return createElement(
+    ContextoFiltroRecetario.Provider,
+    { value: filtro },
+    children,
   );
 }
 
 function filtrarRecetas(recetas: Receta[], filtro: FiltroRecetario): Receta[] {
-  if (filtro === 'platos') return recetas.filter((receta) => !esRecetaPostre(receta));
+  if (filtro === 'platos') {
+    return recetas.filter((receta) => !esRecetaPostre(receta));
+  }
   if (filtro === 'postres') return recetas.filter(esRecetaPostre);
   return recetas;
 }
@@ -62,7 +65,8 @@ function combinarConRecetasOcultas(
 
 export function useRecetas() {
   const filtro = useContext(ContextoFiltroRecetario);
-  const [todasLasRecetas, setTodasLasRecetas] = useState<Receta[]>(cargarRecetas);
+  const [todasLasRecetas, setTodasLasRecetas] =
+    useState<Receta[]>(cargarRecetas);
 
   useEffect(() => {
     const actualizar = () => setTodasLasRecetas(cargarRecetas());
