@@ -138,7 +138,6 @@ function Compra({ menu }: CompraProps) {
     };
   }, []);
 
-
   useEffect(() => {
     if (!resultado) return;
 
@@ -365,8 +364,8 @@ function Compra({ menu }: CompraProps) {
           🛒 Compra inteligente
         </Title>
         <p style={estiloSubtitulo}>
-          Perecederos del menú y reposición de despensa,
-          separados automáticamente.
+          Perecederos del menú y despensa, descontando el stock real y respetando
+          únicamente las reservas mínimas que hayas configurado.
         </p>
 
         <div style={estiloResumenGrid}>
@@ -382,7 +381,7 @@ function Compra({ menu }: CompraProps) {
               'es-ES',
               { style: 'currency', currency: 'EUR' },
             )}
-            texto="reposición despensa"
+            texto="despensa"
           />
           <Resumen
             numero={resumen.porComprar.toLocaleString(
@@ -478,8 +477,8 @@ function Compra({ menu }: CompraProps) {
       />
 
       <BloqueCompra
-        titulo="📦 Reposición de despensa"
-        descripcion="Productos configurados para volver a su stock objetivo."
+        titulo="📦 Compra de despensa"
+        descripcion="Necesidades del menú y, solo donde exista, la reserva mínima configurada."
         lineas={resultado.lineasDespensa}
         comprados={comprados}
         registrados={registrados}
@@ -659,7 +658,7 @@ function Linea({
 
         {linea.producto && (
           <span style={estiloDetalle}>
-            {linea.producto.formato}
+            Formato: {linea.producto.formato}
           </span>
         )}
 
@@ -682,8 +681,10 @@ function Linea({
         {linea.productoDespensa && (
           <span style={estiloDetalle}>
             Stock {linea.productoDespensa.stockActual}{' '}
-            {linea.productoDespensa.unidad} · objetivo{' '}
-            {linea.productoDespensa.stockObjetivo}
+            {linea.productoDespensa.unidad} ·{' '}
+            {linea.productoDespensa.stockMinimo > 0
+              ? `mínimo ${linea.productoDespensa.stockMinimo}`
+              : 'sin mínimo'}
           </span>
         )}
 
@@ -756,8 +757,24 @@ function etiquetaFormatoCompra(linea: LineaCompra): string {
     return linea.envases === 1 ? 'bandeja' : 'bandejas';
   }
 
-  if (formato.includes('paquete')) {
+  if (formato.includes('paquete') || formato.includes('pack')) {
     return linea.envases === 1 ? 'paquete' : 'paquetes';
+  }
+
+  if (formato.includes('caja') || formato.includes('estuche')) {
+    return linea.envases === 1 ? 'caja' : 'cajas';
+  }
+
+  if (formato.includes('malla')) {
+    return linea.envases === 1 ? 'malla' : 'mallas';
+  }
+
+  if (formato.includes('botella')) {
+    return linea.envases === 1 ? 'botella' : 'botellas';
+  }
+
+  if (formato.includes('bolsa')) {
+    return linea.envases === 1 ? 'bolsa' : 'bolsas';
   }
 
   if (formato.includes('bote') || formato.includes('tarro')) {
