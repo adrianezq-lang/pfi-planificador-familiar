@@ -8,7 +8,6 @@ import {
 import type { SemanaMenu } from '../data/MenuMensual';
 import type { DiaMenu } from '../data/Menusemanal';
 import { useRecetas } from '../hooks/useRecetas';
-import { generarCompraMercadona } from '../motor/compra';
 import {
   calcularReposicion,
   cargarDespensa,
@@ -23,16 +22,16 @@ import {
   obtenerRecetaPostre,
 } from '../services/menu';
 import {
-  calcularResumenPresupuestoMensual,
   type ResumenPresupuestoMensual,
 } from '../services/presupuestoMensual';
+import { generarCompraMensual, generarCompraSemanalProyectada } from '../services/planificacionCompra';
 
 type DestinoInicio = 'menu' | 'compra' | 'despensa';
 type VentanaConIdle = Window & { requestIdleCallback?: (callback: () => void, opciones?: { timeout?: number }) => number; cancelIdleCallback?: (id: number) => void };
-type HomeProps = { menu: DiaMenu[]; planMensual: SemanaMenu[]; semanaActiva: number; navegar: (destino: DestinoInicio) => void };
+type HomeProps = { menu: DiaMenu[]; menusSemanas: DiaMenu[][]; menuMes: DiaMenu[]; planMensual: SemanaMenu[]; semanaActiva: number; navegar: (destino: DestinoInicio) => void };
 const RESUMEN_VACIO: ResumenPresupuestoMensual = { presupuestoSemanal: 0, presupuestoMensual: 0, totalAcumulado: 0, mostrarPresupuestoMensual: true };
 
-function Home({ menu, planMensual, semanaActiva, navegar }: HomeProps) {
+function Home({ menu, menusSemanas, menuMes, planMensual, semanaActiva, navegar }: HomeProps) {
   const { recetas } = useRecetas();
   const [presupuesto, setPresupuesto] = useState<ResumenPresupuestoMensual>(RESUMEN_VACIO);
   const [despensa, setDespensa] = useState<ProductoDespensa[]>([]);
@@ -40,11 +39,17 @@ function Home({ menu, planMensual, semanaActiva, navegar }: HomeProps) {
   const cargarResumen = useCallback(async () => {
     setDespensa(cargarDespensa());
     try {
-      const semanasIncluidas = planMensual.slice(0, Math.max(1, semanaActiva + 1)).filter((semana) => !semana.excluida);
-      const resultados = await Promise.all(semanasIncluidas.map((semana) => generarCompraMercadona(semana.menu)));
-      setPresupuesto(resultados.length ? calcularResumenPresupuestoMensual(resultados, Math.max(0, resultados.length - 1)) : RESUMEN_VACIO);
+      const [mensual, ...semanales] = await Promise.all([
+        generarCompraMensual(menuMes),
+        ...menusSemanas.slice(0, semanaActiva + 1).map((_, indice) =>
+          generarCompraSemanalProyectada(menusSemanas, indice),
+        ),
+      ]);
+      const semanalActual = semanales[semanaActiva]?.total ?? 0;
+      const acumuladoSemanal = semanales.reduce((total, resultado) => total + resultado.total, 0);
+      setPresupuesto({ presupuestoSemanal: semanalActual, presupuestoMensual: mensual.total, totalAcumulado: mensual.total + acumuladoSemanal, mostrarPresupuestoMensual: semanaActiva === 0 });
     } catch { setPresupuesto(RESUMEN_VACIO); }
-  }, [menu, planMensual, semanaActiva, recetas]);
+  }, [menu, menusSemanas, menuMes, planMensual, semanaActiva, recetas]);
   useEffect(() => { const ventana = window as VentanaConIdle; let cancelado=false; let idleId:number|undefined; let temporizador:number|undefined; const ejecutar=()=>{if(!cancelado) void cargarResumen();}; if(ventana.requestIdleCallback) idleId=ventana.requestIdleCallback(ejecutar,{timeout:1200}); else temporizador=window.setTimeout(ejecutar,120); return()=>{cancelado=true;if(temporizador!==undefined)window.clearTimeout(temporizador);if(idleId!==undefined)ventana.cancelIdleCallback?.(idleId);};},[cargarResumen,version]);
   useEffect(()=>{const actualizar=()=>setVersion((v)=>v+1);window.addEventListener(EVENTO_DESPENSA,actualizar);window.addEventListener(EVENTO_INVENTARIO,actualizar);return()=>{window.removeEventListener(EVENTO_DESPENSA,actualizar);window.removeEventListener(EVENTO_INVENTARIO,actualizar);};},[]);
   const diasSemana=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];

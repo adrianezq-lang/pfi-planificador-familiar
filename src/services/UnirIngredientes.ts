@@ -41,6 +41,29 @@ const conversionesPorProducto: Record<
     },
   },
 
+  Ajo: {
+    diente: {
+      unidadDestino: 'g',
+      factor: 5,
+    },
+    dientes: {
+      unidadDestino: 'g',
+      factor: 5,
+    },
+    cabeza: {
+      unidadDestino: 'g',
+      factor: 50,
+    },
+    cabezas: {
+      unidadDestino: 'g',
+      factor: 50,
+    },
+    g: {
+      unidadDestino: 'g',
+      factor: 1,
+    },
+  },
+
   Zanahorias: {
     ud: {
       unidadDestino: 'ud',

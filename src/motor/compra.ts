@@ -19,6 +19,7 @@ export type LineaCompra = {
   producto: ProductoMercadonaCatalogo | null;
   productoDespensa: ProductoDespensa | null;
   envases: number;
+  envasesExactos: number | null;
   subtotal: number | null;
   calculoEstimado: boolean;
   tipoCompra: TipoCompra;
@@ -35,6 +36,7 @@ export type ResultadoCompra = {
   productosSinSeleccionar: string[];
   productosSinPrecio: string[];
   productosEstimados: string[];
+  lineasCubiertas?: LineaCompra[];
 };
 
 type CantidadBase = {
@@ -47,6 +49,11 @@ type CapacidadProducto = CantidadBase;
 type LineaMenuTemporal = {
   ingrediente: Ingrediente;
   producto: ProductoMercadonaCatalogo | null;
+};
+
+export type OpcionesCompra = {
+  aplicarStock?: boolean;
+  incluirReposicion?: boolean;
 };
 
 function crearClave(
@@ -424,7 +431,7 @@ export function calcularCosteProporcionalIngrediente(
 export function calcularEnvasesParaNecesidades(
   necesidades: Ingrediente[],
   producto: ProductoMercadonaCatalogo,
-): { envases: number; estimado: boolean } {
+): { envases: number; envasesExactos: number; estimado: boolean } {
   const capacidades = capacidadesProducto(producto);
   const capacidadPorUnidad = new Map(
     capacidades.map((capacidad) => [capacidad.unidad, capacidad.cantidad]),
@@ -459,6 +466,7 @@ export function calcularEnvasesParaNecesidades(
 
   return {
     envases: Math.max(1, Math.ceil(equivalentesEnvase)),
+    envasesExactos: Math.max(0, equivalentesEnvase),
     estimado:
       tienePrecioVariable(producto) ||
       conversionAproximada ||
@@ -503,6 +511,7 @@ function crearLineaSinProducto(
     producto: null,
     productoDespensa: null,
     envases: 0,
+    envasesExactos: null,
     subtotal: null,
     calculoEstimado: false,
     tipoCompra: 'semanal',
@@ -513,6 +522,7 @@ function crearLineaSinProducto(
 function combinarLineasProducto(
   temporales: LineaMenuTemporal[],
   productoDespensa: ProductoDespensa | null,
+  aplicarStock: boolean,
 ): LineaCompra {
   const primera = temporales[0];
   const producto = primera.producto;
@@ -529,9 +539,9 @@ function combinarLineasProducto(
       productoDespensa.frecuencia !== 'manual',
   );
 
-  const envases = esDespensaAutomatica
+  const envases = esDespensaAutomatica && aplicarStock
     ? calcularEnvasesConStock(
-        envasesMenu,
+        calculo.envasesExactos,
         productoDespensa?.stockActual ?? 0,
         productoDespensa?.stockObjetivo ?? 0,
       )
@@ -554,6 +564,7 @@ function combinarLineasProducto(
     producto,
     productoDespensa,
     envases,
+    envasesExactos: calculo.envasesExactos,
     subtotal:
       producto.precio === null
         ? null
@@ -602,6 +613,7 @@ function crearLineaReposicion(
     producto,
     productoDespensa,
     envases,
+    envasesExactos: envases,
     subtotal:
       productoDespensa.precio === null
         ? null
@@ -621,7 +633,10 @@ function sumarSubtotal(lineas: LineaCompra[]): number {
 
 export async function generarCompraMercadona(
   menu: DiaMenu[],
+  opciones: OpcionesCompra = {},
 ): Promise<ResultadoCompra> {
+  const aplicarStock = opciones.aplicarStock ?? true;
+  const incluirReposicion = opciones.incluirReposicion ?? true;
   const ingredientes = generarListaCompra(menu);
   const despensa = cargarDespensa();
   const despensaPorProducto = new Map(
@@ -656,6 +671,7 @@ export async function generarCompraMercadona(
       combinarLineasProducto(
         grupo,
         despensaPorProducto.get(productoId) ?? null,
+        aplicarStock,
       ),
     ),
   ];
@@ -666,7 +682,7 @@ export async function generarCompraMercadona(
       .filter((id): id is string => Boolean(id)),
   );
 
-  const lineasReposicion = despensa
+  const lineasReposicion = (incluirReposicion ? despensa : [])
     .filter((producto) => !idsIncluidos.has(producto.productoId))
     .map(crearLineaReposicion)
     .filter((linea): linea is LineaCompra => linea !== null);

@@ -237,7 +237,7 @@ function Despensa() {
                     −
                   </button>
                   <div>
-                    <strong>{producto.stockActual}</strong>
+                    <strong>{producto.stockEsAproximado ? '≈ ' : ''}{producto.stockActual}</strong>
                     <span>{producto.unidad}</span>
                   </div>
                   <button type="button" onClick={() => sumarStock(producto)}>

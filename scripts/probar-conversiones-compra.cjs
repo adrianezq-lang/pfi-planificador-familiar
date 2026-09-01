@@ -105,6 +105,14 @@ const pruebasEnvases = [
     ).envases,
     2,
   ],
+  [
+    '1 cabeza de ajo (50 g) en malla de 250 g',
+    calcularEnvasesParaNecesidades(
+      [{ nombre: 'Ajo', cantidad: 50, unidad: 'g', seccion: '' }],
+      producto('Ajos morados', 0.25, 'Malla'),
+    ).envases,
+    1,
+  ],
 ];
 
 const pruebasStock = [

@@ -130,6 +130,7 @@ function ProductoDetalleModal({
 
     actualizarProductoDespensa(editor.id, {
       stockActual: editor.stockActual,
+      stockEsAproximado: editor.stockEsAproximado,
       stockObjetivo: editor.stockObjetivo,
       unidad: editor.unidad,
       tipo: editor.tipo,
@@ -274,6 +275,21 @@ function ProductoDetalleModal({
                 valor={editor.stockActual}
                 onChange={(stockActual) => setEditor({ ...editor, stockActual })}
               />
+              <label>
+                <span>Cantidad aproximada</span>
+                <select
+                  value={editor.stockEsAproximado ? 'aproximada' : 'exacta'}
+                  onChange={(evento) =>
+                    setEditor({
+                      ...editor,
+                      stockEsAproximado: evento.target.value === 'aproximada',
+                    })
+                  }
+                >
+                  <option value="exacta">Exacta</option>
+                  <option value="aproximada">Aproximada (más o menos)</option>
+                </select>
+              </label>
               <CampoNumero
                 etiqueta="Stock objetivo"
                 valor={editor.stockObjetivo}
@@ -364,7 +380,7 @@ function CampoNumero({
       <input
         type="number"
         min="0"
-        step="0.1"
+        step="0.25"
         value={valor}
         onChange={(evento) => {
           const numero = Number(evento.target.value);

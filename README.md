@@ -1,6 +1,6 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.13.
+Versión 0.9.16.
 
 PFI conecta el menú familiar con recetas, productos reales de Mercadona, compra semanal, despensa e inventario.
 

@@ -28,6 +28,7 @@ export type ProductoDespensa = {
   formato: string;
   precio: number | null;
   stockActual: number;
+  stockEsAproximado: boolean;
   stockObjetivo: number;
   unidad: string;
   frecuencia: FrecuenciaDespensa;
@@ -84,6 +85,7 @@ function normalizarProductoGuardado(
       typeof producto.stockActual === 'number'
         ? Math.max(0, producto.stockActual)
         : 0,
+    stockEsAproximado: producto.stockEsAproximado === true,
     stockObjetivo:
       typeof producto.stockObjetivo === 'number'
         ? Math.max(0, producto.stockObjetivo)
@@ -272,6 +274,7 @@ function datosProductoDespensaDesdeCatalogo(
     formato: producto.formato,
     precio: producto.precio,
     stockActual: 0,
+    stockEsAproximado: false,
     stockObjetivo: esPerecedero ? 0 : 1,
     unidad: 'envase',
     frecuencia: esPerecedero

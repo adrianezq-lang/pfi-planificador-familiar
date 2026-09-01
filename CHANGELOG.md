@@ -1,3 +1,16 @@
+# v0.9.16 — Calendario, excepciones y cantidades reales
+
+- La compra mensual cuenta únicamente los días que pertenecen realmente al mes, también en las semanas parciales.
+- La compra mensual aparece solo en la primera semana y reúne los productos no frescos de todo el mes.
+- La compra semanal queda reservada a fruta y verdura, carne y pescado.
+- Los envases sobrantes se proyectan entre semanas para no volver a comprar mientras quede cantidad suficiente.
+- Las excepciones quedan conectadas al menú, a Inicio y a la compra semanal y mensual.
+- Se puede excluir una comida, una cena, un día completo o una semana completa.
+- La compra vuelve a mostrar la cantidad total necesaria de cada ingrediente y cuántos envases hay que comprar.
+- El inventario admite cantidades decimales y permite marcarlas como aproximadas.
+- Las cantidades fijadas en cabezas y dientes de ajo se conservan y se suman con una conversión común.
+- Nueva prueba de regresión para calendario, excepciones y ajo.
+
 # v0.9.15 — Mejora de fluidez y rendimiento
 
 - Las pantallas secundarias se cargan solo al abrirlas, reduciendo el peso inicial.
