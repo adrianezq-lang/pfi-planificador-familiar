@@ -1,0 +1,182 @@
+.month-switcher--compact {
+  display: grid;
+  gap: 14px;
+}
+
+.month-switcher--compact > div:first-child > button {
+  border: 1px solid #dbe4d8;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #3f5d43;
+  box-shadow: 0 5px 16px rgba(55, 79, 58, 0.07);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.month-switcher--compact > div:first-child > button:active {
+  transform: scale(0.98);
+  background: #f3f7f1;
+}
+
+.month-week-tabs {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding: 2px 2px 7px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.month-week-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.month-week-tab {
+  flex: 1 0 116px;
+  min-height: 58px;
+  padding: 10px 13px;
+  border: 1px solid #dce5da;
+  border-radius: 17px;
+  background: #fff;
+  color: #56655a;
+  font: 750 13px/1.15 inherit;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 13px rgba(55, 79, 58, 0.055);
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: 0.16s ease;
+}
+
+.month-week-tab span {
+  display: block;
+  white-space: nowrap;
+}
+
+.month-week-tab small {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.month-week-tab--active {
+  border-color: #4f6f52;
+  background: linear-gradient(180deg, #eef5eb 0%, #e3eee0 100%);
+  color: #29442e;
+  box-shadow: inset 0 0 0 1px rgba(79, 111, 82, 0.14), 0 7px 17px rgba(55, 79, 58, 0.11);
+  transform: translateY(-1px);
+}
+
+.month-week-tab--excluded {
+  border-style: dashed;
+  background: #fbf7ec;
+  color: #756642;
+}
+
+.month-week-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.month-week-actions button {
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #dce5da;
+  border-radius: 14px;
+  background: #fff;
+  color: #536257;
+  font: 700 12px/1.2 inherit;
+  cursor: pointer;
+}
+
+.week-switcher {
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.week-switcher::-webkit-scrollbar {
+  display: none;
+}
+
+.week-day-button {
+  min-width: 74px;
+  min-height: 54px;
+  border: 1px solid #dce5da;
+  border-radius: 15px;
+  background: #fff;
+  color: #617064;
+  font-weight: 750;
+  box-shadow: 0 3px 10px rgba(55, 79, 58, 0.045);
+}
+
+.week-day-button--active {
+  background: #4f6f52;
+  border-color: #4f6f52;
+  color: #fff;
+  box-shadow: 0 7px 16px rgba(79, 111, 82, 0.2);
+}
+
+.recetario-tabs {
+  margin: 0 auto;
+  width: min(100%, 1080px);
+  box-sizing: border-box;
+  top: 0;
+}
+
+.recetario-tab {
+  min-height: 46px;
+  border-radius: 15px;
+  font-weight: 800;
+}
+
+.compra-planificada-page .pfi-card {
+  overflow: hidden;
+}
+
+@media (max-width: 720px) {
+  .month-switcher--compact > div:first-child {
+    grid-template-columns: 82px minmax(128px, 1fr) 82px !important;
+    gap: 7px !important;
+  }
+
+  .month-switcher--compact > div:first-child > button {
+    min-height: 44px !important;
+    padding: 8px 6px;
+    font-size: 12px !important;
+  }
+
+  .month-week-tab {
+    flex-basis: 108px;
+  }
+
+  .month-week-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .week-switcher {
+    display: flex !important;
+    gap: 8px !important;
+  }
+
+  .week-day-button {
+    flex: 0 0 82px;
+  }
+
+  .compra-resumen-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .compra-resumen-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .compra-producto-linea {
+    grid-template-columns: 28px minmax(0, 1fr) !important;
+  }
+
+  .compra-producto-linea > strong:last-child {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
