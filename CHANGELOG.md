@@ -10,6 +10,7 @@
 - El inventario admite cantidades decimales y permite marcarlas como aproximadas.
 - Las cantidades fijadas en cabezas y dientes de ajo se conservan y se suman con una conversión común.
 - Nueva prueba de regresión para calendario, excepciones y ajo.
+- Los despliegues usan el catálogo incluido y dejan de descargar Mercadona completo durante cada publicación.
 
 # v0.9.15 — Mejora de fluidez y rendimiento
 

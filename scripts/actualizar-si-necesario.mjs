@@ -6,6 +6,7 @@ import path from 'node:path';
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const archivoCatalogo = path.join(raiz, 'public', 'catalogo-mercadona.json');
 const maxHoras = Math.max(1, Number(process.env.PFI_MERCADONA_MAX_HORAS ?? 24));
+const esEntornoDespliegue = process.env.VERCEL === '1' || process.env.CI === 'true';
 
 async function fechaUltimaActualizacion() {
   try {
@@ -36,6 +37,11 @@ function ejecutar(script) {
 }
 
 try {
+  if (esEntornoDespliegue) {
+    console.log('✓ Despliegue: se usa el catálogo Mercadona incluido en el proyecto.');
+    process.exit(0);
+  }
+
   const ultima = await fechaUltimaActualizacion();
   const antiguedadHoras = (Date.now() - ultima) / 3_600_000;
 
