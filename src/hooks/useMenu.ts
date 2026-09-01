@@ -13,11 +13,88 @@ const CLAVE_SEMANA_ACTIVA = 'pfi-semana-activa';
 const CLAVE_MES_ACTIVO = 'pfi-mes-activo';
 const PREFIJO_PLAN_MES = 'pfi-menu-mes-';
 const EVENTO_MENU = 'pfi-menu-actualizado';
+const PASTAS_ALTERNATIVAS = [
+  'Macarrones boloñesa',
+  'Macarrones con chorizo',
+  'Carbonara tradicional',
+  'Macarrones con roquefort',
+] as const;
 
 type MesPlan = { mes: string; semanas: SemanaMenu[] };
 
 function claveMes(fecha = new Date()): string {
   return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function esMesDeVerano(mes: string): boolean {
+  const numero = Number(mes.split('-')[1]);
+  return numero >= 6 && numero <= 8;
+}
+
+function contieneEnsaladaDePasta(dia: DiaMenu): boolean {
+  return dia.comida.some((plato) => plato === 'Ensalada de pasta');
+}
+
+function alternativaPasta(semana: SemanaMenu, indice: number): string {
+  const platosSemana = new Set(
+    semana.menu.flatMap((dia) => [...dia.comida, ...dia.cena]),
+  );
+  return (
+    PASTAS_ALTERNATIVAS.find(
+      (plato, offset) =>
+        offset >= indice % PASTAS_ALTERNATIVAS.length &&
+        !platosSemana.has(plato),
+    ) ??
+    PASTAS_ALTERNATIVAS.find((plato) => !platosSemana.has(plato)) ??
+    PASTAS_ALTERNATIVAS[indice % PASTAS_ALTERNATIVAS.length]
+  );
+}
+
+function aplicarPreferenciaEnsaladaPasta(
+  mes: string,
+  semanas: SemanaMenu[],
+): SemanaMenu[] {
+  const verano = esMesDeVerano(mes);
+  let ensaladasConservadas = 0;
+  let huboCambios = false;
+
+  const ajustadas = semanas.map((semana, indiceSemana) => {
+    const tieneEnsalada = semana.menu.some(contieneEnsaladaDePasta);
+
+    if (verano && !tieneEnsalada) {
+      const diaPreferido = indiceSemana % 2 === 0 ? 'Miércoles' : 'Viernes';
+      const menu = semana.menu.map((dia) =>
+        dia.dia === diaPreferido
+          ? { ...dia, comida: ['Ensalada de pasta'] }
+          : { ...dia },
+      );
+      huboCambios = true;
+      return { ...semana, menu };
+    }
+
+    if (!verano && tieneEnsalada) {
+      const sustituto = alternativaPasta(semana, indiceSemana);
+      const menu = semana.menu.map((dia) => {
+        if (!contieneEnsaladaDePasta(dia)) return { ...dia };
+        if (ensaladasConservadas === 0) {
+          ensaladasConservadas += 1;
+          return { ...dia };
+        }
+        huboCambios = true;
+        return {
+          ...dia,
+          comida: dia.comida.map((plato) =>
+            plato === 'Ensalada de pasta' ? sustituto : plato,
+          ),
+        };
+      });
+      return { ...semana, menu };
+    }
+
+    return semana;
+  });
+
+  return huboCambios ? recalcularPreparacionesPlan(ajustadas) : semanas;
 }
 
 function semanasDelMes(mes: string, base: SemanaMenu[]): SemanaMenu[] {
@@ -54,7 +131,10 @@ function semanasDelMes(mes: string, base: SemanaMenu[]): SemanaMenu[] {
     indice += 1;
   }
 
-  return recalcularPreparacionesPlan(resultado);
+  return aplicarPreferenciaEnsaladaPasta(
+    mes,
+    recalcularPreparacionesPlan(resultado),
+  );
 }
 
 function contienePlato(dia: DiaMenu | undefined, plato: string): boolean {
@@ -129,7 +209,8 @@ function cargarMes(mes: string): MesPlan {
         parsed.semanas.length > 0
       ) {
         const normalizadas = normalizarPlanMensual(parsed.semanas);
-        const semanas = migrarPlanAlPatron(mes, normalizadas);
+        const estacionales = aplicarPreferenciaEnsaladaPasta(mes, normalizadas);
+        const semanas = migrarPlanAlPatron(mes, estacionales);
         const plan = { mes, semanas };
 
         if (semanas !== normalizadas) {
