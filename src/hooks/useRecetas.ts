@@ -35,6 +35,25 @@ export function RecetarioFiltroProvider({
   );
 }
 
+function aplicarReglasFamiliares(recetas: Receta[]): Receta[] {
+  return recetas.map((receta) =>
+    receta.nombre === 'Tortilla de patata'
+      ? {
+          ...receta,
+          ingredientes: receta.ingredientes.map((ingrediente) =>
+            ingrediente.nombre === 'Huevos'
+              ? { ...ingrediente, cantidad: 8, unidad: 'ud' }
+              : ingrediente,
+          ),
+        }
+      : receta,
+  );
+}
+
+function cargarRecetasFamiliares(): Receta[] {
+  return aplicarReglasFamiliares(cargarRecetas());
+}
+
 function filtrarRecetas(recetas: Receta[], filtro: FiltroRecetario): Receta[] {
   if (filtro === 'platos') {
     return recetas.filter((receta) => !esRecetaPostre(receta));
@@ -49,7 +68,7 @@ function combinarConRecetasOcultas(
 ): Receta[] {
   if (filtro === 'todos') return nuevasRecetas;
 
-  const actuales = cargarRecetas();
+  const actuales = cargarRecetasFamiliares();
   if (filtro === 'platos') {
     return [
       ...nuevasRecetas.filter((receta) => !esRecetaPostre(receta)),
@@ -66,10 +85,10 @@ function combinarConRecetasOcultas(
 export function useRecetas() {
   const filtro = useContext(ContextoFiltroRecetario);
   const [todasLasRecetas, setTodasLasRecetas] =
-    useState<Receta[]>(cargarRecetas);
+    useState<Receta[]>(cargarRecetasFamiliares);
 
   useEffect(() => {
-    const actualizar = () => setTodasLasRecetas(cargarRecetas());
+    const actualizar = () => setTodasLasRecetas(cargarRecetasFamiliares());
 
     window.addEventListener(EVENTO_RECETAS, actualizar);
     return () => window.removeEventListener(EVENTO_RECETAS, actualizar);
@@ -82,15 +101,19 @@ export function useRecetas() {
 
   const guardar = useCallback(
     (nuevasRecetas: Receta[]) => {
-      guardarRecetas(combinarConRecetasOcultas(nuevasRecetas, filtro));
-      setTodasLasRecetas(cargarRecetas());
+      guardarRecetas(
+        aplicarReglasFamiliares(
+          combinarConRecetasOcultas(nuevasRecetas, filtro),
+        ),
+      );
+      setTodasLasRecetas(cargarRecetasFamiliares());
     },
     [filtro],
   );
 
   const restaurar = useCallback(() => {
     restaurarRecetasOriginales();
-    setTodasLasRecetas(cargarRecetas());
+    setTodasLasRecetas(cargarRecetasFamiliares());
   }, []);
 
   return {
