@@ -43,23 +43,19 @@ const conversionesPorProducto: Record<
 
   Ajo: {
     diente: {
-      unidadDestino: 'g',
-      factor: 5,
+      unidadDestino: 'cabeza',
+      factor: 0.1,
     },
     dientes: {
-      unidadDestino: 'g',
-      factor: 5,
+      unidadDestino: 'cabeza',
+      factor: 0.1,
     },
     cabeza: {
-      unidadDestino: 'g',
-      factor: 50,
+      unidadDestino: 'cabeza',
+      factor: 1,
     },
     cabezas: {
-      unidadDestino: 'g',
-      factor: 50,
-    },
-    g: {
-      unidadDestino: 'g',
+      unidadDestino: 'cabeza',
       factor: 1,
     },
   },

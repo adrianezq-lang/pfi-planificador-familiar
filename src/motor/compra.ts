@@ -245,6 +245,18 @@ function capacidadesProducto(
   producto: ProductoMercadonaCatalogo,
 ): CapacidadProducto[] {
   const capacidades = capacidadesDesdeFormato(producto.formato);
+  const nombreProducto = normalizarTexto(producto.nombre);
+  const formatoProducto = normalizarTexto(producto.formato);
+
+  // Mercadona publica la malla de ajos por peso, aunque el contenido habitual
+  // fijado para la planificación familiar es de cuatro cabezas.
+  if (
+    formatoProducto.includes('malla') &&
+    /\bajos?\b/.test(nombreProducto) &&
+    !/\b(granulado|polvo|troceado|tierno|negro|alinado)\b/.test(nombreProducto)
+  ) {
+    capacidades.push({ cantidad: 4, unidad: 'ud' });
+  }
   const unidadesTotales = producto.unidadesTotales ?? 0;
   const tamanoUnidad = producto.tamanoUnidad ?? 0;
   const formatoUnidad = producto.formatoUnidad ?? '';

@@ -100,6 +100,21 @@ function seccionDesdeTextoSeccion(seccion: string): string | undefined {
 }
 
 export function obtenerSeccionCompra(linea: LineaCompra): string {
+  const subcategoria = normalizarTextoCategoria(
+    linea.producto?.subcategoria ?? '',
+  );
+  const nombre = normalizarTextoCategoria(
+    `${linea.ingrediente.nombre} ${linea.producto?.nombre ?? ''} ${subcategoria}`,
+  );
+
+  // Estas formas procesadas pueden conservar una sección antigua de la receta.
+  // Se clasifican por su uso real antes de consultar esa sección heredada.
+  if (/\btomate (triturado|frito)\b/.test(nombre)) return 'Conservas';
+  if (/\btomate para pizza\b/.test(nombre)) return 'Salsas, Aceites y Especias';
+  if (/\bajo (en polvo|granulado)\b/.test(nombre)) {
+    return 'Salsas, Aceites y Especias';
+  }
+
   const seccionProducto = normalizarTextoCategoria(
     linea.producto?.seccion ?? '',
   );
@@ -112,13 +127,6 @@ export function obtenerSeccionCompra(linea: LineaCompra): string {
 
   const porIngrediente = seccionDesdeTextoSeccion(seccionIngrediente);
   if (porIngrediente) return porIngrediente;
-
-  const subcategoria = normalizarTextoCategoria(
-    linea.producto?.subcategoria ?? '',
-  );
-  const nombre = normalizarTextoCategoria(
-    `${linea.ingrediente.nombre} ${linea.producto?.nombre ?? ''} ${subcategoria}`,
-  );
 
   if (/\b(jamon|chorizo|mortadela|salchichon|bacon|panceta|fuet|embutido|queso)\b/.test(nombre)) {
     return 'Charcutería y Quesos';
@@ -135,10 +143,10 @@ export function obtenerSeccionCompra(linea: LineaCompra): string {
   if (/\b(leche|yogur|huevo|mantequilla|nata)\b/.test(nombre)) {
     return 'Lácteos y Huevos';
   }
-  if (/\b(pan|barra|baguette|tortilla de trigo|base de pizza)\b/.test(nombre)) {
+  if (/\b(pan|barra|baguette|tortillas? de trigo|bases? de pizza)\b/.test(nombre)) {
     return 'Panadería';
   }
-  if (/\b(arroz|pasta|macarron|espagueti|garbanzo|lenteja|alubia)\b/.test(nombre)) {
+  if (/\b(arroz|pastas?|macarrones?|espaguetis?|garbanzos?|lentejas?|alubias?)\b/.test(nombre)) {
     return 'Arroz, Pasta y Legumbres';
   }
   if (/\b(atun|conserva|caldo|aceituna|tomate triturado|tomate frito)\b/.test(nombre)) {
@@ -150,7 +158,13 @@ export function obtenerSeccionCompra(linea: LineaCompra): string {
   if (/\b(galleta|cacao|cafe|cereal|nocilla|chocolate|azucar)\b/.test(nombre)) {
     return 'Desayuno y Dulces';
   }
-  if (/\b(nacho|patata frita|aperitivo|snack)\b/.test(nombre)) return 'Aperitivos';
+  if (/\b(nachos?|patatas? fritas?|aperitivos?|snacks?)\b/.test(nombre)) return 'Aperitivos';
+  if (/\b(pienso|comida (?:de|para) (?:perro|gato)|arena (?:de|para) gato|mascotas?)\b/.test(nombre)) {
+    return 'Mascotas';
+  }
+  if (/\b(detergente|lavavajillas|limpiador|lejia|suavizante|papel higienico|bolsas? de basura|estropajo|bayeta|ambientador)\b/.test(nombre)) {
+    return 'Limpieza y Hogar';
+  }
 
   return 'Otros';
 }

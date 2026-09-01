@@ -32,7 +32,7 @@ const [ajo] = unirIngredientes([
   { nombre:'Ajo', cantidad:1, unidad:'cabeza', seccion:'Fruta y verdura' },
   { nombre:'Ajo', cantidad:3, unidad:'dientes', seccion:'Fruta y verdura' },
 ]);
-if (ajo.cantidad !== 65 || ajo.unidad !== 'g') {
+if (ajo.cantidad !== 1.3 || ajo.unidad !== 'cabeza') {
   throw new Error(`La cantidad de ajo no se conserva correctamente: ${ajo.cantidad} ${ajo.unidad}`);
 }
 const mallaAjos = proyectarComprasEnvases([0.25, 0.25, 0.25, 0.25], 0);

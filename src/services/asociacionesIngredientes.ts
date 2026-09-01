@@ -25,6 +25,10 @@ export const EVENTO_ASOCIACIONES =
 
 let asociacionesEnMemoria: AsociacionesIngredientes | null = null;
 
+const NOMBRES_RECUPERACION_CONOCIDOS: Record<string, string[]> = {
+  ajo: ['ajos morados'],
+};
+
 function normalizarTexto(texto: string): string {
   return texto
     .toLocaleLowerCase('es')
@@ -394,9 +398,15 @@ export async function repararAsociacionesIngredientes(
       });
 
       pendientesCatalogo.forEach((ingrediente) => {
-        const exactas = productosPorNombre.get(normalizarTexto(ingrediente)) ?? [];
-        if (exactas.length === 1) {
-          nuevas[ingrediente] = exactas[0].productoId;
+        const nombreNormalizado = normalizarTexto(ingrediente);
+        const exactas = productosPorNombre.get(nombreNormalizado) ?? [];
+        const nombresConocidos = NOMBRES_RECUPERACION_CONOCIDOS[nombreNormalizado] ?? [];
+        const conocidas = nombresConocidos.flatMap(
+          (nombre) => productosPorNombre.get(nombre) ?? [],
+        );
+        const candidatas = exactas.length === 1 ? exactas : conocidas;
+        if (candidatas.length === 1) {
+          nuevas[ingrediente] = candidatas[0].productoId;
           recuperadas += 1;
         }
       });

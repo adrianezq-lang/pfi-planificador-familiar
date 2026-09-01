@@ -8,7 +8,8 @@
 - Se puede excluir una comida, una cena, un día completo o una semana completa.
 - La compra vuelve a mostrar la cantidad total necesaria de cada ingrediente y cuántos envases hay que comprar.
 - El inventario admite cantidades decimales y permite marcarlas como aproximadas.
-- Las cantidades fijadas en cabezas y dientes de ajo se conservan y se suman con una conversión común.
+- Las cantidades fijadas en cabezas y dientes de ajo se conservan; una malla equivale a cuatro cabezas y su sobrante pasa a las semanas siguientes.
+- Si falta, se recupera de forma segura la asociación de Ajo con la malla de ajos morados del catálogo.
 - Nueva prueba de regresión para calendario, excepciones y ajo.
 - Los despliegues usan el catálogo incluido y dejan de descargar Mercadona completo durante cada publicación.
 

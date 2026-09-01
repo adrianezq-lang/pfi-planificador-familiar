@@ -72,6 +72,11 @@ function producto(nombre, kilos, formato = 'Paquete') {
   };
 }
 
+const calculoMallaAjo = calcularEnvasesParaNecesidades(
+  [{ nombre: 'Ajo', cantidad: 1, unidad: 'cabeza', seccion: '' }],
+  producto('Ajos morados', 0.25, 'Malla'),
+);
+
 const pruebasEnvases = [
   [
     '5 zanahorias en bolsa de 1 kg',
@@ -106,12 +111,14 @@ const pruebasEnvases = [
     2,
   ],
   [
-    '1 cabeza de ajo (50 g) en malla de 250 g',
-    calcularEnvasesParaNecesidades(
-      [{ nombre: 'Ajo', cantidad: 50, unidad: 'g', seccion: '' }],
-      producto('Ajos morados', 0.25, 'Malla'),
-    ).envases,
+    '1 cabeza de ajo en malla de 4 cabezas',
+    calculoMallaAjo.envases,
     1,
+  ],
+  [
+    '1 cabeza consume 1/4 de la malla',
+    calculoMallaAjo.envasesExactos,
+    0.25,
   ],
 ];
 

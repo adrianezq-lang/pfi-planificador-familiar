@@ -14,6 +14,7 @@ const {
 const {
   cargarAsociacionesIngredientes,
   guardarAsociacionesIngredientes,
+  limpiarTodasLasAsociaciones,
   repararAsociacionesIngredientes,
 } = await import('../src/services/asociacionesIngredientes.ts');
 const {
@@ -78,6 +79,11 @@ const categorias = [
   [linea('Carne', 'Filete de ternera', 'Despensa'), 'Carnicería'],
   [linea('Marisco y pescado', 'Lubina', 'Despensa'), 'Pescadería'],
   [linea('Aperitivos', 'Nachos', 'Despensa'), 'Aperitivos'],
+  [linea('', 'Tomate triturado', 'Fruta y verdura'), 'Conservas'],
+  [linea('', 'Ajo en polvo', 'Fruta y verdura'), 'Salsas, Aceites y Especias'],
+  [linea('', 'Garbanzos secos', 'Despensa'), 'Arroz, Pasta y Legumbres'],
+  [linea('', 'Comida para perro', 'Despensa'), 'Mascotas'],
+  [linea('', 'Detergente lavadora', 'Despensa'), 'Limpieza y Hogar'],
 ];
 for (const [entrada, esperada] of categorias) {
   const obtenida = obtenerSeccionCompra(entrada);
@@ -101,7 +107,27 @@ if (reparadas !== 1 || cargarAsociacionesIngredientes()['Filetes de pollo'] !== 
   throw new Error('No se reparó la asociación exacta desde la despensa.');
 }
 
+limpiarTodasLasAsociaciones();
+globalThis.fetch = async () => ({
+  ok: true,
+  async json() {
+    return {
+      productos: [{
+        productoId: '69297', nombre: 'Ajos morados', precio: 1.85,
+        formato: 'Malla', tamañoUnidad: 0.25, formatoUnidad: 'kg', disponible: true,
+      }],
+    };
+  },
+});
+const ajosRecuperados = await repararAsociacionesIngredientes(
+  [{ ingredientes: [{ nombre: 'Ajo' }] }],
+);
+if (ajosRecuperados !== 1 || cargarAsociacionesIngredientes().Ajo !== '69297') {
+  throw new Error('No se recuperó la asociación conocida de la malla de ajos.');
+}
+
 console.log('✓ postres únicamente desde el recetario');
 console.log('✓ comida con fruta y cena con yogur');
 console.log('✓ carne, pescado y aperitivos en su sección');
 console.log('✓ copia y reparación automática de asociaciones');
+console.log('✓ asociación conocida de la malla de ajos');
