@@ -63,32 +63,49 @@ function contienePlato(dia: DiaMenu | undefined, plato: string): boolean {
   );
 }
 
-function planAntiguoRepetitivo(semanas: SemanaMenu[]): boolean {
+function textoPlatos(dia: DiaMenu | undefined): string {
+  return dia ? [...dia.comida, ...dia.cena].join(' ').toLocaleLowerCase('es') : '';
+}
+
+function planNecesitaPatron(semanas: SemanaMenu[]): boolean {
   if (semanas.length < 3) return false;
 
   let miercolesFajitas = 0;
   let martesLubina = 0;
   let juevesGarbanzos = 0;
+  let lunesFueraDeLegumbre = 0;
+  let viernesFueraDePasta = 0;
 
   semanas.forEach((semana) => {
+    const lunes = semana.menu.find((dia) => dia.dia === 'Lunes');
     const martes = semana.menu.find((dia) => dia.dia === 'Martes');
     const miercoles = semana.menu.find((dia) => dia.dia === 'Miércoles');
     const jueves = semana.menu.find((dia) => dia.dia === 'Jueves');
+    const viernes = semana.menu.find((dia) => dia.dia === 'Viernes');
 
     if (contienePlato(miercoles, 'Fajitas')) miercolesFajitas += 1;
     if (contienePlato(martes, 'Lubina')) martesLubina += 1;
     if (contienePlato(jueves, 'Garbanzos fritos')) juevesGarbanzos += 1;
+
+    const textoLunes = textoPlatos(lunes);
+    if (!/(lenteja|garbanzo|alubia)/.test(textoLunes)) lunesFueraDeLegumbre += 1;
+
+    const textoViernes = textoPlatos(viernes);
+    if (!/(pasta|macarron|carbonara)/.test(textoViernes)) viernesFueraDePasta += 1;
   });
 
+  const limiteRepeticion = Math.min(3, semanas.length);
   return (
-    miercolesFajitas >= Math.min(3, semanas.length) ||
-    martesLubina >= Math.min(3, semanas.length) ||
-    juevesGarbanzos >= Math.min(3, semanas.length)
+    miercolesFajitas >= limiteRepeticion ||
+    martesLubina >= limiteRepeticion ||
+    juevesGarbanzos >= limiteRepeticion ||
+    lunesFueraDeLegumbre >= 2 ||
+    viernesFueraDePasta >= 2
   );
 }
 
-function migrarPlanRepetitivo(mes: string, semanas: SemanaMenu[]): SemanaMenu[] {
-  if (!planAntiguoRepetitivo(semanas)) return semanas;
+function migrarPlanAlPatron(mes: string, semanas: SemanaMenu[]): SemanaMenu[] {
+  if (!planNecesitaPatron(semanas)) return semanas;
 
   const nuevo = semanasDelMes(
     mes,
@@ -112,7 +129,7 @@ function cargarMes(mes: string): MesPlan {
         parsed.semanas.length > 0
       ) {
         const normalizadas = normalizarPlanMensual(parsed.semanas);
-        const semanas = migrarPlanRepetitivo(mes, normalizadas);
+        const semanas = migrarPlanAlPatron(mes, normalizadas);
         const plan = { mes, semanas };
 
         if (semanas !== normalizadas) {
