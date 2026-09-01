@@ -6,23 +6,11 @@ import {
 } from '../motor/compra';
 import { obtenerSeccionCompra } from './categoriasCompra';
 import { cargarDespensa } from './despensa';
-import { proyectarComprasEnvases } from './proyeccionStock';
-
-const SECCIONES_SEMANALES = new Set([
-  'Fruta y Verdura',
-  'Carnicería',
-  'Pescadería',
-]);
+import { correspondeACompraSemanal, proyectarComprasEnvases } from './proyeccionStock';
 
 export function esProductoSemanal(linea: LineaCompra): boolean {
-  const seccion = obtenerSeccionCompra(linea);
-  if (seccion === 'Charcutería y Quesos') return false;
-  if (SECCIONES_SEMANALES.has(seccion)) return true;
   const texto = `${linea.ingrediente.nombre} ${linea.ingrediente.seccion} ${linea.producto?.nombre ?? ''}`
-    .toLocaleLowerCase('es')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-  return /\b(fruta|verdura|hortaliza|tomate|patata|cebolla|ajo|calabacin|zanahoria|pepino|pimiento|pollo|pavo|ternera|cerdo|carne|filete|chuleta|costilla|salmon|bacalao|lubina|dorada|pescado|marisco|gamba|langostino|almeja|calamar|sepia)\b/.test(texto);
+  return correspondeACompraSemanal(obtenerSeccionCompra(linea), texto);
 }
 
 function rehacerResultado(
