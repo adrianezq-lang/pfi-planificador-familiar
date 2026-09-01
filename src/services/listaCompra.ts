@@ -32,6 +32,17 @@ export function generarListaCompra(
   const recetas = ajustarRecetasAlPerfil(cargarRecetas(), perfil, false);
   const buscarReceta = (nombre: string) =>
     recetas.find((receta) => receta.nombre === nombre);
+  const ingredientesPlato = (nombre: string): Ingrediente[] => {
+    const ingredientes = buscarReceta(nombre)?.ingredientes ?? [];
+
+    if (nombre !== 'Tortilla de patata') return ingredientes;
+
+    return ingredientes.map((ingrediente) =>
+      ingrediente.nombre === 'Huevos'
+        ? { ...ingrediente, cantidad: 8, unidad: 'ud' }
+        : ingrediente,
+    );
+  };
 
   const platos = menu.flatMap((dia) => [
     ...dia.comida,
@@ -42,9 +53,7 @@ export function generarListaCompra(
     obtenerRecetaPostre(dia, 'cena'),
   ]);
 
-  const ingredientesPlatos = platos.flatMap(
-    (nombre) => buscarReceta(nombre)?.ingredientes ?? [],
-  );
+  const ingredientesPlatos = platos.flatMap(ingredientesPlato);
   const ingredientesPostres = postres.flatMap((nombre) => {
     const receta = buscarReceta(nombre);
     return receta?.ingredientes ?? ingredientePostreSinReceta(nombre);
