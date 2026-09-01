@@ -4,6 +4,7 @@ import { cargarRecetas } from './recetas';
 import { unirIngredientes } from './UnirIngredientes';
 import { obtenerRecetaPostre } from './menu';
 import { calcularComensales, cargarPerfil } from './perfil';
+import { ajustarRecetasAlPerfil } from './porciones';
 
 function ingredientePostreSinReceta(nombre: string): Ingrediente[] {
   if (!nombre || nombre === 'Sin postre') return [];
@@ -27,7 +28,8 @@ function ingredientePostreSinReceta(nombre: string): Ingrediente[] {
 export function generarListaCompra(
   menu: DiaMenu[],
 ): Ingrediente[] {
-  const recetas = cargarRecetas();
+  const perfil = cargarPerfil();
+  const recetas = ajustarRecetasAlPerfil(cargarRecetas(), perfil, false);
   const buscarReceta = (nombre: string) =>
     recetas.find((receta) => receta.nombre === nombre);
 
