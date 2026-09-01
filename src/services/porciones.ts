@@ -331,6 +331,15 @@ const REGLAS: ReglaPorcion[] = [
     calcular: unidadesPorComensal(1),
   },
   {
+    coincide: ({ nombreIngrediente, nombreReceta }) =>
+      nombreIngrediente === 'tortillas de trigo' && nombreReceta.includes('fajita'),
+    calcular: ({ raciones }) => ({
+      cantidad: Math.max(4, Math.ceil(raciones * 1.5)),
+      unidad: 'ud',
+      explicacion: 'aprox. 1,5 tortillas por ración equivalente en fajitas',
+    }),
+  },
+  {
     coincide: ({ nombreIngrediente }) => nombreIngrediente === 'tortillas de trigo',
     calcular: unidadesPorComensal(2),
   },
