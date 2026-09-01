@@ -1,5 +1,6 @@
 import { Suspense, lazy, useCallback, useEffect, useState, startTransition } from 'react';
 import './styles/recetario-tabs.css';
+import './styles/pfi-polish.css';
 import BottomNav from './components/NavegacionInferior';
 import NavegacionRecetario from './components/NavegacionRecetario';
 import { useMenu } from './hooks/useMenu';
