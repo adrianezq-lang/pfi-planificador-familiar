@@ -110,17 +110,25 @@ function normalizarProducto(
         ? String(precioReferenciaRaw)
         : null;
 
+  // Soportamos tanto el catálogo ya normalizado como los nombres originales
+  // de la fuente. Esto evita perder la capacidad real de multipacks si cambia
+  // la forma en la que se genera el JSON.
   const unidadesTotales =
     obtenerNumero(producto.unidadesTotales) ??
+    obtenerNumero(producto.total_units) ??
+    obtenerNumero(producto.pack_size) ??
     obtenerNumero(instruccionesPrecio.pack_size);
 
   const tamanoUnidad =
     obtenerNumero(producto['tamañoUnidad']) ??
     obtenerNumero(producto.tamanoUnidad) ??
+    obtenerNumero(producto.unit_size) ??
     obtenerNumero(instruccionesPrecio.unit_size);
 
   const formatoUnidadRaw =
     producto.formatoUnidad ??
+    producto.unit_format ??
+    producto.size_format ??
     instruccionesPrecio.size_format;
 
   const formatoUnidad =
