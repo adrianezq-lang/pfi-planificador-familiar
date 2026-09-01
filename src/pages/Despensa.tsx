@@ -48,12 +48,17 @@ function Despensa() {
   }, [recargar]);
 
   const productosReposicion = useMemo(
+    () => productos.filter((producto) => calcularReposicion(producto) > 0),
+    [productos],
+  );
+
+  const productosConMinimo = useMemo(
     () =>
       productos.filter(
         (producto) =>
           producto.tipo === 'despensa' &&
           producto.frecuencia !== 'manual' &&
-          calcularReposicion(producto) > 0,
+          producto.stockMinimo > 0,
       ),
     [productos],
   );
@@ -128,8 +133,9 @@ function Despensa() {
       <Card className="page-hero-card">
         <Title style={{ color: '#4f6f52' }}>📦 Despensa e inventario</Title>
         <p className="pantry-lead">
-          Pulsa cualquier foto para editar stock, objetivo, tipo y frecuencia.
-          PFI aprende del historial y te propone ajustes cuando tiene datos suficientes.
+          Pulsa cualquier foto para editar el stock real y, solo si te interesa,
+          guardar una reserva mínima. El menú sigue siendo quien decide cuánto hay
+          que comprar para cocinar.
         </p>
 
         <div className="pantry-summary-grid">
@@ -141,22 +147,21 @@ function Despensa() {
           />
           <Resumen
             numero={productosReposicion.length}
-            texto="faltan en reposición automática"
+            texto="por debajo del mínimo"
             activo={filtro === 'reposicion' && vista === 'inventario'}
             onClick={() => abrirResumen('reposicion')}
           />
           <Resumen
-            numero={productosSegunMenuOManual.length}
-            texto="según menú o manuales"
-            activo={filtro === 'menu-manual' && vista === 'inventario'}
-            onClick={() => abrirResumen('menu-manual')}
+            numero={productosConMinimo.length}
+            texto="con reserva mínima"
+            onClick={() => abrirResumen('todos')}
           />
           <Resumen
             numero={totalReposicion.toLocaleString('es-ES', {
               style: 'currency',
               currency: 'EUR',
             })}
-            texto="coste de reposición automática"
+            texto="coste de completar reservas"
             onClick={() => {
               setVista('reposicion');
               setFiltro('reposicion');
@@ -184,7 +189,7 @@ function Despensa() {
           />
           <Pestana
             activa={vista === 'reposicion'}
-            texto="Reposición automática"
+            texto="Reservas mínimas"
             onClick={() => setVista('reposicion')}
           />
           <Pestana
@@ -216,7 +221,9 @@ function Despensa() {
                 className="pantry-product-card"
                 style={{
                   borderLeft:
-                    producto.tipo === 'perecedero' || producto.frecuencia === 'manual'
+                    producto.tipo === 'perecedero' ||
+                    producto.frecuencia === 'manual' ||
+                    producto.stockMinimo <= 0
                       ? '5px solid #9aa39b'
                       : necesitaReposicion(producto)
                         ? '5px solid #d69e62'
@@ -237,7 +244,10 @@ function Despensa() {
                     −
                   </button>
                   <div>
-                    <strong>{producto.stockEsAproximado ? '≈ ' : ''}{producto.stockActual}</strong>
+                    <strong>
+                      {producto.stockEsAproximado ? '≈ ' : ''}
+                      {producto.stockActual}
+                    </strong>
                     <span>{producto.unidad}</span>
                   </div>
                   <button type="button" onClick={() => sumarStock(producto)}>
@@ -245,13 +255,17 @@ function Despensa() {
                   </button>
                 </div>
 
-                <div className="pantry-progress">
-                  <span
-                    style={{
-                      width: `${porcentajeStock(producto)}%`,
-                    }}
-                  />
-                </div>
+                {producto.stockMinimo > 0 &&
+                  producto.tipo === 'despensa' &&
+                  producto.frecuencia !== 'manual' && (
+                    <div className="pantry-progress">
+                      <span
+                        style={{
+                          width: `${porcentajeStock(producto)}%`,
+                        }}
+                      />
+                    </div>
+                  )}
 
                 <p className="pantry-state">{estadoProducto(producto)}</p>
               </Card>
@@ -269,10 +283,11 @@ function Despensa() {
       {vista === 'reposicion' && (
         <>
           <Card className="pantry-restock-note">
-            <strong>Reposición automática</strong>
+            <strong>Reservas mínimas</strong>
             <p>
-              Solo aparecen productos de despensa con objetivo fijo. Los perecederos
-              se calculan desde el menú y los manuales se añaden cuando tú decidas.
+              Aquí solo aparecen productos a los que hayas puesto un mínimo y cuyo
+              stock real esté por debajo. Los perecederos y los productos con mínimo
+              0 se calculan únicamente según el menú o se gestionan manualmente.
             </p>
           </Card>
           <section className="pantry-grid">
@@ -286,7 +301,7 @@ function Despensa() {
                   Comprar {calcularReposicion(producto)} {producto.unidad}
                 </div>
                 <p className="pantry-lead">
-                  Stock {producto.stockActual} · objetivo {producto.stockObjetivo} ·{' '}
+                  Stock {producto.stockActual} · mínimo {producto.stockMinimo} ·{' '}
                   {etiquetaFrecuencia(producto.frecuencia)}
                 </p>
                 <strong className="pantry-price">
@@ -302,7 +317,7 @@ function Despensa() {
           </section>
           {productosReposicion.length === 0 && (
             <Card>
-              <p className="pantry-empty">No hace falta reponer nada.</p>
+              <p className="pantry-empty">Todas las reservas están cubiertas.</p>
             </Card>
           )}
         </>
@@ -444,7 +459,7 @@ function Pestana({
 }
 
 function etiquetaFiltro(filtro: FiltroInventario): string {
-  if (filtro === 'reposicion') return 'Faltan en reposición automática';
+  if (filtro === 'reposicion') return 'Por debajo del mínimo';
   if (filtro === 'menu-manual') return 'Según menú o manuales';
   return 'Todos los productos controlados';
 }
@@ -455,20 +470,23 @@ function etiquetaFrecuencia(frecuencia: FrecuenciaDespensa): string {
 }
 
 function porcentajeStock(producto: ProductoDespensa): number {
-  if (producto.stockObjetivo <= 0) return producto.stockActual > 0 ? 100 : 0;
-  return Math.min(100, (producto.stockActual / producto.stockObjetivo) * 100);
+  if (producto.stockMinimo <= 0) return 0;
+  return Math.min(100, (producto.stockActual / producto.stockMinimo) * 100);
 }
 
 function estadoProducto(producto: ProductoDespensa): string {
   if (producto.tipo === 'perecedero') {
-    return 'Compra según las cantidades del menú · sin objetivo fijo';
+    return 'Compra según las cantidades del menú · sin reserva fija';
   }
   if (producto.frecuencia === 'manual') {
     return `Reposición manual · stock ${producto.stockActual} ${producto.unidad}`;
   }
+  if (producto.stockMinimo <= 0) {
+    return `Sin mínimo · stock ${producto.stockActual} ${producto.unidad}`;
+  }
   const faltan = calcularReposicion(producto);
-  return `Objetivo: ${producto.stockObjetivo} ${producto.unidad}${
-    faltan > 0 ? ` · faltan ${faltan}` : ' · stock correcto'
+  return `Mínimo: ${producto.stockMinimo} ${producto.unidad}${
+    faltan > 0 ? ` · faltan ${faltan}` : ' · reserva cubierta'
   }`;
 }
 
