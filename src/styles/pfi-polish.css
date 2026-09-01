@@ -117,6 +117,147 @@
   box-shadow: 0 7px 16px rgba(79, 111, 82, 0.2);
 }
 
+.monthly-menu-overview {
+  margin-top: 24px;
+  padding: 22px;
+  border: 1px solid #dfe8dc;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #fbfcf9 0%, #f5f8f2 100%);
+  box-shadow: 0 9px 28px rgba(55, 79, 58, 0.07);
+}
+
+.monthly-menu-overview__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.monthly-menu-overview__eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: #6d806f;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.monthly-menu-overview__header h3 {
+  margin: 0;
+  color: #2f4633;
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+.monthly-menu-overview__header p {
+  margin: 5px 0 0;
+  color: #6d796f;
+  font-size: 13px;
+}
+
+.monthly-menu-overview__scroll {
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  scrollbar-width: thin;
+}
+
+.monthly-menu-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(122px, 1fr));
+  gap: 8px;
+  min-width: 910px;
+}
+
+.monthly-menu-calendar__weekday {
+  padding: 8px 6px;
+  color: #607263;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.monthly-menu-calendar__empty {
+  min-height: 118px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.monthly-menu-calendar__day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-height: 118px;
+  padding: 10px;
+  border: 1px solid #e0e8dd;
+  border-radius: 16px;
+  background: #fff;
+  color: #425245;
+  text-align: left;
+  box-shadow: 0 3px 10px rgba(55, 79, 58, 0.045);
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.monthly-menu-calendar__day:hover {
+  border-color: #b8cbb5;
+  box-shadow: 0 7px 18px rgba(55, 79, 58, 0.09);
+  transform: translateY(-1px);
+}
+
+.monthly-menu-calendar__day:focus-visible {
+  outline: 3px solid rgba(79, 111, 82, 0.2);
+  outline-offset: 2px;
+}
+
+.monthly-menu-calendar__day--away {
+  border-style: dashed;
+  background: #fbf7ec;
+  color: #756642;
+}
+
+.monthly-menu-calendar__date {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: #edf3ea;
+  color: #38523c;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.monthly-menu-calendar__day--away .monthly-menu-calendar__date {
+  background: #f1e9d4;
+  color: #756642;
+}
+
+.monthly-menu-calendar__meal {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 5px;
+  align-items: start;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.monthly-menu-calendar__meal b {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.monthly-menu-calendar__meal span {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .recetario-tabs {
   margin: 0 auto;
   width: min(100%, 1080px);
@@ -161,6 +302,32 @@
 
   .week-day-button {
     flex: 0 0 82px;
+  }
+
+  .monthly-menu-overview {
+    margin-top: 18px;
+    padding: 16px 12px 12px;
+    border-radius: 20px;
+  }
+
+  .monthly-menu-overview__header {
+    margin-bottom: 12px;
+    padding: 0 4px;
+  }
+
+  .monthly-menu-overview__header p {
+    font-size: 12px;
+  }
+
+  .monthly-menu-calendar {
+    grid-template-columns: repeat(7, 116px);
+    min-width: 844px;
+    gap: 7px;
+  }
+
+  .monthly-menu-calendar__day,
+  .monthly-menu-calendar__empty {
+    min-height: 112px;
   }
 
   .compra-resumen-grid {
