@@ -41,8 +41,9 @@ const dia = (
  * - Sábado: pescado + cena informal.
  * - Domingo: comida fuera + Cola Cao y galletas.
  *
- * Los platos concretos cambian entre semanas. Además, cada semana conserva
- * una ensalada de pasta, alternándola entre miércoles y viernes.
+ * Los platos concretos cambian entre semanas. La ensalada de pasta aparece
+ * de forma ocasional en la plantilla base; durante junio, julio y agosto el
+ * planificador la fuerza una vez por semana como preferencia de verano.
  */
 const PLANTILLAS_SEMANA: DiaMenu[][] = [
   [
@@ -59,14 +60,14 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
     dia('Martes', ['Dorada', 'Patatas'], ['Crema de verduras', 'Tortilla de patata'], 'Fruta', 'Yogur'),
     dia('Miércoles', ['Carbonara tradicional'], ['Pechugas de pollo', 'Arroz blanco'], 'Yogur', 'Fruta'),
     dia('Jueves', ['Alubias rojas'], ['Lomo', 'Patatas'], 'Fruta', 'Yogur'),
-    dia('Viernes', ['Ensalada de pasta'], ['Pizza BBQ', 'Pizza 4 quesos'], 'Yogur', 'Fruta'),
+    dia('Viernes', ['Macarrones con chorizo'], ['Pizza BBQ', 'Pizza 4 quesos'], 'Yogur', 'Fruta'),
     dia('Sábado', ['Bacalao', 'Patatas'], ['Perritos calientes'], 'Fruta', 'Yogur'),
     dia('Domingo', ['Comemos fuera'], ['Cola Cao y galletas'], 'Sin postre', 'Sin postre'),
   ],
   [
     dia('Lunes', ['Alubias rojas'], ['Lomo', 'Ensalada'], 'Fruta', 'Yogur'),
     dia('Martes', ['Bacalao', 'Patatas'], ['Crema de calabaza', 'Tortilla francesa'], 'Yogur', 'Fruta'),
-    dia('Miércoles', ['Ensalada de pasta'], ['Pechugas de pavo', 'Patatas'], 'Fruta', 'Yogur'),
+    dia('Miércoles', ['Carbonara tradicional'], ['Pechugas de pavo', 'Patatas'], 'Fruta', 'Yogur'),
     dia('Jueves', ['Garbanzos fritos', 'Arroz blanco'], ['Filete de ternera', 'Ensalada'], 'Yogur', 'Fruta'),
     dia('Viernes', ['Macarrones con roquefort'], ['Pizza jamón y queso', 'Pizza 4 quesos'], 'Fruta', 'Yogur'),
     dia('Sábado', ['Dorada', 'Patatas'], ['Kebab'], 'Yogur', 'Fruta'),
@@ -77,14 +78,14 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
     dia('Martes', ['Salmón', 'Arroz blanco'], ['Crema de verduras', 'Tortilla de patata'], 'Fruta', 'Yogur'),
     dia('Miércoles', ['Macarrones boloñesa'], ['Kebab'], 'Yogur', 'Fruta'),
     dia('Jueves', ['Cocido de garbanzos'], ['Filete de ternera', 'Patatas'], 'Fruta', 'Yogur'),
-    dia('Viernes', ['Ensalada de pasta'], ['Pizza BBQ', 'Pizza 4 quesos'], 'Yogur', 'Fruta'),
+    dia('Viernes', ['Macarrones con chorizo'], ['Pizza BBQ', 'Pizza 4 quesos'], 'Yogur', 'Fruta'),
     dia('Sábado', ['Lubina', 'Patatas'], ['Hamburguesas'], 'Fruta', 'Yogur'),
     dia('Domingo', ['Comemos fuera'], ['Cola Cao y galletas'], 'Sin postre', 'Sin postre'),
   ],
   [
     dia('Lunes', ['Alubias rojas'], ['Lomo', 'Patatas'], 'Fruta', 'Yogur'),
     dia('Martes', ['Dorada', 'Patatas'], ['Crema de calabacín', 'Tortilla francesa'], 'Yogur', 'Fruta'),
-    dia('Miércoles', ['Ensalada de pasta'], ['Pechugas de pollo', 'Arroz blanco'], 'Fruta', 'Yogur'),
+    dia('Miércoles', ['Macarrones boloñesa'], ['Pechugas de pollo', 'Arroz blanco'], 'Fruta', 'Yogur'),
     dia('Jueves', ['Garbanzos fritos', 'Arroz blanco'], ['Filete de ternera', 'Ensalada'], 'Yogur', 'Fruta'),
     dia('Viernes', ['Carbonara tradicional'], ['Pizza jamón y queso', 'Pizza BBQ'], 'Fruta', 'Yogur'),
     dia('Sábado', ['Salmón', 'Arroz blanco'], ['Perritos calientes'], 'Yogur', 'Fruta'),
