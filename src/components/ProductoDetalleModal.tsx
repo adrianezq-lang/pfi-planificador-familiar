@@ -12,10 +12,7 @@ import {
   cargarCatalogoMercadona,
   type ProductoMercadonaCatalogo,
 } from '../services/catalogoMercadona';
-import {
-  consumoUltimos30Dias,
-  previsionAgotamiento,
-} from '../services/inventario';
+import { previsionAgotamiento } from '../services/inventario';
 
 type ProductoInicial = Pick<
   ProductoMercadonaCatalogo,
@@ -28,48 +25,6 @@ type ProductoDetalleModalProps = {
   onCerrar: () => void;
   onActualizado?: () => void;
 };
-
-type SugerenciaInteligente = {
-  objetivo: number;
-  frecuencia: FrecuenciaDespensa;
-  explicacion: string;
-};
-
-function sugerenciaParaProducto(
-  producto: ProductoDespensa,
-): SugerenciaInteligente | null {
-  if (producto.tipo === 'perecedero') {
-    return {
-      objetivo: 0,
-      frecuencia: 'semanal',
-      explicacion:
-        'Es perecedero: PFI lo calculará desde el menú en lugar de mantener un stock fijo.',
-    };
-  }
-
-  const consumo30 = consumoUltimos30Dias(producto.productoId);
-  if (consumo30 <= 0) return null;
-
-  const frecuencia =
-    consumo30 >= 8
-      ? 'semanal'
-      : consumo30 >= 2
-        ? 'cuando-falte'
-        : 'mensual';
-  const diasCobertura =
-    frecuencia === 'semanal' ? 9 : frecuencia === 'mensual' ? 30 : 15;
-  const objetivo = Math.max(1, Math.ceil((consumo30 / 30) * diasCobertura));
-
-  return {
-    objetivo,
-    frecuencia,
-    explicacion: `Basado en un consumo de ${formatearNumero(consumo30)} ${producto.unidad} durante los últimos 30 días.`,
-  };
-}
-
-function formatearNumero(valor: number): string {
-  return valor.toLocaleString('es-ES', { maximumFractionDigits: 1 });
-}
 
 function ProductoDetalleModal({
   productoId,
@@ -114,10 +69,6 @@ function ProductoDetalleModal({
   }, [productoId]);
 
   const productoVisible = catalogo ?? productoInicial ?? despensa;
-  const sugerencia = useMemo(
-    () => (editor ? sugerenciaParaProducto(editor) : null),
-    [editor],
-  );
   const diasRestantes = useMemo(
     () => (productoId ? previsionAgotamiento(productoId) : null),
     [productoId, editor?.stockActual],
@@ -131,11 +82,10 @@ function ProductoDetalleModal({
     actualizarProductoDespensa(editor.id, {
       stockActual: editor.stockActual,
       stockEsAproximado: editor.stockEsAproximado,
-      stockObjetivo: editor.stockObjetivo,
+      stockMinimo: editor.stockMinimo,
       unidad: editor.unidad,
       tipo: editor.tipo,
       frecuencia: editor.frecuencia,
-      umbralAviso: editor.umbralAviso,
     });
     const actualizado = buscarProductoDespensa(editor.productoId) ?? editor;
     setDespensa(actualizado);
@@ -228,21 +178,31 @@ function ProductoDetalleModal({
           <>
             <section className="product-detail-smart">
               <div>
-                <span>🧠 RECOMENDACIÓN PFI</span>
-                {sugerencia ? (
+                <span>📦 CONTROL DE RESERVA</span>
+                {editor.tipo === 'perecedero' ? (
+                  <>
+                    <strong>Compra calculada desde el menú</strong>
+                    <p>
+                      Los perecederos no necesitan una reserva fija: PFI calcula lo
+                      necesario para cada semana según las comidas planificadas.
+                    </p>
+                  </>
+                ) : editor.stockMinimo > 0 ? (
                   <>
                     <strong>
-                      Objetivo {sugerencia.objetivo} {editor.unidad} ·{' '}
-                      {etiquetaFrecuencia(sugerencia.frecuencia)}
+                      Mantener al menos {editor.stockMinimo} {editor.unidad}
                     </strong>
-                    <p>{sugerencia.explicacion}</p>
+                    <p>
+                      Esta cantidad es solo una reserva de seguridad. No sustituye
+                      las necesidades calculadas por el menú.
+                    </p>
                   </>
                 ) : (
                   <>
-                    <strong>Aún estoy observando este producto</strong>
+                    <strong>Sin reserva automática</strong>
                     <p>
-                      Registra compras y consumos para que PFI pueda proponerte un
-                      objetivo personalizado.
+                      El valor 0 desactiva el mínimo. La compra se basa en el stock
+                      real y en lo que haga falta para el menú.
                     </p>
                   </>
                 )}
@@ -253,20 +213,6 @@ function ProductoDetalleModal({
                   </small>
                 )}
               </div>
-              {sugerencia && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    setEditor({
-                      ...editor,
-                      stockObjetivo: sugerencia.objetivo,
-                      frecuencia: sugerencia.frecuencia,
-                    })
-                  }
-                >
-                  Aplicar
-                </button>
-              )}
             </section>
 
             <div className="product-detail-form">
@@ -291,19 +237,14 @@ function ProductoDetalleModal({
                 </select>
               </label>
               <CampoNumero
-                etiqueta="Stock objetivo"
-                valor={editor.stockObjetivo}
-                onChange={(stockObjetivo) =>
-                  setEditor({ ...editor, stockObjetivo })
+                etiqueta="Stock mínimo (opcional)"
+                valor={editor.stockMinimo}
+                onChange={(stockMinimo) =>
+                  setEditor({ ...editor, stockMinimo })
                 }
               />
-              <CampoNumero
-                etiqueta="Avisar cuando quede"
-                valor={editor.umbralAviso}
-                onChange={(umbralAviso) => setEditor({ ...editor, umbralAviso })}
-              />
               <label>
-                <span>Unidad</span>
+                <span>Unidad de inventario</span>
                 <input
                   value={editor.unidad}
                   onChange={(evento) =>
@@ -315,19 +256,22 @@ function ProductoDetalleModal({
                 <span>Tipo</span>
                 <select
                   value={editor.tipo}
-                  onChange={(evento) =>
+                  onChange={(evento) => {
+                    const tipo = evento.target.value as TipoProductoDespensa;
                     setEditor({
                       ...editor,
-                      tipo: evento.target.value as TipoProductoDespensa,
-                    })
-                  }
+                      tipo,
+                      stockMinimo: tipo === 'perecedero' ? 0 : editor.stockMinimo,
+                      frecuencia: tipo === 'perecedero' ? 'semanal' : editor.frecuencia,
+                    });
+                  }}
                 >
                   <option value="despensa">Despensa</option>
                   <option value="perecedero">Perecedero</option>
                 </select>
               </label>
               <label>
-                <span>Reposición</span>
+                <span>Frecuencia de reposición de la reserva</span>
                 <select
                   value={editor.frecuencia}
                   onChange={(evento) =>
@@ -344,6 +288,12 @@ function ProductoDetalleModal({
                 </select>
               </label>
             </div>
+
+            <p className="product-detail-modal__notice">
+              Stock mínimo 0 = sin reserva automática. Para aceite, leche, limpieza
+              o comida de animales puedes poner 1 si quieres guardar un envase de
+              seguridad.
+            </p>
 
             <div className="product-detail-modal__footer">
               <button type="button" className="primary" onClick={guardar}>
@@ -389,14 +339,6 @@ function CampoNumero({
       />
     </label>
   );
-}
-
-function etiquetaFrecuencia(frecuencia: FrecuenciaDespensa): string {
-  return frecuencia === 'cuando-falte'
-    ? 'reponer cuando falte'
-    : frecuencia === 'manual'
-      ? 'reposición manual'
-      : `reposición ${frecuencia}`;
 }
 
 export default ProductoDetalleModal;
