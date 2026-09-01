@@ -75,24 +75,45 @@ function normalizarTexto(texto: string): string {
 }
 
 function normalizarUnidad(unidad: string): string {
-  const valor = normalizarTexto(unidad);
+  const valor = normalizarTexto(unidad)
+    .replace(/\.$/, '')
+    .replace(/\s+/g, ' ');
 
   const equivalencias: Record<string, string> = {
+    u: 'ud',
+    ud: 'ud',
     uds: 'ud',
+    unid: 'ud',
     unidad: 'ud',
     unidades: 'ud',
     pieza: 'ud',
     piezas: 'ud',
+    envase: 'ud',
+    envases: 'ud',
     loncha: 'ud',
     lonchas: 'ud',
     lata: 'ud',
     latas: 'ud',
     bote: 'ud',
     botes: 'ud',
+    tarro: 'ud',
+    tarros: 'ud',
     bolsa: 'ud',
     bolsas: 'ud',
     paquete: 'ud',
     paquetes: 'ud',
+    pack: 'ud',
+    packs: 'ud',
+    caja: 'ud',
+    cajas: 'ud',
+    estuche: 'ud',
+    estuches: 'ud',
+    malla: 'ud',
+    mallas: 'ud',
+    botella: 'ud',
+    botellas: 'ud',
+    rollo: 'ud',
+    rollos: 'ud',
     brick: 'ud',
     bricks: 'ud',
     brik: 'ud',
@@ -119,6 +140,10 @@ function normalizarUnidad(unidad: string): string {
     kilos: 'kg',
     kilogramo: 'kg',
     kilogramos: 'kg',
+    centilitro: 'cl',
+    centilitros: 'cl',
+    decilitro: 'dl',
+    decilitros: 'dl',
     mililitro: 'ml',
     mililitros: 'ml',
     litro: 'l',
@@ -140,6 +165,14 @@ function convertirABase(
 
   if (unidadNormalizada === 'l') {
     return { cantidad: cantidad * 1000, unidad: 'ml' };
+  }
+
+  if (unidadNormalizada === 'dl') {
+    return { cantidad: cantidad * 100, unidad: 'ml' };
+  }
+
+  if (unidadNormalizada === 'cl') {
+    return { cantidad: cantidad * 10, unidad: 'ml' };
   }
 
   return {
@@ -164,56 +197,109 @@ function capacidadDesdeCantidad(
   return base.cantidad > 0 ? base : null;
 }
 
+function añadirCapacidad(
+  capacidades: CapacidadProducto[],
+  cantidad: number,
+  unidad: string,
+): void {
+  const capacidad = capacidadDesdeCantidad(cantidad, unidad);
+  if (capacidad) capacidades.push(capacidad);
+}
+
 function capacidadesDesdeFormato(
   formato: string,
 ): CapacidadProducto[] {
   const texto = normalizarTexto(formato);
   const capacidades: CapacidadProducto[] = [];
 
-  const multiplicador = texto.match(
-    /(\d+)\s*[x×]\s*(\d+(?:[.,]\d+)?)\s*(g|kg|ml|cl|l)\b/,
+  // 6 x 200 ml, 3×250 g, 2 x 1 L...
+  const multiplicadorMedida = texto.match(
+    /(\d+)\s*[x×]\s*(\d+(?:[.,]\d+)?)\s*(g|kg|ml|cl|dl|l)\b/,
   );
-
-  if (multiplicador) {
-    const unidades = numero(multiplicador[1]);
-    const cantidad = numero(multiplicador[2]);
-    const unidad = multiplicador[3];
-    const capacidad = capacidadDesdeCantidad(
-      unidades * cantidad * (unidad === 'cl' ? 10 : 1),
-      unidad === 'cl' ? 'ml' : unidad,
+  if (multiplicadorMedida) {
+    añadirCapacidad(
+      capacidades,
+      numero(multiplicadorMedida[1]) * numero(multiplicadorMedida[2]),
+      multiplicadorMedida[3],
     );
-
-    if (capacidad) capacidades.push(capacidad);
   } else {
-    const cantidadPesoVolumen = texto.match(
-      /(\d+(?:[.,]\d+)?)\s*(g|kg|ml|cl|l)\b/,
+    // 6 botellas x 1 L, 4 briks x 200 ml...
+    const multiplicadorEnvases = texto.match(
+      /(\d+)\s*(?:botellas?|bricks?|briks?|latas?|botes?|tarros?|tarrinas?|bolsas?)\s*[x×]\s*(\d+(?:[.,]\d+)?)\s*(g|kg|ml|cl|dl|l)\b/,
     );
-
-    if (cantidadPesoVolumen) {
-      const unidad = cantidadPesoVolumen[2];
-      const capacidad = capacidadDesdeCantidad(
-        numero(cantidadPesoVolumen[1]) *
-          (unidad === 'cl' ? 10 : 1),
-        unidad === 'cl' ? 'ml' : unidad,
+    if (multiplicadorEnvases) {
+      añadirCapacidad(
+        capacidades,
+        numero(multiplicadorEnvases[1]) * numero(multiplicadorEnvases[2]),
+        multiplicadorEnvases[3],
       );
-
-      if (capacidad) capacidades.push(capacidad);
+    } else {
+      const cantidadPesoVolumen = texto.match(
+        /(\d+(?:[.,]\d+)?)\s*(g|kg|ml|cl|dl|l)\b/,
+      );
+      if (cantidadPesoVolumen) {
+        añadirCapacidad(
+          capacidades,
+          numero(cantidadPesoVolumen[1]),
+          cantidadPesoVolumen[2],
+        );
+      }
     }
   }
 
-  const pack = texto.match(
-    /(?:pack|paq(?:uete)?)\s*[-x]?\s*(?:de\s*)?(\d+)/,
+  // 2 x 6 ud / 2×6 unidades.
+  const multiplicadorUnidades = texto.match(
+    /(\d+)\s*[x×]\s*(\d+(?:[.,]\d+)?)\s*(?:u|ud|uds|unidades?)\.?\b/,
   );
-  const unidades = texto.match(
-    /(\d+)\s*(?:ud|uds|unidades|unidad)\b/,
-  );
-
-  const cantidadUnidades = pack?.[1] ?? unidades?.[1];
-  if (cantidadUnidades) {
+  if (multiplicadorUnidades) {
     capacidades.push({
-      cantidad: numero(cantidadUnidades),
+      cantidad: numero(multiplicadorUnidades[1]) * numero(multiplicadorUnidades[2]),
       unidad: 'ud',
     });
+  }
+
+  // 12 ud., 6 unidades, etc.
+  const unidades = texto.match(
+    /(\d+(?:[.,]\d+)?)\s*(?:u|ud|uds|unidades?)\.?\b/,
+  );
+  if (unidades) {
+    capacidades.push({ cantidad: numero(unidades[1]), unidad: 'ud' });
+  }
+
+  // Pack/caja/estuche de 6 unidades.
+  const packConUnidades = texto.match(
+    /(?:pack|paq(?:uete)?|caja|estuche)\s*(?:de\s*)?(\d+)\s*(?:u|ud|uds|unidades?)\.?\b/,
+  );
+  if (packConUnidades) {
+    capacidades.push({ cantidad: numero(packConUnidades[1]), unidad: 'ud' });
+  }
+
+  // "Pack 6" es frecuente; evitamos confundir "paquete 500 g" con 500 unidades.
+  const packSimple = texto.match(
+    /(?:pack|paq(?:uete)?)\s*[-x]?\s*(?:de\s*)?(\d+)\b(?!\s*(?:g|kg|ml|cl|dl|l)\b)/,
+  );
+  if (packSimple) {
+    capacidades.push({ cantidad: numero(packSimple[1]), unidad: 'ud' });
+  }
+
+  // Docenas escritas como formato comercial.
+  if (/\bmedia\s+docena\b/.test(texto)) {
+    capacidades.push({ cantidad: 6, unidad: 'ud' });
+  } else {
+    const docenas = texto.match(/(\d+(?:[.,]\d+)?)\s*docenas?\b/);
+    if (docenas) {
+      capacidades.push({ cantidad: numero(docenas[1]) * 12, unidad: 'ud' });
+    } else if (/\bdocena\b/.test(texto)) {
+      capacidades.push({ cantidad: 12, unidad: 'ud' });
+    }
+  }
+
+  // Formatos que indican directamente el número de elementos sin escribir "ud".
+  const elementosNombrados = texto.match(
+    /(\d+)\s*(?:huevos?|rollos?|botellas?|latas?|botes?|tarros?|sobres?|capsulas?)\b/,
+  );
+  if (elementosNombrados) {
+    capacidades.push({ cantidad: numero(elementosNombrados[1]), unidad: 'ud' });
   }
 
   const esUnidadSimple = [
@@ -225,6 +311,10 @@ function capacidadesDesdeFormato(
     'lata',
     'bolsa',
     'paquete',
+    'pack',
+    'caja',
+    'estuche',
+    'malla',
     'bandeja',
     'barqueta',
     'tarrina',
@@ -257,6 +347,7 @@ function capacidadesProducto(
   ) {
     capacidades.push({ cantidad: 4, unidad: 'ud' });
   }
+
   const unidadesTotales = producto.unidadesTotales ?? 0;
   const tamanoUnidad = producto.tamanoUnidad ?? 0;
   const formatoUnidad = producto.formatoUnidad ?? '';
@@ -269,8 +360,11 @@ function capacidadesProducto(
   }
 
   if (tamanoUnidad > 0 && formatoUnidad) {
+    // unit_size es el tamaño de UNA unidad del multipack. Para necesidades en
+    // gramos/ml necesitamos la capacidad total del envase comercial completo.
+    const multiplicador = unidadesTotales > 0 ? unidadesTotales : 1;
     const capacidad = capacidadDesdeCantidad(
-      tamanoUnidad,
+      tamanoUnidad * multiplicador,
       formatoUnidad,
     );
 
@@ -490,12 +584,12 @@ export function calcularEnvasesParaNecesidades(
 export function calcularEnvasesConStock(
   envasesMenu: number,
   stockActual: number,
-  stockObjetivo: number,
+  stockMinimo: number,
 ): number {
   return Math.max(
     0,
     Math.ceil(
-      Math.max(stockObjetivo, envasesMenu) - stockActual,
+      Math.max(stockMinimo, envasesMenu) - stockActual,
     ),
   );
 }
@@ -555,7 +649,7 @@ function combinarLineasProducto(
     ? calcularEnvasesConStock(
         calculo.envasesExactos,
         productoDespensa?.stockActual ?? 0,
-        productoDespensa?.stockObjetivo ?? 0,
+        productoDespensa?.stockMinimo ?? 0,
       )
     : envasesMenu;
 
