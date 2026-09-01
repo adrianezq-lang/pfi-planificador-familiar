@@ -19,14 +19,14 @@ function App() {
  const [pantalla,setPantalla]=useState<Pantalla>('inicio');
  const {menu,planMensual,semanaActiva,seleccionarSemana,mesActivo,cambiarMes,excluirSemana,generarNuevoMes,reiniciarMes}=useMenu();
  const cambiarPantalla=useCallback((destino:Pantalla)=>startTransition(()=>setPantalla(destino)),[]);
- const menuMes = planMensual.filter((semana)=>!semana.excluida).flatMap((semana)=>semana.menu);
+ const menuCompra = planMensual.filter((semana)=>!semana.excluida).flatMap((semana)=>semana.menu);
  useEffect(()=>{let cancelado=false;const sync=()=>{if(cancelado)return;const recetas=cargarRecetas();void repararAsociacionesIngredientes(recetas,cargarDespensa()).then(()=>sincronizarProductosRecetasConDespensa(recetas));};sync();window.addEventListener(EVENTO_RECETAS,sync);window.addEventListener(EVENTO_ASOCIACIONES,sync);return()=>{cancelado=true;window.removeEventListener(EVENTO_RECETAS,sync);window.removeEventListener(EVENTO_ASOCIACIONES,sync);};},[]);
  return <div className="app-shell">
   <header className="app-header"><div className="app-header__inner"><div className="app-logo" aria-hidden="true">🏡</div><div className="app-brand"><h1>Planificador Familiar Inteligente</h1><p>Menús, compra, despensa y presupuesto</p></div><span className="app-version">PFI</span></div></header>
   <Suspense fallback={<main className="page page-loading"><span>Abriendo…</span></main>}>
    {pantalla==='inicio'&&<Home menu={menu} planMensual={planMensual} semanaActiva={semanaActiva} navegar={cambiarPantalla}/>} 
    {pantalla==='menu'&&<Menu menu={menu} planMensual={planMensual} semanaActiva={semanaActiva} seleccionarSemana={seleccionarSemana} mesActivo={mesActivo} cambiarMes={cambiarMes} excluirSemana={excluirSemana} generarNuevoMes={generarNuevoMes} reiniciarMes={reiniciarMes}/>} 
-   {pantalla==='compra'&&<Compra menu={menu} menuMes={menuMes} mesActivo={mesActivo} semanaActiva={semanaActiva}/>} {pantalla==='despensa'&&<Despensa/>} {pantalla==='recetas'&&<Recetas/>} {pantalla==='postres'&&<Postres/>} {pantalla==='catalogo'&&<CatalogoMercadona/>} {pantalla==='perfil'&&<Perfil/>}
+   {pantalla==='compra'&&<Compra menu={menuCompra}/>} {pantalla==='despensa'&&<Despensa/>} {pantalla==='recetas'&&<Recetas/>} {pantalla==='postres'&&<Postres/>} {pantalla==='catalogo'&&<CatalogoMercadona/>} {pantalla==='perfil'&&<Perfil/>}
   </Suspense>
   <NavegacionRecetario pantalla={pantalla} cambiarPantalla={cambiarPantalla}/>
   <BottomNav pantallaActual={pantalla === 'postres' ? 'recetas' : pantalla} cambiarPantalla={cambiarPantalla}/>
