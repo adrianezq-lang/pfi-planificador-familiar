@@ -8,10 +8,15 @@ const fmtRango = (semana: SemanaMenu) => { if (!semana.inicio || !semana.fin) re
 
 export default function Menu({ menu, planMensual, semanaActiva, seleccionarSemana, mesActivo, cambiarMes, excluirSemana, generarNuevoMes, reiniciarMes }: MenuProps) {
   const [diaActivo, setDiaActivo] = useState(0); const semana = planMensual[semanaActiva]; const dia = menu[diaActivo] ?? menu[0]; const mesBonito = fmtMes(mesActivo);
+  const cambiar = (delta:number) => { cambiarMes(delta); setDiaActivo(0); };
   return <main className="page menu-page">
-    <section className="page-intro page-intro--compact menu-intro"><div><span className="menu-intro__eyebrow">PLANIFICADOR FAMILIAR</span><h2>Menú</h2><p>{mesBonito}</p></div></section>
+    <section className="page-intro page-intro--compact menu-intro"><div><span className="menu-intro__eyebrow">PLANIFICADOR FAMILIAR</span><h2>Menú</h2></div></section>
     <section className="month-switcher month-switcher--compact" aria-label="Navegación mensual">
-      <div className="month-switcher__heading"><button type="button" onClick={() => cambiarMes(-1)} aria-label="Mes anterior">‹</button><div><span>MENÚ DEL MES</span><strong>{mesBonito}</strong></div><button type="button" onClick={() => cambiarMes(1)} aria-label="Mes siguiente">›</button></div>
+      <div style={{display:'grid',gridTemplateColumns:'minmax(82px,1fr) minmax(140px,2fr) minmax(82px,1fr)',gap:'10px',alignItems:'stretch'}}>
+        <button type="button" onClick={() => cambiar(-1)} style={{minHeight:'48px',fontWeight:800,fontSize:'15px'}}>‹ Anterior</button>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}><span style={{fontSize:'11px',fontWeight:800}}>MENÚ DEL MES</span><strong style={{textTransform:'capitalize'}}>{mesBonito}</strong></div>
+        <button type="button" onClick={() => cambiar(1)} style={{minHeight:'48px',fontWeight:800,fontSize:'15px'}}>Siguiente ›</button>
+      </div>
       <div className="month-week-tabs">{planMensual.map((s, indice) => <button key={s.id} type="button" className={`month-week-tab${indice === semanaActiva ? ' month-week-tab--active' : ''}${s.excluida ? ' month-week-tab--excluded' : ''}`} onClick={() => { seleccionarSemana(indice); setDiaActivo(0); }}><span>{fmtRango(s)}</span>{s.excluida && <small>Fuera de casa</small>}</button>)}</div>
       <div className="month-week-actions"><button type="button" onClick={() => excluirSemana(semanaActiva, !semana?.excluida)}>{semana?.excluida ? '↩ Incluir esta semana' : '🏖️ No estamos en casa esta semana'}</button><button type="button" onClick={generarNuevoMes}>✨ Generar nuevo mes</button><button type="button" onClick={reiniciarMes}>↺ Reiniciar mes</button></div>
     </section>
