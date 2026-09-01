@@ -34,7 +34,7 @@ const dia = (
 /*
  * La estructura se mantiene estable para que cada semana esté equilibrada:
  * - Lunes: legumbres + cena de proteína con verdura/guarnición.
- * - Martes: pescado + cena de verduras/crema y huevo.
+ * - Martes: pescado + cena de verduras/crema con proteína ligera variada.
  * - Miércoles: pasta + cena de pollo/pavo o similar.
  * - Jueves: legumbre/arroz + carne con guarnición.
  * - Viernes: pasta + pizza.
@@ -57,7 +57,7 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
   ],
   [
     dia('Lunes', ['Cocido de garbanzos'], ['Pechugas de pavo', 'Ensalada'], 'Yogur', 'Fruta'),
-    dia('Martes', ['Dorada', 'Patatas'], ['Crema de verduras', 'Tortilla de patata'], 'Fruta', 'Yogur'),
+    dia('Martes', ['Dorada', 'Patatas'], ['Crema de verduras', 'Pechugas de pavo'], 'Fruta', 'Yogur'),
     dia('Miércoles', ['Carbonara tradicional'], ['Pechugas de pollo', 'Arroz blanco'], 'Yogur', 'Fruta'),
     dia('Jueves', ['Alubias rojas'], ['Lomo', 'Patatas'], 'Fruta', 'Yogur'),
     dia('Viernes', ['Macarrones con chorizo'], ['Pizza BBQ', 'Pizza 4 quesos'], 'Yogur', 'Fruta'),
@@ -66,7 +66,7 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
   ],
   [
     dia('Lunes', ['Alubias rojas'], ['Lomo', 'Ensalada'], 'Fruta', 'Yogur'),
-    dia('Martes', ['Bacalao', 'Patatas'], ['Crema de calabaza', 'Tortilla francesa'], 'Yogur', 'Fruta'),
+    dia('Martes', ['Bacalao', 'Patatas'], ['Crema de calabaza', 'Pechugas de pollo'], 'Yogur', 'Fruta'),
     dia('Miércoles', ['Carbonara tradicional'], ['Pechugas de pavo', 'Patatas'], 'Fruta', 'Yogur'),
     dia('Jueves', ['Garbanzos fritos', 'Arroz blanco'], ['Filete de ternera', 'Ensalada'], 'Yogur', 'Fruta'),
     dia('Viernes', ['Macarrones con roquefort'], ['Pizza jamón y queso', 'Pizza 4 quesos'], 'Fruta', 'Yogur'),
@@ -84,7 +84,7 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
   ],
   [
     dia('Lunes', ['Alubias rojas'], ['Lomo', 'Patatas'], 'Fruta', 'Yogur'),
-    dia('Martes', ['Dorada', 'Patatas'], ['Crema de calabacín', 'Tortilla francesa'], 'Yogur', 'Fruta'),
+    dia('Martes', ['Dorada', 'Patatas'], ['Crema de calabacín', 'Pechugas de pavo'], 'Yogur', 'Fruta'),
     dia('Miércoles', ['Macarrones boloñesa'], ['Pechugas de pollo', 'Arroz blanco'], 'Fruta', 'Yogur'),
     dia('Jueves', ['Garbanzos fritos', 'Arroz blanco'], ['Filete de ternera', 'Ensalada'], 'Yogur', 'Fruta'),
     dia('Viernes', ['Carbonara tradicional'], ['Pizza jamón y queso', 'Pizza BBQ'], 'Fruta', 'Yogur'),
