@@ -97,6 +97,34 @@ function aplicarPreferenciaEnsaladaPasta(
   return huboCambios ? recalcularPreparacionesPlan(ajustadas) : semanas;
 }
 
+function aplicarVariedadCenasMartes(semanas: SemanaMenu[]): SemanaMenu[] {
+  const martesConTortilla = semanas.reduce((total, semana) => {
+    const martes = semana.menu.find((dia) => dia.dia === 'Martes');
+    return total + Number(martes?.cena.some((plato) => /tortilla/i.test(plato)) === true);
+  }, 0);
+
+  if (martesConTortilla < Math.min(3, semanas.length)) return semanas;
+
+  const ajustadas = semanas.map((semana, indiceSemana) => {
+    const cenaObjetivo = menuMensualInicial[
+      indiceSemana % menuMensualInicial.length
+    ]?.menu.find((dia) => dia.dia === 'Martes')?.cena;
+
+    if (!cenaObjetivo) return semana;
+
+    return {
+      ...semana,
+      menu: semana.menu.map((dia) =>
+        dia.dia === 'Martes'
+          ? { ...dia, cena: [...cenaObjetivo] }
+          : { ...dia },
+      ),
+    };
+  });
+
+  return recalcularPreparacionesPlan(ajustadas);
+}
+
 function semanasDelMes(mes: string, base: SemanaMenu[]): SemanaMenu[] {
   const [anio, mesNumero] = mes.split('-').map(Number);
   const primero = new Date(anio, mesNumero - 1, 1);
@@ -210,7 +238,8 @@ function cargarMes(mes: string): MesPlan {
       ) {
         const normalizadas = normalizarPlanMensual(parsed.semanas);
         const estacionales = aplicarPreferenciaEnsaladaPasta(mes, normalizadas);
-        const semanas = migrarPlanAlPatron(mes, estacionales);
+        const martesVariados = aplicarVariedadCenasMartes(estacionales);
+        const semanas = migrarPlanAlPatron(mes, martesVariados);
         const plan = { mes, semanas };
 
         if (semanas !== normalizadas) {
