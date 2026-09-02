@@ -348,10 +348,37 @@ function buscarCoincidenciaUnicaEnProductos(
   return compatibles.length === 1 ? compatibles[0] : undefined;
 }
 
+function crearIndiceProductosPorNombre(
+  productos: ProductoRecuperable[],
+): Map<string, ProductoRecuperable[]> {
+  const indice = new Map<string, ProductoRecuperable[]>();
+
+  productos.forEach((producto) => {
+    const clave = normalizarTexto(producto.nombre);
+    const coincidencias = indice.get(clave) ?? [];
+    coincidencias.push(producto);
+    indice.set(clave, coincidencias);
+  });
+
+  return indice;
+}
+
+function buscarProductoActualPorNombre(
+  nombre: string,
+  productos: ProductoRecuperable[],
+  productosPorNombre: Map<string, ProductoRecuperable[]>,
+): ProductoRecuperable | undefined {
+  const exactas = productosPorNombre.get(normalizarTexto(nombre)) ?? [];
+  if (exactas.length === 1) return exactas[0];
+  return buscarCoincidenciaUnicaEnProductos(nombre, productos);
+}
+
 /**
- * Recupera asociaciones perdidas sin adivinar entre varios productos.
- * Prioriza la copia de seguridad y los productos que ya estaban en la despensa;
- * solo usa el catálogo completo cuando hay una coincidencia exacta y única.
+ * Recupera asociaciones perdidas o rotas sin adivinar entre varios productos.
+ * Una asociación cuyo productId ya no existe en el catálogo se considera rota.
+ * Cuando es posible, usa el nombre histórico guardado en la despensa para
+ * localizar el mismo producto con su nuevo id. Después prueba coincidencias
+ * seguras por ingrediente y los alias conocidos.
  */
 export async function repararAsociacionesIngredientes(
   recetas: RecetaRecuperable[],
@@ -365,55 +392,80 @@ export async function repararAsociacionesIngredientes(
       ),
     ),
   ).filter(Boolean);
-  const pendientes = ingredientes.filter((nombre) => !asociaciones[nombre]);
-  if (pendientes.length === 0) return 0;
 
+  let productosCatalogo: ProductoMercadonaCatalogo[];
+  try {
+    productosCatalogo = (await cargarCatalogoMercadona()).productos;
+  } catch {
+    return 0;
+  }
+
+  const idsCatalogo = new Set(
+    productosCatalogo.map((producto) => producto.productoId),
+  );
+  const productosPorNombre = crearIndiceProductosPorNombre(productosCatalogo);
+  const despensaPorId = new Map(
+    productosDespensa.map((producto) => [producto.productoId, producto]),
+  );
   const nuevas = { ...asociaciones };
   let recuperadas = 0;
-  const pendientesCatalogo: string[] = [];
 
-  pendientes.forEach((ingrediente) => {
-    const producto = buscarCoincidenciaUnicaEnProductos(
-      ingrediente,
-      productosDespensa,
-    );
-    if (producto) {
-      nuevas[ingrediente] = producto.productoId;
+  ingredientes.forEach((ingrediente) => {
+    const productoIdActual = asociaciones[ingrediente];
+    if (productoIdActual && idsCatalogo.has(productoIdActual)) return;
+
+    let productoRecuperado: ProductoRecuperable | undefined;
+
+    if (productoIdActual) {
+      const productoHistorico = despensaPorId.get(productoIdActual);
+      if (productoHistorico) {
+        productoRecuperado = buscarProductoActualPorNombre(
+          productoHistorico.nombre,
+          productosCatalogo,
+          productosPorNombre,
+        );
+      }
+    }
+
+    if (!productoRecuperado) {
+      const candidatoDespensa = buscarCoincidenciaUnicaEnProductos(
+        ingrediente,
+        productosDespensa,
+      );
+
+      if (candidatoDespensa) {
+        productoRecuperado = idsCatalogo.has(candidatoDespensa.productoId)
+          ? candidatoDespensa
+          : buscarProductoActualPorNombre(
+              candidatoDespensa.nombre,
+              productosCatalogo,
+              productosPorNombre,
+            );
+      }
+    }
+
+    if (!productoRecuperado) {
+      const nombreNormalizado = normalizarTexto(ingrediente);
+      const exactas = productosPorNombre.get(nombreNormalizado) ?? [];
+      const nombresConocidos = NOMBRES_RECUPERACION_CONOCIDOS[nombreNormalizado] ?? [];
+      const conocidas = nombresConocidos.flatMap(
+        (nombre) => productosPorNombre.get(normalizarTexto(nombre)) ?? [],
+      );
+      const candidatas = exactas.length === 1 ? exactas : conocidas;
+
+      if (candidatas.length === 1) {
+        productoRecuperado = candidatas[0];
+      }
+    }
+
+    if (
+      productoRecuperado &&
+      productoRecuperado.productoId !== productoIdActual
+    ) {
+      nuevas[ingrediente] = productoRecuperado.productoId;
       recuperadas += 1;
-    } else {
-      pendientesCatalogo.push(ingrediente);
     }
   });
-
-  if (pendientesCatalogo.length > 0) {
-    try {
-      const { productos } = await cargarCatalogoMercadona();
-      const productosPorNombre = new Map<string, ProductoMercadonaCatalogo[]>();
-
-      productos.forEach((producto) => {
-        const clave = normalizarTexto(producto.nombre);
-        const coincidencias = productosPorNombre.get(clave) ?? [];
-        coincidencias.push(producto);
-        productosPorNombre.set(clave, coincidencias);
-      });
-
-      pendientesCatalogo.forEach((ingrediente) => {
-        const nombreNormalizado = normalizarTexto(ingrediente);
-        const exactas = productosPorNombre.get(nombreNormalizado) ?? [];
-        const nombresConocidos = NOMBRES_RECUPERACION_CONOCIDOS[nombreNormalizado] ?? [];
-        const conocidas = nombresConocidos.flatMap(
-          (nombre) => productosPorNombre.get(nombre) ?? [],
-        );
-        const candidatas = exactas.length === 1 ? exactas : conocidas;
-        if (candidatas.length === 1) {
-          nuevas[ingrediente] = candidatas[0].productoId;
-          recuperadas += 1;
-        }
-      });
-    } catch {
-      // Conserva las asociaciones recuperadas desde la despensa.
-    }
-  }
 
   if (recuperadas > 0) guardarAsociacionesIngredientes(nuevas);
   return recuperadas;
