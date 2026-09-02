@@ -8,6 +8,7 @@ import RescateAsociaciones from './components/RescateAsociaciones';
 import { useMenu } from './hooks/useMenu';
 import { RecetarioFiltroProvider } from './hooks/useRecetas';
 import Home from './pages/Home';
+import { asegurarAsociacionesBasicas } from './services/asociacionesBasicas';
 import { EVENTO_ASOCIACIONES, repararAsociacionesIngredientes } from './services/asociacionesIngredientes';
 import { cargarDespensa, sincronizarProductosRecetasConDespensa } from './services/despensa';
 import { cargarRecetas, EVENTO_RECETAS } from './services/recetas';
@@ -64,6 +65,7 @@ function App() {
       // existan en localStorage para que una reparación nunca vuelva a pisar la
       // única copia recuperable.
       preservarCopiasAsociacionesExistentes();
+      asegurarAsociacionesBasicas();
 
       const recetas = cargarRecetas();
       void repararAsociacionesIngredientes(recetas, cargarDespensa()).then(() =>
