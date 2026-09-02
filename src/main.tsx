@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { asegurarAsociacionesBasicas } from './services/asociacionesBasicas.ts'
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
@@ -10,6 +11,8 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
     })
   })
 }
+
+asegurarAsociacionesBasicas()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

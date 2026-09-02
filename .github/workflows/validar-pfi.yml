@@ -42,5 +42,8 @@ jobs:
       - name: Probar postres y asociaciones
         run: npm run test:v0913
 
+      - name: Probar asociaciones básicas verificadas
+        run: node --experimental-strip-types scripts/probar-asociaciones-basicas.mjs
+
       - name: Probar formatos comerciales
         run: node --experimental-strip-types scripts/probar-formatos-comerciales.mjs

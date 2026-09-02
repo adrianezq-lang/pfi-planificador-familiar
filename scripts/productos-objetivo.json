@@ -18,11 +18,13 @@
   },
   {
     "ingrediente": "Arroz",
-    "buscar": "arroz redondo Hacendado"
+    "buscar": "arroz redondo Hacendado 1 kg",
+    "productoId": "5044"
   },
   {
     "ingrediente": "Pasta corta",
-    "buscar": "macarrón Hacendado 500 g"
+    "buscar": "macarrón Hacendado 1 kg",
+    "productoId": "6250"
   },
   {
     "ingrediente": "Tomate frito",
@@ -31,7 +33,8 @@
   },
   {
     "ingrediente": "Tomate triturado",
-    "buscar": "tomate triturado Hacendado"
+    "buscar": "tomate triturado Hacendado 800 g",
+    "productoId": "16043"
   },
   {
     "ingrediente": "Atún",
@@ -111,7 +114,8 @@
   },
   {
     "ingrediente": "Garbanzos cocidos",
-    "buscar": "garbanzo cocido Hacendado tarro"
+    "buscar": "garbanzo cocido Hacendado tarro 570 g",
+    "productoId": "26029"
   },
   {
     "ingrediente": "Garbanzos secos",
@@ -120,7 +124,8 @@
   },
   {
     "ingrediente": "Lentejas secas",
-    "buscar": "lenteja pardina Hacendado paquete"
+    "buscar": "lenteja pardina Hacendado paquete 1 kg",
+    "productoId": "5330"
   },
   {
     "ingrediente": "Alubias blancas secas",
@@ -134,7 +139,8 @@
   },
   {
     "ingrediente": "Queso rallado",
-    "buscar": "queso rallado emmental Hacendado"
+    "buscar": "queso rallado especial fundir mezcla Hacendado 200 g",
+    "productoId": "23621"
   },
   {
     "ingrediente": "Mozzarella rallada",
@@ -165,7 +171,8 @@
   },
   {
     "ingrediente": "Chorizo",
-    "buscar": "chorizo sarta"
+    "buscar": "chorizo sarta dulce extra de León Hacendado",
+    "productoId": "23145"
   },
   {
     "ingrediente": "Salchichas",
