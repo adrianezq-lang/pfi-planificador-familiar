@@ -131,14 +131,35 @@ export function aplicarRepeticionLegumbres(semanas: SemanaMenu[]): SemanaMenu[] 
 }
 
 /**
- * El batch cooking reduce el número de veces que cocinamos, no las raciones
- * necesarias. Si una olla de legumbres se come dos días, la compra debe incluir
- * ingredientes para las dos comidas completas; después se cocina todo junto en
- * la primera preparación y se reserva la parte de la segunda comida.
+ * Las recetas de legumbres del recetario ya representan la olla grande que se
+ * prepara el lunes para comer lunes y jueves. La segunda aparición del mismo
+ * plato es sobrante: no debe volver a añadir otra receta completa a la compra.
+ *
+ * Solo deduplicamos el plato de legumbre cocinada. Los acompañamientos que se
+ * repiten como platos independientes (por ejemplo Arroz blanco con garbanzos)
+ * siguen contando cada día porque sí se consumen dos raciones distintas.
  */
 export function listarPlatosParaCompra(
   menu: DiaMenu[],
-  _esLegumbreCocinada: (plato: string) => boolean,
+  esLegumbreCocinada: (plato: string) => boolean,
 ): string[] {
-  return menu.flatMap((dia) => [...dia.comida, ...dia.cena]);
+  const legumbresContadas = new Set<string>();
+  const platos: string[] = [];
+
+  menu.forEach((dia) => {
+    [...dia.comida, ...dia.cena].forEach((plato) => {
+      if (!esLegumbreCocinada(plato)) {
+        platos.push(plato);
+        return;
+      }
+
+      const clave = normalizar(plato);
+      if (legumbresContadas.has(clave)) return;
+
+      legumbresContadas.add(clave);
+      platos.push(plato);
+    });
+  });
+
+  return platos;
 }

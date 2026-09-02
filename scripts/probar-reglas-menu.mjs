@@ -46,8 +46,20 @@ const platosCompra = listarPlatosParaCompra(
   primeraSemana,
   (plato) => plato === 'Lentejas',
 );
-if (platosCompra.filter((plato) => plato === 'Lentejas').length !== 2) {
-  throw new Error('La compra no está contando las dos comidas de la olla de legumbres.');
+if (platosCompra.filter((plato) => plato === 'Lentejas').length !== 1) {
+  throw new Error('La olla de lentejas debe entrar una sola vez en la compra semanal.');
+}
+
+const semanaGarbanzos = plan[3].menu;
+const compraGarbanzos = listarPlatosParaCompra(
+  semanaGarbanzos,
+  (plato) => plato === 'Garbanzos fritos',
+);
+if (compraGarbanzos.filter((plato) => plato === 'Garbanzos fritos').length !== 1) {
+  throw new Error('Los garbanzos preparados para lunes y jueves deben comprarse una sola vez.');
+}
+if (compraGarbanzos.filter((plato) => plato === 'Arroz blanco').length !== 2) {
+  throw new Error('El arroz independiente de lunes y jueves debe seguir contando las dos comidas.');
 }
 
 const verano = structuredClone(menuMensualInicial);
@@ -67,6 +79,7 @@ if (
 }
 
 console.log('✓ las legumbres del lunes se repiten el jueves');
-console.log('✓ la compra cuenta ingredientes para las dos comidas de legumbres');
+console.log('✓ la olla de legumbres entra una sola vez en la compra');
+console.log('✓ los acompañamientos independientes siguen contando ambos días');
 console.log('✓ no se repite la misma pasta en semanas consecutivas');
 console.log('✓ la ensalada de pasta semanal se conserva en verano');
