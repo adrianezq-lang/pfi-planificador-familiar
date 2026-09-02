@@ -97,6 +97,27 @@ if (recuperadasCopia.Huevos !== 'producto-huevos') {
   throw new Error('No se recuperó la copia de seguridad de asociaciones.');
 }
 
+// La reparación siempre valida contra el catálogo actual. El test simula en un
+// único catálogo tanto un producto recuperable por nombre como el alias conocido
+// de la malla de ajos para que no dependa de la red ni de la caché del catálogo.
+globalThis.fetch = async () => ({
+  ok: true,
+  async json() {
+    return {
+      productos: [
+        {
+          productoId: 'pollo-1', nombre: 'Filetes de pollo', precio: 5,
+          formato: 'Bandeja', disponible: true,
+        },
+        {
+          productoId: '69297', nombre: 'Ajos morados', precio: 1.85,
+          formato: 'Malla', tamanoUnidad: 0.25, formatoUnidad: 'kg', disponible: true,
+        },
+      ],
+    };
+  },
+});
+
 memoria.delete('pfi-asociaciones-ingredientes-mercadona');
 memoria.delete('pfi-asociaciones-ingredientes-mercadona-copia');
 const reparadas = await repararAsociacionesIngredientes(
@@ -108,17 +129,6 @@ if (reparadas !== 1 || cargarAsociacionesIngredientes()['Filetes de pollo'] !== 
 }
 
 limpiarTodasLasAsociaciones();
-globalThis.fetch = async () => ({
-  ok: true,
-  async json() {
-    return {
-      productos: [{
-        productoId: '69297', nombre: 'Ajos morados', precio: 1.85,
-        formato: 'Malla', tamañoUnidad: 0.25, formatoUnidad: 'kg', disponible: true,
-      }],
-    };
-  },
-});
 const ajosRecuperados = await repararAsociacionesIngredientes(
   [{ ingredientes: [{ nombre: 'Ajo' }] }],
 );
