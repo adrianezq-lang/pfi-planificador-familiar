@@ -16,6 +16,9 @@ const esPasta = (plato) =>
     normalizar(plato),
   );
 
+const esLegumbre = (plato) =>
+  /\b(lenteja|garbanzo|alubia|cocido)\b/.test(normalizar(plato));
+
 const plan = aplicarVariedadPastas(
   aplicarRepeticionLegumbres(menuMensualInicial),
 );
@@ -68,6 +71,30 @@ if (arrocesCompra !== arrocesMenu) {
   );
 }
 
+// La compra mensual concatena todas las semanas. Alubias rojas aparece como
+// olla en Semana 3 y vuelve a aparecer como otra olla independiente en Semana 5.
+// Deben contarse DOS preparaciones, aunque cada una se repita lunes + jueves.
+const compraMes = listarPlatosParaCompra(
+  plan.flatMap((semana) => semana.menu),
+  esLegumbre,
+);
+const alubiasRojasMes = compraMes.filter((plato) => plato === 'Alubias rojas').length;
+if (alubiasRojasMes !== 2) {
+  throw new Error(
+    `La compra mensual debe contar una olla de alubias por semana: obtuvo ${alubiasRojasMes}, esperaba 2.`,
+  );
+}
+const ollasEsperadas = plan.reduce((total, semana) => {
+  const lunes = semana.menu.find((dia) => dia.dia === 'Lunes');
+  return total + (lunes?.comida.some(esLegumbre) ? 1 : 0);
+}, 0);
+const ollasCompraMes = compraMes.filter(esLegumbre).length;
+if (ollasCompraMes !== ollasEsperadas) {
+  throw new Error(
+    `La compra mensual perdió o duplicó ollas entre semanas: compra=${ollasCompraMes}, semanas=${ollasEsperadas}.`,
+  );
+}
+
 const verano = structuredClone(menuMensualInicial);
 verano.forEach((semana) => {
   const miercoles = semana.menu.find((dia) => dia.dia === 'Miércoles');
@@ -85,7 +112,8 @@ if (
 }
 
 console.log('✓ las legumbres del lunes se repiten el jueves');
-console.log('✓ la olla de legumbres entra una sola vez en la compra');
+console.log('✓ la olla de legumbres entra una sola vez dentro de su semana');
+console.log('✓ la misma legumbre en otra semana vuelve a contar en la compra mensual');
 console.log('✓ los acompañamientos independientes conservan todas sus apariciones');
 console.log('✓ no se repite la misma pasta en semanas consecutivas');
 console.log('✓ la ensalada de pasta semanal se conserva en verano');
