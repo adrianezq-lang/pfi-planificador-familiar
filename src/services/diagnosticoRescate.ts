@@ -1,4 +1,4 @@
-const PATRON_CLAVE_RESCATE = /(asoci|despensa|receta|inventario|stock|producto|mercadona)/i;
+const PATRON_CLAVE_RESCATE = /(asoci|despensa|receta|inventario|stock|producto|mercadona|necesidad|mensual)/i;
 
 function recopilarDatosRescate(): Record<string, string> {
   const datos: Record<string, string> = {};
@@ -18,7 +18,8 @@ function recopilarDatosRescate(): Record<string, string> {
 
 /**
  * Exporta únicamente los datos locales que pueden ayudar a reconstruir
- * asociaciones ingrediente → producto. No incluye el perfil familiar.
+ * asociaciones, recetas, despensa, inventario y necesidades de compra mensual.
+ * No incluye el perfil familiar.
  */
 export function descargarDiagnosticoRescate(): void {
   const contenido = {
