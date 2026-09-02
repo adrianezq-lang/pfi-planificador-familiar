@@ -13,6 +13,10 @@ import {
   type ProductoMercadonaCatalogo,
 } from '../services/catalogoMercadona';
 import { previsionAgotamiento } from '../services/inventario';
+import {
+  guardarNecesidadMensual,
+  obtenerNecesidadMensual,
+} from '../services/necesidadesMensuales';
 
 type ProductoInicial = Pick<
   ProductoMercadonaCatalogo,
@@ -39,6 +43,7 @@ function ProductoDetalleModal({
   );
   const [despensa, setDespensa] = useState<ProductoDespensa | null>(null);
   const [editor, setEditor] = useState<ProductoDespensa | null>(null);
+  const [cantidadMensual, setCantidadMensual] = useState(0);
   const [cargando, setCargando] = useState(false);
   const [mensaje, setMensaje] = useState('');
 
@@ -48,6 +53,9 @@ function ProductoDetalleModal({
     const guardado = buscarProductoDespensa(productoId) ?? null;
     setDespensa(guardado);
     setEditor(guardado ? { ...guardado } : null);
+    setCantidadMensual(
+      obtenerNecesidadMensual(productoId, guardado?.frecuencia),
+    );
 
     let cancelado = false;
     setCargando(true);
@@ -87,6 +95,7 @@ function ProductoDetalleModal({
       tipo: editor.tipo,
       frecuencia: editor.frecuencia,
     });
+    guardarNecesidadMensual(editor.productoId, cantidadMensual);
     const actualizado = buscarProductoDespensa(editor.productoId) ?? editor;
     setDespensa(actualizado);
     setEditor({ ...actualizado });
@@ -100,6 +109,9 @@ function ProductoDetalleModal({
     const creado = buscarProductoDespensa(catalogo.productoId) ?? null;
     setDespensa(creado);
     setEditor(creado ? { ...creado } : null);
+    setCantidadMensual(
+      obtenerNecesidadMensual(catalogo.productoId, creado?.frecuencia),
+    );
     setMensaje('Producto añadido a la despensa. Ya puedes configurarlo.');
     onActualizado?.();
   };
@@ -107,8 +119,10 @@ function ProductoDetalleModal({
   const quitar = () => {
     if (!despensa) return;
     eliminarProductoDespensa(despensa.id);
+    guardarNecesidadMensual(despensa.productoId, 0);
     setDespensa(null);
     setEditor(null);
+    setCantidadMensual(0);
     setMensaje('Producto quitado de la despensa.');
     onActualizado?.();
   };
@@ -178,13 +192,23 @@ function ProductoDetalleModal({
           <>
             <section className="product-detail-smart">
               <div>
-                <span>📦 CONTROL DE RESERVA</span>
+                <span>📦 CONTROL DE COMPRA</span>
                 {editor.tipo === 'perecedero' ? (
                   <>
                     <strong>Compra calculada desde el menú</strong>
                     <p>
                       Los perecederos no necesitan una reserva fija: PFI calcula lo
                       necesario para cada semana según las comidas planificadas.
+                    </p>
+                  </>
+                ) : editor.frecuencia === 'mensual' ? (
+                  <>
+                    <strong>
+                      {cantidadMensual} {editor.unidad} para el mes
+                    </strong>
+                    <p>
+                      Esta es la cantidad mensual prevista. PFI descuenta el stock
+                      que ya tienes antes de añadirla a la compra de la primera semana.
                     </p>
                   </>
                 ) : editor.stockMinimo > 0 ? (
@@ -271,15 +295,16 @@ function ProductoDetalleModal({
                 </select>
               </label>
               <label>
-                <span>Frecuencia de reposición de la reserva</span>
+                <span>Frecuencia de compra</span>
                 <select
                   value={editor.frecuencia}
-                  onChange={(evento) =>
-                    setEditor({
-                      ...editor,
-                      frecuencia: evento.target.value as FrecuenciaDespensa,
-                    })
-                  }
+                  onChange={(evento) => {
+                    const frecuencia = evento.target.value as FrecuenciaDespensa;
+                    setEditor({ ...editor, frecuencia });
+                    if (frecuencia === 'mensual' && cantidadMensual <= 0) {
+                      setCantidadMensual(1);
+                    }
+                  }}
                 >
                   <option value="semanal">Semanal</option>
                   <option value="mensual">Mensual</option>
@@ -287,12 +312,19 @@ function ProductoDetalleModal({
                   <option value="manual">Manual</option>
                 </select>
               </label>
+              {editor.tipo === 'despensa' && editor.frecuencia === 'mensual' && (
+                <CampoNumero
+                  etiqueta="Cantidad necesaria al mes (envases)"
+                  valor={cantidadMensual}
+                  onChange={setCantidadMensual}
+                />
+              )}
             </div>
 
             <p className="product-detail-modal__notice">
-              Stock mínimo 0 = sin reserva automática. Para aceite, leche, limpieza
-              o comida de animales puedes poner 1 si quieres guardar un envase de
-              seguridad.
+              Si eliges “Mensual”, indica cuántos envases sueles necesitar para el
+              mes. PFI los añade únicamente a la compra mensual y descuenta el stock
+              disponible. El mínimo sigue siendo opcional y funciona como reserva.
             </p>
 
             <div className="product-detail-modal__footer">
