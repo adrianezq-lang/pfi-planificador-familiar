@@ -5,11 +5,15 @@ import {
   type ResultadoCompra,
 } from '../motor/compra';
 import { obtenerSeccionCompra } from './categoriasCompra';
-import { cargarDespensa } from './despensa';
+import { cargarDespensa, type ProductoDespensa } from './despensa';
+import {
+  calcularCompraMensualEnvases,
+  obtenerNecesidadMensual,
+} from './necesidadesMensuales';
 import { correspondeACompraSemanal, proyectarComprasEnvases } from './proyeccionStock';
 
 export function esProductoSemanal(linea: LineaCompra): boolean {
-  const texto = `${linea.ingrediente.nombre} ${linea.ingrediente.seccion} ${linea.producto?.nombre ?? ''}`
+  const texto = `${linea.ingrediente.nombre} ${linea.ingrediente.seccion} ${linea.producto?.nombre ?? ''}`;
   return correspondeACompraSemanal(obtenerSeccionCompra(linea), texto);
 }
 
@@ -44,13 +48,119 @@ function rehacerResultado(
   };
 }
 
+function crearLineaMensualDespensa(
+  productoDespensa: ProductoDespensa,
+  cantidadMensual: number,
+  envases: number,
+): LineaCompra {
+  const ingrediente = {
+    nombre: productoDespensa.nombre,
+    cantidad: cantidadMensual,
+    unidad: productoDespensa.unidad,
+    seccion: 'Despensa',
+  };
+  const producto = {
+    productoId: productoDespensa.productoId,
+    nombre: productoDespensa.nombre,
+    precio: productoDespensa.precio,
+    precioReferencia: null,
+    formato: productoDespensa.formato,
+    pesoAproximado: false,
+    seccion: 'Despensa',
+    subcategoria: 'Compra mensual',
+    imagen: productoDespensa.imagen,
+    url: '',
+    disponible: true,
+  };
+
+  return {
+    clave: `mensual-${productoDespensa.productoId}`,
+    ingrediente,
+    necesidades: [ingrediente],
+    producto,
+    productoDespensa,
+    envases,
+    envasesExactos: cantidadMensual,
+    subtotal:
+      productoDespensa.precio === null
+        ? null
+        : envases * productoDespensa.precio,
+    calculoEstimado: false,
+    tipoCompra: 'despensa',
+    origen: 'reposicion',
+  };
+}
+
+function aplicarNecesidadesMensuales(
+  lineasBase: LineaCompra[],
+): LineaCompra[] {
+  const lineas = [...lineasBase];
+  const despensaMensual = cargarDespensa().filter(
+    (producto) =>
+      producto.tipo === 'despensa' &&
+      producto.frecuencia === 'mensual',
+  );
+
+  despensaMensual.forEach((productoDespensa) => {
+    const cantidadMensual = obtenerNecesidadMensual(
+      productoDespensa.productoId,
+      productoDespensa.frecuencia,
+    );
+    if (cantidadMensual <= 0) return;
+
+    const indice = lineas.findIndex(
+      (linea) => linea.producto?.productoId === productoDespensa.productoId,
+    );
+    const existente = indice >= 0 ? lineas[indice] : null;
+    const necesidadMenu = existente?.envasesExactos ?? 0;
+    const envases = calcularCompraMensualEnvases(
+      productoDespensa,
+      necesidadMenu,
+      cantidadMensual,
+    );
+
+    if (existente?.producto) {
+      if (envases <= 0) {
+        lineas.splice(indice, 1);
+        return;
+      }
+
+      lineas[indice] = {
+        ...existente,
+        envases,
+        subtotal:
+          existente.producto.precio === null
+            ? null
+            : envases * existente.producto.precio,
+      };
+      return;
+    }
+
+    if (envases > 0) {
+      lineas.push(
+        crearLineaMensualDespensa(
+          productoDespensa,
+          cantidadMensual,
+          envases,
+        ),
+      );
+    }
+  });
+
+  return lineas;
+}
+
 export async function generarCompraMensual(
   menuMes: DiaMenu[],
 ): Promise<ResultadoCompra> {
   const resultado = await generarCompraMercadona(menuMes);
+  const lineasNoFrescas = resultado.lineas.filter(
+    (linea) => !esProductoSemanal(linea),
+  );
+
   return rehacerResultado(
     resultado,
-    resultado.lineas.filter((linea) => !esProductoSemanal(linea)),
+    aplicarNecesidadesMensuales(lineasNoFrescas),
   );
 }
 
