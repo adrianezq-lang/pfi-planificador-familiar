@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { cargarDespensa } from '../services/despensa';
+import { descargarDiagnosticoRescate } from '../services/diagnosticoRescate';
 import { cargarRecetas } from '../services/recetas';
 import {
   descargarCopiaAsociaciones,
@@ -18,6 +20,7 @@ export default function RescateAsociaciones() {
       ).size,
     [],
   );
+  const productosDespensa = useMemo(() => cargarDespensa().length, []);
   const [revision, setRevision] = useState(0);
   const [mensaje, setMensaje] = useState('');
   const [error, setError] = useState('');
@@ -104,6 +107,10 @@ export default function RescateAsociaciones() {
               <strong>{totalIngredientes}</strong>
             </div>
             <div style={datoStyle}>
+              <small>Productos guardados en despensa</small>
+              <strong>{productosDespensa}</strong>
+            </div>
+            <div style={datoStyle}>
               <small>Mejor historial protegido</small>
               <strong>{estado.historial}</strong>
             </div>
@@ -133,6 +140,22 @@ export default function RescateAsociaciones() {
           >
             💾 Guardar una copia nueva
           </button>
+
+          <div style={rescateManualStyle}>
+            <strong>¿La mejor copia sigue siendo muy pequeña?</strong>
+            <span>
+              Exporta el diagnóstico de rescate. Incluye únicamente asociaciones, recetas,
+              despensa e inventario/productos de PFI para poder reconstruir los vínculos que
+              todavía sigan guardados en el móvil.
+            </span>
+            <button
+              type="button"
+              onClick={descargarDiagnosticoRescate}
+              style={botonDiagnostico}
+            >
+              🧰 Exportar diagnóstico de rescate
+            </button>
+          </div>
 
           {mensaje && (
             <p style={{ margin: 0, fontWeight: 700, color: '#3f6b48' }}>{mensaje}</p>
@@ -178,4 +201,26 @@ const botonSecundario = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+} as const;
+
+const rescateManualStyle = {
+  display: 'grid',
+  gap: 8,
+  padding: 12,
+  borderRadius: 12,
+  background: '#fff8e8',
+  border: '1px solid #ead9ac',
+  color: '#5d543d',
+  lineHeight: 1.4,
+} as const;
+
+const botonDiagnostico = {
+  minHeight: 46,
+  border: '1px solid #b99b55',
+  borderRadius: 12,
+  padding: '10px 14px',
+  fontWeight: 800,
+  background: '#fffdf7',
+  color: '#624f25',
+  cursor: 'pointer',
 } as const;
