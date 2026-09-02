@@ -32,6 +32,7 @@ const NOMBRES_RECUPERACION_CONOCIDOS: Record<string, string[]> = {
 /**
  * Defaults muy conservadores, verificados contra el catálogo. Solo se aplican
  * cuando el ingrediente no tiene ya una asociación válida elegida por el usuario.
+ * Si un SKU no existe en el catálogo de la zona actual, no se fuerza.
  */
 const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
   'Tortillas de trigo': '80859',
@@ -44,6 +45,9 @@ const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
   'Mozzarella rallada': '51110',
   Hamburguesas: '2873',
   'Salmón': '87204',
+  'Pan de hamburguesa': '82331',
+  'Pan de perrito': '82332',
+  'Ajo en polvo': '86656',
 };
 
 /**
@@ -61,8 +65,10 @@ const IDS_INCOMPATIBLES_CONOCIDOS: Record<string, string[]> = {
   'Mozzarella rallada': ['50917'], // mozzarella en lonchas
   Hamburguesas: ['3106'], // arreglo para puchero
   'Salmón': ['64558'], // alimento para perro sabor salmón
-  'Pan hamburguesa': ['2876'], // merluza empanada
-  'Pan perrito': ['2876'], // merluza empanada
+  'Pan hamburguesa': ['2876'], // merluza empanada (alias histórico)
+  'Pan de hamburguesa': ['2876'], // merluza empanada
+  'Pan perrito': ['2876'], // merluza empanada (alias histórico)
+  'Pan de perrito': ['2876'], // merluza empanada
   'Ajo en polvo': ['86516'], // cebolla en polvo
 };
 
