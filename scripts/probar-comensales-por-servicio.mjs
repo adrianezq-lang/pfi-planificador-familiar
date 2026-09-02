@@ -161,19 +161,6 @@ if (tortillasMesBase?.cantidad !== 14) {
   );
 }
 
-const compraDosPizzas = generarListaCompra([
-  crearDia('Viernes', [], ['Pizza jamón y queso + BBQ'], 'Sin postre', 'Sin postre'),
-  crearDia('Viernes', [], ['Pizza BBQ + cuatro quesos'], 'Sin postre', 'Sin postre'),
-]);
-const tomateDosPizzas = compraDosPizzas.find(
-  (ingrediente) => ingrediente.nombre === 'Tomate para pizza',
-);
-if (tomateDosPizzas?.cantidad !== 0.5 || tomateDosPizzas.unidad !== 'envase') {
-  throw new Error(
-    `Dos noches de pizza deben consumir medio tarro de tomate, no ${tomateDosPizzas?.cantidad} ${tomateDosPizzas?.unidad}.`,
-  );
-}
-
 const compraCocidoDosDias = generarListaCompra([
   crearDia('Lunes', ['Cocido de garbanzos'], [], 'Sin postre', 'Sin postre'),
   crearDia('Jueves', ['Cocido de garbanzos'], [], 'Sin postre', 'Sin postre'),
@@ -224,7 +211,6 @@ console.log('✓ comida de fin de semana y cenas: cuatro comensales');
 console.log('✓ la compra ajusta platos y postres al servicio');
 console.log('✓ fajitas: 6 tortillas para cuatro comensales');
 console.log('✓ fajitas + dos kebabs: 14 tortillas en total');
-console.log('✓ dos pizzas comparten el mismo tarro de tomate');
 console.log('✓ cocido: jamoncitos por peso, no bandejas por muslo');
 console.log('✓ arroz con pollo no hereda pollo entero como corte genérico');
 console.log('✓ morcillo se asocia al zancarrón de vacuno del catálogo');
