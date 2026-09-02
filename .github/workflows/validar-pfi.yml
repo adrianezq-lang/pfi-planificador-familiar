@@ -39,6 +39,9 @@ jobs:
       - name: Probar reglas del menú
         run: npm run test:reglas-menu
 
+      - name: Auditar cantidades del mes completo
+        run: npm run test:auditoria-mensual
+
       - name: Probar postres y asociaciones
         run: npm run test:v0913
 
