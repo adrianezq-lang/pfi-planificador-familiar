@@ -1,5 +1,5 @@
 import type { DiaMenu } from '../data/Menusemanal';
-import type { Ingrediente } from '../data/Recetas';
+import type { Ingrediente, Receta } from '../data/Recetas';
 import { cargarRecetas } from './recetas';
 import { unirIngredientes } from './UnirIngredientes';
 import { obtenerRecetaPostre } from './menu';
@@ -9,8 +9,57 @@ import {
   crearPerfilParaMomento,
   type PerfilFamiliar,
 } from './perfil';
-import { ajustarRecetasAlPerfil } from './porciones';
+import { obtenerSugerenciaIngrediente } from './porciones';
 import { listarPlatosParaCompra } from './reglasMenuMensual';
+
+function redondearCantidad(valor: number): number {
+  return Math.round(valor * 100) / 100;
+}
+
+/**
+ * Las recetas guardadas son la referencia familiar. Al usarlas en un servicio
+ * concreto, la compra debe adaptarse a quienes realmente comen ese día.
+ *
+ * - Si el ingrediente está en ajuste automático y existe una regla específica
+ *   (carne, pescado, pasta, arroz, legumbres, fajitas...), usamos esa regla.
+ * - Si la cantidad fue editada manualmente o no existe una regla específica,
+ *   conservamos esa referencia y la escalamos por número real de comensales.
+ *
+ * Así una receta de referencia para 4 personas puede producir correctamente
+ * una compra para 3 comensales al mediodía sin perder las preferencias
+ * personalizadas de la receta.
+ */
+export function ajustarRecetasAComensalesServicio(
+  recetas: Receta[],
+  perfilReferencia: PerfilFamiliar,
+  perfilServicio: PerfilFamiliar,
+): Receta[] {
+  const comensalesReferencia = Math.max(1, calcularComensales(perfilReferencia));
+  const comensalesServicio = calcularComensales(perfilServicio);
+  const factor = comensalesServicio / comensalesReferencia;
+
+  return recetas.map((receta) => ({
+    ...receta,
+    ingredientes: receta.ingredientes.map((ingrediente) => {
+      const sugerencia = ingrediente.ajusteAutomatico === true
+        ? obtenerSugerenciaIngrediente(ingrediente, receta, perfilServicio)
+        : null;
+
+      if (sugerencia) {
+        return {
+          ...ingrediente,
+          cantidad: sugerencia.cantidad,
+          unidad: sugerencia.unidad,
+        };
+      }
+
+      return {
+        ...ingrediente,
+        cantidad: redondearCantidad(ingrediente.cantidad * factor),
+      };
+    }),
+  }));
+}
 
 function ingredientePostreSinReceta(
   nombre: string,
@@ -108,24 +157,15 @@ export function generarListaCompra(
   const ingredientes = servicios.flatMap((servicio) => {
     if (calcularComensales(servicio.perfil) === 0) return [];
 
-    const recetas = ajustarRecetasAlPerfil(
+    const recetas = ajustarRecetasAComensalesServicio(
       recetasBase,
+      perfil,
       servicio.perfil,
-      false,
     );
     const buscarReceta = (nombre: string) =>
       recetas.find((receta) => receta.nombre === nombre);
-    const ingredientesPlato = (nombre: string): Ingrediente[] => {
-      const ingredientesReceta = buscarReceta(nombre)?.ingredientes ?? [];
-
-      if (nombre !== 'Tortilla de patata') return ingredientesReceta;
-
-      return ingredientesReceta.map((ingrediente) =>
-        ingrediente.nombre === 'Huevos'
-          ? { ...ingrediente, cantidad: 8, unidad: 'ud' }
-          : ingrediente,
-      );
-    };
+    const ingredientesPlato = (nombre: string): Ingrediente[] =>
+      buscarReceta(nombre)?.ingredientes ?? [];
     const menuServicio = crearMenuDeServicio(menu, servicio.clave);
     const platos = listarPlatosParaCompra(
       menuServicio,
