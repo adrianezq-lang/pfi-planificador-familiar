@@ -7,6 +7,13 @@ globalThis.localStorage = {
   removeItem(clave) { memoria.delete(clave); },
 };
 
+const { createServer } = await import('vite');
+const vite = await createServer({
+  configFile: false,
+  server: { middlewareMode: true },
+  appType: 'custom',
+});
+
 const { menuEfectivoSemana, menuEfectivoMes } = await import('../src/services/excepcionesCalendario.ts');
 const { unirIngredientes } = await import('../src/services/UnirIngredientes.ts');
 const { correspondeACompraSemanal, proyectarComprasEnvases } = await import('../src/services/proyeccionStock.ts');
@@ -15,7 +22,7 @@ const {
   guardarNecesidadMensual,
   obtenerNecesidadMensual,
 } = await import('../src/services/necesidadesMensuales.ts');
-const { aplicarNecesidadesMensuales } = await import('../src/services/planificacionCompra.ts');
+const { aplicarNecesidadesMensuales } = await vite.ssrLoadModule('/src/services/planificacionCompra.ts');
 const dias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const menu = dias.map((dia) => ({
   dia,
@@ -122,6 +129,8 @@ if (!detergente || detergente.envases !== 2 || detergente.tipoCompra !== 'despen
     `Un producto mensual fuera del menú debe aparecer descontando stock: ${detergente?.envases ?? 'no aparece'}.`,
   );
 }
+
+await vite.close();
 
 console.log('✓ semanas parciales cuentan solo sus fechas reales');
 console.log('✓ excepciones de día, comida y cena afectan a la compra');
