@@ -3,6 +3,15 @@ import { menuMensualInicial, type SemanaMenu } from '../data/MenuMensual';
 import type { DiaMenu } from '../data/Menusemanal';
 import { recalcularPreparacionesPlan } from '../services/menu';
 import {
+  crearConfiguracionPostresDesdeRecetas,
+  aplicarConfiguracionPostresAlPlan,
+} from '../services/postres';
+import { cargarRecetas, EVENTO_RECETAS } from '../services/recetas';
+import {
+  aplicarRepeticionLegumbres,
+  aplicarVariedadPastas,
+} from '../services/reglasMenuMensual';
+import {
   copiarPlanMensual,
   generarPlanMensualInteligente,
   normalizarPlanMensual,
@@ -97,6 +106,29 @@ function aplicarPreferenciaEnsaladaPasta(
   return huboCambios ? recalcularPreparacionesPlan(ajustadas) : semanas;
 }
 
+function aplicarPostresDelRecetario(semanas: SemanaMenu[]): SemanaMenu[] {
+  const configuracion = crearConfiguracionPostresDesdeRecetas(cargarRecetas());
+  return aplicarConfiguracionPostresAlPlan(
+    semanas,
+    configuracion,
+    { respetarEdicionesManuales: true },
+  );
+}
+
+function aplicarReglasMensuales(
+  mes: string,
+  semanas: SemanaMenu[],
+): SemanaMenu[] {
+  const estacionales = aplicarPreferenciaEnsaladaPasta(mes, semanas);
+  const conPastasVariadas = aplicarVariedadPastas(
+    estacionales,
+    esMesDeVerano(mes),
+  );
+  const conLegumbresRepetidas = aplicarRepeticionLegumbres(conPastasVariadas);
+  const preparadas = recalcularPreparacionesPlan(conLegumbresRepetidas);
+  return aplicarPostresDelRecetario(preparadas);
+}
+
 function aplicarVariedadCenasMartes(semanas: SemanaMenu[]): SemanaMenu[] {
   const martesConTortilla = semanas.reduce((total, semana) => {
     const martes = semana.menu.find((dia) => dia.dia === 'Martes');
@@ -159,7 +191,7 @@ function semanasDelMes(mes: string, base: SemanaMenu[]): SemanaMenu[] {
     indice += 1;
   }
 
-  return aplicarPreferenciaEnsaladaPasta(
+  return aplicarReglasMensuales(
     mes,
     recalcularPreparacionesPlan(resultado),
   );
@@ -237,12 +269,12 @@ function cargarMes(mes: string): MesPlan {
         parsed.semanas.length > 0
       ) {
         const normalizadas = normalizarPlanMensual(parsed.semanas);
-        const estacionales = aplicarPreferenciaEnsaladaPasta(mes, normalizadas);
-        const martesVariados = aplicarVariedadCenasMartes(estacionales);
-        const semanas = migrarPlanAlPatron(mes, martesVariados);
+        const martesVariados = aplicarVariedadCenasMartes(normalizadas);
+        const conPatron = migrarPlanAlPatron(mes, martesVariados);
+        const semanas = aplicarReglasMensuales(mes, conPatron);
         const plan = { mes, semanas };
 
-        if (semanas !== normalizadas) {
+        if (JSON.stringify(semanas) !== JSON.stringify(normalizadas)) {
           localStorage.setItem(
             `${PREFIJO_PLAN_MES}${mes}`,
             JSON.stringify(plan),
@@ -297,6 +329,18 @@ export function useMenu() {
   useEffect(() => {
     guardarMes(mesPlan, semanaActiva);
   }, [mesPlan, semanaActiva]);
+
+  useEffect(() => {
+    const actualizarPostres = () => {
+      setMesPlan((planActual) => ({
+        ...planActual,
+        semanas: aplicarPostresDelRecetario(planActual.semanas),
+      }));
+    };
+
+    window.addEventListener(EVENTO_RECETAS, actualizarPostres);
+    return () => window.removeEventListener(EVENTO_RECETAS, actualizarPostres);
+  }, []);
 
   function cambiarMes(desplazamiento: number): void {
     const [anio, mes] = mesPlan.mes.split('-').map(Number);

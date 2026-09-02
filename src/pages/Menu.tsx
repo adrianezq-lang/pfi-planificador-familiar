@@ -9,6 +9,7 @@ import {
   indiceDiaSemana,
   type ExcepcionesCalendario,
 } from '../services/excepcionesCalendario';
+import { formatearPostreMenu, iconoRecetaPostre } from '../services/menu';
 
 type MenuProps = {
   menu: DiaMenu[];
@@ -366,7 +367,12 @@ export default function Menu({
                           <div className="meal-dish-card meal-dish-card--primary" key={p}><strong>{p}</strong></div>
                         ))}
                       </div>
-                      <div className="daily-dessert"><strong>🍓 {dia.postreComida ?? 'Sin postre'}</strong></div>
+                      <div className="daily-dessert">
+                        <strong>
+                          {iconoRecetaPostre(formatearPostreMenu(dia, 'comida'))}{' '}
+                          {formatearPostreMenu(dia, 'comida')}
+                        </strong>
+                      </div>
                     </>
                   )}
                 </article>
@@ -382,7 +388,12 @@ export default function Menu({
                           <div className="meal-dish-card meal-dish-card--primary" key={p}><strong>{p}</strong></div>
                         ))}
                       </div>
-                      <div className="daily-dessert"><strong>🥛 {dia.postreCena ?? 'Sin postre'}</strong></div>
+                      <div className="daily-dessert">
+                        <strong>
+                          {iconoRecetaPostre(formatearPostreMenu(dia, 'cena'))}{' '}
+                          {formatearPostreMenu(dia, 'cena')}
+                        </strong>
+                      </div>
                     </>
                   )}
                 </article>

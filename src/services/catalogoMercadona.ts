@@ -221,7 +221,7 @@ export async function cargarCatalogoMercadona(
       ? `/catalogo-mercadona.json?t=${Date.now()}`
       : '/catalogo-mercadona.json';
     const respuesta = await fetch(rutaCatalogo, {
-      cache: forzarRecarga ? 'reload' : 'force-cache',
+      cache: 'no-store',
     });
 
     if (!respuesta.ok) {

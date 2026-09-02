@@ -5,6 +5,7 @@ import { unirIngredientes } from './UnirIngredientes';
 import { obtenerRecetaPostre } from './menu';
 import { calcularComensales, cargarPerfil } from './perfil';
 import { ajustarRecetasAlPerfil } from './porciones';
+import { listarPlatosParaCompra } from './reglasMenuMensual';
 
 function ingredientePostreSinReceta(nombre: string): Ingrediente[] {
   if (!nombre || nombre === 'Sin postre') return [];
@@ -44,10 +45,11 @@ export function generarListaCompra(
     );
   };
 
-  const platos = menu.flatMap((dia) => [
-    ...dia.comida,
-    ...dia.cena,
-  ]);
+  const esLegumbreCocinada = (nombre: string): boolean => {
+    const receta = buscarReceta(nombre);
+    return receta?.categoria.toLocaleLowerCase('es') === 'legumbres';
+  };
+  const platos = listarPlatosParaCompra(menu, esLegumbreCocinada);
   const postres = menu.flatMap((dia) => [
     obtenerRecetaPostre(dia, 'comida'),
     obtenerRecetaPostre(dia, 'cena'),

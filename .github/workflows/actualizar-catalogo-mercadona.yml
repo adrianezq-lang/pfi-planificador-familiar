@@ -1,0 +1,54 @@
+name: Actualizar catálogo Mercadona
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/actualizar-catalogo-mercadona.yml'
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalogo-mercadona-diario
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Descargar productos y precios de hoy
+        run: npm run actualizar-mercadona
+
+      - name: Validar el catálogo generado
+        run: |
+          node -e "const fs=require('fs');const c=JSON.parse(fs.readFileSync('public/catalogo-mercadona.json','utf8'));if(!Array.isArray(c.productos)||c.productos.length<4000||!c.actualizado)throw new Error('Catálogo incompleto');console.log(c.actualizado,c.productos.length)"
+
+      - name: Publicar la actualización
+        run: |
+          if git diff --quiet -- public/catalogo-mercadona.json public/precios-mercadona.json scripts/informe-precios-mercadona.json; then
+            echo "El catálogo ya estaba actualizado."
+            exit 0
+          fi
+          git config user.name "PFI Catálogo"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/catalogo-mercadona.json public/precios-mercadona.json scripts/informe-precios-mercadona.json
+          git commit -m "data: actualizar catálogo Mercadona"
+          git push

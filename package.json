@@ -14,6 +14,7 @@
     "test:conversiones": "node scripts/probar-conversiones-compra.cjs",
     "test:aprendizaje": "node --experimental-strip-types scripts/probar-aprendizaje.mjs",
     "test:menu-mensual": "node --experimental-strip-types scripts/probar-plan-mensual.mjs",
+    "test:reglas-menu": "node --experimental-strip-types scripts/probar-reglas-menu.mjs",
     "test:presupuesto": "node --experimental-strip-types scripts/probar-presupuesto-mensual.mjs",
     "actualizar-mercadona": "node scripts/descargar-catalogo-mercadona.mjs && node scripts/actualizar-precios-mercadona.mjs",
     "predev": "node scripts/actualizar-si-necesario.mjs",

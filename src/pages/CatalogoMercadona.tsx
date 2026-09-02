@@ -270,17 +270,17 @@ function CatalogoMercadona() {
   const actualizarCatalogoCompleto = async () => {
     try {
       setActualizandoCatalogo(true);
-      setMensaje('Actualizando el catálogo completo y todos los precios…');
-      const respuesta = await fetch('/api/pfi/mercadona/actualizar-completo', {
-        method: 'POST',
-      });
-      const resultado = (await respuesta.json()) as { ok?: boolean; error?: string };
+      setMensaje('Comprobando el catálogo publicado más reciente…');
 
-      if (!respuesta.ok || !resultado.ok) {
-        throw new Error(
-          resultado.error ??
-            'La actualización completa solo está disponible al abrir PFI con npm run dev.',
-        );
+      if (import.meta.env.DEV) {
+        const respuesta = await fetch('/api/pfi/mercadona/actualizar-completo', {
+          method: 'POST',
+        });
+        const resultado = (await respuesta.json()) as { ok?: boolean; error?: string };
+
+        if (!respuesta.ok || !resultado.ok) {
+          throw new Error(resultado.error ?? 'No se pudo regenerar el catálogo local.');
+        }
       }
 
       const nuevoCatalogo = await cargarCatalogoMercadona(true);
@@ -289,7 +289,7 @@ function CatalogoMercadona() {
       setCodigoPostalCatalogo(nuevoCatalogo.codigoPostal);
       setAlmacenCatalogo(nuevoCatalogo.almacen);
       setMensaje(
-        `Catálogo completo actualizado: ${nuevoCatalogo.productos.length.toLocaleString('es-ES')} productos.`,
+        `Catálogo comprobado: ${nuevoCatalogo.productos.length.toLocaleString('es-ES')} productos · ${formatearFechaCatalogo(nuevoCatalogo.actualizado)}.`,
       );
     } catch (errorDesconocido) {
       setMensaje(
@@ -342,7 +342,7 @@ function CatalogoMercadona() {
           {fechaCatalogo && (
             <small>Actualizado: {formatearFechaCatalogo(fechaCatalogo)}</small>
           )}
-          <small>Los precios se comprueban automáticamente al iniciar PFI, como máximo una vez cada 24 horas.</small>
+          <small>Productos y precios se renuevan automáticamente cada día para esta zona.</small>
           <button
             type="button"
             className="catalog-update-button"
@@ -350,8 +350,8 @@ function CatalogoMercadona() {
             disabled={actualizandoCatalogo}
           >
             {actualizandoCatalogo
-              ? '↻ Actualizando catálogo completo…'
-              : '↻ Actualizar todos los precios ahora'}
+              ? '↻ Comprobando catálogo…'
+              : '↻ Comprobar actualización'}
           </button>
         </div>
         {mensaje && (

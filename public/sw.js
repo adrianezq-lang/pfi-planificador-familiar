@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pfi-v0.9.15';
+const CACHE_NAME = 'pfi-v0.9.17';
 const APP_SHELL = ['/', '/manifest.webmanifest', '/favicon.svg', '/pwa-192x192.png', '/pwa-512x512.png'];
 
 self.addEventListener('install', (event) => {
@@ -21,6 +21,25 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url);
   if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return;
+
+  if (
+    url.pathname === '/catalogo-mercadona.json' ||
+    url.pathname === '/precios-mercadona.json'
+  ) {
+    const claveCache = new Request(url.origin + url.pathname);
+    event.respondWith(
+      fetch(request, { cache: 'no-store' })
+        .then((response) => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(claveCache, copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match(claveCache)),
+    );
+    return;
+  }
 
   if (request.mode === 'navigate') {
     event.respondWith(
