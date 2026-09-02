@@ -6,11 +6,22 @@ export type ProyeccionStock = {
 export function proyectarComprasEnvases(
   necesidadesExactas: number[],
   stockInicial = 0,
+  coberturaMaximaPorEnvase = 1,
 ): ProyeccionStock {
   let stock = Math.max(0, stockInicial);
+  const cobertura = Math.max(1, coberturaMaximaPorEnvase);
   const compras = necesidadesExactas.map((necesidadOriginal) => {
     const necesidad = Math.max(0, necesidadOriginal);
-    const envases = Math.max(0, Math.ceil(necesidad - stock - 0.000001));
+    const deficit = Math.max(0, necesidad - stock);
+    const envases = Math.max(
+      0,
+      Math.ceil(deficit / cobertura - 0.000001),
+    );
+
+    // El margen de cobertura solo evita comprar un segundo envase por una
+    // diferencia pequeña en productos de peso variable. No se convierte en
+    // stock ficticio: el sobrante real sigue calculándose con el tamaño medio
+    // publicado del envase.
     stock = Math.max(0, stock + envases - necesidad);
     return envases;
   });
