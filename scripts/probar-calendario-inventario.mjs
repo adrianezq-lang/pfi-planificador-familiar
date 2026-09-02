@@ -22,7 +22,10 @@ const {
   guardarNecesidadMensual,
   obtenerNecesidadMensual,
 } = await import('../src/services/necesidadesMensuales.ts');
-const { aplicarNecesidadesMensuales } = await vite.ssrLoadModule('/src/services/planificacionCompra.ts');
+const {
+  aplicarNecesidadesMensuales,
+  ajustarFormatoComercialEspecial,
+} = await vite.ssrLoadModule('/src/services/planificacionCompra.ts');
 const { calcularEnvasesParaNecesidades } = await vite.ssrLoadModule('/src/motor/compra.ts');
 const dias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const menu = dias.map((dia) => ({
@@ -98,6 +101,74 @@ const calculoBbq = calcularEnvasesParaNecesidades(
 );
 if (calculoBbq.envases !== 1 || Math.abs(calculoBbq.envasesExactos - 0.45) > 0.000001) {
   throw new Error(`0,45 envases de BBQ deben comprar un solo bote, no ${calculoBbq.envases}.`);
+}
+
+const productoSalchichas = {
+  productoId: '53143',
+  nombre: 'Salchichas cocidas bocata gourmet Hacendado de cerdo sabor ahumado',
+  precio: 2.45,
+  precioReferencia: 6.125,
+  formato: 'paquetes',
+  unidadesTotales: 2,
+  tamanoUnidad: 0.4,
+  formatoUnidad: 'kg',
+  pesoAproximado: true,
+  seccion: 'Charcutería y quesos',
+  subcategoria: 'Salchichas',
+  imagen: null,
+  url: '',
+  disponible: true,
+};
+const crearLineaSalchichas = (cantidad) => {
+  const necesidad = {
+    nombre: 'Salchichas',
+    cantidad,
+    unidad: 'ud',
+    seccion: 'Charcutería',
+  };
+  return {
+    clave: 'producto-53143',
+    ingrediente: necesidad,
+    necesidades: [necesidad],
+    producto: productoSalchichas,
+    productoDespensa: null,
+    envases: Math.ceil(cantidad / 2),
+    envasesExactos: cantidad / 2,
+    subtotal: Math.ceil(cantidad / 2) * 2.45,
+    calculoEstimado: false,
+    tipoCompra: 'despensa',
+    origen: 'menu',
+  };
+};
+const perritosUnaVez = ajustarFormatoComercialEspecial(
+  crearLineaSalchichas(4),
+);
+if (
+  perritosUnaVez.envases !== 1 ||
+  perritosUnaVez.envasesExactos !== 1 ||
+  perritosUnaVez.subtotal !== 2.45
+) {
+  throw new Error(
+    `Cuatro salchichas deben equivaler a un multipack comercial, no ${perritosUnaVez.envases}.`,
+  );
+}
+const perritosDosVeces = ajustarFormatoComercialEspecial(
+  crearLineaSalchichas(8),
+);
+if (
+  perritosDosVeces.envases !== 2 ||
+  perritosDosVeces.envasesExactos !== 2
+) {
+  throw new Error(
+    `Ocho salchichas deben equivaler a dos multipacks comerciales, no ${perritosDosVeces.envases}.`,
+  );
+}
+const otroProducto = ajustarFormatoComercialEspecial({
+  ...crearLineaSalchichas(4),
+  producto: { ...productoSalchichas, productoId: 'otro-producto' },
+});
+if (otroProducto.envases !== 2 || otroProducto.envasesExactos !== 2) {
+  throw new Error('La corrección del multipack no debe aplicarse a otros productos.');
 }
 
 const mallaAjos = proyectarComprasEnvases([0.25, 0.25, 0.25, 0.25], 0);
@@ -244,6 +315,8 @@ console.log('✓ cabezas y dientes de ajo se suman sin perder cantidades');
 console.log('✓ salsas y especias marcadas como revisar consumen fracciones de envase');
 console.log('✓ varios usos parciales de salsa no compran un bote por receta');
 console.log('✓ dos pizzas comparten medio tarro de tomate');
+console.log('✓ cuatro salchichas gourmet equivalen a un multipack comercial');
+console.log('✓ la corrección de salchichas no altera otros productos');
 console.log('✓ una malla de cuatro cabezas cubre cuatro semanas de una cabeza');
 console.log('✓ frescos de peso variable toleran una diferencia pequeña sin duplicar bandejas');
 console.log('✓ los paquetes exactos siguen redondeando de forma estricta');
