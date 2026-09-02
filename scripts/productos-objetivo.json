@@ -192,8 +192,8 @@
   },
   {
     "ingrediente": "Mezcla cuatro quesos",
-    "buscar": "queso rallado 4 quesos Hacendado 180 g",
-    "productoId": "51234"
+    "buscar": "queso rallado 4 quesos Hacendado 200 g",
+    "productoId": "21581"
   },
   {
     "ingrediente": "Bacon",
@@ -257,7 +257,7 @@
   {
     "ingrediente": "Salsa BBQ",
     "buscar": "salsa barbacoa Hacendado",
-    "productoId": "19592"
+    "productoId": "17346"
   },
   {
     "ingrediente": "Salsa yogur",
