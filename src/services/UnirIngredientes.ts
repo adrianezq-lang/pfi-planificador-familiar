@@ -109,7 +109,7 @@ const conversionesPorProducto: Record<
       unidadDestino: 'g',
       factor: 180,
     },
-    'vaso pequeño': {
+    'vaso pequeno': {
       unidadDestino: 'g',
       factor: 150,
     },
@@ -150,21 +150,21 @@ const conversionesPorProducto: Record<
   },
 
   'Queso curado': {
-    cuña: {
+    cuna: {
       unidadDestino: 'ud',
       factor: 1,
     },
   },
 
   'Queso roquefort': {
-    cuña: {
+    cuna: {
       unidadDestino: 'ud',
       factor: 1,
     },
   },
 
   Aceitunas: {
-    ración: {
+    racion: {
       unidadDestino: 'envase',
       factor: 0.25,
     },
