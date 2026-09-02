@@ -97,6 +97,38 @@ comprobar('16252', 'Bacon', 1, 1, 1, 'barqueta');
 comprobar('16252', 'Bacon', 2, 2, 2, 'barqueta');
 comprobar('16252', 'Bacon', 1, 1, 1, 'paquete');
 
+const baconMixtoBase = crearLinea('16252', 'Bacon', 1, 2, 'barqueta');
+const baconMixto = ajustarFormatoComercialEspecial({
+  ...baconMixtoBase,
+  necesidades: [
+    baconMixtoBase.necesidades[0],
+    {
+      nombre: 'Bacon',
+      cantidad: 100,
+      unidad: 'g',
+      seccion: 'Charcutería',
+    },
+  ],
+  producto: {
+    ...baconMixtoBase.producto,
+    formato: '2 unidades · 260 g',
+    unidadesTotales: 2,
+    tamanoUnidad: 130,
+    formatoUnidad: 'g',
+    seccion: 'Charcutería y Quesos',
+  },
+});
+const baconMixtoExacto = 1 + (100 / 260);
+if (
+  baconMixto.envases !== 2 ||
+  Math.abs(baconMixto.envasesExactos - baconMixtoExacto) > 0.000001 ||
+  baconMixto.subtotal !== 4
+) {
+  throw new Error(
+    `El bacon mixto debe conservar barqueta + gramos: ${baconMixto.envases} envases (${baconMixto.envasesExactos} exactos), esperaba 2 (${baconMixtoExacto}).`,
+  );
+}
+
 const sinRegla = ajustarFormatoComercialEspecial(
   crearLinea('producto-distinto', 'Pan de hamburguesa', 4, 2),
 );
@@ -267,6 +299,7 @@ console.log('✓ salchichas: 4 unidades por compra comercial');
 console.log('✓ pan burger: 4 unidades por paquete');
 console.log('✓ pan hot dog: 6 unidades por paquete');
 console.log('✓ bacon: barqueta/paquete equivale a una compra comercial');
+console.log('✓ bacon mixto: barquetas completas + gramos se suman, no se descartan');
 console.log('✓ tomate frito: pack-3 respeta bricks acumulados');
 console.log('✓ las reglas solo se aplican al SKU exacto');
 console.log('✓ asociaciones históricas y defaults seguros se reparan');
