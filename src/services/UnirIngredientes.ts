@@ -155,6 +155,17 @@ const conversionesPorProducto: Record<
       factor: 0.25,
     },
   },
+
+  'Tomate para pizza': {
+    bote: {
+      unidadDestino: 'envase',
+      factor: 0.25,
+    },
+    tarro: {
+      unidadDestino: 'envase',
+      factor: 0.25,
+    },
+  },
 };
 
 function normalizarTexto(texto: string): string {
