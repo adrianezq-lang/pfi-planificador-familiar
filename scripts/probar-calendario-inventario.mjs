@@ -95,6 +95,26 @@ const mallaAjos = proyectarComprasEnvases([0.25, 0.25, 0.25, 0.25], 0);
 if (JSON.stringify(mallaAjos.compras) !== JSON.stringify([1, 0, 0, 0])) {
   throw new Error(`La malla de cuatro cabezas se vuelve a comprar antes de agotarse: ${mallaAjos.compras}`);
 }
+
+const pechuga630Para660 = proyectarComprasEnvases([660 / 630], 0, 1.1);
+if (JSON.stringify(pechuga630Para660.compras) !== JSON.stringify([1])) {
+  throw new Error(
+    `Una bandeja fresca aproximada de 630 g debe cubrir una necesidad de 660 g, no comprar ${pechuga630Para660.compras[0]}.`,
+  );
+}
+const pechuga630Para750 = proyectarComprasEnvases([750 / 630], 0, 1.1);
+if (JSON.stringify(pechuga630Para750.compras) !== JSON.stringify([2])) {
+  throw new Error(
+    `750 g deben superar el margen de una bandeja de 630 g y comprar 2, no ${pechuga630Para750.compras[0]}.`,
+  );
+}
+const paqueteExacto = proyectarComprasEnvases([10.5 / 10], 0);
+if (JSON.stringify(paqueteExacto.compras) !== JSON.stringify([2])) {
+  throw new Error(
+    `Los paquetes exactos no deben heredar la tolerancia de frescos: ${paqueteExacto.compras[0]}.`,
+  );
+}
+
 const periodosCorrectos = [
   ['Fruta y Verdura', 'Ajo', true],
   ['Fruta y Verdura', 'Tomate triturado', false],
@@ -215,6 +235,8 @@ console.log('✓ cabezas y dientes de ajo se suman sin perder cantidades');
 console.log('✓ salsas y especias marcadas como revisar consumen fracciones de envase');
 console.log('✓ varios usos parciales de salsa no compran un bote por receta');
 console.log('✓ una malla de cuatro cabezas cubre cuatro semanas de una cabeza');
+console.log('✓ frescos de peso variable toleran una diferencia pequeña sin duplicar bandejas');
+console.log('✓ los paquetes exactos siguen redondeando de forma estricta');
 console.log('✓ 540 g de jamoncitos compran una sola bandeja de 920 g');
 console.log('✓ frescos semanales y productos mensuales quedan bien separados');
 console.log('✓ la compra mensual configurada descuenta el stock y respeta el menú');
