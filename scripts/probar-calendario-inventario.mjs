@@ -50,6 +50,47 @@ const [ajo] = unirIngredientes([
 if (ajo.cantidad !== 1.3 || ajo.unidad !== 'cabeza') {
   throw new Error(`La cantidad de ajo no se conserva correctamente: ${ajo.cantidad} ${ajo.unidad}`);
 }
+
+const consumosParciales = unirIngredientes([
+  { nombre:'Salsa BBQ', cantidad:1, unidad:'revisar', seccion:'Salsas' },
+  { nombre:'Salsa BBQ', cantidad:1, unidad:'revisar', seccion:'Salsas' },
+  { nombre:'Salsa BBQ', cantidad:1, unidad:'revisar', seccion:'Salsas' },
+  { nombre:'Pimentón dulce', cantidad:1, unidad:'revisar', seccion:'Especias' },
+  { nombre:'Pimentón dulce', cantidad:1, unidad:'revisar', seccion:'Especias' },
+  { nombre:'Pimentón dulce', cantidad:1, unidad:'revisar', seccion:'Especias' },
+  { nombre:'Pimentón dulce', cantidad:1, unidad:'revisar', seccion:'Especias' },
+]);
+const bbqParcial = consumosParciales.find((item) => item.nombre === 'Salsa BBQ');
+const pimentonParcial = consumosParciales.find((item) => item.nombre === 'Pimentón dulce');
+if (bbqParcial?.unidad !== 'envase' || bbqParcial.cantidad !== 0.45) {
+  throw new Error(`Tres usos de BBQ deben consumir 0,45 envases, no ${bbqParcial?.cantidad} ${bbqParcial?.unidad}.`);
+}
+if (pimentonParcial?.unidad !== 'envase' || pimentonParcial.cantidad !== 0.2) {
+  throw new Error(`Cuatro usos de pimentón deben consumir 0,20 envases, no ${pimentonParcial?.cantidad} ${pimentonParcial?.unidad}.`);
+}
+const calculoBbq = calcularEnvasesParaNecesidades(
+  [bbqParcial],
+  {
+    productoId: 'bbq-prueba',
+    nombre: 'Salsa barbacoa',
+    precio: 1.5,
+    precioReferencia: null,
+    formato: 'Bote',
+    unidadesTotales: 0,
+    tamanoUnidad: 0.35,
+    formatoUnidad: 'kg',
+    pesoAproximado: false,
+    seccion: 'Salsas',
+    subcategoria: 'Salsas',
+    imagen: null,
+    url: '',
+    disponible: true,
+  },
+);
+if (calculoBbq.envases !== 1 || Math.abs(calculoBbq.envasesExactos - 0.45) > 0.000001) {
+  throw new Error(`0,45 envases de BBQ deben comprar un solo bote, no ${calculoBbq.envases}.`);
+}
+
 const mallaAjos = proyectarComprasEnvases([0.25, 0.25, 0.25, 0.25], 0);
 if (JSON.stringify(mallaAjos.compras) !== JSON.stringify([1, 0, 0, 0])) {
   throw new Error(`La malla de cuatro cabezas se vuelve a comprar antes de agotarse: ${mallaAjos.compras}`);
@@ -171,6 +212,8 @@ await vite.close();
 console.log('✓ semanas parciales cuentan solo sus fechas reales');
 console.log('✓ excepciones de día, comida y cena afectan a la compra');
 console.log('✓ cabezas y dientes de ajo se suman sin perder cantidades');
+console.log('✓ salsas y especias marcadas como revisar consumen fracciones de envase');
+console.log('✓ varios usos parciales de salsa no compran un bote por receta');
 console.log('✓ una malla de cuatro cabezas cubre cuatro semanas de una cabeza');
 console.log('✓ 540 g de jamoncitos compran una sola bandeja de 920 g');
 console.log('✓ frescos semanales y productos mensuales quedan bien separados');
