@@ -181,6 +181,16 @@
     "buscar": "bases pizza artesanas 2 unidades"
   },
   {
+    "ingrediente": "Pan de hamburguesa",
+    "buscar": "pan de burger Hacendado",
+    "productoId": "82331"
+  },
+  {
+    "ingrediente": "Pan de perrito",
+    "buscar": "pan hot dog Hacendado",
+    "productoId": "82332"
+  },
+  {
     "ingrediente": "Mayonesa",
     "buscar": "mayonesa light Hacendado"
   },
@@ -199,6 +209,11 @@
   {
     "ingrediente": "Salsa BBQ",
     "buscar": "salsa barbacoa Hacendado"
+  },
+  {
+    "ingrediente": "Ajo en polvo",
+    "buscar": "ajo granulado Hacendado",
+    "productoId": "86656"
   },
   {
     "ingrediente": "Pimentón dulce",
