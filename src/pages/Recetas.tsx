@@ -56,6 +56,12 @@ type EditorReceta = {
   receta: RecetaEditor;
 };
 
+type ModoRecetario = 'platos' | 'postres';
+
+type RecetasProps = {
+  modo?: ModoRecetario;
+};
+
 const CATEGORIAS_SUGERIDAS = [
   'Arroz',
   'Carne',
@@ -151,8 +157,10 @@ function calcularResumenCosteReceta(
   return { total, completos, estimado };
 }
 
-function Recetas() {
+function Recetas({ modo = 'platos' }: RecetasProps) {
   const { recetas, guardar, restaurar } = useRecetas();
+  const esModoPostres = modo === 'postres';
+  const tipoFijo: TipoReceta = esModoPostres ? 'postre' : 'plato';
   const [perfil, setPerfil] = useState<PerfilFamiliar>(cargarPerfil);
   const [productosPorIngrediente, setProductosPorIngrediente] =
     useState<ProductosPorIngrediente>({});
@@ -295,8 +303,8 @@ function Recetas() {
       nombreOriginal: null,
       receta: {
         nombre: '',
-        categoria: 'Otros',
-        tipo: 'plato',
+        categoria: esModoPostres ? 'Postres' : 'Otros',
+        tipo: tipoFijo,
         ingredientes: [crearIngredienteVacio()],
       },
     });
@@ -496,7 +504,7 @@ function Recetas() {
     const recetaBase: Receta = {
       nombre: editor.receta.nombre.trim(),
       categoria: editor.receta.categoria.trim(),
-      tipo: editor.receta.tipo ?? 'plato',
+      tipo: tipoFijo,
       ingredientes: editor.receta.ingredientes.map((ingrediente) => ({
         nombre: ingrediente.nombre.trim(),
         cantidad: Number(ingrediente.cantidad),
@@ -668,9 +676,13 @@ function Recetas() {
     <main className="page legacy-page" style={estiloPagina}>
       <Card className="page-hero-card page-hero-card--compact recipes-intro-card">
         <div>
-          <Title style={{ color: '#4f6f52' }}>📖 Recetas</Title>
+          <Title style={{ color: '#4f6f52' }}>
+            {esModoPostres ? '🍰 Postres' : '📖 Recetas'}
+          </Title>
           <p className="recipes-intro-copy" style={estiloIntroduccion}>
-            Platos y postres calculados para {describirFamilia(perfil)} ({calcularRacionesEquivalentes(perfil).toLocaleString('es-ES')} raciones equivalentes).
+            {esModoPostres
+              ? `Tus postres, con sus ingredientes y cantidades para ${describirFamilia(perfil)}.`
+              : `Platos calculados para ${describirFamilia(perfil)} (${calcularRacionesEquivalentes(perfil).toLocaleString('es-ES')} raciones equivalentes).`}
           </p>
         </div>
 
@@ -683,7 +695,7 @@ function Recetas() {
           onClick={crearReceta}
           style={estiloBotonPrincipal}
         >
-          ＋ Nueva receta
+          {esModoPostres ? '＋ Nuevo postre' : '＋ Nueva receta'}
         </button>
 
         <button
@@ -706,13 +718,15 @@ function Recetas() {
           </button>
         )}
 
-        <button
-          type="button"
-          onClick={restaurarOriginales}
-          style={estiloBotonDiscreto}
-        >
-          Restaurar originales
-        </button>
+        {!esModoPostres && (
+          <button
+            type="button"
+            onClick={restaurarOriginales}
+            style={estiloBotonDiscreto}
+          >
+            Restaurar originales
+          </button>
+        )}
       </section>
 
       {cargandoProductos && (
@@ -928,15 +942,19 @@ function Recetas() {
           <section
             role="dialog"
             aria-modal="true"
-            aria-label="Editar receta"
+            aria-label={esModoPostres ? 'Editar postre' : 'Editar receta'}
             style={estiloModalEditor}
           >
             <div style={estiloCabeceraModal}>
               <div>
                 <Title style={{ color: '#4f6f52', marginBottom: '4px' }}>
                   {editor.nombreOriginal
-                    ? '✏️ Editar receta'
-                    : '＋ Nueva receta'}
+                    ? esModoPostres
+                      ? '✏️ Editar postre'
+                      : '✏️ Editar receta'
+                    : esModoPostres
+                      ? '＋ Nuevo postre'
+                      : '＋ Nueva receta'}
                 </Title>
                 <p style={estiloTextoModal}>
                   La compra se recalculará con estas cantidades. Los ingredientes automáticos parten de raciones estándar y se afinan con tus correcciones.
@@ -963,20 +981,6 @@ function Recetas() {
                   style={estiloCampo}
                   autoFocus
                 />
-              </label>
-
-              <label style={estiloEtiquetaCampo}>
-                Tipo
-                <select
-                  value={editor.receta.tipo ?? 'plato'}
-                  onChange={(evento) =>
-                    actualizarCampoReceta('tipo', evento.target.value)
-                  }
-                  style={estiloCampo}
-                >
-                  <option value="plato">Plato</option>
-                  <option value="postre">Postre</option>
-                </select>
               </label>
 
               <label style={estiloEtiquetaCampo}>
