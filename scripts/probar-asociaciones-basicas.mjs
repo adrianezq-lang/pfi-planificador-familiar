@@ -12,9 +12,6 @@ globalThis.localStorage = {
   removeItem(clave) { memoria.delete(clave); },
 };
 
-// Simula un navegador que ya ejecutó la v1 y conserva SKUs retirados.
-// La actualización debe añadir v2, migrar v3/v4 y respetar cualquier
-// otra elección manual.
 localStorage.setItem('pfi-migracion-asociaciones-basicas-v1', '1');
 localStorage.setItem(
   'pfi-asociaciones-ingredientes-mercadona',
@@ -23,6 +20,8 @@ localStorage.setItem(
     'Pan de hamburguesa': '82331',
     'Alubias blancas secas': '5185',
     'Alubias rojas secas': '5180',
+    'Mezcla cuatro quesos': '51234',
+    'Salsa BBQ': '19592',
   }),
 );
 
@@ -32,6 +31,7 @@ const {
   ASOCIACIONES_BASICAS_V2,
   ASOCIACIONES_BASICAS_V3,
   ASOCIACIONES_BASICAS_V4,
+  ASOCIACIONES_BASICAS_V5,
 } = await import('../src/services/asociacionesBasicas.ts');
 const {
   quitarAsociacionIngrediente,
@@ -49,7 +49,7 @@ for (const [ingrediente, productoId] of Object.entries(ASOCIACIONES_BASICAS_VERI
   const objetivo = objetivosPorIngrediente.get(ingrediente);
   if (objetivo?.productoId !== productoId) {
     throw new Error(
-      `${ingrediente}: la migración usa ${productoId} pero el actualizador usa ${objetivo?.productoId ?? 'ningún SKU'}.`,
+      `${ingrediente}: la migración usa ${productoId} pero el objetivo usa ${objetivo?.productoId ?? 'ningún SKU'}.`,
     );
   }
 }
@@ -61,10 +61,11 @@ const trasActualizacion = JSON.parse(
 const cambiosEsperados =
   Object.keys(ASOCIACIONES_BASICAS_V2).length +
   Object.keys(ASOCIACIONES_BASICAS_V3).length +
-  Object.keys(ASOCIACIONES_BASICAS_V4).length;
+  Object.keys(ASOCIACIONES_BASICAS_V4).length +
+  Object.keys(ASOCIACIONES_BASICAS_V5).length;
 if (cambiosActualizacion !== cambiosEsperados) {
   throw new Error(
-    `Una instalación con v1 aplicada debe añadir v2 y migrar v3/v4: ${cambiosActualizacion} cambios.`,
+    `Una instalación con v1 aplicada debe añadir/migrar v2-v5: ${cambiosActualizacion} cambios.`,
   );
 }
 if (trasActualizacion.Arroz !== 'arroz-elegido-por-usuario') {
@@ -74,18 +75,22 @@ if (trasActualizacion['Pasta corta']) {
   throw new Error('La actualización volvió a imponer una asociación de v1 que el usuario había quitado.');
 }
 for (const [ingrediente, productoId] of Object.entries(ASOCIACIONES_BASICAS_V2)) {
+  if (ingrediente === 'Mezcla cuatro quesos') continue;
   if (trasActualizacion[ingrediente] !== productoId) {
     throw new Error(`${ingrediente} no se añadió al actualizar desde v1.`);
   }
 }
-if (trasActualizacion['Pan de hamburguesa'] !== '13803') {
-  throw new Error('La v3 no sustituyó el SKU retirado 82331 por 13803.');
-}
-if (trasActualizacion['Alubias blancas secas'] !== '5124') {
-  throw new Error('La v4 no sustituyó el SKU retirado 5185 por 5124.');
-}
-if (trasActualizacion['Alubias rojas secas'] !== '67609') {
-  throw new Error('La v4 no sustituyó el SKU retirado 5180 por 67609.');
+const migracionesEsperadas = {
+  'Pan de hamburguesa': '13803',
+  'Alubias blancas secas': '5124',
+  'Alubias rojas secas': '67609',
+  'Mezcla cuatro quesos': '21581',
+  'Salsa BBQ': '17346',
+};
+for (const [ingrediente, productoId] of Object.entries(migracionesEsperadas)) {
+  if (trasActualizacion[ingrediente] !== productoId) {
+    throw new Error(`${ingrediente} no migró al SKU vigente ${productoId}.`);
+  }
 }
 
 quitarAsociacionIngrediente('Salchichas');
@@ -99,59 +104,38 @@ if (trasQuitar.Salchichas) {
   throw new Error('La v2 volvió a imponer Salchichas después de que el usuario la quitara.');
 }
 
-// La v3 solo puede sustituir el SKU retirado conocido; una elección manual
-// distinta debe permanecer intacta.
+// Las migraciones de sustitución solo pueden reemplazar sus IDs retirados
+// conocidos; cualquier selección manual distinta debe conservarse.
 limpiarTodasLasAsociaciones();
-localStorage.setItem('pfi-migracion-asociaciones-basicas-v1', '1');
-localStorage.setItem('pfi-migracion-asociaciones-basicas-v2', '1');
-localStorage.removeItem('pfi-migracion-asociaciones-basicas-v3');
-localStorage.setItem('pfi-migracion-asociaciones-basicas-v4', '1');
-localStorage.setItem(
-  'pfi-asociaciones-ingredientes-mercadona',
-  JSON.stringify({ 'Pan de hamburguesa': 'pan-elegido-por-usuario' }),
-);
-if (asegurarAsociacionesBasicas() !== 0) {
-  throw new Error('La v3 no debe contabilizar cambios si existe una elección manual distinta.');
+for (const version of [1, 2, 3, 4]) {
+  localStorage.setItem(`pfi-migracion-asociaciones-basicas-v${version}`, '1');
 }
-const trasPanManual = JSON.parse(
-  localStorage.getItem('pfi-asociaciones-ingredientes-mercadona') ?? '{}',
-);
-if (trasPanManual['Pan de hamburguesa'] !== 'pan-elegido-por-usuario') {
-  throw new Error('La v3 sobrescribió una elección manual de pan de hamburguesa.');
-}
-
-// La v4 tampoco puede pisar una elección manual distinta de alubias.
-limpiarTodasLasAsociaciones();
-localStorage.setItem('pfi-migracion-asociaciones-basicas-v1', '1');
-localStorage.setItem('pfi-migracion-asociaciones-basicas-v2', '1');
-localStorage.setItem('pfi-migracion-asociaciones-basicas-v3', '1');
-localStorage.removeItem('pfi-migracion-asociaciones-basicas-v4');
+localStorage.removeItem('pfi-migracion-asociaciones-basicas-v5');
 localStorage.setItem(
   'pfi-asociaciones-ingredientes-mercadona',
   JSON.stringify({
-    'Alubias blancas secas': 'alubia-blanca-elegida-por-usuario',
-    'Alubias rojas secas': 'alubia-roja-elegida-por-usuario',
+    'Mezcla cuatro quesos': 'cuatro-quesos-elegido-por-usuario',
+    'Salsa BBQ': 'bbq-elegida-por-usuario',
   }),
 );
 if (asegurarAsociacionesBasicas() !== 0) {
-  throw new Error('La v4 no debe contabilizar cambios si hay elecciones manuales distintas.');
+  throw new Error('La v5 no debe contabilizar cambios sobre elecciones manuales distintas.');
 }
-const trasAlubiasManuales = JSON.parse(
+const trasV5Manual = JSON.parse(
   localStorage.getItem('pfi-asociaciones-ingredientes-mercadona') ?? '{}',
 );
 if (
-  trasAlubiasManuales['Alubias blancas secas'] !== 'alubia-blanca-elegida-por-usuario' ||
-  trasAlubiasManuales['Alubias rojas secas'] !== 'alubia-roja-elegida-por-usuario'
+  trasV5Manual['Mezcla cuatro quesos'] !== 'cuatro-quesos-elegido-por-usuario' ||
+  trasV5Manual['Salsa BBQ'] !== 'bbq-elegida-por-usuario'
 ) {
-  throw new Error('La v4 sobrescribió una elección manual de alubias.');
+  throw new Error('La v5 sobrescribió una elección manual.');
 }
 
 // También protege una instalación nueva: debe recibir todas las versiones.
 limpiarTodasLasAsociaciones();
-localStorage.removeItem('pfi-migracion-asociaciones-basicas-v1');
-localStorage.removeItem('pfi-migracion-asociaciones-basicas-v2');
-localStorage.removeItem('pfi-migracion-asociaciones-basicas-v3');
-localStorage.removeItem('pfi-migracion-asociaciones-basicas-v4');
+for (const version of [1, 2, 3, 4, 5]) {
+  localStorage.removeItem(`pfi-migracion-asociaciones-basicas-v${version}`);
+}
 const cambiosNueva = asegurarAsociacionesBasicas();
 const nuevas = JSON.parse(
   localStorage.getItem('pfi-asociaciones-ingredientes-mercadona') ?? '{}',
@@ -165,8 +149,7 @@ for (const [ingrediente, productoId] of Object.entries(ASOCIACIONES_BASICAS_VERI
   }
 }
 
-console.log('✓ migración y actualizador usan los mismos SKUs verificados');
-console.log('✓ una instalación con v1 aplicada recibe v2 y migra los SKUs retirados en v3/v4');
-console.log('✓ v3/v4 respetan elecciones manuales distintas del usuario');
-console.log('✓ las asociaciones manuales y eliminadas por el usuario se conservan');
-console.log('✓ una instalación nueva recibe todas las versiones de básicos');
+console.log('✓ migraciones y objetivos usan los mismos SKUs verificados');
+console.log('✓ una instalación antigua migra los SKUs retirados de v3-v5');
+console.log('✓ las migraciones respetan elecciones manuales distintas');
+console.log('✓ una instalación nueva recibe todos los básicos vigentes');
