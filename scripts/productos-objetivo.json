@@ -73,7 +73,8 @@
   },
   {
     "ingrediente": "Pechugas de pollo",
-    "buscar": "pechuga pollo entera fresca"
+    "buscar": "pechuga pollo entera fresca",
+    "productoId": "3724"
   },
   {
     "ingrediente": "Lomo",
@@ -81,11 +82,13 @@
   },
   {
     "ingrediente": "Hamburguesas",
-    "buscar": "hamburguesas vacuno cerdo bandeja 4"
+    "buscar": "hamburguesas vacuno cerdo bandeja 4",
+    "productoId": "2873"
   },
   {
     "ingrediente": "Salmón",
-    "buscar": "salmón fresco porciones"
+    "buscar": "salmón fresco porciones",
+    "productoId": "87204"
   },
   {
     "ingrediente": "Lubina",
@@ -109,7 +112,8 @@
   },
   {
     "ingrediente": "Garbanzos secos",
-    "buscar": "garbanzo seco Hacendado paquete"
+    "buscar": "garbanzo seco Hacendado paquete",
+    "productoId": "5214"
   },
   {
     "ingrediente": "Lentejas secas",
@@ -117,11 +121,13 @@
   },
   {
     "ingrediente": "Alubias blancas secas",
-    "buscar": "alubia blanca Hacendado paquete"
+    "buscar": "alubia blanca Hacendado paquete",
+    "productoId": "5185"
   },
   {
     "ingrediente": "Alubias rojas secas",
-    "buscar": "alubia roja Hacendado paquete"
+    "buscar": "alubia roja Hacendado paquete",
+    "productoId": "5180"
   },
   {
     "ingrediente": "Queso rallado",
@@ -129,7 +135,8 @@
   },
   {
     "ingrediente": "Mozzarella rallada",
-    "buscar": "mozzarella rallada Hacendado"
+    "buscar": "mozzarella rallada Hacendado",
+    "productoId": "51110"
   },
   {
     "ingrediente": "Queso en lonchas",
@@ -160,16 +167,18 @@
     "buscar": "salchichas Frankfurt Hacendado"
   },
   {
+    "ingrediente": "Tortillas de trigo",
+    "buscar": "tortillas trigo wraps",
+    "productoId": "80859"
+  },
+  {
+    "ingrediente": "Morcillo",
+    "buscar": "zancarrón vacuno",
+    "productoId": "13741"
+  },
+  {
     "ingrediente": "Bases de pizza",
     "buscar": "bases pizza artesanas 2 unidades"
-  },
-  {
-    "ingrediente": "Pan de hamburguesa",
-    "buscar": "pan hamburguesa Hacendado"
-  },
-  {
-    "ingrediente": "Pan de perrito",
-    "buscar": "pan perrito Hacendado"
   },
   {
     "ingrediente": "Mayonesa",
@@ -190,10 +199,6 @@
   {
     "ingrediente": "Salsa BBQ",
     "buscar": "salsa barbacoa Hacendado"
-  },
-  {
-    "ingrediente": "Ajo en polvo",
-    "buscar": "ajo en polvo Hacendado"
   },
   {
     "ingrediente": "Pimentón dulce",
