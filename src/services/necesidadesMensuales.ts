@@ -21,11 +21,14 @@ export function cargarNecesidadesMensuales(): NecesidadesMensuales {
       return {};
     }
 
-    return Object.fromEntries(
-      Object.entries(datos as Record<string, unknown>)
-        .map(([productoId, cantidad]) => [productoId, numeroNoNegativo(cantidad)])
-        .filter(([, cantidad]) => cantidad > 0),
+    const necesidades: NecesidadesMensuales = {};
+    Object.entries(datos as Record<string, unknown>).forEach(
+      ([productoId, cantidad]) => {
+        const normalizada = numeroNoNegativo(cantidad);
+        if (normalizada > 0) necesidades[productoId] = normalizada;
+      },
     );
+    return necesidades;
   } catch {
     return {};
   }
