@@ -23,6 +23,7 @@ const PRODUCTO_PECHUGAS_POLLO = '3724';
 const PRODUCTO_RELLENO_KEBAB = '13778';
 const PRODUCTO_TOMATE_UNTAR = '17647';
 const PRODUCTO_TOMATE_FRITO = '17108';
+const PRODUCTO_ZANCARRON = '13741';
 const GRAMOS_APROXIMADOS_POR_JAMONCITO = 180;
 const GRAMOS_POLLO_POR_RACION_ARROZ = 150;
 
@@ -79,6 +80,13 @@ function prepararAsociacionesCompra(): void {
 
   if (!siguientes['Jamoncitos de pollo']) {
     siguientes['Jamoncitos de pollo'] = PRODUCTO_JAMONCITOS_POLLO;
+    cambiadas = true;
+  }
+
+  // Mercadona etiqueta este corte como zancarrón, equivalente al morcillo de
+  // ternera que usa la receta familiar del cocido.
+  if (!siguientes.Morcillo) {
+    siguientes.Morcillo = PRODUCTO_ZANCARRON;
     cambiadas = true;
   }
 
