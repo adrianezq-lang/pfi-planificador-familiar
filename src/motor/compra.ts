@@ -96,6 +96,8 @@ function normalizarUnidad(unidad: string): string {
     latas: 'ud',
     bote: 'ud',
     botes: 'ud',
+    'bote grande': 'ud',
+    'botes grandes': 'ud',
     tarro: 'ud',
     tarros: 'ud',
     bolsa: 'ud',
