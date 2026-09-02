@@ -34,18 +34,18 @@ const NOMBRES_RECUPERACION_CONOCIDOS: Record<string, string[]> = {
  * cuando el ingrediente no tiene ya una asociación válida elegida por el usuario.
  * Si un SKU no existe en el catálogo de la zona actual, no se fuerza.
  */
-const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
+export const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
   'Tortillas de trigo': '80859',
   'Pechugas de pollo': '3724',
   'Tomate para pizza': '17108',
   Morcillo: '13741',
   'Garbanzos secos': '5214',
-  'Alubias blancas secas': '5185',
-  'Alubias rojas secas': '5180',
+  'Alubias blancas secas': '5124',
+  'Alubias rojas secas': '67609',
   'Mozzarella rallada': '51110',
   Hamburguesas: '2873',
   'Salmón': '87204',
-  'Pan de hamburguesa': '82331',
+  'Pan de hamburguesa': '13803',
   'Pan de perrito': '82332',
   'Ajo en polvo': '86656',
   'Atún': '18055',
@@ -54,7 +54,7 @@ const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
   'Bases de pizza': '63648',
   Bacon: '16252',
   'Tomate frito': '17132',
-  'Salsa BBQ': '19592',
+  'Salsa BBQ': '17346',
   Ketchup: '23579',
   Mostaza: '23410',
   'Salsa yogur': '17327',
