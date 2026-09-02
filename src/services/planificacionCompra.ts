@@ -1,5 +1,6 @@
 import type { DiaMenu } from '../data/Menusemanal';
 import {
+  calcularEnvasesParaNecesidades,
   generarCompraMercadona,
   type LineaCompra,
   type ResultadoCompra,
@@ -80,6 +81,11 @@ function coberturaPorEnvase(linea: LineaCompra): number {
  * Corrige productos cuyo catálogo comercial no expresa bien cuántas piezas de
  * comida contiene el envase. La regla va ligada al SKU exacto, por lo que una
  * elección manual de otro producto nunca hereda estas capacidades.
+ *
+ * Una misma referencia puede recibir necesidades en formatos distintos. Es el
+ * caso del bacón: carbonara/hamburguesas usan barquetas completas y las pizzas
+ * gramos. Las necesidades no especiales se conservan y se convierten con el
+ * motor general para no perder parte de la compra al aplicar la excepción.
  */
 export function ajustarFormatoComercialEspecial(
   linea: LineaCompra,
@@ -91,24 +97,33 @@ export function ajustarFormatoComercialEspecial(
   if (!regla) return linea;
 
   const unidadesAceptadas = regla.unidadesNecesidad ?? UNIDADES_PIEZA;
-  const unidadesNecesarias = linea.necesidades.reduce((total, necesidad) => {
+  const necesidadesEspeciales = linea.necesidades.filter((necesidad) => {
     const nombre = normalizarTexto(necesidad.nombre);
     const unidad = normalizarTexto(necesidad.unidad);
-    const esUnidad = unidadesAceptadas.includes(unidad);
-    return esUnidad && regla.ingredientes.includes(nombre)
-      ? total + Math.max(0, necesidad.cantidad)
-      : total;
-  }, 0);
+    return regla.ingredientes.includes(nombre) && unidadesAceptadas.includes(unidad);
+  });
+  const necesidadesResto = linea.necesidades.filter(
+    (necesidad) => !necesidadesEspeciales.includes(necesidad),
+  );
+  const unidadesNecesarias = necesidadesEspeciales.reduce(
+    (total, necesidad) => total + Math.max(0, necesidad.cantidad),
+    0,
+  );
 
   if (unidadesNecesarias <= 0) return linea;
 
-  const envasesExactos = unidadesNecesarias / regla.unidadesPorEnvase;
+  const exactosEspeciales = unidadesNecesarias / regla.unidadesPorEnvase;
+  const calculoResto = necesidadesResto.length > 0
+    ? calcularEnvasesParaNecesidades(necesidadesResto, producto)
+    : null;
+  const envasesExactos = exactosEspeciales + (calculoResto?.envasesExactos ?? 0);
   const envases = Math.max(1, Math.ceil(envasesExactos - 0.000001));
 
   return {
     ...linea,
     envasesExactos,
     envases,
+    calculoEstimado: linea.calculoEstimado || Boolean(calculoResto?.estimado),
     subtotal:
       producto.precio === null
         ? null
