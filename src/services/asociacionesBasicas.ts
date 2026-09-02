@@ -24,7 +24,7 @@ export const ASOCIACIONES_BASICAS_V2: Record<string, string> = {
   'Yogures naturales': '22313',
   'Queso curado': '50965',
   'Queso roquefort': '86276',
-  'Mezcla cuatro quesos': '51234',
+  'Mezcla cuatro quesos': '21581',
   Salchichas: '53143',
 };
 
