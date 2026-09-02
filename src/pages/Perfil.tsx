@@ -2,17 +2,65 @@ import { useMemo, useState } from 'react';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import {
+  calcularComensalesMomento,
   calcularRacionesEquivalentes,
+  calcularRacionesMomento,
   cargarPerfil,
   describirFamilia,
   guardarPerfil,
+  type ConfiguracionComensales,
   type PerfilFamiliar,
+  type PlanComensales,
 } from '../services/perfil';
 import { recalcularRecetasParaPerfil } from '../services/recetas';
 import {
   obtenerResumenAprendizaje,
   reiniciarAprendizaje,
 } from '../services/aprendizaje';
+
+const SERVICIOS_COMENSALES: Array<{
+  clave: keyof PlanComensales;
+  titulo: string;
+  detalle: string;
+  momento: 'comida' | 'cena';
+  dia: string;
+}> = [
+  {
+    clave: 'comidaLaborable',
+    titulo: '🍽️ Comida de lunes a viernes',
+    detalle: 'Para descontar comedor escolar o días de trabajo.',
+    momento: 'comida',
+    dia: 'Lunes',
+  },
+  {
+    clave: 'comidaFinSemana',
+    titulo: '☀️ Comida de fin de semana',
+    detalle: 'Sábados y domingos que comáis en casa.',
+    momento: 'comida',
+    dia: 'Sábado',
+  },
+  {
+    clave: 'cena',
+    titulo: '🌙 Cenas',
+    detalle: 'Se aplica todos los días de la semana.',
+    momento: 'cena',
+    dia: 'Lunes',
+  },
+];
+
+function transformarPlanComensales(
+  plan: PlanComensales,
+  transformar: (
+    configuracion: ConfiguracionComensales,
+    clave: keyof PlanComensales,
+  ) => ConfiguracionComensales,
+): PlanComensales {
+  return {
+    comidaLaborable: transformar(plan.comidaLaborable, 'comidaLaborable'),
+    comidaFinSemana: transformar(plan.comidaFinSemana, 'comidaFinSemana'),
+    cena: transformar(plan.cena, 'cena'),
+  };
+}
 
 function Perfil() {
   const [perfil, setPerfil] =
@@ -25,6 +73,23 @@ function Perfil() {
 
   const raciones = useMemo(
     () => calcularRacionesEquivalentes(perfil),
+    [perfil],
+  );
+
+  const resumenServicios = useMemo(
+    () => SERVICIOS_COMENSALES.map((servicio) => ({
+      ...servicio,
+      comensales: calcularComensalesMomento(
+        perfil,
+        servicio.momento,
+        servicio.dia,
+      ),
+      raciones: calcularRacionesMomento(
+        perfil,
+        servicio.momento,
+        servicio.dia,
+      ),
+    })),
     [perfil],
   );
 
@@ -50,8 +115,93 @@ function Perfil() {
       ...actual,
       ninos,
       edadesNinos,
+      comensales: transformarPlanComensales(
+        actual.comensales,
+        (configuracion, clave) => ({
+          ...configuracion,
+          ninos: Array.from(
+            { length: ninos },
+            (_, indice) =>
+              configuracion.ninos[indice] ?? clave !== 'comidaLaborable',
+          ),
+        }),
+      ),
     }));
     setGuardado(false);
+  };
+
+  const actualizarNumeroAdultos = (cantidad: number) => {
+    const adultos = Math.max(1, Math.round(cantidad));
+    setPerfil((actual) => ({
+      ...actual,
+      adultos,
+      comensales: transformarPlanComensales(
+        actual.comensales,
+        (configuracion) => ({
+          ...configuracion,
+          adultos: Math.min(configuracion.adultos, adultos),
+        }),
+      ),
+    }));
+    setGuardado(false);
+  };
+
+  const actualizarNumeroBebes = (cantidad: number) => {
+    const bebes = Math.max(0, Math.round(cantidad));
+    setPerfil((actual) => ({
+      ...actual,
+      bebes,
+      comensales: transformarPlanComensales(
+        actual.comensales,
+        (configuracion) => ({
+          ...configuracion,
+          bebes: Math.min(configuracion.bebes, bebes),
+        }),
+      ),
+    }));
+    setGuardado(false);
+  };
+
+  const actualizarBebesEnMenu = (incluidos: boolean) => {
+    setPerfil((actual) => ({
+      ...actual,
+      bebesComenMenu: incluidos,
+      comensales: incluidos
+        ? actual.comensales
+        : transformarPlanComensales(
+            actual.comensales,
+            (configuracion) => ({ ...configuracion, bebes: 0 }),
+          ),
+    }));
+    setGuardado(false);
+  };
+
+  const actualizarConfiguracionComensales = (
+    clave: keyof PlanComensales,
+    cambios: Partial<ConfiguracionComensales>,
+  ) => {
+    setPerfil((actual) => ({
+      ...actual,
+      comensales: {
+        ...actual.comensales,
+        [clave]: {
+          ...actual.comensales[clave],
+          ...cambios,
+        },
+      },
+    }));
+    setGuardado(false);
+  };
+
+  const cambiarNinoEnServicio = (
+    clave: keyof PlanComensales,
+    indice: number,
+    incluido: boolean,
+  ) => {
+    const seleccion = perfil.comensales[clave].ninos.map(
+      (valor, posicion) => posicion === indice ? incluido : valor,
+    );
+    actualizarConfiguracionComensales(clave, { ninos: seleccion });
   };
 
   const actualizarEdadNino = (indice: number, edad: number) => {
@@ -130,10 +280,7 @@ function Perfil() {
               min="1"
               value={perfil.adultos}
               onChange={(evento) =>
-                actualizarCampo(
-                  'adultos',
-                  Math.max(1, Number(evento.target.value)),
-                )
+                actualizarNumeroAdultos(Number(evento.target.value))
               }
               style={estiloInput}
             />
@@ -159,10 +306,7 @@ function Perfil() {
               min="0"
               value={perfil.bebes}
               onChange={(evento) =>
-                actualizarCampo(
-                  'bebes',
-                  Math.max(0, Number(evento.target.value)),
-                )
+                actualizarNumeroBebes(Number(evento.target.value))
               }
               style={estiloInput}
             />
@@ -222,18 +366,111 @@ function Perfil() {
               type="checkbox"
               checked={perfil.bebesComenMenu}
               onChange={(evento) =>
-                actualizarCampo(
-                  'bebesComenMenu',
-                  evento.target.checked,
-                )
+                actualizarBebesEnMenu(evento.target.checked)
               }
             />
             Incluir al bebé en las cantidades del menú
           </label>
         )}
 
+        <div style={estiloBloqueComensales}>
+          <div>
+            <strong style={estiloTituloComensales}>
+              Comensales que comen en casa
+            </strong>
+            <p style={estiloTextoComensales}>
+              La compra usará estas personas para calcular cada comida y cada cena.
+            </p>
+          </div>
+
+          <div style={estiloCuadriculaComensales}>
+            {resumenServicios.map((servicio) => {
+              const configuracion = perfil.comensales[servicio.clave];
+
+              return (
+                <section key={servicio.clave} style={estiloTarjetaComensales}>
+                  <strong style={estiloNombreServicio}>{servicio.titulo}</strong>
+                  <small style={estiloDetalleServicio}>{servicio.detalle}</small>
+                  <span style={estiloResumenServicio}>
+                    {servicio.comensales} comensal{servicio.comensales === 1 ? '' : 'es'} ·{' '}
+                    {servicio.raciones.toLocaleString('es-ES')} raciones equivalentes
+                  </span>
+
+                  <label style={estiloEtiquetaCompacta}>
+                    Adultos
+                    <input
+                      type="number"
+                      min="0"
+                      max={perfil.adultos}
+                      value={configuracion.adultos}
+                      onChange={(evento) =>
+                        actualizarConfiguracionComensales(servicio.clave, {
+                          adultos: Math.max(
+                            0,
+                            Math.min(
+                              perfil.adultos,
+                              Math.round(Number(evento.target.value)),
+                            ),
+                          ),
+                        })
+                      }
+                      style={estiloInputCompacto}
+                    />
+                  </label>
+
+                  {perfil.edadesNinos.map((edad, indice) => (
+                    <label
+                      key={`${servicio.clave}-nino-${indice}`}
+                      style={estiloOpcionComensal}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={configuracion.ninos[indice] === true}
+                        onChange={(evento) =>
+                          cambiarNinoEnServicio(
+                            servicio.clave,
+                            indice,
+                            evento.target.checked,
+                          )
+                        }
+                      />
+                      Niño de {edad} años
+                    </label>
+                  ))}
+
+                  {perfil.bebesComenMenu && perfil.bebes > 0 && (
+                    <label style={estiloEtiquetaCompacta}>
+                      Bebés que comen este menú
+                      <input
+                        type="number"
+                        min="0"
+                        max={perfil.bebes}
+                        value={configuracion.bebes}
+                        onChange={(evento) =>
+                          actualizarConfiguracionComensales(servicio.clave, {
+                            bebes: Math.max(
+                              0,
+                              Math.min(
+                                perfil.bebes,
+                                Math.round(Number(evento.target.value)),
+                              ),
+                            ),
+                          })
+                        }
+                        style={estiloInputCompacto}
+                      />
+                    </label>
+                  )}
+                </section>
+              );
+            })}
+          </div>
+        </div>
+
         <div style={estiloResumenRaciones}>
-          <strong>{raciones.toLocaleString('es-ES')} raciones adultas equivalentes</strong>
+          <strong>
+            Familia completa: {raciones.toLocaleString('es-ES')} raciones adultas equivalentes
+          </strong>
           <span>{describirFamilia(perfil)}</span>
           <small>
             Es una estimación inicial. Las cantidades pueden editarse a mano
@@ -242,12 +479,12 @@ function Perfil() {
         </div>
 
         <button type="button" onClick={guardar} style={estiloBotonGuardar}>
-          Guardar perfil y recalcular recetas
+          Guardar perfil y actualizar cantidades
         </button>
 
         {guardado && (
           <p style={estiloMensajeGuardado}>
-            Perfil guardado y cantidades automáticas actualizadas.
+            Perfil guardado. Menú y compra usarán estos comensales.
           </p>
         )}
       </Card>
@@ -364,6 +601,93 @@ const estiloInterruptor = {
   gap: '10px',
   marginTop: '18px',
   color: '#4f6f52',
+  fontWeight: 700,
+};
+
+const estiloBloqueComensales = {
+  display: 'grid',
+  gap: '14px',
+  marginTop: '20px',
+  padding: '16px',
+  border: '1px solid #d7dfd4',
+  borderRadius: '16px',
+  background: '#f8f6f2',
+};
+
+const estiloTituloComensales = {
+  display: 'block',
+  color: '#4f6f52',
+  fontSize: '18px',
+};
+
+const estiloTextoComensales = {
+  margin: '5px 0 0',
+  color: '#667067',
+  fontSize: '14px',
+};
+
+const estiloCuadriculaComensales = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+  gap: '12px',
+};
+
+const estiloTarjetaComensales = {
+  display: 'grid',
+  alignContent: 'start',
+  gap: '10px',
+  padding: '14px',
+  border: '1px solid #dce4d9',
+  borderRadius: '14px',
+  background: '#fff',
+};
+
+const estiloNombreServicio = {
+  color: '#334c36',
+};
+
+const estiloDetalleServicio = {
+  minHeight: '34px',
+  color: '#737b74',
+  lineHeight: 1.35,
+};
+
+const estiloResumenServicio = {
+  padding: '8px 10px',
+  borderRadius: '10px',
+  background: '#eef5ed',
+  color: '#4f6f52',
+  fontSize: '13px',
+  fontWeight: 800,
+};
+
+const estiloEtiquetaCompacta = {
+  display: 'grid',
+  gridTemplateColumns: '1fr 72px',
+  gap: '10px',
+  alignItems: 'center',
+  color: '#4f6f52',
+  fontSize: '14px',
+  fontWeight: 700,
+};
+
+const estiloInputCompacto = {
+  width: '100%',
+  boxSizing: 'border-box' as const,
+  border: '1px solid #d7dfd4',
+  borderRadius: '10px',
+  padding: '9px',
+  background: '#f8f6f2',
+  color: '#263229',
+  fontSize: '16px',
+};
+
+const estiloOpcionComensal = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '9px',
+  color: '#4f6f52',
+  fontSize: '14px',
   fontWeight: 700,
 };
 

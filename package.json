@@ -24,7 +24,8 @@
     "test:v0911": "node --experimental-strip-types scripts/probar-v0911.mjs",
     "test:v0912": "node --experimental-strip-types scripts/probar-v0912.mjs",
     "test:v0913": "node --experimental-strip-types scripts/probar-v0913.mjs",
-    "test:calendario": "node --experimental-strip-types scripts/probar-calendario-inventario.mjs"
+    "test:calendario": "node --experimental-strip-types scripts/probar-calendario-inventario.mjs",
+    "test:comensales": "node --experimental-strip-types scripts/probar-comensales-por-servicio.mjs"
   },
   "dependencies": {
     "react": "^19.2.7",

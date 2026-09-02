@@ -1,3 +1,17 @@
+export type ConfiguracionComensales = {
+  adultos: number;
+  ninos: boolean[];
+  bebes: number;
+};
+
+export type PlanComensales = {
+  comidaLaborable: ConfiguracionComensales;
+  comidaFinSemana: ConfiguracionComensales;
+  cena: ConfiguracionComensales;
+};
+
+export type MomentoComida = 'comida' | 'cena';
+
 export type PerfilFamiliar = {
   nombre: string;
   adultos: number;
@@ -5,6 +19,7 @@ export type PerfilFamiliar = {
   edadesNinos: number[];
   bebes: number;
   bebesComenMenu: boolean;
+  comensales: PlanComensales;
   supermercado: string;
   presupuesto: number;
 };
@@ -13,6 +28,24 @@ const CLAVE_PERFIL = 'pfi-perfil';
 
 export const EVENTO_PERFIL = 'pfi-perfil-actualizado';
 
+const comensalesIniciales: PlanComensales = {
+  comidaLaborable: {
+    adultos: 2,
+    ninos: [true, false],
+    bebes: 0,
+  },
+  comidaFinSemana: {
+    adultos: 2,
+    ninos: [true, true],
+    bebes: 0,
+  },
+  cena: {
+    adultos: 2,
+    ninos: [true, true],
+    bebes: 0,
+  },
+};
+
 export const perfilInicial: PerfilFamiliar = {
   nombre: 'Adrián',
   adultos: 2,
@@ -20,6 +53,7 @@ export const perfilInicial: PerfilFamiliar = {
   edadesNinos: [12, 6],
   bebes: 1,
   bebesComenMenu: false,
+  comensales: comensalesIniciales,
   supermercado: 'Mercadona',
   presupuesto: 500,
 };
@@ -44,15 +78,123 @@ function ajustarEdades(edades: unknown, cantidadNinos: number): number[] {
   });
 }
 
+function limitarEntero(valor: unknown, alternativa: number, maximo: number): number {
+  return Math.min(maximo, Math.round(numeroSeguro(valor, alternativa)));
+}
+
+function crearPlanComensalesPredeterminado(
+  adultos: number,
+  edadesNinos: number[],
+  bebes: number,
+  bebesComenMenu: boolean,
+): PlanComensales {
+  const ninosLaborables = edadesNinos.map((edad) => edad >= 12);
+  const todosLosNinos = edadesNinos.map(() => true);
+  const bebesIncluidos = bebesComenMenu ? bebes : 0;
+
+  return {
+    comidaLaborable: {
+      adultos,
+      ninos: ninosLaborables,
+      bebes: bebesIncluidos,
+    },
+    comidaFinSemana: {
+      adultos,
+      ninos: todosLosNinos,
+      bebes: bebesIncluidos,
+    },
+    cena: {
+      adultos,
+      ninos: todosLosNinos,
+      bebes: bebesIncluidos,
+    },
+  };
+}
+
+function normalizarConfiguracionComensales(
+  valor: unknown,
+  alternativa: ConfiguracionComensales,
+  adultosFamilia: number,
+  cantidadNinos: number,
+  bebesFamilia: number,
+  bebesComenMenu: boolean,
+): ConfiguracionComensales {
+  const parcial =
+    typeof valor === 'object' && valor !== null
+      ? valor as Partial<ConfiguracionComensales>
+      : {};
+  const seleccionNinos = Array.isArray(parcial.ninos)
+    ? parcial.ninos
+    : alternativa.ninos;
+
+  return {
+    adultos: limitarEntero(
+      parcial.adultos,
+      alternativa.adultos,
+      adultosFamilia,
+    ),
+    ninos: Array.from({ length: cantidadNinos }, (_, indice) =>
+      typeof seleccionNinos[indice] === 'boolean'
+        ? seleccionNinos[indice]
+        : alternativa.ninos[indice] ?? false,
+    ),
+    bebes: bebesComenMenu
+      ? limitarEntero(parcial.bebes, alternativa.bebes, bebesFamilia)
+      : 0,
+  };
+}
+
+function normalizarPlanComensales(
+  valor: unknown,
+  alternativa: PlanComensales,
+  adultos: number,
+  cantidadNinos: number,
+  bebes: number,
+  bebesComenMenu: boolean,
+): PlanComensales {
+  const parcial =
+    typeof valor === 'object' && valor !== null
+      ? valor as Partial<PlanComensales>
+      : {};
+  const normalizar = (
+    clave: keyof PlanComensales,
+  ): ConfiguracionComensales =>
+    normalizarConfiguracionComensales(
+      parcial[clave],
+      alternativa[clave],
+      adultos,
+      cantidadNinos,
+      bebes,
+      bebesComenMenu,
+    );
+
+  return {
+    comidaLaborable: normalizar('comidaLaborable'),
+    comidaFinSemana: normalizar('comidaFinSemana'),
+    cena: normalizar('cena'),
+  };
+}
+
 export function normalizarPerfil(valor: unknown): PerfilFamiliar {
   if (typeof valor !== 'object' || valor === null) {
-    return { ...perfilInicial, edadesNinos: [...perfilInicial.edadesNinos] };
+    return normalizarPerfil(perfilInicial);
   }
 
   const parcial = valor as Partial<PerfilFamiliar>;
   const adultos = Math.max(1, Math.round(numeroSeguro(parcial.adultos, 2)));
   const ninos = Math.round(numeroSeguro(parcial.ninos, 2));
   const bebes = Math.round(numeroSeguro(parcial.bebes, 1));
+  const edadesNinos = ajustarEdades(parcial.edadesNinos, ninos);
+  const bebesComenMenu =
+    typeof parcial.bebesComenMenu === 'boolean'
+      ? parcial.bebesComenMenu
+      : false;
+  const planPredeterminado = crearPlanComensalesPredeterminado(
+    adultos,
+    edadesNinos,
+    bebes,
+    bebesComenMenu,
+  );
 
   return {
     nombre:
@@ -61,12 +203,17 @@ export function normalizarPerfil(valor: unknown): PerfilFamiliar {
         : perfilInicial.nombre,
     adultos,
     ninos,
-    edadesNinos: ajustarEdades(parcial.edadesNinos, ninos),
+    edadesNinos,
     bebes,
-    bebesComenMenu:
-      typeof parcial.bebesComenMenu === 'boolean'
-        ? parcial.bebesComenMenu
-        : false,
+    bebesComenMenu,
+    comensales: normalizarPlanComensales(
+      parcial.comensales,
+      planPredeterminado,
+      adultos,
+      ninos,
+      bebes,
+      bebesComenMenu,
+    ),
     supermercado:
       typeof parcial.supermercado === 'string' && parcial.supermercado.trim()
         ? parcial.supermercado.trim()
@@ -120,6 +267,65 @@ export function calcularRacionesEquivalentes(perfil: PerfilFamiliar): number {
 
 export function calcularComensales(perfil: PerfilFamiliar): number {
   return perfil.adultos + perfil.ninos + (perfil.bebesComenMenu ? perfil.bebes : 0);
+}
+
+function esFinDeSemana(dia: string): boolean {
+  const normalizado = dia
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+
+  return normalizado === 'sabado' || normalizado === 'domingo';
+}
+
+export function obtenerConfiguracionComensales(
+  perfil: PerfilFamiliar,
+  momento: MomentoComida,
+  dia: string,
+): ConfiguracionComensales {
+  if (momento === 'cena') return perfil.comensales.cena;
+  return esFinDeSemana(dia)
+    ? perfil.comensales.comidaFinSemana
+    : perfil.comensales.comidaLaborable;
+}
+
+export function crearPerfilParaMomento(
+  perfil: PerfilFamiliar,
+  momento: MomentoComida,
+  dia: string,
+): PerfilFamiliar {
+  const configuracion = obtenerConfiguracionComensales(perfil, momento, dia);
+  const edadesNinos = perfil.edadesNinos.filter(
+    (_, indice) => configuracion.ninos[indice] === true,
+  );
+
+  return {
+    ...perfil,
+    adultos: configuracion.adultos,
+    ninos: edadesNinos.length,
+    edadesNinos,
+    bebes: configuracion.bebes,
+    bebesComenMenu: perfil.bebesComenMenu && configuracion.bebes > 0,
+  };
+}
+
+export function calcularComensalesMomento(
+  perfil: PerfilFamiliar,
+  momento: MomentoComida,
+  dia: string,
+): number {
+  return calcularComensales(crearPerfilParaMomento(perfil, momento, dia));
+}
+
+export function calcularRacionesMomento(
+  perfil: PerfilFamiliar,
+  momento: MomentoComida,
+  dia: string,
+): number {
+  return calcularRacionesEquivalentes(
+    crearPerfilParaMomento(perfil, momento, dia),
+  );
 }
 
 export function describirFamilia(perfil: PerfilFamiliar): string {
