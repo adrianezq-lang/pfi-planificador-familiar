@@ -165,19 +165,46 @@ function normalizarTexto(texto: string): string {
     .trim();
 }
 
+function fraccionEnvaseParaRevisar(
+  ingrediente: Ingrediente,
+): number {
+  const seccion = normalizarTexto(ingrediente.seccion);
+  const nombre = normalizarTexto(ingrediente.nombre);
+  const esEspecia =
+    seccion.includes('especia') ||
+    nombre.includes('especia') ||
+    nombre.includes('pimenton') ||
+    nombre.includes('ajo en polvo');
+
+  return esEspecia ? 0.05 : 0.15;
+}
+
 function normalizarIngrediente(
   ingrediente: Ingrediente,
 ): Ingrediente {
+  const unidadNormalizada = normalizarTexto(
+    ingrediente.unidad,
+  );
+
+  // "revisar" era una unidad provisional del recetario. Interpretarla como
+  // una unidad completa hacía comprar un bote nuevo cada vez que aparecía una
+  // receta. La convertimos a una fracción conservadora de envase para que los
+  // usos del mes se acumulen y el sobrante se aproveche entre semanas.
+  if (unidadNormalizada === 'revisar') {
+    return {
+      ...ingrediente,
+      cantidad:
+        ingrediente.cantidad * fraccionEnvaseParaRevisar(ingrediente),
+      unidad: 'envase',
+    };
+  }
+
   const reglasProducto =
     conversionesPorProducto[ingrediente.nombre];
 
   if (!reglasProducto) {
     return { ...ingrediente };
   }
-
-  const unidadNormalizada = normalizarTexto(
-    ingrediente.unidad,
-  );
 
   const regla =
     reglasProducto[unidadNormalizada];
