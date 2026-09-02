@@ -68,6 +68,10 @@ if (calcularComensales(comidaFinSemana) !== 4 || calcularComensales(cena) !== 4)
 }
 
 localStorage.setItem('pfi-perfil', JSON.stringify(perfilMigrado));
+localStorage.setItem(
+  'pfi-asociaciones-ingredientes-mercadona',
+  JSON.stringify({ Pollo: '2781' }),
+);
 
 function crearDia(dia, comida, cenaDia, postreComida, postreCena) {
   return {
@@ -152,6 +156,41 @@ if (tortillasMesBase?.cantidad !== 14) {
   );
 }
 
+const compraCocidoDosDias = generarListaCompra([
+  crearDia('Lunes', ['Cocido de garbanzos'], [], 'Sin postre', 'Sin postre'),
+  crearDia('Jueves', ['Cocido de garbanzos'], [], 'Sin postre', 'Sin postre'),
+]);
+const jamoncitos = compraCocidoDosDias.find(
+  (ingrediente) => ingrediente.nombre === 'Jamoncitos de pollo',
+);
+const polloGenericoCocido = compraCocidoDosDias.find(
+  (ingrediente) => ingrediente.nombre === 'Pollo',
+);
+if (jamoncitos?.cantidad !== 540 || jamoncitos.unidad !== 'g' || polloGenericoCocido) {
+  throw new Error(
+    `El cocido de dos días debe convertir 3 muslos escalados a 540 g de jamoncitos: ${jamoncitos?.cantidad} ${jamoncitos?.unidad}.`,
+  );
+}
+
+const compraArrozPollo = generarListaCompra([
+  crearDia('Martes', ['Arroz con pollo'], [], 'Sin postre', 'Sin postre'),
+]);
+if (
+  !compraArrozPollo.some((ingrediente) => ingrediente.nombre === 'Pollo para arroz') ||
+  compraArrozPollo.some((ingrediente) => ingrediente.nombre === 'Pollo')
+) {
+  throw new Error('Arroz con pollo no debe heredar la asociación genérica de pollo entero.');
+}
+
+const asociacionesPollo = JSON.parse(
+  localStorage.getItem('pfi-asociaciones-ingredientes-mercadona') ?? '{}',
+);
+if (asociacionesPollo.Pollo || asociacionesPollo['Jamoncitos de pollo'] !== '2778') {
+  throw new Error(
+    `La asociación genérica de Pollo debe eliminarse y Jamoncitos debe apuntar a 2778: ${JSON.stringify(asociacionesPollo)}.`,
+  );
+}
+
 await vite.close();
 
 console.log('✓ comida laborable: 2 adultos + niño de 12 años');
@@ -159,3 +198,5 @@ console.log('✓ comida de fin de semana y cenas: cuatro comensales');
 console.log('✓ la compra ajusta platos y postres al servicio');
 console.log('✓ fajitas: 6 tortillas para cuatro comensales');
 console.log('✓ fajitas + dos kebabs: 14 tortillas en total');
+console.log('✓ cocido: jamoncitos por peso, no bandejas por muslo');
+console.log('✓ arroz con pollo no hereda pollo entero como corte genérico');
