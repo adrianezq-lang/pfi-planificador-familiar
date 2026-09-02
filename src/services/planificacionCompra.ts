@@ -17,7 +17,10 @@ const COBERTURA_FRESCO_PESO_VARIABLE = 1.1;
 type ReglaFormatoComercial = {
   ingredientes: string[];
   unidadesPorEnvase: number;
+  unidadesNecesidad?: string[];
 };
+
+const UNIDADES_PIEZA = ['u', 'ud', 'uds', 'unidad', 'unidades'];
 
 const FORMATOS_COMERCIALES_ESPECIALES: Record<string, ReglaFormatoComercial> = {
   // Dos paquetes interiores, cuatro salchichas reales en total.
@@ -34,6 +37,13 @@ const FORMATOS_COMERCIALES_ESPECIALES: Record<string, ReglaFormatoComercial> = {
   '82332': {
     ingredientes: ['pan de perrito'],
     unidadesPorEnvase: 6,
+  },
+  // El catálogo del bacón en cintas expone dos unidades internas, pero las
+  // recetas usan barqueta/paquete para referirse al envase comercial completo.
+  '16252': {
+    ingredientes: ['bacon'],
+    unidadesPorEnvase: 1,
+    unidadesNecesidad: ['barqueta', 'barquetas', 'paquete', 'paquetes'],
   },
 };
 
@@ -80,10 +90,11 @@ export function ajustarFormatoComercialEspecial(
   const regla = FORMATOS_COMERCIALES_ESPECIALES[producto.productoId];
   if (!regla) return linea;
 
+  const unidadesAceptadas = regla.unidadesNecesidad ?? UNIDADES_PIEZA;
   const unidadesNecesarias = linea.necesidades.reduce((total, necesidad) => {
     const nombre = normalizarTexto(necesidad.nombre);
     const unidad = normalizarTexto(necesidad.unidad);
-    const esUnidad = ['u', 'ud', 'uds', 'unidad', 'unidades'].includes(unidad);
+    const esUnidad = unidadesAceptadas.includes(unidad);
     return esUnidad && regla.ingredientes.includes(nombre)
       ? total + Math.max(0, necesidad.cantidad)
       : total;

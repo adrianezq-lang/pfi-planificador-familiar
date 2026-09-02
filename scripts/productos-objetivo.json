@@ -26,7 +26,8 @@
   },
   {
     "ingrediente": "Tomate frito",
-    "buscar": "tomate frito Hacendado brick"
+    "buscar": "tomate frito Hacendado pack 3 bricks",
+    "productoId": "17132"
   },
   {
     "ingrediente": "Tomate triturado",
@@ -159,7 +160,8 @@
   },
   {
     "ingrediente": "Bacon",
-    "buscar": "bacón Hacendado cintas"
+    "buscar": "bacón Hacendado cintas",
+    "productoId": "16252"
   },
   {
     "ingrediente": "Chorizo",
@@ -200,11 +202,13 @@
   },
   {
     "ingrediente": "Ketchup",
-    "buscar": "ketchup Hacendado"
+    "buscar": "ketchup Hacendado",
+    "productoId": "23579"
   },
   {
     "ingrediente": "Mostaza",
-    "buscar": "mostaza clásica Hacendado"
+    "buscar": "mostaza clásica Hacendado",
+    "productoId": "23410"
   },
   {
     "ingrediente": "Guacamole",
@@ -212,7 +216,13 @@
   },
   {
     "ingrediente": "Salsa BBQ",
-    "buscar": "salsa barbacoa Hacendado"
+    "buscar": "salsa barbacoa Hacendado",
+    "productoId": "19592"
+  },
+  {
+    "ingrediente": "Salsa yogur",
+    "buscar": "salsa yogur Hacendado",
+    "productoId": "17327"
   },
   {
     "ingrediente": "Ajo en polvo",
@@ -221,10 +231,12 @@
   },
   {
     "ingrediente": "Pimentón dulce",
-    "buscar": "pimentón dulce Hacendado"
+    "buscar": "pimentón dulce Hacendado",
+    "productoId": "60573"
   },
   {
     "ingrediente": "Pimentón picante",
-    "buscar": "pimentón picante Hacendado"
+    "buscar": "pimentón picante Hacendado",
+    "productoId": "34183"
   }
 ]

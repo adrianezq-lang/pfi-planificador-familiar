@@ -52,6 +52,14 @@ const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
   Huevos: '30167',
   'Queso en lonchas': '50545',
   'Bases de pizza': '63648',
+  Bacon: '16252',
+  'Tomate frito': '17132',
+  'Salsa BBQ': '19592',
+  Ketchup: '23579',
+  Mostaza: '23410',
+  'Salsa yogur': '17327',
+  'Pimentón dulce': '60573',
+  'Pimentón picante': '34183',
 };
 
 /**
