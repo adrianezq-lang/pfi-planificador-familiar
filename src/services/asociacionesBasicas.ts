@@ -6,6 +6,7 @@ import {
 const CLAVE_MIGRACION_V1 = 'pfi-migracion-asociaciones-basicas-v1';
 const CLAVE_MIGRACION_V2 = 'pfi-migracion-asociaciones-basicas-v2';
 const CLAVE_MIGRACION_V3 = 'pfi-migracion-asociaciones-basicas-v3';
+const CLAVE_MIGRACION_V4 = 'pfi-migracion-asociaciones-basicas-v4';
 
 export const ASOCIACIONES_BASICAS_V1: Record<string, string> = {
   Arroz: '5044',
@@ -30,10 +31,16 @@ export const ASOCIACIONES_BASICAS_V3: Record<string, string> = {
   'Pan de hamburguesa': '13803',
 };
 
+export const ASOCIACIONES_BASICAS_V4: Record<string, string> = {
+  'Alubias blancas secas': '5124',
+  'Alubias rojas secas': '67609',
+};
+
 export const ASOCIACIONES_BASICAS_VERIFICADAS: Record<string, string> = {
   ...ASOCIACIONES_BASICAS_V1,
   ...ASOCIACIONES_BASICAS_V2,
   ...ASOCIACIONES_BASICAS_V3,
+  ...ASOCIACIONES_BASICAS_V4,
 };
 
 type Migracion = {
@@ -50,6 +57,14 @@ const MIGRACIONES: Migracion[] = [
     asociaciones: ASOCIACIONES_BASICAS_V3,
     reemplazaIds: {
       'Pan de hamburguesa': ['82331'],
+    },
+  },
+  {
+    clave: CLAVE_MIGRACION_V4,
+    asociaciones: ASOCIACIONES_BASICAS_V4,
+    reemplazaIds: {
+      'Alubias blancas secas': ['5185'],
+      'Alubias rojas secas': ['5180'],
     },
   },
 ];
