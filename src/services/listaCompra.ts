@@ -1,5 +1,9 @@
 import type { DiaMenu } from '../data/Menusemanal';
 import type { Ingrediente, Receta } from '../data/Recetas';
+import {
+  cargarAsociacionesIngredientes,
+  guardarAsociacionesIngredientes,
+} from './asociacionesIngredientes';
 import { cargarRecetas } from './recetas';
 import { unirIngredientes } from './UnirIngredientes';
 import { obtenerRecetaPostre } from './menu';
@@ -12,8 +16,90 @@ import {
 import { obtenerSugerenciaIngrediente } from './porciones';
 import { listarPlatosParaCompra } from './reglasMenuMensual';
 
+const PRODUCTO_POLLO_ENTERO = '2781';
+const PRODUCTO_JAMONCITOS_POLLO = '2778';
+const GRAMOS_APROXIMADOS_POR_JAMONCITO = 180;
+
 function redondearCantidad(valor: number): number {
   return Math.round(valor * 100) / 100;
+}
+
+function normalizarTexto(texto: string): string {
+  return texto
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Corrige una asociación histórica demasiado genérica: "Pollo" quedó ligado al
+ * producto de pollo entero, aunque se reutiliza en recetas que piden otros
+ * cortes. El cocido sí tiene un corte concreto y estable en el catálogo actual.
+ */
+function prepararAsociacionesCortesPollo(): void {
+  const actuales = cargarAsociacionesIngredientes();
+  const siguientes = { ...actuales };
+  let cambiadas = false;
+
+  if (siguientes.Pollo === PRODUCTO_POLLO_ENTERO) {
+    delete siguientes.Pollo;
+    cambiadas = true;
+  }
+
+  if (!siguientes['Jamoncitos de pollo']) {
+    siguientes['Jamoncitos de pollo'] = PRODUCTO_JAMONCITOS_POLLO;
+    cambiadas = true;
+  }
+
+  if (cambiadas) guardarAsociacionesIngredientes(siguientes);
+}
+
+/**
+ * La receta histórica del cocido guarda "2 muslos". Mercadona vende los
+ * jamoncitos por peso, no por unidades, de modo que tratarlos como 2 bandejas
+ * inflaría la compra. Conservamos la intención de la receta y aproximamos cada
+ * jamoncito a 180 g para convertir correctamente la necesidad a bandejas.
+ *
+ * "Pollo" en arroz con pollo es deliberadamente ambiguo: lo separamos del alias
+ * antiguo para que nunca vuelva a resolverse como pollo entero por accidente.
+ */
+function normalizarCortePolloParaCompra(
+  receta: Receta,
+  ingrediente: Ingrediente,
+): Ingrediente {
+  const nombreReceta = normalizarTexto(receta.nombre);
+  const nombreIngrediente = normalizarTexto(ingrediente.nombre);
+  const unidad = normalizarTexto(ingrediente.unidad);
+
+  if (
+    nombreReceta === 'cocido de garbanzos' &&
+    nombreIngrediente === 'pollo' &&
+    (unidad === 'muslo' || unidad === 'muslos')
+  ) {
+    return {
+      ...ingrediente,
+      nombre: 'Jamoncitos de pollo',
+      cantidad: redondearCantidad(
+        ingrediente.cantidad * GRAMOS_APROXIMADOS_POR_JAMONCITO,
+      ),
+      unidad: 'g',
+    };
+  }
+
+  if (
+    nombreReceta === 'arroz con pollo' &&
+    nombreIngrediente === 'pollo'
+  ) {
+    return {
+      ...ingrediente,
+      nombre: 'Pollo para arroz',
+    };
+  }
+
+  return ingrediente;
 }
 
 /**
@@ -133,6 +219,8 @@ function obtenerPostresDeServicio(
 export function generarListaCompra(
   menu: DiaMenu[],
 ): Ingrediente[] {
+  prepararAsociacionesCortesPollo();
+
   const perfil = cargarPerfil();
   const recetasBase = cargarRecetas();
   const esLegumbreCocinada = (nombre: string): boolean => {
@@ -164,8 +252,12 @@ export function generarListaCompra(
     );
     const buscarReceta = (nombre: string) =>
       recetas.find((receta) => receta.nombre === nombre);
-    const ingredientesPlato = (nombre: string): Ingrediente[] =>
-      buscarReceta(nombre)?.ingredientes ?? [];
+    const ingredientesPlato = (nombre: string): Ingrediente[] => {
+      const receta = buscarReceta(nombre);
+      return receta?.ingredientes.map((ingrediente) =>
+        normalizarCortePolloParaCompra(receta, ingrediente),
+      ) ?? [];
+    };
     const menuServicio = crearMenuDeServicio(menu, servicio.clave);
     const platos = listarPlatosParaCompra(
       menuServicio,
