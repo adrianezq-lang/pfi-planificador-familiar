@@ -9,9 +9,9 @@
     "precio": 4.1,
     "seccion": "Carne",
     "url": "https://tienda.mercadona.es/product/2869/preparado-carne-picada-vacuno-cerdo-bandeja",
-    "imagen": "https://prod-mercadona.imgix.net/images/3ff4619c75302a2ae20831ae3ffe6c1c.jpg?fit=crop&h=300&w=300",
+    "imagen": "https://prod-mercadona.imgix.net/images/3ff4619c75302a2ae20831ae3ffe6c1c.jpeg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Leche": {
     "ingrediente": "Leche",
@@ -25,7 +25,7 @@
     "url": "https://tienda.mercadona.es/product/10379/leche-entera-hacendado-pack-6",
     "imagen": "https://prod-mercadona.imgix.net/images/4b1fd692f8032ec9e1ff419f27a856a4.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Yogures": {
     "ingrediente": "Yogures",
@@ -39,7 +39,7 @@
     "url": "https://tienda.mercadona.es/product/20221/yogur-natural-edulcorado-hacendado-0-mg-0-sin-azucares-anadidos-linnea-v-pack-6",
     "imagen": "https://prod-mercadona.imgix.net/images/0894bc2be116a1d00a8b7a070a97cd62.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Arroz": {
     "ingrediente": "Arroz",
@@ -48,26 +48,26 @@
     "formato": "Paquete · 1 kg",
     "unidadesPorEnvase": 1000,
     "unidadBase": "g",
-    "precio": 1.2,
+    "precio": 1.15,
     "seccion": "Arroz, legumbres y pasta",
     "url": "https://tienda.mercadona.es/product/5044/arroz-redondo-hacendado-paquete",
     "imagen": "https://prod-mercadona.imgix.net/images/0daf43fb5761b823ce83c985930c97c9.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pasta corta": {
     "ingrediente": "Pasta corta",
-    "nombreComercial": "Macarrón rayado integral Hacendado",
-    "productoId": "35777",
+    "nombreComercial": "Macarrón grueso Hacendado",
+    "productoId": "13025",
     "formato": "Paquete · 500 g",
     "unidadesPorEnvase": 500,
     "unidadBase": "g",
-    "precio": 1.15,
+    "precio": 0.9,
     "seccion": "Arroz, legumbres y pasta",
-    "url": "https://tienda.mercadona.es/product/35777/pasta-penne-integral-hacendado-paquete",
-    "imagen": "https://prod-mercadona.imgix.net/images/231ef027d5b28f7040b3075da848399f.jpg?fit=crop&h=300&w=300",
+    "url": "https://tienda.mercadona.es/product/13025/macarron-grueso-hacendado-paquete",
+    "imagen": "https://prod-mercadona.imgix.net/images/9324831d28eecab4a1081c86a8f65786.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Tomate frito": {
     "ingrediente": "Tomate frito",
@@ -81,7 +81,7 @@
     "url": "https://tienda.mercadona.es/product/17132/tomate-frito-hacendado-pack-3",
     "imagen": "https://prod-mercadona.imgix.net/images/e589c8259daf4b9335098fb9ade7ee09.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Tomate triturado": {
     "ingrediente": "Tomate triturado",
@@ -95,7 +95,7 @@
     "url": "https://tienda.mercadona.es/product/16043/tomate-triturado-hacendado-freir-bote",
     "imagen": "https://prod-mercadona.imgix.net/images/117a2a2230b103f17b50e07a73a8fc38.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Atún": {
     "ingrediente": "Atún",
@@ -109,7 +109,7 @@
     "url": "https://tienda.mercadona.es/product/18086/atun-aceite-girasol-hacendado-lata",
     "imagen": "https://prod-mercadona.imgix.net/images/2c06dcbb4643e6b4447d5d064c4eb6a5.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Calabacín": {
     "ingrediente": "Calabacín",
@@ -118,26 +118,26 @@
     "formato": "Pieza · 470 g",
     "unidadesPorEnvase": 470,
     "unidadBase": "g",
-    "precio": 0.75,
+    "precio": 0.89,
     "seccion": "Fruta y verdura",
     "url": "https://tienda.mercadona.es/product/69338/calabacin-verde-pieza",
     "imagen": "https://prod-mercadona.imgix.net/images/ebbfb6a904fe02ba5a88b02f2be911fd.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pimiento rojo": {
     "ingrediente": "Pimiento rojo",
     "nombreComercial": "Pimiento rojo",
     "productoId": "69310",
-    "formato": "Pieza · 360 g",
-    "unidadesPorEnvase": 360,
+    "formato": "Pieza · 200 g",
+    "unidadesPorEnvase": 200,
     "unidadBase": "g",
-    "precio": 0.9,
+    "precio": 0.5,
     "seccion": "Fruta y verdura",
     "url": "https://tienda.mercadona.es/product/69310/pimiento-rojo-pieza",
     "imagen": "https://prod-mercadona.imgix.net/images/6a280610f9bfadf9b78b2197c21acfae.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pimiento tricolor": {
     "ingrediente": "Pimiento tricolor",
@@ -146,12 +146,12 @@
     "formato": "680 g",
     "unidadesPorEnvase": 680,
     "unidadBase": "g",
-    "precio": 1.9,
+    "precio": 2.11,
     "seccion": "Fruta y verdura",
     "url": "https://tienda.mercadona.es/product/69495/pimientos-tricolor-rojo-amarillo-verde-bandeja",
     "imagen": "https://prod-mercadona.imgix.net/images/e877aafe8bb04d341a37a0ad6ba60b3c.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pepino": {
     "ingrediente": "Pepino",
@@ -165,7 +165,7 @@
     "url": "https://tienda.mercadona.es/product/69584/pepino-pieza",
     "imagen": "https://prod-mercadona.imgix.net/images/a1e854648225054f10d2bac80ca7ca98.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pollo": {
     "ingrediente": "Pollo",
@@ -174,12 +174,12 @@
     "formato": "Bandeja · 1.9 kg",
     "unidadesPorEnvase": 1900,
     "unidadBase": "g",
-    "precio": 5.7,
+    "precio": 6.65,
     "seccion": "Carne",
     "url": "https://tienda.mercadona.es/product/2781/pollo-entero-bandeja",
     "imagen": "https://prod-mercadona.imgix.net/images/cb8d3cd457f1c0c8bce835505ad77695.jpeg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pechugas de pollo": {
     "ingrediente": "Pechugas de pollo",
@@ -188,12 +188,12 @@
     "formato": "Bandeja · 1.2 kg",
     "unidadesPorEnvase": 1200,
     "unidadBase": "g",
-    "precio": 7.2,
+    "precio": 7.44,
     "seccion": "Carne",
     "url": "https://tienda.mercadona.es/product/3682/pechugas-enteras-pollo-bandeja",
     "imagen": "https://prod-mercadona.imgix.net/images/e20a225bd8032beb2866a2a0716809ad.jpeg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Lomo": {
     "ingrediente": "Lomo",
@@ -207,7 +207,7 @@
     "url": "https://tienda.mercadona.es/product/3395/filetes-lomo-cerdo-familiar-bandeja",
     "imagen": "https://prod-mercadona.imgix.net/images/7865223a99982e513a1e44182bf0edd4.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Hamburguesas": {
     "ingrediente": "Hamburguesas",
@@ -216,12 +216,12 @@
     "formato": "Bandeja · 1.16 kg",
     "unidadesPorEnvase": 1160,
     "unidadBase": "g",
-    "precio": 7.54,
+    "precio": 7.77,
     "seccion": "Carne",
     "url": "https://tienda.mercadona.es/product/3497/arreglo-puchero-vacuno-cerdo-pollo-bandeja",
     "imagen": "https://prod-mercadona.imgix.net/images/876a3e52b23c6ad5e1aeafec3c2af206.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Salmón": {
     "ingrediente": "Salmón",
@@ -235,7 +235,7 @@
     "url": "https://tienda.mercadona.es/product/13335/comida-perro-adulto-supreme-compy-salmon-fresco-con-frutas-verduras-razas-medianas-grandes-saco",
     "imagen": "https://prod-mercadona.imgix.net/images/721eb5b43a0022cb14a4e60e64c0ded8.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Lubina": {
     "ingrediente": "Lubina",
@@ -249,7 +249,7 @@
     "url": "https://tienda.mercadona.es/product/81241.1/lubina-limpia-con-cabeza-pieza",
     "imagen": "https://prod-mercadona.imgix.net/images/7b996b05f032204332216f5e6a72b129.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Dorada": {
     "ingrediente": "Dorada",
@@ -263,7 +263,7 @@
     "url": "https://tienda.mercadona.es/product/81234.1/dorada-limpia-con-cabeza-pieza",
     "imagen": "https://prod-mercadona.imgix.net/images/436b010dcbc6108690d724afe2d95b97.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Bacalao": {
     "ingrediente": "Bacalao",
@@ -277,7 +277,7 @@
     "url": "https://tienda.mercadona.es/product/87211/bacalao-punto-sal-descongelado-con-agua-anadida-bandeja",
     "imagen": "https://prod-mercadona.imgix.net/images/ca53c73b6afd0d72635caaec9e3e3420.jpeg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Garbanzos cocidos": {
     "ingrediente": "Garbanzos cocidos",
@@ -291,7 +291,7 @@
     "url": "https://tienda.mercadona.es/product/26029/garbanzo-cocido-hacendado-tarro",
     "imagen": "https://prod-mercadona.imgix.net/images/b8b807948038c4b64791632f799e9bd8.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Garbanzos secos": {
     "ingrediente": "Garbanzos secos",
@@ -305,7 +305,7 @@
     "url": "https://tienda.mercadona.es/product/26029/garbanzo-cocido-hacendado-tarro",
     "imagen": "https://prod-mercadona.imgix.net/images/b8b807948038c4b64791632f799e9bd8.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Lentejas secas": {
     "ingrediente": "Lentejas secas",
@@ -314,12 +314,12 @@
     "formato": "Paquete · 1 kg",
     "unidadesPorEnvase": 1000,
     "unidadBase": "g",
-    "precio": 1.95,
+    "precio": 1.85,
     "seccion": "Arroz, legumbres y pasta",
     "url": "https://tienda.mercadona.es/product/5330/lenteja-pardina-hacendado-categoria-extra-paquete",
     "imagen": "https://prod-mercadona.imgix.net/images/80c08ddcd236321ea41242268903726b.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Alubias blancas secas": {
     "ingrediente": "Alubias blancas secas",
@@ -333,7 +333,7 @@
     "url": "https://tienda.mercadona.es/product/26019/alubia-cocida-blanca-hacendado-tarro",
     "imagen": "https://prod-mercadona.imgix.net/images/f3797bcd3c8ed58804490159df581279.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Alubias rojas secas": {
     "ingrediente": "Alubias rojas secas",
@@ -347,7 +347,7 @@
     "url": "https://tienda.mercadona.es/product/26000/alubia-cocida-roja-hacendado-tarro",
     "imagen": "https://prod-mercadona.imgix.net/images/231e70f1833a97babe9b0ecab3bfee2c.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Queso rallado": {
     "ingrediente": "Queso rallado",
@@ -361,7 +361,7 @@
     "url": "https://tienda.mercadona.es/product/22216/queso-rallado-emmental-gratinar-hacendado-paquete",
     "imagen": "https://prod-mercadona.imgix.net/images/bfc088bcd08f0dc6e421323e51b5d9fa.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Mozzarella rallada": {
     "ingrediente": "Mozzarella rallada",
@@ -375,7 +375,7 @@
     "url": "https://tienda.mercadona.es/product/51126/queso-lonchas-mozzarella-vaca-hacendado-paquete",
     "imagen": "https://prod-mercadona.imgix.net/images/d96788c89dc992674ef5ea2ebdd8401f.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Queso en lonchas": {
     "ingrediente": "Queso en lonchas",
@@ -389,21 +389,21 @@
     "url": "https://tienda.mercadona.es/product/50545/queso-lonchas-cremoso-havarti-vaca-hacendado-paquete",
     "imagen": "https://prod-mercadona.imgix.net/images/25fe53131f87dfeba20008ce868de29c.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Queso curado": {
     "ingrediente": "Queso curado",
-    "nombreComercial": "Queso curado mezcla Hacendado",
-    "productoId": "50968",
-    "formato": "Pieza · 1.63 kg",
-    "unidadesPorEnvase": 1630,
+    "nombreComercial": "Queso curado mezcla Hacendado cortado en cuñitas",
+    "productoId": "50966",
+    "formato": "Pieza · 330 g",
+    "unidadesPorEnvase": 330,
     "unidadBase": "g",
-    "precio": 18.06,
+    "precio": 4.69,
     "seccion": "Charcutería y quesos",
-    "url": "https://tienda.mercadona.es/product/50968/queso-curado-mezcla-hacendado-pieza",
-    "imagen": "https://prod-mercadona.imgix.net/images/1937043ae309b399e4cd49c262927674.jpg?fit=crop&h=300&w=300",
+    "url": "https://tienda.mercadona.es/product/50966/queso-curado-mezcla-hacendado-cortado-cunitas-pieza",
+    "imagen": "https://prod-mercadona.imgix.net/images/bebb4ccbd7718c152e3212a4abeec174.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Queso roquefort": {
     "ingrediente": "Queso roquefort",
@@ -417,7 +417,7 @@
     "url": "https://tienda.mercadona.es/product/86276/queso-roquefort-oveja-hacendado-pieza",
     "imagen": "https://prod-mercadona.imgix.net/images/8c56d52889b3953d268c5b50730a071b.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Bacon": {
     "ingrediente": "Bacon",
@@ -426,12 +426,12 @@
     "formato": "2 unidades · 260 g",
     "unidadesPorEnvase": 2,
     "unidadBase": "g",
-    "precio": 2.2,
+    "precio": 1.95,
     "seccion": "Charcutería y quesos",
     "url": "https://tienda.mercadona.es/product/16252/bacon-hacendado-cintas",
     "imagen": "https://prod-mercadona.imgix.net/images/9f4bbcd3b575f55df7aa9cea15ed0266.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Chorizo": {
     "ingrediente": "Chorizo",
@@ -445,21 +445,21 @@
     "url": "https://tienda.mercadona.es/product/23145/chorizo-sarta-extra-ahumado-leon-pieza",
     "imagen": "https://prod-mercadona.imgix.net/images/55f73ec8e2dc43d2b052f6caedde4caf.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Salchichas": {
     "ingrediente": "Salchichas",
-    "nombreComercial": "Salchichas estilo Frankfurt Serrana Hacendado de cerdo y pollo",
-    "productoId": "17569",
-    "formato": "2 unidades · 400 g",
-    "unidadesPorEnvase": 2,
+    "nombreComercial": "Salchichas cocidas estilo Frankfurt Hacendado de pollo y cerdo sabor ahumado",
+    "productoId": "53141",
+    "formato": "4 unidades · 704 g",
+    "unidadesPorEnvase": 4,
     "unidadBase": "g",
     "precio": 1.8,
     "seccion": "Charcutería y quesos",
-    "url": "https://tienda.mercadona.es/product/17569/salchichas-estilo-frankfurt-serrana-hacendado-cerdo-pollo",
-    "imagen": "https://prod-mercadona.imgix.net/images/ca15bcf4510665598ae7ea351c542af7.jpg?fit=crop&h=300&w=300",
+    "url": "https://tienda.mercadona.es/product/53141/salchichas-cocidas-estilo-frankfurt-hacendado-pollo-cerdo-sabor-ahumado-pack-4",
+    "imagen": "https://prod-mercadona.imgix.net/images/d3ca58a7c971dab07cb0095a4391f33b.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Bases de pizza": {
     "ingrediente": "Bases de pizza",
@@ -473,7 +473,7 @@
     "url": "https://tienda.mercadona.es/product/63648/bases-pizza-artesanas-extrafinas-crujientes-hacendado-ultracongeladas-con-aceite-oliva-paquete",
     "imagen": "https://prod-mercadona.imgix.net/images/37bc82969b2876ffa600d171c957384c.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pan de hamburguesa": {
     "ingrediente": "Pan de hamburguesa",
@@ -487,7 +487,7 @@
     "url": "https://tienda.mercadona.es/product/63140/merluza-empanada-pan-fino-hacendado-ultracongelada-paquete",
     "imagen": "https://prod-mercadona.imgix.net/images/fa324c4f316afd055004b0acb6122a1f.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pan de perrito": {
     "ingrediente": "Pan de perrito",
@@ -501,7 +501,7 @@
     "url": "https://tienda.mercadona.es/product/63140/merluza-empanada-pan-fino-hacendado-ultracongelada-paquete",
     "imagen": "https://prod-mercadona.imgix.net/images/fa324c4f316afd055004b0acb6122a1f.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Mayonesa": {
     "ingrediente": "Mayonesa",
@@ -515,7 +515,7 @@
     "url": "https://tienda.mercadona.es/product/13406/mayonesa-hacendado-tarro",
     "imagen": "https://prod-mercadona.imgix.net/images/375c1d5f612df94041b236a115c6449b.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Ketchup": {
     "ingrediente": "Ketchup",
@@ -529,7 +529,7 @@
     "url": "https://tienda.mercadona.es/product/23579/ketchup-hacendado-bote",
     "imagen": "https://prod-mercadona.imgix.net/images/560d3c1a007e5ab9c97cc0bb2b23b206.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Mostaza": {
     "ingrediente": "Mostaza",
@@ -541,9 +541,9 @@
     "precio": 1.25,
     "seccion": "Aceite, especias y salsas",
     "url": "https://tienda.mercadona.es/product/23410/mostaza-clasica-hacendado-bote",
-    "imagen": "https://prod-mercadona.imgix.net/images/8a0749aa163298f9b2b036de495a1b05.jpg?fit=crop&h=300&w=300",
+    "imagen": "https://prod-mercadona.imgix.net/images/8a0749aa163298f9b2b036de495a1b05.jpeg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Guacamole": {
     "ingrediente": "Guacamole",
@@ -557,7 +557,7 @@
     "url": "https://tienda.mercadona.es/product/3840/guacamole-hacendado-95-aguacate-fresco-tarrina",
     "imagen": "https://prod-mercadona.imgix.net/images/5c3a7d00a6c79339f48bae00593089ed.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Salsa BBQ": {
     "ingrediente": "Salsa BBQ",
@@ -571,7 +571,7 @@
     "url": "https://tienda.mercadona.es/product/17346/salsa-barbacoa-hacendado-bote",
     "imagen": "https://prod-mercadona.imgix.net/images/d01e6c7c307f1c60a9e67aac3e22700e.jpeg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Ajo en polvo": {
     "ingrediente": "Ajo en polvo",
@@ -585,7 +585,7 @@
     "url": "https://tienda.mercadona.es/product/34138/cebolla-polvo-hacendado-bote",
     "imagen": "https://prod-mercadona.imgix.net/images/4e60df323518b37ef8fcc6be6103526e.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pimentón dulce": {
     "ingrediente": "Pimentón dulce",
@@ -599,7 +599,7 @@
     "url": "https://tienda.mercadona.es/product/60573/pimenton-dulce-hacendado-bote",
     "imagen": "https://prod-mercadona.imgix.net/images/fa8610da91855ce1394dcac73c68220e.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   },
   "Pimentón picante": {
     "ingrediente": "Pimentón picante",
@@ -613,6 +613,6 @@
     "url": "https://tienda.mercadona.es/product/34183/pimenton-picante-hacendado-bote",
     "imagen": "https://prod-mercadona.imgix.net/images/2f865dc2dc829da4a0e2962fb922cd9c.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
-    "actualizado": "2026-07-28"
+    "actualizado": "2026-09-02"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-07-28T10:33:31.893Z",
+  "actualizado": "2026-09-02T09:23:09.080Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 51,
@@ -31,14 +31,14 @@
       "ingrediente": "Arroz",
       "productoId": "5044",
       "nombreComercial": "Arroz redondo Hacendado",
-      "precio": 1.2,
+      "precio": 1.15,
       "puntuacion": 10000
     },
     {
       "ingrediente": "Pasta corta",
-      "productoId": "35777",
-      "nombreComercial": "Macarrón rayado integral Hacendado",
-      "precio": 1.15,
+      "productoId": "13025",
+      "nombreComercial": "Macarrón grueso Hacendado",
+      "precio": 0.9,
       "puntuacion": 350
     },
     {
@@ -66,21 +66,21 @@
       "ingrediente": "Calabacín",
       "productoId": "69338",
       "nombreComercial": "Calabacín verde",
-      "precio": 0.75,
+      "precio": 0.89,
       "puntuacion": 10000
     },
     {
       "ingrediente": "Pimiento rojo",
       "productoId": "69310",
       "nombreComercial": "Pimiento rojo",
-      "precio": 0.9,
+      "precio": 0.5,
       "puntuacion": 10000
     },
     {
       "ingrediente": "Pimiento tricolor",
       "productoId": "69495",
       "nombreComercial": "Pimientos tricolor",
-      "precio": 1.9,
+      "precio": 2.11,
       "puntuacion": 350
     },
     {
@@ -94,14 +94,14 @@
       "ingrediente": "Pollo",
       "productoId": "2781",
       "nombreComercial": "Pollo entero",
-      "precio": 5.7,
+      "precio": 6.65,
       "puntuacion": 350
     },
     {
       "ingrediente": "Pechugas de pollo",
       "productoId": "3682",
       "nombreComercial": "Pechugas enteras familiar de pollo",
-      "precio": 7.2,
+      "precio": 7.44,
       "puntuacion": 300
     },
     {
@@ -115,7 +115,7 @@
       "ingrediente": "Hamburguesas",
       "productoId": "3497",
       "nombreComercial": "Arreglo para puchero vacuno, cerdo y pollo",
-      "precio": 7.54,
+      "precio": 7.77,
       "puntuacion": 200
     },
     {
@@ -164,7 +164,7 @@
       "ingrediente": "Lentejas secas",
       "productoId": "5330",
       "nombreComercial": "Lenteja pardina Hacendado",
-      "precio": 1.95,
+      "precio": 1.85,
       "puntuacion": 600
     },
     {
@@ -204,9 +204,9 @@
     },
     {
       "ingrediente": "Queso curado",
-      "productoId": "50968",
-      "nombreComercial": "Queso curado mezcla Hacendado",
-      "precio": 18.06,
+      "productoId": "50966",
+      "nombreComercial": "Queso curado mezcla Hacendado cortado en cuñitas",
+      "precio": 4.69,
       "puntuacion": 850
     },
     {
@@ -220,7 +220,7 @@
       "ingrediente": "Bacon",
       "productoId": "16252",
       "nombreComercial": "Bacón Hacendado cintas",
-      "precio": 2.2,
+      "precio": 1.95,
       "puntuacion": 10000
     },
     {
@@ -232,8 +232,8 @@
     },
     {
       "ingrediente": "Salchichas",
-      "productoId": "17569",
-      "nombreComercial": "Salchichas estilo Frankfurt Serrana Hacendado de cerdo y pollo",
+      "productoId": "53141",
+      "nombreComercial": "Salchichas cocidas estilo Frankfurt Hacendado de pollo y cerdo sabor ahumado",
       "precio": 1.8,
       "puntuacion": 750
     },
