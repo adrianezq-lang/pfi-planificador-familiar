@@ -74,10 +74,10 @@ function coberturaPorEnvase(linea: LineaCompra): number {
 export function ajustarFormatoComercialEspecial(
   linea: LineaCompra,
 ): LineaCompra {
-  const productoId = linea.producto?.productoId;
-  if (!productoId) return linea;
+  const producto = linea.producto;
+  if (!producto) return linea;
 
-  const regla = FORMATOS_COMERCIALES_ESPECIALES[productoId];
+  const regla = FORMATOS_COMERCIALES_ESPECIALES[producto.productoId];
   if (!regla) return linea;
 
   const unidadesNecesarias = linea.necesidades.reduce((total, necesidad) => {
@@ -99,9 +99,9 @@ export function ajustarFormatoComercialEspecial(
     envasesExactos,
     envases,
     subtotal:
-      linea.producto.precio === null
+      producto.precio === null
         ? null
-        : envases * linea.producto.precio,
+        : envases * producto.precio,
   };
 }
 
