@@ -10,11 +10,13 @@
   },
   {
     "ingrediente": "Leche",
-    "buscar": "leche entera Hacendado brick"
+    "buscar": "leche entera Hacendado brick 1 l",
+    "productoId": "10380"
   },
   {
-    "ingrediente": "Yogures",
-    "buscar": "yogur natural Hacendado pack 6"
+    "ingrediente": "Yogures naturales",
+    "buscar": "yogur natural Hacendado pack 6",
+    "productoId": "22313"
   },
   {
     "ingrediente": "Arroz",
@@ -139,7 +141,7 @@
   },
   {
     "ingrediente": "Queso rallado",
-    "buscar": "queso rallado especial fundir mezcla Hacendado 200 g",
+    "buscar": "queso rallado especial fundir mezcla Hacendado",
     "productoId": "23621"
   },
   {
@@ -154,15 +156,18 @@
   },
   {
     "ingrediente": "Queso curado",
-    "buscar": "queso curado mezcla Hacendado cuña"
+    "buscar": "queso curado mezcla Hacendado 410 g",
+    "productoId": "50965"
   },
   {
     "ingrediente": "Queso roquefort",
-    "buscar": "queso roquefort Hacendado"
+    "buscar": "queso roquefort de oveja Hacendado 100 g",
+    "productoId": "86276"
   },
   {
     "ingrediente": "Mezcla cuatro quesos",
-    "buscar": "mezcla cuatro quesos rallados Hacendado"
+    "buscar": "queso rallado 4 quesos Hacendado 180 g",
+    "productoId": "51234"
   },
   {
     "ingrediente": "Bacon",
@@ -176,7 +181,8 @@
   },
   {
     "ingrediente": "Salchichas",
-    "buscar": "salchichas Frankfurt Hacendado"
+    "buscar": "salchichas bocata gourmet Hacendado",
+    "productoId": "53143"
   },
   {
     "ingrediente": "Tortillas de trigo",

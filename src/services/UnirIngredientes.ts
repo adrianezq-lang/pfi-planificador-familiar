@@ -149,6 +149,20 @@ const conversionesPorProducto: Record<
     },
   },
 
+  'Queso curado': {
+    cuña: {
+      unidadDestino: 'ud',
+      factor: 1,
+    },
+  },
+
+  'Queso roquefort': {
+    cuña: {
+      unidadDestino: 'ud',
+      factor: 1,
+    },
+  },
+
   Aceitunas: {
     ración: {
       unidadDestino: 'envase',
