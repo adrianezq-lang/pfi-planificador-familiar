@@ -244,18 +244,36 @@ export function añadirProductoDespensa(
   return cargarDespensa();
 }
 
+function normalizarSeccionCatalogo(texto: string): string {
+  return texto
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+}
+
+/**
+ * En el PFI solo fruta/verdura, carne y pescado se compran como frescos
+ * semanales. Panadería, charcutería, lácteos y cualquier otra sección forman
+ * parte de la compra mensual, tal como se muestra en CompraPlanificada.
+ */
+function esSeccionFrescaSemanal(seccionOriginal: string): boolean {
+  const seccion = normalizarSeccionCatalogo(seccionOriginal);
+  return [
+    'fruta',
+    'verdura',
+    'carne',
+    'carnicer',
+    'pescado',
+    'pescader',
+    'marisco',
+  ].some((termino) => seccion.includes(termino));
+}
+
 function datosProductoDespensaDesdeCatalogo(
   producto: ProductoMercadonaCatalogo,
 ): Omit<ProductoDespensa, 'id' | 'actualizado'> {
-  const seccion = producto.seccion.toLocaleLowerCase('es');
-  const esPerecedero = [
-    'fruta',
-    'verdura',
-    'carnicer',
-    'pescader',
-    'panader',
-    'charcuter',
-  ].some((termino) => seccion.includes(termino));
+  const esPerecedero = esSeccionFrescaSemanal(producto.seccion);
 
   return {
     productoId: producto.productoId,
@@ -269,7 +287,7 @@ function datosProductoDespensaDesdeCatalogo(
     unidad: 'envase',
     frecuencia: esPerecedero
       ? 'semanal'
-      : 'cuando-falte',
+      : 'mensual',
     tipo: esPerecedero
       ? 'perecedero'
       : 'despensa',
