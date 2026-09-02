@@ -58,8 +58,14 @@ const compraGarbanzos = listarPlatosParaCompra(
 if (compraGarbanzos.filter((plato) => plato === 'Garbanzos fritos').length !== 1) {
   throw new Error('Los garbanzos preparados para lunes y jueves deben comprarse una sola vez.');
 }
-if (compraGarbanzos.filter((plato) => plato === 'Arroz blanco').length !== 2) {
-  throw new Error('El arroz independiente de lunes y jueves debe seguir contando las dos comidas.');
+const arrocesMenu = semanaGarbanzos
+  .flatMap((dia) => [...dia.comida, ...dia.cena])
+  .filter((plato) => plato === 'Arroz blanco').length;
+const arrocesCompra = compraGarbanzos.filter((plato) => plato === 'Arroz blanco').length;
+if (arrocesCompra !== arrocesMenu) {
+  throw new Error(
+    `Los acompañamientos independientes no deben deduplicarse: arroz compra=${arrocesCompra}, menú=${arrocesMenu}.`,
+  );
 }
 
 const verano = structuredClone(menuMensualInicial);
@@ -80,6 +86,6 @@ if (
 
 console.log('✓ las legumbres del lunes se repiten el jueves');
 console.log('✓ la olla de legumbres entra una sola vez en la compra');
-console.log('✓ los acompañamientos independientes siguen contando ambos días');
+console.log('✓ los acompañamientos independientes conservan todas sus apariciones');
 console.log('✓ no se repite la misma pasta en semanas consecutivas');
 console.log('✓ la ensalada de pasta semanal se conserva en verano');
