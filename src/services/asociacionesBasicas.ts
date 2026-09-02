@@ -5,6 +5,7 @@ import {
 
 const CLAVE_MIGRACION_V1 = 'pfi-migracion-asociaciones-basicas-v1';
 const CLAVE_MIGRACION_V2 = 'pfi-migracion-asociaciones-basicas-v2';
+const CLAVE_MIGRACION_V3 = 'pfi-migracion-asociaciones-basicas-v3';
 
 export const ASOCIACIONES_BASICAS_V1: Record<string, string> = {
   Arroz: '5044',
@@ -25,26 +26,39 @@ export const ASOCIACIONES_BASICAS_V2: Record<string, string> = {
   Salchichas: '53143',
 };
 
+export const ASOCIACIONES_BASICAS_V3: Record<string, string> = {
+  'Pan de hamburguesa': '13803',
+};
+
 export const ASOCIACIONES_BASICAS_VERIFICADAS: Record<string, string> = {
   ...ASOCIACIONES_BASICAS_V1,
   ...ASOCIACIONES_BASICAS_V2,
+  ...ASOCIACIONES_BASICAS_V3,
 };
 
 type Migracion = {
   clave: string;
   asociaciones: Record<string, string>;
+  reemplazaIds?: Record<string, string[]>;
 };
 
 const MIGRACIONES: Migracion[] = [
   { clave: CLAVE_MIGRACION_V1, asociaciones: ASOCIACIONES_BASICAS_V1 },
   { clave: CLAVE_MIGRACION_V2, asociaciones: ASOCIACIONES_BASICAS_V2 },
+  {
+    clave: CLAVE_MIGRACION_V3,
+    asociaciones: ASOCIACIONES_BASICAS_V3,
+    reemplazaIds: {
+      'Pan de hamburguesa': ['82331'],
+    },
+  },
 ];
 
 /**
  * Aplica por versiones los básicos cuyo SKU y formato comercial ya están
- * verificados. Cada versión solo rellena asociaciones vacías: cualquier
- * selección del usuario se conserva. Una versión ya aplicada no vuelve a
- * imponer un producto si el usuario decide cambiarlo o quitarlo después.
+ * verificados. Cada versión rellena asociaciones vacías y, cuando la propia
+ * migración declara un SKU retirado, sustituye únicamente ese SKU concreto.
+ * Cualquier selección distinta hecha por el usuario se conserva.
  */
 export function asegurarAsociacionesBasicas(): number {
   const actuales = cargarAsociacionesIngredientes();
@@ -52,12 +66,19 @@ export function asegurarAsociacionesBasicas(): number {
   let cambios = 0;
   let hayMigracionesPendientes = false;
 
-  MIGRACIONES.forEach(({ clave, asociaciones }) => {
+  MIGRACIONES.forEach(({ clave, asociaciones, reemplazaIds }) => {
     if (localStorage.getItem(clave) === '1') return;
     hayMigracionesPendientes = true;
 
     Object.entries(asociaciones).forEach(([ingrediente, productoId]) => {
-      if (siguientes[ingrediente]) return;
+      const actual = siguientes[ingrediente];
+      const idsReemplazables = reemplazaIds?.[ingrediente] ?? [];
+
+      if (actual && actual !== productoId && !idsReemplazables.includes(actual)) {
+        return;
+      }
+      if (actual === productoId) return;
+
       siguientes[ingrediente] = productoId;
       cambios += 1;
     });
