@@ -121,6 +121,18 @@ exigirMaximo('Pescado mensual (g)', pescados, 12000);
 const catalogo = JSON.parse(
   await readFile(new URL('../public/catalogo-mercadona.json', import.meta.url), 'utf8'),
 );
+const objetivos = JSON.parse(
+  await readFile(new URL('./productos-objetivo.json', import.meta.url), 'utf8'),
+);
+const idsCatalogo = new Set(catalogo.productos.map((producto) => producto.productoId));
+for (const objetivo of objetivos) {
+  if (objetivo.productoId && !idsCatalogo.has(objetivo.productoId)) {
+    throw new Error(
+      `SKU objetivo retirado: ${objetivo.ingrediente} apunta a ${objetivo.productoId}, que no existe en el catálogo actual.`,
+    );
+  }
+}
+
 globalThis.fetch = async () => ({
   ok: true,
   async json() { return catalogo; },
@@ -160,13 +172,14 @@ const exigirEnvasesEntre = (productoId, etiqueta, minimo, maximo) => {
 
 const tortillasComerciales = exigirEnvasesEntre('80859', 'Tortillas de trigo', 1, 3);
 const baconComercial = exigirEnvasesEntre('16252', 'Bacon', 4, 7);
-const panBurgerComercial = exigirEnvasesEntre('82331', 'Pan de hamburguesa', 1, 3);
+const panBurgerComercial = exigirEnvasesEntre('13803', 'Pan de hamburguesa', 1, 3);
 const panHotDogComercial = exigirEnvasesEntre('82332', 'Pan de perrito', 1, 3);
 const tomateFritoComercial = exigirEnvasesEntre('17132', 'Tomate frito', 1, 3);
 
 console.log('✓ auditoría mensual: cantidades finitas y positivas');
 console.log('✓ tortillas: 14 unidades en el mes base');
 console.log('✓ legumbres secas: 375 g lentejas, 375 g garbanzos, 750 g alubias rojas');
+console.log(`✓ ${objetivos.filter((objetivo) => objetivo.productoId).length} SKUs objetivo siguen presentes en el catálogo`);
 console.log(`ℹ huevos=${huevos}, atún=${atun}, pasta=${pasta} g, arroz=${arroz} g, carne=${carnes} g, pescado=${pescados} g`);
 console.log(
   `✓ envases críticos: tortillas=${tortillasComerciales.envases}, bacon=${baconComercial.envases}, pan burger=${panBurgerComercial.envases}, pan hot dog=${panHotDogComercial.envases}, tomate frito=${tomateFritoComercial.envases}`,
