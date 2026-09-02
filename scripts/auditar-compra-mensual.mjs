@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import { createServer } from 'vite';
 
 class StorageMock {
@@ -116,13 +117,71 @@ exigirMaximo('Arroz mensual (g)', arroz, 5000);
 exigirMaximo('Carne mensual (g)', carnes, 20000);
 exigirMaximo('Pescado mensual (g)', pescados, 12000);
 
+// Segunda capa: convertir el mes a productos y envases reales del catálogo.
+const catalogo = JSON.parse(
+  await readFile(new URL('../public/catalogo-mercadona.json', import.meta.url), 'utf8'),
+);
+globalThis.fetch = async () => ({
+  ok: true,
+  async json() { return catalogo; },
+});
+
+const { asegurarAsociacionesBasicas } = await vite.ssrLoadModule(
+  '/src/services/asociacionesBasicas.ts',
+);
+const { cargarRecetas } = await vite.ssrLoadModule('/src/services/recetas.ts');
+const { repararAsociacionesIngredientes } = await vite.ssrLoadModule(
+  '/src/services/asociacionesIngredientes.ts',
+);
+const { generarCompraMensual } = await vite.ssrLoadModule(
+  '/src/services/planificacionCompra.ts',
+);
+
+asegurarAsociacionesBasicas();
+await repararAsociacionesIngredientes(cargarRecetas());
+const compraComercial = await generarCompraMensual(menuMes);
+const lineasConProducto = compraComercial.lineas.filter((linea) => linea.producto);
+const idsProducto = lineasConProducto.map((linea) => linea.producto.productoId);
+if (new Set(idsProducto).size !== idsProducto.length) {
+  throw new Error('La compra mensual ha generado el mismo SKU de Mercadona en más de una línea.');
+}
+
+const lineaProducto = (productoId) =>
+  lineasConProducto.find((linea) => linea.producto.productoId === productoId);
+const exigirEnvasesEntre = (productoId, etiqueta, minimo, maximo) => {
+  const linea = lineaProducto(productoId);
+  if (!linea || linea.envases < minimo || linea.envases > maximo) {
+    throw new Error(
+      `${etiqueta}: esperaba entre ${minimo} y ${maximo} envases y obtuvo ${linea?.envases ?? 'ninguno'}.`,
+    );
+  }
+  return linea;
+};
+
+const tortillasComerciales = exigirEnvasesEntre('80859', 'Tortillas de trigo', 1, 3);
+const baconComercial = exigirEnvasesEntre('16252', 'Bacon', 4, 7);
+const panBurgerComercial = exigirEnvasesEntre('82331', 'Pan de hamburguesa', 1, 3);
+const panHotDogComercial = exigirEnvasesEntre('82332', 'Pan de perrito', 1, 3);
+const tomateFritoComercial = exigirEnvasesEntre('17132', 'Tomate frito', 1, 3);
+
 console.log('✓ auditoría mensual: cantidades finitas y positivas');
 console.log('✓ tortillas: 14 unidades en el mes base');
 console.log('✓ legumbres secas: 375 g lentejas, 375 g garbanzos, 750 g alubias rojas');
 console.log(`ℹ huevos=${huevos}, atún=${atun}, pasta=${pasta} g, arroz=${arroz} g, carne=${carnes} g, pescado=${pescados} g`);
+console.log(
+  `✓ envases críticos: tortillas=${tortillasComerciales.envases}, bacon=${baconComercial.envases}, pan burger=${panBurgerComercial.envases}, pan hot dog=${panHotDogComercial.envases}, tomate frito=${tomateFritoComercial.envases}`,
+);
 console.log('ℹ compra mensual agregada:');
 for (const item of [...compra].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'))) {
   console.log(`  - ${item.nombre}: ${item.cantidad} ${item.unidad}`);
+}
+console.log('ℹ líneas comerciales mensuales asociadas:');
+for (const linea of [...lineasConProducto].sort((a, b) =>
+  a.producto.nombre.localeCompare(b.producto.nombre, 'es')
+)) {
+  console.log(
+    `  - ${linea.producto.nombre} [${linea.producto.productoId}]: ${linea.envases} envase(s) · exactos=${linea.envasesExactos}`,
+  );
 }
 
 await vite.close();
