@@ -1,0 +1,43 @@
+name: Validar PFI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Comprobar TypeScript
+        run: npm run typecheck
+
+      - name: Probar calendario, excepciones y sobrantes
+        run: npm run test:calendario
+
+      - name: Probar comensales y cantidades críticas
+        run: npm run test:comensales
+
+      - name: Probar reglas del menú
+        run: npm run test:reglas-menu
+
+      - name: Probar postres y asociaciones
+        run: npm run test:v0913
