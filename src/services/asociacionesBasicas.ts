@@ -7,6 +7,7 @@ const CLAVE_MIGRACION_V1 = 'pfi-migracion-asociaciones-basicas-v1';
 const CLAVE_MIGRACION_V2 = 'pfi-migracion-asociaciones-basicas-v2';
 const CLAVE_MIGRACION_V3 = 'pfi-migracion-asociaciones-basicas-v3';
 const CLAVE_MIGRACION_V4 = 'pfi-migracion-asociaciones-basicas-v4';
+const CLAVE_MIGRACION_V5 = 'pfi-migracion-asociaciones-basicas-v5';
 
 export const ASOCIACIONES_BASICAS_V1: Record<string, string> = {
   Arroz: '5044',
@@ -36,11 +37,17 @@ export const ASOCIACIONES_BASICAS_V4: Record<string, string> = {
   'Alubias rojas secas': '67609',
 };
 
+export const ASOCIACIONES_BASICAS_V5: Record<string, string> = {
+  'Mezcla cuatro quesos': '21581',
+  'Salsa BBQ': '17346',
+};
+
 export const ASOCIACIONES_BASICAS_VERIFICADAS: Record<string, string> = {
   ...ASOCIACIONES_BASICAS_V1,
   ...ASOCIACIONES_BASICAS_V2,
   ...ASOCIACIONES_BASICAS_V3,
   ...ASOCIACIONES_BASICAS_V4,
+  ...ASOCIACIONES_BASICAS_V5,
 };
 
 type Migracion = {
@@ -55,9 +62,7 @@ const MIGRACIONES: Migracion[] = [
   {
     clave: CLAVE_MIGRACION_V3,
     asociaciones: ASOCIACIONES_BASICAS_V3,
-    reemplazaIds: {
-      'Pan de hamburguesa': ['82331'],
-    },
+    reemplazaIds: { 'Pan de hamburguesa': ['82331'] },
   },
   {
     clave: CLAVE_MIGRACION_V4,
@@ -67,14 +72,16 @@ const MIGRACIONES: Migracion[] = [
       'Alubias rojas secas': ['5180'],
     },
   },
+  {
+    clave: CLAVE_MIGRACION_V5,
+    asociaciones: ASOCIACIONES_BASICAS_V5,
+    reemplazaIds: {
+      'Mezcla cuatro quesos': ['51234'],
+      'Salsa BBQ': ['19592'],
+    },
+  },
 ];
 
-/**
- * Aplica por versiones los básicos cuyo SKU y formato comercial ya están
- * verificados. Cada versión rellena asociaciones vacías y, cuando la propia
- * migración declara un SKU retirado, sustituye únicamente ese SKU concreto.
- * Cualquier selección distinta hecha por el usuario se conserva.
- */
 export function asegurarAsociacionesBasicas(): number {
   const actuales = cargarAsociacionesIngredientes();
   const siguientes = { ...actuales };
@@ -89,9 +96,7 @@ export function asegurarAsociacionesBasicas(): number {
       const actual = siguientes[ingrediente];
       const idsReemplazables = reemplazaIds?.[ingrediente] ?? [];
 
-      if (actual && actual !== productoId && !idsReemplazables.includes(actual)) {
-        return;
-      }
+      if (actual && actual !== productoId && !idsReemplazables.includes(actual)) return;
       if (actual === productoId) return;
 
       siguientes[ingrediente] = productoId;
