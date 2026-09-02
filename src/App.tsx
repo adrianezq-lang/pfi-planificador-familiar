@@ -3,6 +3,7 @@ import './styles/recetario-tabs.css';
 import './styles/pfi-polish.css';
 import BottomNav from './components/NavegacionInferior';
 import NavegacionRecetario from './components/NavegacionRecetario';
+import RescateAsociaciones from './components/RescateAsociaciones';
 import { useMenu } from './hooks/useMenu';
 import { RecetarioFiltroProvider } from './hooks/useRecetas';
 import Home from './pages/Home';
@@ -10,6 +11,7 @@ import { EVENTO_ASOCIACIONES, repararAsociacionesIngredientes } from './services
 import { cargarDespensa, sincronizarProductosRecetasConDespensa } from './services/despensa';
 import { cargarRecetas, EVENTO_RECETAS } from './services/recetas';
 import { EVENTO_EXCEPCIONES, menuEfectivoMes, menuEfectivoSemana } from './services/excepcionesCalendario';
+import { preservarCopiasAsociacionesExistentes } from './services/rescateAsociaciones';
 
 const Menu = lazy(() => import('./pages/Menu'));
 const Compra = lazy(() => import('./pages/CompraPlanificada'));
@@ -56,6 +58,12 @@ function App() {
     let cancelado = false;
     const sync = () => {
       if (cancelado) return;
+
+      // Antes de cualquier reparación, conserva todas las variantes que todavía
+      // existan en localStorage para que una reparación nunca vuelva a pisar la
+      // única copia recuperable.
+      preservarCopiasAsociacionesExistentes();
+
       const recetas = cargarRecetas();
       void repararAsociacionesIngredientes(recetas, cargarDespensa()).then(() =>
         sincronizarProductosRecetasConDespensa(recetas),
@@ -84,6 +92,8 @@ function App() {
           <span className="app-version">PFI</span>
         </div>
       </header>
+
+      <RescateAsociaciones />
 
       <NavegacionRecetario pantalla={pantalla} cambiarPantalla={cambiarPantalla} />
 
