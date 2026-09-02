@@ -1,7 +1,8 @@
 [
   {
     "ingrediente": "Carne picada",
-    "buscar": "preparado carne picada vacuno cerdo"
+    "buscar": "preparado carne picada vacuno cerdo",
+    "productoId": "2869"
   },
   {
     "ingrediente": "Huevos",
@@ -57,27 +58,43 @@
   },
   {
     "ingrediente": "Calabacín",
-    "buscar": "calabacín verde"
+    "buscar": "calabacín verde",
+    "productoId": "69338"
   },
   {
     "ingrediente": "Pimiento rojo",
-    "buscar": "pimiento rojo"
+    "buscar": "pimiento rojo",
+    "productoId": "69310"
   },
   {
     "ingrediente": "Pimiento tricolor",
-    "buscar": "pimientos tricolor bandeja"
+    "buscar": "pimientos tricolor bandeja",
+    "productoId": "69495"
   },
   {
     "ingrediente": "Pepino",
-    "buscar": "pepino"
+    "buscar": "pepino",
+    "productoId": "69584"
   },
   {
     "ingrediente": "Ajo",
-    "buscar": "ajos secos malla"
+    "buscar": "ajos morados malla",
+    "productoId": "69297"
   },
   {
-    "ingrediente": "Pollo",
-    "buscar": "pollo entero limpio"
+    "ingrediente": "Pollo entero",
+    "buscar": "pollo entero",
+    "productoId": "2781"
+  },
+  {
+    "ingrediente": "Jamoncitos de pollo",
+    "buscar": "jamoncitos de pollo",
+    "productoId": "2778"
+  },
+  {
+    "ingrediente": "Pollo para arroz",
+    "buscar": "pechuga pollo entera fresca",
+    "productoId": "3724"
   },
   {
     "ingrediente": "Pechugas de pollo",
@@ -86,7 +103,8 @@
   },
   {
     "ingrediente": "Lomo",
-    "buscar": "filetes lomo cerdo"
+    "buscar": "filetes lomo cerdo familiar",
+    "productoId": "3395"
   },
   {
     "ingrediente": "Hamburguesas",
@@ -100,15 +118,18 @@
   },
   {
     "ingrediente": "Lubina",
-    "buscar": "lubina limpia con cabeza"
+    "buscar": "lubina limpia con cabeza",
+    "productoId": "81241.1"
   },
   {
     "ingrediente": "Dorada",
-    "buscar": "dorada limpia con cabeza"
+    "buscar": "dorada limpia con cabeza",
+    "productoId": "81234.1"
   },
   {
     "ingrediente": "Bacalao",
-    "buscar": "lomos bacalao al punto de sal"
+    "buscar": "bacalao al punto de sal descongelado",
+    "productoId": "87211"
   },
   {
     "ingrediente": "Almejas",
@@ -225,7 +246,8 @@
   },
   {
     "ingrediente": "Guacamole",
-    "buscar": "guacamole Hacendado"
+    "buscar": "guacamole Hacendado 500 g",
+    "productoId": "3840"
   },
   {
     "ingrediente": "Salsa BBQ",
