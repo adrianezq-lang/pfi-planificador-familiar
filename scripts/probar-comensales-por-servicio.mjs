@@ -126,8 +126,36 @@ if (pastaFinSemana?.cantidad !== 300 || manzanasFinSemana?.cantidad !== 4) {
   );
 }
 
+const compraFajitas = generarListaCompra([
+  crearDia('Miércoles', [], ['Fajitas'], 'Sin postre', 'Sin postre'),
+]);
+const tortillasFajitas = compraFajitas.find(
+  (ingrediente) => ingrediente.nombre === 'Tortillas de trigo',
+);
+if (tortillasFajitas?.cantidad !== 6) {
+  throw new Error(
+    `Una cena de fajitas para cuatro debe usar 6 tortillas, no ${tortillasFajitas?.cantidad}.`,
+  );
+}
+
+const compraTortillasMesBase = generarListaCompra([
+  crearDia('Miércoles', [], ['Fajitas'], 'Sin postre', 'Sin postre'),
+  crearDia('Sábado', [], ['Kebab'], 'Sin postre', 'Sin postre'),
+  crearDia('Miércoles', [], ['Kebab'], 'Sin postre', 'Sin postre'),
+]);
+const tortillasMesBase = compraTortillasMesBase.find(
+  (ingrediente) => ingrediente.nombre === 'Tortillas de trigo',
+);
+if (tortillasMesBase?.cantidad !== 14) {
+  throw new Error(
+    `Fajitas + 2 kebabs deben sumar 14 tortillas, no ${tortillasMesBase?.cantidad}.`,
+  );
+}
+
 await vite.close();
 
 console.log('✓ comida laborable: 2 adultos + niño de 12 años');
 console.log('✓ comida de fin de semana y cenas: cuatro comensales');
 console.log('✓ la compra ajusta platos y postres al servicio');
+console.log('✓ fajitas: 6 tortillas para cuatro comensales');
+console.log('✓ fajitas + dos kebabs: 14 tortillas en total');
