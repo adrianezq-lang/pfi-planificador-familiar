@@ -29,6 +29,43 @@ const NOMBRES_RECUPERACION_CONOCIDOS: Record<string, string[]> = {
   ajo: ['ajos morados'],
 };
 
+/**
+ * Defaults muy conservadores, verificados contra el catálogo. Solo se aplican
+ * cuando el ingrediente no tiene ya una asociación válida elegida por el usuario.
+ */
+const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
+  'Tortillas de trigo': '80859',
+  'Pechugas de pollo': '3724',
+  'Tomate para pizza': '17108',
+  Morcillo: '13741',
+  'Garbanzos secos': '5214',
+  'Alubias blancas secas': '5185',
+  'Alubias rojas secas': '5180',
+  'Mozzarella rallada': '51110',
+  Hamburguesas: '2873',
+  'Salmón': '87204',
+};
+
+/**
+ * IDs que existieron en el catálogo pero son semánticamente incompatibles con
+ * el ingrediente. Que un ID siga existiendo no significa que la asociación sea
+ * correcta, por eso estas combinaciones se saneaban mal con la validación previa.
+ */
+const IDS_INCOMPATIBLES_CONOCIDOS: Record<string, string[]> = {
+  'Tortillas de trigo': ['14378'], // pan de pita
+  'Pechugas de pollo': ['13778'], // relleno congelado para kebab
+  'Tomate para pizza': ['17647'], // tomate para untar
+  'Garbanzos secos': ['26033'], // garbanzos cocidos
+  'Alubias blancas secas': ['26216'], // alubias cocidas
+  'Alubias rojas secas': ['26222'], // alubias cocidas
+  'Mozzarella rallada': ['50917'], // mozzarella en lonchas
+  Hamburguesas: ['3106'], // arreglo para puchero
+  'Salmón': ['64558'], // alimento para perro sabor salmón
+  'Pan hamburguesa': ['2876'], // merluza empanada
+  'Pan perrito': ['2876'], // merluza empanada
+  'Ajo en polvo': ['86516'], // cebolla en polvo
+};
+
 function normalizarTexto(texto: string): string {
   return texto
     .toLocaleLowerCase('es')
@@ -373,12 +410,60 @@ function buscarProductoActualPorNombre(
   return buscarCoincidenciaUnicaEnProductos(nombre, productos);
 }
 
+function sanearAsociacionesConocidas(
+  asociaciones: AsociacionesIngredientes,
+  ingredientes: string[],
+  idsCatalogo: Set<string>,
+): { asociaciones: AsociacionesIngredientes; cambios: number } {
+  const nuevas = { ...asociaciones };
+  const ingredientesRecetario = new Set(ingredientes);
+  let cambios = 0;
+
+  // El alias genérico Pollo acabó apuntando a cortes incompatibles. Las recetas
+  // que lo necesitan ya se normalizan a cortes específicos antes de comprar.
+  if (Object.prototype.hasOwnProperty.call(nuevas, 'Pollo')) {
+    delete nuevas.Pollo;
+    cambios += 1;
+  }
+
+  Object.entries(IDS_INCOMPATIBLES_CONOCIDOS).forEach(
+    ([ingrediente, idsIncompatibles]) => {
+      const actual = nuevas[ingrediente];
+      if (!actual || !idsIncompatibles.includes(actual)) return;
+
+      const seguro = ASOCIACIONES_SEGURAS_POR_DEFECTO[ingrediente];
+      if (seguro && idsCatalogo.has(seguro)) {
+        nuevas[ingrediente] = seguro;
+      } else {
+        delete nuevas[ingrediente];
+      }
+      cambios += 1;
+    },
+  );
+
+  Object.entries(ASOCIACIONES_SEGURAS_POR_DEFECTO).forEach(
+    ([ingrediente, productoId]) => {
+      if (
+        !ingredientesRecetario.has(ingrediente) ||
+        nuevas[ingrediente] ||
+        !idsCatalogo.has(productoId)
+      ) {
+        return;
+      }
+
+      nuevas[ingrediente] = productoId;
+      cambios += 1;
+    },
+  );
+
+  return { asociaciones: nuevas, cambios };
+}
+
 /**
  * Recupera asociaciones perdidas o rotas sin adivinar entre varios productos.
  * Una asociación cuyo productId ya no existe en el catálogo se considera rota.
- * Cuando es posible, usa el nombre histórico guardado en la despensa para
- * localizar el mismo producto con su nuevo id. Después prueba coincidencias
- * seguras por ingrediente y los alias conocidos.
+ * Además sanea combinaciones históricas conocidas donde el productId sí existe
+ * pero pertenece a otro alimento o incluso a otra categoría.
  */
 export async function repararAsociacionesIngredientes(
   recetas: RecetaRecuperable[],
@@ -407,11 +492,16 @@ export async function repararAsociacionesIngredientes(
   const despensaPorId = new Map(
     productosDespensa.map((producto) => [producto.productoId, producto]),
   );
-  const nuevas = { ...asociaciones };
-  let recuperadas = 0;
+  const saneadas = sanearAsociacionesConocidas(
+    asociaciones,
+    ingredientes,
+    idsCatalogo,
+  );
+  const nuevas = saneadas.asociaciones;
+  let recuperadas = saneadas.cambios;
 
   ingredientes.forEach((ingrediente) => {
-    const productoIdActual = asociaciones[ingrediente];
+    const productoIdActual = nuevas[ingrediente];
     if (productoIdActual && idsCatalogo.has(productoIdActual)) return;
 
     let productoRecuperado: ProductoRecuperable | undefined;
