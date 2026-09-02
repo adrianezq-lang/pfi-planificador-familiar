@@ -95,6 +95,12 @@ exigirExacto('Lentejas secas', 375, 'g');
 exigirExacto('Garbanzos secos', 375, 'g');
 exigirExacto('Alubias rojas secas', 750, 'g');
 
+// Los macarrones al roquefort aparecen dos veces en comida laborable (3 de 4
+// comensales = 1,5 recetas acumuladas). El roquefort aparece además en tres
+// cenas de Pizza 4 quesos, de modo que 1,5 + 3 = 4,5 cuñas/unidades.
+exigirExacto('Nata para cocinar', 1.5, 'brick');
+exigirExacto('Queso roquefort', 4.5, 'ud');
+
 if (compra.some((item) => normalizar(item.nombre) === 'pollo')) {
   throw new Error('La compra mensual ha vuelto a generar el ingrediente genérico Pollo.');
 }
@@ -142,12 +148,21 @@ const { asegurarAsociacionesBasicas } = await vite.ssrLoadModule(
   '/src/services/asociacionesBasicas.ts',
 );
 const { cargarRecetas } = await vite.ssrLoadModule('/src/services/recetas.ts');
-const { repararAsociacionesIngredientes } = await vite.ssrLoadModule(
-  '/src/services/asociacionesIngredientes.ts',
-);
+const {
+  repararAsociacionesIngredientes,
+  ASOCIACIONES_SEGURAS_POR_DEFECTO,
+} = await vite.ssrLoadModule('/src/services/asociacionesIngredientes.ts');
 const { generarCompraMensual } = await vite.ssrLoadModule(
   '/src/services/planificacionCompra.ts',
 );
+
+for (const [ingrediente, productoId] of Object.entries(ASOCIACIONES_SEGURAS_POR_DEFECTO)) {
+  if (!idsCatalogo.has(productoId)) {
+    throw new Error(
+      `Default seguro retirado: ${ingrediente} apunta a ${productoId}, que no existe en el catálogo actual.`,
+    );
+  }
+}
 
 asegurarAsociacionesBasicas();
 await repararAsociacionesIngredientes(cargarRecetas());
@@ -179,7 +194,9 @@ const tomateFritoComercial = exigirEnvasesEntre('17132', 'Tomate frito', 1, 3);
 console.log('✓ auditoría mensual: cantidades finitas y positivas');
 console.log('✓ tortillas: 14 unidades en el mes base');
 console.log('✓ legumbres secas: 375 g lentejas, 375 g garbanzos, 750 g alubias rojas');
+console.log('✓ roquefort explicado: 1,5 ud en pasta + 3 ud en pizzas = 4,5 ud; nata=1,5 brick');
 console.log(`✓ ${objetivos.filter((objetivo) => objetivo.productoId).length} SKUs objetivo siguen presentes en el catálogo`);
+console.log(`✓ ${Object.keys(ASOCIACIONES_SEGURAS_POR_DEFECTO).length} defaults seguros siguen presentes en el catálogo`);
 console.log(`ℹ huevos=${huevos}, atún=${atun}, pasta=${pasta} g, arroz=${arroz} g, carne=${carnes} g, pescado=${pescados} g`);
 console.log(
   `✓ envases críticos: tortillas=${tortillasComerciales.envases}, bacon=${baconComercial.envases}, pan burger=${panBurgerComercial.envases}, pan hot dog=${panHotDogComercial.envases}, tomate frito=${tomateFritoComercial.envases}`,
