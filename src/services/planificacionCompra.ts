@@ -91,7 +91,7 @@ function crearLineaMensualDespensa(
   };
 }
 
-function aplicarNecesidadesMensuales(
+export function aplicarNecesidadesMensuales(
   lineasBase: LineaCompra[],
 ): LineaCompra[] {
   const lineas = [...lineasBase];
