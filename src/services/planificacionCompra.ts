@@ -12,6 +12,37 @@ import {
 } from './necesidadesMensuales';
 import { correspondeACompraSemanal, proyectarComprasEnvases } from './proyeccionStock';
 
+const COBERTURA_FRESCO_PESO_VARIABLE = 1.1;
+
+function normalizarTexto(texto: string): string {
+  return texto
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+}
+
+function coberturaPorEnvase(linea: LineaCompra): number {
+  const producto = linea.producto;
+  if (!producto) return 1;
+
+  const seccion = normalizarTexto(producto.seccion ?? '');
+  const formato = normalizarTexto(producto.formato ?? '');
+  const unidadPeso = normalizarTexto(producto.formatoUnidad ?? '');
+  const esCarneOPescado =
+    seccion.includes('carne') ||
+    seccion.includes('pescado') ||
+    seccion.includes('marisco');
+  const formatoVariable =
+    formato.includes('bandeja') ||
+    formato.includes('pieza');
+  const vendidoPorPeso = unidadPeso === 'kg' || unidadPeso === 'g';
+
+  return esCarneOPescado && formatoVariable && vendidoPorPeso
+    ? COBERTURA_FRESCO_PESO_VARIABLE
+    : 1;
+}
+
 export function esProductoSemanal(linea: LineaCompra): boolean {
   const texto = `${linea.ingrediente.nombre} ${linea.ingrediente.seccion} ${linea.producto?.nombre ?? ''}`;
   return correspondeACompraSemanal(obtenerSeccionCompra(linea), texto);
@@ -201,9 +232,11 @@ export async function generarCompraSemanalProyectada(
       resultado.lineas.find((linea) => linea.producto?.productoId === productoId && esProductoSemanal(linea)),
     );
     const necesidades = lineasProducto.map((linea) => linea?.envasesExactos ?? 0);
+    const lineaReferencia = lineasProducto.find((linea) => Boolean(linea?.producto));
     const proyeccion = proyectarComprasEnvases(
       necesidades,
       stockInicial.get(productoId) ?? 0,
+      lineaReferencia ? coberturaPorEnvase(lineaReferencia) : 1,
     );
     const linea = lineasProducto[semanaActiva];
     if (!linea?.producto) return;
