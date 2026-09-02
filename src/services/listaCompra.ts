@@ -19,6 +19,7 @@ import { listarPlatosParaCompra } from './reglasMenuMensual';
 const PRODUCTO_POLLO_ENTERO = '2781';
 const PRODUCTO_JAMONCITOS_POLLO = '2778';
 const GRAMOS_APROXIMADOS_POR_JAMONCITO = 180;
+const GRAMOS_POLLO_POR_RACION_ARROZ = 150;
 
 function redondearCantidad(valor: number): number {
   return Math.round(valor * 100) / 100;
@@ -64,7 +65,8 @@ function prepararAsociacionesCortesPollo(): void {
  * jamoncito a 180 g para convertir correctamente la necesidad a bandejas.
  *
  * "Pollo" en arroz con pollo es deliberadamente ambiguo: lo separamos del alias
- * antiguo para que nunca vuelva a resolverse como pollo entero por accidente.
+ * antiguo y lo convertimos a gramos para que cualquier corte elegido después se
+ * calcule por peso y nunca por número de bandejas.
  */
 function normalizarCortePolloParaCompra(
   receta: Receta,
@@ -96,6 +98,10 @@ function normalizarCortePolloParaCompra(
     return {
       ...ingrediente,
       nombre: 'Pollo para arroz',
+      cantidad: redondearCantidad(
+        ingrediente.cantidad * GRAMOS_POLLO_POR_RACION_ARROZ,
+      ),
+      unidad: 'g',
     };
   }
 
