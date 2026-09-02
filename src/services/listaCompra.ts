@@ -16,8 +16,11 @@ import {
 import { obtenerSugerenciaIngrediente } from './porciones';
 import { listarPlatosParaCompra } from './reglasMenuMensual';
 
-const PRODUCTO_POLLO_ENTERO = '2781';
 const PRODUCTO_JAMONCITOS_POLLO = '2778';
+const PRODUCTO_TORTILLAS_TRIGO = '80859';
+const PRODUCTO_PAN_PITA = '14378';
+const PRODUCTO_PECHUGAS_POLLO = '3724';
+const PRODUCTO_RELLENO_KEBAB = '13778';
 const GRAMOS_APROXIMADOS_POR_JAMONCITO = 180;
 const GRAMOS_POLLO_POR_RACION_ARROZ = 150;
 
@@ -36,22 +39,45 @@ function normalizarTexto(texto: string): string {
 }
 
 /**
- * Corrige una asociación histórica demasiado genérica: "Pollo" quedó ligado al
- * producto de pollo entero, aunque se reutiliza en recetas que piden otros
- * cortes. El cocido sí tiene un corte concreto y estable en el catálogo actual.
+ * Sanea asociaciones históricas que sabemos que apuntaron a productos
+ * incompatibles con el ingrediente. Solo se sustituyen IDs concretos ya
+ * identificados como erróneos; cualquier elección manual distinta se conserva.
  */
 function prepararAsociacionesCortesPollo(): void {
   const actuales = cargarAsociacionesIngredientes();
   const siguientes = { ...actuales };
   let cambiadas = false;
 
-  if (siguientes.Pollo === PRODUCTO_POLLO_ENTERO) {
+  // "Pollo" se usó para recetas con cortes distintos y llegó a apuntar tanto
+  // a pollo entero como a carcasa/espinazo. Las recetas actuales ya se normalizan
+  // a nombres específicos, por lo que conservar este alias solo añade riesgo.
+  if (Object.prototype.hasOwnProperty.call(siguientes, 'Pollo')) {
     delete siguientes.Pollo;
+    cambiadas = true;
+  }
+
+  // El ID 14378 es Pan de pita Mission, no tortillas de trigo.
+  if (siguientes['Tortillas de trigo'] === PRODUCTO_PAN_PITA) {
+    siguientes['Tortillas de trigo'] = PRODUCTO_TORTILLAS_TRIGO;
+    cambiadas = true;
+  }
+
+  // El ID 13778 es relleno congelado para kebab, no pechuga fresca.
+  if (siguientes['Pechugas de pollo'] === PRODUCTO_RELLENO_KEBAB) {
+    siguientes['Pechugas de pollo'] = PRODUCTO_PECHUGAS_POLLO;
     cambiadas = true;
   }
 
   if (!siguientes['Jamoncitos de pollo']) {
     siguientes['Jamoncitos de pollo'] = PRODUCTO_JAMONCITOS_POLLO;
+    cambiadas = true;
+  }
+
+  // Arroz con pollo usa un nombre específico para evitar volver al alias
+  // genérico. Si todavía no tiene producto, reutilizamos la pechuga normal.
+  if (!siguientes['Pollo para arroz']) {
+    siguientes['Pollo para arroz'] =
+      siguientes['Pechugas de pollo'] ?? PRODUCTO_PECHUGAS_POLLO;
     cambiadas = true;
   }
 
