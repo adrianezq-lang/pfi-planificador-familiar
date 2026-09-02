@@ -151,8 +151,8 @@ const conversionesPorProducto: Record<
 
   Aceitunas: {
     ración: {
-      unidadDestino: 'ración',
-      factor: 1,
+      unidadDestino: 'envase',
+      factor: 0.25,
     },
   },
 };
