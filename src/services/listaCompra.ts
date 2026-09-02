@@ -21,6 +21,8 @@ const PRODUCTO_TORTILLAS_TRIGO = '80859';
 const PRODUCTO_PAN_PITA = '14378';
 const PRODUCTO_PECHUGAS_POLLO = '3724';
 const PRODUCTO_RELLENO_KEBAB = '13778';
+const PRODUCTO_TOMATE_UNTAR = '17647';
+const PRODUCTO_TOMATE_FRITO = '17108';
 const GRAMOS_APROXIMADOS_POR_JAMONCITO = 180;
 const GRAMOS_POLLO_POR_RACION_ARROZ = 150;
 
@@ -43,7 +45,7 @@ function normalizarTexto(texto: string): string {
  * incompatibles con el ingrediente. Solo se sustituyen IDs concretos ya
  * identificados como erróneos; cualquier elección manual distinta se conserva.
  */
-function prepararAsociacionesCortesPollo(): void {
+function prepararAsociacionesCompra(): void {
   const actuales = cargarAsociacionesIngredientes();
   const siguientes = { ...actuales };
   let cambiadas = false;
@@ -65,6 +67,13 @@ function prepararAsociacionesCortesPollo(): void {
   // El ID 13778 es relleno congelado para kebab, no pechuga fresca.
   if (siguientes['Pechugas de pollo'] === PRODUCTO_RELLENO_KEBAB) {
     siguientes['Pechugas de pollo'] = PRODUCTO_PECHUGAS_POLLO;
+    cambiadas = true;
+  }
+
+  // El ID 17647 es tomate para untar con aceite; para la base de pizza usamos
+  // tomate frito normal y su consumo se calcula como fracción de tarro.
+  if (siguientes['Tomate para pizza'] === PRODUCTO_TOMATE_UNTAR) {
+    siguientes['Tomate para pizza'] = PRODUCTO_TOMATE_FRITO;
     cambiadas = true;
   }
 
@@ -251,7 +260,7 @@ function obtenerPostresDeServicio(
 export function generarListaCompra(
   menu: DiaMenu[],
 ): Ingrediente[] {
-  prepararAsociacionesCortesPollo();
+  prepararAsociacionesCompra();
 
   const perfil = cargarPerfil();
   const recetasBase = cargarRecetas();
