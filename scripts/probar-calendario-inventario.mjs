@@ -9,6 +9,11 @@ globalThis.localStorage = {
 const { menuEfectivoSemana, menuEfectivoMes } = await import('../src/services/excepcionesCalendario.ts');
 const { unirIngredientes } = await import('../src/services/UnirIngredientes.ts');
 const { correspondeACompraSemanal, proyectarComprasEnvases } = await import('../src/services/proyeccionStock.ts');
+const {
+  calcularCompraMensualEnvases,
+  guardarNecesidadMensual,
+  obtenerNecesidadMensual,
+} = await import('../src/services/necesidadesMensuales.ts');
 const dias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const menu = dias.map((dia) => ({
   dia,
@@ -52,8 +57,42 @@ for (const [seccion, nombre, esperado] of periodosCorrectos) {
     throw new Error(`${nombre} no está en el periodo de compra correcto.`);
   }
 }
+
+guardarNecesidadMensual('leche-prueba', 12);
+if (obtenerNecesidadMensual('leche-prueba', 'mensual') !== 12) {
+  throw new Error('La cantidad mensual configurada no se conserva.');
+}
+if (obtenerNecesidadMensual('producto-mensual-antiguo', 'mensual') !== 1) {
+  throw new Error('Un producto mensual antiguo debe partir de 1 envase al mes.');
+}
+const compraLeche = calcularCompraMensualEnvases(
+  { stockActual: 3, stockMinimo: 0 },
+  0,
+  12,
+);
+if (compraLeche !== 9) {
+  throw new Error(`Doce leches con tres en casa deben comprar 9, no ${compraLeche}.`);
+}
+const compraCubierta = calcularCompraMensualEnvases(
+  { stockActual: 14, stockMinimo: 0 },
+  0,
+  12,
+);
+if (compraCubierta !== 0) {
+  throw new Error('El stock existente debe poder cubrir por completo la compra mensual.');
+}
+const compraDominadaPorMenu = calcularCompraMensualEnvases(
+  { stockActual: 3, stockMinimo: 0 },
+  16,
+  12,
+);
+if (compraDominadaPorMenu !== 13) {
+  throw new Error('Si el menú necesita más que la cantidad mensual manual, debe mandar el menú.');
+}
+
 console.log('✓ semanas parciales cuentan solo sus fechas reales');
 console.log('✓ excepciones de día, comida y cena afectan a la compra');
 console.log('✓ cabezas y dientes de ajo se suman sin perder cantidades');
 console.log('✓ una malla de cuatro cabezas cubre cuatro semanas de una cabeza');
 console.log('✓ frescos semanales y productos mensuales quedan bien separados');
+console.log('✓ la compra mensual configurada descuenta el stock y respeta el menú');
