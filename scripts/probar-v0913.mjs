@@ -98,21 +98,37 @@ if (recuperadasCopia.Huevos !== 'producto-huevos') {
 }
 
 // La reparación siempre valida contra el catálogo actual. El test simula en un
-// único catálogo tanto un producto recuperable por nombre como el alias conocido
-// de la malla de ajos para que no dependa de la red ni de la caché del catálogo.
+// único catálogo tanto productos recuperables como IDs históricos que siguen
+// existiendo pero son semánticamente incompatibles con el ingrediente.
 globalThis.fetch = async () => ({
   ok: true,
   async json() {
     return {
       productos: [
-        {
-          productoId: 'pollo-1', nombre: 'Filetes de pollo', precio: 5,
-          formato: 'Bandeja', disponible: true,
-        },
-        {
-          productoId: '69297', nombre: 'Ajos morados', precio: 1.85,
-          formato: 'Malla', tamanoUnidad: 0.25, formatoUnidad: 'kg', disponible: true,
-        },
+        { productoId: 'pollo-1', nombre: 'Filetes de pollo', precio: 5, formato: 'Bandeja', disponible: true },
+        { productoId: '69297', nombre: 'Ajos morados', precio: 1.85, formato: 'Malla', tamanoUnidad: 0.25, formatoUnidad: 'kg', disponible: true },
+        { productoId: '80859', nombre: 'Tortillas de trigo Wraps', precio: 2.05, formato: 'Paquete', disponible: true },
+        { productoId: '3724', nombre: 'Pechuga de pollo', precio: 4.5, formato: 'Bandeja', disponible: true },
+        { productoId: '17108', nombre: 'Tomate frito Hacendado', precio: 0.9, formato: 'Tarro', disponible: true },
+        { productoId: '13741', nombre: 'Zancarrón de vacuno', precio: 8.5, formato: 'Bandeja', disponible: true },
+        { productoId: '5214', nombre: 'Garbanzo Hacendado', precio: 1.45, formato: 'Paquete', disponible: true },
+        { productoId: '5185', nombre: 'Alubia blanca Hacendado', precio: 2.49, formato: 'Paquete', disponible: true },
+        { productoId: '5180', nombre: 'Alubia roja Hacendado', precio: 2.05, formato: 'Paquete', disponible: true },
+        { productoId: '51110', nombre: 'Queso rallado mozzarella pizza-Roma de vaca Hacendado', precio: 1.7, formato: 'Paquete', disponible: true },
+        { productoId: '2873', nombre: 'Burger meat de vacuno', precio: 4.4, formato: 'Paquete', disponible: true },
+        { productoId: '87204', nombre: 'Filete de salmón con piel y sin espinas', precio: 8.05, formato: 'Bandeja', disponible: true },
+        { productoId: '21629', nombre: 'Bacón ahumado Monells lonchas', precio: 2.2, formato: 'Paquete', disponible: true },
+        { productoId: '14378', nombre: 'Pan de pita Mission', precio: 1.8, formato: 'Paquete', disponible: true },
+        { productoId: '13778', nombre: 'Relleno ultracongelado para kebab', precio: 4, formato: 'Paquete', disponible: true },
+        { productoId: '17647', nombre: 'Tomate para untar Hacendado con aceite de oliva', precio: 0.95, formato: 'Tarro', disponible: true },
+        { productoId: '26033', nombre: 'Garbanzo cocido Pedrosillano Hacendado', precio: 0.9, formato: 'Tarro', disponible: true },
+        { productoId: '26216', nombre: 'Alubia blanca cocida Hacendado', precio: 0.8, formato: 'Tarro', disponible: true },
+        { productoId: '26222', nombre: 'Alubia roja cocida Hacendado', precio: 0.9, formato: 'Tarro', disponible: true },
+        { productoId: '50917', nombre: 'Mozzarella Hacendado lonchas', precio: 2, formato: 'Paquete', disponible: true },
+        { productoId: '3106', nombre: 'Arreglo para puchero', precio: 4, formato: 'Bandeja', disponible: true },
+        { productoId: '64558', nombre: 'Rollitos para perro sabor salmón', precio: 2, formato: 'Paquete', disponible: true },
+        { productoId: '2876', nombre: 'Merluza empanada', precio: 4, formato: 'Paquete', disponible: true },
+        { productoId: '86516', nombre: 'Cebolla en polvo Hacendado', precio: 1.2, formato: 'Bote', disponible: true },
       ],
     };
   },
@@ -136,8 +152,77 @@ if (ajosRecuperados !== 1 || cargarAsociacionesIngredientes().Ajo !== '69297') {
   throw new Error('No se recuperó la asociación conocida de la malla de ajos.');
 }
 
+limpiarTodasLasAsociaciones();
+guardarAsociacionesIngredientes({
+  Pollo: '3106',
+  'Tortillas de trigo': '14378',
+  'Pechugas de pollo': '13778',
+  'Tomate para pizza': '17647',
+  'Garbanzos secos': '26033',
+  'Alubias blancas secas': '26216',
+  'Alubias rojas secas': '26222',
+  'Mozzarella rallada': '50917',
+  Hamburguesas: '3106',
+  'Salmón': '64558',
+  'Pan hamburguesa': '2876',
+  'Pan perrito': '2876',
+  'Ajo en polvo': '86516',
+  Bacon: '21629',
+});
+
+const ingredientesSaneamiento = [
+  'Tortillas de trigo',
+  'Pechugas de pollo',
+  'Tomate para pizza',
+  'Morcillo',
+  'Garbanzos secos',
+  'Alubias blancas secas',
+  'Alubias rojas secas',
+  'Mozzarella rallada',
+  'Hamburguesas',
+  'Salmón',
+  'Pan hamburguesa',
+  'Pan perrito',
+  'Ajo en polvo',
+  'Bacon',
+].map((nombre) => ({ nombre }));
+
+const saneadas = await repararAsociacionesIngredientes([
+  { ingredientes: ingredientesSaneamiento },
+]);
+const asociacionesSaneadas = cargarAsociacionesIngredientes();
+const esperadas = {
+  'Tortillas de trigo': '80859',
+  'Pechugas de pollo': '3724',
+  'Tomate para pizza': '17108',
+  Morcillo: '13741',
+  'Garbanzos secos': '5214',
+  'Alubias blancas secas': '5185',
+  'Alubias rojas secas': '5180',
+  'Mozzarella rallada': '51110',
+  Hamburguesas: '2873',
+  'Salmón': '87204',
+  Bacon: '21629',
+};
+for (const [ingrediente, productoId] of Object.entries(esperadas)) {
+  if (asociacionesSaneadas[ingrediente] !== productoId) {
+    throw new Error(`${ingrediente} no quedó saneado: ${asociacionesSaneadas[ingrediente]}, esperaba ${productoId}.`);
+  }
+}
+for (const ingrediente of ['Pan hamburguesa', 'Pan perrito', 'Ajo en polvo', 'Pollo']) {
+  if (asociacionesSaneadas[ingrediente]) {
+    throw new Error(`${ingrediente} conserva una asociación histórica incompatible: ${asociacionesSaneadas[ingrediente]}.`);
+  }
+}
+if (saneadas < 1) {
+  throw new Error('El saneamiento semántico no informó de ningún cambio.');
+}
+
 console.log('✓ postres únicamente desde el recetario');
 console.log('✓ comida con fruta y cena con yogur');
 console.log('✓ carne, pescado y aperitivos en su sección');
 console.log('✓ copia y reparación automática de asociaciones');
 console.log('✓ asociación conocida de la malla de ajos');
+console.log('✓ IDs válidos pero semánticamente incorrectos se corrigen');
+console.log('✓ asociaciones manuales no problemáticas se conservan');
+console.log('✓ pan y ajo en polvo quedan sin asociación antes que comprar un producto incorrecto');
