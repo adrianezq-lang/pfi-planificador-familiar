@@ -209,7 +209,8 @@ if (
   asociacionesPollo['Tortillas de trigo'] !== '80859' ||
   asociacionesPollo['Pechugas de pollo'] !== '3724' ||
   asociacionesPollo['Pollo para arroz'] !== '3724' ||
-  asociacionesPollo['Tomate para pizza'] !== '17108'
+  asociacionesPollo['Tomate para pizza'] !== '17108' ||
+  asociacionesPollo.Morcillo !== '13741'
 ) {
   throw new Error(
     `Las asociaciones históricas incorrectas no se sanearon: ${JSON.stringify(asociacionesPollo)}.`,
@@ -226,4 +227,5 @@ console.log('✓ fajitas + dos kebabs: 14 tortillas en total');
 console.log('✓ dos pizzas comparten el mismo tarro de tomate');
 console.log('✓ cocido: jamoncitos por peso, no bandejas por muslo');
 console.log('✓ arroz con pollo no hereda pollo entero como corte genérico');
+console.log('✓ morcillo se asocia al zancarrón de vacuno del catálogo');
 console.log('✓ se sanea pan pita, relleno kebab, tomate para untar y pollo genérico');
