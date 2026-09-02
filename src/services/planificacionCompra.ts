@@ -13,8 +13,29 @@ import {
 import { correspondeACompraSemanal, proyectarComprasEnvases } from './proyeccionStock';
 
 const COBERTURA_FRESCO_PESO_VARIABLE = 1.1;
-const PRODUCTO_SALCHICHAS_BOCATA_GOURMET = '53143';
-const SALCHICHAS_POR_COMPRA_GOURMET = 4;
+
+type ReglaFormatoComercial = {
+  ingredientes: string[];
+  unidadesPorEnvase: number;
+};
+
+const FORMATOS_COMERCIALES_ESPECIALES: Record<string, ReglaFormatoComercial> = {
+  // Dos paquetes interiores, cuatro salchichas reales en total.
+  '53143': {
+    ingredientes: ['salchichas'],
+    unidadesPorEnvase: 4,
+  },
+  // Pan de burger Hacendado: paquete de cuatro unidades.
+  '82331': {
+    ingredientes: ['pan de hamburguesa'],
+    unidadesPorEnvase: 4,
+  },
+  // Pan hot dog Hacendado: paquete de seis unidades.
+  '82332': {
+    ingredientes: ['pan de perrito'],
+    unidadesPorEnvase: 6,
+  },
+};
 
 function normalizarTexto(texto: string): string {
   return texto
@@ -46,33 +67,31 @@ function coberturaPorEnvase(linea: LineaCompra): number {
 }
 
 /**
- * Algunos productos del catálogo exponen el número de paquetes interiores como
- * `unidadesTotales`, no el número de piezas de comida. El 53143 contiene cuatro
- * salchichas repartidas en dos paquetes internos; sin esta corrección, una receta
- * de cuatro perritos se interpretaría como dos compras comerciales.
- *
- * La regla está ligada al ID concreto: si el usuario selecciona otro producto,
- * no se aplica ninguna suposición sobre su formato.
+ * Corrige productos cuyo catálogo comercial no expresa bien cuántas piezas de
+ * comida contiene el envase. La regla va ligada al SKU exacto, por lo que una
+ * elección manual de otro producto nunca hereda estas capacidades.
  */
 export function ajustarFormatoComercialEspecial(
   linea: LineaCompra,
 ): LineaCompra {
-  if (linea.producto?.productoId !== PRODUCTO_SALCHICHAS_BOCATA_GOURMET) {
-    return linea;
-  }
+  const productoId = linea.producto?.productoId;
+  if (!productoId) return linea;
 
-  const unidadesSalchicha = linea.necesidades.reduce((total, necesidad) => {
+  const regla = FORMATOS_COMERCIALES_ESPECIALES[productoId];
+  if (!regla) return linea;
+
+  const unidadesNecesarias = linea.necesidades.reduce((total, necesidad) => {
     const nombre = normalizarTexto(necesidad.nombre);
     const unidad = normalizarTexto(necesidad.unidad);
     const esUnidad = ['u', 'ud', 'uds', 'unidad', 'unidades'].includes(unidad);
-    return nombre === 'salchichas' && esUnidad
+    return esUnidad && regla.ingredientes.includes(nombre)
       ? total + Math.max(0, necesidad.cantidad)
       : total;
   }, 0);
 
-  if (unidadesSalchicha <= 0) return linea;
+  if (unidadesNecesarias <= 0) return linea;
 
-  const envasesExactos = unidadesSalchicha / SALCHICHAS_POR_COMPRA_GOURMET;
+  const envasesExactos = unidadesNecesarias / regla.unidadesPorEnvase;
   const envases = Math.max(1, Math.ceil(envasesExactos - 0.000001));
 
   return {
