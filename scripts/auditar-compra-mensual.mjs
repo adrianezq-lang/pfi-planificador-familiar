@@ -1,0 +1,128 @@
+import { createServer } from 'vite';
+
+class StorageMock {
+  data = new Map();
+  getItem(clave) { return this.data.get(clave) ?? null; }
+  setItem(clave, valor) { this.data.set(clave, String(valor)); }
+  removeItem(clave) { this.data.delete(clave); }
+}
+
+globalThis.localStorage = new StorageMock();
+globalThis.window = {
+  addEventListener() {},
+  removeEventListener() {},
+  dispatchEvent() {},
+};
+globalThis.CustomEvent = class {
+  constructor(type, init = {}) {
+    this.type = type;
+    this.detail = init.detail;
+  }
+};
+globalThis.Event = class {
+  constructor(type) { this.type = type; }
+};
+
+const vite = await createServer({
+  configFile: false,
+  server: { middlewareMode: true },
+  appType: 'custom',
+});
+
+const { menuMensualInicial } = await vite.ssrLoadModule('/src/data/MenuMensual.ts');
+const {
+  aplicarRepeticionLegumbres,
+  aplicarVariedadPastas,
+} = await vite.ssrLoadModule('/src/services/reglasMenuMensual.ts');
+const { normalizarPerfil } = await vite.ssrLoadModule('/src/services/perfil.ts');
+const { generarListaCompra } = await vite.ssrLoadModule('/src/services/listaCompra.ts');
+
+const perfil = normalizarPerfil({
+  nombre: 'Familia PFI',
+  adultos: 2,
+  ninos: 2,
+  edadesNinos: [12, 6],
+  bebes: 1,
+  bebesComenMenu: false,
+  supermercado: 'Mercadona',
+  presupuesto: 1000,
+});
+localStorage.setItem('pfi-perfil', JSON.stringify(perfil));
+
+const plan = aplicarVariedadPastas(
+  aplicarRepeticionLegumbres(structuredClone(menuMensualInicial)),
+);
+const menuMes = plan.flatMap((semana) => semana.menu);
+const compra = generarListaCompra(menuMes);
+
+const normalizar = (texto) => texto
+  .toLocaleLowerCase('es')
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .replace(/[^a-z0-9]+/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+const porNombre = new Map(compra.map((item) => [normalizar(item.nombre), item]));
+const obtener = (nombre) => porNombre.get(normalizar(nombre));
+const exigirExacto = (nombre, cantidad, unidad) => {
+  const item = obtener(nombre);
+  if (!item || item.cantidad !== cantidad || normalizar(item.unidad) !== normalizar(unidad)) {
+    throw new Error(
+      `${nombre}: esperaba ${cantidad} ${unidad} y obtuvo ${item ? `${item.cantidad} ${item.unidad}` : 'nada'}.`,
+    );
+  }
+};
+const sumar = (predicado, unidad = 'g') => compra
+  .filter((item) => predicado(item) && normalizar(item.unidad) === normalizar(unidad))
+  .reduce((total, item) => total + item.cantidad, 0);
+const exigirMaximo = (etiqueta, valor, maximo) => {
+  if (!Number.isFinite(valor) || valor > maximo) {
+    throw new Error(`${etiqueta}: ${valor} supera el máximo razonable ${maximo}.`);
+  }
+};
+
+for (const item of compra) {
+  if (!Number.isFinite(item.cantidad) || item.cantidad <= 0) {
+    throw new Error(`Cantidad inválida en ${item.nombre}: ${item.cantidad} ${item.unidad}.`);
+  }
+}
+
+// Referencias exactas de la plantilla mensual actual.
+exigirExacto('Tortillas de trigo', 14, 'ud');
+exigirExacto('Lentejas secas', 375, 'g');
+exigirExacto('Garbanzos secos', 375, 'g');
+exigirExacto('Alubias rojas secas', 750, 'g');
+
+if (compra.some((item) => normalizar(item.nombre) === 'pollo')) {
+  throw new Error('La compra mensual ha vuelto a generar el ingrediente genérico Pollo.');
+}
+
+const huevos = obtener('Huevos')?.cantidad ?? 0;
+const atun = compra
+  .filter((item) => /\batun\b/.test(normalizar(item.nombre)))
+  .reduce((total, item) => total + item.cantidad, 0);
+const pasta = sumar((item) => /\b(pasta|espagueti|macarron)/.test(normalizar(item.nombre)));
+const arroz = sumar((item) => /\barroz\b/.test(normalizar(item.nombre)));
+const carnes = sumar((item) => /carne|carnicer/.test(normalizar(item.seccion ?? '')));
+const pescados = sumar((item) => /pescad|marisco/.test(normalizar(item.seccion ?? '')));
+
+// Barreras anti-disparate. Son deliberadamente holgadas: detectan multiplicaciones
+// accidentales sin convertir la auditoría en una receta rígida del menú.
+exigirMaximo('Huevos mensuales', huevos, 100);
+exigirMaximo('Atún mensual', atun, 30);
+exigirMaximo('Pasta mensual (g)', pasta, 5000);
+exigirMaximo('Arroz mensual (g)', arroz, 5000);
+exigirMaximo('Carne mensual (g)', carnes, 20000);
+exigirMaximo('Pescado mensual (g)', pescados, 12000);
+
+console.log('✓ auditoría mensual: cantidades finitas y positivas');
+console.log('✓ tortillas: 14 unidades en el mes base');
+console.log('✓ legumbres secas: 375 g lentejas, 375 g garbanzos, 750 g alubias rojas');
+console.log(`ℹ huevos=${huevos}, atún=${atun}, pasta=${pasta} g, arroz=${arroz} g, carne=${carnes} g, pescado=${pescados} g`);
+console.log('ℹ compra mensual agregada:');
+for (const item of [...compra].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'))) {
+  console.log(`  - ${item.nombre}: ${item.cantidad} ${item.unidad}`);
+}
+
+await vite.close();
