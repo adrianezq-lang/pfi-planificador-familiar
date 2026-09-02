@@ -5,7 +5,8 @@
   },
   {
     "ingrediente": "Huevos",
-    "buscar": "huevos tamaño M docena"
+    "buscar": "huevos 24 unidades",
+    "productoId": "30167"
   },
   {
     "ingrediente": "Leche",
@@ -33,7 +34,8 @@
   },
   {
     "ingrediente": "Atún",
-    "buscar": "atún aceite girasol Hacendado pack 6 latas"
+    "buscar": "atún claro aceite girasol Hacendado pack 6 latas",
+    "productoId": "18055"
   },
   {
     "ingrediente": "Patatas",
@@ -140,7 +142,8 @@
   },
   {
     "ingrediente": "Queso en lonchas",
-    "buscar": "queso lonchas cremoso Hacendado"
+    "buscar": "queso lonchas cremoso Hacendado",
+    "productoId": "50545"
   },
   {
     "ingrediente": "Queso curado",
@@ -178,7 +181,8 @@
   },
   {
     "ingrediente": "Bases de pizza",
-    "buscar": "bases pizza artesanas 2 unidades"
+    "buscar": "bases pizza artesanas ultracongeladas",
+    "productoId": "63648"
   },
   {
     "ingrediente": "Pan de hamburguesa",
