@@ -68,6 +68,15 @@ if (bbqParcial?.unidad !== 'envase' || bbqParcial.cantidad !== 0.45) {
 if (pimentonParcial?.unidad !== 'envase' || pimentonParcial.cantidad !== 0.2) {
   throw new Error(`Cuatro usos de pimentón deben consumir 0,20 envases, no ${pimentonParcial?.cantidad} ${pimentonParcial?.unidad}.`);
 }
+const [tomatePizzaCompartido] = unirIngredientes([
+  { nombre:'Tomate para pizza', cantidad:1, unidad:'bote', seccion:'Salsas' },
+  { nombre:'Tomate para pizza', cantidad:1, unidad:'bote', seccion:'Salsas' },
+]);
+if (tomatePizzaCompartido?.unidad !== 'envase' || tomatePizzaCompartido.cantidad !== 0.5) {
+  throw new Error(
+    `Dos pizzas deben consumir medio tarro de tomate, no ${tomatePizzaCompartido?.cantidad} ${tomatePizzaCompartido?.unidad}.`,
+  );
+}
 const calculoBbq = calcularEnvasesParaNecesidades(
   [bbqParcial],
   {
@@ -234,6 +243,7 @@ console.log('✓ excepciones de día, comida y cena afectan a la compra');
 console.log('✓ cabezas y dientes de ajo se suman sin perder cantidades');
 console.log('✓ salsas y especias marcadas como revisar consumen fracciones de envase');
 console.log('✓ varios usos parciales de salsa no compran un bote por receta');
+console.log('✓ dos pizzas comparten medio tarro de tomate');
 console.log('✓ una malla de cuatro cabezas cubre cuatro semanas de una cabeza');
 console.log('✓ frescos de peso variable toleran una diferencia pequeña sin duplicar bandejas');
 console.log('✓ los paquetes exactos siguen redondeando de forma estricta');
