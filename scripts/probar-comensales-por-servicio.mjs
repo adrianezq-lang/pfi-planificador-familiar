@@ -70,7 +70,11 @@ if (calcularComensales(comidaFinSemana) !== 4 || calcularComensales(cena) !== 4)
 localStorage.setItem('pfi-perfil', JSON.stringify(perfilMigrado));
 localStorage.setItem(
   'pfi-asociaciones-ingredientes-mercadona',
-  JSON.stringify({ Pollo: '2781' }),
+  JSON.stringify({
+    Pollo: '2853',
+    'Tortillas de trigo': '14378',
+    'Pechugas de pollo': '13778',
+  }),
 );
 
 function crearDia(dia, comida, cenaDia, postreComida, postreCena) {
@@ -185,9 +189,15 @@ if (
 const asociacionesPollo = JSON.parse(
   localStorage.getItem('pfi-asociaciones-ingredientes-mercadona') ?? '{}',
 );
-if (asociacionesPollo.Pollo || asociacionesPollo['Jamoncitos de pollo'] !== '2778') {
+if (
+  asociacionesPollo.Pollo ||
+  asociacionesPollo['Jamoncitos de pollo'] !== '2778' ||
+  asociacionesPollo['Tortillas de trigo'] !== '80859' ||
+  asociacionesPollo['Pechugas de pollo'] !== '3724' ||
+  asociacionesPollo['Pollo para arroz'] !== '3724'
+) {
   throw new Error(
-    `La asociación genérica de Pollo debe eliminarse y Jamoncitos debe apuntar a 2778: ${JSON.stringify(asociacionesPollo)}.`,
+    `Las asociaciones históricas incorrectas no se sanearon: ${JSON.stringify(asociacionesPollo)}.`,
   );
 }
 
@@ -200,3 +210,4 @@ console.log('✓ fajitas: 6 tortillas para cuatro comensales');
 console.log('✓ fajitas + dos kebabs: 14 tortillas en total');
 console.log('✓ cocido: jamoncitos por peso, no bandejas por muslo');
 console.log('✓ arroz con pollo no hereda pollo entero como corte genérico');
+console.log('✓ se sanea pan pita, relleno kebab y pollo genérico de asociaciones antiguas');
