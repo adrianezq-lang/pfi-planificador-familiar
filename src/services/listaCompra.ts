@@ -26,6 +26,21 @@ const PRODUCTO_TOMATE_FRITO = '17108';
 const PRODUCTO_ZANCARRON = '13741';
 const GRAMOS_APROXIMADOS_POR_JAMONCITO = 180;
 const GRAMOS_POLLO_POR_RACION_ARROZ = 150;
+const GRAMOS_REFERENCIA_OLLA_DOS_DIAS = 500;
+
+const OLLAS_DOS_DIAS = new Set([
+  'lentejas',
+  'cocido de garbanzos',
+  'alubias blancas con almejas',
+  'alubias rojas',
+]);
+
+const LEGUMBRES_SECAS_OLLA = new Set([
+  'lentejas secas',
+  'garbanzos secos',
+  'alubias blancas secas',
+  'alubias rojas secas',
+]);
 
 function redondearCantidad(valor: number): number {
   return Math.round(valor * 100) / 100;
@@ -39,6 +54,16 @@ function normalizarTexto(texto: string): string {
     .replace(/[^a-z0-9]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function esLegumbreSecaDeOllaDosDias(
+  receta: Receta,
+  ingrediente: Ingrediente,
+): boolean {
+  return (
+    OLLAS_DOS_DIAS.has(normalizarTexto(receta.nombre)) &&
+    LEGUMBRES_SECAS_OLLA.has(normalizarTexto(ingrediente.nombre))
+  );
 }
 
 /**
@@ -155,14 +180,11 @@ function normalizarCortePolloParaCompra(
  * Las recetas guardadas son la referencia familiar. Al usarlas en un servicio
  * concreto, la compra debe adaptarse a quienes realmente comen ese día.
  *
- * - Si el ingrediente está en ajuste automático y existe una regla específica
- *   (carne, pescado, pasta, arroz, legumbres, fajitas...), usamos esa regla.
- * - Si la cantidad fue editada manualmente o no existe una regla específica,
- *   conservamos esa referencia y la escalamos por número real de comensales.
- *
- * Así una receta de referencia para 4 personas puede producir correctamente
- * una compra para 3 comensales al mediodía sin perder las preferencias
- * personalizadas de la receta.
+ * Las ollas de legumbre que se preparan para lunes + jueves son una excepción
+ * deliberada a las reglas automáticas históricas de una sola comida: si una
+ * legumbre seca sigue marcada como automática por la migración antigua, usamos
+ * 500 g como referencia familiar del lote completo y la escalamos por número de
+ * comensales. Una cantidad editada manualmente sigue respetándose tal cual.
  */
 export function ajustarRecetasAComensalesServicio(
   recetas: Receta[],
@@ -176,6 +198,19 @@ export function ajustarRecetasAComensalesServicio(
   return recetas.map((receta) => ({
     ...receta,
     ingredientes: receta.ingredientes.map((ingrediente) => {
+      if (
+        ingrediente.ajusteAutomatico === true &&
+        esLegumbreSecaDeOllaDosDias(receta, ingrediente)
+      ) {
+        return {
+          ...ingrediente,
+          cantidad: redondearCantidad(
+            GRAMOS_REFERENCIA_OLLA_DOS_DIAS * factor,
+          ),
+          unidad: 'g',
+        };
+      }
+
       const sugerencia = ingrediente.ajusteAutomatico === true
         ? obtenerSugerenciaIngrediente(ingrediente, receta, perfilServicio)
         : null;
