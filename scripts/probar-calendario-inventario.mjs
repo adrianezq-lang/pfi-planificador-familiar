@@ -4,6 +4,7 @@ globalThis.CustomEvent = class { constructor(type) { this.type = type; } };
 globalThis.localStorage = {
   getItem(clave) { return memoria.get(clave) ?? null; },
   setItem(clave, valor) { memoria.set(clave, String(valor)); },
+  removeItem(clave) { memoria.delete(clave); },
 };
 
 const { menuEfectivoSemana, menuEfectivoMes } = await import('../src/services/excepcionesCalendario.ts');
@@ -14,6 +15,7 @@ const {
   guardarNecesidadMensual,
   obtenerNecesidadMensual,
 } = await import('../src/services/necesidadesMensuales.ts');
+const { aplicarNecesidadesMensuales } = await import('../src/services/planificacionCompra.ts');
 const dias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const menu = dias.map((dia) => ({
   dia,
@@ -90,9 +92,41 @@ if (compraDominadaPorMenu !== 13) {
   throw new Error('Si el menú necesita más que la cantidad mensual manual, debe mandar el menú.');
 }
 
+localStorage.setItem(
+  'pfi-despensa-productos',
+  JSON.stringify([
+    {
+      id: 'detergente-prueba-id',
+      productoId: 'detergente-prueba',
+      nombre: 'Detergente lavadora',
+      imagen: null,
+      formato: 'Botella',
+      precio: 5,
+      stockActual: 1,
+      stockEsAproximado: false,
+      stockMinimo: 0,
+      unidad: 'envase',
+      frecuencia: 'mensual',
+      tipo: 'despensa',
+      actualizado: '2026-09-02T00:00:00.000Z',
+    },
+  ]),
+);
+guardarNecesidadMensual('detergente-prueba', 3);
+const lineasMensualesSinMenu = aplicarNecesidadesMensuales([]);
+const detergente = lineasMensualesSinMenu.find(
+  (linea) => linea.producto?.productoId === 'detergente-prueba',
+);
+if (!detergente || detergente.envases !== 2 || detergente.tipoCompra !== 'despensa') {
+  throw new Error(
+    `Un producto mensual fuera del menú debe aparecer descontando stock: ${detergente?.envases ?? 'no aparece'}.`,
+  );
+}
+
 console.log('✓ semanas parciales cuentan solo sus fechas reales');
 console.log('✓ excepciones de día, comida y cena afectan a la compra');
 console.log('✓ cabezas y dientes de ajo se suman sin perder cantidades');
 console.log('✓ una malla de cuatro cabezas cubre cuatro semanas de una cabeza');
 console.log('✓ frescos semanales y productos mensuales quedan bien separados');
 console.log('✓ la compra mensual configurada descuenta el stock y respeta el menú');
+console.log('✓ limpieza, mascotas y otros mensuales entran aunque no estén en recetas');
