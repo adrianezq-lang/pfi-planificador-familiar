@@ -17,7 +17,7 @@ const esPasta = (plato) =>
   );
 
 const esLegumbre = (plato) =>
-  /\b(lenteja|garbanzo|alubia|cocido)\b/.test(normalizar(plato));
+  /\b(lentejas?|garbanzos?|alubias?|cocido)\b/.test(normalizar(plato));
 
 const plan = aplicarVariedadPastas(
   aplicarRepeticionLegumbres(menuMensualInicial),
