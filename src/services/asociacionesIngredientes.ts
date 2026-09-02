@@ -48,6 +48,10 @@ const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
   'Pan de hamburguesa': '82331',
   'Pan de perrito': '82332',
   'Ajo en polvo': '86656',
+  'Atún': '18055',
+  Huevos: '30167',
+  'Queso en lonchas': '50545',
+  'Bases de pizza': '63648',
 };
 
 /**
@@ -70,6 +74,7 @@ const IDS_INCOMPATIBLES_CONOCIDOS: Record<string, string[]> = {
   'Pan perrito': ['2876'], // merluza empanada (alias histórico)
   'Pan de perrito': ['2876'], // merluza empanada
   'Ajo en polvo': ['86516'], // cebolla en polvo
+  'Atún': ['18086'], // lata grande de 900 g, incompatible con recetas en latas individuales
 };
 
 function normalizarTexto(texto: string): string {
