@@ -58,8 +58,10 @@ const cambiosActualizacion = asegurarAsociacionesBasicas();
 const trasActualizacion = JSON.parse(
   localStorage.getItem('pfi-asociaciones-ingredientes-mercadona') ?? '{}',
 );
+// Mezcla cuatro quesos ya existe con el SKU histórico en este escenario, por lo
+// que V2 no la añade; V5 es quien realiza su única sustitución al SKU vigente.
 const cambiosEsperados =
-  Object.keys(ASOCIACIONES_BASICAS_V2).length +
+  (Object.keys(ASOCIACIONES_BASICAS_V2).length - 1) +
   Object.keys(ASOCIACIONES_BASICAS_V3).length +
   Object.keys(ASOCIACIONES_BASICAS_V4).length +
   Object.keys(ASOCIACIONES_BASICAS_V5).length;
@@ -104,8 +106,6 @@ if (trasQuitar.Salchichas) {
   throw new Error('La v2 volvió a imponer Salchichas después de que el usuario la quitara.');
 }
 
-// Las migraciones de sustitución solo pueden reemplazar sus IDs retirados
-// conocidos; cualquier selección manual distinta debe conservarse.
 limpiarTodasLasAsociaciones();
 for (const version of [1, 2, 3, 4]) {
   localStorage.setItem(`pfi-migracion-asociaciones-basicas-v${version}`, '1');
@@ -131,7 +131,6 @@ if (
   throw new Error('La v5 sobrescribió una elección manual.');
 }
 
-// También protege una instalación nueva: debe recibir todas las versiones.
 limpiarTodasLasAsociaciones();
 for (const version of [1, 2, 3, 4, 5]) {
   localStorage.removeItem(`pfi-migracion-asociaciones-basicas-v${version}`);
