@@ -133,7 +133,11 @@ export function aplicarRepeticionLegumbres(semanas: SemanaMenu[]): SemanaMenu[] 
 /**
  * Las recetas de legumbres del recetario ya representan la olla grande que se
  * prepara el lunes para comer lunes y jueves. La segunda aparición del mismo
- * plato es sobrante: no debe volver a añadir otra receta completa a la compra.
+ * plato dentro de ESA semana es sobrante y no vuelve a añadir ingredientes.
+ *
+ * Importante: la compra mensual pasa varias semanas concatenadas. Por eso el
+ * registro de ollas se reinicia cada lunes. La misma receta de legumbres dos o
+ * tres semanas después es una preparación nueva y debe volver a comprarse.
  *
  * Solo deduplicamos el plato de legumbre cocinada. Los acompañamientos que se
  * repiten como platos independientes (por ejemplo Arroz blanco con garbanzos)
@@ -143,10 +147,17 @@ export function listarPlatosParaCompra(
   menu: DiaMenu[],
   esLegumbreCocinada: (plato: string) => boolean,
 ): string[] {
-  const legumbresContadas = new Set<string>();
+  let legumbresContadasSemana = new Set<string>();
   const platos: string[] = [];
 
-  menu.forEach((dia) => {
+  menu.forEach((dia, indice) => {
+    // Los menús mensuales se concatenan como Lunes…Domingo, Lunes…Domingo.
+    // Reiniciar aquí mantiene el sobrante limitado a su semana sin necesitar
+    // añadir metadatos de semana a DiaMenu ni alterar el formato guardado.
+    if (indice > 0 && normalizar(dia.dia) === 'lunes') {
+      legumbresContadasSemana = new Set<string>();
+    }
+
     [...dia.comida, ...dia.cena].forEach((plato) => {
       if (!esLegumbreCocinada(plato)) {
         platos.push(plato);
@@ -154,9 +165,9 @@ export function listarPlatosParaCompra(
       }
 
       const clave = normalizar(plato);
-      if (legumbresContadas.has(clave)) return;
+      if (legumbresContadasSemana.has(clave)) return;
 
-      legumbresContadas.add(clave);
+      legumbresContadasSemana.add(clave);
       platos.push(plato);
     });
   });
