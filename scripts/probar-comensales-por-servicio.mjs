@@ -168,12 +168,34 @@ const compraCocidoDosDias = generarListaCompra([
 const jamoncitos = compraCocidoDosDias.find(
   (ingrediente) => ingrediente.nombre === 'Jamoncitos de pollo',
 );
+const garbanzosSecosCocido = compraCocidoDosDias.find(
+  (ingrediente) => ingrediente.nombre === 'Garbanzos secos',
+);
 const polloGenericoCocido = compraCocidoDosDias.find(
   (ingrediente) => ingrediente.nombre === 'Pollo',
 );
-if (jamoncitos?.cantidad !== 540 || jamoncitos.unidad !== 'g' || polloGenericoCocido) {
+if (
+  jamoncitos?.cantidad !== 270 ||
+  jamoncitos.unidad !== 'g' ||
+  garbanzosSecosCocido?.cantidad !== 375 ||
+  garbanzosSecosCocido.unidad !== 'g' ||
+  polloGenericoCocido
+) {
   throw new Error(
-    `El cocido de dos días debe convertir 3 muslos escalados a 540 g de jamoncitos: ${jamoncitos?.cantidad} ${jamoncitos?.unidad}.`,
+    `La olla única de cocido para dos días debe comprar 270 g de jamoncitos y 375 g de garbanzos: pollo=${jamoncitos?.cantidad} ${jamoncitos?.unidad}, garbanzos=${garbanzosSecosCocido?.cantidad} ${garbanzosSecosCocido?.unidad}.`,
+  );
+}
+
+const compraLentejasDosDias = generarListaCompra([
+  crearDia('Lunes', ['Lentejas'], [], 'Sin postre', 'Sin postre'),
+  crearDia('Jueves', ['Lentejas'], [], 'Sin postre', 'Sin postre'),
+]);
+const lentejasSecas = compraLentejasDosDias.find(
+  (ingrediente) => ingrediente.nombre === 'Lentejas secas',
+);
+if (lentejasSecas?.cantidad !== 375 || lentejasSecas.unidad !== 'g') {
+  throw new Error(
+    `La olla única de lentejas para lunes y jueves debe comprar 375 g con 3 comensales, no ${lentejasSecas?.cantidad} ${lentejasSecas?.unidad}.`,
   );
 }
 
@@ -211,7 +233,8 @@ console.log('✓ comida de fin de semana y cenas: cuatro comensales');
 console.log('✓ la compra ajusta platos y postres al servicio');
 console.log('✓ fajitas: 6 tortillas para cuatro comensales');
 console.log('✓ fajitas + dos kebabs: 14 tortillas en total');
-console.log('✓ cocido: jamoncitos por peso, no bandejas por muslo');
+console.log('✓ cocido: una sola olla para lunes y jueves, escalada a comensales');
+console.log('✓ lentejas: una sola olla para lunes y jueves, escalada a comensales');
 console.log('✓ arroz con pollo no hereda pollo entero como corte genérico');
 console.log('✓ morcillo se asocia al zancarrón de vacuno del catálogo');
 console.log('✓ se sanea pan pita, relleno kebab, tomate para untar y pollo genérico');
