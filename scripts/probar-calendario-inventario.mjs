@@ -23,6 +23,7 @@ const {
   obtenerNecesidadMensual,
 } = await import('../src/services/necesidadesMensuales.ts');
 const { aplicarNecesidadesMensuales } = await vite.ssrLoadModule('/src/services/planificacionCompra.ts');
+const { calcularEnvasesParaNecesidades } = await vite.ssrLoadModule('/src/motor/compra.ts');
 const dias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const menu = dias.map((dia) => ({
   dia,
@@ -99,6 +100,41 @@ if (compraDominadaPorMenu !== 13) {
   throw new Error('Si el menú necesita más que la cantidad mensual manual, debe mandar el menú.');
 }
 
+const calculoJamoncitos = calcularEnvasesParaNecesidades(
+  [
+    {
+      nombre: 'Jamoncitos de pollo',
+      cantidad: 540,
+      unidad: 'g',
+      seccion: 'Carnicería',
+    },
+  ],
+  {
+    productoId: '2778',
+    nombre: 'Jamoncitos de pollo',
+    precio: 3.22,
+    precioReferencia: 3.5,
+    formato: 'Bandeja',
+    unidadesTotales: 0,
+    tamanoUnidad: 0.92,
+    formatoUnidad: 'kg',
+    pesoAproximado: true,
+    seccion: 'Carne',
+    subcategoria: 'Pollo',
+    imagen: null,
+    url: '',
+    disponible: true,
+  },
+);
+if (
+  calculoJamoncitos.envases !== 1 ||
+  Math.abs(calculoJamoncitos.envasesExactos - (540 / 920)) > 0.000001
+) {
+  throw new Error(
+    `540 g de jamoncitos deben caber en una bandeja de 920 g, no ${calculoJamoncitos.envases} bandejas.`,
+  );
+}
+
 localStorage.setItem(
   'pfi-despensa-productos',
   JSON.stringify([
@@ -136,6 +172,7 @@ console.log('✓ semanas parciales cuentan solo sus fechas reales');
 console.log('✓ excepciones de día, comida y cena afectan a la compra');
 console.log('✓ cabezas y dientes de ajo se suman sin perder cantidades');
 console.log('✓ una malla de cuatro cabezas cubre cuatro semanas de una cabeza');
+console.log('✓ 540 g de jamoncitos compran una sola bandeja de 920 g');
 console.log('✓ frescos semanales y productos mensuales quedan bien separados');
 console.log('✓ la compra mensual configurada descuenta el stock y respeta el menú');
 console.log('✓ limpieza, mascotas y otros mensuales entran aunque no estén en recetas');
