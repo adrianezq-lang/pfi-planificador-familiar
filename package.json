@@ -16,6 +16,7 @@
     "test:menu-mensual": "node --experimental-strip-types scripts/probar-plan-mensual.mjs",
     "test:reglas-menu": "node --experimental-strip-types scripts/probar-reglas-menu.mjs",
     "test:presupuesto": "node --experimental-strip-types scripts/probar-presupuesto-mensual.mjs",
+    "test:auditoria-mensual": "node --experimental-strip-types scripts/auditar-compra-mensual.mjs",
     "actualizar-mercadona": "node scripts/descargar-catalogo-mercadona.mjs && node scripts/actualizar-precios-mercadona.mjs",
     "predev": "node scripts/actualizar-si-necesario.mjs",
     "prebuild": "node scripts/actualizar-si-necesario.mjs",
