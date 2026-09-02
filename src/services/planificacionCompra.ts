@@ -13,6 +13,8 @@ import {
 import { correspondeACompraSemanal, proyectarComprasEnvases } from './proyeccionStock';
 
 const COBERTURA_FRESCO_PESO_VARIABLE = 1.1;
+const PRODUCTO_SALCHICHAS_BOCATA_GOURMET = '53143';
+const SALCHICHAS_POR_COMPRA_GOURMET = 4;
 
 function normalizarTexto(texto: string): string {
   return texto
@@ -41,6 +43,47 @@ function coberturaPorEnvase(linea: LineaCompra): number {
   return esCarneOPescado && formatoVariable && vendidoPorPeso
     ? COBERTURA_FRESCO_PESO_VARIABLE
     : 1;
+}
+
+/**
+ * Algunos productos del catálogo exponen el número de paquetes interiores como
+ * `unidadesTotales`, no el número de piezas de comida. El 53143 contiene cuatro
+ * salchichas repartidas en dos paquetes internos; sin esta corrección, una receta
+ * de cuatro perritos se interpretaría como dos compras comerciales.
+ *
+ * La regla está ligada al ID concreto: si el usuario selecciona otro producto,
+ * no se aplica ninguna suposición sobre su formato.
+ */
+export function ajustarFormatoComercialEspecial(
+  linea: LineaCompra,
+): LineaCompra {
+  if (linea.producto?.productoId !== PRODUCTO_SALCHICHAS_BOCATA_GOURMET) {
+    return linea;
+  }
+
+  const unidadesSalchicha = linea.necesidades.reduce((total, necesidad) => {
+    const nombre = normalizarTexto(necesidad.nombre);
+    const unidad = normalizarTexto(necesidad.unidad);
+    const esUnidad = ['u', 'ud', 'uds', 'unidad', 'unidades'].includes(unidad);
+    return nombre === 'salchichas' && esUnidad
+      ? total + Math.max(0, necesidad.cantidad)
+      : total;
+  }, 0);
+
+  if (unidadesSalchicha <= 0) return linea;
+
+  const envasesExactos = unidadesSalchicha / SALCHICHAS_POR_COMPRA_GOURMET;
+  const envases = Math.max(1, Math.ceil(envasesExactos - 0.000001));
+
+  return {
+    ...linea,
+    envasesExactos,
+    envases,
+    subtotal:
+      linea.producto.precio === null
+        ? null
+        : envases * linea.producto.precio,
+  };
 }
 
 export function esProductoSemanal(linea: LineaCompra): boolean {
@@ -185,7 +228,8 @@ export async function generarCompraMensual(
   menuMes: DiaMenu[],
 ): Promise<ResultadoCompra> {
   const resultado = await generarCompraMercadona(menuMes);
-  const lineasNoFrescas = resultado.lineas.filter(
+  const lineasCorregidas = resultado.lineas.map(ajustarFormatoComercialEspecial);
+  const lineasNoFrescas = lineasCorregidas.filter(
     (linea) => !esProductoSemanal(linea),
   );
 
