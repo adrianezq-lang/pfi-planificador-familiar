@@ -40,6 +40,11 @@
     "productoId": "16043"
   },
   {
+    "ingrediente": "Tomate para pizza",
+    "buscar": "tomate pizza",
+    "productoId": "17108"
+  },
+  {
     "ingrediente": "Atún",
     "buscar": "atún claro aceite girasol Hacendado pack 6 latas",
     "productoId": "18055"
@@ -222,8 +227,8 @@
   },
   {
     "ingrediente": "Pan de hamburguesa",
-    "buscar": "pan de burger Hacendado",
-    "productoId": "82331"
+    "buscar": "maxi pan de burger Hacendado",
+    "productoId": "13803"
   },
   {
     "ingrediente": "Pan de perrito",
