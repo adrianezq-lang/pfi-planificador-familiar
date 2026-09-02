@@ -46,8 +46,8 @@ const platosCompra = listarPlatosParaCompra(
   primeraSemana,
   (plato) => plato === 'Lentejas',
 );
-if (platosCompra.filter((plato) => plato === 'Lentejas').length !== 1) {
-  throw new Error('La compra está contando dos veces la misma olla de legumbres.');
+if (platosCompra.filter((plato) => plato === 'Lentejas').length !== 2) {
+  throw new Error('La compra no está contando las dos comidas de la olla de legumbres.');
 }
 
 const verano = structuredClone(menuMensualInicial);
@@ -67,6 +67,6 @@ if (
 }
 
 console.log('✓ las legumbres del lunes se repiten el jueves');
-console.log('✓ una olla repetida se cuenta una sola vez en la compra');
+console.log('✓ la compra cuenta ingredientes para las dos comidas de legumbres');
 console.log('✓ no se repite la misma pasta en semanas consecutivas');
 console.log('✓ la ensalada de pasta semanal se conserva en verano');

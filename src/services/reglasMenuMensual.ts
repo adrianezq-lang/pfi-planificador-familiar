@@ -131,48 +131,14 @@ export function aplicarRepeticionLegumbres(semanas: SemanaMenu[]): SemanaMenu[] 
 }
 
 /**
- * Una olla de legumbres repetida dentro de la misma semana solo consume una
- * preparación. El resto de platos y guarniciones se siguen contando cada vez.
+ * El batch cooking reduce el número de veces que cocinamos, no las raciones
+ * necesarias. Si una olla de legumbres se come dos días, la compra debe incluir
+ * ingredientes para las dos comidas completas; después se cocina todo junto en
+ * la primera preparación y se reserva la parte de la segunda comida.
  */
 export function listarPlatosParaCompra(
   menu: DiaMenu[],
-  esLegumbreCocinada: (plato: string) => boolean,
+  _esLegumbreCocinada: (plato: string) => boolean,
 ): string[] {
-  const dias = [
-    'lunes',
-    'martes',
-    'miercoles',
-    'jueves',
-    'viernes',
-    'sabado',
-    'domingo',
-  ];
-  const platos: string[] = [];
-  let legumbresCocinadasSemana = new Set<string>();
-  let ultimoIndiceDia = -1;
-
-  menu.forEach((dia) => {
-    const indiceActual = dias.indexOf(normalizar(dia.dia));
-    if (
-      indiceActual === 0 ||
-      (indiceActual >= 0 && ultimoIndiceDia >= 0 && indiceActual <= ultimoIndiceDia)
-    ) {
-      legumbresCocinadasSemana = new Set<string>();
-    }
-    if (indiceActual >= 0) ultimoIndiceDia = indiceActual;
-
-    [...dia.comida, ...dia.cena].forEach((plato) => {
-      if (!esLegumbreCocinada(plato)) {
-        platos.push(plato);
-        return;
-      }
-
-      const clave = normalizar(plato);
-      if (legumbresCocinadasSemana.has(clave)) return;
-      legumbresCocinadasSemana.add(clave);
-      platos.push(plato);
-    });
-  });
-
-  return platos;
+  return menu.flatMap((dia) => [...dia.comida, ...dia.cena]);
 }
