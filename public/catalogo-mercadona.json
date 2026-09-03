@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-02T09:21:50.933Z",
+  "actualizado": "2026-09-03T09:52:25.053Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4290,
+  "totalProductos": 4293,
   "productos": [
     {
       "productoId": "3505.2",
@@ -487,8 +487,8 @@
     {
       "productoId": "4193",
       "nombre": "Aceite de coco virgen Hacendado",
-      "precio": 5.25,
-      "precioReferencia": 11.667,
+      "precio": 5.1,
+      "precioReferencia": 11.334,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.45,
@@ -535,8 +535,8 @@
     {
       "productoId": "4241",
       "nombre": "Aceite de oliva 0,4º Hacendado",
-      "precio": 17.75,
-      "precioReferencia": 3.55,
+      "precio": 17.25,
+      "precioReferencia": 3.45,
       "formato": "Garrafa",
       "unidadesTotales": 0,
       "tamañoUnidad": 5,
@@ -551,8 +551,8 @@
     {
       "productoId": "4240",
       "nombre": "Aceite de oliva 0,4º Hacendado",
-      "precio": 3.8,
-      "precioReferencia": 3.8,
+      "precio": 3.7,
+      "precioReferencia": 3.7,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -567,8 +567,8 @@
     {
       "productoId": "4641",
       "nombre": "Aceite de oliva 1º Hacendado",
-      "precio": 17.75,
-      "precioReferencia": 3.55,
+      "precio": 17.25,
+      "precioReferencia": 3.45,
       "formato": "Garrafa",
       "unidadesTotales": 0,
       "tamañoUnidad": 5,
@@ -583,8 +583,8 @@
     {
       "productoId": "4640",
       "nombre": "Aceite de oliva 1º Hacendado",
-      "precio": 4,
-      "precioReferencia": 4,
+      "precio": 3.9,
+      "precioReferencia": 3.9,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -599,8 +599,8 @@
     {
       "productoId": "4717",
       "nombre": "Aceite de oliva virgen extra Hacendado",
-      "precio": 13.55,
-      "precioReferencia": 4.517,
+      "precio": 12.8,
+      "precioReferencia": 4.267,
       "formato": "Garrafa",
       "unidadesTotales": 0,
       "tamañoUnidad": 3,
@@ -615,8 +615,8 @@
     {
       "productoId": "4740",
       "nombre": "Aceite de oliva virgen extra Hacendado",
-      "precio": 4.7,
-      "precioReferencia": 4.7,
+      "precio": 4.45,
+      "precioReferencia": 4.45,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -647,8 +647,8 @@
     {
       "productoId": "4706",
       "nombre": "Aceite de oliva virgen extra Hacendado Gran Selección",
-      "precio": 5.75,
-      "precioReferencia": 7.667,
+      "precio": 5.5,
+      "precioReferencia": 7.334,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.75,
@@ -679,8 +679,8 @@
     {
       "productoId": "4711",
       "nombre": "Aceite de oliva virgen Hacendado",
-      "precio": 12,
-      "precioReferencia": 4,
+      "precio": 11.65,
+      "precioReferencia": 3.884,
       "formato": "Garrafa",
       "unidadesTotales": 0,
       "tamañoUnidad": 3,
@@ -695,8 +695,8 @@
     {
       "productoId": "4749",
       "nombre": "Aceite de oliva virgen Hacendado",
-      "precio": 4.2,
-      "precioReferencia": 4.2,
+      "precio": 4.1,
+      "precioReferencia": 4.1,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -992,7 +992,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Aceitunas verdes",
-      "imagen": "https://prod-mercadona.imgix.net/images/5c5c1e3a579e445bb5d1d5df540b7799.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5c5c1e3a579e445bb5d1d5df540b7799.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12764/aceitunas-verdes-rellenas-anchoa-hacendado-seleccion-bote",
       "disponible": true
     },
@@ -1506,6 +1506,22 @@
       "subcategoria": "Planchado",
       "imagen": "https://prod-mercadona.imgix.net/images/97a14ac137b896e603ef688f2efccd6d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/90505/agua-destilada-bosque-verde-garrafa",
+      "disponible": true
+    },
+    {
+      "productoId": "76465",
+      "nombre": "Agua facial de avena Deliplus",
+      "precio": 2.8,
+      "precioReferencia": 0.934,
+      "formato": "Spray",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Limpieza de cara",
+      "imagen": "https://prod-mercadona.imgix.net/images/d86e8ed6326085f3d1aa071e6443e62c.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/76465/agua-facial-avena-deliplus-piel-sensible-spray",
       "disponible": true
     },
     {
@@ -2368,7 +2384,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/c57822e42dafc3bcab953b8755a6a40f.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a18819c9d1c610de0d565467c8bcfb80.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/25184/alas-pollo-congeladas-paquete",
       "disponible": true
     },
@@ -7815,8 +7831,8 @@
     {
       "productoId": "20738",
       "nombre": "Bebida láctea natural Actimel",
-      "precio": 4.95,
-      "precioReferencia": 4.125,
+      "precio": 5.99,
+      "precioReferencia": 4.992,
       "formato": "mini botellas",
       "unidadesTotales": 12,
       "tamañoUnidad": 1.2,
@@ -7831,8 +7847,8 @@
     {
       "productoId": "20709",
       "nombre": "Bebida láctea natural Actimel 0% MG 0% azúcares añadidos",
-      "precio": 4.95,
-      "precioReferencia": 4.125,
+      "precio": 5.99,
+      "precioReferencia": 4.992,
       "formato": "mini botellas",
       "unidadesTotales": 12,
       "tamañoUnidad": 1.2,
@@ -8293,6 +8309,22 @@
       "disponible": true
     },
     {
+      "productoId": "18564",
+      "nombre": "Berberechos al natural M Hacendado",
+      "precio": 4.65,
+      "precioReferencia": 73.81,
+      "formato": "Lata",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.111,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Berberechos y almejas",
+      "imagen": "https://prod-mercadona.imgix.net/images/5ac7a5163fa070f58948cd8df4b012f7.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18564/berberechos-natural-m-hacendado-45-65-piezas-lata",
+      "disponible": true
+    },
+    {
       "productoId": "18553",
       "nombre": "Berberechos al natural S Hacendado",
       "precio": 3.25,
@@ -8647,8 +8679,8 @@
     {
       "productoId": "23476",
       "nombre": "Bífidus natural edulcorado probióticos Activia 0% MG 0% azúcares añadidos",
-      "precio": 3.99,
-      "precioReferencia": 4.157,
+      "precio": 3.3,
+      "precioReferencia": 3.438,
       "formato": "ud.",
       "unidadesTotales": 8,
       "tamañoUnidad": 0.96,
@@ -8663,8 +8695,8 @@
     {
       "productoId": "23477",
       "nombre": "Bífidus natural probióticos Activia 0% MG  0% azúcares añadidos",
-      "precio": 3.99,
-      "precioReferencia": 4.157,
+      "precio": 3.3,
+      "precioReferencia": 3.438,
       "formato": "ud.",
       "unidadesTotales": 8,
       "tamañoUnidad": 0.96,
@@ -9735,8 +9767,8 @@
     {
       "productoId": "81661.2",
       "nombre": "Boquerón limpio sin cabeza",
-      "precio": 1.39,
-      "precioReferencia": 6.95,
+      "precio": 1.19,
+      "precioReferencia": 5.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -13061,22 +13093,6 @@
       "disponible": true
     },
     {
-      "productoId": "69286",
-      "nombre": "Cebollino",
-      "precio": 1.8,
-      "precioReferencia": 9,
-      "formato": "Bandeja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.02,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Hierbas aromáticas",
-      "imagen": "https://prod-mercadona.imgix.net/images/74d6a5a6384c61a7cea9e4e129ceab35.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/69286/cebollino-bandeja",
-      "disponible": true
-    },
-    {
       "productoId": "33141",
       "nombre": "Cebollitas Hacendado",
       "precio": 1.65,
@@ -13712,7 +13728,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Cerveza botella y botellín",
-      "imagen": "https://prod-mercadona.imgix.net/images/4e7260d7e92c0b7666953d09cdfdac5c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/42eb80010f887f006c33723cb26cb36c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9776/cerveza-00-sin-alcohol-aguila-sin-filtrar-pack-6",
       "disponible": true
     },
@@ -14311,8 +14327,8 @@
     {
       "productoId": "28078",
       "nombre": "Cerveza especial Keler",
-      "precio": 7.8,
-      "precioReferencia": 1.97,
+      "precio": 9.6,
+      "precioReferencia": 2.425,
       "formato": "latas",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -14327,8 +14343,8 @@
     {
       "productoId": "27981",
       "nombre": "Cerveza especial Keler",
-      "precio": 0.68,
-      "precioReferencia": 2.061,
+      "precio": 0.84,
+      "precioReferencia": 2.546,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -15047,8 +15063,8 @@
     {
       "productoId": "35397",
       "nombre": "Champú anticaspa Citric Ultrex cabello graso",
-      "precio": 2.5,
-      "precioReferencia": 0.695,
+      "precio": 2,
+      "precioReferencia": 0.556,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.36,
@@ -15095,8 +15111,8 @@
     {
       "productoId": "35398",
       "nombre": "Champú anticaspa Menthol Ultrex todo tipo de cabello",
-      "precio": 2.5,
-      "precioReferencia": 0.695,
+      "precio": 2,
+      "precioReferencia": 0.556,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.36,
@@ -15479,8 +15495,8 @@
     {
       "productoId": "35399",
       "nombre": "Champú y acondicionador anticaspa Classic 2 en 1 Ultrex todo tipo de cabello",
-      "precio": 2.5,
-      "precioReferencia": 0.695,
+      "precio": 2,
+      "precioReferencia": 0.556,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.36,
@@ -19029,22 +19045,6 @@
       "disponible": true
     },
     {
-      "productoId": "12819",
-      "nombre": "Colorete fluido Blush mate Deliplus 01 rosa amarronado",
-      "precio": 4.75,
-      "precioReferencia": 4.75,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.012,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Colorete",
-      "imagen": "https://prod-mercadona.imgix.net/images/a5737208a20e4ace5c47b1e315b0e959.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/12819/colorete-fluido-blush-mate-deliplus-01-rosa-amarronado",
-      "disponible": true
-    },
-    {
       "productoId": "12825",
       "nombre": "Colorete fluido Blush mate Deliplus 02 coral",
       "precio": 4.75,
@@ -19696,7 +19696,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Compresas",
-      "imagen": "https://prod-mercadona.imgix.net/images/d831578a8febd2bbe0211cb1501eca19.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/c9ec3d1b512e4c455b0c827b41f1ac04.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86450/compresa-con-alas-super-deliplus-cotton-paquete",
       "disponible": true
     },
@@ -19719,8 +19719,8 @@
     {
       "productoId": "47010",
       "nombre": "Compresa de incontinencia hombre Tena Men",
-      "precio": 5,
-      "precioReferencia": 0.5,
+      "precio": 4.9,
+      "precioReferencia": 0.49,
       "formato": "Caja",
       "unidadesTotales": 10,
       "tamañoUnidad": 1,
@@ -21221,8 +21221,8 @@
       "disponible": true
     },
     {
-      "productoId": "35799",
-      "nombre": "Crema de manos nutritiva Karité Deliplus",
+      "productoId": "18299",
+      "nombre": "Crema de manos nutritiva Murumuru Deliplus FPS 20",
       "precio": 1.3,
       "precioReferencia": 1.734,
       "formato": "Bote",
@@ -21232,8 +21232,8 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Crema manos",
-      "imagen": "https://prod-mercadona.imgix.net/images/8f73f00a3f08f6409f570fd38b1f6c17.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35799/crema-manos-nutritiva-deliplus-bote",
+      "imagen": "https://prod-mercadona.imgix.net/images/d0079c63e2a8a2489ed9a375e439f049.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18299/crema-manos-nutritiva-murumuru-deliplus-fps-20-bote",
       "disponible": true
     },
     {
@@ -26848,7 +26848,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Espuma de afeitar",
-      "imagen": "https://prod-mercadona.imgix.net/images/75ec8ba19f4b81fd470dfb084ddbed17.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/75ec8ba19f4b81fd470dfb084ddbed17.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52770/espuma-afeitar-sensitive-deliplus-manteca-cacao-bote",
       "disponible": true
     },
@@ -27416,7 +27416,7 @@
       "productoId": "24350",
       "nombre": "Filete de salmón rosado salvaje con piel Hacendado ultracongelado",
       "precio": 4.05,
-      "precioReferencia": 45,
+      "precioReferencia": 13.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0,
@@ -34437,6 +34437,22 @@
       "disponible": true
     },
     {
+      "productoId": "17798",
+      "nombre": "Jamón de cebo ibérico 50% raza ibérica La Hacienda del Ibérico lonchas",
+      "precio": 2.4,
+      "precioReferencia": 48,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.05,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Jamón serrano",
+      "imagen": "https://prod-mercadona.imgix.net/images/d38a7543650a2ad490363c999ce73574.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17798/jamon-cebo-iberico-50-raza-iberica-hacienda-iberico-lonchas-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "8494",
       "nombre": "Jamón de cebo ibérico cortado a máquina",
       "precio": 10.26,
@@ -34514,6 +34530,22 @@
       "subcategoria": "Jamón serrano",
       "imagen": "https://prod-mercadona.imgix.net/images/e325c7bd569216ce515866801e9fff28.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14374/jamon-serrano-artysan-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "17960",
+      "nombre": "Jamón serrano Artysan lonchas",
+      "precio": 1.1,
+      "precioReferencia": 22,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.05,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Jamón serrano",
+      "imagen": "https://prod-mercadona.imgix.net/images/4f2c7c91e14d6ed9fecd9a5534c23b34.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17960/jamon-serrano-artysan-lonchas-paquete",
       "disponible": true
     },
     {
@@ -34912,7 +34944,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Cepillo de dientes",
-      "imagen": "https://prod-mercadona.imgix.net/images/7d994d7f3cf408468695300fab972a86.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/453a310e1288d24fd5cab65276ca6687.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12818/kit-viaje-higiene-dental-deliplus-3-action-contiene-dentifrico-50-ml-cepillo-dental",
       "disponible": true
     },
@@ -35959,8 +35991,8 @@
     {
       "productoId": "11567",
       "nombre": "Leche corporal nutritiva Nivea con ácido hialurónico, aceite de almendras y sérum de nutrición profunda",
-      "precio": 4.95,
-      "precioReferencia": 1.238,
+      "precio": 4.35,
+      "precioReferencia": 1.088,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.4,
@@ -39296,7 +39328,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Frutos secos",
-      "imagen": "https://prod-mercadona.imgix.net/images/4486157c463721fce12a5de9a003f995.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4486157c463721fce12a5de9a003f995.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/34821/maiz-frito-crujiente-tierno-hacendado-paquete",
       "disponible": true
     },
@@ -41415,8 +41447,8 @@
     {
       "productoId": "35840",
       "nombre": "Mayonesa Hellmann's",
-      "precio": 2.95,
-      "precioReferencia": 6.556,
+      "precio": 2.65,
+      "precioReferencia": 5.889,
       "formato": "Tarro",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.45,
@@ -42023,8 +42055,8 @@
     {
       "productoId": "82610.1",
       "nombre": "Merluza a rodajas",
-      "precio": 14.39,
-      "precioReferencia": 11.5,
+      "precio": 13.14,
+      "precioReferencia": 10.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.251,
@@ -42039,8 +42071,8 @@
     {
       "productoId": "82610.2",
       "nombre": "Merluza abierta en libro sin cabeza y sin espina",
-      "precio": 14.39,
-      "precioReferencia": 11.5,
+      "precio": 13.14,
+      "precioReferencia": 10.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.251,
@@ -42087,8 +42119,8 @@
     {
       "productoId": "82610.4",
       "nombre": "Merluza media pieza a rodajas",
-      "precio": 9.43,
-      "precioReferencia": 11.5,
+      "precio": 8.61,
+      "precioReferencia": 10.5,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.82,
@@ -42103,8 +42135,8 @@
     {
       "productoId": "82610.5",
       "nombre": "Merluza media pieza abierta en libro sin cabeza y sin espina",
-      "precio": 8,
-      "precioReferencia": 11.5,
+      "precio": 7.31,
+      "precioReferencia": 10.5,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.696,
@@ -42119,8 +42151,8 @@
     {
       "productoId": "82610.6",
       "nombre": "Merluza media pieza sin aletas y sin escamas",
-      "precio": 8,
-      "precioReferencia": 11.5,
+      "precio": 7.31,
+      "precioReferencia": 10.5,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.696,
@@ -42151,8 +42183,8 @@
     {
       "productoId": "82610.3",
       "nombre": "Merluza sin aletas y sin escamas",
-      "precio": 14.39,
-      "precioReferencia": 11.5,
+      "precio": 13.14,
+      "precioReferencia": 10.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.251,
@@ -49749,6 +49781,22 @@
       "disponible": true
     },
     {
+      "productoId": "35359",
+      "nombre": "Perfilador de ojos Waterproof Deliplus 12 verde oliva",
+      "precio": 2.5,
+      "precioReferencia": 2.5,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Perfilador de ojos",
+      "imagen": "https://prod-mercadona.imgix.net/images/189153f9c09dd2a7855e6aa5b422f222.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/35359/perfilador-ojos-waterproof-deliplus-12-verde-oliva-con-esponja",
+      "disponible": true
+    },
+    {
       "productoId": "35360",
       "nombre": "Perfilador de ojos Waterproof Deliplus 13 gris",
       "precio": 2.5,
@@ -55616,7 +55664,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso curado",
-      "imagen": "https://prod-mercadona.imgix.net/images/e1fb896e7df26ef9bffed93ddca465e4.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9f938afe1634fae888d6d4412232507a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23965/queso-viejo-intenso-mezcla-hacendado-cortado-cunitas-pieza",
       "disponible": true
     },
@@ -56624,7 +56672,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Cola clásica",
-      "imagen": "https://prod-mercadona.imgix.net/images/9fbd0bec28094d9825eb01cc8aa60806.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/6be6ff61c7d2393a5ed9bbcf74e2e836.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/27321/refresco-coca-cola-pack-12",
       "disponible": true
     },
@@ -56688,7 +56736,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Cola zero",
-      "imagen": "https://prod-mercadona.imgix.net/images/0557fbb5328fa0b9a406c1e7e53942a2.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4139a29cb205b5166c8160977b44c0e0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/27426/refresco-coca-cola-zero-azucar-pack-12",
       "disponible": true
     },
@@ -59392,7 +59440,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Amoníaco y salfumán",
-      "imagen": "https://prod-mercadona.imgix.net/images/b0a309302f5058d36ffb4801a28edb06.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8f5851c54712ef913ead1d6aa70c4134.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43810/salfumant-bosque-verde-botella",
       "disponible": true
     },
@@ -61202,22 +61250,6 @@
       "subcategoria": "Sidra",
       "imagen": "https://prod-mercadona.imgix.net/images/d2d7bf470bc0aa1bdadd328cc39433fe.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/28515/sidra-asturiana-mayu-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "23863",
-      "nombre": "Sidra asturiana El Mayu",
-      "precio": 12,
-      "precioReferencia": 4,
-      "formato": "Pack-12",
-      "unidadesTotales": 12,
-      "tamañoUnidad": 3,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Sidra",
-      "imagen": "https://prod-mercadona.imgix.net/images/95a9b59aacee76b1f1ed623a361c6abe.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23863/sidra-asturiana-mayu-pack-12",
       "disponible": true
     },
     {
@@ -64208,7 +64240,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Limpiacristales",
-      "imagen": "https://prod-mercadona.imgix.net/images/ecae45d1232c42803836d9790983b525.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/1851c0c000fb715776e5e05718df83ee.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43088/toallitas-limpiagafas-bosque-verde-monodosis-perfumadas-caja",
       "disponible": true
     },
@@ -66160,7 +66192,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Ambientador decorativo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/3f2bd19a2f0462a3098bbb90b0c2db1b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8b7373c06666069a1c140f95ad1024a0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14719/vela-perfumada-matcha-bosque-verde-caja",
       "disponible": true
     },
@@ -67445,6 +67477,22 @@
       "disponible": true
     },
     {
+      "productoId": "28822",
+      "nombre": "Vodka Knebep",
+      "precio": 6.7,
+      "precioReferencia": 6.7,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Bodega",
+      "subcategoria": "Vodka",
+      "imagen": "https://prod-mercadona.imgix.net/images/72b7a2d0d05a532e58d025118556ebbd.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/28822/vodka-knebep-botella",
+      "disponible": true
+    },
+    {
       "productoId": "17951",
       "nombre": "Volcano con crema y coco",
       "precio": 0.33,
@@ -67456,7 +67504,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Pastelitos surtidos",
-      "imagen": "https://prod-mercadona.imgix.net/images/b47b2ebfd2a9e5fb551c25adc771f15e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/58fae27bce0a079b5029ccd13c22c2c9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17951/volcano-con-crema-coco",
       "disponible": true
     },
@@ -67584,7 +67632,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Verdura",
-      "imagen": "https://prod-mercadona.imgix.net/images/692bb6c733e3fbef831537eed3d2630a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8fe580eea105d0d86cd80d57477d83fa.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11617/wok-verduras-hacendado-ultracongelado-paquete",
       "disponible": true
     },
