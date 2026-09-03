@@ -29,8 +29,8 @@ const FORMATOS_COMERCIALES_ESPECIALES: Record<string, ReglaFormatoComercial> = {
     ingredientes: ['salchichas'],
     unidadesPorEnvase: 4,
   },
-  // Pan de burger Hacendado: paquete de cuatro unidades.
-  '82331': {
+  // Maxi pan de burger Hacendado: paquete de cuatro unidades.
+  '13803': {
     ingredientes: ['pan de hamburguesa'],
     unidadesPorEnvase: 4,
   },
