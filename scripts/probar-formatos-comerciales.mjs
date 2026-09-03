@@ -88,8 +88,8 @@ function comprobar(
 
 comprobar('53143', 'Salchichas', 4, 1, 1);
 comprobar('53143', 'Salchichas', 8, 2, 2);
-comprobar('82331', 'Pan de hamburguesa', 4, 1, 1);
-comprobar('82331', 'Pan de hamburguesa', 8, 2, 2);
+comprobar('13803', 'Pan de hamburguesa', 4, 1, 1);
+comprobar('13803', 'Pan de hamburguesa', 8, 2, 2);
 comprobar('82332', 'Pan de perrito', 4, 1, 4 / 6);
 comprobar('82332', 'Pan de perrito', 8, 2, 8 / 6);
 comprobar('82332', 'Pan de perrito', 12, 2, 2);
@@ -202,9 +202,9 @@ globalThis.fetch = async () => ({
     return {
       productos: [
         {
-          productoId: '82331',
-          nombre: 'Pan de burger Hacendado',
-          precio: 0.95,
+          productoId: '13803',
+          nombre: 'Maxi pan de burger Hacendado',
+          precio: 0.85,
           formato: 'Paquete',
           unidadesTotales: 4,
           disponible: true,
@@ -282,7 +282,7 @@ await repararAsociacionesIngredientes([
 
 const asociacionesReparadas = cargarAsociacionesIngredientes();
 if (
-  asociacionesReparadas['Pan de hamburguesa'] !== '82331' ||
+  asociacionesReparadas['Pan de hamburguesa'] !== '13803' ||
   asociacionesReparadas['Pan de perrito'] !== '82332' ||
   asociacionesReparadas['Ajo en polvo'] !== '86656' ||
   asociacionesReparadas.Bacon !== '16252' ||
