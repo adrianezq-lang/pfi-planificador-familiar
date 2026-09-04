@@ -47,8 +47,8 @@ function normalizarAsociaciones(valor: unknown): AsociacionesIngredientes {
     Object.entries(candidato)
       .filter(([ingrediente, productoId]) =>
         ingrediente.trim().length > 0 &&
-        typeof productoId === 'string' &&
-        productoId.trim().length > 0,
+        (typeof productoId === 'string' || typeof productoId === 'number') &&
+        String(productoId).trim().length > 0,
       )
       .map(([ingrediente, productoId]) => [ingrediente, String(productoId)]),
   );
@@ -227,7 +227,7 @@ function extraerAsociacionesDesdeObjeto(
     if (Object.keys(asociaciones).length > 0) encontradas.push(asociaciones);
   }
 
-  ['localStorage', 'datos', 'data', 'backup', 'copia', 'contenido'].forEach((clave) => {
+  ['localStorage', 'claves', 'datos', 'data', 'backup', 'copia', 'contenido'].forEach((clave) => {
     if (clave in valor) {
       encontradas.push(...extraerAsociacionesDesdeObjeto(valor[clave], profundidad + 1));
     }
@@ -253,12 +253,16 @@ export function importarCopiaAsociaciones(texto: string): number {
   }
 
   preservarCopiasAsociacionesExistentes();
-  const recuperadas: AsociacionesIngredientes = {};
+  const importadas: AsociacionesIngredientes = {};
   candidatas.forEach((asociaciones) => {
     Object.entries(asociaciones).forEach(([ingrediente, productoId]) => {
-      if (!recuperadas[ingrediente]) recuperadas[ingrediente] = productoId;
+      if (!importadas[ingrediente]) importadas[ingrediente] = productoId;
     });
   });
+  const recuperadas = {
+    ...leerClave(CLAVE_ACTUAL),
+    ...importadas,
+  };
 
   guardarSnapshot(recuperadas, 'copia importada');
   guardarAsociacionesIngredientes(recuperadas);

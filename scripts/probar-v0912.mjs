@@ -52,12 +52,12 @@ const resultado = aplicarConfiguracionPostresAlPlan(plan, {
 const semana = resultado[0].menu;
 
 const esperados = [
-  ['Fruta variada', 'Tarta de queso'],
-  ['Flan', 'Yogur natural'],
-  ['Fruta variada', 'Arroz con leche'],
-  ['Tarta de queso', 'Yogur natural'],
-  ['Fruta variada', 'Flan'],
-  ['Arroz con leche', 'Yogur natural'],
+  ['Tarta de queso', 'Sin postre'],
+  ['Flan', 'Sin postre'],
+  ['Arroz con leche', 'Sin postre'],
+  ['Tarta de queso', 'Sin postre'],
+  ['Flan', 'Sin postre'],
+  ['Arroz con leche', 'Sin postre'],
   ['Sin postre', 'Sin postre'],
 ];
 
@@ -129,6 +129,6 @@ if (ORDEN_SECCIONES_COMPRA[0] !== 'Fruta y Verdura') {
 }
 
 
-console.log('✓ postres del recetario intercalados con fruta y yogur');
+console.log('✓ configuración antigua migrada sin inventar fruta ni yogur');
 console.log('✓ domingos editables sin perder la excepción manual');
 console.log('✓ compra agrupada y ordenada por categorías reales');

@@ -31,6 +31,10 @@ const recetasPostre = [
     ingredientes: [{ nombre: 'Manzanas', cantidad: 4, unidad: 'ud', seccion: 'Fruta y verdura' }],
   },
   {
+    nombre: 'Fruta variada', categoria: 'Postres', tipo: 'postre',
+    ingredientes: [{ nombre: 'Fruta variada', cantidad: 4, unidad: 'ud', seccion: 'Fruta y verdura' }],
+  },
+  {
     nombre: 'Yogur natural', categoria: 'Postres', tipo: 'postre',
     ingredientes: [{ nombre: 'Yogures naturales', cantidad: 4, unidad: 'ud', seccion: 'Lácteos y huevos' }],
   },

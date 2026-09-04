@@ -1,3 +1,13 @@
+# v0.9.17 — Rescate JSON estable
+
+- El importador reconoce ahora el bloque `claves` del diagnóstico que exporta el propio PFI.
+- Una copia importada se combina con las asociaciones locales y ya no elimina vínculos adicionales.
+- La reparación queda idempotente: no vuelve a recuperar el alias genérico `Pollo`, no reemite eventos sin cambios y deja de provocar un bucle de sincronización.
+- Se restauran automáticamente los productos verificados del recetario y las elecciones recuperadas de patatas, cebolla, zanahorias, almejas y mayonesa ligera.
+- La rotación de postres usa las frutas concretas del recetario y omite `Fruta variada` cuando existen alternativas específicas.
+- El diagnóstico incluye también la configuración local de postres.
+- Nueva prueba de regresión que reproduce la estructura real del JSON de rescate y verifica una segunda reparación sin cambios.
+
 # v0.9.16 — Calendario, excepciones y cantidades reales
 
 - La compra mensual cuenta únicamente los días que pertenecen realmente al mes, también en las semanas parciales.

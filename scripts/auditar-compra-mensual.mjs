@@ -37,6 +37,11 @@ const {
 } = await vite.ssrLoadModule('/src/services/reglasMenuMensual.ts');
 const { normalizarPerfil } = await vite.ssrLoadModule('/src/services/perfil.ts');
 const { generarListaCompra } = await vite.ssrLoadModule('/src/services/listaCompra.ts');
+const { cargarRecetas } = await vite.ssrLoadModule('/src/services/recetas.ts');
+const {
+  aplicarConfiguracionPostresAlPlan,
+  crearConfiguracionPostresDesdeRecetas,
+} = await vite.ssrLoadModule('/src/services/postres.ts');
 
 const perfil = normalizarPerfil({
   nombre: 'Familia PFI',
@@ -50,8 +55,11 @@ const perfil = normalizarPerfil({
 });
 localStorage.setItem('pfi-perfil', JSON.stringify(perfil));
 
-const plan = aplicarVariedadPastas(
-  aplicarRepeticionLegumbres(structuredClone(menuMensualInicial)),
+const plan = aplicarConfiguracionPostresAlPlan(
+  aplicarVariedadPastas(
+    aplicarRepeticionLegumbres(structuredClone(menuMensualInicial)),
+  ),
+  crearConfiguracionPostresDesdeRecetas(cargarRecetas()),
 );
 const menuMes = plan.flatMap((semana) => semana.menu);
 const compra = generarListaCompra(menuMes);
@@ -101,6 +109,15 @@ exigirExacto('Alubias rojas secas', 750, 'g');
 exigirExacto('Nata para cocinar', 1.5, 'brick');
 exigirExacto('Queso roquefort', 4.5, 'ud');
 
+if (compra.some((item) => normalizar(item.nombre) === 'fruta variada')) {
+  throw new Error('La compra mensual usa Fruta variada pese a existir recetas de fruta concretas.');
+}
+for (const fruta of ['Media sandía', 'Plátanos', 'Manzanas', 'Peras', 'Naranjas']) {
+  if (!obtener(fruta)) {
+    throw new Error(`La rotación mensual de postres no incluye ${fruta}.`);
+  }
+}
+
 if (compra.some((item) => normalizar(item.nombre) === 'pollo')) {
   throw new Error('La compra mensual ha vuelto a generar el ingrediente genérico Pollo.');
 }
@@ -147,7 +164,6 @@ globalThis.fetch = async () => ({
 const { asegurarAsociacionesBasicas } = await vite.ssrLoadModule(
   '/src/services/asociacionesBasicas.ts',
 );
-const { cargarRecetas } = await vite.ssrLoadModule('/src/services/recetas.ts');
 const {
   repararAsociacionesIngredientes,
   ASOCIACIONES_SEGURAS_POR_DEFECTO,

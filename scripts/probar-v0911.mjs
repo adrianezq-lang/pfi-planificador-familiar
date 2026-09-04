@@ -53,20 +53,20 @@ function comprobar(valor, esperado, mensaje) {
 }
 
 const semana1 = resultado[0].menu;
-comprobar(semana1[0].postreComidaReceta, 'Fruta variada', 'El lunes al mediodía debe llevar fruta');
-comprobar(semana1[0].postreCenaReceta, 'Tarta de queso', 'El lunes por la noche debe llevar yogur');
+comprobar(semana1[0].postreComidaReceta, 'Tarta de queso', 'El lunes debe usar el primer postre antiguo');
+comprobar(semana1[0].postreCenaReceta, 'Sin postre', 'Sin yogur configurado, la cena debe quedar vacía');
 comprobar(semana1[1].postreComidaReceta, 'Arroz con leche', 'El martes debe continuar la rotación del recetario');
-comprobar(semana1[1].postreCenaReceta, 'Yogur natural', 'La cena del martes debe volver al yogur base');
-comprobar(semana1[2].postreComidaReceta, 'Fruta variada', 'El miércoles debe volver a la fruta base');
-comprobar(semana1[2].postreCenaReceta, 'Flan', 'El miércoles por la noche debe usar el siguiente postre del recetario');
+comprobar(semana1[1].postreCenaReceta, 'Sin postre', 'La cena no debe inventar un yogur inexistente');
+comprobar(semana1[2].postreComidaReceta, 'Flan', 'El miércoles debe usar el tercer postre antiguo');
+comprobar(semana1[2].postreCenaReceta, 'Sin postre', 'La cena debe seguir sin postre configurado');
 comprobar(semana1[6].postreComidaReceta, 'Sin postre', 'El domingo debe quedar sin postre en la comida');
 comprobar(semana1[6].postreCenaReceta, 'Sin postre', 'El domingo debe quedar sin postre en la cena');
 
 const semana2 = resultado[1].menu;
-comprobar(semana2[0].postreComidaReceta, 'Fruta variada', 'Cada semana debe empezar con fruta en la comida');
-comprobar(semana2[0].postreCenaReceta, 'Tarta de queso', 'Cada semana debe intercalar el recetario en la cena del lunes');
+comprobar(semana2[0].postreComidaReceta, 'Tarta de queso', 'Cada semana debe reiniciar la rotación antigua');
+comprobar(semana2[0].postreCenaReceta, 'Sin postre', 'Cada semana debe mantener vacía la cena');
 
-console.log('✓ fruta/yogur alternan con los postres del recetario');
+console.log('✓ la configuración antigua se migra sin inventar fruta ni yogur');
 console.log('✓ los domingos quedan sin postre por defecto');
 console.log('✓ la alternancia semanal se reinicia correctamente');
 
@@ -139,4 +139,3 @@ if (repetidos !== 0) {
   throw new Error('La sincronización está duplicando productos de despensa.');
 }
 console.log('✓ los productos asociados a recetas pasan a la despensa sin duplicados');
-

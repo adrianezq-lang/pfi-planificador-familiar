@@ -51,15 +51,18 @@
   },
   {
     "ingrediente": "Patatas",
-    "buscar": "patata malla"
+    "buscar": "patata malla",
+    "productoId": "69099"
   },
   {
     "ingrediente": "Cebolla",
-    "buscar": "cebolla malla"
+    "buscar": "cebolla malla",
+    "productoId": "69089"
   },
   {
     "ingrediente": "Zanahorias",
-    "buscar": "zanahoria bolsa"
+    "buscar": "zanahoria bolsa",
+    "productoId": "69586"
   },
   {
     "ingrediente": "Calabacín",
@@ -138,7 +141,8 @@
   },
   {
     "ingrediente": "Almejas",
-    "buscar": "almeja fresca malla"
+    "buscar": "almeja Hacendado congelada",
+    "productoId": "60874"
   },
   {
     "ingrediente": "Garbanzos cocidos",
@@ -237,7 +241,8 @@
   },
   {
     "ingrediente": "Mayonesa",
-    "buscar": "mayonesa light Hacendado"
+    "buscar": "salsa light Hacendado",
+    "productoId": "15793"
   },
   {
     "ingrediente": "Ketchup",

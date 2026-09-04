@@ -29,37 +29,86 @@ const NOMBRES_RECUPERACION_CONOCIDOS: Record<string, string[]> = {
   ajo: ['ajos morados'],
 };
 
+const INGREDIENTES_NO_RECUPERABLES_AUTOMATICAMENTE = new Set([
+  'pollo',
+]);
+
 /**
  * Defaults muy conservadores, verificados contra el catálogo. Solo se aplican
  * cuando el ingrediente no tiene ya una asociación válida elegida por el usuario.
  * Si un SKU no existe en el catálogo de la zona actual, no se fuerza.
  */
 export const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
-  'Tortillas de trigo': '80859',
-  'Pechugas de pollo': '3724',
-  'Tomate para pizza': '17108',
-  Morcillo: '13741',
-  'Garbanzos secos': '5214',
+  Aceitunas: '12764',
+  Ajo: '69297',
+  'Ajo en polvo': '86656',
+  Almejas: '60874',
   'Alubias blancas secas': '5124',
   'Alubias rojas secas': '67609',
-  'Mozzarella rallada': '51110',
+  Arroz: '5044',
+  Atún: '18055',
+  Bacalao: '87211',
+  Bacon: '16252',
+  'Bases de pizza': '63648',
+  Calabacín: '69338',
+  Calabaza: '69853',
+  'Carne picada': '2869',
+  Cebolla: '69089',
+  Chorizo: '23145',
+  Dorada: '81234.1',
+  Espaguetis: '6245',
+  'Filetes de ternera': '8936',
+  'Garbanzos cocidos': '26029',
+  'Garbanzos secos': '5214',
+  Guacamole: '3840',
   Hamburguesas: '2873',
-  'Salmón': '87204',
+  Huevos: '30167',
+  'Jamón cocido': '16395',
+  Ketchup: '23579',
+  Leche: '10380',
+  'Lentejas secas': '5330',
+  Lomo: '3395',
+  Lubina: '81241.1',
+  Manzanas: '3269',
+  Mayonesa: '15793',
+  'Media sandía': '3505.1',
+  'Mezcla cuatro quesos': '21581',
+  Morcillo: '13741',
+  Mostaza: '23410',
+  'Mozzarella rallada': '51110',
+  Nachos: '33640',
+  Naranjas: '3277',
+  'Nata para cocinar': '10199',
   'Pan de hamburguesa': '13803',
   'Pan de perrito': '82332',
-  'Ajo en polvo': '86656',
-  'Atún': '18055',
-  Huevos: '30167',
-  'Queso en lonchas': '50545',
-  'Bases de pizza': '63648',
-  Bacon: '16252',
-  'Tomate frito': '17132',
-  'Salsa BBQ': '17346',
-  Ketchup: '23579',
-  Mostaza: '23410',
-  'Salsa yogur': '17327',
+  'Pasta corta': '6250',
+  Patatas: '69099',
+  Peras: '14470',
+  'Pechugas de pavo fileteadas': '2794',
+  'Pechugas de pollo': '3724',
+  Pepino: '69584',
   'Pimentón dulce': '60573',
   'Pimentón picante': '34183',
+  'Pimiento rojo': '69310',
+  'Pimiento tricolor': '69495',
+  Plátanos: '3824',
+  'Pollo entero': '2781',
+  'Pollo para arroz': '3724',
+  'Queso curado': '50965',
+  'Queso en lonchas': '50545',
+  'Queso rallado': '23621',
+  'Queso roquefort': '86276',
+  Salchichas: '53143',
+  Salmón: '87204',
+  'Salsa BBQ': '17346',
+  'Salsa yogur': '17327',
+  Tomate: '69968',
+  'Tomate frito': '17132',
+  'Tomate para pizza': '17108',
+  'Tomate triturado': '16043',
+  'Tortillas de trigo': '80859',
+  'Yogures naturales': '22313',
+  Zanahorias: '69586',
 };
 
 /**
@@ -433,16 +482,14 @@ function sanearAsociacionesConocidas(
   asociaciones: AsociacionesIngredientes,
   ingredientes: string[],
   idsCatalogo: Set<string>,
-): { asociaciones: AsociacionesIngredientes; cambios: number } {
+): AsociacionesIngredientes {
   const nuevas = { ...asociaciones };
   const ingredientesRecetario = new Set(ingredientes);
-  let cambios = 0;
 
   // El alias genérico Pollo acabó apuntando a cortes incompatibles. Las recetas
   // que lo necesitan ya se normalizan a cortes específicos antes de comprar.
   if (Object.prototype.hasOwnProperty.call(nuevas, 'Pollo')) {
     delete nuevas.Pollo;
-    cambios += 1;
   }
 
   Object.entries(IDS_INCOMPATIBLES_CONOCIDOS).forEach(
@@ -456,7 +503,6 @@ function sanearAsociacionesConocidas(
       } else {
         delete nuevas[ingrediente];
       }
-      cambios += 1;
     },
   );
 
@@ -471,11 +517,26 @@ function sanearAsociacionesConocidas(
       }
 
       nuevas[ingrediente] = productoId;
-      cambios += 1;
     },
   );
 
-  return { asociaciones: nuevas, cambios };
+  return nuevas;
+}
+
+function contarCambiosAsociaciones(
+  anteriores: AsociacionesIngredientes,
+  siguientes: AsociacionesIngredientes,
+): number {
+  const ingredientes = new Set([
+    ...Object.keys(anteriores),
+    ...Object.keys(siguientes),
+  ]);
+
+  return Array.from(ingredientes).reduce(
+    (total, ingrediente) =>
+      total + Number(anteriores[ingrediente] !== siguientes[ingrediente]),
+    0,
+  );
 }
 
 /**
@@ -511,15 +572,18 @@ export async function repararAsociacionesIngredientes(
   const despensaPorId = new Map(
     productosDespensa.map((producto) => [producto.productoId, producto]),
   );
-  const saneadas = sanearAsociacionesConocidas(
+  const nuevas = sanearAsociacionesConocidas(
     asociaciones,
     ingredientes,
     idsCatalogo,
   );
-  const nuevas = saneadas.asociaciones;
-  let recuperadas = saneadas.cambios;
 
   ingredientes.forEach((ingrediente) => {
+    const nombreNormalizado = normalizarTexto(ingrediente);
+    if (INGREDIENTES_NO_RECUPERABLES_AUTOMATICAMENTE.has(nombreNormalizado)) {
+      return;
+    }
+
     const productoIdActual = nuevas[ingrediente];
     if (productoIdActual && idsCatalogo.has(productoIdActual)) return;
 
@@ -554,7 +618,6 @@ export async function repararAsociacionesIngredientes(
     }
 
     if (!productoRecuperado) {
-      const nombreNormalizado = normalizarTexto(ingrediente);
       const exactas = productosPorNombre.get(nombreNormalizado) ?? [];
       const nombresConocidos = NOMBRES_RECUPERACION_CONOCIDOS[nombreNormalizado] ?? [];
       const conocidas = nombresConocidos.flatMap(
@@ -567,15 +630,27 @@ export async function repararAsociacionesIngredientes(
       }
     }
 
+    if (!productoRecuperado) {
+      const productoIdSeguro = ASOCIACIONES_SEGURAS_POR_DEFECTO[ingrediente];
+      if (productoIdSeguro && idsCatalogo.has(productoIdSeguro)) {
+        productoRecuperado = productosCatalogo.find(
+          (producto) => producto.productoId === productoIdSeguro,
+        );
+      }
+    }
+
     if (
       productoRecuperado &&
       productoRecuperado.productoId !== productoIdActual
     ) {
       nuevas[ingrediente] = productoRecuperado.productoId;
-      recuperadas += 1;
+      return;
     }
+
+    if (productoIdActual && !productoRecuperado) delete nuevas[ingrediente];
   });
 
-  if (recuperadas > 0) guardarAsociacionesIngredientes(nuevas);
-  return recuperadas;
+  const cambios = contarCambiosAsociaciones(asociaciones, nuevas);
+  if (cambios > 0) guardarAsociacionesIngredientes(nuevas);
+  return cambios;
 }

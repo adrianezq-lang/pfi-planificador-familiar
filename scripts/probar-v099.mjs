@@ -63,14 +63,14 @@ const postres = aplicarConfiguracionPostresAlPlan(plan, {
 });
 const semana1 = postres[0].menu;
 if (
-  semana1[0].postreComidaReceta !== 'Fruta variada' ||
+  semana1[0].postreComidaReceta !== 'Sandía' ||
   semana1[0].postreCenaReceta !== 'Yogur natural'
 ) {
   throw new Error('La configuración antigua no se migra al patrón base actual.');
 }
 if (
-  semana1[1].postreComidaReceta !== 'Sandía' ||
-  semana1[1].postreCenaReceta !== 'Plátano'
+  semana1[1].postreComidaReceta !== 'Plátano' ||
+  semana1[1].postreCenaReceta !== 'Yogur natural'
 ) {
   throw new Error('La configuración antigua no conserva la rotación de fruta y yogur.');
 }

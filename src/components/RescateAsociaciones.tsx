@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { cargarDespensa } from '../services/despensa';
 import { descargarDiagnosticoRescate } from '../services/diagnosticoRescate';
 import { cargarRecetas } from '../services/recetas';
@@ -22,13 +22,18 @@ export default function RescateAsociaciones() {
   );
   const productosDespensa = useMemo(() => cargarDespensa().length, []);
   const [revision, setRevision] = useState(0);
+  const [abierto, setAbierto] = useState(false);
   const [mensaje, setMensaje] = useState('');
   const [error, setError] = useState('');
-  void revision;
+  useEffect(() => {
+    preservarCopiasAsociacionesExistentes();
+    const estadoInicial = obtenerEstadoCopiasAsociaciones();
+    setAbierto(estadoInicial.mejor > estadoInicial.actuales);
+    setRevision((valor) => valor + 1);
+  }, []);
 
-  preservarCopiasAsociacionesExistentes();
+  void revision;
   const estado = obtenerEstadoCopiasAsociaciones();
-  const convieneAbrir = estado.actuales < totalIngredientes || estado.mejor > estado.actuales;
 
   const recuperar = () => {
     setError('');
@@ -69,7 +74,10 @@ export default function RescateAsociaciones() {
         boxShadow: '0 8px 24px rgba(55, 78, 58, 0.08)',
       }}
     >
-      <details open={convieneAbrir}>
+      <details
+        open={abierto}
+        onToggle={(evento) => setAbierto(evento.currentTarget.open)}
+      >
         <summary
           style={{
             cursor: 'pointer',

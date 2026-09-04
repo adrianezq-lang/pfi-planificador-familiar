@@ -138,9 +138,14 @@ export function crearConfiguracionPostresDesdeRecetas(
   const postres = recetas.filter(
     (receta) => receta.tipo === 'postre' || normalizarTexto(receta.categoria).includes('postre'),
   );
+  const frutas = postres.filter(contieneFruta);
+  const frutasEspecificas = frutas.filter(
+    (receta) => normalizarTexto(receta.nombre) !== 'fruta variada',
+  );
 
   return {
-    comida: postres.filter(contieneFruta).map((receta) => receta.nombre),
+    comida: (frutasEspecificas.length > 0 ? frutasEspecificas : frutas)
+      .map((receta) => receta.nombre),
     cena: postres.filter(contieneYogur).map((receta) => receta.nombre),
   };
 }

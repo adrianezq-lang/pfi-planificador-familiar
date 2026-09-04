@@ -28,6 +28,11 @@ const esperados = {
   'Dorada': '81234.1',
   'Bacalao': '87211',
   'Guacamole': '3840',
+  'Patatas': '69099',
+  'Cebolla': '69089',
+  'Zanahorias': '69586',
+  'Almejas': '60874',
+  'Mayonesa': '15793',
 };
 
 for (const [ingrediente, productoId] of Object.entries(esperados)) {
@@ -39,16 +44,6 @@ for (const [ingrediente, productoId] of Object.entries(esperados)) {
   }
 }
 
-for (const ingrediente of ['Patatas', 'Cebolla', 'Zanahorias', 'Almejas', 'Mayonesa']) {
-  const objetivo = porIngrediente.get(ingrediente);
-  if (!objetivo) {
-    throw new Error(`Falta el objetivo manual ${ingrediente}.`);
-  }
-  if (objetivo.productoId) {
-    throw new Error(`${ingrediente} debe seguir sin SKU forzado.`);
-  }
-}
-
 console.log('✓ el actualizador no usa Pollo genérico');
 console.log('✓ los frescos inequívocos usan SKU exacto');
-console.log('✓ los productos con formato/preferencia ambigua siguen manuales');
+console.log('✓ las cinco preferencias recuperadas del JSON usan su SKU exacto');

@@ -30,6 +30,9 @@ jobs:
       - name: Comprobar TypeScript
         run: npm run typecheck
 
+      - name: Comprobar el código
+        run: npm run lint
+
       - name: Probar calendario, excepciones y sobrantes
         run: npm run test:calendario
 
@@ -39,11 +42,17 @@ jobs:
       - name: Probar reglas del menú
         run: npm run test:reglas-menu
 
+      - name: Probar estructura del plan mensual
+        run: npm run test:menu-mensual
+
       - name: Auditar cantidades del mes completo
         run: npm run test:auditoria-mensual
 
       - name: Probar postres y asociaciones
         run: npm run test:v0913
+
+      - name: Probar importación y reparación del JSON de rescate
+        run: npm run test:rescate-json
 
       - name: Probar asociaciones básicas verificadas
         run: node --experimental-strip-types scripts/probar-asociaciones-basicas.mjs

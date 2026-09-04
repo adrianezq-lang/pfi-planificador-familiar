@@ -63,16 +63,16 @@ const postres = aplicarConfiguracionPostresAlPlan(plan, {
 });
 const semana1 = postres[0].menu;
 if (
-  semana1[0].postreComidaReceta !== 'Fruta variada' ||
-  semana1[0].postreCenaReceta !== 'Sandía'
+  semana1[0].postreComidaReceta !== 'Sandía' ||
+  semana1[0].postreCenaReceta !== 'Yogur natural'
 ) {
-  throw new Error('La fruta base no se está intercalando con el recetario.');
+  throw new Error('La configuración antigua no separa fruta y yogur.');
 }
 if (
   semana1[1].postreComidaReceta !== 'Plátano' ||
   semana1[1].postreCenaReceta !== 'Yogur natural'
 ) {
-  throw new Error('El yogur base no se está intercalando con el recetario.');
+  throw new Error('La configuración antigua no conserva la rotación de fruta.');
 }
 if (
   semana1[6].postreComidaReceta !== 'Sin postre' ||
@@ -80,4 +80,4 @@ if (
 ) {
   throw new Error('El domingo debe quedar sin postre por defecto.');
 }
-console.log('✓ la rotación mensual usa recetas de postre y respeta los domingos');
+console.log('✓ la configuración antigua separa fruta y yogur y respeta los domingos');

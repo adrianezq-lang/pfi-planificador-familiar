@@ -1,3 +1,5 @@
+import { createServer } from 'vite';
+
 class StorageMock {
   data = new Map();
   getItem(key) { return this.data.has(key) ? this.data.get(key) : null; }
@@ -9,16 +11,20 @@ globalThis.localStorage = new StorageMock();
 globalThis.window = { dispatchEvent() {} };
 globalThis.CustomEvent = class { constructor(type) { this.type = type; } };
 
-const datos = await import(
-  new URL('../src/data/MenuMensual.ts', import.meta.url).href
-);
-const planificador = await import(
-  new URL('../src/services/planMensual.ts', import.meta.url).href
-);
+const vite = await createServer({
+  configFile: false,
+  server: { middlewareMode: true },
+  appType: 'custom',
+});
+const datos = await vite.ssrLoadModule('/src/data/MenuMensual.ts');
+const planificador = await vite.ssrLoadModule('/src/services/planMensual.ts');
 
 const plan = planificador.copiarPlanMensual(datos.menuMensualInicial);
-if (plan.length !== 4 || plan.some((semana) => semana.menu.length !== 7)) {
-  throw new Error('El plan mensual no contiene cuatro semanas completas');
+if (
+  plan.length !== datos.menuMensualInicial.length ||
+  plan.some((semana) => semana.menu.length !== 7)
+) {
+  throw new Error('El plan mensual no conserva todas sus semanas completas');
 }
 
 plan.forEach((semana, indice) => {
@@ -30,10 +36,19 @@ plan.forEach((semana, indice) => {
   }
 
   const viernes = semana.menu.find((dia) => dia.dia === 'Viernes');
+  const sabado = semana.menu.find((dia) => dia.dia === 'Sábado');
   const domingo = semana.menu.find((dia) => dia.dia === 'Domingo');
-  const cenasViernes = new Set(['Hamburguesas', 'Perritos calientes', 'Kebab']);
-  if (!viernes?.cena.some((plato) => cenasViernes.has(plato))) {
-    throw new Error(`La semana ${indice + 1} no mantiene la rotación del viernes`);
+  const pizzasViernes = new Set(['Pizza jamón y queso', 'Pizza BBQ', 'Pizza 4 quesos']);
+  const cenasInformales = new Set(['Hamburguesas', 'Perritos calientes', 'Kebab']);
+  if (
+    !viernes ||
+    viernes.cena.length !== 2 ||
+    !viernes.cena.every((plato) => pizzasViernes.has(plato))
+  ) {
+    throw new Error(`La semana ${indice + 1} no mantiene las pizzas del viernes`);
+  }
+  if (!sabado?.cena.some((plato) => cenasInformales.has(plato))) {
+    throw new Error(`La semana ${indice + 1} no mantiene la rotación informal del sábado`);
   }
   if (!domingo?.comida.includes('Comemos fuera')) {
     throw new Error(`La semana ${indice + 1} no mantiene la comida fuera del domingo`);
@@ -61,7 +76,9 @@ plan.forEach((semana, indice) => {
   });
 });
 
-console.log('✓ cuatro semanas completas');
+console.log(`✓ ${plan.length} semanas completas`);
 console.log('✓ todas las semanas superan el 90% de equilibrio');
-console.log('✓ viernes con hamburguesa, perritos o kebab y comida fuera del domingo');
+console.log('✓ pizza el viernes, cena informal el sábado y comida fuera el domingo');
 console.log('✓ comida y cena mantienen postres diferenciados y el domingo queda sin postre');
+
+await vite.close();

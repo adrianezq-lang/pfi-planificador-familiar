@@ -1,4 +1,4 @@
-const PATRON_CLAVE_RESCATE = /(asoci|despensa|receta|inventario|stock|producto|mercadona|necesidad|mensual)/i;
+const PATRON_CLAVE_RESCATE = /(asoci|despensa|receta|postre|inventario|stock|producto|mercadona|necesidad|mensual)/i;
 
 function recopilarDatosRescate(): Record<string, string> {
   const datos: Record<string, string> = {};
