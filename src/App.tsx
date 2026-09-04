@@ -4,7 +4,6 @@ import './styles/pfi-polish.css';
 import './styles/navigation-polish.css';
 import BottomNav from './components/NavegacionInferior';
 import NavegacionRecetario from './components/NavegacionRecetario';
-import RescateAsociaciones from './components/RescateAsociaciones';
 import { useMenu } from './hooks/useMenu';
 import { RecetarioFiltroProvider } from './hooks/useRecetas';
 import Home from './pages/Home';
@@ -14,6 +13,7 @@ import { cargarDespensa, sincronizarProductosRecetasConDespensa } from './servic
 import { cargarRecetas, EVENTO_RECETAS } from './services/recetas';
 import { EVENTO_EXCEPCIONES, menuEfectivoMes, menuEfectivoSemana } from './services/excepcionesCalendario';
 import { preservarCopiasAsociacionesExistentes } from './services/rescateAsociaciones';
+import { crearCopiaAutomaticaSiNecesaria } from './services/copiasSeguridad';
 
 const Menu = lazy(() => import('./pages/Menu'));
 const Compra = lazy(() => import('./pages/CompraPlanificada'));
@@ -57,6 +57,24 @@ function App() {
   }, []);
 
   useEffect(() => {
+    crearCopiaAutomaticaSiNecesaria('antes de la revisión automática');
+
+    const protegerAlSalir = () => {
+      crearCopiaAutomaticaSiNecesaria('cierre o pausa de PFI');
+    };
+    const protegerAlOcultar = () => {
+      if (document.visibilityState === 'hidden') protegerAlSalir();
+    };
+
+    window.addEventListener('pagehide', protegerAlSalir);
+    document.addEventListener('visibilitychange', protegerAlOcultar);
+    return () => {
+      window.removeEventListener('pagehide', protegerAlSalir);
+      document.removeEventListener('visibilitychange', protegerAlOcultar);
+    };
+  }, []);
+
+  useEffect(() => {
     let cancelado = false;
     const sync = () => {
       if (cancelado) return;
@@ -68,9 +86,10 @@ function App() {
       asegurarAsociacionesBasicas();
 
       const recetas = cargarRecetas();
-      void repararAsociacionesIngredientes(recetas, cargarDespensa()).then(() =>
-        sincronizarProductosRecetasConDespensa(recetas),
-      );
+      void repararAsociacionesIngredientes(recetas, cargarDespensa()).then(() => {
+        sincronizarProductosRecetasConDespensa(recetas);
+        crearCopiaAutomaticaSiNecesaria('revisión automática completada');
+      });
     };
 
     sync();
@@ -92,11 +111,9 @@ function App() {
             <h1>Planificador Familiar Inteligente</h1>
             <p>Menús, compra, despensa y presupuesto</p>
           </div>
-          <span className="app-version">PFI</span>
+          <span className="app-version">v0.9.18</span>
         </div>
       </header>
-
-      <RescateAsociaciones />
 
       <NavegacionRecetario pantalla={pantalla} cambiarPantalla={cambiarPantalla} />
 

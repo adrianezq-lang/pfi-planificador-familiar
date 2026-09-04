@@ -54,6 +54,9 @@ jobs:
       - name: Probar importación y reparación del JSON de rescate
         run: npm run test:rescate-json
 
+      - name: Probar copias completas y restauración segura
+        run: npm run test:copias
+
       - name: Probar asociaciones básicas verificadas
         run: node --experimental-strip-types scripts/probar-asociaciones-basicas.mjs
 

@@ -1,7 +1,7 @@
 {
   "name": "pfi-planificador-familiar",
   "private": true,
-  "version": "0.9.17",
+  "version": "0.9.18",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -26,6 +26,7 @@
     "test:v0912": "node --experimental-strip-types scripts/probar-v0912.mjs",
     "test:v0913": "node --experimental-strip-types scripts/probar-v0913.mjs",
     "test:rescate-json": "node --experimental-strip-types scripts/probar-rescate-json.mjs",
+    "test:copias": "node --experimental-strip-types scripts/probar-copias-seguridad.mjs",
     "test:calendario": "node --experimental-strip-types scripts/probar-calendario-inventario.mjs",
     "test:comensales": "node --experimental-strip-types scripts/probar-comensales-por-servicio.mjs"
   },

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pfi-v0.9.17';
+const CACHE_NAME = 'pfi-v0.9.18';
 const APP_SHELL = ['/', '/manifest.webmanifest', '/favicon.svg', '/pwa-192x192.png', '/pwa-512x512.png'];
 
 self.addEventListener('install', (event) => {

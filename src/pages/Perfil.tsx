@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import Card from '../components/ui/Card';
+import CentroDatosCopias from '../components/CentroDatosCopias';
 import Title from '../components/ui/Title';
 import {
   calcularComensalesMomento,
@@ -17,6 +18,7 @@ import {
   obtenerResumenAprendizaje,
   reiniciarAprendizaje,
 } from '../services/aprendizaje';
+import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 
 const SERVICIOS_COMENSALES: Array<{
   clave: keyof PlanComensales;
@@ -220,6 +222,7 @@ function Perfil() {
     const normalizado = guardarPerfil(perfil);
     setPerfil(normalizado);
     recalcularRecetasParaPerfil(normalizado);
+    crearCopiaAutomaticaSiNecesaria('perfil familiar actualizado');
     setGuardado(true);
   };
 
@@ -230,6 +233,7 @@ function Perfil() {
 
     if (!confirmado) return;
 
+    crearCopiaAutomaticaSiNecesaria('antes de reiniciar el aprendizaje');
     reiniciarAprendizaje();
     setResumenAprendizaje(obtenerResumenAprendizaje());
     setMensajeAprendizaje('Aprendizaje reiniciado.');
@@ -246,6 +250,8 @@ function Perfil() {
           las recetas y las cantidades de Compra.
         </p>
       </Card>
+
+      <CentroDatosCopias />
 
       <Card>
         <div style={estiloCuadricula}>

@@ -1,6 +1,6 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.17.
+Versión 0.9.18.
 
 PFI conecta el menú familiar con recetas, productos reales de Mercadona, compra semanal, despensa e inventario.
 
@@ -24,7 +24,19 @@ npm run test:menu-mensual
 npm run test:presupuesto
 npm run test:v0913
 npm run test:rescate-json
+npm run test:copias
 ```
+
+## Datos y copias
+
+La sección **Perfil → Datos y copias** muestra el estado del recetario, las asociaciones,
+la despensa y el plan mensual. PFI conserva hasta ocho estados automáticos distintos en
+el propio dispositivo. También permite descargar una copia completa para cambiar de móvil.
+
+Antes de restaurar, PFI revisa el archivo y enseña cuántas recetas, asociaciones, productos
+y semanas contiene. La restauración conserva las claves locales más nuevas y crea primero
+una copia automática del estado actual. Las copias completas antiguas de formato 2 siguen
+siendo compatibles.
 
 
 ## Catálogo y precios de Mercadona por zona

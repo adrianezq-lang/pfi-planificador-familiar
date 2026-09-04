@@ -19,6 +19,7 @@ import {
 } from '../services/asociacionesIngredientes';
 import type { ProductoMercadonaCatalogo } from '../services/catalogoMercadona';
 import { registrarAjustePorcion } from '../services/aprendizaje';
+import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 import {
   actualizarNombreRecetaEnMenu,
   eliminarRecetaDelMenu,
@@ -651,6 +652,7 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
     );
     if (!confirmado) return;
 
+    crearCopiaAutomaticaSiNecesaria('antes de eliminar una receta');
     guardar(recetas.filter((receta) => receta.nombre !== nombreReceta));
     eliminarRecetaDelMenu(nombreReceta);
     if (editor?.nombreOriginal === nombreReceta) setEditor(null);
@@ -664,6 +666,7 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
 
     if (!confirmado) return;
 
+    crearCopiaAutomaticaSiNecesaria('antes de restaurar el recetario original');
     restaurar();
     setMensaje('Recetas y menú original restaurados.');
   };

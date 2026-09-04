@@ -1,3 +1,14 @@
+# v0.9.18 — Datos protegidos y copias completas
+
+- El rescate deja de ocupar Inicio y pasa a **Perfil → Datos y copias**.
+- PFI conserva hasta ocho copias automáticas completas y evita duplicarlas cuando nada ha cambiado.
+- El estado de salud resume recetas, asociaciones, despensa, semanas y última protección.
+- Vuelve la descarga de una copia completa apta para cambiar de móvil.
+- La importación se revisa antes de aplicarse y muestra exactamente qué contiene.
+- Antes de restaurar se protege el estado actual; las claves locales nuevas no se eliminan.
+- Las copias completas antiguas de formato 2 siguen siendo compatibles.
+- Las nuevas copias incorporan verificación de integridad y rechazan archivos alterados o incompletos.
+
 # v0.9.17 — Rescate JSON estable
 
 - El importador reconoce ahora el bloque `claves` del diagnóstico que exporta el propio PFI.

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { cargarDespensa } from '../services/despensa';
 import { descargarDiagnosticoRescate } from '../services/diagnosticoRescate';
 import { cargarRecetas } from '../services/recetas';
+import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 import {
   descargarCopiaAsociaciones,
   importarCopiaAsociaciones,
@@ -10,7 +11,11 @@ import {
   restaurarMejorCopiaAsociaciones,
 } from '../services/rescateAsociaciones';
 
-export default function RescateAsociaciones() {
+type RescateAsociacionesProps = {
+  integrado?: boolean;
+};
+
+export default function RescateAsociaciones({ integrado = false }: RescateAsociacionesProps) {
   const totalIngredientes = useMemo(
     () =>
       new Set(
@@ -37,6 +42,7 @@ export default function RescateAsociaciones() {
 
   const recuperar = () => {
     setError('');
+    crearCopiaAutomaticaSiNecesaria('antes de recuperar asociaciones');
     const cantidad = restaurarMejorCopiaAsociaciones();
     if (cantidad === 0) {
       setMensaje('No he encontrado ninguna copia con asociaciones para restaurar.');
@@ -51,6 +57,7 @@ export default function RescateAsociaciones() {
     setError('');
     setMensaje('');
     try {
+      crearCopiaAutomaticaSiNecesaria('antes de importar asociaciones');
       const cantidad = importarCopiaAsociaciones(await archivo.text());
       setMensaje(`Copia importada: ${cantidad} asociaciones recuperadas.`);
       setRevision((valor) => valor + 1);
@@ -66,8 +73,8 @@ export default function RescateAsociaciones() {
   return (
     <section
       style={{
-        margin: '12px auto 4px',
-        width: 'min(100% - 24px, 980px)',
+        margin: integrado ? '16px 0 0' : '12px auto 4px',
+        width: integrado ? '100%' : 'min(100% - 24px, 980px)',
         border: '1px solid #d8e3d6',
         borderRadius: 16,
         background: '#f8fbf7',
@@ -86,7 +93,7 @@ export default function RescateAsociaciones() {
             color: '#3f5f45',
           }}
         >
-          🛟 Recuperación de asociaciones y copias
+          🛟 {integrado ? 'Recuperación avanzada de asociaciones' : 'Recuperación de asociaciones y copias'}
         </summary>
 
         <div style={{ padding: '0 16px 16px', display: 'grid', gap: 12 }}>
