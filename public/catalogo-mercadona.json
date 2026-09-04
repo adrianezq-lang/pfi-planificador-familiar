@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-03T09:52:25.053Z",
+  "actualizado": "2026-09-04T09:48:05.659Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4293,
+  "totalProductos": 4296,
   "productos": [
     {
       "productoId": "3505.2",
@@ -1159,8 +1159,8 @@
     {
       "productoId": "16475",
       "nombre": "Acondicionador instantáneo Melón Bloom Deliplus",
-      "precio": 2,
-      "precioReferencia": 0.8,
+      "precio": 1.65,
+      "precioReferencia": 0.66,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -4839,8 +4839,8 @@
     {
       "productoId": "21629",
       "nombre": "Bacón ahumado Monells lonchas",
-      "precio": 2.2,
-      "precioReferencia": 9.778,
+      "precio": 2.05,
+      "precioReferencia": 9.112,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.225,
@@ -4855,8 +4855,8 @@
     {
       "productoId": "59170",
       "nombre": "Bacón ahumado sin corteza Monells",
-      "precio": 2.99,
-      "precioReferencia": 9.65,
+      "precio": 2.68,
+      "precioReferencia": 8.65,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.31,
@@ -9767,8 +9767,8 @@
     {
       "productoId": "81661.2",
       "nombre": "Boquerón limpio sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 1.1,
+      "precioReferencia": 5.5,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -13090,6 +13090,22 @@
       "subcategoria": "Cebolla y ajo",
       "imagen": "https://prod-mercadona.imgix.net/images/3bbcca66baefa5c56bae00a07ca106f1.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69139/cebollas-tiernas-manojo",
+      "disponible": true
+    },
+    {
+      "productoId": "69286",
+      "nombre": "Cebollino",
+      "precio": 1.8,
+      "precioReferencia": 9,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.02,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Hierbas aromáticas",
+      "imagen": "https://prod-mercadona.imgix.net/images/74d6a5a6384c61a7cea9e4e129ceab35.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/69286/cebollino-bandeja",
       "disponible": true
     },
     {
@@ -17040,7 +17056,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Otras frutas",
-      "imagen": "https://prod-mercadona.imgix.net/images/b1280deb82db4aaafe989ae3ef47405a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8fad8d907b05cc7e8589a6b1867d67e4.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3649/ciruela-amarilla-pieza",
       "disponible": true
     },
@@ -21488,7 +21504,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Crema de cara",
-      "imagen": "https://prod-mercadona.imgix.net/images/26c6306f83e397d77642140402af865c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/1f1140cb85f96530d23a7ce56e663743.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11941/crema-facial-antiarrugas-reafirmante-men-care-deliplus-acido-hialuronico-matrixyl-6-1-bote",
       "disponible": true
     },
@@ -23632,7 +23648,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Detergente líquido y gel",
-      "imagen": "https://prod-mercadona.imgix.net/images/a6b5023c46b3a1f230230cc88db78c09.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a6b5023c46b3a1f230230cc88db78c09.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86400/detergente-ropa-blanca-color-bosque-verde-liquido-botella",
       "disponible": true
     },
@@ -23712,7 +23728,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Detergente líquido y gel",
-      "imagen": "https://prod-mercadona.imgix.net/images/102bbb82bf71a7846528e2d2daef4567.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/102bbb82bf71a7846528e2d2daef4567.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86397/detergente-ropa-jabon-natural-marsella-bosque-verde-liquido-botella",
       "disponible": true
     },
@@ -23744,15 +23760,15 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Detergente líquido y gel",
-      "imagen": "https://prod-mercadona.imgix.net/images/f9be1d7261a02ea1689531d025e18d68.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f9be1d7261a02ea1689531d025e18d68.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/40530/detergente-ropa-prendas-delicadas-bosque-verde-liquido-botella",
       "disponible": true
     },
     {
       "productoId": "21993",
       "nombre": "Detergente ropa todo en 1 Ariel Pods en cápsulas",
-      "precio": 4.95,
-      "precioReferencia": 0.261,
+      "precio": 6.9,
+      "precioReferencia": 0.364,
       "formato": "Caja",
       "unidadesTotales": 19,
       "tamañoUnidad": 0.3477,
@@ -23858,22 +23874,6 @@
       "subcategoria": "Ambientador eléctrico",
       "imagen": "https://prod-mercadona.imgix.net/images/472d86fdf508a119040a9671ed28b493.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52759/difusor-multifragancia-electrico-bosque-verde-con-regulador-intensidad-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "17770",
-      "nombre": "Discos ácido salicílico Deliplus Facial Clean purificantes y seborreguladores",
-      "precio": 4,
-      "precioReferencia": 0.08,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 50,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Limpieza de cara",
-      "imagen": "https://prod-mercadona.imgix.net/images/02cbbb2a36d255cdd6c1627b797042cd.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17770/discos-acido-salicilico-deliplus-facial-clean-purificantes-seborreguladores-piel-grasa-acneica-bote",
       "disponible": true
     },
     {
@@ -24293,22 +24293,6 @@
       "disponible": true
     },
     {
-      "productoId": "60598",
-      "nombre": "Eau de parfum hombre Él",
-      "precio": 10,
-      "precioReferencia": 10,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/e3f369eacc9247df7688f5cd747635e8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60598/eau-parfum-hombre-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "40384",
       "nombre": "Eau de parfum hombre My Soul",
       "precio": 9.5,
@@ -24322,6 +24306,22 @@
       "subcategoria": "Perfume y colonia hombre",
       "imagen": "https://prod-mercadona.imgix.net/images/b39768b9865da3982a5f097faf9246d6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/40384/eau-parfum-hombre-my-soul-for-him-frasco",
+      "disponible": true
+    },
+    {
+      "productoId": "17631",
+      "nombre": "Eau de parfum hombre My Soul Él",
+      "precio": 10,
+      "precioReferencia": 10,
+      "formato": "Frasco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Perfume y colonia hombre",
+      "imagen": "https://prod-mercadona.imgix.net/images/3091e828ff07422258c9570134140adf.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17631/eau-parfum-hombre-my-soul-frasco",
       "disponible": true
     },
     {
@@ -25856,7 +25856,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Lechuga",
-      "imagen": "https://prod-mercadona.imgix.net/images/521b7ea477692d5b5ae5835f2aea842c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/521b7ea477692d5b5ae5835f2aea842c.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69706/ensalada-mezcla-4-estaciones-compuesta-lechuga-iceberg-zanahoria-col-lombarda-paquete",
       "disponible": true
     },
@@ -30135,8 +30135,8 @@
     {
       "productoId": "27733",
       "nombre": "Gaseosa grande La Casera",
-      "precio": 2.5,
-      "precioReferencia": 0.834,
+      "precio": 1.92,
+      "precioReferencia": 0.64,
       "formato": "botellas",
       "unidadesTotales": 2,
       "tamañoUnidad": 3,
@@ -30151,8 +30151,8 @@
     {
       "productoId": "27735",
       "nombre": "Gaseosa grande La Casera",
-      "precio": 1.29,
-      "precioReferencia": 0.86,
+      "precio": 1,
+      "precioReferencia": 0.667,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -35047,8 +35047,8 @@
     {
       "productoId": "75210",
       "nombre": "Laca cabello Nelly",
-      "precio": 2.5,
-      "precioReferencia": 0.625,
+      "precio": 2.45,
+      "precioReferencia": 0.613,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.4,
@@ -38144,7 +38144,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Limpiahogar",
-      "imagen": "https://prod-mercadona.imgix.net/images/d2d88fef43fc70c7f6a18d1cb4ff428a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d2d88fef43fc70c7f6a18d1cb4ff428a.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43338/limpiahogar-oxi-active-bosque-verde-sin-lejia-botella",
       "disponible": true
     },
@@ -39125,19 +39125,19 @@
       "disponible": true
     },
     {
-      "productoId": "84684",
+      "productoId": "17698",
       "nombre": "Magdalenas con azúcar",
       "precio": 2.7,
-      "precioReferencia": 7.106,
+      "precioReferencia": 6.924,
       "formato": "Bolsa",
-      "unidadesTotales": 8,
-      "tamañoUnidad": 0.38,
+      "unidadesTotales": 6,
+      "tamañoUnidad": 0.39,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Bollería dulce",
-      "imagen": "https://prod-mercadona.imgix.net/images/b699b9df8e9fdb8ff494c937993ed3db.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/84684/8-magdalenas-con-azucar-bolsa",
+      "imagen": "https://prod-mercadona.imgix.net/images/286c8a2b17f2154e786e89a696838c7a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17698/magdalenas-con-azucar-bolsa",
       "disponible": true
     },
     {
@@ -39728,7 +39728,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Manzana y pera",
-      "imagen": "https://prod-mercadona.imgix.net/images/022fa8e1cd6c9d9ee18a41ed06d71c35.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/022fa8e1cd6c9d9ee18a41ed06d71c35.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3269/manzanas-golden-bolsa",
       "disponible": true
     },
@@ -40343,8 +40343,8 @@
     {
       "productoId": "73045",
       "nombre": "Maquinillas de afeitar desechables Gillette Blue Plus 2 hojas",
-      "precio": 6.85,
-      "precioReferencia": 0.343,
+      "precio": 8,
+      "precioReferencia": 0.4,
       "formato": "Paquete",
       "unidadesTotales": 20,
       "tamañoUnidad": 1,
@@ -43920,7 +43920,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Multiusos y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/dc5419b16ed79b9e7ffad60c96aa80b2.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/dc5419b16ed79b9e7ffad60c96aa80b2.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/44001/multiusos-ph-neutro-3-brujas-con-pistola-botella",
       "disponible": true
     },
@@ -46039,8 +46039,8 @@
     {
       "productoId": "29606",
       "nombre": "Panceta curada sin corteza La Selva lonchas",
-      "precio": 2.65,
-      "precioReferencia": 13.25,
+      "precio": 2.5,
+      "precioReferencia": 12.5,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -51061,6 +51061,22 @@
       "disponible": true
     },
     {
+      "productoId": "23540",
+      "nombre": "Pintalabios mate Deliplus 101 nude",
+      "precio": 4.5,
+      "precioReferencia": 4.5,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.004,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios mate",
+      "imagen": "https://prod-mercadona.imgix.net/images/a420565c7a687a8a363e72c88f414563.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/23540/pintalabios-mate-deliplus-101-nude",
+      "disponible": true
+    },
+    {
       "productoId": "23541",
       "nombre": "Pintalabios Mate Deliplus 102 caramelo",
       "precio": 4.5,
@@ -52546,6 +52562,38 @@
       "subcategoria": "Polvos",
       "imagen": "https://prod-mercadona.imgix.net/images/adb92af1701d7e522d7883955f9c20a9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17573/polvo-compacto-perfeccionador-efecto-seda-deliplus-250-marron-medio",
+      "disponible": true
+    },
+    {
+      "productoId": "17783",
+      "nombre": "Polvo compacto Sol Deliplus claro",
+      "precio": 7.5,
+      "precioReferencia": 7.5,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.018,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Polvos",
+      "imagen": "https://prod-mercadona.imgix.net/images/254a88720560de60425ec85a3545689d.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17783/polvo-compacto-sol-deliplus-claro",
+      "disponible": true
+    },
+    {
+      "productoId": "17784",
+      "nombre": "Polvo compacto Sol Deliplus oscuro",
+      "precio": 7.5,
+      "precioReferencia": 7.5,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.018,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Polvos",
+      "imagen": "https://prod-mercadona.imgix.net/images/be6623ced7207f4f0d049cb6d789f15f.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17784/polvo-compacto-sol-deliplus-oscuro",
       "disponible": true
     },
     {
@@ -55120,7 +55168,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso rallado",
-      "imagen": "https://prod-mercadona.imgix.net/images/8358f4ee3c96a19e215c46bfa39ec0d7.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9bdb83693cb107ef8e90da30dea2e26e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21581/queso-rallado-4-quesos-hacendado-paquete",
       "disponible": true
     },
@@ -57623,8 +57671,8 @@
     {
       "productoId": "27761",
       "nombre": "Refresco limón Schweppes original",
-      "precio": 7.76,
-      "precioReferencia": 2.94,
+      "precio": 5.2,
+      "precioReferencia": 1.97,
       "formato": "Pack-8",
       "unidadesTotales": 8,
       "tamañoUnidad": 2.64,
@@ -58224,7 +58272,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Retoca raíces y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/4f3f9d6a5f170b304973e3b2549967ab.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2ea00d61ae38b2100281181640dc5d4c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8799/retoca-raices-instantaneo-loreal-castano-caoba-magic-retouch-spray",
       "disponible": true
     },
@@ -60471,8 +60519,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 1.39,
+      "precioReferencia": 6.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60487,8 +60535,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 1.39,
+      "precioReferencia": 6.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,

@@ -1,10 +1,10 @@
 {
-  "actualizado": "2026-09-03T09:53:41.394Z",
+  "actualizado": "2026-09-04T09:49:28.309Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 57,
-  "actualizados": 53,
-  "pendientes": 4,
+  "actualizados": 57,
+  "pendientes": 0,
   "coincidencias": [
     {
       "ingrediente": "Carne picada",
@@ -74,6 +74,27 @@
       "productoId": "18055",
       "nombreComercial": "Atún claro en aceite de girasol Hacendado",
       "precio": 4.2,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Patatas",
+      "productoId": "69099",
+      "nombreComercial": "Patatas",
+      "precio": 4.5,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Cebolla",
+      "productoId": "69089",
+      "nombreComercial": "Cebollas",
+      "precio": 2,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Zanahorias",
+      "productoId": "69586",
+      "nombreComercial": "Zanahorias",
+      "precio": 1.2,
       "puntuacion": 10000
     },
     {
@@ -179,6 +200,13 @@
       "productoId": "87211",
       "nombreComercial": "Bacalao al punto de sal descongelado",
       "precio": 9.5,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Almejas",
+      "productoId": "60874",
+      "nombreComercial": "Almeja Hacendado congelada",
+      "precio": 1.9,
       "puntuacion": 10000
     },
     {
@@ -316,10 +344,10 @@
     },
     {
       "ingrediente": "Mayonesa",
-      "productoId": "13406",
-      "nombreComercial": "Mayonesa Hacendado",
+      "productoId": "15793",
+      "nombreComercial": "Salsa Light Hacendado",
       "precio": 1.2,
-      "puntuacion": 350
+      "puntuacion": 10000
     },
     {
       "ingrediente": "Ketchup",
@@ -378,26 +406,5 @@
       "puntuacion": 10000
     }
   ],
-  "noEncontrados": [
-    {
-      "ingrediente": "Patatas",
-      "buscar": "patata malla",
-      "puntuacion": 100
-    },
-    {
-      "ingrediente": "Cebolla",
-      "buscar": "cebolla malla",
-      "puntuacion": 100
-    },
-    {
-      "ingrediente": "Zanahorias",
-      "buscar": "zanahoria bolsa",
-      "puntuacion": 100
-    },
-    {
-      "ingrediente": "Almejas",
-      "buscar": "almeja fresca malla",
-      "puntuacion": 0
-    }
-  ]
+  "noEncontrados": []
 }
