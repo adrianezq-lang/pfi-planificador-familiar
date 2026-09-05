@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-04T09:48:05.659Z",
+  "actualizado": "2026-09-05T09:06:36.815Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4296,
+  "totalProductos": 4291,
   "productos": [
     {
       "productoId": "3505.2",
@@ -1509,22 +1509,6 @@
       "disponible": true
     },
     {
-      "productoId": "76465",
-      "nombre": "Agua facial de avena Deliplus",
-      "precio": 2.8,
-      "precioReferencia": 0.934,
-      "formato": "Spray",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Limpieza de cara",
-      "imagen": "https://prod-mercadona.imgix.net/images/d86e8ed6326085f3d1aa071e6443e62c.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/76465/agua-facial-avena-deliplus-piel-sensible-spray",
-      "disponible": true
-    },
-    {
       "productoId": "46954",
       "nombre": "Agua micelar cara y ojos Facial Clean",
       "precio": 2.5,
@@ -2912,7 +2896,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Frutos secos",
-      "imagen": "https://prod-mercadona.imgix.net/images/90bb181b5294b5a7b99001da3764e7d3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/90bb181b5294b5a7b99001da3764e7d3.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/34009/almendra-frita-salada-hacendado-pelada-paquete",
       "disponible": true
     },
@@ -5698,22 +5682,6 @@
       "subcategoria": "Barritas de cereales",
       "imagen": "https://prod-mercadona.imgix.net/images/0b1cb7ce015f70ca741f498a0a092fe0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21759/barritas-cereales-hacendado-sabor-platano-0-azucares-anadidos-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "21761",
-      "nombre": "Barritas de cereales sabor mandarina Hacendado",
-      "precio": 1.65,
-      "precioReferencia": 13.75,
-      "formato": "Caja",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 0.12,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cereales y galletas",
-      "subcategoria": "Barritas de cereales",
-      "imagen": "https://prod-mercadona.imgix.net/images/6fed06832b4830cda2c78aa622a9727c.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21761/barritas-cereales-sabor-mandarina-hacendado-0-azucares-anadidos-caja",
       "disponible": true
     },
     {
@@ -9767,8 +9735,8 @@
     {
       "productoId": "81661.2",
       "nombre": "Boquerón limpio sin cabeza",
-      "precio": 1.1,
-      "precioReferencia": 5.5,
+      "precio": 0.99,
+      "precioReferencia": 4.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -11573,19 +11541,19 @@
       "disponible": true
     },
     {
-      "productoId": "11051",
+      "productoId": "14350",
       "nombre": "Café soluble descafeinado en sobres Hacendado",
-      "precio": 1.2,
-      "precioReferencia": 6,
+      "precio": 2.4,
+      "precioReferencia": 48,
       "formato": "Caja",
-      "unidadesTotales": 10,
-      "tamañoUnidad": 0.02,
+      "unidadesTotales": 25,
+      "tamañoUnidad": 0.05,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Cacao, café e infusiones",
       "subcategoria": "Café soluble",
-      "imagen": "https://prod-mercadona.imgix.net/images/dd00da2192da875d333ecbe6b2102f7e.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/11051/cafe-soluble-sobres-descafeinado-hacendado-caja",
+      "imagen": "https://prod-mercadona.imgix.net/images/8ca748e97fc906ab4e30344039d67cf7.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/14350/cafe-soluble-descafeinado-sobres-hacendado-caja",
       "disponible": true
     },
     {
@@ -20096,7 +20064,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/b9fd6e0c270b9aeb4d3e17a9422671b1.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b21b2ed825eab95466018ed5857328a2.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9792/cono-golosinas-celebracion-hacendado-contiene-snack-maiz-piruleta-comprimido-con-polvo-pica-sabor-fresa-palote-espuma-dulce-caramelos-goma-paquete",
       "disponible": true
     },
@@ -21776,7 +21744,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Bollería envasada",
-      "imagen": "https://prod-mercadona.imgix.net/images/8defc27a8756cc97b46e42337d79e6a4.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8defc27a8756cc97b46e42337d79e6a4.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/82551/crepes-rellenos-chocolate-hacendado-paquete",
       "disponible": true
     },
@@ -22912,7 +22880,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Desodorante Spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/b14b62be78c30ca6fde7003b3c6ab481.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b14b62be78c30ca6fde7003b3c6ab481.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/46443/desodorante-avena-delicado-deliplus-antitranspirante-0-alcohol-spray",
       "disponible": true
     },
@@ -23584,7 +23552,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Detergente en polvo y monodosis",
-      "imagen": "https://prod-mercadona.imgix.net/images/385aa36f3f84b97a060a3c9aa56bf8d7.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/bf4a9874d690566300dc4d9ef9582a0c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23440/detergente-ropa-blanca-color-bosque-verde-capsulas-lavadora-caja",
       "disponible": true
     },
@@ -27415,7 +27383,7 @@
     {
       "productoId": "24350",
       "nombre": "Filete de salmón rosado salvaje con piel Hacendado ultracongelado",
-      "precio": 4.05,
+      "precio": 4.99,
       "precioReferencia": 13.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
@@ -29490,22 +29458,6 @@
       "subcategoria": "Galletas integrales y digestive",
       "imagen": "https://prod-mercadona.imgix.net/images/500583d75d43433a64dbec896cc8d655.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14215/galletas-digestive-manzana-avena-hacendado-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "13600",
-      "nombre": "Galletas Diverkao Hacendado",
-      "precio": 1.7,
-      "precioReferencia": 5.449,
-      "formato": "Caja",
-      "unidadesTotales": 8,
-      "tamañoUnidad": 0.312,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cereales y galletas",
-      "subcategoria": "Con chocolate y rellenas",
-      "imagen": "https://prod-mercadona.imgix.net/images/730ca67f982440e115d9156c3628c584.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13600/galletas-diverkao-hacendado-caja",
       "disponible": true
     },
     {
@@ -33522,22 +33474,6 @@
       "subcategoria": "Hummus y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/b7e088db663b6315a397f75514dc4d61.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/80858/hummus-garbanzos-hacendado-receta-clasica-tarrina",
-      "disponible": true
-    },
-    {
-      "productoId": "8319",
-      "nombre": "Iluminador facial fluido Highlighter Deliplus 01 champagne",
-      "precio": 4.75,
-      "precioReferencia": 4.75,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.012,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Colorete",
-      "imagen": "https://prod-mercadona.imgix.net/images/454ed9e77ec960059c18d1fbbcae05d3.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8319/iluminador-facial-fluido-highlighter-deliplus-01",
       "disponible": true
     },
     {
@@ -41594,7 +41530,7 @@
       "precio": 0.95,
       "precioReferencia": 2.715,
       "formato": "Paquete",
-      "unidadesTotales": 1,
+      "unidadesTotales": 0,
       "tamañoUnidad": 0.35,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
@@ -42629,6 +42565,22 @@
       "disponible": true
     },
     {
+      "productoId": "17990",
+      "nombre": "Mini eau de parfum hombre Flor de Mayo Meilon",
+      "precio": 1.85,
+      "precioReferencia": 7.709,
+      "formato": "Frasco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.024,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Perfume y colonia hombre",
+      "imagen": "https://prod-mercadona.imgix.net/images/4b54aea38703aaa061f612a802e301ab.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17990/mini-eau-parfum-hombre-flor-mayo-meilon-frasco",
+      "disponible": true
+    },
+    {
       "productoId": "7883",
       "nombre": "Mini eau de parfum hombre Flor de Mayo Mistery intense",
       "precio": 2.5,
@@ -42661,6 +42613,22 @@
       "disponible": true
     },
     {
+      "productoId": "17989",
+      "nombre": "Mini eau de parfum mujer Flor de Mayo Meilyn",
+      "precio": 1.85,
+      "precioReferencia": 7.709,
+      "formato": "Frasco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.024,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Perfume y colonia mujer",
+      "imagen": "https://prod-mercadona.imgix.net/images/9083b2ac71435d0d520bf89c8d97ed55.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17989/mini-eau-parfum-mujer-flor-mayo-meilyn-frasco",
+      "disponible": true
+    },
+    {
       "productoId": "24041",
       "nombre": "Mini eau de parfum mujer Flor de Mayo Seashell",
       "precio": 3.3,
@@ -42672,7 +42640,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/bf55e66960f725695412b2ebec837584.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/ce6d54dabe7f1857732d1951db7bea6d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/24041/mini-eau-parfum-mujer-flor-mayo-seashell-frasco",
       "disponible": true
     },
@@ -45472,7 +45440,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Pan de molde",
-      "imagen": "https://prod-mercadona.imgix.net/images/f26045084b08d8792979df13779e97d3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f26045084b08d8792979df13779e97d3.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/83867/pan-molde-blanco-familiar-hacendado-paquete",
       "disponible": true
     },
@@ -55232,7 +55200,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso rallado",
-      "imagen": "https://prod-mercadona.imgix.net/images/78c2ab6019d6ae5ef8934ee4a10cef80.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0697e560e6a01d260447f0d5aa8ae1a2.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/51110/queso-rallado-mozzarella-pizza-roma-vaca-hacendado-paquete",
       "disponible": true
     },
@@ -61301,22 +61269,6 @@
       "disponible": true
     },
     {
-      "productoId": "23862",
-      "nombre": "Sidra asturiana El Mayu",
-      "precio": 1,
-      "precioReferencia": 4,
-      "formato": "Botellín",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.25,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Sidra",
-      "imagen": "https://prod-mercadona.imgix.net/images/5d5ecffad2e603a8824568b74458d9b5.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23862/sidra-asturiana-mayu-botellin",
-      "disponible": true
-    },
-    {
       "productoId": "28898",
       "nombre": "Sidra natural Polían",
       "precio": 2.1,
@@ -61986,22 +61938,6 @@
       "subcategoria": "Botiquín",
       "imagen": "https://prod-mercadona.imgix.net/images/1db1633094a9331d6c6f15208e743542.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/33357/solucion-unica-lentes-contacto-blandas-deliplus-con-acido-hialuronico-contiene-estuche-portalentes-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "11641",
-      "nombre": "Sombra de ojos Long Lasting Deliplus Multi-Stick 06 bronce",
-      "precio": 4,
-      "precioReferencia": 4,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Sombra de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/3fd4fed151844fa6e2091d1081c499d2.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/11641/sombra-ojos-long-lasting-deliplus-multi-stick-06-bronce-puede-utilizar-delineador-iluminador-sombra-ojos",
       "disponible": true
     },
     {
@@ -64770,22 +64706,6 @@
       "subcategoria": "Tomate",
       "imagen": "https://prod-mercadona.imgix.net/images/0b7b48379a277881183c9d692b671999.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69930/tomates-cherry-pera-kumato-bandeja",
-      "disponible": true
-    },
-    {
-      "productoId": "69976",
-      "nombre": "Tomates negros",
-      "precio": 2.6,
-      "precioReferencia": 2.6,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Tomate",
-      "imagen": "https://prod-mercadona.imgix.net/images/9dcdcd3905a23003d0033161674abf16.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/69976/tomates-kumato-negro-bandeja",
       "disponible": true
     },
     {
