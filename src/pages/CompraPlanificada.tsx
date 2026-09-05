@@ -272,7 +272,7 @@ function LineaProducto({
             </strong>
             {sobrante > UMBRAL_CERO && (
               <small className="compra-sobrante">
-                Después quedarán: {resumenEnvases(linea, sobrante)}
+                Después quedarán: {resumenEnvasesConContenido(linea, sobrante)}
               </small>
             )}
             <ExplicacionCantidad linea={linea} />
@@ -298,8 +298,11 @@ function LineaCubierta({ linea }: { linea: LineaCompra }) {
       {linea.producto && <small>Formato: {linea.producto.formato}</small>}
       {explicacion && (
         <small className="compra-sobrante">
-          Había {resumenEnvases(linea, explicacion.stockAntesEnvases)} y quedarán{' '}
-          {resumenEnvases(linea, explicacion.sobranteDespuesEnvases)}.
+          Había {resumenEnvasesConContenido(linea, explicacion.stockAntesEnvases)} y
+          quedarán {resumenEnvasesConContenido(
+            linea,
+            explicacion.sobranteDespuesEnvases,
+          )}.
         </small>
       )}
       <ExplicacionCantidad linea={linea} />
@@ -400,12 +403,12 @@ function textoExplicacion(linea: LineaCompra): string {
     frases.push('Lo disponible cubre todo el uso, así que no compras nada.');
   } else {
     frases.push(
-      `Faltan ${resumenEnvases(linea, faltante)} y se compran ${resumenEnvases(linea, explicacion.compraEnvases)} completos.`,
+      `Faltan ${resumenEnvases(linea, faltante)}. La compra resultante es ${resumenEnvases(linea, explicacion.compraEnvases)}.`,
     );
   }
 
   frases.push(
-    `Después de cubrirlo quedarán ${resumenEnvases(linea, explicacion.sobranteDespuesEnvases)}.`,
+    `Después de cubrirlo quedarán ${resumenEnvasesConContenido(linea, explicacion.sobranteDespuesEnvases)}.`,
   );
 
   if (linea.calculoEstimado) {
@@ -416,6 +419,17 @@ function textoExplicacion(linea: LineaCompra): string {
 }
 
 function equivalenciaFormato(linea: LineaCompra): string | null {
+  const capacidad = capacidadNaturalPorEnvase(linea);
+  if (!capacidad) return null;
+
+  const envase = etiquetaEnvase(linea, 1);
+  const aproximacion = linea.calculoEstimado ? 'aprox. ' : '';
+  return `${articuloEnvase(envase)} ${envase} cubre ${aproximacion}${formatear(capacidad.cantidad)} ${unidadNatural(capacidad.unidad, capacidad.cantidad)}.`;
+}
+
+function capacidadNaturalPorEnvase(
+  linea: LineaCompra,
+): { cantidad: number; unidad: string } | null {
   const exactos = linea.envasesExactos ?? 0;
   if (!linea.producto || exactos <= UMBRAL_CERO || linea.necesidades.length === 0) {
     return null;
@@ -433,10 +447,7 @@ function equivalenciaFormato(linea: LineaCompra): string | null {
   const capacidad = total / exactos;
   if (!Number.isFinite(capacidad) || capacidad <= UMBRAL_CERO) return null;
 
-  const unidad = linea.necesidades[0].unidad;
-  const aproximacion = linea.calculoEstimado ? 'aprox. ' : '';
-  const envase = etiquetaEnvase(linea, 1);
-  return `${articuloEnvase(envase)} ${envase} cubre ${aproximacion}${formatear(capacidad)} ${unidadNatural(unidad, capacidad)}.`;
+  return { cantidad: capacidad, unidad: linea.necesidades[0].unidad };
 }
 
 function Resumen({ valor, texto }: { valor: string; texto: string }) {
@@ -468,6 +479,16 @@ function formatear(valor: number): string {
 
 function resumenEnvases(linea: LineaCompra, cantidad: number): string {
   return `${formatear(cantidad)} ${etiquetaEnvase(linea, cantidad)}`;
+}
+
+function resumenEnvasesConContenido(linea: LineaCompra, cantidad: number): string {
+  const envases = resumenEnvases(linea, cantidad);
+  const capacidad = capacidadNaturalPorEnvase(linea);
+  if (!capacidad || cantidad <= UMBRAL_CERO) return envases;
+
+  const contenido = cantidad * capacidad.cantidad;
+  const aproximacion = linea.calculoEstimado ? 'aprox. ' : '';
+  return `${envases} (${aproximacion}${formatear(contenido)} ${unidadNatural(capacidad.unidad, contenido)})`;
 }
 
 function etiquetaEnvase(linea: LineaCompra, cantidad: number): string {
