@@ -3,45 +3,526 @@ import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import type { DiaMenu } from '../data/Menusemanal';
 import type { LineaCompra, ResultadoCompra } from '../motor/compra';
-import { obtenerSeccionCompra, ORDEN_SECCIONES_COMPRA } from '../services/categoriasCompra';
-import { generarCompraMensual, generarCompraSemanalProyectada } from '../services/planificacionCompra';
+import {
+  obtenerSeccionCompra,
+  ORDEN_SECCIONES_COMPRA,
+} from '../services/categoriasCompra';
+import {
+  generarCompraMensual,
+  generarCompraSemanalProyectada,
+} from '../services/planificacionCompra';
 
-type Props = { menu: DiaMenu[]; menuMes: DiaMenu[]; menusSemanas: DiaMenu[][]; mesActivo: string; semanaActiva: number };
+type Props = {
+  menu: DiaMenu[];
+  menuMes: DiaMenu[];
+  menusSemanas: DiaMenu[][];
+  mesActivo: string;
+  semanaActiva: number;
+};
+
 type Periodo = 'semana' | 'mes';
 
-const euros=(n:number)=>n.toLocaleString('es-ES',{style:'currency',currency:'EUR'});
+const UMBRAL_CERO = 0.000001;
+const SIN_LINEAS: LineaCompra[] = [];
 
-export default function CompraPlanificada({menu,menuMes,menusSemanas,mesActivo,semanaActiva}:Props){
- const [periodo,setPeriodo]=useState<Periodo>('semana');
- const [resultado,setResultado]=useState<ResultadoCompra|null>(null);
- const [cargando,setCargando]=useState(true);
- const [error,setError]=useState('');
- const menuObjetivo=periodo==='semana'?menu:menuMes;
- const clave=`pfi-compra-${periodo}-${mesActivo}-${periodo==='semana'?semanaActiva+1:'todo'}`;
- const [marcados,setMarcados]=useState<string[]>([]);
- useEffect(()=>{try{setMarcados(JSON.parse(localStorage.getItem(clave)||'[]'))}catch{setMarcados([])}},[clave]);
- useEffect(()=>{if(semanaActiva!==0&&periodo==='mes')setPeriodo('semana')},[semanaActiva,periodo]);
- useEffect(()=>{let activo=true;setCargando(true);setError('');const calculo=periodo==='mes'?generarCompraMensual(menuMes):generarCompraSemanalProyectada(menusSemanas,semanaActiva);calculo.then(r=>{if(activo)setResultado(r)}).catch(()=>{if(activo)setError('No se ha podido calcular la compra.')}).finally(()=>{if(activo)setCargando(false)});return()=>{activo=false}},[menuMes,menusSemanas,periodo,mesActivo,semanaActiva]);
- const lineas=resultado?.lineas??[];
- const secciones=useMemo(()=>Array.from(new Set(lineas.map(obtenerSeccionCompra))).sort((a,b)=>{const ia=ORDEN_SECCIONES_COMPRA.indexOf(a),ib=ORDEN_SECCIONES_COMPRA.indexOf(b);return (ia<0?999:ia)-(ib<0?999:ib)}),[lineas]);
- const cambiar=(linea:LineaCompra)=>{const nuevas=marcados.includes(linea.clave)?marcados.filter(x=>x!==linea.clave):[...marcados,linea.clave];setMarcados(nuevas);localStorage.setItem(clave,JSON.stringify(nuevas))};
- const total=lineas.reduce((s,l)=>s+(l.subtotal??0),0); const pendiente=lineas.reduce((s,l)=>s+(marcados.includes(l.clave)?0:(l.subtotal??0)),0);
- const mesTexto=new Intl.DateTimeFormat('es-ES',{month:'long',year:'numeric'}).format(new Date(`${mesActivo}-01T12:00:00`));
- return <main className="page legacy-page compra-planificada-page" style={{maxWidth:1050,margin:'0 auto',padding:'20px 20px 118px'}}>
-  <Card className="page-hero-card"><Title style={{color:'#4f6f52'}}>🛒 Planificación de compra</Title><p style={{color:'#667067'}}>El menú decide qué necesitas. Tú eliges si preparas la compra de esta semana o la visión completa del mes.</p>
-   <div style={{display:'grid',gridTemplateColumns:semanaActiva===0?'1fr 1fr':'1fr',gap:10,margin:'18px 0'}}><button type="button" aria-pressed={periodo==='semana'} onClick={()=>setPeriodo('semana')} style={boton(periodo==='semana')}>🥬 Compra semanal</button>{semanaActiva===0&&<button type="button" aria-pressed={periodo==='mes'} onClick={()=>setPeriodo('mes')} style={boton(periodo==='mes')}>🧺 Compra mensual</button>}</div>
-   <div style={{padding:'12px 14px',borderRadius:14,background:'#f8f6f2'}}><strong style={{display:'block',color:'#263229'}}>{periodo==='semana'?`Semana ${semanaActiva+1} · ${mesTexto}`:`Compra mensual · ${mesTexto}`}</strong><span style={{color:'#667067',fontSize:13}}>{periodo==='semana'?'Fruta y verdura, carne y pescado. Los sobrantes de envases anteriores ya están descontados.':'Leche, despensa, embutido, salsas, desayuno, limpieza, mascotas y demás productos no frescos para todo el mes.'}</span></div>
-  </Card>
-  {cargando&&<Card><p>Calculando compra…</p></Card>}{error&&<Card><p>{error}</p></Card>}
-  {!cargando&&resultado&&<><Card><div className="compra-resumen-grid" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,textAlign:'center'}}><Resumen valor={euros(total)} texto="total previsto"/><Resumen valor={String(lineas.length)} texto="productos"/><Resumen valor={euros(pendiente)} texto="pendiente"/></div></Card>
-   {menuObjetivo.length===0&&<Card><Title style={{color:'#4f6f52'}}>🏖️ Semana fuera de casa</Title><p style={{color:'#667067'}}>No se generan productos del menú para esta semana.</p></Card>}
-   {secciones.map(sec=><Card key={sec}><Title style={{color:'#4f6f52',fontSize:20}}>{sec}</Title>{lineas.filter(l=>obtenerSeccionCompra(l)===sec).map(l=><label className="compra-producto-linea" key={l.clave} style={{display:'grid',gridTemplateColumns:'28px 1fr auto',gap:10,alignItems:'center',padding:'12px 0',borderBottom:'1px solid #e1e7df'}}><input type="checkbox" checked={marcados.includes(l.clave)} onChange={()=>cambiar(l)} style={{width:21,height:21,accentColor:'#4f6f52'}}/><span><strong style={{display:'block',textDecoration:marcados.includes(l.clave)?'line-through':'none'}}>{l.producto?.nombre??l.ingrediente.nombre}</strong><small style={{color:'#4f6f52',display:'block',marginTop:3}}>Necesitas: {resumenNecesidades(l)}</small>{l.producto?<><small style={{color:'#737b74',display:'block'}}>Formato: {l.producto.formato}</small><small style={{color:'#263229',display:'block',fontWeight:800}}>Comprar: {l.envases} {etiquetaEnvase(l)}</small></>:<small style={{color:'#9a6b1d'}}>Falta elegir el producto exacto</small>}</span><strong style={{color:'#4f6f52'}}>{l.subtotal===null?'—':euros(l.subtotal)}</strong></label>)}</Card>)}
-   {periodo==='semana'&&resultado.lineasCubiertas&&resultado.lineasCubiertas.length>0&&<Card><Title style={{color:'#4f6f52',fontSize:20}}>✅ Ya cubierto con lo que queda</Title><p style={{color:'#667067'}}>No necesitas volver a comprar estos productos esta semana porque sobra cantidad de envases anteriores.</p>{resultado.lineasCubiertas.map(l=><div key={l.clave} style={{padding:'9px 0',borderBottom:'1px solid #e1e7df'}}><strong>{l.producto?.nombre??l.ingrediente.nombre}</strong><small style={{display:'block',color:'#737b74'}}>Necesitas: {resumenNecesidades(l)}</small>{l.producto&&<small style={{display:'block',color:'#737b74'}}>Formato: {l.producto.formato}</small>}</div>)}</Card>}
-  </>}
- </main>;
+const euros = (valor: number) =>
+  valor.toLocaleString('es-ES', {
+    style: 'currency',
+    currency: 'EUR',
+  });
+
+export default function CompraPlanificada({
+  menu,
+  menuMes,
+  menusSemanas,
+  mesActivo,
+  semanaActiva,
+}: Props) {
+  const [periodo, setPeriodo] = useState<Periodo>('semana');
+  const [resultado, setResultado] = useState<ResultadoCompra | null>(null);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState('');
+  const menuObjetivo = periodo === 'semana' ? menu : menuMes;
+  const clave = `pfi-compra-${periodo}-${mesActivo}-${periodo === 'semana' ? semanaActiva + 1 : 'todo'}`;
+  const [marcados, setMarcados] = useState<string[]>([]);
+
+  useEffect(() => {
+    try {
+      setMarcados(JSON.parse(localStorage.getItem(clave) || '[]'));
+    } catch {
+      setMarcados([]);
+    }
+  }, [clave]);
+
+  useEffect(() => {
+    if (semanaActiva !== 0 && periodo === 'mes') setPeriodo('semana');
+  }, [semanaActiva, periodo]);
+
+  useEffect(() => {
+    let activo = true;
+    setCargando(true);
+    setError('');
+
+    const calculo = periodo === 'mes'
+      ? generarCompraMensual(menuMes)
+      : generarCompraSemanalProyectada(menusSemanas, semanaActiva);
+
+    calculo
+      .then((siguiente) => {
+        if (activo) setResultado(siguiente);
+      })
+      .catch(() => {
+        if (activo) setError('No se ha podido calcular la compra.');
+      })
+      .finally(() => {
+        if (activo) setCargando(false);
+      });
+
+    return () => {
+      activo = false;
+    };
+  }, [menuMes, menusSemanas, periodo, mesActivo, semanaActiva]);
+
+  const lineas = resultado?.lineas ?? SIN_LINEAS;
+  const secciones = useMemo(
+    () =>
+      Array.from(new Set(lineas.map(obtenerSeccionCompra))).sort((a, b) => {
+        const indiceA = ORDEN_SECCIONES_COMPRA.indexOf(a);
+        const indiceB = ORDEN_SECCIONES_COMPRA.indexOf(b);
+        return (indiceA < 0 ? 999 : indiceA) - (indiceB < 0 ? 999 : indiceB);
+      }),
+    [lineas],
+  );
+
+  const cambiar = (linea: LineaCompra) => {
+    const nuevas = marcados.includes(linea.clave)
+      ? marcados.filter((claveMarcada) => claveMarcada !== linea.clave)
+      : [...marcados, linea.clave];
+    setMarcados(nuevas);
+    localStorage.setItem(clave, JSON.stringify(nuevas));
+  };
+
+  const total = lineas.reduce((suma, linea) => suma + (linea.subtotal ?? 0), 0);
+  const pendiente = lineas.reduce(
+    (suma, linea) =>
+      suma + (marcados.includes(linea.clave) ? 0 : (linea.subtotal ?? 0)),
+    0,
+  );
+  const mesTexto = new Intl.DateTimeFormat('es-ES', {
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(`${mesActivo}-01T12:00:00`));
+
+  return (
+    <main
+      className="page legacy-page compra-planificada-page"
+      style={{ maxWidth: 1050, margin: '0 auto', padding: '20px 20px 118px' }}
+    >
+      <Card className="page-hero-card">
+        <Title style={{ color: '#4f6f52' }}>🛒 Planificación de compra</Title>
+        <p style={{ color: '#667067' }}>
+          El menú decide qué necesitas. Tú eliges si preparas la compra de esta
+          semana o la visión completa del mes.
+        </p>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: semanaActiva === 0 ? '1fr 1fr' : '1fr',
+            gap: 10,
+            margin: '18px 0',
+          }}
+        >
+          <button
+            type="button"
+            aria-pressed={periodo === 'semana'}
+            onClick={() => setPeriodo('semana')}
+            style={boton(periodo === 'semana')}
+          >
+            🥬 Compra semanal
+          </button>
+          {semanaActiva === 0 && (
+            <button
+              type="button"
+              aria-pressed={periodo === 'mes'}
+              onClick={() => setPeriodo('mes')}
+              style={boton(periodo === 'mes')}
+            >
+              🧺 Compra mensual
+            </button>
+          )}
+        </div>
+        <div className="compra-periodo-aviso">
+          <strong>
+            {periodo === 'semana'
+              ? `Semana ${semanaActiva + 1} · ${mesTexto}`
+              : `Compra mensual · ${mesTexto}`}
+          </strong>
+          <span>
+            {periodo === 'semana'
+              ? 'Fruta y verdura, carne y pescado. Los sobrantes de envases anteriores ya están descontados.'
+              : 'Leche, despensa, embutido, salsas, desayuno, limpieza, mascotas y demás productos no frescos para todo el mes.'}
+          </span>
+        </div>
+      </Card>
+
+      {cargando && (
+        <Card>
+          <p>Calculando compra…</p>
+        </Card>
+      )}
+      {error && (
+        <Card>
+          <p>{error}</p>
+        </Card>
+      )}
+
+      {!cargando && resultado && (
+        <>
+          <Card>
+            <div className="compra-resumen-grid">
+              <Resumen valor={euros(total)} texto="total previsto" />
+              <Resumen valor={String(lineas.length)} texto="productos" />
+              <Resumen valor={euros(pendiente)} texto="pendiente" />
+            </div>
+          </Card>
+
+          {menuObjetivo.length === 0 && (
+            <Card>
+              <Title style={{ color: '#4f6f52' }}>🏖️ Semana fuera de casa</Title>
+              <p style={{ color: '#667067' }}>
+                No se generan productos del menú para esta semana.
+              </p>
+            </Card>
+          )}
+
+          {secciones.map((seccion) => (
+            <Card key={seccion}>
+              <Title style={{ color: '#4f6f52', fontSize: 20 }}>{seccion}</Title>
+              {lineas
+                .filter((linea) => obtenerSeccionCompra(linea) === seccion)
+                .map((linea) => (
+                  <LineaProducto
+                    key={linea.clave}
+                    linea={linea}
+                    marcada={marcados.includes(linea.clave)}
+                    cambiar={() => cambiar(linea)}
+                  />
+                ))}
+            </Card>
+          ))}
+
+          {periodo === 'semana' &&
+            resultado.lineasCubiertas &&
+            resultado.lineasCubiertas.length > 0 && (
+              <Card className="compra-cubierta-card">
+                <Title style={{ color: '#4f6f52', fontSize: 20 }}>
+                  ✅ Ya cubierto con lo que queda
+                </Title>
+                <p style={{ color: '#667067' }}>
+                  No necesitas volver a comprar estos productos esta semana.
+                  Abre el cálculo para ver de qué semana viene el sobrante.
+                </p>
+                {resultado.lineasCubiertas.map((linea) => (
+                  <LineaCubierta key={linea.clave} linea={linea} />
+                ))}
+              </Card>
+            )}
+        </>
+      )}
+    </main>
+  );
 }
-function Resumen({valor,texto}:{valor:string;texto:string}){return <div><strong style={{display:'block',fontSize:20,color:'#4f6f52'}}>{valor}</strong><span style={{fontSize:12,color:'#667067'}}>{texto}</span></div>}
-function resumenNecesidades(linea:LineaCompra){return linea.necesidades.map(n=>`${formatear(n.cantidad)} ${n.unidad} de ${n.nombre}`).join(' + ')}
-function formatear(valor:number){return valor.toLocaleString('es-ES',{maximumFractionDigits:2})}
-function etiquetaEnvase(linea:LineaCompra){const formato=(linea.producto?.formato??'').toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');const plural=linea.envases!==1;if(formato.includes('malla'))return plural?'mallas':'malla';if(formato.includes('bandeja'))return plural?'bandejas':'bandeja';if(formato.includes('botella'))return plural?'botellas':'botella';if(formato.includes('bolsa'))return plural?'bolsas':'bolsa';if(formato.includes('caja')||formato.includes('estuche'))return plural?'cajas':'caja';if(formato.includes('pack')||formato.includes('paquete'))return plural?'paquetes':'paquete';if(formato.includes('lata'))return plural?'latas':'lata';if(formato.includes('bote')||formato.includes('tarro'))return plural?'botes':'bote';if(formato.includes('pieza'))return plural?'piezas':'pieza';return plural?'envases':'envase'}
-function boton(activo:boolean){return {border:activo?'2px solid #4f6f52':'1px solid #d8dfd5',borderRadius:14,padding:'14px 10px',background:activo?'#e7eee4':'#fff',color:'#334c36',fontWeight:800,fontFamily:'inherit',cursor:'pointer'} as const}
+
+function LineaProducto({
+  linea,
+  marcada,
+  cambiar,
+}: {
+  linea: LineaCompra;
+  marcada: boolean;
+  cambiar: () => void;
+}) {
+  const identificador = `compra-${linea.clave.replace(/[^a-zA-Z0-9_-]/g, '-')}`;
+  const sobrante = linea.explicacionCantidad?.sobranteDespuesEnvases ?? 0;
+
+  return (
+    <div className="compra-producto-linea">
+      <input
+        id={identificador}
+        type="checkbox"
+        checked={marcada}
+        onChange={cambiar}
+        aria-label={`Marcar ${nombreLinea(linea)} como comprado`}
+      />
+      <div className="compra-producto-contenido">
+        <label
+          className={`compra-producto-nombre${marcada ? ' compra-producto-nombre--marcado' : ''}`}
+          htmlFor={identificador}
+        >
+          {nombreLinea(linea)}
+        </label>
+        <small className="compra-necesidad">
+          Necesitas: {resumenNecesidades(linea)}
+        </small>
+        {linea.producto ? (
+          <>
+            <small className="compra-formato">Formato: {linea.producto.formato}</small>
+            <strong className="compra-cantidad">
+              Comprar: {resumenEnvases(linea, linea.envases)}
+            </strong>
+            {sobrante > UMBRAL_CERO && (
+              <small className="compra-sobrante">
+                Después quedarán: {resumenEnvases(linea, sobrante)}
+              </small>
+            )}
+            <ExplicacionCantidad linea={linea} />
+          </>
+        ) : (
+          <small className="compra-sin-producto">Falta elegir el producto exacto</small>
+        )}
+      </div>
+      <strong className="compra-producto-precio">
+        {linea.subtotal === null ? '—' : euros(linea.subtotal)}
+      </strong>
+    </div>
+  );
+}
+
+function LineaCubierta({ linea }: { linea: LineaCompra }) {
+  const explicacion = linea.explicacionCantidad;
+
+  return (
+    <div className="compra-linea-cubierta">
+      <strong>{nombreLinea(linea)}</strong>
+      <small>Necesitas: {resumenNecesidades(linea)}</small>
+      {linea.producto && <small>Formato: {linea.producto.formato}</small>}
+      {explicacion && (
+        <small className="compra-sobrante">
+          Había {resumenEnvases(linea, explicacion.stockAntesEnvases)} y quedarán{' '}
+          {resumenEnvases(linea, explicacion.sobranteDespuesEnvases)}.
+        </small>
+      )}
+      <ExplicacionCantidad linea={linea} />
+    </div>
+  );
+}
+
+function ExplicacionCantidad({ linea }: { linea: LineaCompra }) {
+  const explicacion = linea.explicacionCantidad;
+  if (!explicacion) return null;
+
+  const etiquetaObjetivo = explicacion.periodo === 'semana'
+    ? 'Uso de la semana'
+    : 'Objetivo del mes';
+
+  return (
+    <details className="compra-calculo">
+      <summary>¿Cómo sale esta cantidad?</summary>
+      <div className="compra-calculo__grid">
+        <DatoCalculo
+          etiqueta={etiquetaObjetivo}
+          valor={resumenEnvases(linea, explicacion.objetivoEnvases)}
+        />
+        <DatoCalculo
+          etiqueta="Disponible antes"
+          valor={resumenEnvases(linea, explicacion.stockAntesEnvases)}
+        />
+        <DatoCalculo
+          etiqueta="Comprar"
+          valor={resumenEnvases(linea, explicacion.compraEnvases)}
+        />
+        <DatoCalculo
+          etiqueta="Quedará"
+          valor={resumenEnvases(linea, explicacion.sobranteDespuesEnvases)}
+        />
+      </div>
+      <p>{textoExplicacion(linea)}</p>
+    </details>
+  );
+}
+
+function DatoCalculo({ etiqueta, valor }: { etiqueta: string; valor: string }) {
+  return (
+    <span className="compra-calculo__dato">
+      <small>{etiqueta}</small>
+      <strong>{valor}</strong>
+    </span>
+  );
+}
+
+function textoExplicacion(linea: LineaCompra): string {
+  const explicacion = linea.explicacionCantidad;
+  if (!explicacion) return '';
+
+  const frases: string[] = [];
+  const equivalencia = equivalenciaFormato(linea);
+  const faltante = Math.max(
+    0,
+    explicacion.objetivoEnvases - explicacion.stockAntesEnvases,
+  );
+
+  if (equivalencia) frases.push(equivalencia);
+
+  if (explicacion.periodo === 'semana' && (explicacion.semana ?? 1) > 1) {
+    frases.push(
+      'El disponible incluye el stock registrado y los sobrantes proyectados de las semanas anteriores.',
+    );
+  } else if (explicacion.periodo === 'mes') {
+    if (
+      explicacion.necesidadMensualEnvases >
+      explicacion.necesidadMenuEnvases + UMBRAL_CERO
+    ) {
+      frases.push(
+        `Tu cantidad mensual configurada (${resumenEnvases(linea, explicacion.necesidadMensualEnvases)}) fija el objetivo.`,
+      );
+    }
+    if (
+      explicacion.reservaEnvases >
+      Math.max(
+        explicacion.necesidadMenuEnvases,
+        explicacion.necesidadMensualEnvases,
+      ) + UMBRAL_CERO
+    ) {
+      frases.push(
+        `La reserva mínima (${resumenEnvases(linea, explicacion.reservaEnvases)}) fija el objetivo.`,
+      );
+    }
+    if (!explicacion.stockAplicado) {
+      frases.push(
+        linea.productoDespensa?.frecuencia === 'manual'
+          ? 'La despensa está en modo manual, por eso su stock no se descuenta.'
+          : 'No hay stock vinculado a este producto; el cálculo parte de cero.',
+      );
+    }
+  }
+
+  if (explicacion.compraEnvases <= UMBRAL_CERO) {
+    frases.push('Lo disponible cubre todo el uso, así que no compras nada.');
+  } else {
+    frases.push(
+      `Faltan ${resumenEnvases(linea, faltante)} y se compran ${resumenEnvases(linea, explicacion.compraEnvases)} completos.`,
+    );
+  }
+
+  frases.push(
+    `Después de cubrirlo quedarán ${resumenEnvases(linea, explicacion.sobranteDespuesEnvases)}.`,
+  );
+
+  if (linea.calculoEstimado) {
+    frases.push('La equivalencia es aproximada porque el producto se vende por peso o el formato no es exacto.');
+  }
+
+  return frases.join(' ');
+}
+
+function equivalenciaFormato(linea: LineaCompra): string | null {
+  const exactos = linea.envasesExactos ?? 0;
+  if (!linea.producto || exactos <= UMBRAL_CERO || linea.necesidades.length === 0) {
+    return null;
+  }
+
+  const unidades = new Set(
+    linea.necesidades.map((necesidad) => necesidad.unidad.trim().toLocaleLowerCase('es')),
+  );
+  if (unidades.size !== 1) return null;
+
+  const total = linea.necesidades.reduce(
+    (suma, necesidad) => suma + Math.max(0, necesidad.cantidad),
+    0,
+  );
+  const capacidad = total / exactos;
+  if (!Number.isFinite(capacidad) || capacidad <= UMBRAL_CERO) return null;
+
+  const unidad = linea.necesidades[0].unidad;
+  const aproximacion = linea.calculoEstimado ? 'aprox. ' : '';
+  const envase = etiquetaEnvase(linea, 1);
+  return `${articuloEnvase(envase)} ${envase} cubre ${aproximacion}${formatear(capacidad)} ${unidadNatural(unidad, capacidad)}.`;
+}
+
+function Resumen({ valor, texto }: { valor: string; texto: string }) {
+  return (
+    <div>
+      <strong>{valor}</strong>
+      <span>{texto}</span>
+    </div>
+  );
+}
+
+function nombreLinea(linea: LineaCompra): string {
+  return linea.producto?.nombre ?? linea.ingrediente.nombre;
+}
+
+function resumenNecesidades(linea: LineaCompra): string {
+  return linea.necesidades
+    .map(
+      (necesidad) =>
+        `${formatear(necesidad.cantidad)} ${unidadNatural(necesidad.unidad, necesidad.cantidad)} de ${necesidad.nombre}`,
+    )
+    .join(' + ');
+}
+
+function formatear(valor: number): string {
+  const normalizado = Math.abs(valor) < UMBRAL_CERO ? 0 : valor;
+  return normalizado.toLocaleString('es-ES', { maximumFractionDigits: 2 });
+}
+
+function resumenEnvases(linea: LineaCompra, cantidad: number): string {
+  return `${formatear(cantidad)} ${etiquetaEnvase(linea, cantidad)}`;
+}
+
+function etiquetaEnvase(linea: LineaCompra, cantidad: number): string {
+  const formato = (linea.producto?.formato ?? '')
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+  const plural = Math.abs(cantidad - 1) > UMBRAL_CERO;
+
+  if (formato.includes('malla')) return plural ? 'mallas' : 'malla';
+  if (formato.includes('bandeja')) return plural ? 'bandejas' : 'bandeja';
+  if (formato.includes('botella')) return plural ? 'botellas' : 'botella';
+  if (formato.includes('bolsa')) return plural ? 'bolsas' : 'bolsa';
+  if (formato.includes('caja') || formato.includes('estuche')) {
+    return plural ? 'cajas' : 'caja';
+  }
+  if (formato.includes('pack') || formato.includes('paquete')) {
+    return plural ? 'paquetes' : 'paquete';
+  }
+  if (formato.includes('lata')) return plural ? 'latas' : 'lata';
+  if (formato.includes('bote') || formato.includes('tarro')) {
+    return plural ? 'botes' : 'bote';
+  }
+  if (formato.includes('pieza')) return plural ? 'piezas' : 'pieza';
+  return plural ? 'envases' : 'envase';
+}
+
+function articuloEnvase(envase: string): 'Un' | 'Una' {
+  return ['malla', 'bandeja', 'botella', 'bolsa', 'caja', 'lata', 'pieza'].includes(envase)
+    ? 'Una'
+    : 'Un';
+}
+
+function unidadNatural(unidadOriginal: string, cantidad: number): string {
+  const unidad = unidadOriginal.trim();
+  const normalizada = unidad.toLocaleLowerCase('es');
+  if (['g', 'kg', 'ml', 'cl', 'dl', 'l'].includes(normalizada)) return unidad;
+  if (['u', 'ud', 'uds'].includes(normalizada)) {
+    return Math.abs(cantidad - 1) <= UMBRAL_CERO ? 'unidad' : 'unidades';
+  }
+  if (Math.abs(cantidad - 1) <= UMBRAL_CERO) return unidad;
+  if (normalizada.endsWith('s')) return unidad;
+  if (normalizada.endsWith('z')) return `${unidad.slice(0, -1)}ces`;
+  return `${unidad}s`;
+}
+
+function boton(activo: boolean) {
+  return {
+    border: activo ? '2px solid #4f6f52' : '1px solid #d8dfd5',
+    borderRadius: 14,
+    padding: '14px 10px',
+    background: activo ? '#e7eee4' : '#fff',
+    color: '#334c36',
+    fontWeight: 800,
+    fontFamily: 'inherit',
+    cursor: 'pointer',
+  } as const;
+}

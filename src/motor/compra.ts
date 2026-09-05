@@ -12,6 +12,19 @@ import { generarListaCompra } from '../services/listaCompra';
 export type TipoCompra = 'semanal' | 'despensa';
 export type OrigenLineaCompra = 'menu' | 'reposicion';
 
+export type ExplicacionCantidadCompra = {
+  periodo: 'semana' | 'mes';
+  semana?: number;
+  necesidadMenuEnvases: number;
+  necesidadMensualEnvases: number;
+  reservaEnvases: number;
+  objetivoEnvases: number;
+  stockAntesEnvases: number;
+  compraEnvases: number;
+  sobranteDespuesEnvases: number;
+  stockAplicado: boolean;
+};
+
 export type LineaCompra = {
   clave: string;
   ingrediente: Ingrediente;
@@ -24,6 +37,7 @@ export type LineaCompra = {
   calculoEstimado: boolean;
   tipoCompra: TipoCompra;
   origen: OrigenLineaCompra;
+  explicacionCantidad?: ExplicacionCantidadCompra;
 };
 
 export type ResultadoCompra = {

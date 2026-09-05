@@ -1,6 +1,6 @@
 const CLAVE_COPIAS_AUTOMATICAS = 'pfi-copias-automaticas-v1';
 const VERSION_FORMATO = 3;
-const VERSION_APP = '0.9.18';
+const VERSION_APP = '0.9.19';
 const MAX_COPIAS_AUTOMATICAS = 8;
 const LIMITE_IMPORTACION_BYTES = 5_000_000;
 

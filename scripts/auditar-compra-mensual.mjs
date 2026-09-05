@@ -207,8 +207,34 @@ const panBurgerComercial = exigirEnvasesEntre('13803', 'Pan de hamburguesa', 1, 
 const panHotDogComercial = exigirEnvasesEntre('82332', 'Pan de perrito', 1, 3);
 const tomateFritoComercial = exigirEnvasesEntre('17132', 'Tomate frito', 1, 3);
 
+const unidadesTortillas = tortillasComerciales.producto.unidadesTotales;
+const paquetesTortillasEsperados = Math.ceil(14 / unidadesTortillas);
+const detalleTortillas = tortillasComerciales.explicacionCantidad;
+if (
+  unidadesTortillas !== 10 ||
+  tortillasComerciales.envases !== paquetesTortillasEsperados ||
+  !detalleTortillas ||
+  Math.abs(detalleTortillas.necesidadMenuEnvases - 1.4) > 0.000001 ||
+  detalleTortillas.compraEnvases !== 2 ||
+  Math.abs(detalleTortillas.sobranteDespuesEnvases - 0.6) > 0.000001
+) {
+  throw new Error(
+    `Tortillas sin explicación coherente: unidades=${unidadesTortillas}, compra=${tortillasComerciales.envases}, detalle=${JSON.stringify(detalleTortillas)}.`,
+  );
+}
+
+for (const linea of lineasConProducto) {
+  const detalle = linea.explicacionCantidad;
+  if (!detalle || detalle.compraEnvases !== linea.envases) {
+    throw new Error(
+      `${linea.producto.nombre}: falta la explicación de la cantidad comprada.`,
+    );
+  }
+}
+
 console.log('✓ auditoría mensual: cantidades finitas y positivas');
 console.log('✓ tortillas: 14 unidades en el mes base');
+console.log('✓ tortillas explicadas: 1,4 paquetes necesarios, 2 comprados y 0,6 sobrantes');
 console.log('✓ legumbres secas: 375 g lentejas, 375 g garbanzos, 750 g alubias rojas');
 console.log('✓ roquefort explicado: 1,5 ud en pasta + 3 ud en pizzas = 4,5 ud; nata=1,5 brick');
 console.log(`✓ ${objetivos.filter((objetivo) => objetivo.productoId).length} SKUs objetivo siguen presentes en el catálogo`);

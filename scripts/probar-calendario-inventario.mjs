@@ -175,6 +175,26 @@ const mallaAjos = proyectarComprasEnvases([0.25, 0.25, 0.25, 0.25], 0);
 if (JSON.stringify(mallaAjos.compras) !== JSON.stringify([1, 0, 0, 0])) {
   throw new Error(`La malla de cuatro cabezas se vuelve a comprar antes de agotarse: ${mallaAjos.compras}`);
 }
+const stockAntesAjos = mallaAjos.pasos.map((paso) => paso.stockAntes);
+const stockDespuesAjos = mallaAjos.pasos.map((paso) => paso.stockDespues);
+if (
+  JSON.stringify(stockAntesAjos) !== JSON.stringify([0, 0.75, 0.5, 0.25]) ||
+  JSON.stringify(stockDespuesAjos) !== JSON.stringify([0.75, 0.5, 0.25, 0])
+) {
+  throw new Error(
+    `La explicación semanal del ajo no refleja su arrastre: antes=${stockAntesAjos}; después=${stockDespuesAjos}.`,
+  );
+}
+
+const tortillasCatorce = proyectarComprasEnvases([14 / 10], 0);
+if (
+  JSON.stringify(tortillasCatorce.compras) !== JSON.stringify([2]) ||
+  Math.abs(tortillasCatorce.pasos[0].stockDespues - 0.6) > 0.000001
+) {
+  throw new Error(
+    `Catorce tortillas en paquetes de diez deben comprar 2 paquetes y dejar 0,6: ${JSON.stringify(tortillasCatorce)}.`,
+  );
+}
 
 const pechuga630Para660 = proyectarComprasEnvases([660 / 630], 0, 1.1);
 if (JSON.stringify(pechuga630Para660.compras) !== JSON.stringify([1])) {
@@ -318,6 +338,8 @@ console.log('✓ dos pizzas comparten medio tarro de tomate');
 console.log('✓ cuatro salchichas gourmet equivalen a un multipack comercial');
 console.log('✓ la corrección de salchichas no altera otros productos');
 console.log('✓ una malla de cuatro cabezas cubre cuatro semanas de una cabeza');
+console.log('✓ la explicación del ajo conserva 0,75, 0,50 y 0,25 mallas entre semanas');
+console.log('✓ 14 tortillas compran 2 paquetes de 10 y dejan 6 tortillas');
 console.log('✓ frescos de peso variable toleran una diferencia pequeña sin duplicar bandejas');
 console.log('✓ los paquetes exactos siguen redondeando de forma estricta');
 console.log('✓ 540 g de jamoncitos compran una sola bandeja de 920 g');

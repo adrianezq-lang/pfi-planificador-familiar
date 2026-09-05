@@ -2,6 +2,7 @@ import type { DiaMenu } from '../data/Menusemanal';
 import {
   calcularEnvasesParaNecesidades,
   generarCompraMercadona,
+  type ExplicacionCantidadCompra,
   type LineaCompra,
   type ResultadoCompra,
 } from '../motor/compra';
@@ -167,6 +168,61 @@ function rehacerResultado(
   };
 }
 
+function explicacionMensual(linea: LineaCompra): ExplicacionCantidadCompra | undefined {
+  if (!linea.producto) return undefined;
+
+  const productoDespensa = linea.productoDespensa;
+  const stockAplicado = Boolean(
+    productoDespensa &&
+      productoDespensa.tipo === 'despensa' &&
+      productoDespensa.frecuencia !== 'manual',
+  );
+  const stockAntesEnvases = stockAplicado
+    ? Math.max(0, productoDespensa?.stockActual ?? 0)
+    : 0;
+  const necesidadMenuEnvases = linea.origen === 'menu'
+    ? Math.max(0, linea.envasesExactos ?? linea.envases)
+    : 0;
+  const necesidadMensualEnvases =
+    productoDespensa?.tipo === 'despensa' &&
+    productoDespensa.frecuencia === 'mensual'
+    ? obtenerNecesidadMensual(
+        productoDespensa.productoId,
+        productoDespensa.frecuencia,
+      )
+    : 0;
+  const reservaEnvases = stockAplicado
+    ? Math.max(0, productoDespensa?.stockMinimo ?? 0)
+    : 0;
+  const objetivoEnvases = Math.max(
+    necesidadMenuEnvases,
+    necesidadMensualEnvases,
+    reservaEnvases,
+  );
+
+  return {
+    periodo: 'mes',
+    necesidadMenuEnvases,
+    necesidadMensualEnvases,
+    reservaEnvases,
+    objetivoEnvases,
+    stockAntesEnvases,
+    compraEnvases: linea.envases,
+    sobranteDespuesEnvases: Math.max(
+      0,
+      stockAntesEnvases + linea.envases - objetivoEnvases,
+    ),
+    stockAplicado,
+  };
+}
+
+function explicarLineasMensuales(lineas: LineaCompra[]): LineaCompra[] {
+  return lineas.map((linea) => ({
+    ...linea,
+    explicacionCantidad: explicacionMensual(linea),
+  }));
+}
+
 function crearLineaMensualDespensa(
   productoDespensa: ProductoDespensa,
   cantidadMensual: number,
@@ -280,7 +336,9 @@ export async function generarCompraMensual(
 
   return rehacerResultado(
     resultado,
-    aplicarNecesidadesMensuales(lineasNoFrescas),
+    explicarLineasMensuales(
+      aplicarNecesidadesMensuales(lineasNoFrescas),
+    ),
   );
 }
 
@@ -330,10 +388,25 @@ export async function generarCompraSemanalProyectada(
     const linea = lineasProducto[semanaActiva];
     if (!linea?.producto) return;
     const envases = proyeccion.compras[semanaActiva] ?? 0;
+    const paso = proyeccion.pasos[semanaActiva];
     const ajustada: LineaCompra = {
       ...linea,
       envases,
       subtotal: linea.producto.precio === null ? null : envases * linea.producto.precio,
+      explicacionCantidad: paso
+        ? {
+            periodo: 'semana',
+            semana: semanaActiva + 1,
+            necesidadMenuEnvases: paso.necesidad,
+            necesidadMensualEnvases: 0,
+            reservaEnvases: 0,
+            objetivoEnvases: paso.necesidad,
+            stockAntesEnvases: paso.stockAntes,
+            compraEnvases: paso.compra,
+            sobranteDespuesEnvases: paso.stockDespues,
+            stockAplicado: true,
+          }
+        : undefined,
     };
     if (envases > 0) comprasActivas.push(ajustada);
     else cubiertasActivas.push(ajustada);

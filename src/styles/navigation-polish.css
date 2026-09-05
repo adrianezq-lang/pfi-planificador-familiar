@@ -146,3 +146,243 @@
     padding-inline: 12px !important;
   }
 }
+
+/* Explicación transparente de cantidades, formatos y sobrantes. */
+.compra-planificada-page .compra-periodo-aviso {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f8f6f2;
+}
+
+.compra-planificada-page .compra-periodo-aviso strong,
+.compra-planificada-page .compra-periodo-aviso span {
+  display: block;
+}
+
+.compra-planificada-page .compra-periodo-aviso strong {
+  color: #263229;
+}
+
+.compra-planificada-page .compra-periodo-aviso span {
+  margin-top: 3px;
+  color: #667067;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.compra-planificada-page .compra-resumen-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  text-align: center;
+}
+
+.compra-planificada-page .compra-resumen-grid strong,
+.compra-planificada-page .compra-resumen-grid span {
+  display: block;
+}
+
+.compra-planificada-page .compra-resumen-grid strong {
+  color: #4f6f52;
+  font-size: 20px;
+}
+
+.compra-planificada-page .compra-resumen-grid span {
+  color: #667067;
+  font-size: 12px;
+}
+
+.compra-planificada-page .compra-producto-linea {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid #e1e7df;
+}
+
+.compra-planificada-page .compra-producto-linea > input {
+  width: 23px;
+  height: 23px;
+  margin: 1px 0 0;
+  accent-color: #4f6f52;
+  cursor: pointer;
+}
+
+.compra-planificada-page .compra-producto-contenido {
+  min-width: 0;
+}
+
+.compra-planificada-page .compra-producto-nombre {
+  display: block;
+  color: #263229;
+  font-weight: 800;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.compra-planificada-page .compra-producto-nombre--marcado {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.compra-planificada-page .compra-necesidad,
+.compra-planificada-page .compra-formato,
+.compra-planificada-page .compra-cantidad,
+.compra-planificada-page .compra-sobrante,
+.compra-planificada-page .compra-sin-producto {
+  display: block;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+.compra-planificada-page .compra-necesidad,
+.compra-planificada-page .compra-sobrante {
+  color: #4f6f52;
+}
+
+.compra-planificada-page .compra-formato {
+  color: #737b74;
+}
+
+.compra-planificada-page .compra-cantidad {
+  color: #263229;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.compra-planificada-page .compra-sobrante {
+  font-weight: 700;
+}
+
+.compra-planificada-page .compra-sin-producto {
+  color: #9a6b1d;
+}
+
+.compra-planificada-page .compra-producto-precio {
+  color: #4f6f52;
+  white-space: nowrap;
+}
+
+.compra-planificada-page .compra-calculo {
+  margin-top: 9px;
+  border: 1px solid rgba(79, 111, 82, 0.2);
+  border-radius: 12px;
+  background: #f8faf7;
+  overflow: hidden;
+}
+
+.compra-planificada-page .compra-calculo summary {
+  position: relative;
+  padding: 9px 34px 9px 11px;
+  color: #405f44;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+}
+
+.compra-planificada-page .compra-calculo summary::-webkit-details-marker {
+  display: none;
+}
+
+.compra-planificada-page .compra-calculo summary::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.compra-planificada-page .compra-calculo[open] summary::after {
+  content: "−";
+}
+
+.compra-planificada-page .compra-calculo[open] summary {
+  border-bottom: 1px solid rgba(79, 111, 82, 0.14);
+}
+
+.compra-planificada-page .compra-calculo__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  padding: 10px 10px 0;
+}
+
+.compra-planificada-page .compra-calculo__dato {
+  min-width: 0;
+  padding: 8px;
+  border-radius: 9px;
+  background: #fff;
+}
+
+.compra-planificada-page .compra-calculo__dato small,
+.compra-planificada-page .compra-calculo__dato strong {
+  display: block;
+}
+
+.compra-planificada-page .compra-calculo__dato small {
+  color: #737b74;
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+.compra-planificada-page .compra-calculo__dato strong {
+  margin-top: 3px;
+  color: #334c36;
+  font-size: 12px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.compra-planificada-page .compra-calculo p {
+  margin: 10px 11px 11px;
+  color: #667067;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.compra-planificada-page .compra-linea-cubierta {
+  padding: 12px 0;
+  border-bottom: 1px solid #e1e7df;
+}
+
+.compra-planificada-page .compra-linea-cubierta:last-child {
+  border-bottom: 0;
+}
+
+.compra-planificada-page .compra-linea-cubierta > strong,
+.compra-planificada-page .compra-linea-cubierta > small {
+  display: block;
+}
+
+.compra-planificada-page .compra-linea-cubierta > small {
+  margin-top: 3px;
+  color: #737b74;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .compra-planificada-page .compra-producto-linea {
+    grid-template-columns: 30px minmax(0, 1fr) !important;
+  }
+
+  .compra-planificada-page .compra-producto-precio {
+    grid-column: 2;
+    justify-self: start;
+    padding-top: 1px;
+  }
+
+  .compra-planificada-page .compra-calculo__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 430px) {
+  .compra-planificada-page .compra-calculo {
+    margin-left: -2px;
+  }
+}

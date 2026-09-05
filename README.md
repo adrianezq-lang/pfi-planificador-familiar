@@ -1,8 +1,10 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.18.
+Versión 0.9.19.
 
 PFI conecta el menú familiar con recetas, productos reales de Mercadona, compra semanal, despensa e inventario.
+
+En la v0.9.19, cada producto de la compra explica cómo se obtiene su cantidad: necesidad del menú, equivalencia con el formato comercial, stock disponible, envases que se compran y sobrante posterior. La compra semanal muestra además el arrastre de sobrantes entre semanas, incluidos los productos que ya quedan cubiertos sin volver a comprarlos.
 
 En la v0.9.13, los postres proceden únicamente del recetario: las recetas con fruta rotan en las comidas y las recetas con yogur rotan en las cenas. Los domingos siguen sin postre por defecto y pueden editarse de forma puntual. La compra reconoce correctamente Carne, Pollo, Pescado y Marisco, y las asociaciones cuentan con copia y recuperación automática desde la despensa.
 
