@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-05T09:06:36.815Z",
+  "actualizado": "2026-09-06T09:27:50.708Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4291,
+  "totalProductos": 4281,
   "productos": [
     {
       "productoId": "3505.2",
@@ -1346,22 +1346,6 @@
       "subcategoria": "Activador y antical lavadora",
       "imagen": "https://prod-mercadona.imgix.net/images/897dec3caf09f976da529c45a3b7ea90.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/40317/activador-quitamanchas-ropa-color-oxi-active-bosque-verde-polvo-con-oxigeno-activo-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "13432",
-      "nombre": "Aftersun gel con aloe vera Deliplus",
-      "precio": 3.75,
-      "precioReferencia": 0.938,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.4,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Protector solar y aftersun",
-      "imagen": "https://prod-mercadona.imgix.net/images/dc09b10718d16c1af5102c93cccf2b2a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13432/aftersun-gel-con-aloe-vera-deliplus-bote",
       "disponible": true
     },
     {
@@ -7989,22 +7973,6 @@
       "disponible": true
     },
     {
-      "productoId": "23053",
-      "nombre": "Bebida láctea sabor canela y limón Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 1.6,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Huevos, leche y mantequilla",
-      "subcategoria": "Leche condensada y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/5458d9c7f79521885c059adda3db0c69.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23053/bebida-lactea-sabor-canela-limon-hacendado-botella",
-      "disponible": true
-    },
-    {
       "productoId": "21333",
       "nombre": "Bebida láctea sabor fresa +Proteínas 20 g 0% MG",
       "precio": 1.15,
@@ -11842,22 +11810,6 @@
       "subcategoria": "Caldo líquido",
       "imagen": "https://prod-mercadona.imgix.net/images/fe02b6084454b04609e6c816623fe622.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52768/caldo-cocido-hacendado-brick",
-      "disponible": true
-    },
-    {
-      "productoId": "7021",
-      "nombre": "Caldo de marisco o fideuá para paella Hacendado con sofrito",
-      "precio": 1.9,
-      "precioReferencia": 1.9,
-      "formato": "Brik",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Conservas, caldos y cremas",
-      "subcategoria": "Caldo líquido",
-      "imagen": "https://prod-mercadona.imgix.net/images/9348f5ac9e967781c169f4d6cc412fc4.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/7021/caldo-marisco-fideua-paella-hacendado-con-sofrito-brick",
       "disponible": true
     },
     {
@@ -24229,22 +24181,6 @@
       "disponible": true
     },
     {
-      "productoId": "60669",
-      "nombre": "Eau de parfum hombre Como Tú Rebel",
-      "precio": 8,
-      "precioReferencia": 8,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/25148eb678fe57748a3f2b037240c6ae.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60669/eau-parfum-hombre-rebel-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "60668",
       "nombre": "Eau de parfum hombre Como Tú Viento",
       "precio": 7,
@@ -27458,22 +27394,6 @@
       "subcategoria": "Salazones",
       "imagen": "https://prod-mercadona.imgix.net/images/c68c86888d778e0ece5c589622dbd2dc.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18402/filetes-anchoa-aceite-oliva-hacendado-bandeja",
-      "disponible": true
-    },
-    {
-      "productoId": "80418",
-      "nombre": "Filetes de anchoa en aceite de oliva Hacendado",
-      "precio": 3.65,
-      "precioReferencia": 73,
-      "formato": "Lata",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.074,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Marisco y pescado",
-      "subcategoria": "Salazones",
-      "imagen": "https://prod-mercadona.imgix.net/images/9a7778131b8713e8a177a827544489f4.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/80418/filetes-anchoa-aceite-oliva-hacendado-lata",
       "disponible": true
     },
     {
@@ -44281,7 +44201,7 @@
       "nombre": "Natillas de vainilla Danet",
       "precio": 1.94,
       "precioReferencia": 4.042,
-      "formato": "Pack-4",
+      "formato": "ud.",
       "unidadesTotales": 4,
       "tamañoUnidad": 0.48,
       "formatoUnidad": "kg",
@@ -48821,22 +48741,6 @@
       "disponible": true
     },
     {
-      "productoId": "60244",
-      "nombre": "Pechuga de pavo Hacendado finas lonchas",
-      "precio": 2.3,
-      "precioReferencia": 11.5,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Pavo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/8987d5ff5420c83d5be5a3dc6e3ebcbb.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60244/pechuga-pavo-finas-lonchas-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "59283",
       "nombre": "Pechuga de pavo Noel lonchas muy finas",
       "precio": 2.45,
@@ -49314,22 +49218,6 @@
       "subcategoria": "Cejas",
       "imagen": "https://prod-mercadona.imgix.net/images/d27b7929862996abd2fcd281e925e41d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23523/perfilador-cejas-long-lasting-deliplus-01-claro-con-cepillo",
-      "disponible": true
-    },
-    {
-      "productoId": "23525",
-      "nombre": "Perfilador de cejas Long Lasting Deliplus 03 oscuro",
-      "precio": 2.75,
-      "precioReferencia": 2.75,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Cejas",
-      "imagen": "https://prod-mercadona.imgix.net/images/2d62746986cca2a779b36b576c3f2126.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23525/perfilador-cejas-long-lasting-deliplus-03-oscuro-con-cepillo",
       "disponible": true
     },
     {
@@ -53762,38 +53650,6 @@
       "subcategoria": "Protector solar y aftersun",
       "imagen": "https://prod-mercadona.imgix.net/images/0ad3fd7c3ecdcfa23b83d32d3816097f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/16339/protector-labial-deliplus-fps-30-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "60609",
-      "nombre": "Protector solar Deliplus FPS 30",
-      "precio": 6,
-      "precioReferencia": 2.4,
-      "formato": "Spray",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.25,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Protector solar y aftersun",
-      "imagen": "https://prod-mercadona.imgix.net/images/e1784adc138909c8fa233902062bee59.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60609/protector-solar-sun-med-fps-30-resistente-agua-spray",
-      "disponible": true
-    },
-    {
-      "productoId": "60608",
-      "nombre": "Protector solar infantil pediátrico Deliplus FPS 50+",
-      "precio": 6,
-      "precioReferencia": 2.4,
-      "formato": "Spray",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.25,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Protector solar y aftersun",
-      "imagen": "https://prod-mercadona.imgix.net/images/a9a29548d3ef3ce216e970a54169a7a0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60608/protector-solar-infantil-pediatrico-sun-med-fps-50-resistente-agua-spray",
       "disponible": true
     },
     {
@@ -61634,22 +61490,6 @@
       "subcategoria": "Snacks",
       "imagen": "https://prod-mercadona.imgix.net/images/c17299d93bee0b00dcbf1b46694dbcbe.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86358/snack-gato-crunchy-con-hierba-gatera-compy-cuidado-dientes-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "11963",
-      "nombre": "Snack nuggets perro adulto Compy 80% pollo",
-      "precio": 1.35,
-      "precioReferencia": 16.875,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.08,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Snacks",
-      "imagen": "https://prod-mercadona.imgix.net/images/8f4a682200fc668e97c1d27cb51e993a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/11963/snack-nuggets-perro-adulto-compy-80-pollo-paquete",
       "disponible": true
     },
     {
