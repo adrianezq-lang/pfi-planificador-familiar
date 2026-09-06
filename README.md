@@ -1,6 +1,11 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.20.
+Versión 0.9.21.
+
+La v0.9.21 deja **Compra mensual** accesible desde cualquier semana, coloca
+las semanas del menú en columnas horizontales que se recorren deslizando y
+recupera el paso explícito **Guardar en inventario** para los productos que se
+van marcando como comprados. Cada producto queda registrado una sola vez.
 
 En la v0.9.20 vuelve **Cuenta y sincronización**. La pestaña Cuenta permite
 iniciar sesión, ver las cuentas de la familia y elegir de forma explícita entre
@@ -65,7 +70,7 @@ En Windows también puedes hacer doble clic en `ACTUALIZAR_MERCADONA.cmd`. Al te
 
 1. En **Recetas** o **Compra**, pulsa **Asociar** para elegir el producto exacto sin salir de la pantalla. También puedes gestionar asociaciones desde **Catálogo**.
 2. En **Despensa**, configura el stock objetivo, la frecuencia y el tipo de producto.
-3. En **Compra**, revisa la compra semanal y la reposición de despensa por separado.
+3. En **Compra**, alterna entre la compra semanal y la mensual desde cualquier semana del menú.
 4. Marca los productos comprados y pulsa **Guardar en inventario** para registrar las entradas.
 5. El panel **Inicio** muestra el menú del día, lo que hay que preparar, las próximas reposiciones y los presupuestos correspondientes a la semana activa. Sus tarjetas abren directamente la pestaña correspondiente.
 

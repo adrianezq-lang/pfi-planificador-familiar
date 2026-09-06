@@ -23,16 +23,6 @@ type MenuProps = {
   reiniciarMes: () => void;
 };
 
-type CeldaCalendario = {
-  fecha: string;
-  numero: number;
-  indiceSemana: number;
-  dia?: DiaMenu;
-  excluida: boolean;
-};
-
-const DIAS_CALENDARIO = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
-
 const fmtMes = (mes: string) => {
   const [anio, numero] = mes.split('-').map(Number);
   return new Intl.DateTimeFormat('es-ES', {
@@ -53,120 +43,85 @@ const fmtRango = (semana: SemanaMenu) => {
   return `${inicio}–${fin} ${abreviatura}`;
 };
 
-function fechaIso(anio: number, mes: number, dia: number): string {
-  return `${anio}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
-}
-
-function construirCalendario(
-  mesActivo: string,
-  planMensual: SemanaMenu[],
-): Array<CeldaCalendario | null> {
-  const [anio, mes] = mesActivo.split('-').map(Number);
-  const diasMes = new Date(anio, mes, 0).getDate();
-  const primerDia = new Date(anio, mes - 1, 1).getDay();
-  const huecosIniciales = primerDia === 0 ? 6 : primerDia - 1;
-  const celdas: Array<CeldaCalendario | null> = Array.from(
-    { length: huecosIniciales },
-    () => null,
-  );
-
-  for (let numero = 1; numero <= diasMes; numero += 1) {
-    const fecha = fechaIso(anio, mes, numero);
-    const indiceSemana = planMensual.findIndex(
-      (semana) =>
-        Boolean(semana.inicio && semana.fin) &&
-        fecha >= semana.inicio &&
-        fecha <= semana.fin,
-    );
-    const semana = planMensual[indiceSemana];
-    const dia = semana?.menu[indiceDiaSemana(fecha)];
-    celdas.push({
-      fecha,
-      numero,
-      indiceSemana,
-      dia,
-      excluida: semana?.excluida === true,
-    });
-  }
-
-  while (celdas.length % 7 !== 0) celdas.push(null);
-  return celdas;
-}
-
-function CalendarioMensual({
+function SemanasDelMes({
   mesActivo,
   planMensual,
   excepciones,
+  semanaActiva,
   onAbrirDia,
 }: {
   mesActivo: string;
   planMensual: SemanaMenu[];
   excepciones: ExcepcionesCalendario;
-  onAbrirDia: (celda: CeldaCalendario) => void;
+  semanaActiva: number;
+  onAbrirDia: (indiceSemana: number, fecha: string) => void;
 }) {
-  const celdas = useMemo(
-    () => construirCalendario(mesActivo, planMensual),
-    [mesActivo, planMensual],
-  );
-
   return (
-    <section className="monthly-menu-overview" aria-label="Vista mensual de comidas y cenas">
+    <section className="monthly-menu-overview" aria-label="Semanas del menú mensual">
       <header className="monthly-menu-overview__header">
         <div>
-          <span className="monthly-menu-overview__eyebrow">TODO EL MES DE UN VISTAZO</span>
-          <h3>Calendario mensual</h3>
-          <p>Comidas y cenas de {fmtMes(mesActivo)}. Pulsa cualquier día para abrirlo arriba.</p>
+          <span className="monthly-menu-overview__eyebrow">TODO EL MES, SEMANA A SEMANA</span>
+          <h3>Semanas del mes</h3>
+          <p>
+            Comidas y cenas de {fmtMes(mesActivo)}. Las semanas están una junto
+            a otra; desliza a los lados y pulsa un día para abrirlo arriba.
+          </p>
         </div>
       </header>
 
-      <div className="monthly-menu-overview__scroll">
-        <div className="monthly-menu-calendar">
-          {DIAS_CALENDARIO.map((dia) => (
-            <div className="monthly-menu-calendar__weekday" key={dia}>
-              {dia}
-            </div>
-          ))}
+      <div className="monthly-week-rail">
+        {planMensual.map((semana, indiceSemana) => {
+          const fechas = fechasSemana(semana);
+          return (
+            <article
+              key={semana.id}
+              className={`monthly-week-column${indiceSemana === semanaActiva ? ' monthly-week-column--active' : ''}${semana.excluida ? ' monthly-week-column--away' : ''}`}
+            >
+              <header className="monthly-week-column__header">
+                <span>Semana {indiceSemana + 1}</span>
+                <strong>{fmtRango(semana)}</strong>
+                {semana.excluida && <small>Fuera de casa</small>}
+              </header>
 
-          {celdas.map((celda, indice) => {
-            if (!celda) {
-              return <div className="monthly-menu-calendar__empty" key={`vacio-${indice}`} />;
-            }
+              <div className="monthly-week-column__days">
+                {fechas.map((fecha) => {
+                  const dia = semana.menu[indiceDiaSemana(fecha)];
+                  const excepcion = excepciones[fecha];
+                  const fueraTodoElDia = semana.excluida || excepcion?.noEnCasa;
+                  const comida = fueraTodoElDia
+                    ? 'Fuera de casa'
+                    : excepcion?.sinComida
+                      ? 'Sin comida en casa'
+                      : dia?.comida.join(' + ') || 'Sin plan';
+                  const cena = fueraTodoElDia
+                    ? 'Fuera de casa'
+                    : excepcion?.sinCena
+                      ? 'Sin cena en casa'
+                      : dia?.cena.join(' + ') || 'Sin plan';
 
-            const excepcion = excepciones[celda.fecha];
-            const fueraTodoElDia = celda.excluida || excepcion?.noEnCasa;
-            const comida = fueraTodoElDia
-              ? 'Fuera de casa'
-              : excepcion?.sinComida
-                ? 'No comemos en casa'
-                : celda.dia?.comida.join(' + ') || 'Sin plan';
-            const cena = fueraTodoElDia
-              ? 'Fuera de casa'
-              : excepcion?.sinCena
-                ? 'No cenamos en casa'
-                : celda.dia?.cena.join(' + ') || 'Sin plan';
-
-            return (
-              <button
-                type="button"
-                key={celda.fecha}
-                className={`monthly-menu-calendar__day${fueraTodoElDia ? ' monthly-menu-calendar__day--away' : ''}`}
-                onClick={() => onAbrirDia(celda)}
-                disabled={celda.indiceSemana < 0}
-                aria-label={`Abrir menú del ${celda.numero}: comida ${comida}; cena ${cena}`}
-              >
-                <span className="monthly-menu-calendar__date">{celda.numero}</span>
-                <span className="monthly-menu-calendar__meal">
-                  <b>🍽️</b>
-                  <span>{comida}</span>
-                </span>
-                <span className="monthly-menu-calendar__meal">
-                  <b>🌙</b>
-                  <span>{cena}</span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
+                  return (
+                    <button
+                      type="button"
+                      key={fecha}
+                      className={`monthly-week-day${fueraTodoElDia ? ' monthly-week-day--away' : ''}`}
+                      onClick={() => onAbrirDia(indiceSemana, fecha)}
+                      aria-label={`Abrir ${dia?.dia ?? fecha}, ${fecha.slice(8, 10)}: comida ${comida}; cena ${cena}`}
+                    >
+                      <span className="monthly-week-day__date">
+                        <b>{dia?.dia?.slice(0, 3) ?? 'Día'}</b>
+                        <strong>{fecha.slice(8, 10)}</strong>
+                      </span>
+                      <span className="monthly-week-day__meals">
+                        <small>🍽️ {comida}</small>
+                        <small>🌙 {cena}</small>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
@@ -224,12 +179,11 @@ export default function Menu({
     });
   };
 
-  const abrirDiaCalendario = (celda: CeldaCalendario) => {
-    if (celda.indiceSemana < 0) return;
-    const semanaDestino = planMensual[celda.indiceSemana];
+  const abrirDiaResumen = (indiceSemana: number, fecha: string) => {
+    const semanaDestino = planMensual[indiceSemana];
     const fechasDestino = semanaDestino ? fechasSemana(semanaDestino) : [];
-    const indiceFecha = fechasDestino.indexOf(celda.fecha);
-    seleccionarSemana(celda.indiceSemana);
+    const indiceFecha = fechasDestino.indexOf(fecha);
+    seleccionarSemana(indiceSemana);
     setDiaActivo(Math.max(0, indiceFecha));
     document.querySelector('.week-switcher')?.scrollIntoView({
       behavior: 'smooth',
@@ -403,11 +357,12 @@ export default function Menu({
         </>
       ) : null}
 
-      <CalendarioMensual
+      <SemanasDelMes
         mesActivo={mesActivo}
         planMensual={planMensual}
         excepciones={excepciones}
-        onAbrirDia={abrirDiaCalendario}
+        semanaActiva={semanaActiva}
+        onAbrirDia={abrirDiaResumen}
       />
     </main>
   );

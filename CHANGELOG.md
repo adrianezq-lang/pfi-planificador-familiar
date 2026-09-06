@@ -1,3 +1,12 @@
+# v0.9.21 — Semanas horizontales y compra completa
+
+- Las semanas del menú aparecen en columnas contiguas y se recorren horizontalmente, también en móvil.
+- Cada día del resumen mensual abre directamente su semana y su ficha diaria.
+- Compra mensual tiene un acceso propio visible desde cualquier semana.
+- Los productos marcados se pueden guardar explícitamente en el inventario.
+- El registro impide añadir dos veces la misma línea de compra.
+- Las listas semanal y mensual conservan por separado sus marcas y su estado de inventario.
+
 # v0.9.20 — Cuenta familiar y sincronización segura
 
 - Recuperada la sesión de usuario con correo y contraseña.

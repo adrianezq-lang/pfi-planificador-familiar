@@ -11,6 +11,14 @@ import {
   generarCompraMensual,
   generarCompraSemanalProyectada,
 } from '../services/planificacionCompra';
+import {
+  cargarClavesGuardadas,
+  crearClavesEstadoCompra,
+  guardarClavesCompra,
+  obtenerLineasPendientesDeInventario,
+  registrarMarcadosEnInventario,
+  type PeriodoCompra,
+} from '../services/registroCompra';
 
 type Props = {
   menu: DiaMenu[];
@@ -19,8 +27,6 @@ type Props = {
   mesActivo: string;
   semanaActiva: number;
 };
-
-type Periodo = 'semana' | 'mes';
 
 const UMBRAL_CERO = 0.000001;
 const SIN_LINEAS: LineaCompra[] = [];
@@ -38,25 +44,24 @@ export default function CompraPlanificada({
   mesActivo,
   semanaActiva,
 }: Props) {
-  const [periodo, setPeriodo] = useState<Periodo>('semana');
+  const [periodo, setPeriodo] = useState<PeriodoCompra>('semana');
   const [resultado, setResultado] = useState<ResultadoCompra | null>(null);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
+  const [mensajeInventario, setMensajeInventario] = useState('');
   const menuObjetivo = periodo === 'semana' ? menu : menuMes;
-  const clave = `pfi-compra-${periodo}-${mesActivo}-${periodo === 'semana' ? semanaActiva + 1 : 'todo'}`;
+  const clavesEstado = useMemo(
+    () => crearClavesEstadoCompra(periodo, mesActivo, semanaActiva),
+    [mesActivo, periodo, semanaActiva],
+  );
   const [marcados, setMarcados] = useState<string[]>([]);
+  const [registrados, setRegistrados] = useState<string[]>([]);
 
   useEffect(() => {
-    try {
-      setMarcados(JSON.parse(localStorage.getItem(clave) || '[]'));
-    } catch {
-      setMarcados([]);
-    }
-  }, [clave]);
-
-  useEffect(() => {
-    if (semanaActiva !== 0 && periodo === 'mes') setPeriodo('semana');
-  }, [semanaActiva, periodo]);
+    setMarcados(cargarClavesGuardadas(clavesEstado.marcados));
+    setRegistrados(cargarClavesGuardadas(clavesEstado.registrados));
+    setMensajeInventario('');
+  }, [clavesEstado]);
 
   useEffect(() => {
     let activo = true;
@@ -84,6 +89,28 @@ export default function CompraPlanificada({
   }, [menuMes, menusSemanas, periodo, mesActivo, semanaActiva]);
 
   const lineas = resultado?.lineas ?? SIN_LINEAS;
+  const marcadosSet = useMemo(() => new Set(marcados), [marcados]);
+  const registradosSet = useMemo(() => new Set(registrados), [registrados]);
+  const pendientesInventario = useMemo(
+    () => obtenerLineasPendientesDeInventario(lineas, marcados, registrados),
+    [lineas, marcados, registrados],
+  );
+  const marcadosVisibles = lineas.reduce(
+    (totalMarcados, linea) => totalMarcados + Number(marcadosSet.has(linea.clave)),
+    0,
+  );
+  const registradosVisibles = lineas.reduce(
+    (totalRegistrados, linea) =>
+      totalRegistrados + Number(registradosSet.has(linea.clave)),
+    0,
+  );
+  const marcadosSinInventario = lineas.reduce(
+    (totalSinInventario, linea) =>
+      totalSinInventario + Number(
+        marcadosSet.has(linea.clave) && !linea.productoDespensa,
+      ),
+    0,
+  );
   const secciones = useMemo(
     () =>
       Array.from(new Set(lineas.map(obtenerSeccionCompra))).sort((a, b) => {
@@ -95,23 +122,55 @@ export default function CompraPlanificada({
   );
 
   const cambiar = (linea: LineaCompra) => {
-    const nuevas = marcados.includes(linea.clave)
+    if (registradosSet.has(linea.clave)) return;
+    const nuevas = marcadosSet.has(linea.clave)
       ? marcados.filter((claveMarcada) => claveMarcada !== linea.clave)
       : [...marcados, linea.clave];
     setMarcados(nuevas);
-    localStorage.setItem(clave, JSON.stringify(nuevas));
+    guardarClavesCompra(clavesEstado.marcados, nuevas);
+    setMensajeInventario('');
+  };
+
+  const marcarTodo = () => {
+    const nuevas = lineas.map((linea) => linea.clave);
+    setMarcados(nuevas);
+    guardarClavesCompra(clavesEstado.marcados, nuevas);
+    setMensajeInventario('');
   };
 
   const total = lineas.reduce((suma, linea) => suma + (linea.subtotal ?? 0), 0);
   const pendiente = lineas.reduce(
     (suma, linea) =>
-      suma + (marcados.includes(linea.clave) ? 0 : (linea.subtotal ?? 0)),
+      suma + (marcadosSet.has(linea.clave) ? 0 : (linea.subtotal ?? 0)),
     0,
   );
   const mesTexto = new Intl.DateTimeFormat('es-ES', {
     month: 'long',
     year: 'numeric',
   }).format(new Date(`${mesActivo}-01T12:00:00`));
+
+  const guardarEnInventario = () => {
+    const observaciones = periodo === 'mes'
+      ? `Compra mensual · ${mesTexto}`
+      : `Compra semanal ${semanaActiva + 1} · ${mesTexto}`;
+    const registro = registrarMarcadosEnInventario(
+      lineas,
+      marcados,
+      registrados,
+      observaciones,
+    );
+    setRegistrados(registro.clavesRegistradas);
+    guardarClavesCompra(clavesEstado.registrados, registro.clavesRegistradas);
+
+    const mensajeBase = registro.lineasRegistradas === 1
+      ? '1 producto añadido al inventario.'
+      : `${registro.lineasRegistradas} productos añadidos al inventario.`;
+    setMensajeInventario(
+      registro.lineasSinInventario > 0
+        ? `${mensajeBase} ${registro.lineasSinInventario} no se ha podido guardar porque todavía no está vinculado a la despensa.`
+        : mensajeBase,
+    );
+  };
 
   return (
     <main
@@ -127,7 +186,7 @@ export default function CompraPlanificada({
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: semanaActiva === 0 ? '1fr 1fr' : '1fr',
+            gridTemplateColumns: '1fr 1fr',
             gap: 10,
             margin: '18px 0',
           }}
@@ -140,16 +199,14 @@ export default function CompraPlanificada({
           >
             🥬 Compra semanal
           </button>
-          {semanaActiva === 0 && (
-            <button
-              type="button"
-              aria-pressed={periodo === 'mes'}
-              onClick={() => setPeriodo('mes')}
-              style={boton(periodo === 'mes')}
-            >
-              🧺 Compra mensual
-            </button>
-          )}
+          <button
+            type="button"
+            aria-pressed={periodo === 'mes'}
+            onClick={() => setPeriodo('mes')}
+            style={boton(periodo === 'mes')}
+          >
+            🧺 Compra mensual
+          </button>
         </div>
         <div className="compra-periodo-aviso">
           <strong>
@@ -184,6 +241,47 @@ export default function CompraPlanificada({
               <Resumen valor={String(lineas.length)} texto="productos" />
               <Resumen valor={euros(pendiente)} texto="pendiente" />
             </div>
+
+            <div className="compra-inventario-actions">
+              <div>
+                <strong>
+                  {marcadosVisibles} de {lineas.length} productos marcados
+                </strong>
+                <span>
+                  {pendientesInventario.length > 0
+                    ? `${pendientesInventario.length} listos para añadir al inventario.`
+                    : marcadosVisibles > 0 && registradosVisibles === marcadosVisibles
+                      ? 'Los productos guardados ya están protegidos contra registros duplicados.'
+                      : marcadosSinInventario > 0
+                        ? `${marcadosSinInventario} necesitan estar vinculados a la despensa antes de guardarlos.`
+                      : 'Marca cada producto cuando lo metas en el carro.'}
+                </span>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="compra-action-button compra-action-button--secondary"
+                  onClick={marcarTodo}
+                  disabled={lineas.length === 0 || marcadosVisibles === lineas.length}
+                >
+                  Marcar todo
+                </button>
+                <button
+                  type="button"
+                  className="compra-action-button compra-action-button--primary"
+                  onClick={guardarEnInventario}
+                  disabled={pendientesInventario.length === 0}
+                >
+                  Guardar{pendientesInventario.length > 0 ? ` ${pendientesInventario.length}` : ''} en inventario
+                </button>
+              </div>
+            </div>
+
+            {mensajeInventario && (
+              <p className="compra-inventario-message" role="status">
+                {mensajeInventario}
+              </p>
+            )}
           </Card>
 
           {menuObjetivo.length === 0 && (
@@ -204,7 +302,8 @@ export default function CompraPlanificada({
                   <LineaProducto
                     key={linea.clave}
                     linea={linea}
-                    marcada={marcados.includes(linea.clave)}
+                    marcada={marcadosSet.has(linea.clave)}
+                    registrada={registradosSet.has(linea.clave)}
                     cambiar={() => cambiar(linea)}
                   />
                 ))}
@@ -236,10 +335,12 @@ export default function CompraPlanificada({
 function LineaProducto({
   linea,
   marcada,
+  registrada,
   cambiar,
 }: {
   linea: LineaCompra;
   marcada: boolean;
+  registrada: boolean;
   cambiar: () => void;
 }) {
   const identificador = `compra-${linea.clave.replace(/[^a-zA-Z0-9_-]/g, '-')}`;
@@ -250,9 +351,14 @@ function LineaProducto({
       <input
         id={identificador}
         type="checkbox"
-        checked={marcada}
+        checked={marcada || registrada}
         onChange={cambiar}
-        aria-label={`Marcar ${nombreLinea(linea)} como comprado`}
+        disabled={registrada}
+        aria-label={
+          registrada
+            ? `${nombreLinea(linea)} guardado en inventario`
+            : `Marcar ${nombreLinea(linea)} como comprado`
+        }
       />
       <div className="compra-producto-contenido">
         <label
@@ -261,6 +367,9 @@ function LineaProducto({
         >
           {nombreLinea(linea)}
         </label>
+        {registrada && (
+          <small className="compra-en-inventario">✓ Guardado en inventario</small>
+        )}
         <small className="compra-necesidad">
           Necesitas: {resumenNecesidades(linea)}
         </small>
