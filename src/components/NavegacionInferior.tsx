@@ -18,7 +18,7 @@ const botones: BotonNavegacion[] = [
   { id: 'despensa', icono: '📦', texto: 'Despensa' },
   { id: 'recetas', icono: '📖', texto: 'Recetas' },
   { id: 'catalogo', icono: '🏪', texto: 'Catálogo' },
-  { id: 'perfil', icono: '👤', texto: 'Perfil' },
+  { id: 'perfil', icono: '👤', texto: 'Cuenta' },
 ];
 
 function NavegacionInferior({

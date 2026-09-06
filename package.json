@@ -1,7 +1,7 @@
 {
   "name": "pfi-planificador-familiar",
   "private": true,
-  "version": "0.9.19",
+  "version": "0.9.20",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -28,9 +28,11 @@
     "test:rescate-json": "node --experimental-strip-types scripts/probar-rescate-json.mjs",
     "test:copias": "node --experimental-strip-types scripts/probar-copias-seguridad.mjs",
     "test:calendario": "node --experimental-strip-types scripts/probar-calendario-inventario.mjs",
-    "test:comensales": "node --experimental-strip-types scripts/probar-comensales-por-servicio.mjs"
+    "test:comensales": "node --experimental-strip-types scripts/probar-comensales-por-servicio.mjs",
+    "test:cuenta": "node --experimental-strip-types scripts/probar-cuenta-sync.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.115.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },

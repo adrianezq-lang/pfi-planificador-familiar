@@ -1,3 +1,13 @@
+# v0.9.20 — Cuenta familiar y sincronización segura
+
+- Recuperada la sesión de usuario con correo y contraseña.
+- La navegación muestra **Cuenta** y la pantalla reúne cuenta, familia, perfil y copias.
+- Vuelven las tres cuentas de la familia y el estado de la copia remota.
+- El usuario elige si guarda este móvil en la nube o trae los datos familiares; nunca se sobrescribe automáticamente una copia dudosa.
+- Antes de traer la nube se crea una copia automática local.
+- Las sesiones y los tokens quedan excluidos de las copias JSON y de la sincronización.
+- El acceso remoto aplica permisos mínimos y aislamiento por familia.
+
 # v0.9.18 — Datos protegidos y copias completas
 
 - El rescate deja de ocupar Inicio y pasa a **Perfil → Datos y copias**.

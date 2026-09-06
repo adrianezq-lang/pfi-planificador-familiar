@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import Card from '../components/ui/Card';
 import CentroDatosCopias from '../components/CentroDatosCopias';
+import CuentaSincronizacion from '../components/CuentaSincronizacion';
 import Title from '../components/ui/Title';
 import {
   calcularComensalesMomento,
@@ -243,13 +244,15 @@ function Perfil() {
     <main className="page legacy-page" style={estiloPagina}>
       <Card className="page-hero-card">
         <Title style={{ color: '#4f6f52' }}>
-          👤 Perfil familiar
+          👤 Cuenta y perfil
         </Title>
         <p style={estiloIntroduccion}>
           Estos datos ajustan automáticamente las raciones principales de
           las recetas y las cantidades de Compra.
         </p>
       </Card>
+
+      <CuentaSincronizacion />
 
       <CentroDatosCopias />
 
@@ -502,7 +505,8 @@ function Perfil() {
         <p style={estiloIntroduccion}>
           PFI aprende de las combinaciones que eliges, de si gustaron y de
           si sobró o faltó comida. También afina las cantidades que corriges
-          manualmente en Recetas. Todo se guarda solo en este navegador.
+          manualmente en Recetas. Se guarda primero en este navegador y entra
+          en la copia familiar cuando la sincronizas desde Cuenta.
         </p>
 
         <div style={estiloCuadriculaAprendizaje}>

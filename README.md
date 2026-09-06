@@ -1,6 +1,12 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.19.
+Versión 0.9.20.
+
+En la v0.9.20 vuelve **Cuenta y sincronización**. La pestaña Cuenta permite
+iniciar sesión, ver las cuentas de la familia y elegir de forma explícita entre
+guardar este móvil en la nube o traer la copia familiar. PFI protege antes el
+estado local, no mezcla dos copias a escondidas y excluye las credenciales de
+los JSON de seguridad.
 
 PFI conecta el menú familiar con recetas, productos reales de Mercadona, compra semanal, despensa e inventario.
 

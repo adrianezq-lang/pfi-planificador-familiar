@@ -1,6 +1,6 @@
 const CLAVE_COPIAS_AUTOMATICAS = 'pfi-copias-automaticas-v1';
 const VERSION_FORMATO = 3;
-const VERSION_APP = '0.9.19';
+const VERSION_APP = '0.9.20';
 const MAX_COPIAS_AUTOMATICAS = 8;
 const LIMITE_IMPORTACION_BYTES = 5_000_000;
 
@@ -8,6 +8,8 @@ export const EVENTO_COPIAS_SEGURIDAD = 'pfi-copias-seguridad-actualizadas';
 
 const CLAVES_INTERNAS = new Set([
   CLAVE_COPIAS_AUTOMATICAS,
+  'pfi-sync-sesion-v1',
+  'pfi-sync-estado-v1',
 ]);
 
 export type DatosCopiaPFI = Record<string, string>;
@@ -213,8 +215,13 @@ function leerCopiasGuardadas(): CopiaAutomaticaGuardada[] {
     const valor = leerJson(localStorage.getItem(CLAVE_COPIAS_AUTOMATICAS) ?? undefined);
     if (!Array.isArray(valor)) return [];
 
-    return valor.flatMap((entrada) => {
+    let requiereSaneado = false;
+    const copias = valor.flatMap((entrada) => {
       if (!esObjeto(entrada)) return [];
+      const datosOriginales = esObjeto(entrada.datos) ? entrada.datos : {};
+      if (Object.keys(datosOriginales).some((clave) => CLAVES_INTERNAS.has(clave))) {
+        requiereSaneado = true;
+      }
       const datos = normalizarDatos(entrada.datos);
       if (Object.keys(datos).length === 0) return [];
 
@@ -232,6 +239,19 @@ function leerCopiasGuardadas(): CopiaAutomaticaGuardada[] {
         huella,
       }];
     });
+
+    if (requiereSaneado) {
+      try {
+        localStorage.setItem(
+          CLAVE_COPIAS_AUTOMATICAS,
+          JSON.stringify(copias.slice(0, MAX_COPIAS_AUTOMATICAS)),
+        );
+      } catch {
+        // La copia sigue leyéndose ya saneada aunque el navegador no deje reescribirla.
+      }
+    }
+
+    return copias;
   } catch {
     return [];
   }
@@ -417,6 +437,25 @@ export function aplicarCopiaCompleta(copia: CopiaSeguridadPFI): ResumenCopiaPFI 
   }
 
   protegerEstadoActual('antes de importar una copia completa');
+  aplicarDatos(datos);
+  return resumirDatos(datos);
+}
+
+export function aplicarDatosSincronizados(
+  datosRecibidos: DatosCopiaPFI,
+  actualizadaEn: string | null,
+): ResumenCopiaPFI {
+  const datosNormalizados = normalizarDatos(datosRecibidos);
+  if (Object.keys(datosNormalizados).length === 0) {
+    throw new Error('La copia de la nube no contiene datos que se puedan restaurar.');
+  }
+
+  const fechaValida = actualizadaEn && !Number.isNaN(new Date(actualizadaEn).getTime())
+    ? actualizadaEn
+    : new Date().toISOString();
+  const datos = migrarPlanMensualAnterior(datosNormalizados, fechaValida);
+
+  protegerEstadoActual('antes de traer datos de la nube');
   aplicarDatos(datos);
   return resumirDatos(datos);
 }
