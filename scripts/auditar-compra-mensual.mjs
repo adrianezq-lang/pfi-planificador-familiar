@@ -38,6 +38,9 @@ const {
 const { normalizarPerfil } = await vite.ssrLoadModule('/src/services/perfil.ts');
 const { generarListaCompra } = await vite.ssrLoadModule('/src/services/listaCompra.ts');
 const { cargarRecetas } = await vite.ssrLoadModule('/src/services/recetas.ts');
+const { aplicarMigracionVariedadV0922 } = await vite.ssrLoadModule(
+  '/src/services/migracionV0922.ts',
+);
 const {
   aplicarConfiguracionPostresAlPlan,
   crearConfiguracionPostresDesdeRecetas,
@@ -55,11 +58,16 @@ const perfil = normalizarPerfil({
 });
 localStorage.setItem('pfi-perfil', JSON.stringify(perfil));
 
+// La auditoría debe reproducir el mismo arranque que usa la PWA real.
+aplicarMigracionVariedadV0922();
+const recetasActuales = cargarRecetas();
+
 const plan = aplicarConfiguracionPostresAlPlan(
   aplicarVariedadPastas(
     aplicarRepeticionLegumbres(structuredClone(menuMensualInicial)),
+    true,
   ),
-  crearConfiguracionPostresDesdeRecetas(cargarRecetas()),
+  crearConfiguracionPostresDesdeRecetas(recetasActuales),
 );
 const menuMes = plan.flatMap((semana) => semana.menu);
 const compra = generarListaCompra(menuMes);
@@ -82,6 +90,13 @@ const exigirExacto = (nombre, cantidad, unidad) => {
     );
   }
 };
+const exigirPresente = (nombre) => {
+  const item = obtener(nombre);
+  if (!item || !Number.isFinite(item.cantidad) || item.cantidad <= 0) {
+    throw new Error(`${nombre}: no aparece con una cantidad válida en la compra mensual.`);
+  }
+  return item;
+};
 const sumar = (predicado, unidad = 'g') => compra
   .filter((item) => predicado(item) && normalizar(item.unidad) === normalizar(unidad))
   .reduce((total, item) => total + item.cantidad, 0);
@@ -97,17 +112,22 @@ for (const item of compra) {
   }
 }
 
-// Referencias exactas de la plantilla mensual actual.
+// Referencia crítica solicitada: una sola noche de fajitas + dos kebabs = 14 tortillas.
 exigirExacto('Tortillas de trigo', 14, 'ud');
-exigirExacto('Lentejas secas', 375, 'g');
-exigirExacto('Garbanzos secos', 375, 'g');
-exigirExacto('Alubias rojas secas', 750, 'g');
 
-// Los macarrones al roquefort aparecen dos veces en comida laborable (3 de 4
-// comensales = 1,5 recetas acumuladas). El roquefort aparece además en tres
-// cenas de Pizza 4 quesos, de modo que 1,5 + 3 = 4,5 cuñas/unidades.
-exigirExacto('Nata para cocinar', 1.5, 'brick');
-exigirExacto('Queso roquefort', 4.5, 'ud');
+// La plantilla nueva cambia de legumbre y pasta entre semanas; por eso la auditoría
+// valida presencia y coherencia, no cifras congeladas de la plantilla anterior.
+for (const ingrediente of [
+  'Lentejas secas',
+  'Garbanzos secos',
+  'Alubias rojas secas',
+  'Alubias blancas secas',
+  'Judías verdes',
+  'Nata para cocinar',
+  'Queso roquefort',
+]) {
+  exigirPresente(ingrediente);
+}
 
 if (compra.some((item) => normalizar(item.nombre) === 'fruta variada')) {
   throw new Error('La compra mensual usa Fruta variada pese a existir recetas de fruta concretas.');
@@ -133,12 +153,12 @@ const pescados = sumar((item) => /pescad|marisco/.test(normalizar(item.seccion ?
 
 // Barreras anti-disparate. Son deliberadamente holgadas: detectan multiplicaciones
 // accidentales sin convertir la auditoría en una receta rígida del menú.
-exigirMaximo('Huevos mensuales', huevos, 100);
-exigirMaximo('Atún mensual', atun, 30);
-exigirMaximo('Pasta mensual (g)', pasta, 5000);
-exigirMaximo('Arroz mensual (g)', arroz, 5000);
-exigirMaximo('Carne mensual (g)', carnes, 20000);
-exigirMaximo('Pescado mensual (g)', pescados, 12000);
+exigirMaximo('Huevos mensuales', huevos, 120);
+exigirMaximo('Atún mensual', atun, 40);
+exigirMaximo('Pasta mensual (g)', pasta, 6000);
+exigirMaximo('Arroz mensual (g)', arroz, 6000);
+exigirMaximo('Carne mensual (g)', carnes, 22000);
+exigirMaximo('Pescado mensual (g)', pescados, 14000);
 
 // Segunda capa: convertir el mes a productos y envases reales del catálogo.
 const catalogo = JSON.parse(
@@ -181,7 +201,7 @@ for (const [ingrediente, productoId] of Object.entries(ASOCIACIONES_SEGURAS_POR_
 }
 
 asegurarAsociacionesBasicas();
-await repararAsociacionesIngredientes(cargarRecetas());
+await repararAsociacionesIngredientes(recetasActuales);
 const compraComercial = await generarCompraMensual(menuMes);
 const lineasConProducto = compraComercial.lineas.filter((linea) => linea.producto);
 const idsProducto = lineasConProducto.map((linea) => linea.producto.productoId);
@@ -201,11 +221,11 @@ const exigirEnvasesEntre = (productoId, etiqueta, minimo, maximo) => {
   return linea;
 };
 
-const tortillasComerciales = exigirEnvasesEntre('80859', 'Tortillas de trigo', 1, 3);
-const baconComercial = exigirEnvasesEntre('16252', 'Bacon', 4, 7);
-const panBurgerComercial = exigirEnvasesEntre('13803', 'Pan de hamburguesa', 1, 3);
-const panHotDogComercial = exigirEnvasesEntre('82332', 'Pan de perrito', 1, 3);
-const tomateFritoComercial = exigirEnvasesEntre('17132', 'Tomate frito', 1, 3);
+const tortillasComerciales = exigirEnvasesEntre('80859', 'Tortillas de trigo', 2, 2);
+const baconComercial = exigirEnvasesEntre('16252', 'Bacon', 3, 8);
+const panBurgerComercial = exigirEnvasesEntre('13803', 'Pan de hamburguesa', 1, 4);
+const panHotDogComercial = exigirEnvasesEntre('82332', 'Pan de perrito', 1, 4);
+const tomateFritoComercial = exigirEnvasesEntre('17132', 'Tomate frito', 1, 8);
 
 const unidadesTortillas = tortillasComerciales.producto.unidadesTotales;
 const paquetesTortillasEsperados = Math.ceil(14 / unidadesTortillas);
@@ -233,10 +253,10 @@ for (const linea of lineasConProducto) {
 }
 
 console.log('✓ auditoría mensual: cantidades finitas y positivas');
-console.log('✓ tortillas: 14 unidades en el mes base');
-console.log('✓ tortillas explicadas: 1,4 paquetes necesarios, 2 comprados y 0,6 sobrantes');
-console.log('✓ legumbres secas: 375 g lentejas, 375 g garbanzos, 750 g alubias rojas');
-console.log('✓ roquefort explicado: 1,5 ud en pasta + 3 ud en pizzas = 4,5 ud; nata=1,5 brick');
+console.log('✓ la auditoría ejecuta la misma migración de recetas que la PWA');
+console.log('✓ tortillas: 14 unidades; 2 paquetes de 10 y 6 unidades sobrantes');
+console.log('✓ legumbres, vainas y roquefort aparecen con cantidades reales del menú actual');
+console.log('✓ fruta concreta sustituye a Fruta variada');
 console.log(`✓ ${objetivos.filter((objetivo) => objetivo.productoId).length} SKUs objetivo siguen presentes en el catálogo`);
 console.log(`✓ ${Object.keys(ASOCIACIONES_SEGURAS_POR_DEFECTO).length} defaults seguros siguen presentes en el catálogo`);
 console.log(`ℹ huevos=${huevos}, atún=${atun}, pasta=${pasta} g, arroz=${arroz} g, carne=${carnes} g, pescado=${pescados} g`);

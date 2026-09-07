@@ -83,7 +83,7 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
   [
     dia('Lunes', ['Alubias blancas con almejas'], ['Pechugas de pollo', 'Ensalada'], 'Fruta', 'Yogur'),
     dia('Martes', ['Lubina', 'Ensalada'], ['Crema de calabaza', 'Pechugas de pavo'], 'Yogur', 'Fruta'),
-    dia('Miércoles', ['Ensalada de pasta con pavo'], ['Fajitas'], 'Fruta', 'Yogur'),
+    dia('Miércoles', ['Ensalada de pasta con pavo'], ['Pechugas de pollo', 'Patatas'], 'Fruta', 'Yogur'),
     dia('Jueves', ['Alubias blancas con almejas'], ['Filete de ternera', 'Calabacín a la plancha'], 'Yogur', 'Fruta'),
     dia('Viernes', ['Macarrones con atún'], ['Pizza jamón y queso', 'Pizza BBQ'], 'Fruta', 'Yogur'),
     dia('Sábado', ['Salmón', 'Ensalada'], ['Perritos calientes', 'Ensalada'], 'Yogur', 'Fruta'),

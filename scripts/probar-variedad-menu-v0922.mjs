@@ -20,6 +20,8 @@ const usos = new Map();
 const legumbresLunes = [];
 const ensaladasPasta = [];
 const serviciosVegetales = new Set();
+let aparicionesFajitas = 0;
+let aparicionesKebab = 0;
 
 menuMensualInicial.forEach((semana, indiceSemana) => {
   const lunes = semana.menu.find((dia) => dia.dia === 'Lunes');
@@ -39,6 +41,9 @@ menuMensualInicial.forEach((semana, indiceSemana) => {
   );
 
   semana.menu.forEach((dia) => {
+    aparicionesFajitas += [...dia.comida, ...dia.cena].filter((plato) => plato === 'Fajitas').length;
+    aparicionesKebab += [...dia.comida, ...dia.cena].filter((plato) => plato === 'Kebab').length;
+
     for (const [momento, platos] of [['comida', dia.comida], ['cena', dia.cena]]) {
       const firma = normalizar(platos);
       if (/vaina|verduras al horno|calabacin a la plancha|crema de calabacin|crema de verduras|crema de calabaza/.test(firma)) {
@@ -62,6 +67,8 @@ menuMensualInicial.forEach((semana, indiceSemana) => {
 assert.equal(new Set(legumbresLunes).size, menuMensualInicial.length, 'La legumbre principal debe cambiar cada semana');
 assert.equal(new Set(ensaladasPasta).size, menuMensualInicial.length, 'La ensalada de pasta debe cambiar cada semana');
 assert.ok(serviciosVegetales.size >= 7, 'Faltan servicios de verduras realmente distintos');
+assert.equal(aparicionesFajitas, 1, 'La plantilla mensual debe tener una sola noche de fajitas');
+assert.equal(aparicionesKebab, 2, 'La plantilla mensual debe mantener dos kebabs para completar 14 tortillas en total');
 
 const textoMenu = menuMensualInicial
   .flatMap((semana) => semana.menu)
@@ -100,4 +107,5 @@ console.log('✓ seis semanas distintas cubren cualquier mes real');
 console.log('✓ no se repite el mismo servicio completo entre semanas');
 console.log('✓ cada semana cambia la legumbre y la ensalada de pasta');
 console.log('✓ se incorporan vainas y más verduras sin alimentos excluidos');
+console.log('✓ una sola noche de fajitas mantiene el objetivo de 14 tortillas');
 console.log('✓ se conserva pizza viernes, sábado informal y domingo fuera');
