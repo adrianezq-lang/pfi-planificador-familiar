@@ -27,6 +27,16 @@ const PASTAS_ALTERNATIVAS = [
   'Macarrones con chorizo',
   'Carbonara tradicional',
   'Macarrones con roquefort',
+  'Macarrones con atún',
+  'Espaguetis con tomate y atún',
+] as const;
+const ENSALADAS_PASTA = [
+  'Ensalada de pasta',
+  'Ensalada de pasta con pollo',
+  'Ensalada de pasta con huevo',
+  'Ensalada de pasta mediterránea',
+  'Ensalada de pasta con pavo',
+  'Ensalada de pasta con atún y huevo',
 ] as const;
 
 type MesPlan = { mes: string; semanas: SemanaMenu[] };
@@ -35,13 +45,12 @@ function claveMes(fecha = new Date()): string {
   return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
 }
 
-function esMesDeVerano(mes: string): boolean {
-  const numero = Number(mes.split('-')[1]);
-  return numero >= 6 && numero <= 8;
+function esEnsaladaDePasta(plato: string): boolean {
+  return plato.trim().toLocaleLowerCase('es').startsWith('ensalada de pasta');
 }
 
 function contieneEnsaladaDePasta(dia: DiaMenu): boolean {
-  return dia.comida.some((plato) => plato === 'Ensalada de pasta');
+  return dia.comida.some(esEnsaladaDePasta);
 }
 
 function alternativaPasta(semana: SemanaMenu, indice: number): string {
@@ -59,48 +68,60 @@ function alternativaPasta(semana: SemanaMenu, indice: number): string {
   );
 }
 
+/**
+ * Regla familiar: una ensalada de pasta cada semana durante todo el año,
+ * cambiando la receta entre semanas. También sanea planes antiguos de verano
+ * que pudieron acumular la misma ensalada varias veces.
+ */
 function aplicarPreferenciaEnsaladaPasta(
-  mes: string,
+  _mes: string,
   semanas: SemanaMenu[],
 ): SemanaMenu[] {
-  const verano = esMesDeVerano(mes);
-  let ensaladasConservadas = 0;
+  const usadas = new Set<string>();
   let huboCambios = false;
 
   const ajustadas = semanas.map((semana, indiceSemana) => {
-    const tieneEnsalada = semana.menu.some(contieneEnsaladaDePasta);
+    const existentes = semana.menu
+      .flatMap((dia) => dia.comida)
+      .filter(esEnsaladaDePasta);
+    const objetivo =
+      existentes.find((plato) => !usadas.has(plato)) ??
+      ENSALADAS_PASTA.find((plato) => !usadas.has(plato)) ??
+      ENSALADAS_PASTA[indiceSemana % ENSALADAS_PASTA.length];
+    const sustitutoExtra = alternativaPasta(semana, indiceSemana);
+    let colocada = false;
 
-    if (verano && !tieneEnsalada) {
-      const diaPreferido = indiceSemana % 2 === 0 ? 'Miércoles' : 'Viernes';
-      const menu = semana.menu.map((dia) =>
-        dia.dia === diaPreferido
-          ? { ...dia, comida: ['Ensalada de pasta'] }
-          : { ...dia },
-      );
-      huboCambios = true;
-      return { ...semana, menu };
-    }
+    usadas.add(objetivo);
 
-    if (!verano && tieneEnsalada) {
-      const sustituto = alternativaPasta(semana, indiceSemana);
-      const menu = semana.menu.map((dia) => {
-        if (!contieneEnsaladaDePasta(dia)) return { ...dia };
-        if (ensaladasConservadas === 0) {
-          ensaladasConservadas += 1;
-          return { ...dia };
+    const menu = semana.menu.map((dia) => {
+      if (!contieneEnsaladaDePasta(dia)) {
+        if (existentes.length === 0 && dia.dia === 'Miércoles') {
+          huboCambios = true;
+          colocada = true;
+          return { ...dia, comida: [objetivo] };
         }
-        huboCambios = true;
-        return {
-          ...dia,
-          comida: dia.comida.map((plato) =>
-            plato === 'Ensalada de pasta' ? sustituto : plato,
-          ),
-        };
-      });
-      return { ...semana, menu };
-    }
+        return { ...dia };
+      }
 
-    return semana;
+      if (!colocada) {
+        colocada = true;
+        const comida = dia.comida.map((plato) =>
+          esEnsaladaDePasta(plato) ? objetivo : plato,
+        );
+        if (JSON.stringify(comida) !== JSON.stringify(dia.comida)) huboCambios = true;
+        return { ...dia, comida };
+      }
+
+      huboCambios = true;
+      return {
+        ...dia,
+        comida: dia.comida.map((plato) =>
+          esEnsaladaDePasta(plato) ? sustitutoExtra : plato,
+        ),
+      };
+    });
+
+    return { ...semana, menu };
   });
 
   return huboCambios ? recalcularPreparacionesPlan(ajustadas) : semanas;
@@ -120,10 +141,7 @@ function aplicarReglasMensuales(
   semanas: SemanaMenu[],
 ): SemanaMenu[] {
   const estacionales = aplicarPreferenciaEnsaladaPasta(mes, semanas);
-  const conPastasVariadas = aplicarVariedadPastas(
-    estacionales,
-    esMesDeVerano(mes),
-  );
+  const conPastasVariadas = aplicarVariedadPastas(estacionales, true);
   const conLegumbresRepetidas = aplicarRepeticionLegumbres(conPastasVariadas);
   const preparadas = recalcularPreparacionesPlan(conLegumbresRepetidas);
   return aplicarPostresDelRecetario(preparadas);
@@ -197,50 +215,68 @@ function semanasDelMes(mes: string, base: SemanaMenu[]): SemanaMenu[] {
   );
 }
 
-function contienePlato(dia: DiaMenu | undefined, plato: string): boolean {
-  return Boolean(
-    dia && [...dia.comida, ...dia.cena].some((nombre) => nombre === plato),
-  );
-}
-
-function textoPlatos(dia: DiaMenu | undefined): string {
-  return dia ? [...dia.comida, ...dia.cena].join(' ').toLocaleLowerCase('es') : '';
+function firmaServicio(platos: string[]): string {
+  return platos
+    .map((plato) =>
+      plato
+        .toLocaleLowerCase('es')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim(),
+    )
+    .join(' + ');
 }
 
 function planNecesitaPatron(semanas: SemanaMenu[]): boolean {
   if (semanas.length < 3) return false;
 
-  let miercolesFajitas = 0;
-  let martesLubina = 0;
-  let juevesGarbanzos = 0;
-  let lunesFueraDeLegumbre = 0;
-  let viernesFueraDePasta = 0;
+  const usos = new Map<string, Set<number>>();
+  let tieneVainas = false;
+  let tieneVerdurasHorno = false;
+  let tieneCalabacinPlancha = false;
 
-  semanas.forEach((semana) => {
+  semanas.forEach((semana, indiceSemana) => {
     const lunes = semana.menu.find((dia) => dia.dia === 'Lunes');
-    const martes = semana.menu.find((dia) => dia.dia === 'Martes');
-    const miercoles = semana.menu.find((dia) => dia.dia === 'Miércoles');
-    const jueves = semana.menu.find((dia) => dia.dia === 'Jueves');
-    const viernes = semana.menu.find((dia) => dia.dia === 'Viernes');
+    const firmaLegumbreLunes = firmaServicio(lunes?.comida ?? []);
 
-    if (contienePlato(miercoles, 'Fajitas')) miercolesFajitas += 1;
-    if (contienePlato(martes, 'Lubina')) martesLubina += 1;
-    if (contienePlato(jueves, 'Garbanzos fritos')) juevesGarbanzos += 1;
+    semana.menu.forEach((dia) => {
+      ([['comida', dia.comida], ['cena', dia.cena]] as const).forEach(
+        ([momento, platos]) => {
+          const firma = firmaServicio(platos);
+          if (!firma) return;
 
-    const textoLunes = textoPlatos(lunes);
-    if (!/(lenteja|garbanzo|alubia)/.test(textoLunes)) lunesFueraDeLegumbre += 1;
+          tieneVainas = tieneVainas || firma.includes('vainas');
+          tieneVerdurasHorno = tieneVerdurasHorno || firma.includes('verduras al horno');
+          tieneCalabacinPlancha =
+            tieneCalabacinPlancha || firma.includes('calabacin a la plancha');
 
-    const textoViernes = textoPlatos(viernes);
-    if (!/(pasta|macarron|carbonara)/.test(textoViernes)) viernesFueraDePasta += 1;
+          if (firma === 'comemos fuera' || firma === 'cola cao y galletas') return;
+          if (dia.dia === 'Viernes' && momento === 'cena' && firma.includes('pizza')) return;
+          if (
+            dia.dia === 'Jueves' &&
+            momento === 'comida' &&
+            firma === firmaLegumbreLunes
+          ) {
+            return;
+          }
+
+          const semanasUso = usos.get(firma) ?? new Set<number>();
+          semanasUso.add(indiceSemana);
+          usos.set(firma, semanasUso);
+        },
+      );
+    });
   });
 
-  const limiteRepeticion = Math.min(3, semanas.length);
+  const hayServicioRepetido = Array.from(usos.values()).some(
+    (semanasUso) => semanasUso.size > 1,
+  );
+
   return (
-    miercolesFajitas >= limiteRepeticion ||
-    martesLubina >= limiteRepeticion ||
-    juevesGarbanzos >= limiteRepeticion ||
-    lunesFueraDeLegumbre >= 2 ||
-    viernesFueraDePasta >= 2
+    hayServicioRepetido ||
+    !tieneVainas ||
+    !tieneVerdurasHorno ||
+    !tieneCalabacinPlancha
   );
 }
 

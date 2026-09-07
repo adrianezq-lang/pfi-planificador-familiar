@@ -79,9 +79,6 @@ function App() {
     const sync = () => {
       if (cancelado) return;
 
-      // Antes de cualquier reparación, conserva todas las variantes que todavía
-      // existan en localStorage para que una reparación nunca vuelva a pisar la
-      // única copia recuperable.
       preservarCopiasAsociacionesExistentes();
       asegurarAsociacionesBasicas();
 
@@ -111,7 +108,7 @@ function App() {
             <h1>Planificador Familiar Inteligente</h1>
             <p>Menús, compra, despensa y presupuesto</p>
           </div>
-          <span className="app-version">v0.9.21</span>
+          <span className="app-version">v0.9.22</span>
         </div>
       </header>
 

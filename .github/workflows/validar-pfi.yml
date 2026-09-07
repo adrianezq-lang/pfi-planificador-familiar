@@ -45,6 +45,9 @@ jobs:
       - name: Probar estructura del plan mensual
         run: npm run test:menu-mensual
 
+      - name: Probar variedad mensual y verduras
+        run: node --experimental-strip-types scripts/probar-variedad-menu-v0922.mjs
+
       - name: Auditar cantidades del mes completo
         run: npm run test:auditoria-mensual
 

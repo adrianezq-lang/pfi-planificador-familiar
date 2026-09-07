@@ -18,8 +18,8 @@ const GRUPOS = {
   legumbres: /(lenteja|garbanzo|alubia)/,
   pescado: /(salm[oó]n|lubina|dorada|bacalao|almeja)/,
   aves: /(pollo|pavo|fajita|kebab)/,
-  huevosOCremas: /(tortilla|huevo|crema)/,
-  carneRoja: /(lomo|ternera|hamburguesa|chorizo|perrito)/,
+  huevosOCremas: /(tortilla|huevo|crema|vaina|verdura|calabac[ií]n)/,
+  carneRoja: /(lomo|ternera|hamburguesa|chorizo|perrito|alb[oó]ndiga)/,
 };
 const FIJOS = new Set(['Comemos fuera', 'Cola Cao y galletas', 'Hamburguesas', 'Perritos calientes', 'Kebab']);
 const PLANTILLAS = menuMensualInicial;
@@ -36,7 +36,7 @@ export function copiarPlanMensual(plan: SemanaMenu[]): SemanaMenu[] {
 
 export function normalizarPlanMensual(valor: unknown): SemanaMenu[] {
   if (!Array.isArray(valor)) return copiarPlanMensual(menuMensualInicial);
-  const semanas = valor.filter((semana): semana is Record<string, unknown> => typeof semana === 'object' && semana !== null).slice(0, 5).map((semana, indice) => {
+  const semanas = valor.filter((semana): semana is Record<string, unknown> => typeof semana === 'object' && semana !== null).slice(0, 6).map((semana, indice) => {
     const alternativa = PLANTILLAS[indice % PLANTILLAS.length]?.menu ?? PLANTILLAS[0].menu;
     return {
       id: typeof semana.id === 'string' && semana.id.trim() ? semana.id.trim() : `semana-${indice + 1}`,
@@ -57,7 +57,7 @@ export function calcularEquilibrioSemana(menu: DiaMenu[]): ResumenEquilibrio {
   if (legumbres < 2) { puntuacion -= (2 - legumbres) * 14; avisos.push('Falta una comida de legumbres'); }
   if (pescado < 2) { puntuacion -= (2 - pescado) * 14; avisos.push('Falta una comida de pescado'); }
   if (aves < 1) { puntuacion -= 10; avisos.push('Falta una comida de pollo o pavo'); }
-  if (huevosOCremas < 1) { puntuacion -= 8; avisos.push('Falta una cena ligera con crema o huevo'); }
+  if (huevosOCremas < 1) { puntuacion -= 8; avisos.push('Falta una cena ligera con crema, verdura o huevo'); }
   if (carneRoja > 4) { puntuacion -= (carneRoja - 4) * 6; avisos.push('Hay demasiadas comidas de carne'); }
   if (platosUnicos < 12) { puntuacion -= (12 - platosUnicos) * 3; avisos.push('Se pueden variar más los platos'); }
   return { puntuacion: Math.max(0, Math.min(100, Math.round(puntuacion))), legumbres, pescado, aves, huevosOCremas, carneRoja, platosUnicos, avisos };
@@ -67,7 +67,7 @@ function grupoPrincipal(platos: string[]): keyof typeof GRUPOS | 'otro' { const 
 function puedeUsarSugerencia(sugerencia: string[], base: string[], disponibles: Set<string>, usados: Map<string, number>): boolean {
   if (!sugerencia.length || !sugerencia.every((plato) => disponibles.has(plato) || FIJOS.has(plato))) return false;
   const grupoBase = grupoPrincipal(base), grupoSugerencia = grupoPrincipal(sugerencia);
-  return (grupoBase === 'otro' || grupoSugerencia === grupoBase) && sugerencia.every((plato) => (usados.get(plato) ?? 0) < 2);
+  return (grupoBase === 'otro' || grupoSugerencia === grupoBase) && sugerencia.every((plato) => (usados.get(plato) ?? 0) < 1);
 }
 function aprenderEnHueco(dia: string, momento: MomentoMenu, base: string[], disponibles: Set<string>, usados: Map<string, number>): string[] {
   const sugerencia = obtenerSugerenciasMenu(dia, momento, base, 5).find((opcion) => opcion.confianza !== 'inicial' && puedeUsarSugerencia(opcion.platos, base, disponibles, usados));

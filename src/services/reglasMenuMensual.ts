@@ -6,6 +6,8 @@ const PASTAS_DE_ROTACION = [
   'Macarrones con chorizo',
   'Carbonara tradicional',
   'Macarrones con roquefort',
+  'Macarrones con atún',
+  'Espaguetis con tomate y atún',
 ] as const;
 
 function normalizar(texto: string): string {
@@ -24,6 +26,10 @@ function esPasta(plato: string): boolean {
   );
 }
 
+function esEnsaladaPasta(plato: string): boolean {
+  return normalizar(plato).startsWith('ensalada de pasta');
+}
+
 function contieneLegumbres(dia: DiaMenu | undefined): boolean {
   if (!dia) return false;
   return dia.comida.some((plato) =>
@@ -37,7 +43,8 @@ function listasIguales(a: string[], b: string[]): boolean {
 
 /**
  * Evita repetir exactamente la misma pasta dentro de una semana o en dos
- * semanas consecutivas, aunque cambie el día en el que aparece.
+ * semanas consecutivas. Las ensaladas de pasta se gestionan aparte porque la
+ * regla familiar exige una cada semana y cada variante ya tiene nombre propio.
  */
 export function aplicarVariedadPastas(
   semanas: SemanaMenu[],
@@ -56,7 +63,7 @@ export function aplicarVariedadPastas(
 
         const claveActual = normalizar(plato);
         const esEnsaladaSemanal =
-          permitirEnsaladaSemanal && claveActual === 'ensalada de pasta';
+          permitirEnsaladaSemanal && esEnsaladaPasta(plato);
         const repetida =
           pastasEstaSemana.has(claveActual) ||
           (!esEnsaladaSemanal && pastasSemanaAnterior.has(claveActual));
@@ -151,9 +158,6 @@ export function listarPlatosParaCompra(
   const platos: string[] = [];
 
   menu.forEach((dia, indice) => {
-    // Los menús mensuales se concatenan como Lunes…Domingo, Lunes…Domingo.
-    // Reiniciar aquí mantiene el sobrante limitado a su semana sin necesitar
-    // añadir metadatos de semana a DiaMenu ni alterar el formato guardado.
     if (indice > 0 && normalizar(dia.dia) === 'lunes') {
       legumbresContadasSemana = new Set<string>();
     }
