@@ -29,6 +29,20 @@ jobs:
       - name: Aplicar cambios v0.9.23
         run: python3 scripts/aplicar-v0923.py
 
+      - name: Alinear test histórico de asociaciones
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/probar-comensales-por-servicio.mjs')
+          t = p.read_text(encoding='utf-8')
+          bloque = "aplicarMigracionV0923();\n\nlocalStorage.setItem(\n  'pfi-asociaciones-ingredientes-mercadona',"
+          reemplazo = "localStorage.setItem(\n  'pfi-asociaciones-ingredientes-mercadona',"
+          if bloque in t:
+              t = t.replace(bloque, reemplazo, 1)
+          p.write_text(t, encoding='utf-8')
+          PY
+
       - name: Instalar dependencias
         run: npm ci
 
