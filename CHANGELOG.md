@@ -1,3 +1,14 @@
+# v0.9.23 — Coherencia integral de menú, recetas y compra
+
+- Kebab usa 4 panes de pita; las tortillas de trigo quedan exclusivamente para fajitas.
+- Pan de pita queda asociado al SKU Mercadona 14378 y limón al SKU 3210.
+- La semana de garbanzos fritos ya no los repite el jueves: ese día rota a lentejas con arroz y verduras.
+- El batch cooking de legumbres solo se aplica a ollas explícitas de dos días, no a cualquier receta de legumbres.
+- Se añaden 10 recetas familiares nuevas, con más verduras y respetando alimentos excluidos.
+- Restaurar/importar recetas ya no puede perder las recetas añadidas en versiones recientes ni recuperar el kebab antiguo hasta recargar.
+- La auditoría mensual separa 6 tortillas de fajita de 8 panes de pita de los dos kebabs y comprueba sus envases reales.
+- CI ampliado: build completo, dependencias de producción, conversiones, aprendizaje, presupuesto, navegación de compra, cuentas/sincronización y regresiones históricas.
+
 # v0.9.21 — Semanas horizontales y compra completa
 
 - Las semanas del menú aparecen en columnas contiguas y se recorren horizontalmente, también en móvil.

@@ -6,6 +6,7 @@ import { asegurarAsociacionesBasicas } from './services/asociacionesBasicas.ts'
 import { instalarNormalizacionPeriodicidadDespensa } from './services/periodicidadDespensa.ts'
 import { crearCopiaAutomaticaSiNecesaria } from './services/copiasSeguridad.ts'
 import { aplicarMigracionVariedadV0922 } from './services/migracionV0922.ts'
+import { instalarMigracionV0923 } from './services/migracionV0923.ts'
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
@@ -18,6 +19,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
 crearCopiaAutomaticaSiNecesaria('antes de iniciar o actualizar PFI')
 asegurarAsociacionesBasicas()
 aplicarMigracionVariedadV0922()
+instalarMigracionV0923()
 instalarNormalizacionPeriodicidadDespensa()
 
 createRoot(document.getElementById('root')!).render(

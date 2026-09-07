@@ -108,7 +108,7 @@ function App() {
             <h1>Planificador Familiar Inteligente</h1>
             <p>Menús, compra, despensa y presupuesto</p>
           </div>
-          <span className="app-version">v0.9.22</span>
+          <span className="app-version">v0.9.23</span>
         </div>
       </header>
 

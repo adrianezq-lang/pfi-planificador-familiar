@@ -33,7 +33,7 @@ const dia = (
 
 /*
  * Patrón familiar estable, platos concretos variables:
- * - Lunes: legumbres; la misma olla se termina el jueves.
+ * - Lunes: legumbres; las ollas grandes se terminan el jueves, salvo los garbanzos fritos.
  * - Martes: pescado + cena vegetal.
  * - Miércoles: ensalada de pasta distinta + cena variada.
  * - Jueves: sobrante de legumbre + carne con guarnición.
@@ -75,13 +75,13 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
     dia('Lunes', ['Garbanzos fritos', 'Arroz blanco'], ['Albóndigas con tomate'], 'Yogur', 'Fruta'),
     dia('Martes', ['Bacalao', 'Patatas'], ['Crema de verduras', 'Tortilla de patata'], 'Fruta', 'Yogur'),
     dia('Miércoles', ['Ensalada de pasta mediterránea'], ['Pechugas de pavo', 'Patatas'], 'Yogur', 'Fruta'),
-    dia('Jueves', ['Garbanzos fritos', 'Arroz blanco'], ['Pollo al ajillo'], 'Fruta', 'Yogur'),
+    dia('Jueves', ['Lentejas con arroz y verduras'], ['Ternera con zanahoria y patatas'], 'Fruta', 'Yogur'),
     dia('Viernes', ['Macarrones con roquefort'], ['Pizza BBQ', 'Pizza 4 quesos'], 'Yogur', 'Fruta'),
     dia('Sábado', ['Dorada', 'Arroz blanco'], ['Hamburguesas', 'Ensalada'], 'Fruta', 'Yogur'),
     dia('Domingo', ['Comemos fuera'], ['Cola Cao y galletas'], 'Sin postre', 'Sin postre'),
   ],
   [
-    dia('Lunes', ['Alubias blancas con almejas'], ['Pechugas de pollo', 'Ensalada'], 'Fruta', 'Yogur'),
+    dia('Lunes', ['Alubias blancas con almejas'], ['Pavo al ajillo con verduras'], 'Fruta', 'Yogur'),
     dia('Martes', ['Lubina', 'Ensalada'], ['Crema de calabaza', 'Pechugas de pavo'], 'Yogur', 'Fruta'),
     dia('Miércoles', ['Ensalada de pasta con pavo'], ['Pechugas de pollo', 'Patatas'], 'Fruta', 'Yogur'),
     dia('Jueves', ['Alubias blancas con almejas'], ['Filete de ternera', 'Calabacín a la plancha'], 'Yogur', 'Fruta'),
@@ -91,8 +91,8 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
   ],
   [
     dia('Lunes', ['Garbanzos guisados con verduras'], ['Arroz con pollo'], 'Yogur', 'Fruta'),
-    dia('Martes', ['Bacalao', 'Verduras al horno'], ['Vainas salteadas con jamón'], 'Fruta', 'Yogur'),
-    dia('Miércoles', ['Ensalada de pasta con atún y huevo'], ['Pollo al ajillo', 'Patatas'], 'Yogur', 'Fruta'),
+    dia('Martes', ['Bacalao con tomate y pimiento rojo'], ['Vainas salteadas con jamón'], 'Fruta', 'Yogur'),
+    dia('Miércoles', ['Ensalada de pasta con atún y huevo'], ['Pollo al limón con patatas'], 'Yogur', 'Fruta'),
     dia('Jueves', ['Garbanzos guisados con verduras'], ['Lomo', 'Calabacín a la plancha'], 'Fruta', 'Yogur'),
     dia('Viernes', ['Espaguetis con tomate y atún'], ['Pizza BBQ', 'Pizza 4 quesos'], 'Yogur', 'Fruta'),
     dia('Sábado', ['Dorada', 'Verduras al horno'], ['Kebab', 'Ensalada'], 'Fruta', 'Yogur'),

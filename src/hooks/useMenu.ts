@@ -8,6 +8,7 @@ import {
 } from '../services/postres';
 import { cargarRecetas, EVENTO_RECETAS } from '../services/recetas';
 import {
+  aplicarReglaGarbanzosFritos,
   aplicarRepeticionLegumbres,
   aplicarVariedadPastas,
 } from '../services/reglasMenuMensual';
@@ -142,7 +143,8 @@ function aplicarReglasMensuales(
 ): SemanaMenu[] {
   const estacionales = aplicarPreferenciaEnsaladaPasta(mes, semanas);
   const conPastasVariadas = aplicarVariedadPastas(estacionales, true);
-  const conLegumbresRepetidas = aplicarRepeticionLegumbres(conPastasVariadas);
+  const sinGarbanzosFritosRepetidos = aplicarReglaGarbanzosFritos(conPastasVariadas);
+  const conLegumbresRepetidas = aplicarRepeticionLegumbres(sinGarbanzosFritosRepetidos);
   const preparadas = recalcularPreparacionesPlan(conLegumbresRepetidas);
   return aplicarPostresDelRecetario(preparadas);
 }

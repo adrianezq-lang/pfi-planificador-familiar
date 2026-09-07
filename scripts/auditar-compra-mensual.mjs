@@ -41,6 +41,9 @@ const { cargarRecetas } = await vite.ssrLoadModule('/src/services/recetas.ts');
 const { aplicarMigracionVariedadV0922 } = await vite.ssrLoadModule(
   '/src/services/migracionV0922.ts',
 );
+const { aplicarMigracionV0923 } = await vite.ssrLoadModule(
+  '/src/services/migracionV0923.ts',
+);
 const {
   aplicarConfiguracionPostresAlPlan,
   crearConfiguracionPostresDesdeRecetas,
@@ -60,6 +63,7 @@ localStorage.setItem('pfi-perfil', JSON.stringify(perfil));
 
 // La auditoría debe reproducir el mismo arranque que usa la PWA real.
 aplicarMigracionVariedadV0922();
+aplicarMigracionV0923();
 const recetasActuales = cargarRecetas();
 
 const plan = aplicarConfiguracionPostresAlPlan(
@@ -112,8 +116,9 @@ for (const item of compra) {
   }
 }
 
-// Referencia crítica solicitada: una sola noche de fajitas + dos kebabs = 14 tortillas.
-exigirExacto('Tortillas de trigo', 14, 'ud');
+// Fajitas usan tortilla; los dos kebabs usan pan de pita.
+exigirExacto('Tortillas de trigo', 6, 'ud');
+exigirExacto('Pan de pita', 8, 'ud');
 
 // La plantilla nueva cambia de legumbre y pasta entre semanas; por eso la auditoría
 // valida presencia y coherencia, no cifras congeladas de la plantilla anterior.
@@ -221,26 +226,38 @@ const exigirEnvasesEntre = (productoId, etiqueta, minimo, maximo) => {
   return linea;
 };
 
-const tortillasComerciales = exigirEnvasesEntre('80859', 'Tortillas de trigo', 2, 2);
+const tortillasComerciales = exigirEnvasesEntre('80859', 'Tortillas de trigo', 1, 1);
+const pitasComerciales = exigirEnvasesEntre('14378', 'Pan de pita', 2, 2);
 const baconComercial = exigirEnvasesEntre('16252', 'Bacon', 3, 8);
 const panBurgerComercial = exigirEnvasesEntre('13803', 'Pan de hamburguesa', 1, 4);
 const panHotDogComercial = exigirEnvasesEntre('82332', 'Pan de perrito', 1, 4);
 const tomateFritoComercial = exigirEnvasesEntre('17132', 'Tomate frito', 1, 8);
 
 const unidadesTortillas = tortillasComerciales.producto.unidadesTotales;
-const paquetesTortillasEsperados = Math.ceil(14 / unidadesTortillas);
+const paquetesTortillasEsperados = Math.ceil(6 / unidadesTortillas);
 const detalleTortillas = tortillasComerciales.explicacionCantidad;
 if (
   unidadesTortillas !== 10 ||
   tortillasComerciales.envases !== paquetesTortillasEsperados ||
   !detalleTortillas ||
-  Math.abs(detalleTortillas.necesidadMenuEnvases - 1.4) > 0.000001 ||
-  detalleTortillas.compraEnvases !== 2 ||
-  Math.abs(detalleTortillas.sobranteDespuesEnvases - 0.6) > 0.000001
+  Math.abs(detalleTortillas.necesidadMenuEnvases - 0.6) > 0.000001 ||
+  detalleTortillas.compraEnvases !== 1 ||
+  Math.abs(detalleTortillas.sobranteDespuesEnvases - 0.4) > 0.000001
 ) {
   throw new Error(
     `Tortillas sin explicación coherente: unidades=${unidadesTortillas}, compra=${tortillasComerciales.envases}, detalle=${JSON.stringify(detalleTortillas)}.`,
   );
+}
+
+const detallePitas = pitasComerciales.explicacionCantidad;
+if (
+  pitasComerciales.producto.unidadesTotales !== 5 ||
+  !detallePitas ||
+  Math.abs(detallePitas.necesidadMenuEnvases - 1.6) > 0.000001 ||
+  detallePitas.compraEnvases !== 2 ||
+  Math.abs(detallePitas.sobranteDespuesEnvases - 0.4) > 0.000001
+) {
+  throw new Error(`Pan de pita sin explicación coherente: ${JSON.stringify(detallePitas)}.`);
 }
 
 for (const linea of lineasConProducto) {
@@ -254,14 +271,15 @@ for (const linea of lineasConProducto) {
 
 console.log('✓ auditoría mensual: cantidades finitas y positivas');
 console.log('✓ la auditoría ejecuta la misma migración de recetas que la PWA');
-console.log('✓ tortillas: 14 unidades; 2 paquetes de 10 y 6 unidades sobrantes');
+console.log('✓ fajitas: 6 tortillas; 1 paquete de 10 y 4 sobrantes');
+console.log('✓ kebabs: 8 panes de pita; 2 paquetes de 5 y 2 sobrantes');
 console.log('✓ legumbres, vainas y roquefort aparecen con cantidades reales del menú actual');
 console.log('✓ fruta concreta sustituye a Fruta variada');
 console.log(`✓ ${objetivos.filter((objetivo) => objetivo.productoId).length} SKUs objetivo siguen presentes en el catálogo`);
 console.log(`✓ ${Object.keys(ASOCIACIONES_SEGURAS_POR_DEFECTO).length} defaults seguros siguen presentes en el catálogo`);
 console.log(`ℹ huevos=${huevos}, atún=${atun}, pasta=${pasta} g, arroz=${arroz} g, carne=${carnes} g, pescado=${pescados} g`);
 console.log(
-  `✓ envases críticos: tortillas=${tortillasComerciales.envases}, bacon=${baconComercial.envases}, pan burger=${panBurgerComercial.envases}, pan hot dog=${panHotDogComercial.envases}, tomate frito=${tomateFritoComercial.envases}`,
+  `✓ envases críticos: tortillas=${tortillasComerciales.envases}, pitas=${pitasComerciales.envases}, bacon=${baconComercial.envases}, pan burger=${panBurgerComercial.envases}, pan hot dog=${panHotDogComercial.envases}, tomate frito=${tomateFritoComercial.envases}`,
 );
 console.log('ℹ compra mensual agregada:');
 for (const item of [...compra].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'))) {

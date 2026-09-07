@@ -1078,7 +1078,7 @@ export const recetas: Receta[] = [
         seccion: 'Carnicería',
       },
       {
-        nombre: 'Tortillas de trigo',
+        nombre: 'Pan de pita',
         cantidad: 4,
         unidad: 'ud',
         seccion: 'Panadería',

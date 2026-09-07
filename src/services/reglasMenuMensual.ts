@@ -30,11 +30,20 @@ function esEnsaladaPasta(plato: string): boolean {
   return normalizar(plato).startsWith('ensalada de pasta');
 }
 
-function contieneLegumbres(dia: DiaMenu | undefined): boolean {
-  if (!dia) return false;
-  return dia.comida.some((plato) =>
-    /\b(lenteja|garbanzo|alubia|cocido)\b/.test(normalizar(plato)),
-  );
+const LEGUMBRES_DE_OLLA_DOS_DIAS = new Set([
+  'lentejas',
+  'cocido de garbanzos',
+  'alubias rojas',
+  'alubias blancas con almejas',
+  'garbanzos guisados con verduras',
+]);
+
+export function esLegumbreDeOlla(plato: string): boolean {
+  return LEGUMBRES_DE_OLLA_DOS_DIAS.has(normalizar(plato));
+}
+
+function contieneLegumbreDeOlla(dia: DiaMenu | undefined): boolean {
+  return dia?.comida.some(esLegumbreDeOlla) === true;
 }
 
 function listasIguales(a: string[], b: string[]): boolean {
@@ -109,16 +118,42 @@ export function aplicarVariedadPastas(
   return huboCambios ? ajustadas : semanas;
 }
 
+/** Evita repetir el plato puntual de garbanzos fritos el jueves. */
+export function aplicarReglaGarbanzosFritos(semanas: SemanaMenu[]): SemanaMenu[] {
+  let huboCambios = false;
+
+  const resultado = semanas.map((semana) => {
+    const lunes = semana.menu.find((dia) => normalizar(dia.dia) === 'lunes');
+    const jueves = semana.menu.find((dia) => normalizar(dia.dia) === 'jueves');
+    const lunesTieneFritos = lunes?.comida.some((plato) => normalizar(plato) === 'garbanzos fritos') === true;
+    const juevesTieneFritos = jueves?.comida.some((plato) => normalizar(plato) === 'garbanzos fritos') === true;
+
+    if (!lunesTieneFritos || !juevesTieneFritos) return semana;
+
+    huboCambios = true;
+    return {
+      ...semana,
+      menu: semana.menu.map((dia) =>
+        normalizar(dia.dia) === 'jueves'
+          ? { ...dia, comida: ['Lentejas con arroz y verduras'] }
+          : { ...dia, comida: [...dia.comida], cena: [...dia.cena] },
+      ),
+    };
+  });
+
+  return huboCambios ? resultado : semanas;
+}
+
 /**
- * Las legumbres del lunes se cocinan como una preparación grande y se repiten
- * el jueves de esa misma semana.
+ * Solo las legumbres marcadas como olla de dos días se repiten el jueves.
+ * Garbanzos fritos y otras legumbres puntuales nunca se copian automáticamente.
  */
 export function aplicarRepeticionLegumbres(semanas: SemanaMenu[]): SemanaMenu[] {
   let huboCambios = false;
 
   const ajustadas = semanas.map((semana) => {
     const lunes = semana.menu.find((dia) => dia.dia === 'Lunes');
-    if (!contieneLegumbres(lunes) || !lunes) return semana;
+    if (!contieneLegumbreDeOlla(lunes) || !lunes) return semana;
 
     const jueves = semana.menu.find((dia) => dia.dia === 'Jueves');
     if (!jueves || listasIguales(jueves.comida, lunes.comida)) return semana;

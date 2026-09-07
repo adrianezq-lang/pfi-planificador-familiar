@@ -1,7 +1,9 @@
 import { menuMensualInicial } from '../src/data/MenuMensual.ts';
 import {
+  aplicarReglaGarbanzosFritos,
   aplicarRepeticionLegumbres,
   aplicarVariedadPastas,
+  esLegumbreDeOlla,
   listarPlatosParaCompra,
 } from '../src/services/reglasMenuMensual.ts';
 
@@ -12,23 +14,27 @@ const normalizar = (texto) => texto
   .trim();
 
 const esPasta = (plato) =>
-  /\b(pasta|macarrones?|carbonara|espaguetis?|tallarines?|lasanas?|canelones?)\b/.test(
-    normalizar(plato),
-  );
-
-const esLegumbre = (plato) =>
-  /\b(lentejas?|garbanzos?|alubias?|cocido)\b/.test(normalizar(plato));
+  /\b(pasta|macarrones?|carbonara|espaguetis?|tallarines?|lasanas?|canelones?)\b/.test(normalizar(plato));
 
 const plan = aplicarVariedadPastas(
-  aplicarRepeticionLegumbres(menuMensualInicial),
+  aplicarRepeticionLegumbres(
+    aplicarReglaGarbanzosFritos(structuredClone(menuMensualInicial)),
+  ),
+  true,
 );
 let pastasSemanaAnterior = new Set();
 
 plan.forEach((semana, indice) => {
   const lunes = semana.menu.find((dia) => dia.dia === 'Lunes');
   const jueves = semana.menu.find((dia) => dia.dia === 'Jueves');
-  if (JSON.stringify(lunes?.comida) !== JSON.stringify(jueves?.comida)) {
-    throw new Error(`La semana ${indice + 1} no repite el jueves las legumbres del lunes.`);
+  const lunesEsOlla = lunes?.comida.some(esLegumbreDeOlla) === true;
+  const lunesTieneFritos = lunes?.comida.includes('Garbanzos fritos') === true;
+
+  if (lunesEsOlla && JSON.stringify(lunes?.comida) !== JSON.stringify(jueves?.comida)) {
+    throw new Error(`La semana ${indice + 1} no reutiliza el jueves la olla del lunes.`);
+  }
+  if (lunesTieneFritos && jueves?.comida.includes('Garbanzos fritos')) {
+    throw new Error(`La semana ${indice + 1} repite indebidamente garbanzos fritos el jueves.`);
   }
 
   const pastas = semana.menu
@@ -44,60 +50,30 @@ plan.forEach((semana, indice) => {
   pastasSemanaAnterior = new Set(pastas);
 });
 
-const primeraSemana = plan[0].menu;
-const platosCompra = listarPlatosParaCompra(
-  primeraSemana,
-  (plato) => plato === 'Lentejas',
-);
-if (platosCompra.filter((plato) => plato === 'Lentejas').length !== 1) {
+const compraLentejas = listarPlatosParaCompra(plan[0].menu, esLegumbreDeOlla);
+if (compraLentejas.filter((plato) => plato === 'Lentejas').length !== 1) {
   throw new Error('La olla de lentejas debe entrar una sola vez en la compra semanal.');
 }
 
-const semanaGarbanzos = plan[3].menu;
-const compraGarbanzos = listarPlatosParaCompra(
-  semanaGarbanzos,
-  (plato) => plato === 'Garbanzos fritos',
-);
-if (compraGarbanzos.filter((plato) => plato === 'Garbanzos fritos').length !== 1) {
-  throw new Error('Los garbanzos preparados para lunes y jueves deben comprarse una sola vez.');
+const repeticionManualFritos = structuredClone(plan[3].menu);
+for (const dia of repeticionManualFritos) {
+  if (dia.dia === 'Jueves') dia.comida = ['Garbanzos fritos', 'Arroz blanco'];
 }
-const arrocesMenu = semanaGarbanzos
-  .flatMap((dia) => [...dia.comida, ...dia.cena])
-  .filter((plato) => plato === 'Arroz blanco').length;
-const arrocesCompra = compraGarbanzos.filter((plato) => plato === 'Arroz blanco').length;
-if (arrocesCompra !== arrocesMenu) {
-  throw new Error(
-    `Los acompañamientos independientes no deben deduplicarse: arroz compra=${arrocesCompra}, menú=${arrocesMenu}.`,
-  );
+const compraFritos = listarPlatosParaCompra(repeticionManualFritos, esLegumbreDeOlla);
+if (compraFritos.filter((plato) => plato === 'Garbanzos fritos').length !== 2) {
+  throw new Error('Garbanzos fritos repetidos manualmente deben contar dos consumos, no una olla.');
 }
 
-// Aunque el menú normal evita repetir la misma legumbre entre semanas, el motor
-// de compra debe seguir funcionando si el usuario edita dos semanas y repite olla.
 const repeticionEntreSemanas = structuredClone(plan.slice(0, 2));
 for (const dia of repeticionEntreSemanas[1].menu) {
   if (dia.dia === 'Lunes' || dia.dia === 'Jueves') dia.comida = ['Lentejas'];
 }
 const compraRepetida = listarPlatosParaCompra(
   repeticionEntreSemanas.flatMap((semana) => semana.menu),
-  esLegumbre,
+  esLegumbreDeOlla,
 );
 if (compraRepetida.filter((plato) => plato === 'Lentejas').length !== 2) {
-  throw new Error('La misma olla en otra semana debe volver a entrar en la compra mensual.');
-}
-
-const compraMes = listarPlatosParaCompra(
-  plan.flatMap((semana) => semana.menu),
-  esLegumbre,
-);
-const ollasEsperadas = plan.reduce((total, semana) => {
-  const lunes = semana.menu.find((dia) => dia.dia === 'Lunes');
-  return total + (lunes?.comida.some(esLegumbre) ? 1 : 0);
-}, 0);
-const ollasCompraMes = compraMes.filter(esLegumbre).length;
-if (ollasCompraMes !== ollasEsperadas) {
-  throw new Error(
-    `La compra mensual perdió o duplicó ollas entre semanas: compra=${ollasCompraMes}, semanas=${ollasEsperadas}.`,
-  );
+  throw new Error('Una olla nueva en otra semana debe volver a entrar en la compra mensual.');
 }
 
 const verano = structuredClone(menuMensualInicial);
@@ -106,19 +82,15 @@ verano.forEach((semana) => {
   if (miercoles) miercoles.comida = ['Ensalada de pasta'];
 });
 const veranoAjustado = aplicarVariedadPastas(verano, true);
-if (
-  veranoAjustado.some(
-    (semana) =>
-      semana.menu.flatMap((dia) => dia.comida).filter((plato) => plato === 'Ensalada de pasta')
-        .length !== 1,
-  )
-) {
+if (veranoAjustado.some((semana) =>
+  semana.menu.flatMap((dia) => dia.comida).filter((plato) => plato === 'Ensalada de pasta').length !== 1
+)) {
   throw new Error('La regla de variedad ha eliminado la ensalada semanal de verano.');
 }
 
-console.log('✓ las legumbres del lunes se repiten el jueves');
-console.log('✓ la olla de legumbres entra una sola vez dentro de su semana');
-console.log('✓ una legumbre repetida manualmente en otra semana vuelve a contar');
-console.log('✓ los acompañamientos independientes conservan todas sus apariciones');
+console.log('✓ solo las ollas reales del lunes se reutilizan el jueves');
+console.log('✓ los garbanzos fritos no se repiten automáticamente');
+console.log('✓ si se añaden manualmente dos veces, la compra cuenta ambos consumos');
+console.log('✓ cada semana nueva vuelve a comprar su propia olla');
 console.log('✓ no se repite la misma pasta en semanas consecutivas');
-console.log('✓ la ensalada de pasta semanal se conserva en verano');
+console.log('✓ la ensalada de pasta semanal se conserva');

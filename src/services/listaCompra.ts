@@ -14,7 +14,7 @@ import {
   type PerfilFamiliar,
 } from './perfil';
 import { obtenerSugerenciaIngrediente } from './porciones';
-import { listarPlatosParaCompra } from './reglasMenuMensual';
+import { esLegumbreDeOlla, listarPlatosParaCompra } from './reglasMenuMensual';
 
 const PRODUCTO_JAMONCITOS_POLLO = '2778';
 const PRODUCTO_TORTILLAS_TRIGO = '80859';
@@ -33,6 +33,7 @@ const OLLAS_DOS_DIAS = new Set([
   'cocido de garbanzos',
   'alubias blancas con almejas',
   'alubias rojas',
+  'garbanzos guisados con verduras',
 ]);
 
 const LEGUMBRES_SECAS_OLLA = new Set([
@@ -307,10 +308,6 @@ export function generarListaCompra(
 
   const perfil = cargarPerfil();
   const recetasBase = cargarRecetas();
-  const esLegumbreCocinada = (nombre: string): boolean => {
-    const receta = recetasBase.find((candidata) => candidata.nombre === nombre);
-    return receta?.categoria.toLocaleLowerCase('es') === 'legumbres';
-  };
   const servicios = [
     {
       clave: 'comidaLaborable' as const,
@@ -345,7 +342,7 @@ export function generarListaCompra(
     const menuServicio = crearMenuDeServicio(menu, servicio.clave);
     const platos = listarPlatosParaCompra(
       menuServicio,
-      esLegumbreCocinada,
+      esLegumbreDeOlla,
     );
     const postres = obtenerPostresDeServicio(menu, servicio.clave);
 

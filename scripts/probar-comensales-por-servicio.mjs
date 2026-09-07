@@ -28,6 +28,9 @@ const {
 const { generarListaCompra } = await vite.ssrLoadModule(
   '/src/services/listaCompra.ts',
 );
+const { aplicarMigracionV0923 } = await vite.ssrLoadModule(
+  '/src/services/migracionV0923.ts',
+);
 
 const perfilMigrado = normalizarPerfil({
   nombre: 'Adrián',
@@ -77,6 +80,8 @@ localStorage.setItem(
     'Tomate para pizza': '17647',
   }),
 );
+
+aplicarMigracionV0923();
 
 function crearDia(dia, comida, cenaDia, postreComida, postreCena) {
   return {
@@ -147,17 +152,20 @@ if (tortillasFajitas?.cantidad !== 6) {
   );
 }
 
-const compraTortillasMesBase = generarListaCompra([
+const compraPanMesBase = generarListaCompra([
   crearDia('Miércoles', [], ['Fajitas'], 'Sin postre', 'Sin postre'),
   crearDia('Sábado', [], ['Kebab'], 'Sin postre', 'Sin postre'),
   crearDia('Miércoles', [], ['Kebab'], 'Sin postre', 'Sin postre'),
 ]);
-const tortillasMesBase = compraTortillasMesBase.find(
+const tortillasMesBase = compraPanMesBase.find(
   (ingrediente) => ingrediente.nombre === 'Tortillas de trigo',
 );
-if (tortillasMesBase?.cantidad !== 14) {
+const pitasMesBase = compraPanMesBase.find(
+  (ingrediente) => ingrediente.nombre === 'Pan de pita',
+);
+if (tortillasMesBase?.cantidad !== 6 || pitasMesBase?.cantidad !== 8) {
   throw new Error(
-    `Fajitas + 2 kebabs deben sumar 14 tortillas, no ${tortillasMesBase?.cantidad}.`,
+    `Fajitas + 2 kebabs deben usar 6 tortillas y 8 pitas: tortillas=${tortillasMesBase?.cantidad}, pitas=${pitasMesBase?.cantidad}.`,
   );
 }
 
@@ -216,6 +224,7 @@ if (
   asociacionesPollo.Pollo ||
   asociacionesPollo['Jamoncitos de pollo'] !== '2778' ||
   asociacionesPollo['Tortillas de trigo'] !== '80859' ||
+  asociacionesPollo['Pan de pita'] !== '14378' ||
   asociacionesPollo['Pechugas de pollo'] !== '3724' ||
   asociacionesPollo['Pollo para arroz'] !== '3724' ||
   asociacionesPollo['Tomate para pizza'] !== '17108' ||
@@ -232,7 +241,7 @@ console.log('✓ comida laborable: 2 adultos + niño de 12 años');
 console.log('✓ comida de fin de semana y cenas: cuatro comensales');
 console.log('✓ la compra ajusta platos y postres al servicio');
 console.log('✓ fajitas: 6 tortillas para cuatro comensales');
-console.log('✓ fajitas + dos kebabs: 14 tortillas en total');
+console.log('✓ fajitas + dos kebabs: 6 tortillas + 8 panes de pita');
 console.log('✓ cocido: una sola olla para lunes y jueves, escalada a comensales');
 console.log('✓ lentejas: una sola olla para lunes y jueves, escalada a comensales');
 console.log('✓ arroz con pollo no hereda pollo entero como corte genérico');

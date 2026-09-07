@@ -283,5 +283,15 @@
     "ingrediente": "Pimentón picante",
     "buscar": "pimentón picante Hacendado",
     "productoId": "34183"
+  },
+  {
+    "ingrediente": "Pan de pita",
+    "buscar": "pan de pita Mission",
+    "productoId": "14378"
+  },
+  {
+    "ingrediente": "Limón",
+    "buscar": "limón pieza",
+    "productoId": "3210"
   }
 ]
