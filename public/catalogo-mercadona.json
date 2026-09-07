@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-06T09:27:50.708Z",
+  "actualizado": "2026-09-07T10:20:11.090Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4281,
+  "totalProductos": 4280,
   "productos": [
     {
       "productoId": "3505.2",
@@ -2901,22 +2901,6 @@
       "disponible": true
     },
     {
-      "productoId": "34921",
-      "nombre": "Almendra molida Hacendado",
-      "precio": 2.15,
-      "precioReferencia": 17.2,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.125,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Decoración",
-      "imagen": "https://prod-mercadona.imgix.net/images/a22c2023cef6d1080a3a8bea46ba39d8.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/34921/almendra-molida-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "34865",
       "nombre": "Almendra natural Hacendado",
       "precio": 2.3,
@@ -3394,6 +3378,22 @@
       "subcategoria": "Ambientador spray",
       "imagen": "https://prod-mercadona.imgix.net/images/c54c90dec6179790e8fafbc1f96b2735.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14256/ambientador-spray-essence-bosque-verde-spray",
+      "disponible": true
+    },
+    {
+      "productoId": "16483",
+      "nombre": "Ambientador spray hogar Peonía Bosque Verde",
+      "precio": 3.5,
+      "precioReferencia": 7.778,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.45,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Limpieza y hogar",
+      "subcategoria": "Ambientador spray",
+      "imagen": "https://prod-mercadona.imgix.net/images/c7510b6b8029e5c0da2d24e6e41bfdc8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/16483/ambientador-spray-hogar-peonia-bosque-verde-con-pistola-botella",
       "disponible": true
     },
     {
@@ -5527,8 +5527,8 @@
     {
       "productoId": "14713",
       "nombre": "Barritas de avena y chocolate negro Crunchy Nature Valley",
-      "precio": 1.95,
-      "precioReferencia": 9.286,
+      "precio": 2.6,
+      "precioReferencia": 12.381,
       "formato": "Caja",
       "unidadesTotales": 5,
       "tamañoUnidad": 0.21,
@@ -10085,38 +10085,6 @@
       "disponible": true
     },
     {
-      "productoId": "8839",
-      "nombre": "Burger de cordero al romero",
-      "precio": 3.5,
-      "precioReferencia": 14.584,
-      "formato": "Paquete",
-      "unidadesTotales": 2,
-      "tamañoUnidad": 0.24,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Carne",
-      "subcategoria": "Hamburguesas",
-      "imagen": "https://prod-mercadona.imgix.net/images/ea1c49c71c2424324ad4ac73badbfedf.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8839/burger-cordero-romero-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "35884",
-      "nombre": "Burger de lomo de vacuno",
-      "precio": 4,
-      "precioReferencia": 16.667,
-      "formato": "Paquete",
-      "unidadesTotales": 2,
-      "tamañoUnidad": 0.24,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Carne",
-      "subcategoria": "Hamburguesas",
-      "imagen": "https://prod-mercadona.imgix.net/images/fb42955265ec4782f2e54200235d54ba.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35884/hamburguesa-lomo-vacuno-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "3976",
       "nombre": "Burger de pavo y espinacas",
       "precio": 2.4,
@@ -10162,22 +10130,6 @@
       "subcategoria": "Hamburguesas",
       "imagen": "https://prod-mercadona.imgix.net/images/e62de035b39351e90b69a682a966c271.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86911/burger-pollo-gruesa-bandeja",
-      "disponible": true
-    },
-    {
-      "productoId": "8840",
-      "nombre": "Burger de vaca madurada",
-      "precio": 2.9,
-      "precioReferencia": 16.112,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.18,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Carne",
-      "subcategoria": "Hamburguesas",
-      "imagen": "https://prod-mercadona.imgix.net/images/19c58c8d46c2110088e6736b440e61f3.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8840/burger-vaca-madurada-paquete",
       "disponible": true
     },
     {
@@ -10679,8 +10631,8 @@
     {
       "productoId": "21985",
       "nombre": "Cacao soluble instantáneo Nesquik",
-      "precio": 13.95,
-      "precioReferencia": 5.58,
+      "precio": 16.15,
+      "precioReferencia": 6.46,
       "formato": "Caja",
       "unidadesTotales": 2,
       "tamañoUnidad": 2.5,
@@ -11813,6 +11765,22 @@
       "disponible": true
     },
     {
+      "productoId": "7021",
+      "nombre": "Caldo de marisco o fideuá para paella Hacendado con sofrito",
+      "precio": 1.9,
+      "precioReferencia": 1.9,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Caldo líquido",
+      "imagen": "https://prod-mercadona.imgix.net/images/9348f5ac9e967781c169f4d6cc412fc4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/7021/caldo-marisco-fideua-paella-hacendado-con-sofrito-brick",
+      "disponible": true
+    },
+    {
       "productoId": "7325",
       "nombre": "Caldo de pescado Hacendado",
       "precio": 0.95,
@@ -12519,8 +12487,8 @@
     {
       "productoId": "12056",
       "nombre": "Carbón vegetal Bosque Verde",
-      "precio": 3.9,
-      "precioReferencia": 1.56,
+      "precio": 4.25,
+      "precioReferencia": 1.7,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 2.5,
@@ -18981,6 +18949,22 @@
       "disponible": true
     },
     {
+      "productoId": "12819",
+      "nombre": "Colorete fluido Blush mate Deliplus 01 rosa amarronado",
+      "precio": 4.75,
+      "precioReferencia": 4.75,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.012,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Colorete",
+      "imagen": "https://prod-mercadona.imgix.net/images/a5737208a20e4ace5c47b1e315b0e959.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/12819/colorete-fluido-blush-mate-deliplus-01-rosa-amarronado",
+      "disponible": true
+    },
+    {
       "productoId": "12825",
       "nombre": "Colorete fluido Blush mate Deliplus 02 coral",
       "precio": 4.75,
@@ -24917,22 +24901,6 @@
       "disponible": true
     },
     {
-      "productoId": "46659",
-      "nombre": "Eau de toilette mujer Ikiru",
-      "precio": 8,
-      "precioReferencia": 8,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/256c1d1ac65f7280a19e2999b39a3d19.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/46659/eau-toilette-mujer-ikiru-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "23892",
       "nombre": "Eau de toilette mujer Monogotas coco",
       "precio": 3.5,
@@ -26288,7 +26256,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Conservas verdura",
-      "imagen": "https://prod-mercadona.imgix.net/images/faccfd09dec0be2de2f1be8ad8d3b148.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b1e7f0e96c3b45d7a286e462ebd3d2d6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18562/esparragos-medianos-hacendado-tarro",
       "disponible": true
     },
@@ -26327,8 +26295,8 @@
     {
       "productoId": "69656",
       "nombre": "Espárragos verdes finos",
-      "precio": 2.55,
-      "precioReferencia": 10.2,
+      "precio": 2.7,
+      "precioReferencia": 10.8,
       "formato": "Manojo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -26343,8 +26311,8 @@
     {
       "productoId": "69643",
       "nombre": "Espárragos verdes gruesos",
-      "precio": 4,
-      "precioReferencia": 13.334,
+      "precio": 4.1,
+      "precioReferencia": 13.667,
       "formato": "Manojo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.3,
@@ -28839,8 +28807,8 @@
     {
       "productoId": "10126",
       "nombre": "Fruta + leche tropical Bifrutas",
-      "precio": 2.19,
-      "precioReferencia": 1.825,
+      "precio": 2,
+      "precioReferencia": 1.667,
       "formato": "mini briks",
       "unidadesTotales": 6,
       "tamañoUnidad": 1.2,
@@ -31941,6 +31909,54 @@
       "disponible": true
     },
     {
+      "productoId": "8839",
+      "nombre": "Hamburguesa de cordero al romero",
+      "precio": 3.5,
+      "precioReferencia": 14.584,
+      "formato": "Paquete",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 0.24,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Carne",
+      "subcategoria": "Hamburguesas",
+      "imagen": "https://prod-mercadona.imgix.net/images/ea1c49c71c2424324ad4ac73badbfedf.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/8839/burger-cordero-romero-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "35884",
+      "nombre": "Hamburguesa de lomo de vacuno",
+      "precio": 4,
+      "precioReferencia": 16.667,
+      "formato": "Paquete",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 0.24,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Carne",
+      "subcategoria": "Hamburguesas",
+      "imagen": "https://prod-mercadona.imgix.net/images/fb42955265ec4782f2e54200235d54ba.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/35884/hamburguesa-lomo-vacuno-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "8840",
+      "nombre": "Hamburguesa de vaca madurada",
+      "precio": 2.9,
+      "precioReferencia": 16.112,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.18,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Carne",
+      "subcategoria": "Hamburguesas",
+      "imagen": "https://prod-mercadona.imgix.net/images/19c58c8d46c2110088e6736b440e61f3.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/8840/burger-vaca-madurada-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "29130",
       "nombre": "Harina de arroz Hacendado",
       "precio": 1.31,
@@ -33154,6 +33170,22 @@
       "subcategoria": "Jamón serrano",
       "imagen": "https://prod-mercadona.imgix.net/images/1f6928a432081cf7c4bb36c66a4dd305.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/58307/hueso-garron-incarlopsa-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "86330",
+      "nombre": "Hueso vacuno",
+      "precio": 3.41,
+      "precioReferencia": 6.2,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.55,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Carne",
+      "subcategoria": "Arreglos",
+      "imagen": "https://prod-mercadona.imgix.net/images/6684b6aea00dcb564133ff7ea4b87e64.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/86330/hueso-vacuno-bandeja",
       "disponible": true
     },
     {
@@ -35879,8 +35911,8 @@
     {
       "productoId": "9408",
       "nombre": "Leche de continuación en polvo 2 Nidina Nestlé",
-      "precio": 14.95,
-      "precioReferencia": 18.688,
+      "precio": 17.95,
+      "precioReferencia": 22.438,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.8,
@@ -35991,8 +36023,8 @@
     {
       "productoId": "10532",
       "nombre": "Leche desnatada Asturiana",
-      "precio": 6.78,
-      "precioReferencia": 1.13,
+      "precio": 6.36,
+      "precioReferencia": 1.06,
       "formato": "Pack-6",
       "unidadesTotales": 6,
       "tamañoUnidad": 6,
@@ -36007,8 +36039,8 @@
     {
       "productoId": "10801",
       "nombre": "Leche desnatada Asturiana",
-      "precio": 1.13,
-      "precioReferencia": 1.13,
+      "precio": 1.06,
+      "precioReferencia": 1.06,
       "formato": "Brik",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -36199,8 +36231,8 @@
     {
       "productoId": "10530",
       "nombre": "Leche entera Asturiana",
-      "precio": 7.74,
-      "precioReferencia": 1.29,
+      "precio": 7.44,
+      "precioReferencia": 1.24,
       "formato": "Pack-6",
       "unidadesTotales": 6,
       "tamañoUnidad": 6,
@@ -36215,8 +36247,8 @@
     {
       "productoId": "10617",
       "nombre": "Leche entera Asturiana",
-      "precio": 1.29,
-      "precioReferencia": 1.29,
+      "precio": 1.24,
+      "precioReferencia": 1.24,
       "formato": "Brik",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -36455,8 +36487,8 @@
     {
       "productoId": "10531",
       "nombre": "Leche semidesnatada Asturiana",
-      "precio": 7.02,
-      "precioReferencia": 1.17,
+      "precio": 6.54,
+      "precioReferencia": 1.09,
       "formato": "Pack-6",
       "unidadesTotales": 6,
       "tamañoUnidad": 6,
@@ -36471,8 +36503,8 @@
     {
       "productoId": "10712",
       "nombre": "Leche semidesnatada Asturiana",
-      "precio": 1.17,
-      "precioReferencia": 1.17,
+      "precio": 1.09,
+      "precioReferencia": 1.09,
       "formato": "Brik",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -37424,7 +37456,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Cítricos",
-      "imagen": "https://prod-mercadona.imgix.net/images/2bd703ebaf30dd463ab3df1f299b8cf8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/59dc25c62380544e9aeda9a320d44a2e.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3236/limones-malla",
       "disponible": true
     },
@@ -39925,6 +39957,22 @@
       "disponible": true
     },
     {
+      "productoId": "15284",
+      "nombre": "Maquillaje Mate Stick multiusos Deliplus 300 mocca",
+      "precio": 7,
+      "precioReferencia": 7,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.01,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Maquillaje compacto",
+      "imagen": "https://prod-mercadona.imgix.net/images/28cf84cd4f83553a31d5cf05184c4967.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/15284/maquillaje-mate-stick-multiusos-deliplus-300-mocca",
+      "disponible": true
+    },
+    {
       "productoId": "14986",
       "nombre": "Maquillaje serum camomila Deliplus 100 beige muy claro",
       "precio": 7,
@@ -40866,22 +40914,6 @@
       "subcategoria": "Mascarilla",
       "imagen": "https://prod-mercadona.imgix.net/images/53f08dd7c5d38f39c69e6dfbd0c34c8a.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22630/mascarilla-curl-perfect-deliplus-cabello-rizado-apto-metodo-curly-tarro",
-      "disponible": true
-    },
-    {
-      "productoId": "12907",
-      "nombre": "Mascarilla de pies exfoliante Deliplus con ácido salicílico y urea",
-      "precio": 2.5,
-      "precioReferencia": 6.25,
-      "formato": "Paquete",
-      "unidadesTotales": 2,
-      "tamañoUnidad": 0.04,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Crema pies",
-      "imagen": "https://prod-mercadona.imgix.net/images/09afbf15590cffcbbf91ef21ddeb7672.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/12907/mascarilla-pies-exfoliante-deliplus-con-acido-salicilico-paquete",
       "disponible": true
     },
     {
@@ -42023,8 +42055,8 @@
     {
       "productoId": "87734",
       "nombre": "Merluza rebozada",
-      "precio": 3.9,
-      "precioReferencia": 16.957,
+      "precio": 3.8,
+      "precioReferencia": 16.522,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.23,
@@ -44197,22 +44229,6 @@
       "disponible": true
     },
     {
-      "productoId": "86245",
-      "nombre": "Natillas de vainilla Danet",
-      "precio": 1.94,
-      "precioReferencia": 4.042,
-      "formato": "ud.",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 0.48,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Postres y yogures",
-      "subcategoria": "Natillas",
-      "imagen": "https://prod-mercadona.imgix.net/images/90773d5ffa47a10f02da796472ecc91a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/86245/natillas-vainilla-danet-danone-pack-4",
-      "disponible": true
-    },
-    {
       "productoId": "22311",
       "nombre": "Natillas sabor vainilla +Proteínas 12 g",
       "precio": 1.75,
@@ -45445,22 +45461,6 @@
       "disponible": true
     },
     {
-      "productoId": "82295",
-      "nombre": "Pan de molde con 35% avena Hacendado 0% azúcares añadidos con harina 100% integral",
-      "precio": 1.3,
-      "precioReferencia": 2.827,
-      "formato": "Paquete",
-      "unidadesTotales": 12,
-      "tamañoUnidad": 0.46,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Otros panes",
-      "imagen": "https://prod-mercadona.imgix.net/images/cfc13f1dfe16be2a774a9ca380b7184d.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/82295/pan-molde-con-35-avena-hacendado-0-azucares-anadidos-con-harina-100-integral-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "82302",
       "nombre": "Pan de molde con 55% centeno Hacendado",
       "precio": 1.35,
@@ -45863,8 +45863,8 @@
     {
       "productoId": "17572",
       "nombre": "Pan tostado fino con sésamo y sal marina Delicate Crisp Wasa",
-      "precio": 1.8,
-      "precioReferencia": 9.474,
+      "precio": 1.4,
+      "precioReferencia": 7.369,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.19,
@@ -47879,8 +47879,8 @@
     {
       "productoId": "69166",
       "nombre": "Patatas",
-      "precio": 4.3,
-      "precioReferencia": 1.434,
+      "precio": 4.65,
+      "precioReferencia": 1.55,
       "formato": "Malla",
       "unidadesTotales": 0,
       "tamañoUnidad": 3,
@@ -47895,8 +47895,8 @@
     {
       "productoId": "69099",
       "nombre": "Patatas",
-      "precio": 4.5,
-      "precioReferencia": 0.9,
+      "precio": 5,
+      "precioReferencia": 1,
       "formato": "Malla",
       "unidadesTotales": 0,
       "tamañoUnidad": 5,
@@ -49031,8 +49031,8 @@
     {
       "productoId": "69584",
       "nombre": "Pepino",
-      "precio": 0.31,
-      "precioReferencia": 1.5,
+      "precio": 0.35,
+      "precioReferencia": 1.7,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.204,
@@ -54599,8 +54599,8 @@
     {
       "productoId": "51068",
       "nombre": "Queso fundido con palitos La vaca que ríe",
-      "precio": 2.59,
-      "precioReferencia": 18.5,
+      "precio": 2.35,
+      "precioReferencia": 16.786,
       "formato": "Caja",
       "unidadesTotales": 4,
       "tamañoUnidad": 0.14,
@@ -55920,7 +55920,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Ambientador eléctrico",
-      "imagen": "https://prod-mercadona.imgix.net/images/58d78e41d2cf66d8c759bdc29bcb7bbf.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d4531d19d4b2ee334b35ed8f8597a3b0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12894/recambio-ambientador-electrico-coconut-cream-bosque-verde-caja",
       "disponible": true
     },
@@ -60855,8 +60855,8 @@
     {
       "productoId": "50198",
       "nombre": "Sérum facial potenciador 12% silicio Deliplus Sisbela Reafirm",
-      "precio": 5.5,
-      "precioReferencia": 18.334,
+      "precio": 5,
+      "precioReferencia": 16.667,
       "formato": "Frasco",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.03,
@@ -64149,22 +64149,6 @@
       "disponible": true
     },
     {
-      "productoId": "69968",
-      "nombre": "Tomate canario",
-      "precio": 0.38,
-      "precioReferencia": 2.2,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.174,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Tomate",
-      "imagen": "https://prod-mercadona.imgix.net/images/74f33f458b7f5fa55cdb4490730cccd8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/69968/tomate-canario-pieza",
-      "disponible": true
-    },
-    {
       "productoId": "16074",
       "nombre": "Tomate doble concentrado Hacendado extra",
       "precio": 1.05,
@@ -65607,8 +65591,8 @@
     {
       "productoId": "3313",
       "nombre": "Uva blanca sin semillas",
-      "precio": 2.25,
-      "precioReferencia": 3.75,
+      "precio": 1.65,
+      "precioReferencia": 2.75,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.6,
@@ -66935,8 +66919,8 @@
     {
       "productoId": "37134",
       "nombre": "Vino tinto crianza Viña Albali DO Valdepeñas",
-      "precio": 2.8,
-      "precioReferencia": 3.734,
+      "precio": 3,
+      "precioReferencia": 4,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.75,

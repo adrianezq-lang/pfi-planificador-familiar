@@ -1,9 +1,9 @@
 {
-  "actualizado": "2026-09-06T09:28:56.171Z",
+  "actualizado": "2026-09-07T10:21:27.748Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalObjetivos": 57,
-  "actualizados": 57,
+  "totalObjetivos": 59,
+  "actualizados": 59,
   "pendientes": 0,
   "coincidencias": [
     {
@@ -80,7 +80,7 @@
       "ingrediente": "Patatas",
       "productoId": "69099",
       "nombreComercial": "Patatas",
-      "precio": 4.5,
+      "precio": 5,
       "puntuacion": 10000
     },
     {
@@ -122,7 +122,7 @@
       "ingrediente": "Pepino",
       "productoId": "69584",
       "nombreComercial": "Pepino",
-      "precio": 0.31,
+      "precio": 0.35,
       "puntuacion": 10000
     },
     {
@@ -403,6 +403,20 @@
       "productoId": "34183",
       "nombreComercial": "Pimentón picante Hacendado",
       "precio": 1.35,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Pan de pita",
+      "productoId": "14378",
+      "nombreComercial": "Pan de pita Mission",
+      "precio": 2,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Limón",
+      "productoId": "3210",
+      "nombreComercial": "Limón",
+      "precio": 0.48,
       "puntuacion": 10000
     }
   ],
