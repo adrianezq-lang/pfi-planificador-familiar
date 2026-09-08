@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-07T10:20:11.090Z",
+  "actualizado": "2026-09-08T09:42:40.816Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4280,
+  "totalProductos": 4292,
   "productos": [
     {
       "productoId": "3505.2",
@@ -2901,6 +2901,22 @@
       "disponible": true
     },
     {
+      "productoId": "34921",
+      "nombre": "Almendra molida Hacendado",
+      "precio": 2.15,
+      "precioReferencia": 17.2,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.125,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Decoración",
+      "imagen": "https://prod-mercadona.imgix.net/images/a22c2023cef6d1080a3a8bea46ba39d8.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/34921/almendra-molida-hacendado-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "34865",
       "nombre": "Almendra natural Hacendado",
       "precio": 2.3,
@@ -3360,7 +3376,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Ambientador spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/63b85b2f9dbdb53fa9c43c3c6d3ccb84.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b48794f45a161eeb76b2b88836c4bc09.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21551/ambientador-spray-tejidos-bosque-verde-con-pistola-botella",
       "disponible": true
     },
@@ -6928,7 +6944,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Energético",
-      "imagen": "https://prod-mercadona.imgix.net/images/3806999c0ed0ca391fa2477a9d194a1b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/bac5a9b6212f8ab25484f13fc808652e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/28664/bebida-energetica-energy-monster-pack-4",
       "disponible": true
     },
@@ -14231,8 +14247,8 @@
     {
       "productoId": "28078",
       "nombre": "Cerveza especial Keler",
-      "precio": 9.6,
-      "precioReferencia": 2.425,
+      "precio": 7.8,
+      "precioReferencia": 1.97,
       "formato": "latas",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -14247,8 +14263,8 @@
     {
       "productoId": "27981",
       "nombre": "Cerveza especial Keler",
-      "precio": 0.84,
-      "precioReferencia": 2.546,
+      "precio": 0.68,
+      "precioReferencia": 2.061,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -24037,22 +24053,6 @@
       "disponible": true
     },
     {
-      "productoId": "13616",
-      "nombre": "Eau de parfum hombre Borealia Shine",
-      "precio": 11,
-      "precioReferencia": 11,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/2df438295abbe318df06eb25bfccd6fd.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13616/eau-parfum-hombre-borealia-shine-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "16384",
       "nombre": "Eau de parfum hombre Como tú Audaz",
       "precio": 8,
@@ -24162,6 +24162,22 @@
       "subcategoria": "Perfume y colonia hombre",
       "imagen": "https://prod-mercadona.imgix.net/images/a6ab0a4bc7618c71a8a15a1892708c70.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/19953/eau-parfum-hombre-labuan-frasco",
+      "disponible": true
+    },
+    {
+      "productoId": "60669",
+      "nombre": "Eau de parfum hombre Como Tú Rebel",
+      "precio": 8,
+      "precioReferencia": 8,
+      "formato": "Frasco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Perfume y colonia hombre",
+      "imagen": "https://prod-mercadona.imgix.net/images/25148eb678fe57748a3f2b037240c6ae.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/60669/eau-parfum-hombre-rebel-frasco",
       "disponible": true
     },
     {
@@ -24498,6 +24514,22 @@
       "subcategoria": "Perfume y colonia mujer",
       "imagen": "https://prod-mercadona.imgix.net/images/6c048ed3d2b7905b4eff899c000fe876.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60659/eau-parfum-mujer-gold-frasco",
+      "disponible": true
+    },
+    {
+      "productoId": "18295",
+      "nombre": "Eau de parfum mujer Como Tú Ikiru",
+      "precio": 8,
+      "precioReferencia": 8,
+      "formato": "Frasco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Perfume y colonia mujer",
+      "imagen": "https://prod-mercadona.imgix.net/images/d6006019d2d7f9a631e70ef25a5440b4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18295/eau-parfum-mujer-ikiru-frasco",
       "disponible": true
     },
     {
@@ -28981,6 +29013,22 @@
       "disponible": true
     },
     {
+      "productoId": "17639",
+      "nombre": "Galletas avena y semillas Hacendado",
+      "precio": 1.9,
+      "precioReferencia": 5.938,
+      "formato": "Caja",
+      "unidadesTotales": 8,
+      "tamañoUnidad": 0.32,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Cereales y galletas",
+      "subcategoria": "Galletas integrales y digestive",
+      "imagen": "https://prod-mercadona.imgix.net/images/71828b868d151641d2504c3c4055ed20.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17639/galletas-avena-semillas-hacendado-caja",
+      "disponible": true
+    },
+    {
       "productoId": "14430",
       "nombre": "Galletas canela Hacendado",
       "precio": 1.5,
@@ -29090,22 +29138,6 @@
       "subcategoria": "Con chocolate y rellenas",
       "imagen": "https://prod-mercadona.imgix.net/images/e05e749aa872d0245d650f39666e30d8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17922/galletas-con-avena-sabor-choco-orange-con-relleno-crema-chocolate-hacendado-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "15289",
-      "nombre": "Galletas con avena y semillas Hacendado",
-      "precio": 1.25,
-      "precioReferencia": 6.25,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cereales y galletas",
-      "subcategoria": "Galletas integrales y digestive",
-      "imagen": "https://prod-mercadona.imgix.net/images/d71530c668d647f561d644fcd4329d8e.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/15289/galletas-avena-semillas-hacendado-paquete",
       "disponible": true
     },
     {
@@ -33429,6 +33461,22 @@
       "disponible": true
     },
     {
+      "productoId": "8319",
+      "nombre": "Iluminador facial fluido Highlighter Deliplus 01 champagne",
+      "precio": 4.75,
+      "precioReferencia": 4.75,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.012,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Colorete",
+      "imagen": "https://prod-mercadona.imgix.net/images/454ed9e77ec960059c18d1fbbcae05d3.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/8319/iluminador-facial-fluido-highlighter-deliplus-01",
+      "disponible": true
+    },
+    {
       "productoId": "29225",
       "nombre": "Impulsor gasificante en polvo Royal uso alimentario",
       "precio": 2.25,
@@ -33680,7 +33728,7 @@
       "pesoAproximado": true,
       "sección": "Cacao, café e infusiones",
       "subcategoria": "Infusiones",
-      "imagen": "https://prod-mercadona.imgix.net/images/8bb8aa8339111faac81b70cadcd8ca7e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/db1e5eeb680220f22148c39a8bbae52a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60671/infusion-menta-poleo-hacendado-caja",
       "disponible": true
     },
@@ -35138,6 +35186,54 @@
       "subcategoria": "Laca de uñas",
       "imagen": "https://prod-mercadona.imgix.net/images/d251babde94590c6d4f356a3be4fb7ed.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21959/laca-unas-alto-brillo-deliplus-154-fucsia",
+      "disponible": true
+    },
+    {
+      "productoId": "17584",
+      "nombre": "Laca de uñas alto brillo Deliplus 156 chocolate medio",
+      "precio": 2.5,
+      "precioReferencia": 2.5,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.011,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Laca de uñas",
+      "imagen": "https://prod-mercadona.imgix.net/images/0ace8c73f9b4d5042d8d4f7e884b695e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17584/laca-unas-alto-brillo-deliplus-156-chocolate-medio",
+      "disponible": true
+    },
+    {
+      "productoId": "17585",
+      "nombre": "Laca de uñas alto brillo Deliplus 157 tierra medio",
+      "precio": 2.5,
+      "precioReferencia": 2.5,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.011,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Laca de uñas",
+      "imagen": "https://prod-mercadona.imgix.net/images/72b6d0e62681feec307da62f9c6e32fa.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17585/laca-unas-alto-brillo-deliplus-157-tierra-medio",
+      "disponible": true
+    },
+    {
+      "productoId": "17586",
+      "nombre": "Laca de uñas alto brillo Deliplus 158 tierra claro",
+      "precio": 2.5,
+      "precioReferencia": 2.5,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.011,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Laca de uñas",
+      "imagen": "https://prod-mercadona.imgix.net/images/3742eefe01230858ef1381a57101ad71.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17586/laca-unas-alto-brillo-deliplus-158-tierra-claro",
       "disponible": true
     },
     {
@@ -38725,6 +38821,38 @@
       "disponible": true
     },
     {
+      "productoId": "15290",
+      "nombre": "Lote mujer Como tú Amor",
+      "precio": 10,
+      "precioReferencia": 10,
+      "formato": "Caja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Lotes mujer",
+      "imagen": "https://prod-mercadona.imgix.net/images/955c1869ba82f5203aefb073ff36e9b2.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/15290/lote-mujer-soplo-amor-contiene-eau-parfum-100-ml-leche-corporal-100-ml-eau-parfum-15-ml-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "16397",
+      "nombre": "Lote mujer Como tú Extratime",
+      "precio": 10,
+      "precioReferencia": 10,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Lotes mujer",
+      "imagen": "https://prod-mercadona.imgix.net/images/440afc1209929b548373720f1cc6baed.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/16397/lote-mujer-extratime-contiene-eau-parfum-100-ml-gel-bano-100-ml-body-milk-100-ml",
+      "disponible": true
+    },
+    {
       "productoId": "17625",
       "nombre": "Lote mujer Elección Como tú",
       "precio": 10.5,
@@ -39303,8 +39431,8 @@
     {
       "productoId": "3238",
       "nombre": "Mandarina",
-      "precio": 0.35,
-      "precioReferencia": 2.95,
+      "precio": 0.31,
+      "precioReferencia": 2.65,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.117,
@@ -41943,8 +42071,8 @@
     {
       "productoId": "82610.1",
       "nombre": "Merluza a rodajas",
-      "precio": 13.14,
-      "precioReferencia": 10.5,
+      "precio": 14.39,
+      "precioReferencia": 11.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.251,
@@ -41959,8 +42087,8 @@
     {
       "productoId": "82610.2",
       "nombre": "Merluza abierta en libro sin cabeza y sin espina",
-      "precio": 13.14,
-      "precioReferencia": 10.5,
+      "precio": 14.39,
+      "precioReferencia": 11.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.251,
@@ -42007,8 +42135,8 @@
     {
       "productoId": "82610.4",
       "nombre": "Merluza media pieza a rodajas",
-      "precio": 8.61,
-      "precioReferencia": 10.5,
+      "precio": 9.43,
+      "precioReferencia": 11.5,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.82,
@@ -42023,8 +42151,8 @@
     {
       "productoId": "82610.5",
       "nombre": "Merluza media pieza abierta en libro sin cabeza y sin espina",
-      "precio": 7.31,
-      "precioReferencia": 10.5,
+      "precio": 8,
+      "precioReferencia": 11.5,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.696,
@@ -42039,8 +42167,8 @@
     {
       "productoId": "82610.6",
       "nombre": "Merluza media pieza sin aletas y sin escamas",
-      "precio": 7.31,
-      "precioReferencia": 10.5,
+      "precio": 8,
+      "precioReferencia": 11.5,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.696,
@@ -42071,8 +42199,8 @@
     {
       "productoId": "82610.3",
       "nombre": "Merluza sin aletas y sin escamas",
-      "precio": 13.14,
-      "precioReferencia": 10.5,
+      "precio": 14.39,
+      "precioReferencia": 11.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.251,
@@ -42336,7 +42464,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Miel",
-      "imagen": "https://prod-mercadona.imgix.net/images/6a62e186656bdea051f85c26c6a7c0e0.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d60faae54b8c768c6ec6d7946aeb519c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15450/miel-montana-hacendado-bote",
       "disponible": true
     },
@@ -44343,8 +44471,8 @@
     {
       "productoId": "3427",
       "nombre": "Nectarina",
-      "precio": 0.45,
-      "precioReferencia": 2.5,
+      "precio": 0.49,
+      "precioReferencia": 2.75,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.179,
@@ -48741,6 +48869,22 @@
       "disponible": true
     },
     {
+      "productoId": "17775",
+      "nombre": "Pechuga de pavo Hacendado finas lonchas",
+      "precio": 2.3,
+      "precioReferencia": 10.223,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.225,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Pavo y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/95fd68946c67b47e452b5b3537ec89c5.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17775/pechuga-pavo-hacendado-finas-lonchas-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "59283",
       "nombre": "Pechuga de pavo Noel lonchas muy finas",
       "precio": 2.45,
@@ -48832,7 +48976,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Pavo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/85e5ab00244841c29b4236dc36f46a36.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/19ac430f307d92c7d356cb8a413d1839.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21646/pechuga-pavo-cocida-extrafino-hacendado-lonchas-paquete",
       "disponible": true
     },
@@ -49218,6 +49362,22 @@
       "subcategoria": "Cejas",
       "imagen": "https://prod-mercadona.imgix.net/images/d27b7929862996abd2fcd281e925e41d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23523/perfilador-cejas-long-lasting-deliplus-01-claro-con-cepillo",
+      "disponible": true
+    },
+    {
+      "productoId": "23525",
+      "nombre": "Perfilador de cejas Long Lasting Deliplus 03 oscuro",
+      "precio": 2.75,
+      "precioReferencia": 2.75,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Cejas",
+      "imagen": "https://prod-mercadona.imgix.net/images/2d62746986cca2a779b36b576c3f2126.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/23525/perfilador-cejas-long-lasting-deliplus-03-oscuro-con-cepillo",
       "disponible": true
     },
     {
@@ -53520,7 +53680,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Harina",
-      "imagen": "https://prod-mercadona.imgix.net/images/e5ed219ce1d1565fc61aabe13056e99d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e5ed219ce1d1565fc61aabe13056e99d.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/29017/preparado-bizcochos-con-levadura-incorporada-hacendado-paquete",
       "disponible": true
     },
@@ -54016,7 +54176,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso curado",
-      "imagen": "https://prod-mercadona.imgix.net/images/7288000a281fe7d3be896c3b727955a3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/733c824810b9f174589f283be17b0127.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11680/queso-anejo-fuerte-oveja-hacendado-cortado-cunitas-pieza",
       "disponible": true
     },
@@ -55168,7 +55328,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso semicurado",
-      "imagen": "https://prod-mercadona.imgix.net/images/b51f6aab142a23d65f69ef3c4ca4cb6e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/22f6d6603802e5f83ec9956a016a9c49.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11672/queso-semicurado-oveja-hacendado-cortado-cunitas-pieza",
       "disponible": true
     },
@@ -60343,8 +60503,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 1.39,
-      "precioReferencia": 6.95,
+      "precio": 1.19,
+      "precioReferencia": 5.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60359,8 +60519,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 1.39,
-      "precioReferencia": 6.95,
+      "precio": 1.19,
+      "precioReferencia": 5.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60784,7 +60944,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Sérum y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/6171e8d5453af5c2cdf954f2660e864e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/86067ddcdbf198948638c9112c531495.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/44289/serum-be-radiant-10-1-deliplus-cabello-apagado-con-aceite-camelia-bote",
       "disponible": true
     },
@@ -61490,6 +61650,22 @@
       "subcategoria": "Snacks",
       "imagen": "https://prod-mercadona.imgix.net/images/c17299d93bee0b00dcbf1b46694dbcbe.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86358/snack-gato-crunchy-con-hierba-gatera-compy-cuidado-dientes-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "11963",
+      "nombre": "Snack nuggets perro adulto Compy 80% pollo",
+      "precio": 1.35,
+      "precioReferencia": 16.875,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.08,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Snacks",
+      "imagen": "https://prod-mercadona.imgix.net/images/8f4a682200fc668e97c1d27cb51e993a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/11963/snack-nuggets-perro-adulto-compy-80-pollo-paquete",
       "disponible": true
     },
     {
@@ -64149,6 +64325,22 @@
       "disponible": true
     },
     {
+      "productoId": "69968",
+      "nombre": "Tomate canario",
+      "precio": 0.38,
+      "precioReferencia": 2.2,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.174,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Tomate",
+      "imagen": "https://prod-mercadona.imgix.net/images/74f33f458b7f5fa55cdb4490730cccd8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/69968/tomate-canario-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "16074",
       "nombre": "Tomate doble concentrado Hacendado extra",
       "precio": 1.05,
@@ -66151,8 +66343,8 @@
     {
       "productoId": "28400",
       "nombre": "Vermouth blanco Martini",
-      "precio": 11,
-      "precioReferencia": 11,
+      "precio": 11.9,
+      "precioReferencia": 11.9,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -66183,8 +66375,8 @@
     {
       "productoId": "28401",
       "nombre": "Vermouth rojo Martini",
-      "precio": 11,
-      "precioReferencia": 11,
+      "precio": 11.9,
+      "precioReferencia": 11.9,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
