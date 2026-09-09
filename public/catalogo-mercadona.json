@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-08T09:42:40.816Z",
+  "actualizado": "2026-09-09T09:47:34.294Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4292,
+  "totalProductos": 4288,
   "productos": [
     {
       "productoId": "3505.2",
@@ -3552,7 +3552,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Ambientador decorativo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/133e7fb44513afd304cc1d0423ae5650.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/316f728b79898bde8c256148c65121be.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13055/ambientador-varitas-magnolia-bosque-verde-caja",
       "disponible": true
     },
@@ -3600,7 +3600,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Amoníaco y salfumán",
-      "imagen": "https://prod-mercadona.imgix.net/images/f3a8f0b1cb5013b73110e045a88d4db5.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f3a8f0b1cb5013b73110e045a88d4db5.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43813/amoniaco-muy-fuerte-bosque-verde-con-detergente-botella",
       "disponible": true
     },
@@ -3906,6 +3906,22 @@
       "subcategoria": "Fruta",
       "imagen": "https://prod-mercadona.imgix.net/images/816d6a2275f1cada7d00c665d6a371bf.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/61093/arandanos-enteros-hacendado-ultracongelados-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "40583",
+      "nombre": "Arcos dentales para higiene interdental Deliplus",
+      "precio": 1.8,
+      "precioReferencia": 0.03,
+      "formato": "Caja",
+      "unidadesTotales": 60,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Colutorio e hilo dental",
+      "imagen": "https://prod-mercadona.imgix.net/images/d23e6e0366dfd84e32166e2505fc5a16.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/40583/arcos-dentales-higiene-interdental-deliplus-caja",
       "disponible": true
     },
     {
@@ -5733,7 +5749,7 @@
       "disponible": true
     },
     {
-      "productoId": "12171",
+      "productoId": "17702",
       "nombre": "Barritas de chocolate con leche Hacendado rellenas de leche",
       "precio": 2.2,
       "precioReferencia": 11,
@@ -5744,8 +5760,8 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Chocolatinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/03ce26d79f3a66729dd3d07bf494e434.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/12171/barritas-chocolate-con-leche-hacendado-rellenas-leche-paquete",
+      "imagen": "https://prod-mercadona.imgix.net/images/80ed20278bfdf737f42b6c581d92bc8a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17702/barritas-chocolate-con-leche-hacendado-rellenas-leche-paquete",
       "disponible": true
     },
     {
@@ -6485,6 +6501,22 @@
       "disponible": true
     },
     {
+      "productoId": "86167",
+      "nombre": "Bebida de avena con calcio barista Hacendado sin azúcares añadidos",
+      "precio": 1.2,
+      "precioReferencia": 1.2,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Huevos, leche y mantequilla",
+      "subcategoria": "Bebidas vegetales",
+      "imagen": "https://prod-mercadona.imgix.net/images/6418531f9054c82e7084945ad9febc23.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/86167/bebida-avena-sin-azucares-anadidos-hacendado-brick",
+      "disponible": true
+    },
+    {
       "productoId": "86168",
       "nombre": "Bebida de avena con calcio sin azúcares añadidos Hacendado",
       "precio": 7.2,
@@ -6498,22 +6530,6 @@
       "subcategoria": "Bebidas vegetales",
       "imagen": "https://prod-mercadona.imgix.net/images/83b530034c84f1327f738eee7a20e584.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86168/bebida-avena-sin-azucares-anadidos-hacendado-pack-6",
-      "disponible": true
-    },
-    {
-      "productoId": "86167",
-      "nombre": "Bebida de avena con calcio sin azúcares añadidos Hacendado",
-      "precio": 1.2,
-      "precioReferencia": 1.2,
-      "formato": "Brik",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Huevos, leche y mantequilla",
-      "subcategoria": "Bebidas vegetales",
-      "imagen": "https://prod-mercadona.imgix.net/images/6418531f9054c82e7084945ad9febc23.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/86167/bebida-avena-sin-azucares-anadidos-hacendado-brick",
       "disponible": true
     },
     {
@@ -9045,6 +9061,22 @@
       "disponible": true
     },
     {
+      "productoId": "18165",
+      "nombre": "Bocaditos en salsa gato adulto Delikuit",
+      "precio": 6.65,
+      "precioReferencia": 3.26,
+      "formato": "Caja",
+      "unidadesTotales": 24,
+      "tamañoUnidad": 2.04,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/5fd082c56703013d3caecedb58752620.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18165/bocaditos-salsa-gato-adulto-delikuit-contiene-6-con-ternera-6-con-pollo-6-con-salmon-6-con-trucha-caja",
+      "disponible": true
+    },
+    {
       "productoId": "14915",
       "nombre": "Bocaditos en salsa gato adulto Delikuit esterilizado",
       "precio": 3.8,
@@ -10215,8 +10247,8 @@
     {
       "productoId": "15269",
       "nombre": "Burgers vegetales Hacendado con calabaza",
-      "precio": 2,
-      "precioReferencia": 12.5,
+      "precio": 1.8,
+      "precioReferencia": 11.25,
       "formato": "Paquete",
       "unidadesTotales": 2,
       "tamañoUnidad": 0.16,
@@ -15877,22 +15909,6 @@
       "disponible": true
     },
     {
-      "productoId": "16279",
-      "nombre": "Chocolate con leche Fussion Hacendado relleno de crema de pistacho y masa filo tostada",
-      "precio": 2.25,
-      "precioReferencia": 16.667,
-      "formato": "Tableta",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.135,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Chocolate con leche",
-      "imagen": "https://prod-mercadona.imgix.net/images/cd80881d072ac7d0875424ef410e4b8e.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/16279/chocolate-con-leche-fussion-hacendado-relleno-crema-pistacho-masa-filo-tostada-tableta",
-      "disponible": true
-    },
-    {
       "productoId": "19988",
       "nombre": "Chocolate con leche Hacendado almendras enteras",
       "precio": 2.5,
@@ -17824,7 +17840,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Coloración rojo, cobre y violín",
-      "imagen": "https://prod-mercadona.imgix.net/images/a917163a1b8ca44465ecba022f35e958.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8ecc1ad1a5cb5d6764c1ab7bb400c390.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/73262/coloracion-permanente-674-marron-cobrizo-deliplus-0-amoniaco-colorcor-caja",
       "disponible": true
     },
@@ -21013,22 +21029,6 @@
       "disponible": true
     },
     {
-      "productoId": "13499",
-      "nombre": "Crema de calabaza Hacendado",
-      "precio": 1,
-      "precioReferencia": 2,
-      "formato": "Brik",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Conservas, caldos y cremas",
-      "subcategoria": "Cremas y puré",
-      "imagen": "https://prod-mercadona.imgix.net/images/bac2668c48c9709038fd8723a17488c9.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13499/crema-calabaza-hacendado-brick",
-      "disponible": true
-    },
-    {
       "productoId": "23225",
       "nombre": "Crema de calabaza y zanahoria Hacendado",
       "precio": 1.7,
@@ -24053,6 +24053,22 @@
       "disponible": true
     },
     {
+      "productoId": "18247",
+      "nombre": "Eau de parfum hombre Borealia My Soul",
+      "precio": 11,
+      "precioReferencia": 11,
+      "formato": "Frasco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Perfume y colonia hombre",
+      "imagen": "https://prod-mercadona.imgix.net/images/0fd5a9f426e5852a334abf9f20adbd59.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18247/eau-parfum-hombre-borealia-my-soul-frasco",
+      "disponible": true
+    },
+    {
       "productoId": "16384",
       "nombre": "Eau de parfum hombre Como tú Audaz",
       "precio": 8,
@@ -24517,22 +24533,6 @@
       "disponible": true
     },
     {
-      "productoId": "18295",
-      "nombre": "Eau de parfum mujer Como Tú Ikiru",
-      "precio": 8,
-      "precioReferencia": 8,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/d6006019d2d7f9a631e70ef25a5440b4.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18295/eau-parfum-mujer-ikiru-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "17684",
       "nombre": "Eau de parfum mujer Como Tú Rose Nude",
       "precio": 9,
@@ -24629,6 +24629,22 @@
       "disponible": true
     },
     {
+      "productoId": "18295",
+      "nombre": "Eau de parfum mujer Ikiru Como Tú",
+      "precio": 8,
+      "precioReferencia": 8,
+      "formato": "Frasco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Perfume y colonia mujer",
+      "imagen": "https://prod-mercadona.imgix.net/images/d6006019d2d7f9a631e70ef25a5440b4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18295/eau-parfum-mujer-ikiru-frasco",
+      "disponible": true
+    },
+    {
       "productoId": "19954",
       "nombre": "Eau de parfum mujer My Soul Celestial Night",
       "precio": 11,
@@ -24674,22 +24690,6 @@
       "subcategoria": "Perfume y colonia mujer",
       "imagen": "https://prod-mercadona.imgix.net/images/673c20fceb49667188773b41c35bea74.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18091/eau-parfum-mujer-my-soul-enchanted-frasco",
-      "disponible": true
-    },
-    {
-      "productoId": "9938",
-      "nombre": "Eau de parfum mujer My Soul Rouge",
-      "precio": 9.5,
-      "precioReferencia": 9.5,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/8aafc3cdb1160c32a753d59b021b0cc8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9938/eau-parfum-mujer-my-soul-rouge-frasco",
       "disponible": true
     },
     {
@@ -25648,7 +25648,7 @@
       "pesoAproximado": true,
       "sección": "Pizzas y platos preparados",
       "subcategoria": "Platos fríos",
-      "imagen": "https://prod-mercadona.imgix.net/images/0998c7ae9592a3f023f510c4a89431c3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0998c7ae9592a3f023f510c4a89431c3.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13242/ensalada-marisco-listo-comer-compuesta-pasta-poton-gambon-langostino-aceituna-negra-zanahoria-cebolla-roja-encurtidas-con-monodosis-bol",
       "disponible": true
     },
@@ -26560,7 +26560,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Esponjas",
-      "imagen": "https://prod-mercadona.imgix.net/images/319eeda4e6d434bb431b18ce2a9981b3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/93197d2b065f8ee7d93212ae2a9b7cff.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/44973/esponja-bano-infantil-disney-paquete",
       "disponible": true
     },
@@ -33461,22 +33461,6 @@
       "disponible": true
     },
     {
-      "productoId": "8319",
-      "nombre": "Iluminador facial fluido Highlighter Deliplus 01 champagne",
-      "precio": 4.75,
-      "precioReferencia": 4.75,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.012,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Colorete",
-      "imagen": "https://prod-mercadona.imgix.net/images/454ed9e77ec960059c18d1fbbcae05d3.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8319/iluminador-facial-fluido-highlighter-deliplus-01",
-      "disponible": true
-    },
-    {
       "productoId": "29225",
       "nombre": "Impulsor gasificante en polvo Royal uso alimentario",
       "precio": 2.25,
@@ -35186,6 +35170,22 @@
       "subcategoria": "Laca de uñas",
       "imagen": "https://prod-mercadona.imgix.net/images/d251babde94590c6d4f356a3be4fb7ed.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21959/laca-unas-alto-brillo-deliplus-154-fucsia",
+      "disponible": true
+    },
+    {
+      "productoId": "17583",
+      "nombre": "Laca de uñas alto brillo Deliplus 155 burdeos",
+      "precio": 2.5,
+      "precioReferencia": 2.5,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.011,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Laca de uñas",
+      "imagen": "https://prod-mercadona.imgix.net/images/a7ff162bde2066acbe554849a5dae0a6.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17583/laca-unas-alto-brillo-deliplus-155-chocolate-intenso",
       "disponible": true
     },
     {
@@ -38192,7 +38192,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "After shave",
-      "imagen": "https://prod-mercadona.imgix.net/images/e95b8b62cbc5dbcd2bdcf578c472c183.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e95b8b62cbc5dbcd2bdcf578c472c183.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60658/locion-after-shave-fresh-deliplus-con-alcohol-bote",
       "disponible": true
     },
@@ -38706,6 +38706,22 @@
       "subcategoria": "Sérum y ampollas",
       "imagen": "https://prod-mercadona.imgix.net/images/1ca8c8351ebefdb2ff73f17c4fe5bcbb.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21884/lote-facial-mujer-deliplus-glow-contiene-serum-luminoso-parches-ojos-hidrogel-con-peptidos-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "16257",
+      "nombre": "Lote Flection Sports Edition 6 hojas Deliplus",
+      "precio": 14,
+      "precioReferencia": 14,
+      "formato": "Caja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Maquinillas de afeitar",
+      "imagen": "https://prod-mercadona.imgix.net/images/fb070cb37488c1869fc5dd113229b539.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/16257/lote-flection-sports-edition-6-hojas-deliplus-caja",
       "disponible": true
     },
     {
@@ -40885,22 +40901,6 @@
       "disponible": true
     },
     {
-      "productoId": "21504",
-      "nombre": "Máscara de pestañas Water Xtrem waterproof efecto longitud infinita Deliplus negro",
-      "precio": 4.5,
-      "precioReferencia": 4.5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.0085,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Máscara de pestañas",
-      "imagen": "https://prod-mercadona.imgix.net/images/5eb9cfccc28fc867d55f711323c3a688.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21504/mascara-pestanas-water-xtrem-waterproof-efecto-longitud-infinita-deliplus-negro",
-      "disponible": true
-    },
-    {
       "productoId": "44338",
       "nombre": "Mascarilla Argan Oil Deliplus cabello seco y dañado",
       "precio": 2.4,
@@ -41872,7 +41872,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Mejillones",
-      "imagen": "https://prod-mercadona.imgix.net/images/39274150d710c245658d381b05fbb37e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f753e3fdce7e419e734b476a8c2f34ee.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18615/mejillones-escabeche-hacendado-pequenos-pack-2",
       "disponible": true
     },
@@ -42599,8 +42599,8 @@
     {
       "productoId": "86511",
       "nombre": "Mini burgers vegetales Hacendado con espinacas y zanahoria",
-      "precio": 2.4,
-      "precioReferencia": 12,
+      "precio": 2,
+      "precioReferencia": 10,
       "formato": "Paquete",
       "unidadesTotales": 4,
       "tamañoUnidad": 0.2,
@@ -44341,22 +44341,6 @@
       "disponible": true
     },
     {
-      "productoId": "68243",
-      "nombre": "Natillas de chocolate Danet",
-      "precio": 1.94,
-      "precioReferencia": 4.042,
-      "formato": "Pack-4",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 0.48,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Postres y yogures",
-      "subcategoria": "Natillas",
-      "imagen": "https://prod-mercadona.imgix.net/images/492c04a070fe43c5c272cb4879e11fbe.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/68243/natillas-chocolate-danet-danone-pack-4",
-      "disponible": true
-    },
-    {
       "productoId": "22311",
       "nombre": "Natillas sabor vainilla +Proteínas 12 g",
       "precio": 1.75,
@@ -44560,7 +44544,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Frutos secos",
-      "imagen": "https://prod-mercadona.imgix.net/images/1f10a4ebe8ba6ccd1f3e2cfd4f8f1329.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f73efc85361a05e42008a997e5d62881.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/34236/nuez-brasil-natural-hacendado-paquete",
       "disponible": true
     },
@@ -45168,7 +45152,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Fregonas, escobas y mopas",
-      "imagen": "https://prod-mercadona.imgix.net/images/78ad4a06b0791f59b419703c9eb01369.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/3ea500f093a680be7537c7f44085986d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86612/palo-extensible-antideslizante-bosque-verde-88-150-cm",
       "disponible": true
     },
@@ -45618,6 +45602,22 @@
       "subcategoria": "Otros panes",
       "imagen": "https://prod-mercadona.imgix.net/images/174093fd98d687d6f3e191a0207cc828.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14961/pan-molde-espelta-100-integral-hacendado-natural-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "18294",
+      "nombre": "Pan de molde integral con 20% avena 5% trigo sarraceno Hacendado",
+      "precio": 1.5,
+      "precioReferencia": 2.728,
+      "formato": "Paquete",
+      "unidadesTotales": 14,
+      "tamañoUnidad": 0.55,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Otros panes",
+      "imagen": "https://prod-mercadona.imgix.net/images/f3ccd8c0b23f1583738c49f03fb2e254.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18294/pan-molde-integral-con-20-avena-5-trigo-sarraceno-hacendado-paquete",
       "disponible": true
     },
     {
@@ -47301,22 +47301,6 @@
       "disponible": true
     },
     {
-      "productoId": "3418",
-      "nombre": "Paraguayo",
-      "precio": 0.41,
-      "precioReferencia": 2.75,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.149,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Otras frutas",
-      "imagen": "https://prod-mercadona.imgix.net/images/691d5a89b3753ae06e5770e5891ef709.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/3418/paraguayo-pieza",
-      "disponible": true
-    },
-    {
       "productoId": "16472",
       "nombre": "Parches faciales Hidrocoloides Oil Free",
       "precio": 4.5,
@@ -48352,7 +48336,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Patatas",
-      "imagen": "https://prod-mercadona.imgix.net/images/5fe57720adc49ea7a458cf7db5148525.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5fe57720adc49ea7a458cf7db5148525.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/61405/patatas-prefritas-corte-grueso-hacendado-ultracongeladas-paquete",
       "disponible": true
     },
@@ -49365,22 +49349,6 @@
       "disponible": true
     },
     {
-      "productoId": "23525",
-      "nombre": "Perfilador de cejas Long Lasting Deliplus 03 oscuro",
-      "precio": 2.75,
-      "precioReferencia": 2.75,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Cejas",
-      "imagen": "https://prod-mercadona.imgix.net/images/2d62746986cca2a779b36b576c3f2126.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23525/perfilador-cejas-long-lasting-deliplus-03-oscuro-con-cepillo",
-      "disponible": true
-    },
-    {
       "productoId": "67721",
       "nombre": "Perfilador de cejas micro Deliplus 01 claro",
       "precio": 3.5,
@@ -49554,22 +49522,6 @@
       "subcategoria": "Perfilador labios",
       "imagen": "https://prod-mercadona.imgix.net/images/e015d4799752abf1731e8d8fa7b0b040.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/67713/perfilador-labios-long-lasting-deliplus-10-canela",
-      "disponible": true
-    },
-    {
-      "productoId": "35876",
-      "nombre": "Perfilador de labios Long Lasting Deliplus 11 nude",
-      "precio": 2.5,
-      "precioReferencia": 2.5,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Perfilador labios",
-      "imagen": "https://prod-mercadona.imgix.net/images/17a67736904952ace727cffec5d61b8f.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35876/perfilador-labios-long-lasting-deliplus-11-nude",
       "disponible": true
     },
     {
@@ -52482,22 +52434,6 @@
       "subcategoria": "Polvos",
       "imagen": "https://prod-mercadona.imgix.net/images/8b58bd73d1365821f53094835c877d92.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52975/polvo-compacto-24h-long-lasting-deliplus-03-dorado",
-      "disponible": true
-    },
-    {
-      "productoId": "52976",
-      "nombre": "Polvo Compacto 24H Long Lasting Deliplus 04 dorado oscuro",
-      "precio": 6,
-      "precioReferencia": 6,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.01,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Polvos",
-      "imagen": "https://prod-mercadona.imgix.net/images/4d9bb5205fb50aec40f7e7545e1e774b.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/52976/polvo-compacto-24h-long-lasting-deliplus-04-dorado-oscuro",
       "disponible": true
     },
     {
@@ -56695,8 +56631,8 @@
     {
       "productoId": "27321",
       "nombre": "Refresco Coca-Cola",
-      "precio": 11.16,
-      "precioReferencia": 2.819,
+      "precio": 10.2,
+      "precioReferencia": 2.576,
       "formato": "Pack-12",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -56727,8 +56663,8 @@
     {
       "productoId": "27184",
       "nombre": "Refresco Coca-Cola light",
-      "precio": 8.37,
-      "precioReferencia": 2.819,
+      "precio": 7.38,
+      "precioReferencia": 2.485,
       "formato": "Pack-9",
       "unidadesTotales": 9,
       "tamañoUnidad": 2.97,
@@ -56759,8 +56695,8 @@
     {
       "productoId": "27426",
       "nombre": "Refresco Coca-Cola zero azúcar",
-      "precio": 11.16,
-      "precioReferencia": 2.819,
+      "precio": 10.2,
+      "precioReferencia": 2.576,
       "formato": "latas",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -56887,8 +56823,8 @@
     {
       "productoId": "26997",
       "nombre": "Refresco Coca-Cola zero azúcar zero cafeína",
-      "precio": 11.16,
-      "precioReferencia": 2.819,
+      "precio": 10.2,
+      "precioReferencia": 2.576,
       "formato": "latas",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -57863,8 +57799,8 @@
     {
       "productoId": "11688",
       "nombre": "Refresco té sabor limón Fuze Tea",
-      "precio": 1.99,
-      "precioReferencia": 1.327,
+      "precio": 1.49,
+      "precioReferencia": 0.994,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -61136,7 +61072,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Servilletas",
-      "imagen": "https://prod-mercadona.imgix.net/images/bfcc81e168ee5a8e58f26e2ba67dfb40.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/bfcc81e168ee5a8e58f26e2ba67dfb40.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/49544/servilleta-papel-bosque-verde-1-capa-30-x-30-cm-paquete",
       "disponible": true
     },
@@ -61653,22 +61589,6 @@
       "disponible": true
     },
     {
-      "productoId": "11963",
-      "nombre": "Snack nuggets perro adulto Compy 80% pollo",
-      "precio": 1.35,
-      "precioReferencia": 16.875,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.08,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Snacks",
-      "imagen": "https://prod-mercadona.imgix.net/images/8f4a682200fc668e97c1d27cb51e993a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/11963/snack-nuggets-perro-adulto-compy-80-pollo-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "52135",
       "nombre": "Snack palitos perro adulto con pollo y ternera Compy",
       "precio": 1.1,
@@ -61954,6 +61874,22 @@
       "subcategoria": "Botiquín",
       "imagen": "https://prod-mercadona.imgix.net/images/1db1633094a9331d6c6f15208e743542.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/33357/solucion-unica-lentes-contacto-blandas-deliplus-con-acido-hialuronico-contiene-estuche-portalentes-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "11641",
+      "nombre": "Sombra de ojos Long Lasting Deliplus Multi-Stick 06 bronce",
+      "precio": 4,
+      "precioReferencia": 4,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Sombra de ojos",
+      "imagen": "https://prod-mercadona.imgix.net/images/3fd4fed151844fa6e2091d1081c499d2.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/11641/sombra-ojos-long-lasting-deliplus-multi-stick-06-bronce-puede-utilizar-delineador-iluminador-sombra-ojos",
       "disponible": true
     },
     {
