@@ -20,11 +20,11 @@ export type DiaMenu = {
 };
 
 export const menuSemanal: DiaMenu[] = [
-  { dia: 'Lunes', comida: ['Lentejas'], cena: ['Lomo', 'Ensalada'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: 'Pollo' },
-  { dia: 'Martes', comida: ['Pollo al horno', 'Patatas'], cena: ['Crema de calabacín', 'Tortilla francesa'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: 'Pasta + huevos' },
+  { dia: 'Lunes', comida: ['Lentejas'], cena: ['Lomo a la plancha con ensalada'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: 'Lubina' },
+  { dia: 'Martes', comida: ['Lubina al horno con patatas'], cena: ['Vainas con patata y huevo'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: 'Pasta + huevos' },
   { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Fajitas', 'Nachos', 'Guacamole'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: 'Ternera' },
-  { dia: 'Jueves', comida: ['Garbanzos fritos', 'Arroz blanco'], cena: ['Filete de ternera', 'Patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: 'Pizza' },
-  { dia: 'Viernes', comida: ['Macarrones boloñesa'], cena: ['Hamburguesas'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: 'Salmón' },
-  { dia: 'Sábado', comida: ['Salmón', 'Arroz blanco'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: 'Hamburguesas' },
+  { dia: 'Jueves', comida: ['Lentejas'], cena: ['Filete de ternera con patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: 'Pizza' },
+  { dia: 'Viernes', comida: ['Macarrones boloñesa'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: 'Salmón' },
+  { dia: 'Sábado', comida: ['Salmón a la plancha con arroz'], cena: ['Hamburguesas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: 'Lentejas' },
   { dia: 'Domingo', comida: ['Comemos fuera'], cena: ['Cola Cao y galletas'], postreComida: 'Sin postre', postreCena: 'Sin postre', preparar: 'Lentejas' },
 ];

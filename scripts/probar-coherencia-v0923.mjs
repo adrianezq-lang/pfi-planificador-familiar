@@ -115,7 +115,7 @@ const compra = generarListaCompra(menuMes);
 const tortillas = compra.find((i) => i.nombre === 'Tortillas de trigo');
 const pitas = compra.find((i) => i.nombre === 'Pan de pita');
 if (tortillas?.cantidad !== 6) throw new Error(`Tortillas mensuales: ${tortillas?.cantidad}, esperaba 6.`);
-if (pitas?.cantidad !== 8) throw new Error(`Pitas mensuales: ${pitas?.cantidad}, esperaba 8.`);
+if (pitas?.cantidad !== 4) throw new Error(`Pitas mensuales: ${pitas?.cantidad}, esperaba 4.`);
 
 const texto = menuMes.flatMap((dia) => [...dia.comida, ...dia.cena]).join(' ').toLocaleLowerCase('es');
 for (const prohibido of ['brócoli', 'maíz', 'champiñón', 'merluza']) {
@@ -137,6 +137,6 @@ await vite.close();
 console.log('✓ kebab usa pita y fajitas usan tortillas sin mezclar productos');
 console.log('✓ 10 recetas nuevas quedan disponibles y sobreviven a restaurar recetas');
 console.log('✓ garbanzos fritos no se repiten; las ollas reales sí se aprovechan');
-console.log('✓ compra base: 6 tortillas y 8 panes de pita');
+console.log('✓ compra base: 6 tortillas y 4 panes de pita');
 console.log('✓ asociaciones Mercadona: pita 14378 y limón 3210');
 console.log('✓ preferencias familiares siguen respetadas');

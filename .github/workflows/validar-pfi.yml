@@ -47,6 +47,8 @@ jobs:
         run: node --experimental-strip-types scripts/probar-variedad-menu-v0922.mjs
       - name: Probar coherencia integral v0.9.23
         run: npm run test:coherencia-v0923
+      - name: Probar variedad estricta y migración v0.9.24
+        run: npm run test:v0924
       - name: Auditar cantidades del mes completo
         run: npm run test:auditoria-mensual
       - name: Probar presupuesto

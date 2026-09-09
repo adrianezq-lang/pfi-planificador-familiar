@@ -1,17 +1,17 @@
 import assert from 'node:assert/strict';
 import { menuMensualInicial } from '../src/data/MenuMensual.ts';
-import { recetasVariedadV0922 } from '../src/data/RecetasV0922.ts';
+import { recetasVariedadV0924 } from '../src/data/RecetasV0924.ts';
 
-function normalizar(platos) {
-  return platos
-    .map((plato) =>
-      plato
-        .toLocaleLowerCase('es')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .trim(),
-    )
-    .join(' + ');
+function normalizar(plato) {
+  return plato
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+}
+
+function mismaLista(a, b) {
+  return a.length === b.length && a.every((plato, indice) => normalizar(plato) === normalizar(b[indice] ?? ''));
 }
 
 assert.equal(menuMensualInicial.length, 6, 'Deben existir seis plantillas para meses de seis semanas');
@@ -20,13 +20,22 @@ const usos = new Map();
 const legumbresLunes = [];
 const ensaladasPasta = [];
 const serviciosVegetales = new Set();
+const cenasPizza = new Set();
+const cenasInformales = new Set([
+  'Hamburguesas',
+  'Perritos calientes',
+  'Kebab',
+  'Nachos gratinados con carne',
+  'Tortilla de patata con ensalada',
+  'Pollo especiado al horno con patatas',
+]);
 let aparicionesFajitas = 0;
 let aparicionesKebab = 0;
 
 menuMensualInicial.forEach((semana, indiceSemana) => {
   const lunes = semana.menu.find((dia) => dia.dia === 'Lunes');
-  const firmaLunes = normalizar(lunes?.comida ?? []);
-  legumbresLunes.push(firmaLunes);
+  const comidaLunes = lunes?.comida ?? [];
+  legumbresLunes.push(comidaLunes.map(normalizar).join(' + '));
 
   const ensaladas = semana.menu
     .flatMap((dia) => dia.comida)
@@ -34,10 +43,15 @@ menuMensualInicial.forEach((semana, indiceSemana) => {
   assert.equal(ensaladas.length, 1, `Semana ${indiceSemana + 1}: debe haber una ensalada de pasta`);
   ensaladasPasta.push(ensaladas[0]);
 
+  const viernes = semana.menu.find((dia) => dia.dia === 'Viernes');
+  assert.equal(viernes?.cena.length, 2, `Semana ${indiceSemana + 1}: faltan las dos pizzas del viernes`);
+  assert.ok(viernes?.cena.every((plato) => normalizar(plato).includes('pizza')));
+  cenasPizza.add(viernes?.cena.map(normalizar).join(' + '));
+
   const sabado = semana.menu.find((dia) => dia.dia === 'Sábado');
   assert.ok(
-    sabado?.cena.some((plato) => ['Hamburguesas', 'Perritos calientes', 'Kebab'].includes(plato)),
-    `Semana ${indiceSemana + 1}: el sábado debe mantener cena informal`,
+    sabado?.cena.length === 1 && cenasInformales.has(sabado.cena[0]),
+    `Semana ${indiceSemana + 1}: el sábado debe mantener una cena informal distinta`,
   );
 
   semana.menu.forEach((dia) => {
@@ -45,30 +59,35 @@ menuMensualInicial.forEach((semana, indiceSemana) => {
     aparicionesKebab += [...dia.comida, ...dia.cena].filter((plato) => plato === 'Kebab').length;
 
     for (const [momento, platos] of [['comida', dia.comida], ['cena', dia.cena]]) {
-      const firma = normalizar(platos);
-      if (/vaina|verduras al horno|calabacin a la plancha|crema de calabacin|crema de verduras|crema de calabaza/.test(firma)) {
-        serviciosVegetales.add(firma);
+      const texto = platos.map(normalizar).join(' + ');
+      if (/vaina|menestra|verdura|calabacin|calabaza/.test(texto)) {
+        serviciosVegetales.add(texto);
       }
 
-      if (firma === 'comemos fuera' || firma === 'cola cao y galletas') continue;
-      if (dia.dia === 'Viernes' && momento === 'cena' && firma.includes('pizza')) continue;
-      if (dia.dia === 'Jueves' && momento === 'comida' && firma === firmaLunes) continue;
+      if (dia.dia === 'Jueves' && momento === 'comida' && mismaLista(platos, comidaLunes)) continue;
 
-      const anterior = usos.get(firma);
-      assert.ok(
-        anterior === undefined || anterior === indiceSemana,
-        `Servicio repetido entre semanas ${anterior + 1} y ${indiceSemana + 1}: ${firma}`,
-      );
-      usos.set(firma, indiceSemana);
+      for (const plato of platos) {
+        const clave = normalizar(plato);
+        if (clave === 'comemos fuera' || clave === 'cola cao y galletas') continue;
+        if (dia.dia === 'Viernes' && momento === 'cena' && clave.includes('pizza')) continue;
+
+        const anterior = usos.get(clave);
+        assert.ok(
+          anterior === undefined || anterior === indiceSemana,
+          `Plato repetido entre semanas ${anterior + 1} y ${indiceSemana + 1}: ${plato}`,
+        );
+        usos.set(clave, indiceSemana);
+      }
     }
   });
 });
 
 assert.equal(new Set(legumbresLunes).size, menuMensualInicial.length, 'La legumbre principal debe cambiar cada semana');
 assert.equal(new Set(ensaladasPasta).size, menuMensualInicial.length, 'La ensalada de pasta debe cambiar cada semana');
-assert.ok(serviciosVegetales.size >= 7, 'Faltan servicios de verduras realmente distintos');
+assert.equal(cenasPizza.size, menuMensualInicial.length, 'La pareja de pizzas debe cambiar cada semana');
+assert.ok(serviciosVegetales.size >= 12, 'Faltan servicios de verduras realmente distintos');
 assert.equal(aparicionesFajitas, 1, 'La plantilla mensual debe tener una sola noche de fajitas');
-assert.equal(aparicionesKebab, 2, 'La plantilla mensual debe mantener dos kebabs para completar 14 tortillas en total');
+assert.equal(aparicionesKebab, 1, 'La plantilla mensual no debe repetir kebab');
 
 const textoMenu = menuMensualInicial
   .flatMap((semana) => semana.menu)
@@ -76,36 +95,20 @@ const textoMenu = menuMensualInicial
   .join(' ')
   .toLocaleLowerCase('es');
 assert.match(textoMenu, /vainas con patata/);
-assert.match(textoMenu, /vainas salteadas/);
+assert.match(textoMenu, /vainas con tomate/);
+assert.match(textoMenu, /menestra de verduras/);
 assert.match(textoMenu, /verduras al horno/);
-assert.match(textoMenu, /calabacín a la plancha/);
 for (const prohibido of ['brócoli', 'maíz', 'champiñón', 'merluza']) {
   assert.equal(textoMenu.includes(prohibido), false, `Aparece un alimento excluido: ${prohibido}`);
 }
 
-const nombresNuevos = new Set(recetasVariedadV0922.map((receta) => receta.nombre));
-for (const nombre of [
-  'Vainas con patata y huevo',
-  'Vainas salteadas con jamón',
-  'Verduras al horno',
-  'Calabacín a la plancha',
-  'Albóndigas con tomate',
-  'Pollo al ajillo',
-  'Garbanzos guisados con verduras',
-  'Ensalada de pasta con pollo',
-  'Ensalada de pasta con huevo',
-  'Ensalada de pasta mediterránea',
-  'Ensalada de pasta con pavo',
-  'Ensalada de pasta con atún y huevo',
-  'Macarrones con atún',
-  'Espaguetis con tomate y atún',
-]) {
-  assert.ok(nombresNuevos.has(nombre), `Falta la receta nueva ${nombre}`);
-}
+const ingredientesNuevos = recetasVariedadV0924.flatMap((receta) => receta.ingredientes);
+assert.ok(ingredientesNuevos.filter((ingrediente) => ingrediente.nombre === 'Pimiento rojo').length >= 8);
+assert.ok(ingredientesNuevos.filter((ingrediente) => ingrediente.nombre === 'Pimiento tricolor').length >= 3);
 
 console.log('✓ seis semanas distintas cubren cualquier mes real');
-console.log('✓ no se repite el mismo servicio completo entre semanas');
-console.log('✓ cada semana cambia la legumbre y la ensalada de pasta');
-console.log('✓ se incorporan vainas y más verduras sin alimentos excluidos');
-console.log('✓ una sola noche de fajitas mantiene el objetivo de 14 tortillas');
-console.log('✓ se conserva pizza viernes, sábado informal y domingo fuera');
+console.log('✓ ningún plato se repite entre semanas salvo batch, pizza y domingo');
+console.log('✓ cada semana cambia la legumbre, la ensalada de pasta y la cena informal');
+console.log('✓ se incorporan dos platos de vainas, menestra y más verduras');
+console.log('✓ el pimiento rojo y tricolor se conserva y amplía en el recetario');
+console.log('✓ una sola noche de fajitas y una de kebab evitan compras duplicadas');

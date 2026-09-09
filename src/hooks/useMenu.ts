@@ -22,6 +22,7 @@ const CLAVE_MENU = 'pfi-menu';
 const CLAVE_SEMANA_ACTIVA = 'pfi-semana-activa';
 const CLAVE_MES_ACTIVO = 'pfi-mes-activo';
 const PREFIJO_PLAN_MES = 'pfi-menu-mes-';
+const PREFIJO_MIGRACION_VARIEDAD_V0924 = 'pfi-migracion-variedad-v0924-';
 const EVENTO_MENU = 'pfi-menu-actualizado';
 const PASTAS_ALTERNATIVAS = [
   'Macarrones boloñesa',
@@ -217,83 +218,155 @@ function semanasDelMes(mes: string, base: SemanaMenu[]): SemanaMenu[] {
   );
 }
 
-function firmaServicio(platos: string[]): string {
-  return platos
-    .map((plato) =>
-      plato
-        .toLocaleLowerCase('es')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .trim(),
-    )
-    .join(' + ');
+function normalizarPlato(plato: string): string {
+  return plato
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
 }
 
-function planNecesitaPatron(semanas: SemanaMenu[]): boolean {
+function listasPlatosIguales(a: string[], b: string[]): boolean {
+  return (
+    a.length === b.length &&
+    a.every((plato, indice) => normalizarPlato(plato) === normalizarPlato(b[indice] ?? ''))
+  );
+}
+
+function esPlatoExentoDeVariedad(
+  plato: string,
+  dia: string,
+  momento: 'comida' | 'cena',
+): boolean {
+  const normalizado = normalizarPlato(plato);
+  return (
+    normalizado === 'comemos fuera' ||
+    normalizado === 'cola cao y galletas' ||
+    (dia === 'Viernes' && momento === 'cena' && normalizado.includes('pizza'))
+  );
+}
+
+export function planNecesitaVariedadV0924(semanas: SemanaMenu[]): boolean {
   if (semanas.length < 3) return false;
 
   const usos = new Map<string, Set<number>>();
   let tieneVainas = false;
-  let tieneVerdurasHorno = false;
-  let tieneCalabacinPlancha = false;
+  let tieneMenestra = false;
+  let serviciosVegetales = 0;
 
   semanas.forEach((semana, indiceSemana) => {
     const lunes = semana.menu.find((dia) => dia.dia === 'Lunes');
-    const firmaLegumbreLunes = firmaServicio(lunes?.comida ?? []);
+    const comidaLunes = lunes?.comida ?? [];
 
     semana.menu.forEach((dia) => {
       ([['comida', dia.comida], ['cena', dia.cena]] as const).forEach(
         ([momento, platos]) => {
-          const firma = firmaServicio(platos);
-          if (!firma) return;
-
-          tieneVainas = tieneVainas || firma.includes('vainas');
-          tieneVerdurasHorno = tieneVerdurasHorno || firma.includes('verduras al horno');
-          tieneCalabacinPlancha =
-            tieneCalabacinPlancha || firma.includes('calabacin a la plancha');
-
-          if (firma === 'comemos fuera' || firma === 'cola cao y galletas') return;
-          if (dia.dia === 'Viernes' && momento === 'cena' && firma.includes('pizza')) return;
           if (
             dia.dia === 'Jueves' &&
             momento === 'comida' &&
-            firma === firmaLegumbreLunes
+            listasPlatosIguales(platos, comidaLunes)
           ) {
             return;
           }
 
-          const semanasUso = usos.get(firma) ?? new Set<number>();
-          semanasUso.add(indiceSemana);
-          usos.set(firma, semanasUso);
+          const textoServicio = platos.map(normalizarPlato).join(' ');
+          tieneVainas = tieneVainas || textoServicio.includes('vainas');
+          tieneMenestra = tieneMenestra || textoServicio.includes('menestra');
+          if (/vaina|menestra|verdura|calabacin|calabaza/.test(textoServicio)) {
+            serviciosVegetales += 1;
+          }
+
+          platos.forEach((plato) => {
+            if (esPlatoExentoDeVariedad(plato, dia.dia, momento)) return;
+
+            const clave = normalizarPlato(plato);
+            if (!clave) return;
+            const semanasUso = usos.get(clave) ?? new Set<number>();
+            semanasUso.add(indiceSemana);
+            usos.set(clave, semanasUso);
+          });
         },
       );
     });
   });
 
-  const hayServicioRepetido = Array.from(usos.values()).some(
+  const hayPlatoRepetido = Array.from(usos.values()).some(
     (semanasUso) => semanasUso.size > 1,
   );
 
   return (
-    hayServicioRepetido ||
+    hayPlatoRepetido ||
     !tieneVainas ||
-    !tieneVerdurasHorno ||
-    !tieneCalabacinPlancha
+    !tieneMenestra ||
+    serviciosVegetales < Math.min(6, semanas.length)
   );
 }
 
-function migrarPlanAlPatron(mes: string, semanas: SemanaMenu[]): SemanaMenu[] {
-  if (!planNecesitaPatron(semanas)) return semanas;
+function copiarPostresManuales(origen: DiaMenu | undefined, destino: DiaMenu): DiaMenu {
+  if (!origen) return destino;
+
+  const resultado = { ...destino };
+  if (origen.postreComidaManual) {
+    resultado.postreComida = origen.postreComida;
+    resultado.postreComidaReceta = origen.postreComidaReceta;
+    resultado.detallePostreComida = origen.detallePostreComida;
+    resultado.cantidadPostreComida = origen.cantidadPostreComida;
+    resultado.postreComidaManual = true;
+  }
+  if (origen.postreCenaManual) {
+    resultado.postreCena = origen.postreCena;
+    resultado.postreCenaReceta = origen.postreCenaReceta;
+    resultado.detallePostreCena = origen.detallePostreCena;
+    resultado.cantidadPostreCena = origen.cantidadPostreCena;
+    resultado.postreCenaManual = true;
+  }
+  return resultado;
+}
+
+function claveMigracionVariedad(mes: string): string {
+  return `${PREFIJO_MIGRACION_VARIEDAD_V0924}${mes}`;
+}
+
+function marcarMigracionVariedad(mes: string): void {
+  try {
+    localStorage.setItem(claveMigracionVariedad(mes), '1');
+  } catch {
+    // El menú sigue siendo utilizable aunque el almacenamiento esté lleno.
+  }
+}
+
+export function migrarPlanAVariedadV0924(
+  mes: string,
+  semanas: SemanaMenu[],
+): SemanaMenu[] {
+  try {
+    if (localStorage.getItem(claveMigracionVariedad(mes)) === '1') {
+      return semanas;
+    }
+  } catch {
+    // Continúa con la comprobación en memoria.
+  }
+
+  if (!planNecesitaVariedadV0924(semanas)) {
+    marcarMigracionVariedad(mes);
+    return semanas;
+  }
 
   const nuevo = semanasDelMes(
     mes,
     copiarPlanMensual(menuMensualInicial),
   );
 
-  return nuevo.map((semana, indice) => ({
+  const migrado = nuevo.map((semana, indice) => ({
     ...semana,
     excluida: semanas[indice]?.excluida === true,
+    menu: semana.menu.map((dia, indiceDia) =>
+      copiarPostresManuales(semanas[indice]?.menu[indiceDia], dia),
+    ),
   }));
+
+  marcarMigracionVariedad(mes);
+  return recalcularPreparacionesPlan(migrado);
 }
 
 function cargarMes(mes: string): MesPlan {
@@ -308,7 +381,7 @@ function cargarMes(mes: string): MesPlan {
       ) {
         const normalizadas = normalizarPlanMensual(parsed.semanas);
         const martesVariados = aplicarVariedadCenasMartes(normalizadas);
-        const conPatron = migrarPlanAlPatron(mes, martesVariados);
+        const conPatron = migrarPlanAVariedadV0924(mes, martesVariados);
         const semanas = aplicarReglasMensuales(mes, conPatron);
         const plan = { mes, semanas };
 
@@ -347,6 +420,7 @@ function guardarMes(plan: MesPlan, indice: number): void {
         : plan.semanas[indice]?.menu ?? [],
     ),
   );
+  marcarMigracionVariedad(plan.mes);
   window.dispatchEvent(new CustomEvent(EVENTO_MENU));
 }
 

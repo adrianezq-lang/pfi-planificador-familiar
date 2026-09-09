@@ -139,13 +139,10 @@ export default function Menu({
   reiniciarMes,
 }: MenuProps) {
   const [diaActivo, setDiaActivo] = useState(0);
-  const [revision, setRevision] = useState(0);
+  const [, setRevision] = useState(0);
   const semana = planMensual[semanaActiva];
   const fechas = useMemo(() => (semana ? fechasSemana(semana) : []), [semana]);
-  const excepciones = useMemo(
-    () => cargarExcepciones(),
-    [revision, semana, mesActivo],
-  );
+  const excepciones = cargarExcepciones();
   const fechaActiva = fechas[diaActivo] ?? fechas[0];
   const indiceMenu = fechaActiva ? indiceDiaSemana(fechaActiva) : diaActivo;
   const dia = menu[indiceMenu] ?? menu[0];

@@ -1,3 +1,15 @@
+# v0.9.24 — Seis semanas sin platos repetidos
+
+- Cada preparación principal cambia entre semanas; solo se mantienen las repeticiones familiares intencionadas: batch de legumbres, pizza del viernes y domingo fuera.
+- Se añaden 27 recetas completas para que cambiar la guarnición no oculte la repetición del mismo plato base.
+- El menú incorpora dos platos distintos de vainas, menestra y más cenas de verduras.
+- El pimiento rojo y el pimiento tricolor se conservan en las recetas existentes y se amplían a nuevos platos; ninguna migración los elimina.
+- Fajitas siguen usando exactamente 6 tortillas de trigo y el único kebab usa 4 panes de pita.
+- Los planes anteriores se migran una sola vez, conservando semanas excluidas y postres editados manualmente.
+- El aprendizaje reserva los platos de semanas futuras para no introducir repeticiones al generar otro mes.
+- Judías verdes y menestra quedan vinculadas a productos verificados de Mercadona.
+- Eliminadas las advertencias de hooks y estabilizados los cálculos de Inicio ante cambios de calendario.
+
 # v0.9.23 — Coherencia integral de menú, recetas y compra
 
 - Kebab usa 4 panes de pita; las tortillas de trigo quedan exclusivamente para fajitas.

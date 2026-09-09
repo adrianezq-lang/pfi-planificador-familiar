@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect, useState, startTransition } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useMemo, useState, startTransition } from 'react';
 import './styles/recetario-tabs.css';
 import './styles/pfi-polish.css';
 import './styles/navigation-polish.css';
@@ -11,7 +11,7 @@ import { asegurarAsociacionesBasicas } from './services/asociacionesBasicas';
 import { EVENTO_ASOCIACIONES, repararAsociacionesIngredientes } from './services/asociacionesIngredientes';
 import { cargarDespensa, sincronizarProductosRecetasConDespensa } from './services/despensa';
 import { cargarRecetas, EVENTO_RECETAS } from './services/recetas';
-import { EVENTO_EXCEPCIONES, menuEfectivoMes, menuEfectivoSemana } from './services/excepcionesCalendario';
+import { cargarExcepciones, EVENTO_EXCEPCIONES, menuEfectivoMes, menuEfectivoSemana } from './services/excepcionesCalendario';
 import { preservarCopiasAsociacionesExistentes } from './services/rescateAsociaciones';
 import { crearCopiaAutomaticaSiNecesaria } from './services/copiasSeguridad';
 
@@ -27,7 +27,7 @@ export type Pantalla = 'inicio' | 'menu' | 'compra' | 'despensa' | 'recetas' | '
 
 function App() {
   const [pantalla, setPantalla] = useState<Pantalla>('inicio');
-  const [revisionExcepciones, setRevisionExcepciones] = useState(0);
+  const [excepciones, setExcepciones] = useState(cargarExcepciones);
   const {
     menu,
     planMensual,
@@ -45,13 +45,18 @@ function App() {
     [],
   );
 
-  const menusSemanasCompra = planMensual.map((semana) => menuEfectivoSemana(semana));
+  const menusSemanasCompra = useMemo(
+    () => planMensual.map((semana) => menuEfectivoSemana(semana, excepciones)),
+    [planMensual, excepciones],
+  );
   const menuCompra = menusSemanasCompra[semanaActiva] ?? [];
-  const menuMes = menuEfectivoMes(planMensual);
-  void revisionExcepciones;
+  const menuMes = useMemo(
+    () => menuEfectivoMes(planMensual, excepciones),
+    [planMensual, excepciones],
+  );
 
   useEffect(() => {
-    const actualizar = () => setRevisionExcepciones((valor) => valor + 1);
+    const actualizar = () => setExcepciones(cargarExcepciones());
     window.addEventListener(EVENTO_EXCEPCIONES, actualizar);
     return () => window.removeEventListener(EVENTO_EXCEPCIONES, actualizar);
   }, []);
@@ -108,7 +113,7 @@ function App() {
             <h1>Planificador Familiar Inteligente</h1>
             <p>Menús, compra, despensa y presupuesto</p>
           </div>
-          <span className="app-version">v0.9.23</span>
+          <span className="app-version">v0.9.24</span>
         </div>
       </header>
 
@@ -120,7 +125,6 @@ function App() {
             menu={menuCompra}
             menusSemanas={menusSemanasCompra}
             menuMes={menuMes}
-            planMensual={planMensual}
             semanaActiva={semanaActiva}
             navegar={cambiarPantalla}
           />

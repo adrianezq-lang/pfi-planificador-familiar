@@ -293,5 +293,15 @@
     "ingrediente": "Limón",
     "buscar": "limón pieza",
     "productoId": "3210"
+  },
+  {
+    "ingrediente": "Judías verdes",
+    "buscar": "judía verde redonda Hacendado ultracongelada",
+    "productoId": "61282"
+  },
+  {
+    "ingrediente": "Menestra de verduras",
+    "buscar": "menestra de verduras Hacendado ultracongelada",
+    "productoId": "52534"
   }
 ]

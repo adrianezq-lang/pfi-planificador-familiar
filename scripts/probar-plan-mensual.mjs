@@ -38,8 +38,15 @@ plan.forEach((semana, indice) => {
   const viernes = semana.menu.find((dia) => dia.dia === 'Viernes');
   const sabado = semana.menu.find((dia) => dia.dia === 'Sábado');
   const domingo = semana.menu.find((dia) => dia.dia === 'Domingo');
-  const pizzasViernes = new Set(['Pizza jamón y queso', 'Pizza BBQ', 'Pizza 4 quesos']);
-  const cenasInformales = new Set(['Hamburguesas', 'Perritos calientes', 'Kebab']);
+  const pizzasViernes = new Set(['Pizza jamón y queso', 'Pizza BBQ', 'Pizza 4 quesos', 'Pizza de atún']);
+  const cenasInformales = new Set([
+    'Hamburguesas',
+    'Perritos calientes',
+    'Kebab',
+    'Nachos gratinados con carne',
+    'Tortilla de patata con ensalada',
+    'Pollo especiado al horno con patatas',
+  ]);
   if (
     !viernes ||
     viernes.cena.length !== 2 ||

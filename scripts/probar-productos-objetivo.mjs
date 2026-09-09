@@ -32,6 +32,8 @@ const esperados = {
   'Cebolla': '69089',
   'Zanahorias': '69586',
   'Almejas': '60874',
+  'Judías verdes': '61282',
+  'Menestra de verduras': '52534',
   'Mayonesa': '15793',
 };
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   actualizarProductoDespensa,
   buscarProductoDespensa,
@@ -77,10 +77,7 @@ function ProductoDetalleModal({
   }, [productoId]);
 
   const productoVisible = catalogo ?? productoInicial ?? despensa;
-  const diasRestantes = useMemo(
-    () => (productoId ? previsionAgotamiento(productoId) : null),
-    [productoId, editor?.stockActual],
-  );
+  const diasRestantes = productoId ? previsionAgotamiento(productoId) : null;
 
   if (!productoId || !productoVisible) return null;
 
