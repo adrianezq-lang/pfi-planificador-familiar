@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-09T09:47:34.294Z",
+  "actualizado": "2026-09-09T11:33:45.267Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4288,
+  "totalProductos": 4278,
   "productos": [
     {
       "productoId": "3505.2",
@@ -20085,22 +20085,6 @@
       "disponible": true
     },
     {
-      "productoId": "46866",
-      "nombre": "Contorno de ojos Men Care Regen Skin Deliplus",
-      "precio": 5,
-      "precioReferencia": 33.334,
-      "formato": "Tubo",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.015,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Crema y gel de cara",
-      "imagen": "https://prod-mercadona.imgix.net/images/6097e19a3d0ec47d71ed66267aef8ea1.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/46866/contorno-ojos-men-care-regen-skin-deliplus-tipo-piel-tubo",
-      "disponible": true
-    },
-    {
       "productoId": "2789",
       "nombre": "Contramuslos de pollo deshuesados y sin piel",
       "precio": 4.23,
@@ -24181,22 +24165,6 @@
       "disponible": true
     },
     {
-      "productoId": "60669",
-      "nombre": "Eau de parfum hombre Como Tú Rebel",
-      "precio": 8,
-      "precioReferencia": 8,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/25148eb678fe57748a3f2b037240c6ae.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60669/eau-parfum-hombre-rebel-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "60668",
       "nombre": "Eau de parfum hombre Como Tú Viento",
       "precio": 7,
@@ -27397,6 +27365,22 @@
       "disponible": true
     },
     {
+      "productoId": "80418",
+      "nombre": "Filetes de anchoa en aceite de oliva Hacendado",
+      "precio": 3.65,
+      "precioReferencia": 73,
+      "formato": "Lata",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.074,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Salazones",
+      "imagen": "https://prod-mercadona.imgix.net/images/9a7778131b8713e8a177a827544489f4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/80418/filetes-anchoa-aceite-oliva-hacendado-lata",
+      "disponible": true
+    },
+    {
       "productoId": "24016",
       "nombre": "Filetes de bacalao MareDeus ultracongelado",
       "precio": 7.4,
@@ -29200,7 +29184,7 @@
       "pesoAproximado": true,
       "sección": "Cereales y galletas",
       "subcategoria": "Con chocolate y rellenas",
-      "imagen": "https://prod-mercadona.imgix.net/images/5aa1b9df52517498adddb0ed8d4bebb0.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5aa1b9df52517498adddb0ed8d4bebb0.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14637/galletas-cookies-sin-gluten-sin-lactosa-hacendado-paquete",
       "disponible": true
     },
@@ -30226,22 +30210,6 @@
       "subcategoria": "Espuma de afeitar",
       "imagen": "https://prod-mercadona.imgix.net/images/2d0eaf828a54f6159d34b960835473d4.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35611/gel-afeitar-piel-sensible-gillette-con-aloe-vera-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "23013",
-      "nombre": "Gel de afeitar Sensitive Deliplus",
-      "precio": 1.75,
-      "precioReferencia": 0.875,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Espuma de afeitar",
-      "imagen": "https://prod-mercadona.imgix.net/images/326730d66f8015d222caed1997d65456.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23013/gel-afeitar-sensitive-deliplus-bote",
       "disponible": true
     },
     {
@@ -31586,22 +31554,6 @@
       "subcategoria": "Fruta tropical",
       "imagen": "https://prod-mercadona.imgix.net/images/66c3481e7af13e610aa808949d18a5f3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3852/guacamole-hacendado-95-aguacate-fresco-tarrina",
-      "disponible": true
-    },
-    {
-      "productoId": "21892",
-      "nombre": "Guanciale Hacendado",
-      "precio": 4.65,
-      "precioReferencia": 15,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.31,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Bacón",
-      "imagen": "https://prod-mercadona.imgix.net/images/712e6ec294a43713d4c4fb98282b4b5d.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21892/guanciale-cerdo-paquete",
       "disponible": true
     },
     {
@@ -34944,7 +34896,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Espuma y laca",
-      "imagen": "https://prod-mercadona.imgix.net/images/ba41eb1acee152ed2b2f43969a99928d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a7299bc782413df962c842b54ee895f5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/75230/laca-cabello-elnett-fijacion-fuerte-loreal-spray",
       "disponible": true
     },
@@ -35010,22 +34962,6 @@
       "subcategoria": "Espuma y laca",
       "imagen": "https://prod-mercadona.imgix.net/images/dd35abf51df26c814a1acbb114896a7e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52694/laca-cabello-xtra-forte-deliplus-fijacion-4-spray",
-      "disponible": true
-    },
-    {
-      "productoId": "52695",
-      "nombre": "Laca cabello Xtra Forte Deliplus fijación 4",
-      "precio": 1.1,
-      "precioReferencia": 1.467,
-      "formato": "Spray",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.075,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado del cabello",
-      "subcategoria": "Espuma y laca",
-      "imagen": "https://prod-mercadona.imgix.net/images/c55516eba6bfdf2751a715637d61e5ec.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/52695/laca-cabello-xtra-forte-deliplus-fijacion-4-tamano-viaje-spray",
       "disponible": true
     },
     {
@@ -38805,22 +38741,6 @@
       "disponible": true
     },
     {
-      "productoId": "52536",
-      "nombre": "Lote infantil Peppa Pig",
-      "precio": 9,
-      "precioReferencia": 9,
-      "formato": "Caja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Colonia infantil",
-      "imagen": "https://prod-mercadona.imgix.net/images/b351fb76bf01818d1f957673e805dfcb.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/52536/lote-infantil-peppa-pig-contiene-eau-toilette-150-ml-figuras-abuelita-peppa-pig-caja",
-      "disponible": true
-    },
-    {
       "productoId": "17985",
       "nombre": "Lote infantil Smile Vibes",
       "precio": 10,
@@ -38850,38 +38770,6 @@
       "subcategoria": "Lotes mujer",
       "imagen": "https://prod-mercadona.imgix.net/images/955c1869ba82f5203aefb073ff36e9b2.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15290/lote-mujer-soplo-amor-contiene-eau-parfum-100-ml-leche-corporal-100-ml-eau-parfum-15-ml-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "16397",
-      "nombre": "Lote mujer Como tú Extratime",
-      "precio": 10,
-      "precioReferencia": 10,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Lotes mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/440afc1209929b548373720f1cc6baed.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/16397/lote-mujer-extratime-contiene-eau-parfum-100-ml-gel-bano-100-ml-body-milk-100-ml",
-      "disponible": true
-    },
-    {
-      "productoId": "17625",
-      "nombre": "Lote mujer Elección Como tú",
-      "precio": 10.5,
-      "precioReferencia": 10.5,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Lotes mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/76c23488c83e2db30eee200d0c6e4c0c.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17625/lote-mujer-eleccion-contiene-eau-parfum-100-ml-crema-manos-30-ml-leche-corporal-75-ml",
       "disponible": true
     },
     {
@@ -55701,22 +55589,6 @@
       "disponible": true
     },
     {
-      "productoId": "9430",
-      "nombre": "Quinoa Hacendado",
-      "precio": 2.65,
-      "precioReferencia": 5.3,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Arroz, legumbres y pasta",
-      "subcategoria": "Arroz",
-      "imagen": "https://prod-mercadona.imgix.net/images/5f96e6f16b3a5d30f2fd7135e3d1f74e.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9430/quinoa-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "79633",
       "nombre": "Quitaesmalte acetona pura Deliplus",
       "precio": 1.7,
@@ -61877,22 +61749,6 @@
       "disponible": true
     },
     {
-      "productoId": "11641",
-      "nombre": "Sombra de ojos Long Lasting Deliplus Multi-Stick 06 bronce",
-      "precio": 4,
-      "precioReferencia": 4,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Sombra de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/3fd4fed151844fa6e2091d1081c499d2.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/11641/sombra-ojos-long-lasting-deliplus-multi-stick-06-bronce-puede-utilizar-delineador-iluminador-sombra-ojos",
-      "disponible": true
-    },
-    {
       "productoId": "11643",
       "nombre": "Sombra de ojos Long Lasting Deliplus Multi-Stick 08 chocolate",
       "precio": 4,
@@ -62690,22 +62546,6 @@
       "subcategoria": "Platos fríos",
       "imagen": "https://prod-mercadona.imgix.net/images/5b3d69558d76a35d8edf3243f7c60d5d.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13233/surtido-sushi-bento-pequeno-contiene-2-nigiris-4-makis-2-uramakis-salsa-soja-salsa-wasabi-bandeja",
-      "disponible": true
-    },
-    {
-      "productoId": "50999",
-      "nombre": "Tabla de quesos nacionales Hacendado",
-      "precio": 4.95,
-      "precioReferencia": 20.625,
-      "formato": "Bandeja",
-      "unidadesTotales": 24,
-      "tamañoUnidad": 0.24,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Queso curado",
-      "imagen": "https://prod-mercadona.imgix.net/images/fd4abf9a02e72ce2a636dc02c1086d80.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/50999/tabla-quesos-nacionales-hacendado-bandeja",
       "disponible": true
     },
     {
@@ -64848,7 +64688,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Limpieza de cara",
-      "imagen": "https://prod-mercadona.imgix.net/images/e1bac4eff5140b4fcbef1b2bc322b063.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f3f8a21d3732945d66b29a553581aee8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35935/tonico-facial-arbol-te-prebioticos-deliplus-facial-clean-piel-normal-bote",
       "disponible": true
     },

@@ -1,9 +1,9 @@
 {
-  "actualizado": "2026-09-09T09:48:47.073Z",
+  "actualizado": "2026-09-09T11:35:36.867Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalObjetivos": 59,
-  "actualizados": 59,
+  "totalObjetivos": 61,
+  "actualizados": 61,
   "pendientes": 0,
   "coincidencias": [
     {
@@ -417,6 +417,20 @@
       "productoId": "3210",
       "nombreComercial": "Limón",
       "precio": 0.48,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Judías verdes",
+      "productoId": "61282",
+      "nombreComercial": "Judía verde redonda Hacendado ultracongelada",
+      "precio": 1.3,
+      "puntuacion": 10000
+    },
+    {
+      "ingrediente": "Menestra de verduras",
+      "productoId": "52534",
+      "nombreComercial": "Menestra de verduras Hacendado ultracongelada",
+      "precio": 1.75,
       "puntuacion": 10000
     }
   ],

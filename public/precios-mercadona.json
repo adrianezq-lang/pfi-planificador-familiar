@@ -824,5 +824,33 @@
     "imagen": "https://prod-mercadona.imgix.net/images/dde3a9f03e3b8abc1ebf690a29c9631d.jpg?fit=crop&h=300&w=300",
     "esPesoVariable": true,
     "actualizado": "2026-09-09"
+  },
+  "Judías verdes": {
+    "ingrediente": "Judías verdes",
+    "nombreComercial": "Judía verde redonda Hacendado ultracongelada",
+    "productoId": "61282",
+    "formato": "Paquete · 1 kg",
+    "unidadesPorEnvase": 1000,
+    "unidadBase": "g",
+    "precio": 1.3,
+    "seccion": "Congelados",
+    "url": "https://tienda.mercadona.es/product/61282/judia-verde-redonda-hacendado-ultracongelada-paquete",
+    "imagen": "https://prod-mercadona.imgix.net/images/6f64b307b3a4062e866cd985ce389994.jpg?fit=crop&h=300&w=300",
+    "esPesoVariable": true,
+    "actualizado": "2026-09-09"
+  },
+  "Menestra de verduras": {
+    "ingrediente": "Menestra de verduras",
+    "nombreComercial": "Menestra de verduras Hacendado ultracongelada",
+    "productoId": "52534",
+    "formato": "Paquete · 1 kg",
+    "unidadesPorEnvase": 1000,
+    "unidadBase": "g",
+    "precio": 1.75,
+    "seccion": "Congelados",
+    "url": "https://tienda.mercadona.es/product/52534/menestra-verduras-hacendado-ultracongelada-paquete",
+    "imagen": "https://prod-mercadona.imgix.net/images/cda982b20663598e095ee29141b906fc.jpg?fit=crop&h=300&w=300",
+    "esPesoVariable": true,
+    "actualizado": "2026-09-09"
   }
 }
