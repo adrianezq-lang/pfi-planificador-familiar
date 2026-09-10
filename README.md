@@ -1,11 +1,15 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.21.
+Versión 0.9.25.
 
-La v0.9.21 deja **Compra mensual** accesible desde cualquier semana, coloca
-las semanas del menú en columnas horizontales que se recorren deslizando y
-recupera el paso explícito **Guardar en inventario** para los productos que se
-van marcando como comprados. Cada producto queda registrado una sola vez.
+La v0.9.25 incorpora en **Compra** un comparador para Mercadona, Lidl,
+Carrefour, Eroski y comercios del barrio. Iguala formatos, descuenta el stock,
+distingue envases cerrados de venta al peso y propone la combinación más barata
+sin superar el número de paradas elegido.
+
+La v0.9.24 amplía el plan a seis semanas sin repetir preparaciones principales,
+añade vainas, menestra y más cenas de verduras, y conserva todos los platos con
+pimiento rojo o tricolor.
 
 En la v0.9.20 vuelve **Cuenta y sincronización**. La pestaña Cuenta permite
 iniciar sesión, ver las cuentas de la familia y elegir de forma explícita entre
@@ -38,6 +42,7 @@ npm run test:presupuesto
 npm run test:v0913
 npm run test:rescate-json
 npm run test:copias
+npm run test:v0925
 ```
 
 ## Datos y copias
@@ -65,6 +70,20 @@ npm run actualizar-mercadona
 Mientras PFI está abierto con `npm run dev`, la pestaña **Catálogo** incluye el botón **Actualizar todos los precios ahora**. Ese botón ejecuta el actualizador local y vuelve a cargar el catálogo sin borrar asociaciones, favoritos ni despensa. La futura aplicación instalable necesitará incluir este pequeño servicio local o un backend para conservar la misma función fuera de Vite.
 
 En Windows también puedes hacer doble clic en `ACTUALIZAR_MERCADONA.cmd`. Al terminar, recarga PFI con `Ctrl+F5`. El catálogo guarda la fecha, el código postal y el almacén que Mercadona haya asignado. La actualización sustituye los precios y la disponibilidad del archivo local; no borra asociaciones, favoritos ni datos de despensa guardados en el navegador.
+
+## Comparador de precios
+
+El comparador parte del código postal **48950** y mantiene activas Mercadona,
+Lidl, Carrefour y Eroski. Mercadona usa el catálogo automático de PFI. Para las
+demás cadenas y los comercios locales se guardan únicamente precios comprobados
+por la familia, junto con su fecha y formato; PFI no rellena huecos con cifras
+estimadas.
+
+Los precios manuales dejan de intervenir cuando superan la vigencia configurada.
+El resultado ofrece tres criterios: una sola tienda, ahorro absoluto producto a
+producto y compra práctica con un máximo de establecimientos y un ahorro mínimo
+para justificar otra parada. La configuración y los precios forman parte de la
+sincronización familiar y de las copias JSON, pero las credenciales de sesión no.
 
 ## Flujo principal
 

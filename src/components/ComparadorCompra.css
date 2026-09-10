@@ -1,0 +1,531 @@
+.comparador-card {
+  display: grid;
+  gap: 18px;
+  overflow: hidden;
+  border-color: #cfdcc9;
+  background:
+    radial-gradient(circle at 100% 0, rgb(127 158 111 / 13%), transparent 32%),
+    #fffefb;
+}
+
+.comparador-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.comparador-heading > div:first-child {
+  min-width: 0;
+}
+
+.comparador-heading h2 {
+  margin: 4px 0 7px;
+}
+
+.comparador-heading p {
+  max-width: 710px;
+  margin: 0;
+  color: #667067;
+  line-height: 1.55;
+}
+
+.comparador-kicker {
+  color: #668066;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.comparador-sync {
+  flex: 0 0 auto;
+  padding: 8px 11px;
+  border: 1px solid #cfddca;
+  border-radius: 999px;
+  background: #f0f7ed;
+  color: #45634a;
+  font-size: 11px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.comparador-cobertura {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 9px;
+}
+
+.comparador-tienda {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid #dce5d8;
+  border-radius: 15px;
+  background: rgb(247 250 244 / 88%);
+}
+
+.comparador-tienda > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.comparador-tienda strong {
+  overflow: hidden;
+  color: #34513a;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comparador-tienda > span,
+.comparador-tienda small {
+  color: #718074;
+  font-size: 11px;
+}
+
+.comparador-tienda b {
+  margin-top: 3px;
+  color: #314d37;
+  font-size: 18px;
+}
+
+.comparador-tienda a {
+  width: fit-content;
+  margin-top: 4px;
+  color: #4b6c50;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.comparador-modos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid #dce5d8;
+  border-radius: 14px;
+  background: #eef3eb;
+}
+
+.comparador-modos button {
+  min-height: 42px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #607064;
+  font: 800 13px/1.2 inherit;
+  cursor: pointer;
+}
+
+.comparador-modos button[aria-pressed='true'] {
+  background: #fff;
+  color: #35543b;
+  box-shadow: 0 3px 12px rgb(47 77 53 / 10%);
+}
+
+.comparador-resultado {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(210px, 0.6fr);
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid #cddcc8;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #eaf2e5, #f8f4e9);
+}
+
+.comparador-resultado > div {
+  display: grid;
+  align-content: center;
+  gap: 4px;
+}
+
+.comparador-resultado span {
+  color: #6a7b6c;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+}
+
+.comparador-resultado strong {
+  color: #2f5238;
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.05;
+}
+
+.comparador-resultado small {
+  overflow: hidden;
+  color: #59685c;
+  font-size: 12px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+}
+
+.comparador-ahorro {
+  padding-left: 18px;
+  border-left: 1px solid #cad8c4;
+}
+
+.comparador-ahorro strong {
+  font-size: 27px;
+}
+
+.comparador-aviso,
+.comparador-mensaje,
+.comparador-error {
+  margin: 0;
+  padding: 11px 13px;
+  border: 1px solid #ead9ac;
+  border-radius: 12px;
+  background: #fff8e8;
+  color: #655532;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.comparador-aviso--error,
+.comparador-error {
+  border-color: #edc7c1;
+  background: #fff1ef;
+  color: #81463f;
+}
+
+.comparador-mensaje {
+  border-color: #c9ddc4;
+  background: #eff8ec;
+  color: #3e6546;
+}
+
+.comparador-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comparador-primary,
+.comparador-danger,
+.comparador-nueva-tienda button {
+  min-height: 43px;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font: 850 12px/1.2 inherit;
+  cursor: pointer;
+}
+
+.comparador-primary,
+.comparador-nueva-tienda button {
+  border: 1px solid #45694c;
+  background: linear-gradient(140deg, #3f6047, #58785d);
+  color: #fff;
+}
+
+.comparador-danger {
+  border: 1px solid #e3bdb8;
+  background: #fff5f3;
+  color: #8a4740;
+}
+
+.comparador-editor {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid #ccd9c8;
+  border-radius: 16px;
+  background: #f8faf6;
+}
+
+.comparador-editor__title,
+.comparador-editor__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.comparador-editor__title strong {
+  color: #35543b;
+  font-size: 17px;
+}
+
+.comparador-editor__title button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d7dfd4;
+  border-radius: 10px;
+  background: #fff;
+  color: #5c6b5f;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.comparador-form-grid,
+.comparador-config__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.comparador-form-grid label,
+.comparador-config__grid label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  color: #526057;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.comparador-form-grid input,
+.comparador-form-grid select,
+.comparador-config input,
+.comparador-config select,
+.comparador-nueva-tienda input,
+.comparador-nueva-tienda select {
+  width: 100%;
+  min-width: 0;
+  min-height: 43px;
+  box-sizing: border-box;
+  border: 1px solid #cfd8cc;
+  border-radius: 11px;
+  padding: 9px 11px;
+  background: #fff;
+  color: #304537;
+  font: 700 13px/1.2 inherit;
+}
+
+.comparador-form-wide {
+  grid-column: 1 / -1;
+}
+
+.comparador-input-euro,
+.comparador-input-cantidad {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px;
+}
+
+.comparador-input-euro span {
+  color: #4e6653;
+  font-weight: 900;
+}
+
+.comparador-input-cantidad select {
+  width: 112px;
+}
+
+.comparador-help {
+  margin: 0;
+  color: #68756c;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.comparador-reparto,
+.comparador-config {
+  border-top: 1px solid #e0e7dd;
+  padding-top: 14px;
+}
+
+.comparador-reparto > summary,
+.comparador-config > summary {
+  width: fit-content;
+  color: #46634b;
+  font-size: 13px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.comparador-reparto__grupos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.comparador-reparto__grupos section {
+  overflow: hidden;
+  border: 1px solid #dfe7dc;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.comparador-reparto h4 {
+  margin: 0;
+  padding: 12px 13px;
+  background: #f0f5ed;
+  color: #3e5d44;
+  font-size: 14px;
+}
+
+.comparador-linea {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 13px;
+  border-top: 1px solid #edf1eb;
+}
+
+.comparador-linea > span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.comparador-linea strong {
+  overflow: hidden;
+  color: #3d4f42;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comparador-linea small {
+  overflow: hidden;
+  color: #758078;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comparador-linea b {
+  color: #35553c;
+  font-size: 13px;
+}
+
+.comparador-config[open] {
+  display: grid;
+  gap: 15px;
+}
+
+.comparador-config__grid {
+  margin-top: 14px;
+}
+
+.comparador-tiendas-config {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.comparador-tiendas-config legend {
+  grid-column: 1 / -1;
+  margin-bottom: 2px;
+  padding: 0;
+  color: #435a48;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.comparador-tiendas-config label {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid #dde5da;
+  border-radius: 12px;
+  background: #fafcf8;
+  color: #425548;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.comparador-tiendas-config label small {
+  color: #7b867d;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.comparador-nueva-tienda {
+  display: grid;
+  gap: 8px;
+  padding: 13px;
+  border: 1px dashed #cbd8c7;
+  border-radius: 14px;
+  background: #f8faf6;
+}
+
+.comparador-nueva-tienda > strong {
+  color: #405b46;
+  font-size: 13px;
+}
+
+.comparador-nueva-tienda > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(150px, 0.7fr) auto;
+  gap: 8px;
+}
+
+@media (max-width: 720px) {
+  .comparador-heading {
+    display: grid;
+  }
+
+  .comparador-sync {
+    justify-self: start;
+  }
+
+  .comparador-cobertura {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .comparador-resultado,
+  .comparador-form-grid,
+  .comparador-config__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparador-form-wide {
+    grid-column: auto;
+  }
+
+  .comparador-ahorro {
+    padding: 12px 0 0;
+    border-top: 1px solid #cad8c4;
+    border-left: 0;
+  }
+
+  .comparador-actions,
+  .comparador-editor__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .comparador-actions button,
+  .comparador-editor__actions button {
+    width: 100%;
+  }
+
+  .comparador-nueva-tienda > div {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .comparador-cobertura {
+    grid-template-columns: 1fr;
+  }
+
+  .comparador-modos button {
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+
+  .comparador-editor {
+    margin-inline: -7px;
+    padding: 13px;
+  }
+
+  .comparador-reparto__grupos {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,6 +1,6 @@
 const CLAVE_COPIAS_AUTOMATICAS = 'pfi-copias-automaticas-v1';
 const VERSION_FORMATO = 3;
-const VERSION_APP = '0.9.21';
+const VERSION_APP = '0.9.25';
 const MAX_COPIAS_AUTOMATICAS = 8;
 const LIMITE_IMPORTACION_BYTES = 5_000_000;
 
@@ -21,6 +21,7 @@ export type ResumenCopiaPFI = {
   productosDespensa: number;
   semanasMenu: number;
   movimientosInventario: number;
+  preciosComparador: number;
 };
 
 export type CopiaSeguridadPFI = {
@@ -122,6 +123,7 @@ function resumirDatos(datos: DatosCopiaPFI): ResumenCopiaPFI {
     productosDespensa: contarArray(datos, 'pfi-despensa-productos'),
     semanasMenu: contarSemanas(datos),
     movimientosInventario: contarArray(datos, 'pfi-inventario-movimientos'),
+    preciosComparador: contarArray(datos, 'pfi-comparador-ofertas-v1'),
   };
 }
 
@@ -466,6 +468,8 @@ function clavesJsonInvalidas(datos: DatosCopiaPFI): string[] {
     clave === 'pfi-despensa-productos' ||
     clave === 'pfi-inventario-movimientos' ||
     clave === 'pfi-asociaciones-ingredientes-mercadona' ||
+    clave === 'pfi-comparador-config-v1' ||
+    clave === 'pfi-comparador-ofertas-v1' ||
     clave === 'pfi-menu-mensual-v1' ||
     clave.startsWith('pfi-menu-mes-'),
   );

@@ -1,3 +1,13 @@
+# v0.9.25 — Comparador de precios por tienda
+
+- Compra compara Mercadona, Lidl, Carrefour y Eroski, y permite añadir carnicerías y fruterías del barrio.
+- Los precios conocidos de Mercadona se incorporan automáticamente; las demás tiendas usan precios verificados por la familia, sin estimaciones inventadas.
+- Cada oferta guarda formato, contenido y fecha, y queda fuera del cálculo cuando caduca.
+- El motor normaliza gramos, kilos, mililitros, litros y unidades, descuenta el stock ya aplicado y calcula tanto envases cerrados como compras al peso exacto.
+- Se puede elegir entre una sola tienda, el ahorro absoluto o un plan práctico con límite de paradas y ahorro mínimo.
+- La configuración y los precios se incluyen en la cuenta familiar, la sincronización y las copias JSON completas.
+- La zona inicial es el código postal 48950 y se puede cambiar desde el propio comparador.
+
 # v0.9.24 — Seis semanas sin platos repetidos
 
 - Cada preparación principal cambia entre semanas; solo se mantienen las repeticiones familiares intencionadas: batch de legumbres, pizza del viernes y domingo fuera.

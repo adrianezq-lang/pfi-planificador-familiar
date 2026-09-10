@@ -49,6 +49,8 @@ jobs:
         run: npm run test:coherencia-v0923
       - name: Probar variedad estricta y migración v0.9.24
         run: npm run test:v0924
+      - name: Probar comparador de precios v0.9.25
+        run: npm run test:v0925
       - name: Auditar cantidades del mes completo
         run: npm run test:auditoria-mensual
       - name: Probar presupuesto

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import ComparadorCompra from '../components/ComparadorCompra';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import type { DiaMenu } from '../data/Menusemanal';
@@ -283,6 +284,8 @@ export default function CompraPlanificada({
               </p>
             )}
           </Card>
+
+          <ComparadorCompra lineas={lineas} />
 
           {menuObjetivo.length === 0 && (
             <Card>
