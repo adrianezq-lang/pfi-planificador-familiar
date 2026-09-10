@@ -1,7 +1,7 @@
 const EROSKI_BASE = 'https://supermercado.eroski.es';
 const CARREFOUR_BASE = 'https://www.carrefour.es';
 const CARREFOUR_API = `${CARREFOUR_BASE}/search-api/query/v1/search`;
-const TIENDAS_CATALOGO = new Set(['eroski', 'carrefour']);
+const TIENDAS_CATALOGO_API = new Set(['carrefour']);
 
 const ENTIDADES = {
   amp: '&', quot: '"', apos: "'", lt: '<', gt: '>', nbsp: ' ',
@@ -76,17 +76,19 @@ export function extraerFormatoCatalogo(nombre, alPeso = false) {
     if (!coincidencia) continue;
     const unidades = Number(coincidencia[1]);
     const medida = Number(coincidencia[2].replace(',', '.'));
+    if (unidades <= 0 || medida <= 0) continue;
     const convertida = unidadNormalizada(coincidencia[3], medida * unidades);
     return { ...convertida, modoVenta: 'envase' };
   }
 
-  const medida = texto.match(
-    new RegExp(`\\b(\\d+(?:[.,]\\d+)?)\\s*${unidadPatron}\\b`, 'i'),
-  );
+  const medida = [...texto.matchAll(
+    new RegExp(`\\b(\\d+(?:[.,]\\d+)?)\\s*${unidadPatron}\\b`, 'ig'),
+  )].find((coincidencia) => Number(coincidencia[1].replace(',', '.')) > 0);
   if (medida) {
+    const cantidadMedida = Number(medida[1].replace(',', '.'));
     const convertida = unidadNormalizada(
       medida[2],
-      Number(medida[1].replace(',', '.')),
+      cantidadMedida,
     );
     return { ...convertida, modoVenta: 'envase' };
   }
@@ -109,6 +111,17 @@ function fechaHoy() {
     }).formatToParts(new Date()).map(({ type, value }) => [type, value]),
   );
   return `${partes.year}-${partes.month}-${partes.day}`;
+}
+
+function precioUnitarioAlPeso(nombre, precio, referencia) {
+  if (Number.isFinite(referencia) && referencia > 0) return referencia;
+  const minimo = normalizarTexto(nombre).match(
+    /compra minima\s+(\d+(?:[.,]\d+)?)\s*(kg|g)\b/i,
+  );
+  if (!minimo) return precio;
+  const cantidad = Number(minimo[1].replace(',', '.'));
+  const kilos = minimo[2].toLowerCase() === 'g' ? cantidad / 1000 : cantidad;
+  return kilos > 0 ? precio / kilos : precio;
 }
 
 function productoCatalogo({
@@ -163,9 +176,25 @@ function productoCatalogo({
 }
 
 export function extraerProductosEroski(pagina, limite = 20) {
-  const coincidencias = [
-    ...String(pagina).matchAll(/\{&quot;event&quot;:&quot;select_item&quot;[^"]*/g),
-  ];
+  const html = String(pagina);
+  const atributos = [
+    ...html.matchAll(/data-metrics=(['"])([\s\S]*?)\1/g),
+  ]
+    .filter((coincidencia) =>
+      decodificarEntidades(coincidencia[2]).includes('"event":"select_item"'))
+    .map((coincidencia) => ({
+      index: coincidencia.index ?? 0,
+      fin: (coincidencia.index ?? 0) + coincidencia[0].length,
+      contenido: coincidencia[2],
+    }));
+  const coincidencias = atributos.length > 0
+    ? atributos
+    : [...html.matchAll(/\{&quot;event&quot;:&quot;select_item&quot;[^"]*/g)]
+        .map((coincidencia) => ({
+          index: coincidencia.index ?? 0,
+          fin: (coincidencia.index ?? 0) + coincidencia[0].length,
+          contenido: coincidencia[0],
+        }));
   const productos = [];
   const vistos = new Set();
 
@@ -173,7 +202,7 @@ export function extraerProductosEroski(pagina, limite = 20) {
     const coincidencia = coincidencias[indice];
     let item;
     try {
-      const datos = JSON.parse(decodificarEntidades(coincidencia[0]));
+      const datos = JSON.parse(decodificarEntidades(coincidencia.contenido));
       item = datos?.ecommerce?.items?.[0];
     } catch {
       continue;
@@ -184,20 +213,30 @@ export function extraerProductosEroski(pagina, limite = 20) {
     const nombre = decodificarEntidades(item?.item_name ?? '').trim();
     if (!idBase || !nombre || !precio || precio <= 0 || vistos.has(idBase)) continue;
 
-    const inicioTramo = (coincidencia.index ?? 0) + coincidencia[0].length;
-    const finTramo = coincidencias[indice + 1]?.index ?? String(pagina).length;
-    const tramo = String(pagina).slice(inicioTramo, finTramo);
-    const referencia = tramo.match(/1\s+(KILO|LITRO)\s+A\s+([\d.,]+)/i);
+    const inicioTramo = coincidencia.fin;
+    const finTramo = coincidencias[indice + 1]?.index ?? html.length;
+    const tramo = html.slice(inicioTramo, finTramo);
+    const patronEnlace = new RegExp(
+      `(?:https:\\/\\/supermercado\\.eroski\\.es(?::443)?)?(/es/productdetail/${idBase}-[^'"?#<]+/)`,
+      'i',
+    );
+    const enlaceCoincidencia = patronEnlace.exec(html);
+    const tramoProducto = enlaceCoincidencia?.index !== undefined
+      ? html.slice(enlaceCoincidencia.index, enlaceCoincidencia.index + 8_000)
+      : tramo;
+    const referencia = tramoProducto.match(/1\s+(KILO|LITRO)\s+A\s+([\d.,]+)/i);
     const alPeso = normalizarTexto(nombre).includes('compra minima');
+    const referenciaDetectada = numeroPrecio(referencia?.[2]);
     const precioReferencia = alPeso
-      ? precio
-      : numeroPrecio(referencia?.[2]);
+      ? precioUnitarioAlPeso(nombre, precio, referenciaDetectada)
+      : referenciaDetectada;
     const unidadReferencia = alPeso || referencia?.[1]?.toUpperCase() === 'KILO'
       ? 'kg'
       : referencia?.[1]
         ? 'l'
         : null;
     const id = alPeso ? `${idBase}:granel` : idBase;
+    const enlaceOficial = enlaceCoincidencia?.[1];
 
     vistos.add(idBase);
     productos.push(productoCatalogo({
@@ -205,11 +244,13 @@ export function extraerProductosEroski(pagina, limite = 20) {
       id,
       nombre,
       marca: item?.item_brand ?? '',
-      precio,
+      precio: alPeso && precioReferencia ? precioReferencia : precio,
       precioReferencia,
       unidadReferencia,
-      imagen: `${EROSKI_BASE}//images/${idBase}.jpg`,
-      url: `${EROSKI_BASE}/es/productdetail/${idBase}-x/`,
+      imagen: `${EROSKI_BASE}/images/${idBase}.jpg`,
+      url: enlaceOficial
+        ? `${EROSKI_BASE}${enlaceOficial}`
+        : `${EROSKI_BASE}/es/productdetail/${idBase}-x/`,
       alPeso,
     }));
     if (productos.length >= limite) break;
@@ -264,27 +305,6 @@ function cabeceras(tiendaId, acepta) {
   };
 }
 
-async function descargarTexto(url, tiendaId) {
-  const respuesta = await fetch(url, {
-    headers: cabeceras(tiendaId, 'text/html,application/xhtml+xml'),
-    signal: AbortSignal.timeout(18_000),
-  });
-  if (!respuesta.ok) {
-    throw new Error(`${tiendaId === 'eroski' ? 'Eroski' : 'Carrefour'} respondió con HTTP ${respuesta.status}.`);
-  }
-  return respuesta.text();
-}
-
-export async function buscarEroski(consulta, limite = 20) {
-  const url = `${EROSKI_BASE}/es/search/results/?q=${encodeURIComponent(consulta)}&suggestionsFilter=false`;
-  const pagina = await descargarTexto(url, 'eroski');
-  const productos = extraerProductosEroski(pagina, limite);
-  if (productos.length === 0) {
-    throw new Error('Eroski no ha devuelto productos para esa búsqueda.');
-  }
-  return productos;
-}
-
 function parametrosCarrefour(consulta, tienda) {
   return new URLSearchParams({
     internal: 'true', instance: 'x-carrefour', env: CARREFOUR_BASE,
@@ -318,14 +338,12 @@ export async function buscarCarrefour(consulta, limite = 20) {
 }
 
 export async function buscarCatalogo(tiendaId, consulta, limite = 20) {
-  if (!TIENDAS_CATALOGO.has(tiendaId)) {
-    throw new Error('Ese establecimiento no ofrece catálogo automático.');
+  if (!TIENDAS_CATALOGO_API.has(tiendaId)) {
+    throw new Error('Ese catálogo se consulta directamente desde la aplicación.');
   }
   const texto = String(consulta ?? '').trim().slice(0, 80);
   if (texto.length < 2) throw new Error('Escribe al menos 2 caracteres para buscar.');
-  return tiendaId === 'eroski'
-    ? buscarEroski(texto, limite)
-    : buscarCarrefour(texto, limite);
+  return buscarCarrefour(texto, limite);
 }
 
 export async function actualizarProductoCatalogo({
@@ -334,31 +352,7 @@ export async function actualizarProductoCatalogo({
   nombreProducto,
 }) {
   if (tiendaId === 'eroski') {
-    const [idBase, variante] = String(referenciaExterna).split(':');
-    if (!/^\d+$/.test(idBase)) throw new Error('Referencia de Eroski no válida.');
-    const pagina = await descargarTexto(
-      `${EROSKI_BASE}/es/productdetail/${idBase}-x/`,
-      'eroski',
-    );
-    const precio = numeroPrecio(
-      pagina.match(/itemprop="price"\s+class="offer-now">\s*([\d.,]+)/i)?.[1],
-    );
-    const nombre = decodificarEntidades(
-      pagina.match(/<h1[^>]*class="description-title"[^>]*>([^<]*)/i)?.[1]
-        ?? nombreProducto,
-    ).trim();
-    if (!precio || precio <= 0 || !nombre) {
-      throw new Error(`Eroski ${idBase}: no se ha encontrado un precio válido.`);
-    }
-    return productoCatalogo({
-      tiendaId,
-      id: variante === 'granel' ? `${idBase}:granel` : idBase,
-      nombre,
-      precio,
-      imagen: `${EROSKI_BASE}//images/${idBase}.jpg`,
-      url: `${EROSKI_BASE}/es/productdetail/${idBase}-x/`,
-      alPeso: variante === 'granel',
-    });
+    throw new Error('Eroski se renueva desde el catálogo incluido en la aplicación.');
   }
 
   if (tiendaId === 'carrefour') {

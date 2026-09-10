@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pfi-v0.9.26-1';
+const CACHE_NAME = 'pfi-v0.9.26-2';
 const APP_SHELL = ['/', '/manifest.webmanifest', '/favicon.svg', '/pwa-192x192.png', '/pwa-512x512.png'];
 
 self.addEventListener('install', (event) => {
@@ -24,6 +24,7 @@ self.addEventListener('fetch', (event) => {
 
   if (
     url.pathname === '/catalogo-mercadona.json' ||
+    url.pathname === '/catalogo-eroski.json' ||
     url.pathname === '/precios-mercadona.json'
   ) {
     const claveCache = new Request(url.origin + url.pathname);

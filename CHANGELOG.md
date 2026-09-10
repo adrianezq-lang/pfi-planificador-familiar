@@ -1,6 +1,7 @@
 # v0.9.26 — Eroski conectado y fines de semana flexibles
 
 - Eroski y Carrefour permiten buscar productos reales de catálogo desde Compra, elegir el envase exacto y renovar después su precio sin volver a escribirlo.
+- Eroski dispone de un índice completo versionado con más de 23.000 referencias, generado desde sus categorías públicas y renovado cada día; así la búsqueda no depende de que su web acepte conexiones desde Vercel.
 - Las asociaciones de catálogo guardan el identificador, formato, enlace e imagen del producto; si una fuente falla, se conserva el último precio válido en vez de rellenar datos o borrarlos.
 - Eroski funciona sobre su tienda online de referencia y avisa de que el importe puede variar al elegir la entrega; Carrefour degrada de forma segura a precio manual cuando no permite la consulta.
 - Lidl y los comercios del barrio continúan como respaldo manual.

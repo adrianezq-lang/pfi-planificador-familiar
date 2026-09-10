@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { createServer } from 'vite';
 import {
   extraerFormatoCatalogo,
@@ -47,6 +48,9 @@ const {
   guardarOfertaComparador,
 } = await vite.ssrLoadModule('/src/services/comparadorPrecios.ts');
 const {
+  buscarProductosCatalogo,
+  filtrarProductosCatalogoEroski,
+  normalizarEntradaCatalogoEroski,
   normalizarProductoCatalogo,
   refrescarOfertasCatalogo,
 } = await vite.ssrLoadModule(
@@ -114,6 +118,22 @@ assert.equal(tomateEroski.precio, 2.49);
 assert.equal(tomateEroski.precioReferencia, 4.98);
 assert.match(tomateEroski.url, /supermercado\.eroski\.es/);
 
+const htmlEroskiPaginado = `<div data-metrics='${JSON.stringify({
+  event: 'select_item',
+  ecommerce: { items: [{
+    item_id: '18374611',
+    item_name: 'Aguacate maduro, al peso, compra mínima 500 g',
+    item_brand: '',
+    price: 2.38,
+  }] },
+})}'><a href='/es/productdetail/18374611-aguacate-maduro-al-peso-compra-minima-500-g/'>
+  Aguacate maduro</a><p>1 KILO A 4,76 €</p></div>`;
+const [aguacateEroski] = extraerProductosEroski(htmlEroskiPaginado, 1);
+assert.equal(aguacateEroski.modoVenta, 'peso');
+assert.equal(aguacateEroski.precio, 4.76);
+assert.equal(aguacateEroski.precioReferencia, 4.76);
+assert.match(aguacateEroski.url, /aguacate-maduro/);
+
 assert.deepEqual(extraerFormatoCatalogo('Yogur pack 6 x 125 g'), {
   cantidad: 750,
   unidad: 'g',
@@ -144,6 +164,35 @@ assert.equal(arrozCarrefour.precioReferencia, 1.25);
 
 assert.ok(normalizarProductoCatalogo(tomateEroski));
 assert.equal(normalizarProductoCatalogo({ ...tomateEroski, precio: -1 }), null);
+assert.deepEqual(
+  filtrarProductosCatalogoEroski(
+    [tomateEroski, aguacateEroski],
+    'tomate eroski',
+  ).map(({ id }) => id),
+  ['12345'],
+);
+
+const catalogoEroskiReal = JSON.parse(readFileSync(
+  new URL('../public/catalogo-eroski.json', import.meta.url),
+  'utf8',
+));
+assert.equal(catalogoEroskiReal.version, 2);
+const productosEroskiReales = catalogoEroskiReal.productos
+  .map((producto) => normalizarEntradaCatalogoEroski(
+    producto,
+    catalogoEroskiReal.fechaPrecios,
+  ))
+  .filter(Boolean);
+assert.equal(catalogoEroskiReal.totalProductos, catalogoEroskiReal.productos.length);
+assert.equal(productosEroskiReales.length, catalogoEroskiReal.productos.length);
+assert.equal(new Set(productosEroskiReales.map(({ id }) => id)).size, productosEroskiReales.length);
+assert.ok(productosEroskiReales.length >= 3_000, 'El catálogo Eroski debe conservar cobertura amplia.');
+for (const consulta of ['vainas', 'pimiento rojo', 'pechugas de pollo', 'salmón', 'huevos frescos']) {
+  assert.ok(
+    filtrarProductosCatalogoEroski(productosEroskiReales, consulta).length > 0,
+    `Eroski debe encontrar ${consulta}.`,
+  );
+}
 
 const configuracion = cargarConfiguracionComparador();
 assert.deepEqual(
@@ -190,10 +239,24 @@ const ofertasMismoEnvase = Array.from({ length: 31 }, (_, indice) => ({
   ...guardada,
   id: `oferta-compartida-${indice}`,
   productoClave: `ingrediente:compartido-${indice}`,
+  tiendaId: 'carrefour',
+  nombreProducto: arrozCarrefour.nombre,
+  referenciaExterna: arrozCarrefour.id,
 }));
 const fetchReal = globalThis.fetch;
 let peticionesRefresco = 0;
-globalThis.fetch = async (_url, opciones) => {
+let peticionesCatalogoEroski = 0;
+globalThis.fetch = async (url, opciones) => {
+  if (String(url) === '/catalogo-eroski.json') {
+    peticionesCatalogoEroski += 1;
+    return new Response(JSON.stringify({
+      actualizado: '2026-09-10T08:00:00.000Z',
+      productos: [tomateEroski, aguacateEroski],
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
   peticionesRefresco += 1;
   const cuerpo = JSON.parse(String(opciones?.body ?? '{}'));
   return new Response(JSON.stringify({
@@ -202,7 +265,7 @@ globalThis.fetch = async (_url, opciones) => {
       ok: true,
       tiendaId: item.tiendaId,
       referenciaExterna: item.referenciaExterna,
-      producto: tomateEroski,
+      producto: arrozCarrefour,
     })),
   }), {
     status: 200,
@@ -210,13 +273,25 @@ globalThis.fetch = async (_url, opciones) => {
   });
 };
 try {
-  const refresco = await refrescarOfertasCatalogo(ofertasMismoEnvase);
+  const busquedaEroski = await buscarProductosCatalogo(
+    'eroski',
+    'tomate eroski',
+    '48950',
+  );
+  assert.deepEqual(busquedaEroski.productos.map(({ id }) => id), ['12345']);
+  assert.match(busquedaEroski.aviso, /actualizado/i);
+
+  const refresco = await refrescarOfertasCatalogo([guardada, ...ofertasMismoEnvase]);
   assert.equal(peticionesRefresco, 2, 'Más de 30 asociaciones deben renovarse por lotes.');
+  assert.equal(peticionesCatalogoEroski, 1, 'Eroski debe compartir un único catálogo local.');
   assert.deepEqual(
-    refresco.actualizaciones.map(({ oferta }) => oferta.id),
+    refresco.actualizaciones
+      .filter(({ oferta }) => oferta.tiendaId === 'carrefour')
+      .map(({ oferta }) => oferta.id),
     ofertasMismoEnvase.map(({ id }) => id),
     'Compartir producto de catálogo no debe mezclar las asociaciones de PFI.',
   );
+  assert.ok(refresco.actualizaciones.some(({ oferta }) => oferta.id === guardada.id));
   assert.deepEqual(refresco.errores, []);
 } finally {
   globalThis.fetch = fetchReal;
@@ -257,5 +332,7 @@ console.log('✓ la pizza del viernes se mantiene y las sustituciones no se repi
 console.log('✓ el generador inteligente respeta la regla nocturna');
 console.log('✓ Eroski y Carrefour normalizan precio, formato y referencia comercial');
 console.log('✓ Eroski conserva el identificador exacto para renovar su precio');
+console.log('✓ Eroski busca y renueva desde un único catálogo local versionado');
+console.log(`✓ catálogo Eroski completo: ${productosEroskiReales.length} referencias únicas`);
 console.log('✓ la renovación por lotes conserva cada asociación aunque compartan envase');
 console.log('✓ Carrefour y Eroski son catálogo; Lidl queda como respaldo manual');

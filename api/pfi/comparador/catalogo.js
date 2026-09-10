@@ -53,9 +53,7 @@ export default async function handler(peticion, respuesta) {
       ok: true,
       tiendaId,
       productos,
-      aviso: tiendaId === 'eroski'
-        ? 'Precio de la tienda online de referencia de Eroski; puede variar al elegir entrega.'
-        : null,
+      aviso: null,
     }));
   } catch (error) {
     console.error('PFI catálogo comparador:', error);
@@ -68,4 +66,3 @@ export default async function handler(peticion, respuesta) {
     }));
   }
 }
-

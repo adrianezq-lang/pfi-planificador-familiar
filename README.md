@@ -4,8 +4,10 @@ Versión 0.9.26.
 
 La v0.9.26 conecta **Eroski** y **Carrefour** al editor del comparador: se
 busca en su catálogo, se elige una vez el producto exacto y PFI puede renovar
-su precio conservando el último valor válido si la fuente no responde. Lidl y
-los comercios del barrio siguen disponibles como respaldo manual.
+su precio conservando el último valor válido si la fuente no responde. Eroski
+utiliza un índice completo de sus categorías públicas, versionado y renovado a
+diario para no depender de una consulta en vivo desde Vercel. Lidl y los
+comercios del barrio siguen disponibles como respaldo manual.
 
 En **Menú**, el botón **Niños fuera este finde** aplica la excepción a sábado y
 domingo de una vez. El menú no cambia, pero las raciones, la compra y el
@@ -88,11 +90,18 @@ El comparador parte del código postal **48950** y mantiene activas Mercadona,
 Carrefour, Eroski y Lidl. Mercadona usa las asociaciones del catálogo completo
 de PFI. En Eroski y Carrefour se busca desde el propio comparador y se vincula
 el producto exacto; PFI renueva las vinculaciones como máximo una vez al día.
-Eroski muestra precios de su tienda online de referencia, que pueden variar al
-elegir la entrega. Lidl y los comercios locales aceptan precios comprobados por
-la familia. Si Carrefour bloquea temporalmente una consulta, el editor mantiene
-la entrada manual y el último precio válido. PFI nunca rellena huecos con cifras
-estimadas.
+El catálogo de Eroski se genera desde la paginación pública de sus categorías y
+se actualiza diariamente mediante una tarea automática. Sus precios corresponden
+a la tienda online de referencia y pueden variar al elegir la entrega. Lidl y
+los comercios locales aceptan precios comprobados por la familia. Si Carrefour
+bloquea temporalmente una consulta, el editor mantiene la entrada manual y el
+último precio válido. PFI nunca rellena huecos con cifras estimadas.
+
+Para regenerar el índice de Eroski manualmente:
+
+```bash
+npm run actualizar-eroski
+```
 
 Los precios dejan de intervenir cuando superan la vigencia configurada sin
 poder renovarse.

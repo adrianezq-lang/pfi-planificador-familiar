@@ -18,6 +18,7 @@
     "test:presupuesto": "node --experimental-strip-types scripts/probar-presupuesto-mensual.mjs",
     "test:auditoria-mensual": "node --experimental-strip-types scripts/auditar-compra-mensual.mjs",
     "actualizar-mercadona": "node scripts/descargar-catalogo-mercadona.mjs && node scripts/actualizar-precios-mercadona.mjs",
+    "actualizar-eroski": "node scripts/descargar-catalogo-eroski.mjs",
     "predev": "node scripts/actualizar-si-necesario.mjs",
     "prebuild": "node scripts/actualizar-si-necesario.mjs",
     "test:v099": "node --experimental-strip-types scripts/probar-v099.mjs",
