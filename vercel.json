@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/pfi/comparador/catalogo.js": {
+      "regions": ["cdg1"],
+      "maxDuration": 60
+    }
+  }
+}
