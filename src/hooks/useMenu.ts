@@ -13,6 +13,7 @@ import {
   aplicarVariedadPastas,
 } from '../services/reglasMenuMensual';
 import {
+  aplicarCenasSinCerealesPrincipales,
   copiarPlanMensual,
   generarPlanMensualInteligente,
   normalizarPlanMensual,
@@ -144,7 +145,8 @@ function aplicarReglasMensuales(
 ): SemanaMenu[] {
   const estacionales = aplicarPreferenciaEnsaladaPasta(mes, semanas);
   const conPastasVariadas = aplicarVariedadPastas(estacionales, true);
-  const sinGarbanzosFritosRepetidos = aplicarReglaGarbanzosFritos(conPastasVariadas);
+  const conCenasLigeras = aplicarCenasSinCerealesPrincipales(conPastasVariadas);
+  const sinGarbanzosFritosRepetidos = aplicarReglaGarbanzosFritos(conCenasLigeras);
   const conLegumbresRepetidas = aplicarRepeticionLegumbres(sinGarbanzosFritosRepetidos);
   const preparadas = recalcularPreparacionesPlan(conLegumbresRepetidas);
   return aplicarPostresDelRecetario(preparadas);
@@ -513,11 +515,14 @@ export function useMenu() {
   }
 
   function guardar(nuevoMenu: DiaMenu[]): void {
-    const semanas = recalcularPreparacionesPlan(
-      planMensual.map((s, i) =>
-        i === semanaActiva
-          ? { ...s, menu: nuevoMenu, excluida: false }
-          : s,
+    const semanas = aplicarReglasMensuales(
+      mesPlan.mes,
+      recalcularPreparacionesPlan(
+        planMensual.map((s, i) =>
+          i === semanaActiva
+            ? { ...s, menu: nuevoMenu, excluida: false }
+            : s,
+        ),
       ),
     );
     const nuevoPlan = { ...mesPlan, semanas };
@@ -526,7 +531,10 @@ export function useMenu() {
   }
 
   function guardarPlan(nuevoPlan: SemanaMenu[], indice = 0): void {
-    const semanas = normalizarPlanMensual(nuevoPlan);
+    const semanas = aplicarReglasMensuales(
+      mesPlan.mes,
+      normalizarPlanMensual(nuevoPlan),
+    );
     const plan = { mes: mesPlan.mes, semanas };
     const seguro = Math.max(0, Math.min(indice, semanas.length - 1));
     setMesPlan(plan);

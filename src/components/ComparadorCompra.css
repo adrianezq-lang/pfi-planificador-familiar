@@ -204,16 +204,31 @@
 .comparador-actions {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .comparador-primary,
 .comparador-danger,
+.comparador-actions button,
 .comparador-nueva-tienda button {
   min-height: 43px;
   border-radius: 12px;
   padding: 10px 14px;
   font: 850 12px/1.2 inherit;
   cursor: pointer;
+}
+
+.comparador-actions button:not(.comparador-primary) {
+  border: 1px solid #cad8c7;
+  background: #fff;
+  color: #49624e;
+}
+
+.comparador-actions button:disabled,
+.comparador-catalogo button:disabled {
+  cursor: wait;
+  opacity: 0.58;
 }
 
 .comparador-primary,
@@ -299,6 +314,168 @@
 
 .comparador-form-wide {
   grid-column: 1 / -1;
+}
+
+.comparador-catalogo {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid #cdddc9;
+  border-radius: 14px;
+  background: #f1f7ee;
+}
+
+.comparador-catalogo__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.comparador-catalogo__heading > div {
+  display: grid;
+  gap: 2px;
+}
+
+.comparador-catalogo__heading strong {
+  color: #35553c;
+  font-size: 13px;
+}
+
+.comparador-catalogo__heading small,
+.comparador-catalogo__heading a {
+  color: #68776b;
+  font-size: 10px;
+}
+
+.comparador-catalogo__heading a {
+  flex: 0 0 auto;
+  font-weight: 800;
+}
+
+.comparador-catalogo__busqueda {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px;
+}
+
+.comparador-catalogo__busqueda button,
+.comparador-catalogo__resultados button,
+.comparador-vinculo button {
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #56765b;
+  border-radius: 10px;
+  background: #fff;
+  color: #3f6146;
+  font: 850 11px/1.2 inherit;
+  cursor: pointer;
+}
+
+.comparador-catalogo__aviso,
+.comparador-catalogo__error {
+  margin: 0;
+  color: #667268;
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.comparador-catalogo__error {
+  color: #88483f;
+}
+
+.comparador-catalogo__resultados {
+  display: grid;
+  gap: 7px;
+  max-height: 430px;
+  overflow-y: auto;
+  padding-right: 3px;
+}
+
+.comparador-catalogo__resultados article {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px;
+  border: 1px solid #dbe5d8;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.comparador-catalogo__resultados article.is-selected {
+  border-color: #668668;
+  box-shadow: inset 0 0 0 1px #668668;
+}
+
+.comparador-catalogo__resultados img,
+.comparador-catalogo__sin-imagen {
+  width: 58px;
+  height: 58px;
+  box-sizing: border-box;
+  border-radius: 9px;
+  background: #f7f8f5;
+  object-fit: contain;
+}
+
+.comparador-catalogo__sin-imagen {
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+}
+
+.comparador-catalogo__resultados article > div:nth-child(2) {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.comparador-catalogo__resultados article > div:nth-child(2) strong {
+  overflow: hidden;
+  color: #394d3e;
+  font-size: 11.5px;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+}
+
+.comparador-catalogo__resultados article > div:nth-child(2) small,
+.comparador-catalogo__resultados article > div:nth-child(2) span {
+  color: #738077;
+  font-size: 9.5px;
+}
+
+.comparador-catalogo__resultados article > div:last-child {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.comparador-catalogo__resultados article > div:last-child b {
+  color: #345b3d;
+  font-size: 15px;
+}
+
+.comparador-vinculo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #bcd3b8;
+  border-radius: 12px;
+  background: #e8f4e5;
+  color: #3d6044;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.comparador-form-grid input[readonly],
+.comparador-form-grid input:disabled,
+.comparador-form-grid select:disabled {
+  background: #edf2ea;
+  color: #526157;
+  opacity: 1;
 }
 
 .comparador-input-euro,
@@ -508,6 +685,23 @@
   .comparador-nueva-tienda > div {
     grid-template-columns: 1fr;
   }
+
+  .comparador-catalogo__resultados article {
+    grid-template-columns: 50px minmax(0, 1fr);
+  }
+
+  .comparador-catalogo__resultados img,
+  .comparador-catalogo__sin-imagen {
+    width: 50px;
+    height: 50px;
+  }
+
+  .comparador-catalogo__resultados article > div:last-child {
+    grid-column: 2;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    justify-items: start;
+  }
 }
 
 @media (max-width: 430px) {
@@ -527,5 +721,11 @@
 
   .comparador-reparto__grupos {
     grid-template-columns: 1fr;
+  }
+
+  .comparador-catalogo__heading,
+  .comparador-vinculo {
+    align-items: stretch;
+    flex-direction: column;
   }
 }

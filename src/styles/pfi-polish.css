@@ -107,8 +107,26 @@
 
 .month-week-actions {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   gap: 8px;
+}
+
+.month-week-actions .month-week-action--active {
+  border-color: #79937b;
+  background: #eaf3e7;
+  color: #34573d;
+}
+
+.menu-adults-only {
+  margin: -4px 0 16px;
+  padding: 11px 13px;
+  border: 1px solid #d8e5d4;
+  border-radius: 13px;
+  background: #f0f7ed;
+  color: #456049;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .month-week-actions button {
@@ -322,6 +340,10 @@
   color: #756642;
 }
 
+.monthly-week-day--adults {
+  background: #f6faf3;
+}
+
 .monthly-week-day__date {
   display: grid;
   place-items: center;
@@ -333,6 +355,10 @@
 
 .monthly-week-day--away .monthly-week-day__date {
   background: #f1e9d4;
+}
+
+.monthly-week-day--adults .monthly-week-day__date {
+  background: #dfeedd;
 }
 
 .monthly-week-day__date b {
@@ -367,6 +393,11 @@
   line-height: 1.25;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.monthly-week-day__meals .monthly-week-day__exception {
+  color: #4f704f;
+  font-weight: 900;
 }
 
 .recetario-tabs {

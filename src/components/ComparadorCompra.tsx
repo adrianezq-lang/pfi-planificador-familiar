@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import type { LineaCompra } from '../motor/compra';
 import {
   cargarConfiguracionComparador,
@@ -19,6 +19,13 @@ import {
   type UnidadOfertaComparador,
 } from '../services/comparadorPrecios';
 import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
+import {
+  buscarProductosCatalogo,
+  esTiendaConCatalogo,
+  formatoProductoCatalogo,
+  refrescarOfertasCatalogo,
+  type ProductoCatalogoSupermercado,
+} from '../services/catalogosSupermercados';
 import Card from './ui/Card';
 import Title from './ui/Title';
 import './ComparadorCompra.css';
@@ -28,6 +35,8 @@ type ComparadorCompraProps = {
 };
 
 type ModoComparador = 'recomendada' | 'absoluta' | 'una';
+
+const CLAVE_ULTIMO_REFRESCO_CATALOGOS = 'pfi-comparador-catalogos-refresco-v1';
 
 const UNIDADES: Array<{ valor: UnidadOfertaComparador; texto: string }> = [
   { valor: 'g', texto: 'g' },
@@ -90,7 +99,7 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
   const [modo, setModo] = useState<ModoComparador>('recomendada');
   const [editorAbierto, setEditorAbierto] = useState(false);
   const [productoClave, setProductoClave] = useState('');
-  const [tiendaId, setTiendaId] = useState('lidl');
+  const [tiendaId, setTiendaId] = useState('eroski');
   const [nombreProducto, setNombreProducto] = useState('');
   const [precio, setPrecio] = useState('');
   const [cantidad, setCantidad] = useState('1');
@@ -102,6 +111,19 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
   const [codigoPostal, setCodigoPostal] = useState(configuracion.codigoPostal);
   const [nombreComercio, setNombreComercio] = useState('');
   const [tipoComercio, setTipoComercio] = useState<Exclude<TipoTiendaComparador, 'supermercado'>>('carniceria');
+  const [consultaCatalogo, setConsultaCatalogo] = useState('');
+  const [productosCatalogo, setProductosCatalogo] = useState<ProductoCatalogoSupermercado[]>([]);
+  const [avisoCatalogo, setAvisoCatalogo] = useState('');
+  const [errorCatalogo, setErrorCatalogo] = useState('');
+  const [buscandoCatalogo, setBuscandoCatalogo] = useState(false);
+  const [actualizandoCatalogos, setActualizandoCatalogos] = useState(false);
+  const [vinculoCatalogo, setVinculoCatalogo] = useState<{
+    referenciaExterna: string;
+    urlFuente: string;
+    imagen: string | null;
+  } | null>(null);
+  const refrescoAutomaticoIntentado = useRef(false);
+  const controladorBusquedaCatalogo = useRef<AbortController | null>(null);
 
   useEffect(() => {
     const actualizar = () => {
@@ -118,20 +140,40 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
     () => compararPreciosCompra(lineas, configuracion, ofertas),
     [configuracion, lineas, ofertas],
   );
-  const tiendasManuales = useMemo(
-    () => configuracion.tiendas.filter((tienda) => tienda.activa && !tienda.automatica),
+  const tiendasEditables = useMemo(
+    () => configuracion.tiendas.filter(
+      (tienda) => tienda.activa && tienda.id !== 'mercadona',
+    ),
     [configuracion.tiendas],
   );
+  const tiendaCatalogoPreferida = tiendasEditables.find(
+    (tienda) => tienda.id === 'eroski',
+  )?.id ?? tiendasEditables.find(
+    (tienda) => tienda.id === 'carrefour',
+  )?.id ?? '';
+  const tiendaManualPreferida = tiendasEditables.find(
+    (tienda) => !tienda.automatica,
+  )?.id ?? tiendasEditables[0]?.id ?? '';
   const productoSeleccionado = resultado.lineas.some(
     (linea) => linea.clave === productoClave,
   )
     ? productoClave
     : resultado.lineas[0]?.clave ?? '';
-  const tiendaSeleccionadaId = tiendasManuales.some(
+  const tiendaSeleccionadaId = tiendasEditables.some(
     (tienda) => tienda.id === tiendaId,
   )
     ? tiendaId
-    : tiendasManuales[0]?.id ?? '';
+    : tiendasEditables[0]?.id ?? '';
+  const tiendaSeleccionada = configuracion.tiendas.find(
+    (tienda) => tienda.id === tiendaSeleccionadaId,
+  );
+  const catalogoSeleccionado = esTiendaConCatalogo(tiendaSeleccionadaId);
+  const ofertasVinculadasCatalogo = useMemo(
+    () => ofertas.filter(
+      (oferta) => oferta.origen === 'catalogo' && Boolean(oferta.referenciaExterna),
+    ),
+    [ofertas],
+  );
 
   const plan = modo === 'absoluta'
     ? resultado.absoluta
@@ -162,6 +204,9 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
     const tiendaDeFrescos = tienda?.tipo === 'carniceria' || tienda?.tipo === 'fruteria';
     const unidadSugerida = existente?.unidad ?? sugerencia.unidad;
 
+    controladorBusquedaCatalogo.current?.abort();
+    controladorBusquedaCatalogo.current = null;
+    setBuscandoCatalogo(false);
     setProductoClave(clave);
     setTiendaId(idTienda);
     setNombreProducto(existente?.nombreProducto ?? comparacion.nombre);
@@ -175,15 +220,35 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
         : 'envase'),
     );
     setActualizadaEn(existente?.actualizadaEn ?? fechaHoy());
+    setConsultaCatalogo(comparacion.linea.ingrediente.nombre || comparacion.nombre);
+    setProductosCatalogo([]);
+    setAvisoCatalogo('');
+    setErrorCatalogo('');
+    setVinculoCatalogo(
+      existente?.origen === 'catalogo' && existente.referenciaExterna && existente.urlFuente
+        ? {
+            referenciaExterna: existente.referenciaExterna,
+            urlFuente: existente.urlFuente,
+            imagen: existente.imagen ?? null,
+          }
+        : null,
+    );
     setMensaje('');
     setError('');
   }, [configuracion.tiendas, ofertas, resultado.lineas]);
 
-  const abrirEditor = () => {
-    const clave = productoSeleccionado;
-    const idTienda = tiendaSeleccionadaId;
+  const abrirEditor = (tiendaPreferida?: string) => {
+    const idTienda = tiendasEditables.some((tienda) => tienda.id === tiendaPreferida)
+      ? tiendaPreferida as string
+      : tiendaSeleccionadaId;
+    const sinPrecioEnTienda = resultado.lineas.find((linea) =>
+      !ofertas.some((oferta) =>
+        oferta.productoClave === linea.clave && oferta.tiendaId === idTienda,
+      ),
+    );
+    const clave = sinPrecioEnTienda?.clave ?? productoSeleccionado;
     if (!clave || !idTienda) {
-      setError('Activa al menos una tienda manual y calcula una compra con productos.');
+      setError('Activa al menos una tienda editable y calcula una compra con productos.');
       return;
     }
     rellenarFormulario(clave, idTienda);
@@ -195,7 +260,7 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
     const comparacion = resultado.lineas.find(
       (linea) => linea.clave === productoSeleccionado,
     );
-    const tienda = tiendasManuales.find(
+    const tienda = tiendasEditables.find(
       (candidata) => candidata.id === tiendaSeleccionadaId,
     );
     if (!comparacion || !tienda) {
@@ -215,11 +280,21 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
         unidad,
         modoVenta,
         actualizadaEn,
-        origen: 'manual',
+        origen: vinculoCatalogo ? 'catalogo' : 'manual',
+        referenciaExterna: vinculoCatalogo?.referenciaExterna ?? null,
+        urlFuente: vinculoCatalogo?.urlFuente ?? tienda.fuenteUrl,
+        imagen: vinculoCatalogo?.imagen ?? null,
       });
       setOfertas(cargarOfertasComparador());
       crearCopiaAutomaticaSiNecesaria('precio del comparador actualizado');
-      setMensaje(`${guardada.nombreProducto}: precio de ${tienda.nombre} guardado.`);
+      if (guardada.origen === 'catalogo') {
+        localStorage.setItem(CLAVE_ULTIMO_REFRESCO_CATALOGOS, fechaHoy());
+      }
+      setMensaje(
+        guardada.origen === 'catalogo'
+          ? `${guardada.nombreProducto}: vinculado al catálogo de ${tienda.nombre}.`
+          : `${guardada.nombreProducto}: precio de ${tienda.nombre} guardado.`,
+      );
       setEditorAbierto(false);
     } catch (errorDesconocido) {
       setError(
@@ -229,6 +304,126 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
       );
     }
   };
+
+  const desvincularCatalogo = () => {
+    setVinculoCatalogo(null);
+    setMensaje('');
+  };
+
+  const buscarEnCatalogo = async () => {
+    const tiendaBuscada = tiendaSeleccionadaId;
+    if (!esTiendaConCatalogo(tiendaBuscada)) return;
+    controladorBusquedaCatalogo.current?.abort();
+    const controlador = new AbortController();
+    controladorBusquedaCatalogo.current = controlador;
+    setBuscandoCatalogo(true);
+    setErrorCatalogo('');
+    setAvisoCatalogo('');
+    try {
+      const respuesta = await buscarProductosCatalogo(
+        tiendaBuscada,
+        consultaCatalogo,
+        configuracion.codigoPostal,
+        controlador.signal,
+      );
+      if (controladorBusquedaCatalogo.current !== controlador) return;
+      setProductosCatalogo(respuesta.productos);
+      setAvisoCatalogo(respuesta.aviso ?? '');
+    } catch (errorDesconocido) {
+      if (controlador.signal.aborted) return;
+      setProductosCatalogo([]);
+      setErrorCatalogo(
+        `${errorDesconocido instanceof Error
+          ? errorDesconocido.message
+          : 'No se ha podido consultar el catálogo.'} Puedes introducir el precio manualmente debajo.`,
+      );
+    } finally {
+      if (controladorBusquedaCatalogo.current === controlador) {
+        controladorBusquedaCatalogo.current = null;
+        setBuscandoCatalogo(false);
+      }
+    }
+  };
+
+  const elegirProductoCatalogo = (producto: ProductoCatalogoSupermercado) => {
+    if (producto.tiendaId !== tiendaSeleccionadaId) {
+      setErrorCatalogo('Ese resultado pertenece a otra tienda. Repite la búsqueda.');
+      return;
+    }
+    setNombreProducto(producto.nombre);
+    setPrecio(String(producto.precio).replace('.', ','));
+    setCantidad(String(producto.cantidad).replace('.', ','));
+    setUnidad(producto.unidad);
+    setModoVenta(producto.modoVenta);
+    setActualizadaEn(producto.actualizadaEn);
+    setVinculoCatalogo({
+      referenciaExterna: producto.id,
+      urlFuente: producto.url,
+      imagen: producto.imagen,
+    });
+    setErrorCatalogo('');
+  };
+
+  const actualizarPreciosDeCatalogo = useCallback(async (silencioso = false) => {
+    if (ofertasVinculadasCatalogo.length === 0 || actualizandoCatalogos) return;
+    setActualizandoCatalogos(true);
+    if (!silencioso) {
+      setError('');
+      setMensaje('Consultando los productos vinculados…');
+    }
+    try {
+      const refresco = await refrescarOfertasCatalogo(ofertasVinculadasCatalogo);
+      refresco.actualizaciones.forEach(({ oferta, producto }) => {
+        guardarOfertaComparador({
+          ...oferta,
+          nombreProducto: producto.nombre,
+          precio: producto.precio,
+          cantidad: producto.cantidad,
+          unidad: producto.unidad,
+          modoVenta: producto.modoVenta,
+          actualizadaEn: producto.actualizadaEn,
+          origen: 'catalogo',
+          referenciaExterna: producto.id,
+          urlFuente: producto.url,
+          imagen: producto.imagen,
+        });
+      });
+      setOfertas(cargarOfertasComparador());
+      localStorage.setItem(CLAVE_ULTIMO_REFRESCO_CATALOGOS, fechaHoy());
+      if (!silencioso) {
+        const actualizadas = refresco.actualizaciones.length;
+        const fallidas = refresco.errores.length;
+        setMensaje(
+          `${actualizadas} precio${actualizadas === 1 ? '' : 's'} de catálogo actualizado${actualizadas === 1 ? '' : 's'}.`
+          + (fallidas ? ` ${fallidas} se mantienen con su último valor válido.` : ''),
+        );
+        if (fallidas) setError(Array.from(new Set(refresco.errores)).slice(0, 2).join(' '));
+      }
+    } catch (errorDesconocido) {
+      if (!silencioso) {
+        setMensaje('');
+        setError(
+          errorDesconocido instanceof Error
+            ? errorDesconocido.message
+            : 'No se han podido actualizar los catálogos.',
+        );
+      }
+    } finally {
+      setActualizandoCatalogos(false);
+    }
+  }, [actualizandoCatalogos, ofertasVinculadasCatalogo]);
+
+  useEffect(() => {
+    if (
+      refrescoAutomaticoIntentado.current ||
+      ofertasVinculadasCatalogo.length === 0
+    ) return;
+    refrescoAutomaticoIntentado.current = true;
+    if (localStorage.getItem(CLAVE_ULTIMO_REFRESCO_CATALOGOS) === fechaHoy()) return;
+    void actualizarPreciosDeCatalogo(true);
+  }, [actualizarPreciosDeCatalogo, ofertasVinculadasCatalogo.length]);
+
+  useEffect(() => () => controladorBusquedaCatalogo.current?.abort(), []);
 
   const ofertaEditada = ofertas.find(
     (oferta) =>
@@ -291,8 +486,9 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
           <span className="comparador-kicker">AHORRO POR ESTABLECIMIENTO</span>
           <Title style={{ color: '#34573d', fontSize: 24 }}>⚖️ Comparador de precios</Title>
           <p>
-            Mercadona se actualiza automáticamente. Añade el precio visto en Lidl,
-            Carrefour, Eroski o un comercio del barrio y PFI igualará formatos y envases.
+            Mercadona ya viene asociado. En Eroski y Carrefour eliges una vez el
+            producto exacto del catálogo y PFI renueva su precio; Lidl y los comercios
+            del barrio quedan disponibles como respaldo manual.
           </p>
         </div>
         <span className="comparador-sync">☁️ Incluido en cuenta y copias</span>
@@ -309,8 +505,14 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
               {resumen.cubiertos}/{resumen.totalLineas} precios
             </span>
             <b>{resumen.completo ? euros(resumen.total) : 'Parcial'}</b>
-            <small>{resumen.tienda.automatica ? 'Actualización automática' : 'Precios guardados'}</small>
-            {resumen.tienda.fuenteUrl && !resumen.tienda.automatica && (
+            <small>
+              {resumen.tienda.id === 'mercadona'
+                ? 'Catálogo asociado'
+                : resumen.tienda.automatica
+                  ? 'Catálogo conectado'
+                  : 'Precios guardados'}
+            </small>
+            {resumen.tienda.fuenteUrl && (
               <a href={resumen.tienda.fuenteUrl} target="_blank" rel="noreferrer">
                 Consultar fuente oficial ↗
               </a>
@@ -363,15 +565,35 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
       )}
 
       <div className="comparador-actions">
-        <button type="button" className="comparador-primary" onClick={abrirEditor}>
-          ＋ Añadir o actualizar precio
+        {tiendaCatalogoPreferida && (
+          <button
+            type="button"
+            className="comparador-primary"
+            onClick={() => abrirEditor(tiendaCatalogoPreferida)}
+          >
+            🔎 Buscar en Eroski o Carrefour
+          </button>
+        )}
+        <button type="button" onClick={() => abrirEditor(tiendaManualPreferida)}>
+          ＋ Precio manual
         </button>
+        {ofertasVinculadasCatalogo.length > 0 && (
+          <button
+            type="button"
+            onClick={() => void actualizarPreciosDeCatalogo(false)}
+            disabled={actualizandoCatalogos}
+          >
+            {actualizandoCatalogos
+              ? 'Actualizando…'
+              : `↻ Renovar ${ofertasVinculadasCatalogo.length} de catálogo`}
+          </button>
+        )}
       </div>
 
       {editorAbierto && (
         <form className="comparador-editor" onSubmit={guardarPrecio}>
           <div className="comparador-editor__title">
-            <strong>Precio comprobado</strong>
+            <strong>{catalogoSeleccionado ? 'Producto exacto del catálogo' : 'Precio comprobado'}</strong>
             <button type="button" onClick={() => setEditorAbierto(false)} aria-label="Cerrar editor de precio">×</button>
           </div>
           <div className="comparador-form-grid">
@@ -392,11 +614,82 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
                 value={tiendaSeleccionadaId}
                 onChange={(evento) => rellenarFormulario(productoSeleccionado, evento.target.value)}
               >
-                {tiendasManuales.map((tienda) => (
+                {tiendasEditables.map((tienda) => (
                   <option key={tienda.id} value={tienda.id}>{tienda.nombre}</option>
                 ))}
               </select>
             </label>
+
+            {catalogoSeleccionado && (
+              <section className="comparador-catalogo comparador-form-wide">
+                <div className="comparador-catalogo__heading">
+                  <div>
+                    <strong>Catálogo oficial de {tiendaSeleccionada?.nombre}</strong>
+                    <small>Busca y elige el envase exacto una sola vez.</small>
+                  </div>
+                  {tiendaSeleccionada?.fuenteUrl && (
+                    <a href={tiendaSeleccionada.fuenteUrl} target="_blank" rel="noreferrer">
+                      Abrir tienda ↗
+                    </a>
+                  )}
+                </div>
+                <div className="comparador-catalogo__busqueda">
+                  <input
+                    value={consultaCatalogo}
+                    maxLength={80}
+                    onChange={(evento) => setConsultaCatalogo(evento.target.value)}
+                    onKeyDown={(evento) => {
+                      if (evento.key !== 'Enter') return;
+                      evento.preventDefault();
+                      void buscarEnCatalogo();
+                    }}
+                    placeholder="Ej. leche entera"
+                    aria-label={`Buscar en ${tiendaSeleccionada?.nombre ?? 'el catálogo'}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => void buscarEnCatalogo()}
+                    disabled={buscandoCatalogo || consultaCatalogo.trim().length < 2}
+                  >
+                    {buscandoCatalogo ? 'Buscando…' : 'Buscar'}
+                  </button>
+                </div>
+                {avisoCatalogo && <p className="comparador-catalogo__aviso">ℹ️ {avisoCatalogo}</p>}
+                {errorCatalogo && <p className="comparador-catalogo__error" role="alert">{errorCatalogo}</p>}
+                {productosCatalogo.length > 0 && (
+                  <div className="comparador-catalogo__resultados" aria-label="Resultados del catálogo">
+                    {productosCatalogo.map((producto) => {
+                      const elegido = vinculoCatalogo?.referenciaExterna === producto.id;
+                      return (
+                        <article key={`${producto.tiendaId}-${producto.id}`} className={elegido ? 'is-selected' : undefined}>
+                          {producto.imagen ? (
+                            <img src={producto.imagen} alt="" loading="lazy" referrerPolicy="no-referrer" />
+                          ) : <span className="comparador-catalogo__sin-imagen" aria-hidden="true">🛒</span>}
+                          <div>
+                            <strong>{producto.nombre}</strong>
+                            <small>{producto.marca || tiendaSeleccionada?.nombre}</small>
+                            <span>{formatoProductoCatalogo(producto)}</span>
+                          </div>
+                          <div>
+                            <b>{euros(producto.precio)}</b>
+                            <button type="button" onClick={() => elegirProductoCatalogo(producto)}>
+                              {elegido ? '✓ Elegido' : 'Elegir'}
+                            </button>
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                )}
+              </section>
+            )}
+
+            {vinculoCatalogo && (
+              <div className="comparador-vinculo comparador-form-wide">
+                <span>✓ Vinculado al catálogo: el precio se podrá renovar automáticamente.</span>
+                <button type="button" onClick={desvincularCatalogo}>Editar a mano</button>
+              </div>
+            )}
             <label className="comparador-form-wide">
               Nombre en esa tienda
               <input
@@ -404,6 +697,7 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
                 maxLength={180}
                 onChange={(evento) => setNombreProducto(evento.target.value)}
                 placeholder="Ej. Arroz redondo Campo Largo"
+                readOnly={Boolean(vinculoCatalogo)}
                 required
               />
             </label>
@@ -415,6 +709,7 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
                   value={precio}
                   onChange={(evento) => setPrecio(evento.target.value)}
                   placeholder="1,25"
+                  readOnly={Boolean(vinculoCatalogo)}
                   required
                 />
                 <span>€</span>
@@ -427,10 +722,12 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
                   inputMode="decimal"
                   value={cantidad}
                   onChange={(evento) => setCantidad(evento.target.value)}
+                  readOnly={Boolean(vinculoCatalogo)}
                   required
                 />
                 <select
                   value={unidad}
+                  disabled={Boolean(vinculoCatalogo)}
                   onChange={(evento) => {
                     const siguiente = evento.target.value as UnidadOfertaComparador;
                     setUnidad(siguiente);
@@ -447,6 +744,7 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
               Forma de venta
               <select
                 value={modoVenta}
+                disabled={Boolean(vinculoCatalogo)}
                 onChange={(evento) => setModoVenta(evento.target.value as ModoVentaComparador)}
               >
                 <option value="envase">Envase cerrado</option>
@@ -462,6 +760,7 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
                 max={fechaHoy()}
                 value={actualizadaEn}
                 onChange={(evento) => setActualizadaEn(evento.target.value)}
+                disabled={Boolean(vinculoCatalogo)}
                 required
               />
             </label>
@@ -469,13 +768,17 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
           <p className="comparador-help">
             {modoVenta === 'peso'
               ? 'PFI cobrará exactamente el peso necesario, como en una carnicería o frutería.'
-              : 'PFI calculará cuántos envases hacen falta. Usa el contenido total del paquete: por ejemplo, 6 × 200 ml son 1.200 ml.'}
+              : vinculoCatalogo
+                ? 'Nombre, precio y formato proceden del producto exacto elegido en el catálogo.'
+                : 'PFI calculará cuántos envases hacen falta. Usa el contenido total del paquete: por ejemplo, 6 × 200 ml son 1.200 ml.'}
           </p>
           <div className="comparador-editor__actions">
             {ofertaEditada && (
               <button type="button" className="comparador-danger" onClick={borrarPrecio}>Eliminar precio</button>
             )}
-            <button type="submit" className="comparador-primary">Guardar y recalcular</button>
+            <button type="submit" className="comparador-primary">
+              {vinculoCatalogo ? 'Vincular y recalcular' : 'Guardar y recalcular'}
+            </button>
           </div>
         </form>
       )}
@@ -545,7 +848,7 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
             </div>
           </label>
           <label>
-            Renovar precios manuales cada
+            Descartar precios sin renovar tras
             <select
               value={configuracion.vigenciaDias}
               onChange={(evento) => guardarConfiguracion({ ...configuracion, vigenciaDias: Number(evento.target.value) })}
@@ -573,7 +876,13 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
                 })}
               />
               <span>{iconoTienda(tienda.tipo)} {tienda.nombre}</span>
-              <small>{tienda.automatica ? 'automático' : 'manual'}</small>
+              <small>
+                {tienda.id === 'mercadona'
+                  ? 'asociado'
+                  : tienda.automatica
+                    ? 'catálogo'
+                    : 'manual'}
+              </small>
             </label>
           ))}
         </fieldset>

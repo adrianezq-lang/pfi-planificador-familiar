@@ -68,7 +68,7 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
   [
     dia('Lunes', ['Alubias rojas'], ['Pechugas de pollo a la plancha con ensalada'], 'Fruta', 'Yogur'),
     dia('Martes', ['Salmón al horno con verduras'], ['Menestra de verduras con pavo'], 'Yogur', 'Fruta'),
-    dia('Miércoles', ['Ensalada de pasta con huevo'], ['Arroz con huevo y tomate'], 'Fruta', 'Yogur'),
+    dia('Miércoles', ['Ensalada de pasta con huevo'], ['Vainas salteadas con jamón'], 'Fruta', 'Yogur'),
     dia('Jueves', ['Alubias rojas'], ['Ternera con zanahoria y patatas'], 'Yogur', 'Fruta'),
     dia('Viernes', ['Carbonara tradicional'], ['Pizza jamón y queso', 'Pizza 4 quesos'], 'Fruta', 'Yogur'),
     dia('Sábado', ['Lubina a la plancha con ensalada'], ['Kebab'], 'Yogur', 'Fruta'),
@@ -93,7 +93,7 @@ const PLANTILLAS_SEMANA: DiaMenu[][] = [
     dia('Domingo', ['Comemos fuera'], ['Cola Cao y galletas'], 'Sin postre', 'Sin postre'),
   ],
   [
-    dia('Lunes', ['Garbanzos guisados con verduras'], ['Arroz salteado con pollo y verduras'], 'Yogur', 'Fruta'),
+    dia('Lunes', ['Garbanzos guisados con verduras'], ['Crema de calabacín', 'Tortilla francesa'], 'Yogur', 'Fruta'),
     dia('Martes', ['Bacalao con tomate y pimiento rojo'], ['Vainas con tomate y huevo'], 'Fruta', 'Yogur'),
     dia('Miércoles', ['Ensalada de pasta con atún y huevo'], ['Pollo al limón con patatas'], 'Yogur', 'Fruta'),
     dia('Jueves', ['Garbanzos guisados con verduras'], ['Lomo al horno con verduras'], 'Fruta', 'Yogur'),

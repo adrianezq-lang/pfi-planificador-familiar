@@ -45,7 +45,10 @@ export type OfertaComparador = {
   unidad: UnidadOfertaComparador;
   modoVenta: ModoVentaComparador;
   actualizadaEn: string;
-  origen: 'manual' | 'ticket';
+  origen: 'manual' | 'ticket' | 'catalogo';
+  referenciaExterna?: string | null;
+  urlFuente?: string | null;
+  imagen?: string | null;
 };
 
 export type OfertaComparadorEntrada = Omit<OfertaComparador, 'id'>;
@@ -118,19 +121,11 @@ const TIENDAS_BASE: TiendaComparador[] = [
     fuenteUrl: 'https://tienda.mercadona.es/',
   },
   {
-    id: 'lidl',
-    nombre: 'Lidl',
-    tipo: 'supermercado',
-    activa: true,
-    automatica: false,
-    fuenteUrl: 'https://www.lidl.es/',
-  },
-  {
     id: 'carrefour',
     nombre: 'Carrefour',
     tipo: 'supermercado',
     activa: true,
-    automatica: false,
+    automatica: true,
     fuenteUrl: 'https://www.carrefour.es/supermercado',
   },
   {
@@ -138,8 +133,16 @@ const TIENDAS_BASE: TiendaComparador[] = [
     nombre: 'Eroski',
     tipo: 'supermercado',
     activa: true,
-    automatica: false,
+    automatica: true,
     fuenteUrl: 'https://supermercado.eroski.es/es/',
+  },
+  {
+    id: 'lidl',
+    nombre: 'Lidl',
+    tipo: 'supermercado',
+    activa: true,
+    automatica: false,
+    fuenteUrl: 'https://www.lidl.es/',
   },
 ];
 
@@ -356,6 +359,27 @@ function normalizarOferta(valor: unknown): OfertaComparador | null {
     ? valor.unidad as UnidadOfertaComparador
     : null;
   const modoVenta = valor.modoVenta === 'peso' ? 'peso' : 'envase';
+  const origenSolicitado = valor.origen === 'ticket'
+    ? 'ticket'
+    : valor.origen === 'catalogo'
+      ? 'catalogo'
+      : 'manual';
+  const referenciaExterna = typeof valor.referenciaExterna === 'string'
+    ? valor.referenciaExterna.trim().slice(0, 120) || null
+    : null;
+  const urlFuente = typeof valor.urlFuente === 'string' && /^https:\/\//.test(valor.urlFuente)
+    ? valor.urlFuente.slice(0, 800)
+    : null;
+  const imagen = typeof valor.imagen === 'string' && /^https:\/\//.test(valor.imagen)
+    ? valor.imagen.slice(0, 800)
+    : null;
+  const origen = origenSolicitado === 'catalogo' && (
+    !referenciaExterna ||
+    !urlFuente ||
+    (tiendaId !== 'eroski' && tiendaId !== 'carrefour')
+  )
+    ? 'manual'
+    : origenSolicitado;
 
   if (
     !productoClave ||
@@ -382,7 +406,10 @@ function normalizarOferta(valor: unknown): OfertaComparador | null {
     unidad,
     modoVenta,
     actualizadaEn,
-    origen: valor.origen === 'ticket' ? 'ticket' : 'manual',
+    origen,
+    referenciaExterna: origen === 'catalogo' ? referenciaExterna : null,
+    urlFuente,
+    imagen,
   };
 }
 
@@ -484,8 +511,8 @@ function productoDesdeOferta(oferta: OfertaComparador): ProductoMercadonaCatalog
     pesoAproximado: false,
     seccion: 'Comparador',
     subcategoria: 'Precio guardado',
-    imagen: null,
-    url: '',
+    imagen: oferta.imagen ?? null,
+    url: oferta.urlFuente ?? '',
     disponible: true,
   };
 }
@@ -558,7 +585,7 @@ function opcionDesdeOferta(
       : null,
     unidadAlPeso: alPeso ? oferta.unidad : null,
     estimado: linea.calculoEstimado || calculo.estimado,
-    automatica: false,
+    automatica: oferta.origen === 'catalogo',
     actualizadaEn: oferta.actualizadaEn,
     vigente: antiguedadDias(oferta.actualizadaEn, ahora) <= configuracion.vigenciaDias,
   };

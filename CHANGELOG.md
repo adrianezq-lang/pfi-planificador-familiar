@@ -1,3 +1,14 @@
+# v0.9.26 — Eroski conectado y fines de semana flexibles
+
+- Eroski y Carrefour permiten buscar productos reales de catálogo desde Compra, elegir el envase exacto y renovar después su precio sin volver a escribirlo.
+- Las asociaciones de catálogo guardan el identificador, formato, enlace e imagen del producto; si una fuente falla, se conserva el último precio válido en vez de rellenar datos o borrarlos.
+- Eroski funciona sobre su tienda online de referencia y avisa de que el importe puede variar al elegir la entrega; Carrefour degrada de forma segura a precio manual cuando no permite la consulta.
+- Lidl y los comercios del barrio continúan como respaldo manual.
+- Un solo botón en Menú marca sábado y domingo como «niños fuera»; el menú permanece igual, pero raciones, compra y presupuesto cuentan solo a los adultos.
+- La excepción de niños se puede ajustar también por cada día del fin de semana y convive con comida, cena o día fuera de casa.
+- Las cenas ya no incluyen arroz, pasta, fideuá, cuscús, quinoa ni platos equivalentes; la pizza familiar del viernes se mantiene.
+- Los planes ya guardados se sanean automáticamente con cenas vegetales distintas, sin perder postres ni excepciones.
+
 # v0.9.25 — Comparador de precios por tienda
 
 - Compra compara Mercadona, Lidl, Carrefour y Eroski, y permite añadir carnicerías y fruterías del barrio.

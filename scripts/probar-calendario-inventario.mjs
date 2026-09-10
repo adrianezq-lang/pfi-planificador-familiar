@@ -14,7 +14,15 @@ const vite = await createServer({
   appType: 'custom',
 });
 
-const { menuEfectivoSemana, menuEfectivoMes } = await import('../src/services/excepcionesCalendario.ts');
+const {
+  cargarExcepciones,
+  fechasFinDeSemana,
+  finDeSemanaSinNinos,
+  guardarExcepcion,
+  guardarFinDeSemanaSinNinos,
+  menuEfectivoSemana,
+  menuEfectivoMes,
+} = await import('../src/services/excepcionesCalendario.ts');
 const { unirIngredientes } = await import('../src/services/UnirIngredientes.ts');
 const { correspondeACompraSemanal, proyectarComprasEnvases } = await import('../src/services/proyeccionStock.ts');
 const {
@@ -45,6 +53,36 @@ if (efectiva.length !== 1 || efectiva[0].dia !== 'Martes' || efectiva[0].cena.le
 }
 if (menuEfectivoMes([primera, ultima], {}).length !== 5) {
   throw new Error('Las semanas parciales están contando días ajenos al mes.');
+}
+const semanaCompleta = {
+  id: 's2', nombre: '7–13', inicio: '2026-09-07', fin: '2026-09-13', menu,
+};
+guardarExcepcion('2026-09-12', { sinCena: true });
+const fechasMarcadasSinNinos = guardarFinDeSemanaSinNinos(semanaCompleta, true);
+if (
+  JSON.stringify(fechasMarcadasSinNinos) !== JSON.stringify(['2026-09-12', '2026-09-13']) ||
+  !finDeSemanaSinNinos(semanaCompleta) ||
+  menuEfectivoSemana(semanaCompleta).slice(-2).some((dia) => dia.sinNinos !== true)
+) {
+  throw new Error('La excepción de fin de semana sin niños no marca sábado y domingo.');
+}
+guardarFinDeSemanaSinNinos(semanaCompleta, false);
+const excepcionesRestauradas = cargarExcepciones();
+if (
+  excepcionesRestauradas['2026-09-12']?.sinCena !== true ||
+  excepcionesRestauradas['2026-09-12']?.sinNinos ||
+  excepcionesRestauradas['2026-09-13']
+) {
+  throw new Error('Recuperar a los niños debe conservar las demás excepciones del fin de semana.');
+}
+const semanaDomingoInicial = {
+  id: 'noviembre-1', nombre: '1 nov', inicio: '2026-11-01', fin: '2026-11-01', menu,
+};
+if (
+  JSON.stringify(fechasFinDeSemana(semanaDomingoInicial)) !==
+  JSON.stringify(['2026-10-31', '2026-11-01'])
+) {
+  throw new Error('Un fin de semana entre dos meses debe incluir sábado y domingo.');
 }
 const [ajo] = unirIngredientes([
   { nombre:'Ajo', cantidad:1, unidad:'cabeza', seccion:'Fruta y verdura' },
@@ -331,6 +369,7 @@ await vite.close();
 
 console.log('✓ semanas parciales cuentan solo sus fechas reales');
 console.log('✓ excepciones de día, comida y cena afectan a la compra');
+console.log('✓ un toque marca sábado y domingo sin niños y conserva otras excepciones');
 console.log('✓ cabezas y dientes de ajo se suman sin perder cantidades');
 console.log('✓ salsas y especias marcadas como revisar consumen fracciones de envase');
 console.log('✓ varios usos parciales de salsa no compran un bote por receta');

@@ -1,6 +1,16 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.25.
+Versión 0.9.26.
+
+La v0.9.26 conecta **Eroski** y **Carrefour** al editor del comparador: se
+busca en su catálogo, se elige una vez el producto exacto y PFI puede renovar
+su precio conservando el último valor válido si la fuente no responde. Lidl y
+los comercios del barrio siguen disponibles como respaldo manual.
+
+En **Menú**, el botón **Niños fuera este finde** aplica la excepción a sábado y
+domingo de una vez. El menú no cambia, pero las raciones, la compra y el
+presupuesto descuentan a los dos niños. Además, las cenas evitan arroz, pasta,
+fideuá, cuscús y equivalentes; se conserva la pizza familiar del viernes.
 
 La v0.9.25 incorpora en **Compra** un comparador para Mercadona, Lidl,
 Carrefour, Eroski y comercios del barrio. Iguala formatos, descuenta el stock,
@@ -43,6 +53,7 @@ npm run test:v0913
 npm run test:rescate-json
 npm run test:copias
 npm run test:v0925
+npm run test:v0926
 ```
 
 ## Datos y copias
@@ -74,12 +85,17 @@ En Windows también puedes hacer doble clic en `ACTUALIZAR_MERCADONA.cmd`. Al te
 ## Comparador de precios
 
 El comparador parte del código postal **48950** y mantiene activas Mercadona,
-Lidl, Carrefour y Eroski. Mercadona usa el catálogo automático de PFI. Para las
-demás cadenas y los comercios locales se guardan únicamente precios comprobados
-por la familia, junto con su fecha y formato; PFI no rellena huecos con cifras
+Carrefour, Eroski y Lidl. Mercadona usa las asociaciones del catálogo completo
+de PFI. En Eroski y Carrefour se busca desde el propio comparador y se vincula
+el producto exacto; PFI renueva las vinculaciones como máximo una vez al día.
+Eroski muestra precios de su tienda online de referencia, que pueden variar al
+elegir la entrega. Lidl y los comercios locales aceptan precios comprobados por
+la familia. Si Carrefour bloquea temporalmente una consulta, el editor mantiene
+la entrada manual y el último precio válido. PFI nunca rellena huecos con cifras
 estimadas.
 
-Los precios manuales dejan de intervenir cuando superan la vigencia configurada.
+Los precios dejan de intervenir cuando superan la vigencia configurada sin
+poder renovarse.
 El resultado ofrece tres criterios: una sola tienda, ahorro absoluto producto a
 producto y compra práctica con un máximo de establecimientos y un ahorro mínimo
 para justificar otra parada. La configuración y los precios forman parte de la

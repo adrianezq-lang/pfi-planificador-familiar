@@ -83,7 +83,7 @@ localStorage.setItem(
 
 aplicarMigracionV0923();
 
-function crearDia(dia, comida, cenaDia, postreComida, postreCena) {
+function crearDia(dia, comida, cenaDia, postreComida, postreCena, sinNinos = false) {
   return {
     dia,
     comida,
@@ -92,6 +92,7 @@ function crearDia(dia, comida, cenaDia, postreComida, postreCena) {
     postreCena: postreCena === 'Sin postre' ? 'Sin postre' : 'Fruta',
     postreComidaReceta: postreComida,
     postreCenaReceta: postreCena,
+    sinNinos,
     preparar: '',
   };
 }
@@ -137,6 +138,28 @@ const manzanasFinSemana = compraFinSemana.find(
 if (pastaFinSemana?.cantidad !== 300 || manzanasFinSemana?.cantidad !== 4) {
   throw new Error(
     `La compra de fin de semana no usa 4 comensales: pasta=${pastaFinSemana?.cantidad}, manzanas=${manzanasFinSemana?.cantidad}`,
+  );
+}
+
+const compraFinSemanaSinNinos = generarListaCompra([
+  crearDia(
+    'Sábado',
+    ['Macarrones boloñesa'],
+    [],
+    'Manzana',
+    'Sin postre',
+    true,
+  ),
+]);
+const pastaSoloAdultos = compraFinSemanaSinNinos.find(
+  (ingrediente) => ingrediente.nombre === 'Pasta corta',
+);
+const manzanasSoloAdultos = compraFinSemanaSinNinos.find(
+  (ingrediente) => ingrediente.nombre === 'Manzanas',
+);
+if (pastaSoloAdultos?.cantidad !== 175 || manzanasSoloAdultos?.cantidad !== 2) {
+  throw new Error(
+    `El fin de semana sin niños debe comprar para 2 adultos: pasta=${pastaSoloAdultos?.cantidad}, manzanas=${manzanasSoloAdultos?.cantidad}.`,
   );
 }
 
@@ -239,6 +262,7 @@ await vite.close();
 
 console.log('✓ comida laborable: 2 adultos + niño de 12 años');
 console.log('✓ comida de fin de semana y cenas: cuatro comensales');
+console.log('✓ la excepción de fin de semana descuenta a los dos niños');
 console.log('✓ la compra ajusta platos y postres al servicio');
 console.log('✓ fajitas: 6 tortillas para cuatro comensales');
 console.log('✓ fajitas + dos kebabs: 6 tortillas + 8 panes de pita');

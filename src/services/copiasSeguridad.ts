@@ -1,6 +1,6 @@
 const CLAVE_COPIAS_AUTOMATICAS = 'pfi-copias-automaticas-v1';
 const VERSION_FORMATO = 3;
-const VERSION_APP = '0.9.25';
+const VERSION_APP = '0.9.26';
 const MAX_COPIAS_AUTOMATICAS = 8;
 const LIMITE_IMPORTACION_BYTES = 5_000_000;
 
@@ -10,6 +10,7 @@ const CLAVES_INTERNAS = new Set([
   CLAVE_COPIAS_AUTOMATICAS,
   'pfi-sync-sesion-v1',
   'pfi-sync-estado-v1',
+  'pfi-comparador-catalogos-refresco-v1',
 ]);
 
 export type DatosCopiaPFI = Record<string, string>;

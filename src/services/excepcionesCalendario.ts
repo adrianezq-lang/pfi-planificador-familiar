@@ -8,6 +8,7 @@ export type ExcepcionCalendario = {
   noEnCasa?: boolean;
   sinComida?: boolean;
   sinCena?: boolean;
+  sinNinos?: boolean;
 };
 export type ExcepcionesCalendario = Record<string, ExcepcionCalendario>;
 
@@ -18,8 +19,9 @@ function normalizarExcepcion(valor: unknown): ExcepcionCalendario | null {
     noEnCasa: entrada.noEnCasa === true,
     sinComida: entrada.sinComida === true,
     sinCena: entrada.sinCena === true,
+    sinNinos: entrada.sinNinos === true,
   };
-  return excepcion.noEnCasa || excepcion.sinComida || excepcion.sinCena
+  return excepcion.noEnCasa || excepcion.sinComida || excepcion.sinCena || excepcion.sinNinos
     ? excepcion
     : null;
 }
@@ -51,11 +53,70 @@ export function guardarExcepcion(
   window.dispatchEvent(new CustomEvent(EVENTO_EXCEPCIONES));
 }
 
+/**
+ * Marca sábado y domingo con una sola escritura, conservando cualquier otra
+ * excepción que ya tuviera cada fecha (por ejemplo, una cena fuera de casa).
+ */
+export function guardarFinDeSemanaSinNinos(
+  semana: SemanaMenu,
+  sinNinos: boolean,
+): string[] {
+  const fechas = fechasFinDeSemana(semana);
+  if (fechas.length === 0) return [];
+
+  const data = cargarExcepciones();
+  fechas.forEach((fecha) => {
+    const normalizada = normalizarExcepcion({
+      ...data[fecha],
+      sinNinos,
+    });
+    if (normalizada) data[fecha] = normalizada;
+    else delete data[fecha];
+  });
+  localStorage.setItem(KEY, JSON.stringify(data));
+  window.dispatchEvent(new CustomEvent(EVENTO_EXCEPCIONES));
+  return fechas;
+}
+
+export function finDeSemanaSinNinos(
+  semana: SemanaMenu | undefined,
+  excepciones = cargarExcepciones(),
+): boolean {
+  if (!semana) return false;
+  const fechas = fechasFinDeSemana(semana);
+  return fechas.length > 0 && fechas.every(
+    (fecha) => excepciones[fecha]?.sinNinos === true,
+  );
+}
+
 function isoLocal(fecha: Date): string {
   const anio = fecha.getFullYear();
   const mes = String(fecha.getMonth() + 1).padStart(2, '0');
   const dia = String(fecha.getDate()).padStart(2, '0');
   return `${anio}-${mes}-${dia}`;
+}
+
+/** Incluye la otra mitad del fin de semana cuando cae en el mes contiguo. */
+export function fechasFinDeSemana(semana: SemanaMenu): string[] {
+  const visibles = fechasSemana(semana).filter(
+    (fecha) => indiceDiaSemana(fecha) >= 5,
+  );
+  if (visibles.length === 0) return [];
+
+  const resultado = new Set(visibles);
+  const sabado = visibles.find((fecha) => indiceDiaSemana(fecha) === 5);
+  const domingo = visibles.find((fecha) => indiceDiaSemana(fecha) === 6);
+  if (sabado && !domingo) {
+    const siguiente = new Date(`${sabado}T12:00:00`);
+    siguiente.setDate(siguiente.getDate() + 1);
+    resultado.add(isoLocal(siguiente));
+  }
+  if (domingo && !sabado) {
+    const anterior = new Date(`${domingo}T12:00:00`);
+    anterior.setDate(anterior.getDate() - 1);
+    resultado.add(isoLocal(anterior));
+  }
+  return [...resultado].sort();
 }
 
 export function fechasSemana(semana: SemanaMenu): string[] {
@@ -81,6 +142,7 @@ export function aplicarExcepcionDia(
   if (excepcion?.noEnCasa || (excepcion?.sinComida && excepcion?.sinCena)) return null;
   return {
     ...dia,
+    sinNinos: excepcion?.sinNinos === true,
     comida: excepcion?.sinComida ? [] : [...dia.comida],
     cena: excepcion?.sinCena ? [] : [...dia.cena],
     postreComida: excepcion?.sinComida ? 'Sin postre' : dia.postreComida,

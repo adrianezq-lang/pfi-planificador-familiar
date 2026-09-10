@@ -23,9 +23,83 @@ const GRUPOS = {
 };
 const FIJOS = new Set(['Comemos fuera', 'Cola Cao y galletas']);
 const PLANTILLAS = menuMensualInicial;
+const CENAS_LIGERAS_ALTERNATIVAS = [
+  ['Vainas salteadas con jamón'],
+  ['Crema de calabacín', 'Tortilla francesa'],
+  ['Menestra de verduras con pavo'],
+  ['Crema de calabaza con huevo duro'],
+  ['Verduras al horno con huevo'],
+  ['Vainas con tomate y huevo'],
+  ['Vainas con patata y huevo'],
+  ['Tortilla de calabacín'],
+  ['Pavo al ajillo con verduras'],
+  ['Pechugas de pollo a la plancha con ensalada'],
+  ['Pavo al horno con verduras'],
+  ['Lomo al horno con verduras'],
+  ['Brochetas de pollo y calabacín'],
+  ['Tortilla de patata con ensalada'],
+  ['Lomo salteado con calabacín'],
+] as const;
 
 function normalizar(texto: string): string {
   return texto.toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+}
+
+/**
+ * Regla familiar nocturna: el arroz, la pasta y otros cereales equivalentes
+ * quedan para las comidas. La pizza del viernes se mantiene como excepción
+ * explícita y no forma parte de este detector.
+ */
+export function esCenaConCerealPrincipal(plato: string): boolean {
+  return /\b(arroz|paellas?|risottos?|pasta|macarrones?|carbonara|espaguetis?|spaghettis?|tallarines?|tagliatelles?|lasanas?|canelon(?:es)?|fideos?|fideua|cuscus|couscous|quinoa|bulgur|noodles?|ramen|noquis?|gnocchis?|raviolis?|tortellinis?)\b/.test(
+    normalizar(plato),
+  );
+}
+
+export function planTieneCenasConCerealPrincipal(
+  semanas: SemanaMenu[],
+): boolean {
+  return semanas.some((semana) => semana.menu.some((dia) =>
+    dia.cena.some(esCenaConCerealPrincipal),
+  ));
+}
+
+/** Sustituye la cena completa para no dejar acompañamientos huérfanos. */
+export function aplicarCenasSinCerealesPrincipales(
+  semanas: SemanaMenu[],
+): SemanaMenu[] {
+  if (!planTieneCenasConCerealPrincipal(semanas)) return semanas;
+
+  const usados = new Set(
+    semanas.flatMap((semana) => semana.menu.flatMap((dia) =>
+      [...dia.comida, ...dia.cena]
+        .filter((plato) => !esCenaConCerealPrincipal(plato))
+        .map(normalizar),
+    )),
+  );
+  let siguiente = 0;
+
+  const ajustadas = semanas.map((semana) => ({
+    ...semana,
+    menu: semana.menu.map((dia) => {
+      if (!dia.cena.some(esCenaConCerealPrincipal)) return dia;
+
+      const ordenadas = [
+        ...CENAS_LIGERAS_ALTERNATIVAS.slice(siguiente),
+        ...CENAS_LIGERAS_ALTERNATIVAS.slice(0, siguiente),
+      ];
+      const alternativa = ordenadas.find((cena) =>
+        cena.every((plato) => !usados.has(normalizar(plato))),
+      ) ?? ordenadas[0];
+      alternativa.forEach((plato) => usados.add(normalizar(plato)));
+      siguiente = (CENAS_LIGERAS_ALTERNATIVAS.indexOf(alternativa) + 1)
+        % CENAS_LIGERAS_ALTERNATIVAS.length;
+
+      return { ...dia, cena: [...alternativa] };
+    }),
+  }));
+
+  return recalcularPreparacionesPlan(ajustadas);
 }
 function esExentoDeVariedad(plato: string, dia: string, momento: MomentoMenu): boolean {
   return FIJOS.has(plato) || (
@@ -81,6 +155,7 @@ function puedeUsarSugerencia(
   reservados: Map<string, number>,
 ): boolean {
   if (!sugerencia.length || !sugerencia.every((plato) => disponibles.has(plato) || FIJOS.has(plato))) return false;
+  if (momento === 'cena' && sugerencia.some(esCenaConCerealPrincipal)) return false;
   const grupoBase = grupoPrincipal(base), grupoSugerencia = grupoPrincipal(sugerencia);
   const platosBase = new Set(base.map(normalizar));
   return (grupoBase === 'otro' || grupoSugerencia === grupoBase) && sugerencia.every((plato) => {

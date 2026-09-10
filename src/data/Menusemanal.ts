@@ -6,6 +6,8 @@ export type DiaMenu = {
   dia: string;
   comida: string[];
   cena: string[];
+  /** Metadato efímero aplicado por las excepciones del calendario. */
+  sinNinos?: boolean;
   postreComida: PostreMenu;
   postreCena: PostreMenu;
   postreComidaReceta?: string;

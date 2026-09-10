@@ -4,8 +4,11 @@ import type { SemanaMenu } from '../data/MenuMensual';
 import {
   cargarExcepciones,
   EVENTO_EXCEPCIONES,
+  fechasFinDeSemana,
   fechasSemana,
+  finDeSemanaSinNinos,
   guardarExcepcion,
+  guardarFinDeSemanaSinNinos,
   indiceDiaSemana,
   type ExcepcionesCalendario,
 } from '../services/excepcionesCalendario';
@@ -42,6 +45,21 @@ const fmtRango = (semana: SemanaMenu) => {
     .toUpperCase();
   return `${inicio}–${fin} ${abreviatura}`;
 };
+
+function etiquetaExcepcion(
+  excepcion: ExcepcionesCalendario[string] | undefined,
+): string {
+  if (!excepcion) return '';
+  if (excepcion.noEnCasa || (excepcion.sinComida && excepcion.sinCena)) {
+    return 'Fuera';
+  }
+  const partes = [
+    excepcion.sinComida ? 'Sin comida' : '',
+    excepcion.sinCena ? 'Sin cena' : '',
+    excepcion.sinNinos ? 'Solo adultos' : '',
+  ].filter(Boolean);
+  return partes.join(' · ');
+}
 
 function SemanasDelMes({
   mesActivo,
@@ -88,6 +106,7 @@ function SemanasDelMes({
                   const dia = semana.menu[indiceDiaSemana(fecha)];
                   const excepcion = excepciones[fecha];
                   const fueraTodoElDia = semana.excluida || excepcion?.noEnCasa;
+                  const soloAdultos = !fueraTodoElDia && excepcion?.sinNinos;
                   const comida = fueraTodoElDia
                     ? 'Fuera de casa'
                     : excepcion?.sinComida
@@ -103,15 +122,16 @@ function SemanasDelMes({
                     <button
                       type="button"
                       key={fecha}
-                      className={`monthly-week-day${fueraTodoElDia ? ' monthly-week-day--away' : ''}`}
+                      className={`monthly-week-day${fueraTodoElDia ? ' monthly-week-day--away' : ''}${soloAdultos ? ' monthly-week-day--adults' : ''}`}
                       onClick={() => onAbrirDia(indiceSemana, fecha)}
-                      aria-label={`Abrir ${dia?.dia ?? fecha}, ${fecha.slice(8, 10)}: comida ${comida}; cena ${cena}`}
+                      aria-label={`Abrir ${dia?.dia ?? fecha}, ${fecha.slice(8, 10)}: comida ${comida}; cena ${cena}${soloAdultos ? '; solo adultos en casa' : ''}`}
                     >
                       <span className="monthly-week-day__date">
                         <b>{dia?.dia?.slice(0, 3) ?? 'Día'}</b>
                         <strong>{fecha.slice(8, 10)}</strong>
                       </span>
                       <span className="monthly-week-day__meals">
+                        {soloAdultos && <small className="monthly-week-day__exception">👧👦 Solo adultos</small>}
                         <small>🍽️ {comida}</small>
                         <small>🌙 {cena}</small>
                       </span>
@@ -148,6 +168,9 @@ export default function Menu({
   const dia = menu[indiceMenu] ?? menu[0];
   const excepcion = fechaActiva ? excepciones[fechaActiva] : undefined;
   const mesBonito = fmtMes(mesActivo);
+  const tieneFinDeSemana = Boolean(semana && fechasFinDeSemana(semana).length);
+  const ninosFueraElFinDeSemana = finDeSemanaSinNinos(semana, excepciones);
+  const diaEsFinDeSemana = Boolean(fechaActiva && indiceDiaSemana(fechaActiva) >= 5);
 
   useEffect(() => {
     const actualizar = () => setRevision((valor) => valor + 1);
@@ -160,7 +183,7 @@ export default function Menu({
     setDiaActivo(0);
   };
 
-  const marcar = (tipo: 'sinComida' | 'sinCena' | 'noEnCasa') => {
+  const marcar = (tipo: 'sinComida' | 'sinCena' | 'noEnCasa' | 'sinNinos') => {
     if (!fechaActiva) return;
     if (tipo === 'noEnCasa') {
       guardarExcepcion(
@@ -174,6 +197,11 @@ export default function Menu({
       noEnCasa: false,
       [tipo]: !excepcion?.[tipo],
     });
+  };
+
+  const alternarFinDeSemanaSinNinos = () => {
+    if (!semana) return;
+    guardarFinDeSemanaSinNinos(semana, !ninosFueraElFinDeSemana);
   };
 
   const abrirDiaResumen = (indiceSemana: number, fecha: string) => {
@@ -232,6 +260,18 @@ export default function Menu({
           <button type="button" onClick={() => excluirSemana(semanaActiva, !semana?.excluida)}>
             {semana?.excluida ? '↩ Incluir esta semana' : '🏖️ No estamos en casa esta semana'}
           </button>
+          {tieneFinDeSemana && !semana?.excluida && (
+            <button
+              type="button"
+              className={ninosFueraElFinDeSemana ? 'month-week-action--active' : undefined}
+              onClick={alternarFinDeSemanaSinNinos}
+              aria-pressed={ninosFueraElFinDeSemana}
+            >
+              {ninosFueraElFinDeSemana
+                ? '↩ Niños en casa este finde'
+                : '👧👦 Niños fuera este finde'}
+            </button>
+          )}
           <button type="button" onClick={generarNuevoMes}>✨ Generar nuevo mes</button>
           <button type="button" onClick={reiniciarMes}>↺ Reiniciar mes</button>
         </div>
@@ -263,13 +303,7 @@ export default function Menu({
                   <span>{d?.dia ?? fecha}</span>
                   {fuera && (
                     <small style={{ display: 'block' }}>
-                      {fuera.noEnCasa
-                        ? 'Fuera'
-                        : fuera.sinComida && fuera.sinCena
-                          ? 'Fuera'
-                          : fuera.sinComida
-                            ? 'Sin comida'
-                            : 'Sin cena'}
+                      {etiquetaExcepcion(fuera)}
                     </small>
                   )}
                 </button>
@@ -297,7 +331,19 @@ export default function Menu({
               <button type="button" onClick={() => marcar('noEnCasa')} aria-pressed={excepcion?.noEnCasa === true}>
                 {excepcion?.noEnCasa ? '↩ Volvemos a estar en casa' : '🏖️ Fuera todo el día'}
               </button>
+              {diaEsFinDeSemana && !excepcion?.noEnCasa && (
+                <button type="button" onClick={() => marcar('sinNinos')} aria-pressed={excepcion?.sinNinos === true}>
+                  {excepcion?.sinNinos ? '↩ Niños en casa este día' : '👧👦 Niños fuera este día'}
+                </button>
+              )}
             </div>
+
+            {excepcion?.sinNinos && !excepcion.noEnCasa && (
+              <p className="menu-adults-only" role="status">
+                👧👦 Este día el menú se mantiene, pero las raciones, la compra y
+                el presupuesto cuentan solo a los adultos.
+              </p>
+            )}
 
             {excepcion?.noEnCasa ? (
               <div className="menu-excluded-state">

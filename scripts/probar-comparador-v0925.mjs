@@ -112,9 +112,12 @@ const inicial = cargarConfiguracionComparador();
 assert.equal(inicial.codigoPostal, '48950');
 assert.deepEqual(
   inicial.tiendas.slice(0, 4).map((tienda) => tienda.nombre),
-  ['Mercadona', 'Lidl', 'Carrefour', 'Eroski'],
+  ['Mercadona', 'Carrefour', 'Eroski', 'Lidl'],
 );
 assert.equal(inicial.tiendas.find((tienda) => tienda.id === 'mercadona')?.automatica, true);
+assert.equal(inicial.tiendas.find((tienda) => tienda.id === 'carrefour')?.automatica, true);
+assert.equal(inicial.tiendas.find((tienda) => tienda.id === 'eroski')?.automatica, true);
+assert.equal(inicial.tiendas.find((tienda) => tienda.id === 'lidl')?.automatica, false);
 
 const configuracion = guardarConfiguracionComparador({
   ...inicial,
@@ -340,7 +343,7 @@ assert.ok(datos[CLAVE_OFERTAS_COMPARADOR]);
 localStorage.setItem('pfi-sync-sesion-v1', '{"access_token":"no-exportar"}');
 assert.equal(recopilarDatosPFI()['pfi-sync-sesion-v1'], undefined);
 const copia = crearCopiaCompleta();
-assert.equal(copia.versionApp, '0.9.25');
+assert.equal(copia.versionApp, '0.9.26');
 assert.equal(copia.resumen.preciosComparador, 6);
 assert.equal(obtenerEstadoSaludDatos().resumen.preciosComparador, 6);
 
@@ -350,7 +353,7 @@ assert.equal(cargarConfiguracionComparador().codigoPostal, '48950');
 assert.deepEqual(cargarOfertasComparador(), []);
 
 await vite.close();
-console.log('✓ Mercadona, Lidl, Carrefour y Eroski parten activos en el CP 48950');
+console.log('✓ Mercadona, Carrefour, Eroski y Lidl parten activos en el CP 48950');
 console.log('✓ formatos, envases y stock se comparan con cantidades equivalentes');
 console.log('✓ planes práctico, absoluto y de una tienda respetan paradas y ahorro mínimo');
 console.log('✓ los precios caducados se excluyen y actualizar no crea duplicados');
