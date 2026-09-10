@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-09T11:33:45.267Z",
+  "actualizado": "2026-09-10T09:45:45.463Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4278,
+  "totalProductos": 4288,
   "productos": [
     {
       "productoId": "3505.2",
@@ -3328,7 +3328,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Ambientador decorativo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/69995d0ff815bb2094c6a1b967c0a2b2.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/69995d0ff815bb2094c6a1b967c0a2b2.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/72734/ambientador-perlas-lima-bosque-verde",
       "disponible": true
     },
@@ -9072,7 +9072,7 @@
       "pesoAproximado": true,
       "sección": "Mascotas",
       "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/5fd082c56703013d3caecedb58752620.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4b688f515cc2f1a8202b673902184cd0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18165/bocaditos-salsa-gato-adulto-delikuit-contiene-6-con-ternera-6-con-pollo-6-con-salmon-6-con-trucha-caja",
       "disponible": true
     },
@@ -10912,7 +10912,7 @@
       "pesoAproximado": true,
       "sección": "Cacao, café e infusiones",
       "subcategoria": "Cápsulas compatibles Dolce gusto",
-      "imagen": "https://prod-mercadona.imgix.net/images/1de2fa09b6e78175f67abc32db271c5a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/df3ec6dd9af8e29eb2e6648247381252.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11785/cafe-capsula-cortado-dolce-gusto-espresso-macchiato-caja",
       "disponible": true
     },
@@ -12790,7 +12790,7 @@
     },
     {
       "productoId": "28938",
-      "nombre": "Cava brut nature reserva vintage Cabré & Sabaté",
+      "nombre": "Cava brut nature vintage Cabré & Sabaté",
       "precio": 4.7,
       "precioReferencia": 6.267,
       "formato": "Botella",
@@ -12800,7 +12800,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Cava brut",
-      "imagen": "https://prod-mercadona.imgix.net/images/3cc9b1d45a8e04565ce9cc278f56dc1a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4938e9a5b68e7e6616b74da38bd0c519.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/28938/cava-brut-nature-reserva-vintage-cabre-sabate-botella",
       "disponible": true
     },
@@ -12951,8 +12951,8 @@
     {
       "productoId": "69079",
       "nombre": "Cebollas",
-      "precio": 3.6,
-      "precioReferencia": 1.8,
+      "precio": 3.2,
+      "precioReferencia": 1.6,
       "formato": "Malla",
       "unidadesTotales": 0,
       "tamañoUnidad": 2,
@@ -12967,8 +12967,8 @@
     {
       "productoId": "69089",
       "nombre": "Cebollas",
-      "precio": 2,
-      "precioReferencia": 2,
+      "precio": 1.7,
+      "precioReferencia": 1.7,
       "formato": "Malla",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -14215,8 +14215,8 @@
     {
       "productoId": "66586",
       "nombre": "Cerveza especial Estrella Galicia",
-      "precio": 7.6,
-      "precioReferencia": 2.304,
+      "precio": 8.8,
+      "precioReferencia": 2.667,
       "formato": "Pack-10",
       "unidadesTotales": 10,
       "tamañoUnidad": 3.3,
@@ -15909,6 +15909,22 @@
       "disponible": true
     },
     {
+      "productoId": "17996",
+      "nombre": "Chocolate con leche Fussion Hacendado relleno de galleta caramelizada",
+      "precio": 1.75,
+      "precioReferencia": 12.324,
+      "formato": "Tableta",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.142,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Chocolate con leche",
+      "imagen": "https://prod-mercadona.imgix.net/images/567575d0b03980c5e9db8481382301c1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17996/chocolate-con-leche-fussion-hacendado-relleno-galleta-caramelizada-tableta",
+      "disponible": true
+    },
+    {
       "productoId": "19988",
       "nombre": "Chocolate con leche Hacendado almendras enteras",
       "precio": 2.5,
@@ -16736,7 +16752,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Empanados y elaborados",
-      "imagen": "https://prod-mercadona.imgix.net/images/f27090a52a211af71289bfd5f60a689d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a78ccbf777d0ec72e97530ed1a560a3e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23305/chuletas-cerdo-sajonia-bandeja",
       "disponible": true
     },
@@ -17456,7 +17472,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Insecticida eléctrico y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/8a08da3d020a258daa896b13013166e1.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/71cbe45e880fb85346d816fd1cca8a0c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52422/colgador-antipolillas-lavanda-bosque-verde-paquete",
       "disponible": true
     },
@@ -17968,7 +17984,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Coloración rubio",
-      "imagen": "https://prod-mercadona.imgix.net/images/559f112f8614b2bd8a217e749d0de89a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/df017b19bd9d810ae5f7c63ade068a13.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/73269/coloracion-permanente-831-rubio-miel-deliplus-0-amoniaco-colorcor-caja",
       "disponible": true
     },
@@ -19584,7 +19600,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Compresas",
-      "imagen": "https://prod-mercadona.imgix.net/images/09d7aa00128d26a22ac84dd7de1c531d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/577977b499d9c671228297d04fed3402.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/47380/compresa-sin-alas-normal-deliplus-classic-paquete",
       "disponible": true
     },
@@ -19600,7 +19616,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Compresas",
-      "imagen": "https://prod-mercadona.imgix.net/images/b9e0a87f819a470af9521e759d952511.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/c2851526bd15ecbd1b86406266ad2fdc.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/47381/compresa-sin-alas-normal-plegada-deliplus-classic-paquete",
       "disponible": true
     },
@@ -20082,6 +20098,22 @@
       "subcategoria": "Contorno de ojos",
       "imagen": "https://prod-mercadona.imgix.net/images/216de1cb728e46dab73d1abc5bad1b36.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/46872/contorno-ojos-arrugas-bolsas-deliplus-prevent-age-skin-tipo-piel-tubo",
+      "disponible": true
+    },
+    {
+      "productoId": "46866",
+      "nombre": "Contorno de ojos Men Care Regen Skin Deliplus",
+      "precio": 5,
+      "precioReferencia": 33.334,
+      "formato": "Tubo",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.015,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Crema y gel de cara",
+      "imagen": "https://prod-mercadona.imgix.net/images/6097e19a3d0ec47d71ed66267aef8ea1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/46866/contorno-ojos-men-care-regen-skin-deliplus-tipo-piel-tubo",
       "disponible": true
     },
     {
@@ -22567,8 +22599,8 @@
     {
       "productoId": "13913",
       "nombre": "Dentífrico Pro-Expert Oral-B sabor menta especiada",
-      "precio": 2.5,
-      "precioReferencia": 3.334,
+      "precio": 2.85,
+      "precioReferencia": 3.8,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.075,
@@ -22599,8 +22631,8 @@
     {
       "productoId": "13869",
       "nombre": "Dentífrico Repair & Protect Sensodyne",
-      "precio": 4.95,
-      "precioReferencia": 6.6,
+      "precio": 3.95,
+      "precioReferencia": 5.267,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.075,
@@ -24048,7 +24080,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/0fd5a9f426e5852a334abf9f20adbd59.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5ffbf16667a49ca1e45619ff0089c107.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18247/eau-parfum-hombre-borealia-my-soul-frasco",
       "disponible": true
     },
@@ -24274,22 +24306,6 @@
       "subcategoria": "Perfume y colonia hombre",
       "imagen": "https://prod-mercadona.imgix.net/images/19b50a389fb4bc5fccacf49d16fa16b6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52567/eau-parfum-hombre-my-soul-soiree-for-him-frasco",
-      "disponible": true
-    },
-    {
-      "productoId": "13437",
-      "nombre": "Eau de parfum hombre My Soul Supreme",
-      "precio": 11,
-      "precioReferencia": 11,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/5525358b9c67420d5da84c4122f7a1d1.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13437/eau-parfum-hombre-my-soul-supreme-for-him-frasco",
       "disponible": true
     },
     {
@@ -25399,8 +25415,8 @@
     {
       "productoId": "23066",
       "nombre": "Enjuague bucal cuidado total Listerine menta",
-      "precio": 3.95,
-      "precioReferencia": 0.79,
+      "precio": 5.15,
+      "precioReferencia": 1.03,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.5,
@@ -25415,8 +25431,8 @@
     {
       "productoId": "23067",
       "nombre": "Enjuague bucal dientes y encías Listerine menta",
-      "precio": 3.95,
-      "precioReferencia": 0.79,
+      "precio": 5.15,
+      "precioReferencia": 1.03,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.5,
@@ -29493,6 +29509,22 @@
       "disponible": true
     },
     {
+      "productoId": "17929",
+      "nombre": "Galletas rebuenas Hacendado rellenas de chocolate blanco",
+      "precio": 1.45,
+      "precioReferencia": 2.9,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Cereales y galletas",
+      "subcategoria": "Con chocolate y rellenas",
+      "imagen": "https://prod-mercadona.imgix.net/images/e9d1d6050e0547d549fa52bc6e60391e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17929/galletas-rebuenas-hacendado-rellenas-chocolate-blanco-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "14197",
       "nombre": "Galletas Relieve Hacendado",
       "precio": 1.35,
@@ -31554,6 +31586,22 @@
       "subcategoria": "Fruta tropical",
       "imagen": "https://prod-mercadona.imgix.net/images/66c3481e7af13e610aa808949d18a5f3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3852/guacamole-hacendado-95-aguacate-fresco-tarrina",
+      "disponible": true
+    },
+    {
+      "productoId": "21892",
+      "nombre": "Guanciale Hacendado",
+      "precio": 4.65,
+      "precioReferencia": 15,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.31,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Bacón",
+      "imagen": "https://prod-mercadona.imgix.net/images/712e6ec294a43713d4c4fb98282b4b5d.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21892/guanciale-cerdo-paquete",
       "disponible": true
     },
     {
@@ -34224,7 +34272,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Jamón cocido",
-      "imagen": "https://prod-mercadona.imgix.net/images/9beeb85074dfd583cf1e87fb8e11935d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f4ff00b9b6f04e0fda606dd4c1e22e55.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/59256/jamon-cocido-hacendado-lonchas-paquete",
       "disponible": true
     },
@@ -34962,6 +35010,22 @@
       "subcategoria": "Espuma y laca",
       "imagen": "https://prod-mercadona.imgix.net/images/dd35abf51df26c814a1acbb114896a7e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52694/laca-cabello-xtra-forte-deliplus-fijacion-4-spray",
+      "disponible": true
+    },
+    {
+      "productoId": "52695",
+      "nombre": "Laca cabello Xtra Forte Deliplus fijación 4",
+      "precio": 1.1,
+      "precioReferencia": 1.467,
+      "formato": "Spray",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.075,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado del cabello",
+      "subcategoria": "Espuma y laca",
+      "imagen": "https://prod-mercadona.imgix.net/images/c55516eba6bfdf2751a715637d61e5ec.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/52695/laca-cabello-xtra-forte-deliplus-fijacion-4-tamano-viaje-spray",
       "disponible": true
     },
     {
@@ -35984,7 +36048,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche desnatada",
-      "imagen": "https://prod-mercadona.imgix.net/images/d470211a0604c39ba3ff5f5d6ee734ed.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d470211a0604c39ba3ff5f5d6ee734ed.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10676/leche-proteinas-desnatada-hacendado-pack-6",
       "disponible": true
     },
@@ -38773,6 +38837,22 @@
       "disponible": true
     },
     {
+      "productoId": "16397",
+      "nombre": "Lote mujer Como tú Extratime",
+      "precio": 10,
+      "precioReferencia": 10,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Lotes mujer",
+      "imagen": "https://prod-mercadona.imgix.net/images/440afc1209929b548373720f1cc6baed.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/16397/lote-mujer-extratime-contiene-eau-parfum-100-ml-gel-bano-100-ml-body-milk-100-ml",
+      "disponible": true
+    },
+    {
       "productoId": "81241.5",
       "nombre": "Lubina a filetes sin cabeza y sin espina",
       "precio": 4.78,
@@ -39351,8 +39431,8 @@
     {
       "productoId": "3050",
       "nombre": "Mango",
-      "precio": 1.62,
-      "precioReferencia": 3.25,
+      "precio": 1.49,
+      "precioReferencia": 3,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.497,
@@ -39360,7 +39440,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Fruta tropical",
-      "imagen": "https://prod-mercadona.imgix.net/images/05ba87e8e2d78124318a9dee667b3d07.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b4e2ff133157c1eed54e5b356bb28d16.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3050/mango-pieza",
       "disponible": true
     },
@@ -43184,7 +43264,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Herméticos y moldes",
-      "imagen": "https://prod-mercadona.imgix.net/images/278ac417f4bc77d00e1c72f6671a15f1.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/1d36bcb8564314b2eab2b9c1dcf4b108.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11681/molde-papel-pulpa-madera-silicona-bosque-verde-freidora-aire-20-cm-paquete",
       "disponible": true
     },
@@ -46407,8 +46487,8 @@
     {
       "productoId": "11553",
       "nombre": "Pañales bebé talla 1 Dodot Sensitive de 2-5 kg",
-      "precio": 20.95,
-      "precioReferencia": 0.362,
+      "precio": 16.95,
+      "precioReferencia": 0.293,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 58,
@@ -46439,8 +46519,8 @@
     {
       "productoId": "47287",
       "nombre": "Pañales bebé talla 2 Dodot Sensitive de 4-8 kg",
-      "precio": 20.95,
-      "precioReferencia": 0.362,
+      "precio": 16.95,
+      "precioReferencia": 0.293,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 58,
@@ -46487,8 +46567,8 @@
     {
       "productoId": "52879",
       "nombre": "Pañales bebé talla 3 Dodot Sensitive de 6-10 kg",
-      "precio": 20.95,
-      "precioReferencia": 0.375,
+      "precio": 16.95,
+      "precioReferencia": 0.303,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 56,
@@ -49158,7 +49238,7 @@
     },
     {
       "productoId": "15679",
-      "nombre": "Percarbonato blanqueante Bosque Verde",
+      "nombre": "Percarbonato blanqueante con bicarbonato Bosque Verde",
       "precio": 1.65,
       "precioReferencia": 2.2,
       "formato": "Paquete",
@@ -49696,7 +49776,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Suavizante",
-      "imagen": "https://prod-mercadona.imgix.net/images/eafe95f619a08f57d0e050eecf824710.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/eafe95f619a08f57d0e050eecf824710.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/40752/perfumador-ropa-bosque-verde-intensificador-fragancia-botella",
       "disponible": true
     },
@@ -52151,8 +52231,8 @@
     {
       "productoId": "56084",
       "nombre": "Pollo 97% relleno La Carloteña asado al horno lonchas",
-      "precio": 2.4,
-      "precioReferencia": 16,
+      "precio": 2.3,
+      "precioReferencia": 15.334,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.15,
@@ -61093,6 +61173,38 @@
       "disponible": true
     },
     {
+      "productoId": "23863",
+      "nombre": "Sidra asturiana El Mayu",
+      "precio": 12,
+      "precioReferencia": 4,
+      "formato": "Pack-12",
+      "unidadesTotales": 12,
+      "tamañoUnidad": 3,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Bodega",
+      "subcategoria": "Sidra",
+      "imagen": "https://prod-mercadona.imgix.net/images/95a9b59aacee76b1f1ed623a361c6abe.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/23863/sidra-asturiana-mayu-pack-12",
+      "disponible": true
+    },
+    {
+      "productoId": "23862",
+      "nombre": "Sidra asturiana El Mayu",
+      "precio": 1,
+      "precioReferencia": 4,
+      "formato": "Botellín",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.25,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Bodega",
+      "subcategoria": "Sidra",
+      "imagen": "https://prod-mercadona.imgix.net/images/5d5ecffad2e603a8824568b74458d9b5.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/23862/sidra-asturiana-mayu-botellin",
+      "disponible": true
+    },
+    {
       "productoId": "28898",
       "nombre": "Sidra natural Polían",
       "precio": 2.1,
@@ -61458,6 +61570,22 @@
       "subcategoria": "Snacks",
       "imagen": "https://prod-mercadona.imgix.net/images/c17299d93bee0b00dcbf1b46694dbcbe.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86358/snack-gato-crunchy-con-hierba-gatera-compy-cuidado-dientes-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "11963",
+      "nombre": "Snack nuggets perro adulto Compy 80% pollo",
+      "precio": 1.35,
+      "precioReferencia": 16.875,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.08,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Snacks",
+      "imagen": "https://prod-mercadona.imgix.net/images/8f4a682200fc668e97c1d27cb51e993a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/11963/snack-nuggets-perro-adulto-compy-80-pollo-paquete",
       "disponible": true
     },
     {
@@ -62549,6 +62677,22 @@
       "disponible": true
     },
     {
+      "productoId": "50999",
+      "nombre": "Tabla de quesos nacionales Hacendado",
+      "precio": 4.95,
+      "precioReferencia": 20.625,
+      "formato": "Bandeja",
+      "unidadesTotales": 24,
+      "tamañoUnidad": 0.24,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Queso curado",
+      "imagen": "https://prod-mercadona.imgix.net/images/fd4abf9a02e72ce2a636dc02c1086d80.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/50999/tabla-quesos-nacionales-hacendado-bandeja",
+      "disponible": true
+    },
+    {
       "productoId": "79113",
       "nombre": "Tabletas limpiadoras prótesis dentales Benfix y ortodoncias",
       "precio": 2.45,
@@ -62882,6 +63026,22 @@
       "subcategoria": "Jamón serrano",
       "imagen": "https://prod-mercadona.imgix.net/images/d536e150ab381deb37082541dd44ba75.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/59071/taquitos-jamon-incarlopsa-pack-2",
+      "disponible": true
+    },
+    {
+      "productoId": "17564",
+      "nombre": "Taquitos de pollo",
+      "precio": 2.63,
+      "precioReferencia": 7.3,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.36,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Carne",
+      "subcategoria": "Pollo",
+      "imagen": "https://prod-mercadona.imgix.net/images/6f57caeeada02c1b444dc11562270e30.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17564/taquitos-pollo-bandeja",
       "disponible": true
     },
     {
@@ -64678,7 +64838,7 @@
     },
     {
       "productoId": "35935",
-      "nombre": "Tónico facial árbol de té y prebióticos Facial Clean",
+      "nombre": "Tónico facial árbol de té y prebióticos Facial Clean renovador y purificante",
       "precio": 3.2,
       "precioReferencia": 1.255,
       "formato": "Bote",
@@ -67335,8 +67495,8 @@
     {
       "productoId": "28613",
       "nombre": "Whisky escocés J&B",
-      "precio": 11.95,
-      "precioReferencia": 17.072,
+      "precio": 11.6,
+      "precioReferencia": 16.572,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,
@@ -67367,8 +67527,8 @@
     {
       "productoId": "28610",
       "nombre": "Whisky escocés Red Label Johnnie Walker",
-      "precio": 16,
-      "precioReferencia": 22.858,
+      "precio": 14.65,
+      "precioReferencia": 20.929,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,

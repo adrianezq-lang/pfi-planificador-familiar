@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-09-09T11:35:36.867Z",
+  "actualizado": "2026-09-10T09:46:56.136Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 61,
@@ -87,7 +87,7 @@
       "ingrediente": "Cebolla",
       "productoId": "69089",
       "nombreComercial": "Cebollas",
-      "precio": 2,
+      "precio": 1.7,
       "puntuacion": 10000
     },
     {
