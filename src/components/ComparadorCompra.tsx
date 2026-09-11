@@ -32,6 +32,7 @@ import './ComparadorCompra.css';
 
 type ComparadorCompraProps = {
   lineas: LineaCompra[];
+  onPlanChange?: (plan: PlanCompraComparada) => void;
 };
 
 type ModoComparador = 'recomendada' | 'absoluta' | 'una';
@@ -85,6 +86,20 @@ function cantidadCompra(opcion: OpcionPrecioComparador): string {
   return `${opcion.envases.toLocaleString('es-ES')} envase${opcion.envases === 1 ? '' : 's'}`;
 }
 
+function formatoContenido(opcion: OpcionPrecioComparador): string {
+  return `${opcion.contenidoCantidad.toLocaleString('es-ES', {
+    maximumFractionDigits: 3,
+  })} ${opcion.contenidoUnidad}`;
+}
+
+function necesidadBreve(linea: LineaCompra): string {
+  return linea.necesidades
+    .map((necesidad) => `${necesidad.cantidad.toLocaleString('es-ES', {
+      maximumFractionDigits: 2,
+    })} ${necesidad.unidad}`)
+    .join(' + ');
+}
+
 function etiquetaTiendas(plan: PlanCompraComparada, configuracion: ConfiguracionComparador): string {
   const nombres = plan.tiendas.map(
     (id) => configuracion.tiendas.find((tienda) => tienda.id === id)?.nombre ?? id,
@@ -93,10 +108,10 @@ function etiquetaTiendas(plan: PlanCompraComparada, configuracion: Configuracion
   return nombres.join(' + ');
 }
 
-export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
+export default function ComparadorCompra({ lineas, onPlanChange }: ComparadorCompraProps) {
   const [configuracion, setConfiguracion] = useState(cargarConfiguracionComparador);
   const [ofertas, setOfertas] = useState<OfertaComparador[]>(cargarOfertasComparador);
-  const [modo, setModo] = useState<ModoComparador>('recomendada');
+  const [modo, setModo] = useState<ModoComparador>('absoluta');
   const [editorAbierto, setEditorAbierto] = useState(false);
   const [productoClave, setProductoClave] = useState('');
   const [tiendaId, setTiendaId] = useState('eroski');
@@ -180,18 +195,21 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
     : modo === 'una'
       ? resultado.unaTienda ?? resultado.recomendada
       : resultado.recomendada;
+  useEffect(() => {
+    onPlanChange?.(plan);
+  }, [onPlanChange, plan]);
   const mercadona = resultado.porTienda.find((resumen) => resumen.tienda.id === 'mercadona');
   const ahorro = mercadona?.completo && plan.completo
     ? Math.round((mercadona.total - plan.total) * 100) / 100
     : null;
-  const tiendaPorId = useMemo(
-    () => new Map(configuracion.tiendas.map((tienda) => [tienda.id, tienda])),
+  const tiendasActivas = useMemo(
+    () => configuracion.tiendas.filter((tienda) => tienda.activa),
     [configuracion.tiendas],
   );
-  const grupos = plan.tiendas.map((id) => ({
-    tienda: tiendaPorId.get(id),
-    asignaciones: plan.asignaciones.filter((asignacion) => asignacion.opcion.tiendaId === id),
-  }));
+  const asignacionPorClave = useMemo(
+    () => new Map(plan.asignaciones.map((asignacion) => [asignacion.clave, asignacion])),
+    [plan.asignaciones],
+  );
 
   const rellenarFormulario = useCallback((clave: string, idTienda: string) => {
     const comparacion = resultado.lineas.find((linea) => linea.clave === clave);
@@ -253,6 +271,18 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
     }
     rellenarFormulario(clave, idTienda);
     setEditorAbierto(true);
+  };
+
+  const abrirEditorPara = (clave: string, idTienda: string) => {
+    if (idTienda === 'mercadona') return;
+    rellenarFormulario(clave, idTienda);
+    setEditorAbierto(true);
+    window.setTimeout(() => {
+      document.getElementById('editor-precio-comparador')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }, 0);
   };
 
   const guardarPrecio = (evento: FormEvent) => {
@@ -483,15 +513,14 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
     <Card className="comparador-card">
       <div className="comparador-heading">
         <div>
-          <span className="comparador-kicker">AHORRO POR ESTABLECIMIENTO</span>
-          <Title style={{ color: '#34573d', fontSize: 24 }}>⚖️ Comparador de precios</Title>
+          <span className="comparador-kicker">COMPARACIÓN DIRECTA</span>
+          <Title style={{ color: '#34573d', fontSize: 24 }}>⚖️ El mejor precio, producto a producto</Title>
           <p>
-            Mercadona ya viene asociado. En Eroski y Carrefour eliges una vez el
-            producto exacto del catálogo y PFI renueva su precio; Lidl y los comercios
-            del barrio quedan disponibles como respaldo manual.
+            Compara el coste real de la cantidad que necesitas. La opción más barata
+            queda elegida y la lista se separa automáticamente por tienda.
           </p>
         </div>
-        <span className="comparador-sync">☁️ Incluido en cuenta y copias</span>
+        <span className="comparador-sync">✓ Aplicado a tu lista</span>
       </div>
 
       <div className="comparador-cobertura" aria-label="Cobertura de precios por tienda">
@@ -504,7 +533,7 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
             <span>
               {resumen.cubiertos}/{resumen.totalLineas} precios
             </span>
-            <b>{resumen.completo ? euros(resumen.total) : 'Parcial'}</b>
+            <b>{resumen.completo ? euros(resumen.total) : `${resumen.cubiertos} disponibles`}</b>
             <small>
               {resumen.tienda.id === 'mercadona'
                 ? 'Catálogo asociado'
@@ -522,20 +551,20 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
       </div>
 
       <div className="comparador-modos" aria-label="Tipo de comparación">
-        <button type="button" aria-pressed={modo === 'recomendada'} onClick={() => setModo('recomendada')}>
-          Práctica
-        </button>
         <button type="button" aria-pressed={modo === 'absoluta'} onClick={() => setModo('absoluta')}>
-          Más barata
+          Más barato por producto
+        </button>
+        <button type="button" aria-pressed={modo === 'recomendada'} onClick={() => setModo('recomendada')}>
+          Máximo {configuracion.maxTiendas} tiendas
         </button>
         <button type="button" aria-pressed={modo === 'una'} onClick={() => setModo('una')}>
-          Una tienda
+          Una sola tienda
         </button>
       </div>
 
       <section className="comparador-resultado" aria-live="polite">
         <div>
-          <span>{modo === 'absoluta' ? 'MÍNIMO ABSOLUTO' : modo === 'una' ? 'MEJOR CESTA COMPLETA' : 'RECOMENDACIÓN PFI'}</span>
+          <span>{modo === 'absoluta' ? 'MEJOR PRECIO DE CADA PRODUCTO' : modo === 'una' ? 'MEJOR CESTA EN UNA TIENDA' : 'RUTA DE COMPRA PRÁCTICA'}</span>
           <strong>{euros(plan.total)}{!plan.completo ? ' parcial' : ''}</strong>
           <small>{etiquetaTiendas(plan, configuracion)}</small>
         </div>
@@ -564,14 +593,14 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
         </p>
       )}
 
-      <div className="comparador-actions">
+      <div className="comparador-actions comparador-actions--principal">
         {tiendaCatalogoPreferida && (
           <button
             type="button"
             className="comparador-primary"
             onClick={() => abrirEditor(tiendaCatalogoPreferida)}
           >
-            🔎 Buscar en Eroski o Carrefour
+            🔎 Completar precio de catálogo
           </button>
         )}
         <button type="button" onClick={() => abrirEditor(tiendaManualPreferida)}>
@@ -590,8 +619,100 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
         )}
       </div>
 
+      <section className="comparador-matriz" aria-labelledby="titulo-matriz-precios">
+        <div className="comparador-matriz__heading">
+          <div>
+            <span>COMPARACIÓN POR PRODUCTO</span>
+            <h3 id="titulo-matriz-precios">Todos los precios de un vistazo</h3>
+          </div>
+          <small><i aria-hidden="true" /> Opción aplicada a la compra</small>
+        </div>
+
+        <div className="comparador-matriz__filas">
+          {resultado.lineas.map((comparacion) => {
+            const asignacion = asignacionPorClave.get(comparacion.clave);
+            return (
+              <article className="comparador-producto" key={comparacion.clave}>
+                <header>
+                  <strong>{comparacion.nombre}</strong>
+                  <span>Necesitas {necesidadBreve(comparacion.linea)}</span>
+                </header>
+                <div className="comparador-producto__opciones">
+                  {tiendasActivas.map((tienda) => {
+                    const opcion = comparacion.opciones.find(
+                      (candidata) => candidata.tiendaId === tienda.id,
+                    );
+                    const seleccionada = opcion?.vigente === true &&
+                      asignacion?.opcion.tiendaId === tienda.id;
+                    const clases = [
+                      'comparador-opcion',
+                      seleccionada ? 'comparador-opcion--seleccionada' : '',
+                      opcion && !opcion.vigente ? 'comparador-opcion--caducada' : '',
+                    ].filter(Boolean).join(' ');
+
+                    return (
+                      <section className={clases} key={tienda.id}>
+                        <div className="comparador-opcion__tienda">
+                          <strong>{iconoTienda(tienda.tipo)} {tienda.nombre}</strong>
+                          {seleccionada && <span>MEJOR OPCIÓN</span>}
+                          {opcion && !opcion.vigente && <span className="is-warning">REVISAR</span>}
+                        </div>
+                        {opcion ? (
+                          <>
+                            <b>{euros(opcion.coste)}</b>
+                            <span>{cantidadCompra(opcion)}</span>
+                            <small title={opcion.productoNombre}>{opcion.productoNombre}</small>
+                            <small>
+                              {euros(opcion.precioEnvase)} · {opcion.alPeso
+                                ? `por ${formatoContenido(opcion)}`
+                                : `envase de ${formatoContenido(opcion)}`}
+                            </small>
+                            {tienda.id !== 'mercadona' && (
+                              <button
+                                type="button"
+                                onClick={() => abrirEditorPara(comparacion.clave, tienda.id)}
+                              >
+                                Cambiar producto
+                              </button>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <b>Sin precio</b>
+                            <small>
+                              {tienda.automatica
+                                ? 'Elige el producto exacto del catálogo.'
+                                : 'Añade el precio cuando lo conozcas.'}
+                            </small>
+                            {tienda.id !== 'mercadona' && (
+                              <button
+                                type="button"
+                                onClick={() => abrirEditorPara(comparacion.clave, tienda.id)}
+                              >
+                                ＋ Añadir precio
+                              </button>
+                            )}
+                          </>
+                        )}
+                      </section>
+                    );
+                  })}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <p className="comparador-aplicado" role="status">
+        <span className="comparador-aplicado__icono" aria-hidden="true">✓</span>
+        <span className="comparador-aplicado__texto">
+          <strong>Selección lista.</strong> Debajo encontrarás cada producto en la lista de su supermercado.
+        </span>
+      </p>
+
       {editorAbierto && (
-        <form className="comparador-editor" onSubmit={guardarPrecio}>
+        <form id="editor-precio-comparador" className="comparador-editor" onSubmit={guardarPrecio}>
           <div className="comparador-editor__title">
             <strong>{catalogoSeleccionado ? 'Producto exacto del catálogo' : 'Precio comprobado'}</strong>
             <button type="button" onClick={() => setEditorAbierto(false)} aria-label="Cerrar editor de precio">×</button>
@@ -781,31 +902,6 @@ export default function ComparadorCompra({ lineas }: ComparadorCompraProps) {
             </button>
           </div>
         </form>
-      )}
-
-      {grupos.length > 0 && (
-        <details className="comparador-reparto">
-          <summary>Ver reparto producto a producto</summary>
-          <div className="comparador-reparto__grupos">
-            {grupos.map(({ tienda, asignaciones }) => (
-              <section key={tienda?.id ?? 'desconocida'}>
-                <h4>{tienda ? `${iconoTienda(tienda.tipo)} ${tienda.nombre}` : 'Establecimiento'}</h4>
-                {asignaciones.map((asignacion) => (
-                  <div className="comparador-linea" key={asignacion.clave}>
-                    <span>
-                      <strong>{asignacion.nombre}</strong>
-                      <small>
-                        {cantidadCompra(asignacion.opcion)} · {asignacion.opcion.productoNombre}
-                        {asignacion.opcion.estimado ? ' · aprox.' : ''}
-                      </small>
-                    </span>
-                    <b>{euros(asignacion.opcion.coste)}</b>
-                  </div>
-                ))}
-              </section>
-            ))}
-          </div>
-        </details>
       )}
 
       <details className="comparador-config">

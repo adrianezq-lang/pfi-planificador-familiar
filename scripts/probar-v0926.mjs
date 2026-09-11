@@ -35,6 +35,8 @@ const vite = await createServer({
 });
 
 const { menuMensualInicial } = await vite.ssrLoadModule('/src/data/MenuMensual.ts');
+const { recetasVariedadV0927 } = await vite.ssrLoadModule('/src/data/RecetasV0927.ts');
+const { aplicarCoccionesVariadasSinHorno } = await vite.ssrLoadModule('/src/hooks/useMenu.ts');
 const {
   aplicarCenasSinCerealesPrincipales,
   esCenaConCerealPrincipal,
@@ -58,6 +60,38 @@ const {
 );
 
 assert.equal(planTieneCenasConCerealPrincipal(menuMensualInicial), false);
+const platosFueraDePizza = menuMensualInicial.flatMap((semana) =>
+  semana.menu.flatMap((dia) => [...dia.comida, ...(dia.dia === 'Viernes' ? [] : dia.cena)]),
+);
+assert.equal(
+  platosFueraDePizza.some((plato) => /horno|papillote|gratinad/i.test(plato)),
+  false,
+  'El horno debe quedar fuera del menú habitual salvo la pizza familiar.',
+);
+assert.ok(platosFueraDePizza.some((plato) => /airfryer/i.test(plato)));
+assert.ok(platosFueraDePizza.some((plato) => /wok/i.test(plato)));
+assert.ok(recetasVariedadV0927.length >= 15);
+assert.ok(
+  recetasVariedadV0927.filter((receta) => receta.categoria === 'Verduras').length >= 3,
+  'La ampliación debe añadir varias recetas de verduras.',
+);
+assert.ok(
+  recetasVariedadV0927.some((receta) =>
+    receta.ingredientes.some((ingrediente) => /pimiento/i.test(ingrediente.nombre)),
+  ),
+  'El pimiento debe conservarse en las recetas nuevas.',
+);
+
+const planAntiguoHorno = structuredClone(menuMensualInicial);
+planAntiguoHorno[0].menu[1].comida = ['Lubina al horno con patatas'];
+planAntiguoHorno[1].menu[2].cena = ['Pollo al horno con patatas'];
+const planMigradoCoccion = aplicarCoccionesVariadasSinHorno(planAntiguoHorno);
+assert.equal(
+  planMigradoCoccion.flatMap((semana) => semana.menu)
+    .flatMap((dia) => [...dia.comida, ...dia.cena])
+    .some((plato) => /horno|papillote|gratinad/i.test(plato)),
+  false,
+);
 assert.ok(
   menuMensualInicial.every((semana) =>
     semana.menu.find((dia) => dia.dia === 'Viernes')?.cena.every((plato) =>

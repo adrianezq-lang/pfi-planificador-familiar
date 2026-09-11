@@ -43,9 +43,9 @@ plan.forEach((semana, indice) => {
     'Hamburguesas',
     'Perritos calientes',
     'Kebab',
-    'Nachos gratinados con carne',
+    'Nachos con carne y pimiento a la sartén',
     'Tortilla de patata con ensalada',
-    'Pollo especiado al horno con patatas',
+    'Pollo especiado en airfryer con vainas',
   ]);
   if (
     !viernes ||

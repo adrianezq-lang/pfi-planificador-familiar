@@ -34,6 +34,11 @@ export type ProductoDespensa = {
   unidad: string;
   frecuencia: FrecuenciaDespensa;
   tipo: TipoProductoDespensa;
+  ultimaCompraTiendaId: string | null;
+  ultimaCompraTienda: string | null;
+  ultimoProductoComprado: string | null;
+  ultimoPrecioCompra: number | null;
+  ultimaCompraEn: string | null;
   actualizado: string;
 };
 
@@ -115,6 +120,27 @@ function normalizarProductoGuardado(
       producto.tipo === 'perecedero'
         ? 'perecedero'
         : 'despensa',
+    ultimaCompraTiendaId:
+      typeof producto.ultimaCompraTiendaId === 'string'
+        ? producto.ultimaCompraTiendaId
+        : null,
+    ultimaCompraTienda:
+      typeof producto.ultimaCompraTienda === 'string'
+        ? producto.ultimaCompraTienda
+        : null,
+    ultimoProductoComprado:
+      typeof producto.ultimoProductoComprado === 'string'
+        ? producto.ultimoProductoComprado
+        : null,
+    ultimoPrecioCompra:
+      typeof producto.ultimoPrecioCompra === 'number' &&
+      Number.isFinite(producto.ultimoPrecioCompra)
+        ? Math.max(0, producto.ultimoPrecioCompra)
+        : null,
+    ultimaCompraEn:
+      typeof producto.ultimaCompraEn === 'string'
+        ? producto.ultimaCompraEn
+        : null,
     actualizado:
       typeof producto.actualizado === 'string'
         ? producto.actualizado
@@ -291,6 +317,11 @@ function datosProductoDespensaDesdeCatalogo(
     tipo: esPerecedero
       ? 'perecedero'
       : 'despensa',
+    ultimaCompraTiendaId: null,
+    ultimaCompraTienda: null,
+    ultimoProductoComprado: null,
+    ultimoPrecioCompra: null,
+    ultimaCompraEn: null,
   };
 }
 
@@ -410,6 +441,27 @@ export function actualizarStockProductoDespensa(
   const productos = cargarDespensa();
   guardarDespensa(productos);
   return cargarDespensa();
+}
+
+export function registrarUltimaCompraDespensa(
+  productoId: string,
+  compra: {
+    tiendaId: string;
+    tiendaNombre: string;
+    productoNombre: string;
+    precio: number;
+  },
+): ProductoDespensa[] {
+  const producto = buscarProductoDespensa(productoId);
+  if (!producto) return cargarDespensa();
+
+  return actualizarProductoDespensa(producto.id, {
+    ultimaCompraTiendaId: compra.tiendaId,
+    ultimaCompraTienda: compra.tiendaNombre,
+    ultimoProductoComprado: compra.productoNombre,
+    ultimoPrecioCompra: Math.max(0, compra.precio),
+    ultimaCompraEn: new Date().toISOString(),
+  });
 }
 
 export function eliminarProductoDespensa(

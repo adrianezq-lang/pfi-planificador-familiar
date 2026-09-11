@@ -1,6 +1,18 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.26.
+Versión 0.9.27.
+
+La v0.9.27 convierte **Compra** en una comparación directa: cada producto
+muestra en la misma fila los precios de todas las tiendas, resalta la opción
+más barata y distribuye automáticamente la lista por supermercado. Al guardar
+la compra, PFI crea el producto en la despensa cuando hace falta y conserva la
+tienda, el producto exacto, el precio y su equivalencia real de inventario.
+
+El recetario incorpora búsqueda, botones por categoría, filtro **Sin horno** y
+fichas desplegables. Se añaden quince preparaciones familiares de sartén,
+guiso, wok y airfryer, con más vainas, verduras, pescado y pimiento. El menú
+reduce el horno a la pizza familiar del viernes y mantiene las cenas sin arroz,
+pasta ni platos equivalentes.
 
 La v0.9.26 conecta **Eroski** y **Carrefour** al editor del comparador: se
 busca en su catálogo, se elige una vez el producto exacto y PFI puede renovar
@@ -105,9 +117,11 @@ npm run actualizar-eroski
 
 Los precios dejan de intervenir cuando superan la vigencia configurada sin
 poder renovarse.
-El resultado ofrece tres criterios: una sola tienda, ahorro absoluto producto a
-producto y compra práctica con un máximo de establecimientos y un ahorro mínimo
-para justificar otra parada. La configuración y los precios forman parte de la
+Cada producto aparece en una fila con una tarjeta por tienda: importe total,
+cantidad necesaria, envase exacto, precio del envase y vigencia. PFI marca la
+mejor opción y la aplica inmediatamente a la lista, que queda separada por
+supermercado con subtotales. También se puede limitar el número de paradas o
+forzar una sola tienda. La configuración y los precios forman parte de la
 sincronización familiar y de las copias JSON, pero las credenciales de sesión no.
 
 ## Flujo principal
@@ -115,7 +129,7 @@ sincronización familiar y de las copias JSON, pero las credenciales de sesión 
 1. En **Recetas** o **Compra**, pulsa **Asociar** para elegir el producto exacto sin salir de la pantalla. También puedes gestionar asociaciones desde **Catálogo**.
 2. En **Despensa**, configura el stock objetivo, la frecuencia y el tipo de producto.
 3. En **Compra**, alterna entre la compra semanal y la mensual desde cualquier semana del menú.
-4. Marca los productos comprados y pulsa **Guardar en inventario** para registrar las entradas.
+4. Revisa la tienda elegida para cada producto, marca lo comprado y pulsa **Guardar en despensa**. PFI registra el producto aunque todavía no existiera en la despensa.
 5. El panel **Inicio** muestra el menú del día, lo que hay que preparar, las próximas reposiciones y los presupuestos correspondientes a la semana activa. Sus tarjetas abren directamente la pestaña correspondiente.
 
 Consulta `CHANGELOG.md` para ver todos los cambios de la v0.9.9.

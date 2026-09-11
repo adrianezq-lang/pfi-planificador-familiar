@@ -25,9 +25,9 @@ const cenasInformales = new Set([
   'Hamburguesas',
   'Perritos calientes',
   'Kebab',
-  'Nachos gratinados con carne',
+  'Nachos con carne y pimiento a la sartén',
   'Tortilla de patata con ensalada',
-  'Pollo especiado al horno con patatas',
+  'Pollo especiado en airfryer con vainas',
 ]);
 let aparicionesFajitas = 0;
 let aparicionesKebab = 0;
@@ -97,7 +97,15 @@ const textoMenu = menuMensualInicial
 assert.match(textoMenu, /vainas con patata/);
 assert.match(textoMenu, /vainas con tomate/);
 assert.match(textoMenu, /menestra de verduras/);
-assert.match(textoMenu, /verduras al horno/);
+assert.match(textoMenu, /wok de verduras/);
+assert.equal(
+  menuMensualInicial
+    .flatMap((semana) => semana.menu)
+    .flatMap((dia) => [...dia.comida, ...dia.cena])
+    .some((plato) => !normalizar(plato).includes('pizza') && /horno|papillote|gratinad/.test(normalizar(plato))),
+  false,
+  'El horno debe quedar reservado a la pizza familiar',
+);
 for (const prohibido of ['brócoli', 'maíz', 'champiñón', 'merluza']) {
   assert.equal(textoMenu.includes(prohibido), false, `Aparece un alimento excluido: ${prohibido}`);
 }

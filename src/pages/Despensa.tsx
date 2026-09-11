@@ -406,6 +406,17 @@ function ProductoCabecera({
                 currency: 'EUR',
               })}
         </span>
+        {producto.ultimaCompraTienda && producto.ultimoProductoComprado && (
+          <span className="pantry-last-purchase">
+            Última compra: {producto.ultimaCompraTienda} · {producto.ultimoProductoComprado}
+            {producto.ultimoPrecioCompra !== null
+              ? ` · ${producto.ultimoPrecioCompra.toLocaleString('es-ES', {
+                  style: 'currency',
+                  currency: 'EUR',
+                })}`
+              : ''}
+          </span>
+        )}
         <button type="button" className="pantry-edit-link" onClick={onAbrir}>
           Editar producto
         </button>

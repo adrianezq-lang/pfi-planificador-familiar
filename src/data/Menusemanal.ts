@@ -23,7 +23,7 @@ export type DiaMenu = {
 
 export const menuSemanal: DiaMenu[] = [
   { dia: 'Lunes', comida: ['Lentejas'], cena: ['Lomo a la plancha con ensalada'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: 'Lubina' },
-  { dia: 'Martes', comida: ['Lubina al horno con patatas'], cena: ['Vainas con patata y huevo'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: 'Pasta + huevos' },
+  { dia: 'Martes', comida: ['Lubina a la sartén con patatas y pimiento'], cena: ['Vainas con patata y huevo'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: 'Pasta + huevos' },
   { dia: 'Miércoles', comida: ['Ensalada de pasta'], cena: ['Fajitas', 'Nachos', 'Guacamole'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: 'Ternera' },
   { dia: 'Jueves', comida: ['Lentejas'], cena: ['Filete de ternera con patatas'], postreComida: 'Yogur', postreCena: 'Fruta', preparar: 'Pizza' },
   { dia: 'Viernes', comida: ['Macarrones boloñesa'], cena: ['Pizza jamón y queso', 'Pizza BBQ'], postreComida: 'Fruta', postreCena: 'Yogur', preparar: 'Salmón' },

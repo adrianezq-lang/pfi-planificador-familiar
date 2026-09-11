@@ -42,6 +42,24 @@ const ENSALADAS_PASTA = [
   'Ensalada de pasta con atún y huevo',
 ] as const;
 
+const SUSTITUCIONES_HORNO: Record<string, string> = {
+  'Lubina al horno con patatas': 'Lubina a la sartén con patatas y pimiento',
+  'Dorada al horno con calabacín': 'Dorada en airfryer con calabacín y pimiento',
+  'Pollo al horno con patatas': 'Pollo guisado con patatas y pimiento',
+  'Pollo al horno + patatas': 'Pollo guisado con patatas y pimiento',
+  'Pollo al horno': 'Pollo guisado con patatas y pimiento',
+  'Salmón al horno con verduras': 'Salmón a la plancha con pisto suave',
+  'Bacalao al horno con patatas': 'Bacalao a la sartén con patatas y pimiento',
+  'Pavo al horno con verduras': 'Pavo salteado con verduras',
+  'Lubina en papillote con verduras': 'Lubina a la plancha con verduras salteadas',
+  'Verduras al horno con huevo': 'Wok de verduras con huevo',
+  'Verduras al horno': 'Wok de verduras con huevo',
+  'Lomo al horno con verduras': 'Lomo al ajillo con verduras',
+  'Dorada al horno con verduras': 'Dorada a la sartén con verduras',
+  'Pollo especiado al horno con patatas': 'Pollo especiado en airfryer con vainas',
+  'Nachos gratinados con carne': 'Nachos con carne y pimiento a la sartén',
+};
+
 type MesPlan = { mes: string; semanas: SemanaMenu[] };
 
 function claveMes(fecha = new Date()): string {
@@ -139,11 +157,32 @@ function aplicarPostresDelRecetario(semanas: SemanaMenu[]): SemanaMenu[] {
   );
 }
 
+/** Sustituye solo los platos de horno conocidos; conserva el resto de ediciones. */
+export function aplicarCoccionesVariadasSinHorno(semanas: SemanaMenu[]): SemanaMenu[] {
+  let cambios = false;
+  const sustituir = (platos: string[]) => platos.map((plato) => {
+    const sustituto = SUSTITUCIONES_HORNO[plato];
+    if (!sustituto) return plato;
+    cambios = true;
+    return sustituto;
+  });
+  const resultado = semanas.map((semana) => ({
+    ...semana,
+    menu: semana.menu.map((dia) => ({
+      ...dia,
+      comida: sustituir(dia.comida),
+      cena: sustituir(dia.cena),
+    })),
+  }));
+  return cambios ? resultado : semanas;
+}
+
 function aplicarReglasMensuales(
   mes: string,
   semanas: SemanaMenu[],
 ): SemanaMenu[] {
-  const estacionales = aplicarPreferenciaEnsaladaPasta(mes, semanas);
+  const conCoccionesVariadas = aplicarCoccionesVariadasSinHorno(semanas);
+  const estacionales = aplicarPreferenciaEnsaladaPasta(mes, conCoccionesVariadas);
   const conPastasVariadas = aplicarVariedadPastas(estacionales, true);
   const conCenasLigeras = aplicarCenasSinCerealesPrincipales(conPastasVariadas);
   const sinGarbanzosFritosRepetidos = aplicarReglaGarbanzosFritos(conCenasLigeras);

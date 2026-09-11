@@ -58,8 +58,12 @@ export type OpcionPrecioComparador = {
   tiendaNombre: string;
   productoNombre: string;
   precioEnvase: number;
+  contenidoCantidad: number;
+  contenidoUnidad: UnidadOfertaComparador;
   envases: number;
   coste: number;
+  /** Cantidad equivalente en envases del producto canónico de la despensa. */
+  equivalenciaInventarioEnvases: number;
   alPeso: boolean;
   cantidadAlPeso: number | null;
   unidadAlPeso: UnidadOfertaComparador | null;
@@ -530,6 +534,19 @@ function necesidadesPendientes(linea: LineaCompra) {
   }));
 }
 
+function envasesCanonicosPendientes(linea: LineaCompra): number {
+  const exactos = linea.envasesExactos ?? linea.envases;
+  const explicacion = linea.explicacionCantidad;
+  return explicacion
+    ? Math.max(0, explicacion.objetivoEnvases - explicacion.stockAntesEnvases)
+    : exactos;
+}
+
+function redondearInventario(valor: number): number {
+  if (!Number.isFinite(valor) || valor <= 0) return 0;
+  return Math.round(valor * 10_000) / 10_000;
+}
+
 function antiguedadDias(fecha: string, ahora: Date): number {
   const fechaMs = new Date(`${fecha}T12:00:00`).getTime();
   if (Number.isNaN(fechaMs)) return Number.POSITIVE_INFINITY;
@@ -542,13 +559,17 @@ function opcionMercadona(
 ): OpcionPrecioComparador | null {
   const producto = linea.producto;
   if (!producto || producto.precio === null || linea.envases <= 0) return null;
+  const contenido = sugerirContenidoOferta(linea);
   return {
     tiendaId: tienda.id,
     tiendaNombre: tienda.nombre,
     productoNombre: producto.nombre,
     precioEnvase: producto.precio,
+    contenidoCantidad: contenido.cantidad,
+    contenidoUnidad: contenido.unidad,
     envases: linea.envases,
     coste: Math.round(linea.envases * producto.precio * 100) / 100,
+    equivalenciaInventarioEnvases: linea.envases,
     alPeso: false,
     cantidadAlPeso: null,
     unidadAlPeso: null,
@@ -572,13 +593,22 @@ function opcionDesdeOferta(
   );
   const alPeso = oferta.modoVenta === 'peso';
   const multiplicadorPrecio = alPeso ? calculo.envasesExactos : calculo.envases;
+  const canonicosPendientes = envasesCanonicosPendientes(linea);
+  const factorExceso = calculo.envasesExactos > 0
+    ? multiplicadorPrecio / calculo.envasesExactos
+    : 1;
   return {
     tiendaId: tienda.id,
     tiendaNombre: tienda.nombre,
     productoNombre: oferta.nombreProducto,
     precioEnvase: oferta.precio,
+    contenidoCantidad: oferta.cantidad,
+    contenidoUnidad: oferta.unidad,
     envases: multiplicadorPrecio,
     coste: Math.round(multiplicadorPrecio * oferta.precio * 100) / 100,
+    equivalenciaInventarioEnvases: redondearInventario(
+      canonicosPendientes * factorExceso,
+    ),
     alPeso,
     cantidadAlPeso: alPeso
       ? Math.round(multiplicadorPrecio * oferta.cantidad * 1000) / 1000
@@ -710,9 +740,12 @@ export function compararPreciosCompra(
       completo: plan.completo,
     };
   });
-  const mejorResumenUnaTienda = porTienda
-    .filter((resumen) => resumen.completo)
-    .sort((a, b) => a.total - b.total)[0];
+  const mejorResumenUnaTienda = [...porTienda]
+    .sort((a, b) =>
+      Number(b.completo) - Number(a.completo) ||
+      b.cubiertos - a.cubiertos ||
+      a.total - b.total,
+    )[0];
   const unaTienda = mejorResumenUnaTienda
     ? crearPlan(comparaciones, new Set([mejorResumenUnaTienda.tienda.id]))
     : null;
@@ -732,10 +765,10 @@ export function compararPreciosCompra(
       a.tiendas.length - b.tiendas.length,
   )[0];
   const practica = planesPracticos[0] ?? mejorParcial ?? crearPlan(comparaciones, new Set());
-  const ahorroPractico = unaTienda && practica.completo
+  const ahorroPractico = unaTienda?.completo && practica.completo
     ? unaTienda.total - practica.total
     : Number.POSITIVE_INFINITY;
-  const recomendada = unaTienda && ahorroPractico < configuracion.ahorroMinimo
+  const recomendada = unaTienda?.completo && ahorroPractico < configuracion.ahorroMinimo
     ? unaTienda
     : practica;
   const ofertasCaducadas = comparaciones.reduce(

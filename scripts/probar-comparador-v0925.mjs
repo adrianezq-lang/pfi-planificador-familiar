@@ -237,6 +237,11 @@ const opcionCarrefour = resultadoStock.lineas[0].opciones.find(
 );
 assert.equal(opcionCarrefour?.envases, 2, 'El comparador no descontó el stock aplicado.');
 assert.equal(opcionCarrefour?.coste, 0.9);
+assert.equal(
+  opcionCarrefour?.equivalenciaInventarioEnvases,
+  1,
+  'El inventario debe recibir el equivalente del producto canónico, no dos medios paquetes.',
+);
 
 const perasSinPrecio = linea({
   producto: producto('peras-1', 'Peras', null, 'Bolsa 1 kg', 1, 'kg'),
@@ -336,6 +341,7 @@ assert.equal(opcionAlPeso?.alPeso, true);
 assert.equal(opcionAlPeso?.cantidadAlPeso, 1.5);
 assert.equal(opcionAlPeso?.unidadAlPeso, 'kg');
 assert.equal(opcionAlPeso?.coste, 13.5);
+assert.equal(opcionAlPeso?.equivalenciaInventarioEnvases, 1.5);
 
 const datos = recopilarDatosPFI();
 assert.ok(datos[CLAVE_CONFIGURACION_COMPARADOR]);
@@ -343,7 +349,7 @@ assert.ok(datos[CLAVE_OFERTAS_COMPARADOR]);
 localStorage.setItem('pfi-sync-sesion-v1', '{"access_token":"no-exportar"}');
 assert.equal(recopilarDatosPFI()['pfi-sync-sesion-v1'], undefined);
 const copia = crearCopiaCompleta();
-assert.equal(copia.versionApp, '0.9.26');
+assert.equal(copia.versionApp, '0.9.27');
 assert.equal(copia.resumen.preciosComparador, 6);
 assert.equal(obtenerEstadoSaludDatos().resumen.preciosComparador, 6);
 

@@ -301,7 +301,7 @@ function cabeceras(tiendaId, acepta) {
   return {
     Accept: acepta,
     'Accept-Language': 'es-ES,es;q=0.9',
-    'User-Agent': `PFI/0.9.26 (${tiendaId}; comparador familiar)`,
+    'User-Agent': `PFI/0.9.27 (${tiendaId}; comparador familiar)`,
   };
 }
 

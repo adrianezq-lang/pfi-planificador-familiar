@@ -1,3 +1,14 @@
+# v0.9.27 — Comparador directo y recetario más práctico
+
+- Cada producto muestra en una sola fila el precio total, la cantidad y el envase exacto disponible en Mercadona, Carrefour, Eroski, Lidl y comercios del barrio.
+- La opción más barata queda resaltada y seleccionada automáticamente; cambiar el criterio redistribuye la lista de compra al instante.
+- La lista se organiza por supermercado con número de productos y subtotal, y separa claramente cualquier artículo todavía sin precio.
+- Guardar lo comprado crea automáticamente los productos que falten en la despensa y conserva la tienda, la referencia exacta, el precio y la equivalencia real del envase.
+- El recetario incorpora búsqueda, botones de categoría con contadores, filtro «Sin horno» y fichas compactas con ingredientes desplegables.
+- Se añaden quince recetas familiares de sartén, guiso, wok y airfryer, con más vainas, verduras, pescado y pimiento.
+- Los menús nuevos y guardados sustituyen las preparaciones de horno por alternativas variadas; solo se conserva la pizza familiar del viernes.
+- Las cenas continúan sin arroz, pasta, fideuá, cuscús, quinoa ni platos equivalentes.
+
 # v0.9.26 — Eroski conectado y fines de semana flexibles
 
 - Eroski y Carrefour permiten buscar productos reales de catálogo desde Compra, elegir el envase exacto y renovar después su precio sin volver a escribirlo.

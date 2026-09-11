@@ -1,6 +1,7 @@
 import { recetasVariedadV0922 } from '../data/RecetasV0922';
 import { recetasVariedadV0923 } from '../data/RecetasV0923';
 import { recetasVariedadV0924 } from '../data/RecetasV0924';
+import { recetasVariedadV0927 } from '../data/RecetasV0927';
 import {
   asociarProductoAIngrediente,
   obtenerProductoIdAsociado,
@@ -49,6 +50,7 @@ export function aplicarMigracionV0923(): void {
       ...recetasVariedadV0922,
       ...recetasVariedadV0923,
       ...recetasVariedadV0924,
+      ...recetasVariedadV0927,
     ]
       .filter((receta) => !nombres.has(normalizar(receta.nombre)));
 

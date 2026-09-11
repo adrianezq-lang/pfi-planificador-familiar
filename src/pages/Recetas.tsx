@@ -67,11 +67,14 @@ const CATEGORIAS_SUGERIDAS = [
   'Arroz',
   'Carne',
   'Cremas',
+  'Ensaladas',
+  'Huevos',
   'Legumbres',
   'Pasta',
   'Pescado',
   'Pizza',
   'Pollo',
+  'Verduras',
   'Postres',
   'Otros',
 ];
@@ -158,6 +161,19 @@ function calcularResumenCosteReceta(
   return { total, completos, estimado };
 }
 
+function textoNormalizado(texto: string): string {
+  return texto
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+function recetaUsaHorno(receta: Receta): boolean {
+  return /horno|hornead|gratinad|papillote|pizza/.test(
+    textoNormalizado(`${receta.nombre} ${receta.categoria}`),
+  );
+}
+
 function Recetas({ modo = 'platos' }: RecetasProps) {
   const { recetas, guardar, restaurar } = useRecetas();
   const esModoPostres = modo === 'postres';
@@ -177,6 +193,50 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
     useState<ProductoMercadonaCatalogo | null>(null);
   const [selectorEditorIndice, setSelectorEditorIndice] =
     useState<number | null>(null);
+  const [consultaRecetas, setConsultaRecetas] = useState('');
+  const [categoriaActiva, setCategoriaActiva] = useState('Todas');
+  const [soloSinHorno, setSoloSinHorno] = useState(false);
+  const [recetasAbiertas, setRecetasAbiertas] = useState<Set<string>>(
+    () => new Set(),
+  );
+
+  const categorias = useMemo(
+    () => Array.from(new Set(recetas.map((receta) => receta.categoria)))
+      .sort((a, b) => a.localeCompare(b, 'es')),
+    [recetas],
+  );
+  const conteoCategorias = useMemo(() => {
+    const conteo = new Map<string, number>();
+    recetas.forEach((receta) => {
+      conteo.set(receta.categoria, (conteo.get(receta.categoria) ?? 0) + 1);
+    });
+    return conteo;
+  }, [recetas]);
+  const categoriaAplicada = categoriaActiva === 'Todas' || categorias.includes(categoriaActiva)
+    ? categoriaActiva
+    : 'Todas';
+  const recetasVisibles = useMemo(() => {
+    const consulta = textoNormalizado(consultaRecetas.trim());
+    return recetas.filter((receta) => {
+      if (categoriaAplicada !== 'Todas' && receta.categoria !== categoriaAplicada) return false;
+      if (soloSinHorno && recetaUsaHorno(receta)) return false;
+      if (!consulta) return true;
+      return textoNormalizado([
+        receta.nombre,
+        receta.categoria,
+        ...receta.ingredientes.map((ingrediente) => ingrediente.nombre),
+      ].join(' ')).includes(consulta);
+    });
+  }, [categoriaAplicada, consultaRecetas, recetas, soloSinHorno]);
+
+  const alternarRecetaAbierta = (nombre: string) => {
+    setRecetasAbiertas((actuales) => {
+      const siguientes = new Set(actuales);
+      if (siguientes.has(nombre)) siguientes.delete(nombre);
+      else siguientes.add(nombre);
+      return siguientes;
+    });
+  };
 
   const nombresIngredientes = useMemo(() => {
     return Array.from(
@@ -732,6 +792,50 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
         )}
       </section>
 
+      <Card className="recipes-browser">
+        <div className="recipes-browser__top">
+          <label className="recipes-search">
+            <span>Buscar receta o ingrediente</span>
+            <input
+              type="search"
+              value={consultaRecetas}
+              onChange={(evento) => setConsultaRecetas(evento.target.value)}
+              placeholder={esModoPostres ? 'Ej. yogur o manzana' : 'Ej. vainas, salmón o guiso'}
+            />
+          </label>
+          {!esModoPostres && (
+            <button
+              type="button"
+              className="recipes-oven-filter"
+              aria-pressed={soloSinHorno}
+              onClick={() => setSoloSinHorno((activo) => !activo)}
+            >
+              🍳 Sin horno
+            </button>
+          )}
+        </div>
+        <div className="recipes-category-buttons" aria-label="Filtrar por categoría">
+          {['Todas', ...categorias].map((categoria) => (
+            <button
+              type="button"
+              key={categoria}
+              aria-pressed={categoriaAplicada === categoria}
+              onClick={() => setCategoriaActiva(categoria)}
+            >
+              {categoria}
+              <span>
+                {categoria === 'Todas'
+                  ? recetas.length
+                  : conteoCategorias.get(categoria) ?? 0}
+              </span>
+            </button>
+          ))}
+        </div>
+        <p className="recipes-browser__count" aria-live="polite">
+          {recetasVisibles.length} {recetasVisibles.length === 1 ? 'receta' : 'recetas'} visibles
+        </p>
+      </Card>
+
       {cargandoProductos && (
         <Card>
           <p style={estiloMensaje}>
@@ -752,14 +856,15 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
       )}
 
       <section style={estiloCuadricula}>
-        {recetas.map((receta) => {
+        {recetasVisibles.map((receta) => {
           const costeReceta = calcularResumenCosteReceta(
             receta,
             productosPorIngrediente,
           );
+          const abierta = recetasAbiertas.has(receta.nombre);
 
           return (
-          <Card key={receta.nombre} style={{ marginBottom: 0 }}>
+          <Card key={receta.nombre} className="recipe-library-card" style={{ marginBottom: 0 }}>
             <div style={estiloCabeceraReceta}>
               <div>
                 <Title
@@ -806,7 +911,18 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
               </div>
             </div>
 
-            <div style={estiloListaIngredientes}>
+            <button
+              type="button"
+              className="recipe-library-card__toggle"
+              aria-expanded={abierta}
+              onClick={() => alternarRecetaAbierta(receta.nombre)}
+            >
+              <span>{abierta ? 'Ocultar ingredientes' : 'Ver ingredientes'}</span>
+              <strong>{receta.ingredientes.length}</strong>
+              <span aria-hidden="true">{abierta ? '−' : '+'}</span>
+            </button>
+
+            {abierta && <div style={estiloListaIngredientes}>
               {receta.ingredientes.map((ingrediente, indice) => {
                 const producto =
                   productosPorIngrediente[ingrediente.nombre];
@@ -899,11 +1015,27 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
                   </article>
                 );
               })}
-            </div>
+            </div>}
           </Card>
           );
         })}
       </section>
+
+      {recetasVisibles.length === 0 && (
+        <Card className="recipes-empty-state">
+          <strong>No hay recetas con esos filtros.</strong>
+          <button
+            type="button"
+            onClick={() => {
+              setConsultaRecetas('');
+              setCategoriaActiva('Todas');
+              setSoloSinHorno(false);
+            }}
+          >
+            Ver todas las recetas
+          </button>
+        </Card>
+      )}
 
       <SelectorProductoIngrediente
         ingrediente={ingredienteSelector}
