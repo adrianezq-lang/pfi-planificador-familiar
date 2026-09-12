@@ -349,7 +349,7 @@ assert.ok(datos[CLAVE_OFERTAS_COMPARADOR]);
 localStorage.setItem('pfi-sync-sesion-v1', '{"access_token":"no-exportar"}');
 assert.equal(recopilarDatosPFI()['pfi-sync-sesion-v1'], undefined);
 const copia = crearCopiaCompleta();
-assert.equal(copia.versionApp, '0.9.27');
+assert.equal(copia.versionApp, '0.9.28');
 assert.equal(copia.resumen.preciosComparador, 6);
 assert.equal(obtenerEstadoSaludDatos().resumen.preciosComparador, 6);
 

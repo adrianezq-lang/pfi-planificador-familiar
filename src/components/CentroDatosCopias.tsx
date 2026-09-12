@@ -147,7 +147,6 @@ export default function CentroDatosCopias() {
         <div><strong>{estado.resumen.asociaciones}</strong><span>asociaciones</span></div>
         <div><strong>{estado.resumen.productosDespensa}</strong><span>en despensa</span></div>
         <div><strong>{estado.resumen.semanasMenu}</strong><span>semanas</span></div>
-        <div><strong>{estado.resumen.preciosComparador}</strong><span>precios comparados</span></div>
       </div>
 
       <div className="data-center__backup-status">
@@ -199,7 +198,6 @@ export default function CentroDatosCopias() {
             <span>{pendiente.copia.resumen.asociaciones} asociaciones</span>
             <span>{pendiente.copia.resumen.productosDespensa} productos de despensa</span>
             <span>{pendiente.copia.resumen.semanasMenu} semanas</span>
-            <span>{pendiente.copia.resumen.preciosComparador} precios comparados</span>
           </div>
           <div className="backup-preview__buttons">
             <button type="button" onClick={aplicarPendiente}>Restaurar esta copia</button>
@@ -218,7 +216,7 @@ export default function CentroDatosCopias() {
                   <strong>{formatearFecha(copia.creadaEn)}</strong>
                   <span>{copia.motivo}</span>
                   <small>
-                    {copia.resumen.recetas} recetas · {copia.resumen.asociaciones} asociaciones · {copia.resumen.preciosComparador} precios
+                    {copia.resumen.recetas} recetas · {copia.resumen.asociaciones} asociaciones · {copia.resumen.productosDespensa} productos de despensa
                   </small>
                 </div>
                 <button type="button" onClick={() => restaurarAutomatica(copia)}>

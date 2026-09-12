@@ -17,7 +17,7 @@ const botones: BotonNavegacion[] = [
   { id: 'compra', icono: '🛒', texto: 'Compra' },
   { id: 'despensa', icono: '📦', texto: 'Despensa' },
   { id: 'recetas', icono: '📖', texto: 'Recetas' },
-  { id: 'catalogo', icono: '🏪', texto: 'Catálogo' },
+  { id: 'catalogo', icono: '🏪', texto: 'Mercadona' },
   { id: 'perfil', icono: '👤', texto: 'Cuenta' },
 ];
 

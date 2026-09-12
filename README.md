@@ -1,12 +1,11 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.27.
+Versión 0.9.28.
 
-La v0.9.27 convierte **Compra** en una comparación directa: cada producto
-muestra en la misma fila los precios de todas las tiendas, resalta la opción
-más barata y distribuye automáticamente la lista por supermercado. Al guardar
-la compra, PFI crea el producto en la despensa cuando hace falta y conserva la
-tienda, el producto exacto, el precio y su equivalencia real de inventario.
+La v0.9.28 simplifica **Compra**: se retira el comparador de supermercados y la
+lista vuelve a mostrar directamente cada producto con su necesidad, formato,
+cantidad y precio de referencia. Marcar productos y guardarlos en la despensa
+sigue funcionando sin depender de catálogos externos.
 
 El recetario incorpora búsqueda, botones por categoría, filtro **Sin horno** y
 fichas desplegables. Se añaden quince preparaciones familiares de sartén,
@@ -14,22 +13,10 @@ guiso, wok y airfryer, con más vainas, verduras, pescado y pimiento. El menú
 reduce el horno a la pizza familiar del viernes y mantiene las cenas sin arroz,
 pasta ni platos equivalentes.
 
-La v0.9.26 conecta **Eroski** y **Carrefour** al editor del comparador: se
-busca en su catálogo, se elige una vez el producto exacto y PFI puede renovar
-su precio conservando el último valor válido si la fuente no responde. Eroski
-utiliza un índice completo de sus categorías públicas, versionado y renovado a
-diario para no depender de una consulta en vivo desde Vercel. Lidl y los
-comercios del barrio siguen disponibles como respaldo manual.
-
 En **Menú**, el botón **Niños fuera este finde** aplica la excepción a sábado y
 domingo de una vez. El menú no cambia, pero las raciones, la compra y el
 presupuesto descuentan a los dos niños. Además, las cenas evitan arroz, pasta,
 fideuá, cuscús y equivalentes; se conserva la pizza familiar del viernes.
-
-La v0.9.25 incorpora en **Compra** un comparador para Mercadona, Lidl,
-Carrefour, Eroski y comercios del barrio. Iguala formatos, descuenta el stock,
-distingue envases cerrados de venta al peso y propone la combinación más barata
-sin superar el número de paradas elegido.
 
 La v0.9.24 amplía el plan a seis semanas sin repetir preparaciones principales,
 añade vainas, menestra y más cenas de verduras, y conserva todos los platos con
@@ -68,6 +55,7 @@ npm run test:rescate-json
 npm run test:copias
 npm run test:v0925
 npm run test:v0926
+npm run test:v0928
 ```
 
 ## Datos y copias
@@ -96,40 +84,12 @@ Mientras PFI está abierto con `npm run dev`, la pestaña **Catálogo** incluye 
 
 En Windows también puedes hacer doble clic en `ACTUALIZAR_MERCADONA.cmd`. Al terminar, recarga PFI con `Ctrl+F5`. El catálogo guarda la fecha, el código postal y el almacén que Mercadona haya asignado. La actualización sustituye los precios y la disponibilidad del archivo local; no borra asociaciones, favoritos ni datos de despensa guardados en el navegador.
 
-## Comparador de precios
-
-El comparador parte del código postal **48950** y mantiene activas Mercadona,
-Carrefour, Eroski y Lidl. Mercadona usa las asociaciones del catálogo completo
-de PFI. En Eroski y Carrefour se busca desde el propio comparador y se vincula
-el producto exacto; PFI renueva las vinculaciones como máximo una vez al día.
-El catálogo de Eroski se genera desde la paginación pública de sus categorías y
-se actualiza diariamente mediante una tarea automática. Sus precios corresponden
-a la tienda online de referencia y pueden variar al elegir la entrega. Lidl y
-los comercios locales aceptan precios comprobados por la familia. Si Carrefour
-bloquea temporalmente una consulta, el editor mantiene la entrada manual y el
-último precio válido. PFI nunca rellena huecos con cifras estimadas.
-
-Para regenerar el índice de Eroski manualmente:
-
-```bash
-npm run actualizar-eroski
-```
-
-Los precios dejan de intervenir cuando superan la vigencia configurada sin
-poder renovarse.
-Cada producto aparece en una fila con una tarjeta por tienda: importe total,
-cantidad necesaria, envase exacto, precio del envase y vigencia. PFI marca la
-mejor opción y la aplica inmediatamente a la lista, que queda separada por
-supermercado con subtotales. También se puede limitar el número de paradas o
-forzar una sola tienda. La configuración y los precios forman parte de la
-sincronización familiar y de las copias JSON, pero las credenciales de sesión no.
-
 ## Flujo principal
 
 1. En **Recetas** o **Compra**, pulsa **Asociar** para elegir el producto exacto sin salir de la pantalla. También puedes gestionar asociaciones desde **Catálogo**.
 2. En **Despensa**, configura el stock objetivo, la frecuencia y el tipo de producto.
 3. En **Compra**, alterna entre la compra semanal y la mensual desde cualquier semana del menú.
-4. Revisa la tienda elegida para cada producto, marca lo comprado y pulsa **Guardar en despensa**. PFI registra el producto aunque todavía no existiera en la despensa.
+4. Marca lo comprado y pulsa **Guardar en despensa**. PFI registra el producto aunque todavía no existiera en la despensa.
 5. El panel **Inicio** muestra el menú del día, lo que hay que preparar, las próximas reposiciones y los presupuestos correspondientes a la semana activa. Sus tarjetas abren directamente la pestaña correspondiente.
 
 Consulta `CHANGELOG.md` para ver todos los cambios de la v0.9.9.

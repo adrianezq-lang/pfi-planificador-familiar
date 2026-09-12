@@ -1,15 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import ComparadorCompra from '../components/ComparadorCompra';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import type { DiaMenu } from '../data/Menusemanal';
 import type { LineaCompra, ResultadoCompra } from '../motor/compra';
-import {
-  claveProductoComparador,
-  type AsignacionComparador,
-  type OpcionPrecioComparador,
-  type PlanCompraComparada,
-} from '../services/comparadorPrecios';
 import {
   generarCompraMensual,
   generarCompraSemanalProyectada,
@@ -31,22 +24,8 @@ type Props = {
   semanaActiva: number;
 };
 
-type LineaPorTienda = {
-  linea: LineaCompra;
-  asignacion?: AsignacionComparador;
-};
-
-type GrupoCompraTienda = {
-  id: string;
-  nombre: string;
-  total: number;
-  lineas: LineaPorTienda[];
-};
-
 const UMBRAL_CERO = 0.000001;
 const SIN_LINEAS: LineaCompra[] = [];
-const SIN_ASIGNACIONES: AsignacionComparador[] = [];
-const SIN_TIENDAS: string[] = [];
 
 const euros = (valor: number) =>
   valor.toLocaleString('es-ES', {
@@ -66,7 +45,6 @@ export default function CompraPlanificada({
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
   const [mensajeInventario, setMensajeInventario] = useState('');
-  const [planComparado, setPlanComparado] = useState<PlanCompraComparada | null>(null);
   const menuObjetivo = periodo === 'semana' ? menu : menuMes;
   const clavesEstado = useMemo(
     () => crearClavesEstadoCompra(periodo, mesActivo, semanaActiva),
@@ -85,7 +63,6 @@ export default function CompraPlanificada({
     let activo = true;
     setCargando(true);
     setError('');
-    setPlanComparado(null);
 
     const calculo = periodo === 'mes'
       ? generarCompraMensual(menuMes)
@@ -130,19 +107,6 @@ export default function CompraPlanificada({
       ),
     0,
   );
-  const asignacionesComparadas = planComparado?.asignaciones ?? SIN_ASIGNACIONES;
-  const ordenTiendasComparadas = planComparado?.tiendas ?? SIN_TIENDAS;
-  const asignacionPorClave = useMemo(
-    () => new Map(
-      asignacionesComparadas.map((asignacion) => [asignacion.clave, asignacion]),
-    ),
-    [asignacionesComparadas],
-  );
-  const gruposTiendas = useMemo(() => agruparCompraPorTienda(
-    lineas,
-    asignacionPorClave,
-    ordenTiendasComparadas,
-  ), [asignacionPorClave, lineas, ordenTiendasComparadas]);
 
   const cambiar = (linea: LineaCompra) => {
     if (registradosSet.has(linea.clave)) return;
@@ -161,12 +125,7 @@ export default function CompraPlanificada({
     setMensajeInventario('');
   };
 
-  const costeLinea = (linea: LineaCompra) => {
-    const costeComparado = asignacionPorClave.get(
-      claveProductoComparador(linea),
-    )?.opcion.coste;
-    return planComparado ? costeComparado ?? 0 : linea.subtotal ?? 0;
-  };
+  const costeLinea = (linea: LineaCompra) => linea.subtotal ?? 0;
   const total = lineas.reduce((suma, linea) => suma + costeLinea(linea), 0);
   const pendiente = lineas.reduce(
     (suma, linea) =>
@@ -187,7 +146,6 @@ export default function CompraPlanificada({
       marcados,
       registrados,
       observaciones,
-      asignacionesComparadas,
     );
     setRegistrados(registro.clavesRegistradas);
     guardarClavesCompra(clavesEstado.registrados, registro.clavesRegistradas);
@@ -284,7 +242,7 @@ export default function CompraPlanificada({
                       ? 'Los productos ya están en la despensa y protegidos contra registros duplicados.'
                       : marcadosSinInventario > 0
                         ? `${marcadosSinInventario} necesitan estar vinculados a la despensa antes de guardarlos.`
-                      : 'Marca cada producto cuando lo metas en el carro; se guardará con la tienda elegida.'}
+                      : 'Marca cada producto cuando lo metas en el carro y después guárdalo en la despensa.'}
                 </span>
               </div>
               <div>
@@ -314,8 +272,6 @@ export default function CompraPlanificada({
             )}
           </Card>
 
-          <ComparadorCompra lineas={lineas} onPlanChange={setPlanComparado} />
-
           {menuObjetivo.length === 0 && (
             <Card>
               <Title style={{ color: '#4f6f52' }}>🏖️ Semana fuera de casa</Title>
@@ -325,44 +281,38 @@ export default function CompraPlanificada({
             </Card>
           )}
 
-          {gruposTiendas.length > 0 && (
-            <section className="compra-tiendas-lista" aria-labelledby="titulo-listas-tiendas">
+          {lineas.length > 0 && (
+            <section className="compra-tiendas-lista" aria-labelledby="titulo-lista-compra">
               <div className="compra-tiendas-lista__heading">
                 <div>
                   <span>LISTA FINAL</span>
-                  <h2 id="titulo-listas-tiendas" className="compra-tiendas-lista__title">
-                    Compra separada por supermercados
+                  <h2 id="titulo-lista-compra" className="compra-tiendas-lista__title">
+                    Tu lista de la compra
                   </h2>
                 </div>
-                <small>Marca aquí lo que vas metiendo en el carro.</small>
+                <small>Marca aquí cada producto cuando lo metas en el carro.</small>
               </div>
-              <div className="compra-tiendas-lista__grid">
-                {gruposTiendas.map((grupo) => (
-                  <Card key={grupo.id} className="compra-tienda-lista-card">
-                    <header className="compra-tienda-lista-card__header">
-                      <div>
-                        <span>{grupo.id === 'sin-precio' ? 'POR COMPLETAR' : 'COMPRAR EN'}</span>
-                        <h3>{iconoTiendaCompra(grupo.id)} {grupo.nombre}</h3>
-                      </div>
-                      <div>
-                        <strong>{euros(grupo.total)}</strong>
-                        <small>{grupo.lineas.length} producto{grupo.lineas.length === 1 ? '' : 's'}</small>
-                      </div>
-                    </header>
-                    {grupo.lineas.map(({ linea, asignacion }) => (
-                      <LineaProducto
-                        key={linea.clave}
-                        linea={linea}
-                        asignacion={asignacion}
-                        marcada={marcadosSet.has(linea.clave)}
-                        registrada={registradosSet.has(linea.clave)}
-                        comparacionAplicada={planComparado !== null}
-                        cambiar={() => cambiar(linea)}
-                      />
-                    ))}
-                  </Card>
+              <Card className="compra-tienda-lista-card">
+                <header className="compra-tienda-lista-card__header">
+                  <div>
+                    <span>{periodo === 'semana' ? 'COMPRA SEMANAL' : 'COMPRA MENSUAL'}</span>
+                    <h3>🛒 Todo lo que necesitas</h3>
+                  </div>
+                  <div>
+                    <strong>{euros(total)}</strong>
+                    <small>{lineas.length} producto{lineas.length === 1 ? '' : 's'}</small>
+                  </div>
+                </header>
+                {lineas.map((linea) => (
+                  <LineaProducto
+                    key={linea.clave}
+                    linea={linea}
+                    marcada={marcadosSet.has(linea.clave)}
+                    registrada={registradosSet.has(linea.clave)}
+                    cambiar={() => cambiar(linea)}
+                  />
                 ))}
-              </div>
+              </Card>
             </section>
           )}
 
@@ -388,66 +338,20 @@ export default function CompraPlanificada({
   );
 }
 
-function agruparCompraPorTienda(
-  lineas: LineaCompra[],
-  asignacionPorClave: Map<string, AsignacionComparador>,
-  ordenTiendas: string[],
-): GrupoCompraTienda[] {
-  const grupos = new Map<string, GrupoCompraTienda>();
-
-  lineas.forEach((linea) => {
-    const asignacion = asignacionPorClave.get(claveProductoComparador(linea));
-    const id = asignacion?.opcion.tiendaId ?? 'sin-precio';
-    const nombre = asignacion?.opcion.tiendaNombre ?? 'Sin precio asignado';
-    const grupo = grupos.get(id) ?? { id, nombre, total: 0, lineas: [] };
-    grupo.total += asignacion?.opcion.coste ?? 0;
-    grupo.lineas.push({ linea, asignacion });
-    grupos.set(id, grupo);
-  });
-
-  const posicion = new Map(ordenTiendas.map((id, indice) => [id, indice]));
-  return Array.from(grupos.values())
-    .map((grupo) => ({ ...grupo, total: Math.round(grupo.total * 100) / 100 }))
-    .sort((a, b) =>
-      (posicion.get(a.id) ?? Number.MAX_SAFE_INTEGER) -
-      (posicion.get(b.id) ?? Number.MAX_SAFE_INTEGER),
-    );
-}
-
-function iconoTiendaCompra(tiendaId: string): string {
-  if (tiendaId.startsWith('local-')) return '🏬';
-  if (tiendaId === 'sin-precio') return '⚠️';
-  return '🛒';
-}
-
-function cantidadCompraComparada(opcion: OpcionPrecioComparador): string {
-  if (opcion.alPeso && opcion.cantidadAlPeso && opcion.unidadAlPeso) {
-    return `${opcion.cantidadAlPeso.toLocaleString('es-ES', {
-      maximumFractionDigits: 3,
-    })} ${opcion.unidadAlPeso} al peso`;
-  }
-  return `${opcion.envases.toLocaleString('es-ES')} envase${opcion.envases === 1 ? '' : 's'}`;
-}
-
 function LineaProducto({
   linea,
-  asignacion,
   marcada,
   registrada,
-  comparacionAplicada,
   cambiar,
 }: {
   linea: LineaCompra;
-  asignacion?: AsignacionComparador;
   marcada: boolean;
   registrada: boolean;
-  comparacionAplicada: boolean;
   cambiar: () => void;
 }) {
   const identificador = `compra-${linea.clave.replace(/[^a-zA-Z0-9_-]/g, '-')}`;
   const sobrante = linea.explicacionCantidad?.sobranteDespuesEnvases ?? 0;
-  const opcion = asignacion?.opcion;
-  const nombreProducto = opcion?.productoNombre ?? nombreLinea(linea);
+  const nombreProducto = nombreLinea(linea);
 
   return (
     <div className="compra-producto-linea">
@@ -470,36 +374,13 @@ function LineaProducto({
         >
           {nombreProducto}
         </label>
-        {opcion && nombreProducto !== nombreLinea(linea) && (
-          <small className="compra-producto-equivalencia">
-            Para {nombreLinea(linea)} · elegido por mejor precio
-          </small>
-        )}
         {registrada && (
           <small className="compra-en-inventario">✓ Guardado en despensa</small>
         )}
         <small className="compra-necesidad">
           Necesitas: {resumenNecesidades(linea)}
         </small>
-        {opcion ? (
-          <>
-            <small className="compra-formato">
-              Formato: {opcion.contenidoCantidad.toLocaleString('es-ES', { maximumFractionDigits: 3 })} {opcion.contenidoUnidad}
-            </small>
-            <strong className="compra-cantidad">
-              Comprar: {cantidadCompraComparada(opcion)}
-            </strong>
-            <small className="compra-tienda-seleccionada">
-              {opcion.tiendaNombre} · {euros(opcion.precioEnvase)} por {opcion.alPeso
-                ? `${opcion.contenidoCantidad.toLocaleString('es-ES', { maximumFractionDigits: 3 })} ${opcion.contenidoUnidad}`
-                : 'envase'}
-            </small>
-          </>
-        ) : comparacionAplicada ? (
-          <small className="compra-sin-producto">
-            Falta un precio válido para el criterio elegido
-          </small>
-        ) : linea.producto ? (
+        {linea.producto ? (
           <>
             <small className="compra-formato">Formato: {linea.producto.formato}</small>
             <strong className="compra-cantidad">
@@ -517,11 +398,7 @@ function LineaProducto({
         )}
       </div>
       <strong className="compra-producto-precio">
-        {opcion
-          ? euros(opcion.coste)
-          : comparacionAplicada || linea.subtotal === null
-            ? '—'
-            : euros(linea.subtotal)}
+        {linea.subtotal === null ? '—' : euros(linea.subtotal)}
       </strong>
     </div>
   );

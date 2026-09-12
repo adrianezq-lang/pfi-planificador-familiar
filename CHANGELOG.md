@@ -1,3 +1,11 @@
+# v0.9.28 — Compra sencilla y sin comparador
+
+- Se retira el comparador de supermercados y todos sus accesos desde Compra.
+- La lista vuelve a mostrar directamente los productos, cantidades, formatos y precios de referencia calculados por PFI.
+- Los productos comprados se pueden seguir marcando y guardar en la despensa sin depender de precios externos.
+- El acceso al catálogo se identifica ahora claramente como Mercadona para no crear expectativas sobre otras tiendas.
+- Las copias JSON antiguas continúan siendo compatibles, aunque los precios del comparador ya no aparecen en la interfaz.
+
 # v0.9.27 — Comparador directo y recetario más práctico
 
 - Cada producto muestra en una sola fila el precio total, la cantidad y el envase exacto disponible en Mercadona, Carrefour, Eroski, Lidl y comercios del barrio.
