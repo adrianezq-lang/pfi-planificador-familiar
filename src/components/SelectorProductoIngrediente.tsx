@@ -226,10 +226,6 @@ function SelectorProductoIngrediente({
           )}
         </div>
 
-        <p style={estiloAyuda}>
-          Elige el producto correcto del catálogo. Si todavía no está en la despensa, PFI lo añadirá automáticamente.
-        </p>
-
         <div style={estiloResultados}>
           <section style={estiloBloqueResultados}>
             <div style={estiloTituloBloque}>
@@ -358,12 +354,6 @@ const estiloLimpiar = {
   fontFamily: 'inherit',
   fontWeight: 800,
   cursor: 'pointer',
-};
-
-const estiloAyuda = {
-  margin: '9px 20px 12px',
-  color: '#6e786f',
-  fontSize: '13px',
 };
 
 const estiloResultados = {

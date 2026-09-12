@@ -27,7 +27,6 @@ import {
   esRecetaPostre,
 } from '../services/recetas';
 import {
-  calcularRacionesEquivalentes,
   cargarPerfil,
   describirFamilia,
   EVENTO_PERFIL,
@@ -738,16 +737,9 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
   return (
     <main className="page legacy-page" style={estiloPagina}>
       <Card className="page-hero-card page-hero-card--compact recipes-intro-card">
-        <div>
-          <Title style={{ color: '#4f6f52' }}>
-            {esModoPostres ? '🍰 Postres' : '📖 Recetas'}
-          </Title>
-          <p className="recipes-intro-copy" style={estiloIntroduccion}>
-            {esModoPostres
-              ? `Tus postres, con sus ingredientes y cantidades para ${describirFamilia(perfil)}.`
-              : `Platos calculados para ${describirFamilia(perfil)} (${calcularRacionesEquivalentes(perfil).toLocaleString('es-ES')} raciones equivalentes).`}
-          </p>
-        </div>
+        <Title style={{ color: '#4f6f52' }}>
+          {esModoPostres ? '🍰 Postres' : '📖 Recetas'}
+        </Title>
 
         {mensaje && <p style={estiloMensajeExito}>{mensaje}</p>}
       </Card>
@@ -1081,20 +1073,15 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
             style={estiloModalEditor}
           >
             <div style={estiloCabeceraModal}>
-              <div>
-                <Title style={{ color: '#4f6f52', marginBottom: '4px' }}>
-                  {editor.nombreOriginal
-                    ? esModoPostres
-                      ? '✏️ Editar postre'
-                      : '✏️ Editar receta'
-                    : esModoPostres
-                      ? '＋ Nuevo postre'
-                      : '＋ Nueva receta'}
-                </Title>
-                <p style={estiloTextoModal}>
-                  La compra se recalculará con estas cantidades. Los ingredientes automáticos parten de raciones estándar y se afinan con tus correcciones.
-                </p>
-              </div>
+              <Title style={{ color: '#4f6f52', marginBottom: '4px' }}>
+                {editor.nombreOriginal
+                  ? esModoPostres
+                    ? '✏️ Editar postre'
+                    : '✏️ Editar receta'
+                  : esModoPostres
+                    ? '＋ Nuevo postre'
+                    : '＋ Nueva receta'}
+              </Title>
               <button
                 type="button"
                 onClick={() => { setEditor(null); setSelectorEditorIndice(null); }}
@@ -1323,12 +1310,6 @@ const estiloPagina = {
   maxWidth: '1050px',
   margin: '0 auto',
   padding: '20px 20px 110px',
-};
-
-const estiloIntroduccion = {
-  maxWidth: '590px',
-  marginBottom: 0,
-  color: '#667067',
 };
 
 const estiloBotonBase = {
@@ -1608,11 +1589,6 @@ const estiloCabeceraModal = {
   justifyContent: 'space-between',
   gap: '14px',
   marginBottom: '18px',
-};
-
-const estiloTextoModal = {
-  margin: 0,
-  color: '#667067',
 };
 
 const estiloBotonCerrar = {

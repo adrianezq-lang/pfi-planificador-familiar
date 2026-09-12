@@ -1,7 +1,7 @@
 {
   "name": "pfi-planificador-familiar",
   "private": true,
-  "version": "0.9.28",
+  "version": "0.9.29",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -36,7 +36,8 @@
     "test:v0924": "node --experimental-strip-types scripts/probar-v0924.mjs",
     "test:v0925": "node --experimental-strip-types scripts/probar-comparador-v0925.mjs",
     "test:v0926": "node --experimental-strip-types scripts/probar-v0926.mjs",
-    "test:v0928": "node scripts/probar-sin-comparador-v0928.mjs"
+    "test:v0928": "node scripts/probar-sin-comparador-v0928.mjs",
+    "test:v0929": "node --experimental-strip-types scripts/probar-compra-manual-v0929.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.115.0",

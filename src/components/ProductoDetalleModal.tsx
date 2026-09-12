@@ -148,7 +148,6 @@ function ProductoDetalleModal({
             <div className="product-detail-modal__placeholder">🛒</div>
           )}
           <div>
-            <span className="product-detail-modal__eyebrow">PRODUCTO</span>
             <h2>{productoVisible.nombre}</h2>
             <p>{productoVisible.formato}</p>
             <strong>
@@ -191,41 +190,17 @@ function ProductoDetalleModal({
               <div>
                 <span>📦 CONTROL DE COMPRA</span>
                 {editor.tipo === 'perecedero' ? (
-                  <>
-                    <strong>Compra calculada desde el menú</strong>
-                    <p>
-                      Los perecederos no necesitan una reserva fija: PFI calcula lo
-                      necesario para cada semana según las comidas planificadas.
-                    </p>
-                  </>
+                  <strong>Compra calculada desde el menú</strong>
                 ) : editor.frecuencia === 'mensual' ? (
-                  <>
-                    <strong>
-                      {cantidadMensual} {editor.unidad} para el mes
-                    </strong>
-                    <p>
-                      Esta es la cantidad mensual prevista. PFI descuenta el stock
-                      que ya tienes antes de añadirla a la compra de la primera semana.
-                    </p>
-                  </>
+                  <strong>
+                    {cantidadMensual} {editor.unidad} para el mes
+                  </strong>
                 ) : editor.stockMinimo > 0 ? (
-                  <>
-                    <strong>
-                      Mantener al menos {editor.stockMinimo} {editor.unidad}
-                    </strong>
-                    <p>
-                      Esta cantidad es solo una reserva de seguridad. No sustituye
-                      las necesidades calculadas por el menú.
-                    </p>
-                  </>
+                  <strong>
+                    Mantener al menos {editor.stockMinimo} {editor.unidad}
+                  </strong>
                 ) : (
-                  <>
-                    <strong>Sin reserva automática</strong>
-                    <p>
-                      El valor 0 desactiva el mínimo. La compra se basa en el stock
-                      real y en lo que haga falta para el menú.
-                    </p>
-                  </>
+                  <strong>Sin reserva automática</strong>
                 )}
                 {diasRestantes !== null && (
                   <small>
@@ -318,12 +293,6 @@ function ProductoDetalleModal({
               )}
             </div>
 
-            <p className="product-detail-modal__notice">
-              Si eliges “Mensual”, indica cuántos envases sueles necesitar para el
-              mes. PFI los añade únicamente a la compra mensual y descuenta el stock
-              disponible. El mínimo sigue siendo opcional y funciona como reserva.
-            </p>
-
             <div className="product-detail-modal__footer">
               <button type="button" className="primary" onClick={guardar}>
                 Guardar cambios
@@ -333,12 +302,7 @@ function ProductoDetalleModal({
               </button>
             </div>
           </>
-        ) : (
-          <p className="product-detail-modal__notice">
-            Este producto no está controlado en la despensa. Puedes abrir su ficha
-            de Mercadona o añadirlo para configurar stock y reposición.
-          </p>
-        )}
+        ) : null}
       </section>
     </div>
   );

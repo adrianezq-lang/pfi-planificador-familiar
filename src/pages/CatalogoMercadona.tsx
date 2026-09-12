@@ -72,7 +72,6 @@ function CatalogoMercadona() {
   >([]);
   const [fechaCatalogo, setFechaCatalogo] = useState('');
   const [codigoPostalCatalogo, setCodigoPostalCatalogo] = useState('');
-  const [almacenCatalogo, setAlmacenCatalogo] = useState('');
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
   const [vista, setVista] =
@@ -109,7 +108,6 @@ function CatalogoMercadona() {
         setCatalogo(resultado.productos);
         setFechaCatalogo(resultado.actualizado);
         setCodigoPostalCatalogo(resultado.codigoPostal);
-        setAlmacenCatalogo(resultado.almacen);
       } catch (errorDesconocido) {
         setError(
           errorDesconocido instanceof Error
@@ -287,7 +285,6 @@ function CatalogoMercadona() {
       setCatalogo(nuevoCatalogo.productos);
       setFechaCatalogo(nuevoCatalogo.actualizado);
       setCodigoPostalCatalogo(nuevoCatalogo.codigoPostal);
-      setAlmacenCatalogo(nuevoCatalogo.almacen);
       setMensaje(
         `Catálogo comprobado: ${nuevoCatalogo.productos.length.toLocaleString('es-ES')} productos · ${formatearFechaCatalogo(nuevoCatalogo.actualizado)}.`,
       );
@@ -308,10 +305,6 @@ function CatalogoMercadona() {
         <Title style={{ color: '#4f6f52' }}>
           🏪 Catálogo Mercadona
         </Title>
-        <p style={estiloSubtitulo}>
-          Elige tus productos, añádelos a la despensa y
-          asócialos a uno o varios ingredientes.
-        </p>
 
         <div style={estiloResumenGrid}>
           <Resumen
@@ -334,15 +327,9 @@ function CatalogoMercadona() {
 
         <div className="catalog-zone-status">
           <strong>📍 Zona Mercadona: CP {codigoPostalCatalogo || '48950'}</strong>
-          <span>
-            {almacenCatalogo
-              ? `Catálogo local ${almacenCatalogo}`
-              : 'Ejecuta la actualización para descargar el catálogo local'}
-          </span>
           {fechaCatalogo && (
             <small>Actualizado: {formatearFechaCatalogo(fechaCatalogo)}</small>
           )}
-          <small>Productos y precios se renuevan automáticamente cada día para esta zona.</small>
           <button
             type="button"
             className="catalog-update-button"
@@ -663,10 +650,6 @@ function CatalogoMercadona() {
               <Title style={estiloTituloPequeno}>
                 🔗 Ingredientes asociados
               </Title>
-              <p style={estiloSubtitulo}>
-                Un mismo producto puede servir para varios
-                ingredientes. Marca todos los que correspondan.
-              </p>
 
               <div style={estiloListaIngredientes}>
                 {ingredientesDisponibles.map((ingrediente) => {

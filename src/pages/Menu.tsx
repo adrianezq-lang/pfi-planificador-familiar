@@ -62,13 +62,11 @@ function etiquetaExcepcion(
 }
 
 function SemanasDelMes({
-  mesActivo,
   planMensual,
   excepciones,
   semanaActiva,
   onAbrirDia,
 }: {
-  mesActivo: string;
   planMensual: SemanaMenu[];
   excepciones: ExcepcionesCalendario;
   semanaActiva: number;
@@ -78,12 +76,7 @@ function SemanasDelMes({
     <section className="monthly-menu-overview" aria-label="Semanas del menú mensual">
       <header className="monthly-menu-overview__header">
         <div>
-          <span className="monthly-menu-overview__eyebrow">TODO EL MES, SEMANA A SEMANA</span>
           <h3>Semanas del mes</h3>
-          <p>
-            Comidas y cenas de {fmtMes(mesActivo)}. Las semanas están una junto
-            a otra; desliza a los lados y pulsa un día para abrirlo arriba.
-          </p>
         </div>
       </header>
 
@@ -219,10 +212,7 @@ export default function Menu({
   return (
     <main className="page menu-page">
       <section className="page-intro page-intro--compact menu-intro">
-        <div>
-          <span className="menu-intro__eyebrow">PLANIFICADOR FAMILIAR</span>
-          <h2>Menú</h2>
-        </div>
+        <h2>Menú</h2>
       </section>
 
       <section className="month-switcher month-switcher--compact" aria-label="Navegación mensual">
@@ -231,7 +221,6 @@ export default function Menu({
             ‹ Anterior
           </button>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 800 }}>MENÚ DEL MES</span>
             <strong style={{ textTransform: 'capitalize' }}>{mesBonito}</strong>
           </div>
           <button type="button" onClick={() => cambiar(1)} style={{ minHeight: '48px', fontWeight: 800, fontSize: '15px' }}>
@@ -280,8 +269,7 @@ export default function Menu({
       {semana?.excluida ? (
         <section className="active-day active-day--today menu-excluded-state">
           <div className="menu-excluded-state__icon">🏖️</div>
-          <h3>No estamos en casa</h3>
-          <p>Esta semana queda fuera de la compra y del presupuesto.</p>
+          <h3>Semana fuera de casa</h3>
         </section>
       ) : dia ? (
         <>
@@ -340,8 +328,7 @@ export default function Menu({
 
             {excepcion?.sinNinos && !excepcion.noEnCasa && (
               <p className="menu-adults-only" role="status">
-                👧👦 Este día el menú se mantiene, pero las raciones, la compra y
-                el presupuesto cuentan solo a los adultos.
+                👧👦 Solo adultos · cantidades ajustadas
               </p>
             )}
 
@@ -349,7 +336,6 @@ export default function Menu({
               <div className="menu-excluded-state">
                 <div className="menu-excluded-state__icon">🏖️</div>
                 <h3>Fuera de casa este día</h3>
-                <p>No contará ni en la compra semanal ni en la mensual.</p>
               </div>
             ) : (
               <div className="active-day__meals">
@@ -401,7 +387,6 @@ export default function Menu({
       ) : null}
 
       <SemanasDelMes
-        mesActivo={mesActivo}
         planMensual={planMensual}
         excepciones={excepciones}
         semanaActiva={semanaActiva}

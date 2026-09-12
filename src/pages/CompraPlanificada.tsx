@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import type { DiaMenu } from '../data/Menusemanal';
@@ -15,6 +15,17 @@ import {
   registrarMarcadosEnInventario,
   type PeriodoCompra,
 } from '../services/registroCompra';
+import {
+  añadirProductoManualCompra,
+  cargarProductosManualesCompra,
+  crearPeriodoIdCompraManual,
+  eliminarProductoManualCompra,
+  marcarProductoManualCompra,
+  marcarTodosProductosManualesCompra,
+  registrarProductosManualesEnDespensa,
+  type ProductoManualCompra,
+  type UnidadProductoManual,
+} from '../services/productosManualesCompra';
 
 type Props = {
   menu: DiaMenu[];
@@ -45,6 +56,16 @@ export default function CompraPlanificada({
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
   const [mensajeInventario, setMensajeInventario] = useState('');
+  const [productosManuales, setProductosManuales] = useState(
+    cargarProductosManualesCompra,
+  );
+  const [formularioManualAbierto, setFormularioManualAbierto] = useState(false);
+  const [nombreManual, setNombreManual] = useState('');
+  const [cantidadManual, setCantidadManual] = useState('1');
+  const [unidadManual, setUnidadManual] = useState<UnidadProductoManual>('ud');
+  const [tiendaManual, setTiendaManual] = useState('');
+  const [precioManual, setPrecioManual] = useState('');
+  const [errorManual, setErrorManual] = useState('');
   const menuObjetivo = periodo === 'semana' ? menu : menuMes;
   const clavesEstado = useMemo(
     () => crearClavesEstadoCompra(periodo, mesActivo, semanaActiva),
@@ -52,12 +73,28 @@ export default function CompraPlanificada({
   );
   const [marcados, setMarcados] = useState<string[]>([]);
   const [registrados, setRegistrados] = useState<string[]>([]);
+  const periodoManualId = useMemo(
+    () => crearPeriodoIdCompraManual(periodo, mesActivo, semanaActiva),
+    [mesActivo, periodo, semanaActiva],
+  );
+  const manualesPeriodo = useMemo(
+    () =>
+      productosManuales.filter(
+        (producto) => producto.periodoId === periodoManualId,
+      ),
+    [periodoManualId, productosManuales],
+  );
 
   useEffect(() => {
     setMarcados(cargarClavesGuardadas(clavesEstado.marcados));
     setRegistrados(cargarClavesGuardadas(clavesEstado.registrados));
     setMensajeInventario('');
   }, [clavesEstado]);
+
+  useEffect(() => {
+    setFormularioManualAbierto(false);
+    setErrorManual('');
+  }, [periodoManualId]);
 
   useEffect(() => {
     let activo = true;
@@ -92,12 +129,9 @@ export default function CompraPlanificada({
     [lineas, marcados, registrados],
   );
   const marcadosVisibles = lineas.reduce(
-    (totalMarcados, linea) => totalMarcados + Number(marcadosSet.has(linea.clave)),
-    0,
-  );
-  const registradosVisibles = lineas.reduce(
-    (totalRegistrados, linea) =>
-      totalRegistrados + Number(registradosSet.has(linea.clave)),
+    (totalMarcados, linea) =>
+      totalMarcados +
+      Number(marcadosSet.has(linea.clave) || registradosSet.has(linea.clave)),
     0,
   );
   const marcadosSinInventario = lineas.reduce(
@@ -107,6 +141,16 @@ export default function CompraPlanificada({
       ),
     0,
   );
+  const manualesMarcados = manualesPeriodo.filter(
+    (producto) => producto.comprado || producto.guardadoEnDespensa,
+  ).length;
+  const manualesPendientesInventario = manualesPeriodo.filter(
+    (producto) => producto.comprado && !producto.guardadoEnDespensa,
+  );
+  const totalProductos = lineas.length + manualesPeriodo.length;
+  const totalMarcados = marcadosVisibles + manualesMarcados;
+  const totalPendientesInventario =
+    pendientesInventario.length + manualesPendientesInventario.length;
 
   const cambiar = (linea: LineaCompra) => {
     if (registradosSet.has(linea.clave)) return;
@@ -122,16 +166,42 @@ export default function CompraPlanificada({
     const nuevas = lineas.map((linea) => linea.clave);
     setMarcados(nuevas);
     guardarClavesCompra(clavesEstado.marcados, nuevas);
+    setProductosManuales(
+      marcarTodosProductosManualesCompra(periodoManualId),
+    );
     setMensajeInventario('');
   };
 
   const costeLinea = (linea: LineaCompra) => linea.subtotal ?? 0;
-  const total = lineas.reduce((suma, linea) => suma + costeLinea(linea), 0);
-  const pendiente = lineas.reduce(
-    (suma, linea) =>
-      suma + (marcadosSet.has(linea.clave) ? 0 : costeLinea(linea)),
+  const totalAutomatico = lineas.reduce(
+    (suma, linea) => suma + costeLinea(linea),
     0,
   );
+  const totalManual = manualesPeriodo.reduce(
+    (suma, producto) => suma + (producto.precioTotal ?? 0),
+    0,
+  );
+  const total = totalAutomatico + totalManual;
+  const hayPreciosPendientes =
+    lineas.some((linea) => linea.subtotal === null) ||
+    manualesPeriodo.some((producto) => producto.precioTotal === null);
+  const pendienteAutomatico = lineas.reduce(
+    (suma, linea) =>
+      suma +
+      (marcadosSet.has(linea.clave) || registradosSet.has(linea.clave)
+        ? 0
+        : costeLinea(linea)),
+    0,
+  );
+  const pendienteManual = manualesPeriodo.reduce(
+    (suma, producto) =>
+      suma +
+      (producto.comprado || producto.guardadoEnDespensa
+        ? 0
+        : (producto.precioTotal ?? 0)),
+    0,
+  );
+  const pendiente = pendienteAutomatico + pendienteManual;
   const mesTexto = new Intl.DateTimeFormat('es-ES', {
     month: 'long',
     year: 'numeric',
@@ -150,14 +220,66 @@ export default function CompraPlanificada({
     setRegistrados(registro.clavesRegistradas);
     guardarClavesCompra(clavesEstado.registrados, registro.clavesRegistradas);
 
-    const mensajeBase = registro.lineasRegistradas === 1
+    const registroManual = registrarProductosManualesEnDespensa(
+      periodoManualId,
+      observaciones,
+    );
+    setProductosManuales(registroManual.productos);
+
+    const totalRegistrados = registro.lineasRegistradas + registroManual.registrados;
+    const mensajeBase = totalRegistrados === 1
       ? '1 producto añadido a la despensa.'
-      : `${registro.lineasRegistradas} productos añadidos a la despensa.`;
+      : `${totalRegistrados} productos añadidos a la despensa.`;
     setMensajeInventario(
       registro.lineasSinInventario > 0
         ? `${mensajeBase} ${registro.lineasSinInventario} no se ha podido guardar porque todavía no tiene un producto asociado.`
         : mensajeBase,
     );
+  };
+
+  const añadirManual = (evento: FormEvent<HTMLFormElement>) => {
+    evento.preventDefault();
+    setErrorManual('');
+
+    try {
+      const precioTotal = precioManual.trim() === ''
+        ? null
+        : Number(precioManual);
+      setProductosManuales(
+        añadirProductoManualCompra({
+          periodoId: periodoManualId,
+          nombre: nombreManual,
+          cantidad: Number(cantidadManual),
+          unidad: unidadManual,
+          tienda: tiendaManual,
+          precioTotal,
+        }),
+      );
+      setNombreManual('');
+      setCantidadManual('1');
+      setPrecioManual('');
+      setMensajeInventario('Producto añadido a la lista.');
+    } catch (errorDesconocido) {
+      setErrorManual(
+        errorDesconocido instanceof Error
+          ? errorDesconocido.message
+          : 'No se ha podido añadir el producto.',
+      );
+    }
+  };
+
+  const cambiarManual = (producto: ProductoManualCompra) => {
+    setProductosManuales(
+      marcarProductoManualCompra(producto.id, !producto.comprado),
+    );
+    setMensajeInventario('');
+  };
+
+  const eliminarManual = (producto: ProductoManualCompra) => {
+    const confirmado = window.confirm(`¿Quitar «${producto.nombre}» de la lista?`);
+    if (!confirmado) return;
+    setProductosManuales(eliminarProductoManualCompra(producto.id));
+    setMensajeInventario('Producto eliminado de la lista.');
   };
 
   return (
@@ -166,11 +288,7 @@ export default function CompraPlanificada({
       style={{ maxWidth: 1050, margin: '0 auto', padding: '20px 20px 118px' }}
     >
       <Card className="page-hero-card">
-        <Title style={{ color: '#4f6f52' }}>🛒 Planificación de compra</Title>
-        <p style={{ color: '#667067' }}>
-          El menú decide qué necesitas. Tú eliges si preparas la compra de esta
-          semana o la visión completa del mes.
-        </p>
+        <Title style={{ color: '#4f6f52' }}>🛒 Compra</Title>
         <div
           style={{
             display: 'grid',
@@ -202,11 +320,6 @@ export default function CompraPlanificada({
               ? `Semana ${semanaActiva + 1} · ${mesTexto}`
               : `Compra mensual · ${mesTexto}`}
           </strong>
-          <span>
-            {periodo === 'semana'
-              ? 'Fruta y verdura, carne y pescado. Los sobrantes de envases anteriores ya están descontados.'
-              : 'Leche, despensa, embutido, salsas, desayuno, limpieza, mascotas y demás productos no frescos para todo el mes.'}
-          </span>
         </div>
       </Card>
 
@@ -225,32 +338,32 @@ export default function CompraPlanificada({
         <>
           <Card>
             <div className="compra-resumen-grid">
-              <Resumen valor={euros(total)} texto="total previsto" />
-              <Resumen valor={String(lineas.length)} texto="productos" />
-              <Resumen valor={euros(pendiente)} texto="pendiente" />
+              <Resumen
+                valor={euros(total)}
+                texto={hayPreciosPendientes ? 'total conocido' : 'total previsto'}
+              />
+              <Resumen valor={String(totalProductos)} texto="productos" />
+              <Resumen
+                valor={euros(pendiente)}
+                texto={hayPreciosPendientes ? 'pendiente conocido' : 'pendiente'}
+              />
             </div>
 
             <div className="compra-inventario-actions">
               <div>
                 <strong>
-                  {marcadosVisibles} de {lineas.length} productos marcados
+                  {totalMarcados} de {totalProductos} marcados
                 </strong>
-                <span>
-                  {pendientesInventario.length > 0
-                    ? `${pendientesInventario.length} listos para añadir a la despensa.`
-                    : marcadosVisibles > 0 && registradosVisibles === marcadosVisibles
-                      ? 'Los productos ya están en la despensa y protegidos contra registros duplicados.'
-                      : marcadosSinInventario > 0
-                        ? `${marcadosSinInventario} necesitan estar vinculados a la despensa antes de guardarlos.`
-                      : 'Marca cada producto cuando lo metas en el carro y después guárdalo en la despensa.'}
-                </span>
+                {marcadosSinInventario > 0 && (
+                  <span>{marcadosSinInventario} sin producto asociado</span>
+                )}
               </div>
               <div>
                 <button
                   type="button"
                   className="compra-action-button compra-action-button--secondary"
                   onClick={marcarTodo}
-                  disabled={lineas.length === 0 || marcadosVisibles === lineas.length}
+                  disabled={totalProductos === 0 || totalMarcados === totalProductos}
                 >
                   Marcar todo
                 </button>
@@ -258,9 +371,9 @@ export default function CompraPlanificada({
                   type="button"
                   className="compra-action-button compra-action-button--primary"
                   onClick={guardarEnInventario}
-                  disabled={pendientesInventario.length === 0}
+                  disabled={totalPendientesInventario === 0}
                 >
-                  Guardar{pendientesInventario.length > 0 ? ` ${pendientesInventario.length}` : ''} en despensa
+                  Guardar{totalPendientesInventario > 0 ? ` ${totalPendientesInventario}` : ''} en despensa
                 </button>
               </div>
             </div>
@@ -272,34 +385,149 @@ export default function CompraPlanificada({
             )}
           </Card>
 
+          <Card className="compra-manual-card">
+            <header className="compra-manual-card__header">
+              <div>
+                <h2>Otros sitios</h2>
+                {manualesPeriodo.length > 0 && (
+                  <span>
+                    {manualesPeriodo.length} producto
+                    {manualesPeriodo.length === 1 ? '' : 's'}
+                  </span>
+                )}
+              </div>
+              <button
+                type="button"
+                className="compra-action-button compra-action-button--secondary"
+                aria-expanded={formularioManualAbierto}
+                aria-controls="formulario-producto-manual"
+                onClick={() => {
+                  setFormularioManualAbierto((abierto) => !abierto);
+                  setErrorManual('');
+                }}
+              >
+                {formularioManualAbierto ? 'Cerrar' : '＋ Añadir producto'}
+              </button>
+            </header>
+
+            {formularioManualAbierto && (
+              <form
+                id="formulario-producto-manual"
+                className="compra-manual-form"
+                onSubmit={añadirManual}
+              >
+                <label className="compra-manual-form__nombre">
+                  Producto
+                  <input
+                    type="text"
+                    autoFocus
+                    autoComplete="off"
+                    maxLength={120}
+                    value={nombreManual}
+                    onChange={(evento) => setNombreManual(evento.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Cantidad
+                  <input
+                    type="number"
+                    min="0.01"
+                    step="any"
+                    inputMode="decimal"
+                    value={cantidadManual}
+                    onChange={(evento) => setCantidadManual(evento.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Unidad
+                  <select
+                    value={unidadManual}
+                    onChange={(evento) =>
+                      setUnidadManual(evento.target.value as UnidadProductoManual)
+                    }
+                  >
+                    <option value="ud">ud</option>
+                    <option value="envase">envase</option>
+                    <option value="paquete">paquete</option>
+                    <option value="kg">kg</option>
+                    <option value="g">g</option>
+                    <option value="l">l</option>
+                    <option value="ml">ml</option>
+                  </select>
+                </label>
+                <label>
+                  Tienda
+                  <input
+                    type="text"
+                    autoComplete="organization"
+                    list="tiendas-producto-manual"
+                    maxLength={80}
+                    placeholder="Otra tienda"
+                    value={tiendaManual}
+                    onChange={(evento) => setTiendaManual(evento.target.value)}
+                  />
+                  <datalist id="tiendas-producto-manual">
+                    <option value="Carnicería" />
+                    <option value="Frutería" />
+                    <option value="Mercado" />
+                    <option value="Panadería" />
+                  </datalist>
+                </label>
+                <label>
+                  Precio total <span>opcional</span>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    inputMode="decimal"
+                    value={precioManual}
+                    onChange={(evento) => setPrecioManual(evento.target.value)}
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="compra-action-button compra-action-button--primary"
+                >
+                  Añadir
+                </button>
+                {errorManual && <p role="alert">{errorManual}</p>}
+              </form>
+            )}
+
+            {manualesPeriodo.length > 0 && (
+              <div className="compra-manual-lista">
+                {manualesPeriodo.map((producto) => (
+                  <LineaProductoManual
+                    key={producto.id}
+                    producto={producto}
+                    cambiar={() => cambiarManual(producto)}
+                    eliminar={() => eliminarManual(producto)}
+                  />
+                ))}
+              </div>
+            )}
+          </Card>
+
           {menuObjetivo.length === 0 && (
-            <Card>
-              <Title style={{ color: '#4f6f52' }}>🏖️ Semana fuera de casa</Title>
-              <p style={{ color: '#667067' }}>
-                No se generan productos del menú para esta semana.
-              </p>
+            <Card className="compra-estado-vacio">
+              <strong>🏖️ Sin menú en este periodo</strong>
             </Card>
           )}
 
           {lineas.length > 0 && (
-            <section className="compra-tiendas-lista" aria-labelledby="titulo-lista-compra">
-              <div className="compra-tiendas-lista__heading">
-                <div>
-                  <span>LISTA FINAL</span>
-                  <h2 id="titulo-lista-compra" className="compra-tiendas-lista__title">
-                    Tu lista de la compra
-                  </h2>
-                </div>
-                <small>Marca aquí cada producto cuando lo metas en el carro.</small>
-              </div>
+            <section
+              className="compra-tiendas-lista"
+              aria-label="Tu lista de la compra en Mercadona"
+            >
               <Card className="compra-tienda-lista-card">
                 <header className="compra-tienda-lista-card__header">
                   <div>
-                    <span>{periodo === 'semana' ? 'COMPRA SEMANAL' : 'COMPRA MENSUAL'}</span>
-                    <h3>🛒 Todo lo que necesitas</h3>
+                    <h3>🛒 Mercadona</h3>
                   </div>
                   <div>
-                    <strong>{euros(total)}</strong>
+                    <strong>{euros(totalAutomatico)}</strong>
                     <small>{lineas.length} producto{lineas.length === 1 ? '' : 's'}</small>
                   </div>
                 </header>
@@ -323,10 +551,6 @@ export default function CompraPlanificada({
                 <Title style={{ color: '#4f6f52', fontSize: 20 }}>
                   ✅ Ya cubierto con lo que queda
                 </Title>
-                <p style={{ color: '#667067' }}>
-                  No necesitas volver a comprar estos productos esta semana.
-                  Abre el cálculo para ver de qué semana viene el sobrante.
-                </p>
                 {resultado.lineasCubiertas.map((linea) => (
                   <LineaCubierta key={linea.clave} linea={linea} />
                 ))}
@@ -335,6 +559,62 @@ export default function CompraPlanificada({
         </>
       )}
     </main>
+  );
+}
+
+function LineaProductoManual({
+  producto,
+  cambiar,
+  eliminar,
+}: {
+  producto: ProductoManualCompra;
+  cambiar: () => void;
+  eliminar: () => void;
+}) {
+  const identificador = `compra-manual-${producto.id}`;
+  const completado = producto.comprado || producto.guardadoEnDespensa;
+
+  return (
+    <div className="compra-producto-linea compra-producto-linea--manual">
+      <input
+        id={identificador}
+        type="checkbox"
+        checked={completado}
+        onChange={cambiar}
+        disabled={producto.guardadoEnDespensa}
+        aria-label={
+          producto.guardadoEnDespensa
+            ? `${producto.nombre} guardado en la despensa`
+            : `Marcar ${producto.nombre} como comprado`
+        }
+      />
+      <div className="compra-producto-contenido">
+        <label
+          className={`compra-producto-nombre${completado ? ' compra-producto-nombre--marcado' : ''}`}
+          htmlFor={identificador}
+        >
+          {producto.nombre}
+        </label>
+        <small className="compra-formato">
+          {formatear(producto.cantidad)} {unidadNatural(producto.unidad, producto.cantidad)} ·{' '}
+          {producto.tienda}
+        </small>
+        {producto.guardadoEnDespensa && (
+          <small className="compra-en-inventario">✓ En despensa</small>
+        )}
+      </div>
+      <strong className="compra-producto-precio">
+        {producto.precioTotal === null ? '—' : euros(producto.precioTotal)}
+      </strong>
+      <button
+        type="button"
+        className="compra-producto-eliminar"
+        onClick={eliminar}
+        aria-label={`Eliminar ${producto.nombre}`}
+      >
+        ×
+      </button>
+    </div>
   );
 }
 
@@ -375,20 +655,20 @@ function LineaProducto({
           {nombreProducto}
         </label>
         {registrada && (
-          <small className="compra-en-inventario">✓ Guardado en despensa</small>
+          <small className="compra-en-inventario">✓ En despensa</small>
         )}
         <small className="compra-necesidad">
-          Necesitas: {resumenNecesidades(linea)}
+          {resumenNecesidades(linea)}
         </small>
         {linea.producto ? (
           <>
-            <small className="compra-formato">Formato: {linea.producto.formato}</small>
+            <small className="compra-formato">{linea.producto.formato}</small>
             <strong className="compra-cantidad">
-              Comprar: {resumenEnvases(linea, linea.envases)}
+              {resumenEnvases(linea, linea.envases)}
             </strong>
             {sobrante > UMBRAL_CERO && (
               <small className="compra-sobrante">
-                Después quedarán: {resumenEnvasesConContenido(linea, sobrante)}
+                Quedará {resumenEnvasesConContenido(linea, sobrante)}
               </small>
             )}
             <ExplicacionCantidad linea={linea} />
@@ -410,8 +690,8 @@ function LineaCubierta({ linea }: { linea: LineaCompra }) {
   return (
     <div className="compra-linea-cubierta">
       <strong>{nombreLinea(linea)}</strong>
-      <small>Necesitas: {resumenNecesidades(linea)}</small>
-      {linea.producto && <small>Formato: {linea.producto.formato}</small>}
+      <small>{resumenNecesidades(linea)}</small>
+      {linea.producto && <small>{linea.producto.formato}</small>}
       {explicacion && (
         <small className="compra-sobrante">
           Había {resumenEnvasesConContenido(linea, explicacion.stockAntesEnvases)} y
@@ -436,7 +716,7 @@ function ExplicacionCantidad({ linea }: { linea: LineaCompra }) {
 
   return (
     <details className="compra-calculo">
-      <summary>¿Cómo sale esta cantidad?</summary>
+      <summary>Cálculo</summary>
       <div className="compra-calculo__grid">
         <DatoCalculo
           etiqueta={etiquetaObjetivo}
@@ -455,7 +735,6 @@ function ExplicacionCantidad({ linea }: { linea: LineaCompra }) {
           valor={resumenEnvases(linea, explicacion.sobranteDespuesEnvases)}
         />
       </div>
-      <p>{textoExplicacion(linea)}</p>
     </details>
   );
 }
@@ -467,80 +746,6 @@ function DatoCalculo({ etiqueta, valor }: { etiqueta: string; valor: string }) {
       <strong>{valor}</strong>
     </span>
   );
-}
-
-function textoExplicacion(linea: LineaCompra): string {
-  const explicacion = linea.explicacionCantidad;
-  if (!explicacion) return '';
-
-  const frases: string[] = [];
-  const equivalencia = equivalenciaFormato(linea);
-  const faltante = Math.max(
-    0,
-    explicacion.objetivoEnvases - explicacion.stockAntesEnvases,
-  );
-
-  if (equivalencia) frases.push(equivalencia);
-
-  if (explicacion.periodo === 'semana' && (explicacion.semana ?? 1) > 1) {
-    frases.push(
-      'El disponible incluye el stock registrado y los sobrantes proyectados de las semanas anteriores.',
-    );
-  } else if (explicacion.periodo === 'mes') {
-    if (
-      explicacion.necesidadMensualEnvases >
-      explicacion.necesidadMenuEnvases + UMBRAL_CERO
-    ) {
-      frases.push(
-        `Tu cantidad mensual configurada (${resumenEnvases(linea, explicacion.necesidadMensualEnvases)}) fija el objetivo.`,
-      );
-    }
-    if (
-      explicacion.reservaEnvases >
-      Math.max(
-        explicacion.necesidadMenuEnvases,
-        explicacion.necesidadMensualEnvases,
-      ) + UMBRAL_CERO
-    ) {
-      frases.push(
-        `La reserva mínima (${resumenEnvases(linea, explicacion.reservaEnvases)}) fija el objetivo.`,
-      );
-    }
-    if (!explicacion.stockAplicado) {
-      frases.push(
-        linea.productoDespensa?.frecuencia === 'manual'
-          ? 'La despensa está en modo manual, por eso su stock no se descuenta.'
-          : 'No hay stock vinculado a este producto; el cálculo parte de cero.',
-      );
-    }
-  }
-
-  if (explicacion.compraEnvases <= UMBRAL_CERO) {
-    frases.push('Lo disponible cubre todo el uso, así que no compras nada.');
-  } else {
-    frases.push(
-      `Faltan ${resumenEnvases(linea, faltante)}. La compra resultante es ${resumenEnvases(linea, explicacion.compraEnvases)}.`,
-    );
-  }
-
-  frases.push(
-    `Después de cubrirlo quedarán ${resumenEnvasesConContenido(linea, explicacion.sobranteDespuesEnvases)}.`,
-  );
-
-  if (linea.calculoEstimado) {
-    frases.push('La equivalencia es aproximada porque el producto se vende por peso o el formato no es exacto.');
-  }
-
-  return frases.join(' ');
-}
-
-function equivalenciaFormato(linea: LineaCompra): string | null {
-  const capacidad = capacidadNaturalPorEnvase(linea);
-  if (!capacidad) return null;
-
-  const envase = etiquetaEnvase(linea, 1);
-  const aproximacion = linea.calculoEstimado ? 'aprox. ' : '';
-  return `${articuloEnvase(envase)} ${envase} cubre ${aproximacion}${formatear(capacidad.cantidad)} ${unidadNatural(capacidad.unidad, capacidad.cantidad)}.`;
 }
 
 function capacidadNaturalPorEnvase(
@@ -630,12 +835,6 @@ function etiquetaEnvase(linea: LineaCompra, cantidad: number): string {
   }
   if (formato.includes('pieza')) return plural ? 'piezas' : 'pieza';
   return plural ? 'envases' : 'envase';
-}
-
-function articuloEnvase(envase: string): 'Un' | 'Una' {
-  return ['malla', 'bandeja', 'botella', 'bolsa', 'caja', 'lata', 'pieza'].includes(envase)
-    ? 'Una'
-    : 'Un';
 }
 
 function unidadNatural(unidadOriginal: string, cantidad: number): string {

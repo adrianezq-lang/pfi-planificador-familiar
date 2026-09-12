@@ -24,28 +24,24 @@ import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 const SERVICIOS_COMENSALES: Array<{
   clave: keyof PlanComensales;
   titulo: string;
-  detalle: string;
   momento: 'comida' | 'cena';
   dia: string;
 }> = [
   {
     clave: 'comidaLaborable',
     titulo: '🍽️ Comida de lunes a viernes',
-    detalle: 'Para descontar comedor escolar o días de trabajo.',
     momento: 'comida',
     dia: 'Lunes',
   },
   {
     clave: 'comidaFinSemana',
     titulo: '☀️ Comida de fin de semana',
-    detalle: 'Sábados y domingos que comáis en casa.',
     momento: 'comida',
     dia: 'Sábado',
   },
   {
     clave: 'cena',
     titulo: '🌙 Cenas',
-    detalle: 'Se aplica todos los días de la semana.',
     momento: 'cena',
     dia: 'Lunes',
   },
@@ -246,10 +242,6 @@ function Perfil() {
         <Title style={{ color: '#4f6f52' }}>
           👤 Cuenta y perfil
         </Title>
-        <p style={estiloIntroduccion}>
-          Estos datos ajustan automáticamente las raciones principales de
-          las recetas y las cantidades de Compra.
-        </p>
       </Card>
 
       <CuentaSincronizacion />
@@ -387,9 +379,6 @@ function Perfil() {
             <strong style={estiloTituloComensales}>
               Comensales que comen en casa
             </strong>
-            <p style={estiloTextoComensales}>
-              La compra usará estas personas para calcular cada comida y cada cena.
-            </p>
           </div>
 
           <div style={estiloCuadriculaComensales}>
@@ -399,7 +388,6 @@ function Perfil() {
               return (
                 <section key={servicio.clave} style={estiloTarjetaComensales}>
                   <strong style={estiloNombreServicio}>{servicio.titulo}</strong>
-                  <small style={estiloDetalleServicio}>{servicio.detalle}</small>
                   <span style={estiloResumenServicio}>
                     {servicio.comensales} comensal{servicio.comensales === 1 ? '' : 'es'} ·{' '}
                     {servicio.raciones.toLocaleString('es-ES')} raciones equivalentes
@@ -481,10 +469,6 @@ function Perfil() {
             Familia completa: {raciones.toLocaleString('es-ES')} raciones adultas equivalentes
           </strong>
           <span>{describirFamilia(perfil)}</span>
-          <small>
-            Es una estimación inicial. Las cantidades pueden editarse a mano
-            en cada receta y se irán afinando con el uso.
-          </small>
         </div>
 
         <button type="button" onClick={guardar} style={estiloBotonGuardar}>
@@ -493,7 +477,7 @@ function Perfil() {
 
         {guardado && (
           <p style={estiloMensajeGuardado}>
-            Perfil guardado. Menú y compra usarán estos comensales.
+            Perfil guardado.
           </p>
         )}
       </Card>
@@ -502,12 +486,6 @@ function Perfil() {
         <Title style={{ color: '#4f6f52', fontSize: '22px' }}>
           🧠 Aprendizaje inteligente
         </Title>
-        <p style={estiloIntroduccion}>
-          PFI aprende de las combinaciones que eliges, de si gustaron y de
-          si sobró o faltó comida. También afina las cantidades que corriges
-          manualmente en Recetas. Se guarda primero en este navegador y entra
-          en la copia familiar cuando la sincronizas desde Cuenta.
-        </p>
 
         <div style={estiloCuadriculaAprendizaje}>
           <div style={estiloDatoAprendizaje}>
@@ -551,11 +529,6 @@ const estiloPagina = {
   maxWidth: '900px',
   margin: '0 auto',
   padding: '20px 20px 110px',
-};
-
-const estiloIntroduccion = {
-  marginBottom: 0,
-  color: '#667067',
 };
 
 const estiloCuadricula = {
@@ -630,12 +603,6 @@ const estiloTituloComensales = {
   fontSize: '18px',
 };
 
-const estiloTextoComensales = {
-  margin: '5px 0 0',
-  color: '#667067',
-  fontSize: '14px',
-};
-
 const estiloCuadriculaComensales = {
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -654,12 +621,6 @@ const estiloTarjetaComensales = {
 
 const estiloNombreServicio = {
   color: '#334c36',
-};
-
-const estiloDetalleServicio = {
-  minHeight: '34px',
-  color: '#737b74',
-  lineHeight: 1.35,
 };
 
 const estiloResumenServicio = {

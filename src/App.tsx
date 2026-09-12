@@ -111,9 +111,8 @@ function App() {
           <div className="app-logo" aria-hidden="true">🏡</div>
           <div className="app-brand">
             <h1>Planificador Familiar Inteligente</h1>
-            <p>Menús, compra, despensa y presupuesto</p>
           </div>
-          <span className="app-version">v0.9.28</span>
+          <span className="app-version">v0.9.29</span>
         </div>
       </header>
 

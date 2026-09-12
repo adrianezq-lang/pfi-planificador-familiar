@@ -280,9 +280,6 @@ export default function CuentaSincronizacion() {
           <Title style={{ color: '#4f6f52', fontSize: '22px' }}>
             ☁️ Cuenta y sincronización
           </Title>
-          <p>
-            Inicia sesión para compartir el mismo PFI entre los móviles de la familia.
-          </p>
         </div>
         <span className={`account-sync__status account-sync__status--${usuario ? 'online' : 'local'}`}>
           {cargando ? 'Comprobando…' : usuario ? 'Conectada' : 'Solo este móvil'}
@@ -429,10 +426,6 @@ export default function CuentaSincronizacion() {
 
           {!cargandoFamilia && !familia && (
             <div className="family-onboarding">
-              <div className="account-notice">
-                La cuenta está lista. Crea una familia o usa el código de una existente.
-              </div>
-
               <div className="family-onboarding__grid">
                 <form onSubmit={(evento) => { void crearHogar(evento); }}>
                   <strong>Crear una familia</strong>
@@ -488,7 +481,6 @@ export default function CuentaSincronizacion() {
                 <div>
                   <small>Este móvil</small>
                   <strong>{clavesLocales} bloques</strong>
-                  <span>Se conserva aunque cierres sesión</span>
                 </div>
               </div>
 

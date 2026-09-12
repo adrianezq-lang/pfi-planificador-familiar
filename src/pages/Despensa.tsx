@@ -132,11 +132,6 @@ function Despensa() {
     <main className="page legacy-page pantry-page">
       <Card className="page-hero-card">
         <Title style={{ color: '#4f6f52' }}>📦 Despensa e inventario</Title>
-        <p className="pantry-lead">
-          Pulsa cualquier foto para editar el stock real y, solo si te interesa,
-          guardar una reserva mínima. El menú sigue siendo quien decide cuánto hay
-          que comprar para cocinar.
-        </p>
 
         <div className="pantry-summary-grid">
           <Resumen
@@ -204,7 +199,6 @@ function Despensa() {
         <section id="lista-despensa">
           <div className="pantry-filter-heading">
             <div>
-              <span>LISTA ACTIVA</span>
               <strong>{etiquetaFiltro(filtro)}</strong>
             </div>
             {filtro !== 'todos' && (
@@ -282,14 +276,6 @@ function Despensa() {
 
       {vista === 'reposicion' && (
         <>
-          <Card className="pantry-restock-note">
-            <strong>Reservas mínimas</strong>
-            <p>
-              Aquí solo aparecen productos a los que hayas puesto un mínimo y cuyo
-              stock real esté por debajo. Los perecederos y los productos con mínimo
-              0 se calculan únicamente según el menú o se gestionan manualmente.
-            </p>
-          </Card>
           <section className="pantry-grid">
             {productosReposicion.map((producto) => (
               <Card key={producto.id} className="pantry-product-card">
@@ -444,7 +430,6 @@ function Resumen({
     >
       <strong>{numero}</strong>
       <span>{texto}</span>
-      <small>Ver lista →</small>
     </button>
   );
 }
@@ -487,10 +472,10 @@ function porcentajeStock(producto: ProductoDespensa): number {
 
 function estadoProducto(producto: ProductoDespensa): string {
   if (producto.tipo === 'perecedero') {
-    return 'Compra según las cantidades del menú · sin reserva fija';
+    return 'Según menú';
   }
   if (producto.frecuencia === 'manual') {
-    return `Reposición manual · stock ${producto.stockActual} ${producto.unidad}`;
+    return `Manual · ${producto.stockActual} ${producto.unidad}`;
   }
   if (producto.stockMinimo <= 0) {
     return `Sin mínimo · stock ${producto.stockActual} ${producto.unidad}`;

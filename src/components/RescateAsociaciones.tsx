@@ -97,11 +97,6 @@ export default function RescateAsociaciones({ integrado = false }: RescateAsocia
         </summary>
 
         <div style={{ padding: '0 16px 16px', display: 'grid', gap: 12 }}>
-          <p style={{ margin: 0, lineHeight: 1.45 }}>
-            PFI conserva ahora un historial real que no se sobrescribe. Antes de reparar nada,
-            busca datos en la asociación actual, la copia anterior, las claves antiguas y el historial.
-          </p>
-
           <div
             style={{
               display: 'grid',

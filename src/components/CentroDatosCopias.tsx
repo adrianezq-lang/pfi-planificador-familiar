@@ -129,18 +129,12 @@ export default function CentroDatosCopias() {
           <Title style={{ color: '#4f6f52', fontSize: '22px' }}>
             💾 Datos y copias
           </Title>
-          <p className="data-center__intro">
-            PFI protege automáticamente este móvil. La copia completa sirve además
-            para cambiar de dispositivo sin perder el menú, las recetas ni la despensa.
-          </p>
         </div>
         <span className={`data-health data-health--${estado.nivel}`}>
           <span aria-hidden="true">{estado.nivel === 'correcto' ? '✓' : '!'}</span>
           {estado.titulo}
         </span>
       </div>
-
-      <p className="data-center__health-detail">{estado.detalle}</p>
 
       <div className="data-center__stats" aria-label="Resumen de los datos guardados">
         <div><strong>{estado.resumen.recetas}</strong><span>recetas</span></div>
