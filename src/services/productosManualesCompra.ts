@@ -221,12 +221,13 @@ function datosDespensa(
   producto: ProductoManualCompra,
 ): Omit<ProductoDespensa, 'id' | 'actualizado'> {
   const tiendaId = `manual:${claveTexto(producto.tienda) || 'otra-tienda'}`;
+  const nombreId = claveTexto(producto.nombre) || producto.id;
   const precioUnidad = producto.precioTotal === null
     ? null
     : producto.precioTotal / producto.cantidad;
 
   return {
-    productoId: `manual:${claveTexto(producto.nombre)}:${producto.unidad}`,
+    productoId: `manual:${nombreId}:${producto.unidad}`,
     nombre: producto.nombre,
     imagen: null,
     formato: producto.unidad,

@@ -416,9 +416,13 @@ export default function CompraPlanificada({
                 className="compra-manual-form"
                 onSubmit={añadirManual}
               >
-                <label className="compra-manual-form__nombre">
+                <label
+                  className="compra-manual-form__nombre"
+                  htmlFor="producto-manual-nombre"
+                >
                   Producto
                   <input
+                    id="producto-manual-nombre"
                     type="text"
                     autoFocus
                     autoComplete="off"
@@ -428,9 +432,10 @@ export default function CompraPlanificada({
                     required
                   />
                 </label>
-                <label>
+                <label htmlFor="producto-manual-cantidad">
                   Cantidad
                   <input
+                    id="producto-manual-cantidad"
                     type="number"
                     min="0.01"
                     step="any"
@@ -440,9 +445,10 @@ export default function CompraPlanificada({
                     required
                   />
                 </label>
-                <label>
+                <label htmlFor="producto-manual-unidad">
                   Unidad
                   <select
+                    id="producto-manual-unidad"
                     value={unidadManual}
                     onChange={(evento) =>
                       setUnidadManual(evento.target.value as UnidadProductoManual)
@@ -457,9 +463,10 @@ export default function CompraPlanificada({
                     <option value="ml">ml</option>
                   </select>
                 </label>
-                <label>
+                <label htmlFor="producto-manual-tienda">
                   Tienda
                   <input
+                    id="producto-manual-tienda"
                     type="text"
                     autoComplete="organization"
                     list="tiendas-producto-manual"
@@ -475,9 +482,10 @@ export default function CompraPlanificada({
                     <option value="Panadería" />
                   </datalist>
                 </label>
-                <label>
+                <label htmlFor="producto-manual-precio">
                   Precio total <span>opcional</span>
                   <input
+                    id="producto-manual-precio"
                     type="number"
                     min="0"
                     step="0.01"
