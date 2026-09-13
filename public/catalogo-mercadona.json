@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-12T09:23:15.237Z",
+  "actualizado": "2026-09-13T10:18:40.038Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4290,
+  "totalProductos": 4285,
   "productos": [
     {
       "productoId": "3505.2",
@@ -11941,22 +11941,6 @@
       "disponible": true
     },
     {
-      "productoId": "7031",
-      "nombre": "Caldo de pollo Hacendado bajo en sal",
-      "precio": 1.2,
-      "precioReferencia": 1.2,
-      "formato": "Brik",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Conservas, caldos y cremas",
-      "subcategoria": "Caldo líquido",
-      "imagen": "https://prod-mercadona.imgix.net/images/42add0a8d4db36dfc601f6150309664c.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/7031/caldo-pollo-hacendado-bajo-sal-brick",
-      "disponible": true
-    },
-    {
       "productoId": "7867",
       "nombre": "Caldo de pollo Hacendado en pastillas",
       "precio": 1.4,
@@ -11970,22 +11954,6 @@
       "subcategoria": "Caldo en pastillas",
       "imagen": "https://prod-mercadona.imgix.net/images/7655d0341839cc875249fc04810d7e4a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/7867/caldo-pollo-hacendado-pastillas-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "7032",
-      "nombre": "Caldo de verduras Hacendado",
-      "precio": 0.95,
-      "precioReferencia": 0.95,
-      "formato": "Brik",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Conservas, caldos y cremas",
-      "subcategoria": "Caldo líquido",
-      "imagen": "https://prod-mercadona.imgix.net/images/3ca00c2303dff980433aa82198541016.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/7032/caldo-verduras-hacendado-brick",
       "disponible": true
     },
     {
@@ -24421,8 +24389,8 @@
       "disponible": true
     },
     {
-      "productoId": "40387",
-      "nombre": "Eau de parfum mujer Blue Shine",
+      "productoId": "18255",
+      "nombre": "Eau de parfum mujer Blue My Soul",
       "precio": 11,
       "precioReferencia": 11,
       "formato": "Frasco",
@@ -24432,8 +24400,8 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/a8c1bc91ec4f6fa2e690cc28b9cec1f6.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/40387/eau-parfum-mujer-blue-shine-frasco",
+      "imagen": "https://prod-mercadona.imgix.net/images/fb8c6f13d28ae322ea7757f7618c9540.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18255/eau-parfum-mujer-blue-my-soul-frasco",
       "disponible": true
     },
     {
@@ -35077,22 +35045,6 @@
       "disponible": true
     },
     {
-      "productoId": "52695",
-      "nombre": "Laca cabello Xtra Forte Deliplus fijación 4",
-      "precio": 1.1,
-      "precioReferencia": 1.467,
-      "formato": "Spray",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.075,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado del cabello",
-      "subcategoria": "Espuma y laca",
-      "imagen": "https://prod-mercadona.imgix.net/images/c55516eba6bfdf2751a715637d61e5ec.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/52695/laca-cabello-xtra-forte-deliplus-fijacion-4-tamano-viaje-spray",
-      "disponible": true
-    },
-    {
       "productoId": "21941",
       "nombre": "Laca de uñas alto brillo Deliplus 144 verde pastel",
       "precio": 2,
@@ -42757,22 +42709,6 @@
       "disponible": true
     },
     {
-      "productoId": "17989",
-      "nombre": "Mini eau de parfum mujer Flor de Mayo Meilyn",
-      "precio": 1.85,
-      "precioReferencia": 7.709,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.024,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/9083b2ac71435d0d520bf89c8d97ed55.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17989/mini-eau-parfum-mujer-flor-mayo-meilyn-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "24041",
       "nombre": "Mini eau de parfum mujer Flor de Mayo Seashell",
       "precio": 3.3,
@@ -46629,22 +46565,6 @@
       "disponible": true
     },
     {
-      "productoId": "17789",
-      "nombre": "Pañales bebé talla 3 Deliplus de 5-10 kg",
-      "precio": 18,
-      "precioReferencia": 0.15,
-      "formato": "paquetes",
-      "unidadesTotales": 3,
-      "tamañoUnidad": 120,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Bebé",
-      "subcategoria": "Pañal talla de 0 a 3",
-      "imagen": "https://prod-mercadona.imgix.net/images/6fedfb1ff5b8f173c2cc73e97d8145d1.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17789/panales-bebe-talla-3-deliplus-5-10-kg",
-      "disponible": true
-    },
-    {
       "productoId": "13297",
       "nombre": "Pañales bebé talla 3 Deliplus de 5-10 kg",
       "precio": 6.95,
@@ -46658,6 +46578,22 @@
       "subcategoria": "Pañal talla de 0 a 3",
       "imagen": "https://prod-mercadona.imgix.net/images/91bfd8c09d1b59ee9493991a18748000.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13297/panales-bebe-talla-3-4-10-kg-deliplus-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "17789",
+      "nombre": "Pañales bebé talla 3 Deliplus de 5-10 kg",
+      "precio": 18,
+      "precioReferencia": 0.15,
+      "formato": "paquetes",
+      "unidadesTotales": 3,
+      "tamañoUnidad": 120,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Bebé",
+      "subcategoria": "Pañal talla de 0 a 3",
+      "imagen": "https://prod-mercadona.imgix.net/images/6fedfb1ff5b8f173c2cc73e97d8145d1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17789/panales-bebe-talla-3-deliplus-5-10-kg",
       "disponible": true
     },
     {
@@ -62690,22 +62626,6 @@
       "subcategoria": "Platos fríos",
       "imagen": "https://prod-mercadona.imgix.net/images/5b3d69558d76a35d8edf3243f7c60d5d.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13233/surtido-sushi-bento-pequeno-contiene-2-nigiris-4-makis-2-uramakis-salsa-soja-salsa-wasabi-bandeja",
-      "disponible": true
-    },
-    {
-      "productoId": "50999",
-      "nombre": "Tabla de quesos nacionales Hacendado",
-      "precio": 4.95,
-      "precioReferencia": 20.625,
-      "formato": "Bandeja",
-      "unidadesTotales": 24,
-      "tamañoUnidad": 0.24,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Queso curado",
-      "imagen": "https://prod-mercadona.imgix.net/images/fd4abf9a02e72ce2a636dc02c1086d80.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/50999/tabla-quesos-nacionales-hacendado-bandeja",
       "disponible": true
     },
     {
