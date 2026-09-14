@@ -16,6 +16,11 @@ import {
   guardarRecetas,
   restaurarRecetasOriginales,
 } from '../services/recetas';
+import {
+  aplicarRecetasEliminadas,
+  limpiarRecetasEliminadas,
+  registrarCambiosRecetasEliminadas,
+} from '../services/recetasEliminadas';
 
 type FiltroRecetario = 'todos' | 'platos' | 'postres';
 
@@ -51,7 +56,17 @@ function aplicarReglasFamiliares(recetas: Receta[]): Receta[] {
 }
 
 function cargarRecetasFamiliares(): Receta[] {
-  return aplicarReglasFamiliares(cargarRecetas());
+  const cargadas = cargarRecetas();
+  const sinEliminadas = aplicarRecetasEliminadas(cargadas);
+
+  // Si una migración o una recuperación de JSON vuelve a introducir una receta
+  // borrada por el usuario, saneamos también el almacenamiento principal para
+  // que no pueda reaparecer en Compra, Menú u otras pantallas.
+  if (sinEliminadas.length !== cargadas.length) {
+    guardarRecetas(sinEliminadas);
+  }
+
+  return aplicarReglasFamiliares(sinEliminadas);
 }
 
 function filtrarRecetas(recetas: Receta[], filtro: FiltroRecetario): Receta[] {
@@ -101,6 +116,7 @@ export function useRecetas() {
 
   const guardar = useCallback(
     (nuevasRecetas: Receta[]) => {
+      registrarCambiosRecetasEliminadas(recetas, nuevasRecetas);
       guardarRecetas(
         aplicarReglasFamiliares(
           combinarConRecetasOcultas(nuevasRecetas, filtro),
@@ -108,10 +124,11 @@ export function useRecetas() {
       );
       setTodasLasRecetas(cargarRecetasFamiliares());
     },
-    [filtro],
+    [filtro, recetas],
   );
 
   const restaurar = useCallback(() => {
+    limpiarRecetasEliminadas();
     restaurarRecetasOriginales();
     setTodasLasRecetas(cargarRecetasFamiliares());
   }, []);
