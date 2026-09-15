@@ -2,6 +2,7 @@ import { Suspense, lazy, useCallback, useEffect, useMemo, useState, startTransit
 import './styles/recetario-tabs.css';
 import './styles/pfi-polish.css';
 import './styles/navigation-polish.css';
+import './styles/premium-modern.css';
 import BottomNav from './components/NavegacionInferior';
 import NavegacionRecetario from './components/NavegacionRecetario';
 import { useMenu } from './hooks/useMenu';
@@ -15,8 +16,8 @@ import { cargarExcepciones, EVENTO_EXCEPCIONES, menuEfectivoMes, menuEfectivoSem
 import { preservarCopiasAsociacionesExistentes } from './services/rescateAsociaciones';
 import { crearCopiaAutomaticaSiNecesaria } from './services/copiasSeguridad';
 
-const Menu = lazy(() => import('./pages/Menu'));
-const Compra = lazy(() => import('./pages/CompraPlanificada'));
+const Menu = lazy(() => import('./pages/MenuModern'));
+const Compra = lazy(() => import('./pages/CompraModern'));
 const Recetas = lazy(() => import('./pages/Recetas'));
 const Postres = lazy(() => import('./pages/Postres'));
 const Despensa = lazy(() => import('./pages/Despensa'));
