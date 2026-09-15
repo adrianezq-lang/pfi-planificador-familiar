@@ -75,3 +75,5 @@ jobs:
         run: node --experimental-strip-types scripts/probar-formatos-comerciales.mjs
       - name: Probar objetivos exactos de Mercadona
         run: node scripts/probar-productos-objetivo.mjs
+      - name: Probar decisiones persistentes y coherencia de versión
+        run: npm run test:v0930
