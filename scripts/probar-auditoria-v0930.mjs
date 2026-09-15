@@ -100,6 +100,8 @@ assert.equal(cargarDespensa().length, 1, 'Una acción explícita debe permitir v
 
 const packageJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 const app = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8');
+const main = await readFile(new URL('../src/main.tsx', import.meta.url), 'utf8');
+const compra = await readFile(new URL('../src/pages/CompraPlanificada.tsx', import.meta.url), 'utf8');
 const copias = await readFile(new URL('../src/services/copiasSeguridad.ts', import.meta.url), 'utf8');
 const sw = await readFile(new URL('../public/sw.js', import.meta.url), 'utf8');
 const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
@@ -109,7 +111,13 @@ assert.match(app, new RegExp(`app-version\\">v${version.replaceAll('.', '\\.')}`
 assert.match(copias, new RegExp(`VERSION_APP = '${version.replaceAll('.', '\\.')}'`), 'Las copias deben declarar la versión actual.');
 assert.match(sw, new RegExp(`CACHE_NAME = 'pfi-v${version.replaceAll('.', '\\.')}-`), 'La caché PWA debe corresponder a la versión actual.');
 assert.match(readme, new RegExp(`Versión ${version.replaceAll('.', '\\.')}`), 'README debe indicar la versión actual.');
+assert.match(compra, /compraMensualDisponible = semanaActiva === 0/, 'La compra mensual debe estar disponible solo en la Semana 1.');
+assert.match(compra, /ORDEN_SECCIONES_COMPRA/, 'Compra debe usar el orden de secciones para el recorrido de tienda.');
+assert.match(main, /controllerchange/, 'La PWA debe reaccionar cuando entra una versión nueva del service worker.');
+assert.match(app, /Sin conexión · PFI sigue disponible/, 'La app debe informar cuando entra en modo sin conexión.');
 
 console.log('✓ retirar un producto de despensa es una decisión persistente');
 console.log('✓ volver a añadirlo explícitamente reactiva su seguimiento');
 console.log('✓ cabecera, copias, PWA y documentación comparten versión');
+console.log('✓ compra mensual limitada a Semana 1 y lista ordenada por secciones');
+console.log('✓ la PWA detecta actualizaciones y muestra el modo sin conexión');
