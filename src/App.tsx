@@ -3,6 +3,7 @@ import './styles/recetario-tabs.css';
 import './styles/pfi-polish.css';
 import './styles/navigation-polish.css';
 import './styles/premium-modern.css';
+import './styles/premium-navigation.css';
 import BottomNav from './components/NavegacionInferior';
 import NavegacionRecetario from './components/NavegacionRecetario';
 import { useMenu } from './hooks/useMenu';
@@ -126,7 +127,8 @@ function App() {
         <div className="app-header__inner">
           <div className="app-logo" aria-hidden="true">🏡</div>
           <div className="app-brand">
-            <h1>Planificador Familiar Inteligente</h1>
+            <h1>PFI</h1>
+            <p>Planificador familiar</p>
           </div>
           <span className="app-version">v0.9.29</span>
         </div>
