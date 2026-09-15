@@ -77,3 +77,5 @@ jobs:
         run: node scripts/probar-productos-objetivo.mjs
       - name: Probar decisiones persistentes y coherencia de versión
         run: npm run test:v0930
+      - name: Probar jerarquía visual y acciones reversibles
+        run: npm run test:v0931

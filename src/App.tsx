@@ -2,6 +2,9 @@ import { Suspense, lazy, useCallback, useEffect, useMemo, useState, startTransit
 import './styles/recetario-tabs.css';
 import './styles/pfi-polish.css';
 import './styles/navigation-polish.css';
+import './styles/premium-modern.css';
+import './styles/premium-navigation.css';
+import './styles/premium-final.css';
 import BottomNav from './components/NavegacionInferior';
 import NavegacionRecetario from './components/NavegacionRecetario';
 import { useMenu } from './hooks/useMenu';
@@ -15,8 +18,8 @@ import { cargarExcepciones, EVENTO_EXCEPCIONES, menuEfectivoMes, menuEfectivoSem
 import { preservarCopiasAsociacionesExistentes } from './services/rescateAsociaciones';
 import { crearCopiaAutomaticaSiNecesaria } from './services/copiasSeguridad';
 
-const Menu = lazy(() => import('./pages/Menu'));
-const Compra = lazy(() => import('./pages/CompraPlanificada'));
+const Menu = lazy(() => import('./pages/MenuModern'));
+const Compra = lazy(() => import('./pages/CompraModern'));
 const Recetas = lazy(() => import('./pages/Recetas'));
 const Postres = lazy(() => import('./pages/Postres'));
 const Despensa = lazy(() => import('./pages/Despensa'));
@@ -125,7 +128,8 @@ function App() {
         <div className="app-header__inner">
           <div className="app-logo" aria-hidden="true">🏡</div>
           <div className="app-brand">
-            <h1>Planificador Familiar Inteligente</h1>
+            <h1>PFI</h1>
+            <p>Planificador familiar</p>
           </div>
           <span className="app-version">v0.9.29</span>
         </div>

@@ -1,0 +1,152 @@
+.app-brand p {
+  margin: 2px 0 0 !important;
+  color: #7c887f !important;
+  font-size: 10px !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.01em;
+}
+
+.app-brand h1 {
+  font-size: 21px !important;
+  line-height: 1 !important;
+}
+
+/* Las pantallas heredadas usan Card para su cabecera. La convertimos en una
+   superficie clara para que Recetas, Despensa, Mercadona y Cuenta compartan
+   el mismo lenguaje visual que Menú y Compra. */
+.page-hero-card.pfi-card,
+.recipes-intro-card.pfi-card {
+  overflow: hidden;
+  border: 1px solid rgba(70, 98, 76, 0.12) !important;
+  background:
+    radial-gradient(circle at 92% 5%, rgba(213, 229, 207, 0.7), transparent 30%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 243, 0.96)) !important;
+  color: #293d2f !important;
+  box-shadow: 0 14px 40px rgba(45, 67, 50, 0.08) !important;
+}
+
+.page-hero-card.pfi-card::before,
+.recipes-intro-card.pfi-card::before {
+  opacity: 0.22;
+}
+
+.page-hero-card .pfi-title,
+.page-hero-card > h2,
+.recipes-intro-card .pfi-title {
+  color: #31513a !important;
+  text-shadow: none !important;
+}
+
+.page-hero-card > p,
+.page-hero-card > div > div > p,
+.recipes-intro-card > p {
+  color: #6f7a72 !important;
+}
+
+.page-hero-card .pantry-summary-grid,
+.page-hero-card .catalog-zone-status {
+  color: #34493a;
+}
+
+.recipes-browser,
+.recipe-library-card,
+.pantry-product-card {
+  border-color: rgba(70, 98, 76, 0.1) !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  box-shadow: 0 7px 24px rgba(45, 67, 50, 0.055) !important;
+}
+
+.recipes-sticky-actions {
+  border: 1px solid rgba(70, 98, 76, 0.1);
+  border-radius: 18px;
+  padding: 8px;
+  background: rgba(250, 252, 248, 0.9);
+  box-shadow: 0 8px 25px rgba(45, 67, 50, 0.06);
+  backdrop-filter: blur(14px);
+}
+
+.pantry-tabs,
+.recipes-category-buttons {
+  scrollbar-width: none;
+}
+
+.pantry-tabs::-webkit-scrollbar,
+.recipes-category-buttons::-webkit-scrollbar {
+  display: none;
+}
+
+.pantry-product-card,
+.recipe-library-card {
+  transition: transform 0.15s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.pantry-product-card:hover,
+.recipe-library-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 13px 34px rgba(45, 67, 50, 0.085) !important;
+}
+
+.month-overview-details > summary,
+.modern-manual-shopping > summary,
+.modern-covered-card > summary {
+  position: relative;
+  padding-right: 24px;
+}
+
+.modern-button,
+.modern-edit-button,
+.menu-options__grid button,
+.day-adjustments__actions button,
+.meal-feedback__options button,
+.modern-segmented-control > button,
+.bottom-more-item,
+.nav-button {
+  transition:
+    transform 0.14s ease,
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.modern-button:active,
+.modern-edit-button:active,
+.menu-options__grid button:active,
+.day-adjustments__actions button:active,
+.meal-feedback__options button:active,
+.modern-segmented-control > button:active,
+.bottom-more-item:active,
+.nav-button:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .app-brand h1 {
+    font-size: 19px !important;
+  }
+
+  .app-brand p {
+    font-size: 9px !important;
+  }
+
+  .page-hero-card.pfi-card,
+  .recipes-intro-card.pfi-card {
+    border-radius: 20px !important;
+    padding: 17px !important;
+  }
+
+  .recipes-sticky-actions {
+    gap: 6px;
+    border-radius: 15px;
+  }
+}
