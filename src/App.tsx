@@ -28,10 +28,14 @@ export type Pantalla = 'inicio' | 'menu' | 'compra' | 'despensa' | 'recetas' | '
 function App() {
   const [pantalla, setPantalla] = useState<Pantalla>('inicio');
   const [excepciones, setExcepciones] = useState(cargarExcepciones);
+  const [sinConexion, setSinConexion] = useState(
+    () => typeof navigator !== 'undefined' && !navigator.onLine,
+  );
   const {
     menu,
     planMensual,
     semanaActiva,
+    guardar: guardarMenu,
     seleccionarSemana,
     mesActivo,
     cambiarMes,
@@ -59,6 +63,17 @@ function App() {
     const actualizar = () => setExcepciones(cargarExcepciones());
     window.addEventListener(EVENTO_EXCEPCIONES, actualizar);
     return () => window.removeEventListener(EVENTO_EXCEPCIONES, actualizar);
+  }, []);
+
+  useEffect(() => {
+    const conectado = () => setSinConexion(false);
+    const desconectado = () => setSinConexion(true);
+    window.addEventListener('online', conectado);
+    window.addEventListener('offline', desconectado);
+    return () => {
+      window.removeEventListener('online', conectado);
+      window.removeEventListener('offline', desconectado);
+    };
   }, []);
 
   useEffect(() => {
@@ -116,6 +131,25 @@ function App() {
         </div>
       </header>
 
+      {sinConexion && (
+        <div
+          role="status"
+          style={{
+            margin: '8px auto 0',
+            width: 'min(960px, calc(100% - 24px))',
+            padding: '8px 12px',
+            borderRadius: 12,
+            background: '#fff3d9',
+            color: '#6d5620',
+            fontSize: 13,
+            fontWeight: 800,
+            textAlign: 'center',
+          }}
+        >
+          Sin conexión · PFI sigue disponible con los datos guardados en este dispositivo.
+        </div>
+      )}
+
       <NavegacionRecetario pantalla={pantalla} cambiarPantalla={cambiarPantalla} />
 
       <Suspense fallback={<main className="page page-loading"><span>Abriendo…</span></main>}>
@@ -133,6 +167,7 @@ function App() {
             menu={menu}
             planMensual={planMensual}
             semanaActiva={semanaActiva}
+            guardar={guardarMenu}
             seleccionarSemana={seleccionarSemana}
             mesActivo={mesActivo}
             cambiarMes={cambiarMes}

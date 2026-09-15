@@ -4,6 +4,10 @@ import Title from '../components/ui/Title';
 import type { DiaMenu } from '../data/Menusemanal';
 import type { LineaCompra, ResultadoCompra } from '../motor/compra';
 import {
+  ORDEN_SECCIONES_COMPRA,
+  obtenerSeccionCompra,
+} from '../services/categoriasCompra';
+import {
   generarCompraMensual,
   generarCompraSemanalProyectada,
 } from '../services/planificacionCompra';
@@ -33,6 +37,13 @@ type Props = {
   menusSemanas: DiaMenu[][];
   mesActivo: string;
   semanaActiva: number;
+};
+
+type GrupoSeccionCompra = {
+  seccion: string;
+  lineas: LineaCompra[];
+  subtotal: number;
+  preciosPendientes: number;
 };
 
 const UMBRAL_CERO = 0.000001;
@@ -66,6 +77,7 @@ export default function CompraPlanificada({
   const [tiendaManual, setTiendaManual] = useState('');
   const [precioManual, setPrecioManual] = useState('');
   const [errorManual, setErrorManual] = useState('');
+  const compraMensualDisponible = semanaActiva === 0;
   const menuObjetivo = periodo === 'semana' ? menu : menuMes;
   const clavesEstado = useMemo(
     () => crearClavesEstadoCompra(periodo, mesActivo, semanaActiva),
@@ -84,6 +96,12 @@ export default function CompraPlanificada({
       ),
     [periodoManualId, productosManuales],
   );
+
+  useEffect(() => {
+    if (!compraMensualDisponible && periodo === 'mes') {
+      setPeriodo('semana');
+    }
+  }, [compraMensualDisponible, periodo]);
 
   useEffect(() => {
     setMarcados(cargarClavesGuardadas(clavesEstado.marcados));
@@ -122,6 +140,36 @@ export default function CompraPlanificada({
   }, [menuMes, menusSemanas, periodo, mesActivo, semanaActiva]);
 
   const lineas = resultado?.lineas ?? SIN_LINEAS;
+  const lineasPorSeccion = useMemo<GrupoSeccionCompra[]>(() => {
+    const grupos = new Map<string, LineaCompra[]>();
+    lineas.forEach((linea) => {
+      const seccion = obtenerSeccionCompra(linea);
+      grupos.set(seccion, [...(grupos.get(seccion) ?? []), linea]);
+    });
+
+    const orden = [
+      ...ORDEN_SECCIONES_COMPRA,
+      ...Array.from(grupos.keys()).filter(
+        (seccion) => !ORDEN_SECCIONES_COMPRA.includes(seccion),
+      ),
+    ];
+
+    return orden.flatMap((seccion) => {
+      const lineasSeccion = grupos.get(seccion) ?? [];
+      if (lineasSeccion.length === 0) return [];
+      return [{
+        seccion,
+        lineas: lineasSeccion,
+        subtotal: lineasSeccion.reduce(
+          (suma, linea) => suma + (linea.subtotal ?? 0),
+          0,
+        ),
+        preciosPendientes: lineasSeccion.filter(
+          (linea) => linea.subtotal === null,
+        ).length,
+      }];
+    });
+  }, [lineas]);
   const marcadosSet = useMemo(() => new Set(marcados), [marcados]);
   const registradosSet = useMemo(() => new Set(registrados), [registrados]);
   const pendientesInventario = useMemo(
@@ -292,9 +340,9 @@ export default function CompraPlanificada({
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: compraMensualDisponible ? '1fr 1fr' : '1fr',
             gap: 10,
-            margin: '18px 0',
+            margin: '18px 0 10px',
           }}
         >
           <button
@@ -305,15 +353,22 @@ export default function CompraPlanificada({
           >
             🥬 Compra semanal
           </button>
-          <button
-            type="button"
-            aria-pressed={periodo === 'mes'}
-            onClick={() => setPeriodo('mes')}
-            style={boton(periodo === 'mes')}
-          >
-            🧺 Compra mensual
-          </button>
+          {compraMensualDisponible && (
+            <button
+              type="button"
+              aria-pressed={periodo === 'mes'}
+              onClick={() => setPeriodo('mes')}
+              style={boton(periodo === 'mes')}
+            >
+              🧺 Compra mensual
+            </button>
+          )}
         </div>
+        {!compraMensualDisponible && (
+          <p style={{ margin: '0 0 12px', color: '#727b73', fontSize: 12 }}>
+            La compra mensual se gestiona desde la Semana 1 para evitar duplicarla.
+          </p>
+        )}
         <div className="compra-periodo-aviso">
           <strong>
             {periodo === 'semana'
@@ -533,20 +588,37 @@ export default function CompraPlanificada({
                 <header className="compra-tienda-lista-card__header">
                   <div>
                     <h3>🛒 Mercadona</h3>
+                    <small>Ordenado por recorrido de tienda</small>
                   </div>
                   <div>
                     <strong>{euros(totalAutomatico)}</strong>
                     <small>{lineas.length} producto{lineas.length === 1 ? '' : 's'}</small>
                   </div>
                 </header>
-                {lineas.map((linea) => (
-                  <LineaProducto
-                    key={linea.clave}
-                    linea={linea}
-                    marcada={marcadosSet.has(linea.clave)}
-                    registrada={registradosSet.has(linea.clave)}
-                    cambiar={() => cambiar(linea)}
-                  />
+                {lineasPorSeccion.map((grupo) => (
+                  <section key={grupo.seccion} style={estiloGrupoSeccion}>
+                    <header style={estiloCabeceraSeccion}>
+                      <div>
+                        <strong>{grupo.seccion}</strong>
+                        <small style={estiloDetalleSeccion}>
+                          {grupo.lineas.length} producto{grupo.lineas.length === 1 ? '' : 's'}
+                        </small>
+                      </div>
+                      <strong style={estiloSubtotalSeccion}>
+                        {euros(grupo.subtotal)}
+                        {grupo.preciosPendientes > 0 ? ' +' : ''}
+                      </strong>
+                    </header>
+                    {grupo.lineas.map((linea) => (
+                      <LineaProducto
+                        key={linea.clave}
+                        linea={linea}
+                        marcada={marcadosSet.has(linea.clave)}
+                        registrada={registradosSet.has(linea.clave)}
+                        cambiar={() => cambiar(linea)}
+                      />
+                    ))}
+                  </section>
                 ))}
               </Card>
             </section>
@@ -870,3 +942,33 @@ function boton(activo: boolean) {
     cursor: 'pointer',
   } as const;
 }
+
+const estiloGrupoSeccion = {
+  marginTop: 14,
+  border: '1px solid #e2e7df',
+  borderRadius: 14,
+  overflow: 'hidden',
+  background: '#fff',
+} as const;
+
+const estiloCabeceraSeccion = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: 12,
+  padding: '10px 12px',
+  background: '#f0f4ed',
+  color: '#405a44',
+} as const;
+
+const estiloDetalleSeccion = {
+  display: 'block',
+  marginTop: 2,
+  color: '#7a837b',
+  fontWeight: 650,
+} as const;
+
+const estiloSubtotalSeccion = {
+  whiteSpace: 'nowrap',
+  fontSize: 13,
+} as const;

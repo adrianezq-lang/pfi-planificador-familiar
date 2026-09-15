@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import ProductoDetalleModal from '../components/ProductoDetalleModal';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
+import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 import {
   calcularCosteReposicion,
   calcularReposicion,
@@ -316,6 +317,7 @@ function Despensa() {
           </Title>
           {movimientos.slice(0, 100).map((movimiento) => {
             const producto = productosPorId.get(movimiento.productoId);
+            const nombreProducto = producto?.nombre ?? 'Producto eliminado';
             return (
               <div key={movimiento.id} className="pantry-movement">
                 <span className="pantry-movement__icon">
@@ -326,7 +328,7 @@ function Despensa() {
                       : '✏️'}
                 </span>
                 <span>
-                  <strong>{producto?.nombre ?? 'Producto eliminado'}</strong>
+                  <strong>{nombreProducto}</strong>
                   <small>
                     {etiquetaMovimiento(movimiento)} ·{' '}
                     {new Date(movimiento.fecha).toLocaleString('es-ES')}
@@ -336,8 +338,13 @@ function Despensa() {
                 <button
                   type="button"
                   onClick={() => {
+                    const confirmado = window.confirm(
+                      `¿Eliminar este movimiento de «${nombreProducto}»? El stock se recalculará al instante.`,
+                    );
+                    if (!confirmado) return;
+                    crearCopiaAutomaticaSiNecesaria('antes de eliminar un movimiento de inventario');
                     eliminarMovimiento(movimiento.id);
-                    setMensaje('Movimiento eliminado.');
+                    setMensaje('Movimiento eliminado y stock recalculado.');
                   }}
                 >
                   Eliminar

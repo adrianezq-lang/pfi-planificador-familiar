@@ -1,6 +1,11 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.28.
+Versión 0.9.29.
+
+La v0.9.29 recupera la compra manual para productos de otros comercios y mantiene
+la compra planificada conectada con menú, despensa e inventario. La auditoría de
+producto refuerza además las decisiones del usuario: las recetas y productos
+quitados no reaparecen por migraciones o sincronizaciones automáticas.
 
 La v0.9.28 simplifica **Compra**: se retira el comparador de supermercados y la
 lista vuelve a mostrar directamente cada producto con su necesidad, formato,
@@ -56,6 +61,7 @@ npm run test:copias
 npm run test:v0925
 npm run test:v0926
 npm run test:v0928
+npm run test:v0930
 ```
 
 ## Datos y copias
@@ -87,7 +93,7 @@ En Windows también puedes hacer doble clic en `ACTUALIZAR_MERCADONA.cmd`. Al te
 ## Flujo principal
 
 1. En **Recetas** o **Compra**, pulsa **Asociar** para elegir el producto exacto sin salir de la pantalla. También puedes gestionar asociaciones desde **Catálogo**.
-2. En **Despensa**, configura el stock objetivo, la frecuencia y el tipo de producto.
+2. En **Despensa**, configura la reserva mínima, la frecuencia y el tipo de producto.
 3. En **Compra**, alterna entre la compra semanal y la mensual desde cualquier semana del menú.
 4. Marca lo comprado y pulsa **Guardar en despensa**. PFI registra el producto aunque todavía no existiera en la despensa.
 5. El panel **Inicio** muestra el menú del día, lo que hay que preparar, las próximas reposiciones y los presupuestos correspondientes a la semana activa. Sus tarjetas abren directamente la pestaña correspondiente.
@@ -135,15 +141,15 @@ Como referencia inicial, con 2 adultos y niños de 12 y 6 años se calculan 3,4 
 
 ## Plan mensual inteligente
 
-PFI incluye desde el primer arranque cuatro semanas distintas. Cada semana mantiene las reglas familiares acordadas —hamburguesa, perritos o kebab el viernes y comida fuera el domingo— y reparte legumbres, pescado, pollo o pavo, huevos, cremas, pasta y carne para evitar repetir siempre el mismo patrón.
+PFI incluye desde el primer arranque varias semanas distintas adaptadas al calendario del mes. Cada semana mantiene las reglas familiares acordadas —incluidas las excepciones configuradas— y reparte legumbres, pescado, pollo o pavo, huevos, cremas, pasta y carne para evitar repetir siempre el mismo patrón.
 
-En **Menú** puedes cambiar de semana, consultar un indicador práctico de equilibrio y generar un mes nuevo. Este indicador comprueba variedad y frecuencias del plan; no sustituye una valoración nutricional profesional. El generador conserva la estructura equilibrada y, cuando ya dispone de valoraciones suficientes, prioriza alternativas del mismo grupo que hayan funcionado bien en la familia. **Compra**, **Inicio** y el presupuesto utilizan siempre la semana que esté activa.
+En **Menú** puedes cambiar de semana y generar un mes nuevo. El generador conserva la estructura equilibrada y, cuando ya dispone de valoraciones suficientes, prioriza alternativas del mismo grupo que hayan funcionado bien en la familia. **Compra**, **Inicio** y el presupuesto utilizan siempre la semana que esté activa.
 
 ## Menú diario inteligente
 
-La pantalla **Menú** muestra un día cada vez para evitar el aspecto recargado de la cuadrícula anterior. El selector superior permite cambiar de día y la vista rápida inferior conserva el resumen completo de la semana. Cada comida diferencia el plato principal de los complementos, mantiene la edición múltiple y propone combinaciones aprendidas.
+La pantalla **Menú** muestra un día cada vez para evitar el aspecto recargado de la cuadrícula anterior. El selector superior permite cambiar de día y la vista rápida inferior conserva el resumen completo de la semana. Cada comida se puede editar con varios platos y propone combinaciones aprendidas y complementos contextuales.
 
-Después de comer puedes indicar **Gustó**, **Sobró**, **Faltó** o **No gustó**. Estas valoraciones mejoran las recomendaciones, evitan insistir con combinaciones rechazadas y ajustan gradualmente las cantidades automáticas de las recetas cuando sobra o falta comida. PFI también propone complementos por uso anterior y, mientras todavía tiene pocos datos, mediante reglas contextuales sencillas.
+Después de comer puedes indicar **Gustó**, **Sobró**, **Faltó** o **No gustó**. Estas valoraciones mejoran las recomendaciones, evitan insistir con combinaciones rechazadas y ajustan gradualmente las cantidades automáticas de las recetas cuando sobra o falta comida. PFI también permite cambiar el postre de cada servicio de forma puntual.
 
 ## Diseño renovado
 

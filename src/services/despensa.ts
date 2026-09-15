@@ -49,6 +49,7 @@ type ProductoDespensaGuardado = Partial<ProductoDespensa> & {
 };
 
 const CLAVE_DESPENSA = 'pfi-despensa-productos';
+const CLAVE_PRODUCTOS_EXCLUIDOS = 'pfi-despensa-productos-excluidos-v1';
 export const EVENTO_DESPENSA = 'pfi:despensa-actualizada';
 
 function crearId(): string {
@@ -65,6 +66,42 @@ function numeroNoNegativo(valor: unknown, alternativa = 0): number {
   return typeof valor === 'number' && Number.isFinite(valor)
     ? Math.max(0, valor)
     : alternativa;
+}
+
+function cargarProductosExcluidos(): Set<string> {
+  try {
+    const valor = JSON.parse(
+      localStorage.getItem(CLAVE_PRODUCTOS_EXCLUIDOS) ?? '[]',
+    ) as unknown;
+    if (!Array.isArray(valor)) return new Set();
+    return new Set(
+      valor.filter(
+        (productoId): productoId is string =>
+          typeof productoId === 'string' && productoId.trim().length > 0,
+      ),
+    );
+  } catch {
+    return new Set();
+  }
+}
+
+function guardarProductosExcluidos(productos: Set<string>): void {
+  localStorage.setItem(
+    CLAVE_PRODUCTOS_EXCLUIDOS,
+    JSON.stringify(Array.from(productos).sort()),
+  );
+}
+
+function excluirProductoAutomatico(productoId: string): void {
+  const excluidos = cargarProductosExcluidos();
+  excluidos.add(productoId);
+  guardarProductosExcluidos(excluidos);
+}
+
+function permitirProductoAutomatico(productoId: string): void {
+  const excluidos = cargarProductosExcluidos();
+  if (!excluidos.delete(productoId)) return;
+  guardarProductosExcluidos(excluidos);
 }
 
 function normalizarProductoGuardado(
@@ -222,6 +259,7 @@ export function guardarDespensa(
 export function añadirProductoDespensa(
   producto: Omit<ProductoDespensa, 'id' | 'actualizado'>,
 ): ProductoDespensa[] {
+  permitirProductoAutomatico(producto.productoId);
   const productos = cargarDespensa();
   const actualizado = new Date().toISOString();
   const existente = productos.find(
@@ -350,6 +388,7 @@ export function crearProductosDespensaDesdeCatalogo(
 export function crearProductoDespensaDesdeCatalogo(
   producto: ProductoMercadonaCatalogo,
 ): ProductoDespensa[] {
+  permitirProductoAutomatico(producto.productoId);
   return crearProductosDespensaDesdeCatalogo([producto]);
 }
 
@@ -357,11 +396,15 @@ export async function sincronizarProductosRecetasConDespensa(
   recetas: Receta[],
 ): Promise<number> {
   const asociaciones = cargarAsociacionesIngredientes();
+  const excluidos = cargarProductosExcluidos();
   const idsNecesarios = new Set(
     recetas.flatMap((receta) =>
       receta.ingredientes
         .map((ingrediente) => asociaciones[ingrediente.nombre])
-        .filter((productoId): productoId is string => Boolean(productoId)),
+        .filter(
+          (productoId): productoId is string =>
+            Boolean(productoId) && !excluidos.has(productoId as string),
+        ),
     ),
   );
 
@@ -467,7 +510,11 @@ export function registrarUltimaCompraDespensa(
 export function eliminarProductoDespensa(
   id: string,
 ): ProductoDespensa[] {
-  const nuevosProductos = cargarDespensa().filter(
+  const productos = cargarDespensa();
+  const eliminado = productos.find((producto) => producto.id === id);
+  if (eliminado) excluirProductoAutomatico(eliminado.productoId);
+
+  const nuevosProductos = productos.filter(
     (producto) => producto.id !== id,
   );
 

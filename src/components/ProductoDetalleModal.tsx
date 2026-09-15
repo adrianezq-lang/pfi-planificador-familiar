@@ -115,6 +115,11 @@ function ProductoDetalleModal({
 
   const quitar = () => {
     if (!despensa) return;
+    const confirmado = window.confirm(
+      `¿Quitar «${despensa.nombre}» de la despensa? Seguirá disponible para recetas y para la lista de la compra, pero no volverá a añadirse automáticamente hasta que lo añadas o lo compres de nuevo.`,
+    );
+    if (!confirmado) return;
+
     eliminarProductoDespensa(despensa.id);
     guardarNecesidadMensual(despensa.productoId, 0);
     setDespensa(null);
