@@ -11,9 +11,26 @@ import { instalarMigracionV0923 } from './services/migracionV0923.ts'
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch((error) => {
-      console.error('No se pudo registrar el modo PWA:', error)
+    const teniaControlador = Boolean(navigator.serviceWorker.controller)
+    let recargandoPorActualizacion = false
+
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!teniaControlador || recargandoPorActualizacion) return
+      recargandoPorActualizacion = true
+      window.location.reload()
     })
+
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then((registro) => {
+        void registro.update()
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') void registro.update()
+        })
+      })
+      .catch((error) => {
+        console.error('No se pudo registrar el modo PWA:', error)
+      })
   })
 }
 
