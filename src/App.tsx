@@ -32,6 +32,7 @@ function App() {
     menu,
     planMensual,
     semanaActiva,
+    guardar: guardarMenu,
     seleccionarSemana,
     mesActivo,
     cambiarMes,
@@ -133,6 +134,7 @@ function App() {
             menu={menu}
             planMensual={planMensual}
             semanaActiva={semanaActiva}
+            guardar={guardarMenu}
             seleccionarSemana={seleccionarSemana}
             mesActivo={mesActivo}
             cambiarMes={cambiarMes}
