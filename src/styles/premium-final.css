@@ -1,0 +1,66 @@
+.app-brand p {
+  margin: 2px 0 0 !important;
+  color: #7c887f !important;
+  font-size: 10px !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.01em;
+}
+
+.app-brand h1 {
+  font-size: 21px !important;
+  line-height: 1 !important;
+}
+
+.month-overview-details > summary,
+.modern-manual-shopping > summary,
+.modern-covered-card > summary {
+  position: relative;
+  padding-right: 24px;
+}
+
+.modern-button,
+.modern-edit-button,
+.menu-options__grid button,
+.day-adjustments__actions button,
+.meal-feedback__options button,
+.modern-segmented-control > button,
+.bottom-more-item,
+.nav-button {
+  transition:
+    transform 0.14s ease,
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.modern-button:active,
+.modern-edit-button:active,
+.menu-options__grid button:active,
+.day-adjustments__actions button:active,
+.meal-feedback__options button:active,
+.modern-segmented-control > button:active,
+.bottom-more-item:active,
+.nav-button:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .app-brand h1 {
+    font-size: 19px !important;
+  }
+
+  .app-brand p {
+    font-size: 9px !important;
+  }
+}
