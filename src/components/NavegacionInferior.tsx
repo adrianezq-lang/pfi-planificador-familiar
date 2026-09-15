@@ -13,10 +13,10 @@ type BotonNavegacion = {
 };
 
 const principales: BotonNavegacion[] = [
-  { id: 'inicio', icono: '⌂', texto: 'Inicio' },
-  { id: 'menu', icono: '▦', texto: 'Menú' },
+  { id: 'inicio', icono: '🏠', texto: 'Inicio' },
+  { id: 'menu', icono: '📅', texto: 'Menú' },
   { id: 'compra', icono: '🛒', texto: 'Compra' },
-  { id: 'despensa', icono: '□', texto: 'Despensa' },
+  { id: 'despensa', icono: '📦', texto: 'Despensa' },
 ];
 
 const secundarios: BotonNavegacion[] = [
