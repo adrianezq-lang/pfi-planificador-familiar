@@ -446,19 +446,27 @@ function cargarMes(mes: string): MesPlan {
   };
 }
 
+function indiceSemanaValido(indice: unknown, totalSemanas: number): number {
+  if (totalSemanas <= 0) return 0;
+  const numero = typeof indice === 'number' ? indice : Number(indice);
+  if (!Number.isInteger(numero)) return 0;
+  return Math.max(0, Math.min(numero, totalSemanas - 1));
+}
+
 function guardarMes(plan: MesPlan, indice: number): void {
+  const indiceSeguro = indiceSemanaValido(indice, plan.semanas.length);
   localStorage.setItem(
     `${PREFIJO_PLAN_MES}${plan.mes}`,
     JSON.stringify(plan),
   );
   localStorage.setItem(CLAVE_MES_ACTIVO, plan.mes);
-  localStorage.setItem(CLAVE_SEMANA_ACTIVA, String(indice));
+  localStorage.setItem(CLAVE_SEMANA_ACTIVA, String(indiceSeguro));
   localStorage.setItem(
     CLAVE_MENU,
     JSON.stringify(
-      plan.semanas[indice]?.excluida
+      plan.semanas[indiceSeguro]?.excluida
         ? []
-        : plan.semanas[indice]?.menu ?? [],
+        : plan.semanas[indiceSeguro]?.menu ?? [],
     ),
   );
   marcarMigracionVariedad(plan.mes);
@@ -469,19 +477,28 @@ export function useMenu() {
   const [mesPlan, setMesPlan] = useState<MesPlan>(() =>
     cargarMes(localStorage.getItem(CLAVE_MES_ACTIVO) || claveMes()),
   );
-  const [semanaActiva, setSemanaActiva] = useState(() =>
-    Number(localStorage.getItem(CLAVE_SEMANA_ACTIVA) || 0),
-  );
+  const [semanaActiva, setSemanaActiva] = useState(() => {
+    const planInicial = cargarMes(localStorage.getItem(CLAVE_MES_ACTIVO) || claveMes());
+    return indiceSemanaValido(
+      localStorage.getItem(CLAVE_SEMANA_ACTIVA) || 0,
+      planInicial.semanas.length,
+    );
+  });
   const planMensual = mesPlan.semanas;
-  const semana = planMensual[semanaActiva];
+  const semanaActivaSegura = indiceSemanaValido(semanaActiva, planMensual.length);
+  const semana = planMensual[semanaActivaSegura];
   const menu = useMemo(
     () => (semana?.excluida ? [] : semana?.menu ?? []),
     [semana],
   );
 
   useEffect(() => {
-    guardarMes(mesPlan, semanaActiva);
-  }, [mesPlan, semanaActiva]);
+    if (semanaActiva !== semanaActivaSegura) {
+      setSemanaActiva(semanaActivaSegura);
+      return;
+    }
+    guardarMes(mesPlan, semanaActivaSegura);
+  }, [mesPlan, semanaActiva, semanaActivaSegura]);
 
   useEffect(() => {
     const actualizarPostres = () => {
@@ -539,18 +556,19 @@ export function useMenu() {
   }
 
   function seleccionarSemana(indice: number): void {
-    const seguro = Math.max(0, Math.min(indice, planMensual.length - 1));
+    const seguro = indiceSemanaValido(indice, planMensual.length);
     setSemanaActiva(seguro);
     guardarMes(mesPlan, seguro);
   }
 
   function excluirSemana(indice: number, excluida = true): void {
+    const indiceSeguro = indiceSemanaValido(indice, planMensual.length);
     const semanas = planMensual.map((s, i) =>
-      i === indice ? { ...s, excluida } : s,
+      i === indiceSeguro ? { ...s, excluida } : s,
     );
     const nuevoPlan = { ...mesPlan, semanas };
     setMesPlan(nuevoPlan);
-    guardarMes(nuevoPlan, semanaActiva);
+    guardarMes(nuevoPlan, semanaActivaSegura);
   }
 
   function guardar(nuevoMenu: DiaMenu[]): void {
@@ -558,7 +576,7 @@ export function useMenu() {
       mesPlan.mes,
       recalcularPreparacionesPlan(
         planMensual.map((s, i) =>
-          i === semanaActiva
+          i === semanaActivaSegura
             ? { ...s, menu: nuevoMenu, excluida: false }
             : s,
         ),
@@ -566,7 +584,7 @@ export function useMenu() {
     );
     const nuevoPlan = { ...mesPlan, semanas };
     setMesPlan(nuevoPlan);
-    guardarMes(nuevoPlan, semanaActiva);
+    guardarMes(nuevoPlan, semanaActivaSegura);
   }
 
   function guardarPlan(nuevoPlan: SemanaMenu[], indice = 0): void {
@@ -575,7 +593,7 @@ export function useMenu() {
       normalizarPlanMensual(nuevoPlan),
     );
     const plan = { mes: mesPlan.mes, semanas };
-    const seguro = Math.max(0, Math.min(indice, semanas.length - 1));
+    const seguro = indiceSemanaValido(indice, semanas.length);
     setMesPlan(plan);
     setSemanaActiva(seguro);
     guardarMes(plan, seguro);
@@ -586,7 +604,7 @@ export function useMenu() {
     guardar,
     planMensual,
     guardarPlan,
-    semanaActiva,
+    semanaActiva: semanaActivaSegura,
     seleccionarSemana,
     mesActivo: mesPlan.mes,
     cambiarMes,
