@@ -1,0 +1,153 @@
+/* Hotfix de Inicio: la capa global .pfi-card usa fondo claro con !important.
+   Estas reglas preservan el tratamiento especial de las tarjetas del dashboard
+   y evitan texto blanco sobre fondo blanco. */
+
+.app-shell--inicio .home-card--menu.pfi-card {
+  min-height: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background:
+    radial-gradient(circle at 92% 10%, rgba(244, 231, 196, 0.2), transparent 34%),
+    radial-gradient(circle at 4% 105%, rgba(196, 216, 193, 0.16), transparent 36%),
+    linear-gradient(145deg, #34543e 0%, #56755c 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 16px 42px rgba(42, 67, 49, 0.18) !important;
+}
+
+.app-shell--inicio .home-card--menu .home-card__eyebrow,
+.app-shell--inicio .home-card--menu .home-day,
+.app-shell--inicio .home-card--menu .meal-row strong,
+.app-shell--inicio .home-card--menu .home-card__arrow {
+  color: #fff !important;
+}
+
+.app-shell--inicio .home-card--menu .meal-row__label {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.app-shell--inicio .home-card--menu .home-card__icon,
+.app-shell--inicio .home-card--menu .home-card__arrow {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+
+.app-shell--inicio .home-card--menu .meal-row {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  background: rgba(255, 255, 255, 0.11) !important;
+}
+
+.app-shell--inicio .home-card--prep.pfi-card {
+  border-color: rgba(202, 168, 120, 0.34) !important;
+  background:
+    radial-gradient(circle at 100% 100%, rgba(185, 111, 80, 0.09), transparent 42%),
+    linear-gradient(145deg, #fffaf0, #f4ead5) !important;
+}
+
+.app-shell--inicio .home-card--restock.pfi-card {
+  border-color: rgba(72, 107, 80, 0.12) !important;
+  background: linear-gradient(145deg, #fbfcf8, #edf3e9) !important;
+}
+
+.app-shell--inicio .budget-card:nth-child(1).pfi-card {
+  border-color: rgba(202, 168, 120, 0.28) !important;
+  background: linear-gradient(145deg, #fffaf0, #f4ead7) !important;
+}
+
+.app-shell--inicio .budget-card:nth-child(2).pfi-card:not(.budget-card--total) {
+  border-color: rgba(72, 107, 80, 0.12) !important;
+  background: linear-gradient(145deg, #f9fbf7, #eaf2e7) !important;
+}
+
+.app-shell--inicio .budget-card--total.pfi-card {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(247, 237, 204, 0.16), transparent 32%),
+    linear-gradient(135deg, #2f4a37, #56745a) !important;
+  color: #fff !important;
+}
+
+.app-shell--inicio .budget-card--total .home-card__eyebrow,
+.app-shell--inicio .budget-card--total .budget-amount,
+.app-shell--inicio .budget-card--total .home-card__arrow {
+  color: #fff !important;
+}
+
+@media (max-width: 760px) {
+  .app-shell--inicio .page {
+    padding-top: 14px !important;
+  }
+
+  .app-shell--inicio .home-grid,
+  .app-shell--inicio .home-side-grid {
+    gap: 12px !important;
+  }
+
+  .app-shell--inicio .home-card__body {
+    padding: 18px;
+  }
+
+  .app-shell--inicio .home-card__top {
+    margin-bottom: 13px;
+  }
+
+  .app-shell--inicio .home-card--menu.pfi-card {
+    min-height: 0 !important;
+    border-radius: 24px !important;
+  }
+
+  .app-shell--inicio .home-card--menu .home-day {
+    margin: 0 0 13px;
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1;
+  }
+
+  .app-shell--inicio .home-card--menu .meal-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .app-shell--inicio .home-card--menu .meal-row {
+    min-width: 0;
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: 5px;
+    min-height: 82px;
+    padding: 11px 12px;
+    border-radius: 14px;
+    backdrop-filter: none;
+  }
+
+  .app-shell--inicio .home-card--menu .meal-row:nth-child(n + 3) {
+    background: rgba(255, 255, 255, 0.075) !important;
+  }
+
+  .app-shell--inicio .home-card--menu .meal-row__label {
+    font-size: 9px;
+    line-height: 1.2;
+    letter-spacing: 0.055em;
+  }
+
+  .app-shell--inicio .home-card--menu .meal-row strong {
+    overflow-wrap: anywhere;
+    font-size: 14px;
+    line-height: 1.28;
+  }
+
+  .app-shell--inicio .home-highlight-text {
+    font-size: 21px;
+  }
+
+  .app-shell--inicio .budget-grid {
+    gap: 12px !important;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 370px) {
+  .app-shell--inicio .home-card--menu .meal-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell--inicio .home-card--menu .meal-row {
+    min-height: 0;
+  }
+}
