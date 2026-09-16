@@ -5,10 +5,12 @@ const app = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8');
 const home = await readFile(new URL('../src/pages/Home.tsx', import.meta.url), 'utf8');
 const menu = await readFile(new URL('../src/pages/MenuModern.tsx', import.meta.url), 'utf8');
 const compra = await readFile(new URL('../src/pages/CompraModern.tsx', import.meta.url), 'utf8');
+const despensa = await readFile(new URL('../src/pages/Despensa.tsx', import.meta.url), 'utf8');
 const navegacion = await readFile(new URL('../src/components/NavegacionInferior.tsx', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles/premium-modern.css', import.meta.url), 'utf8');
 const cssFinal = await readFile(new URL('../src/styles/premium-final.css', import.meta.url), 'utf8');
 const cssNavegacion = await readFile(new URL('../src/styles/premium-navigation.css', import.meta.url), 'utf8');
+const cssDespensa = await readFile(new URL('../src/styles/pantry-decimal.css', import.meta.url), 'utf8');
 
 assert.match(app, /import '\.\/styles\/premium-modern\.css';/, 'La capa visual moderna debe estar cargada.');
 assert.match(app, /import '\.\/styles\/premium-navigation\.css';/, 'La navegación premium debe cargarse después de la capa visual.');
@@ -35,6 +37,13 @@ assert.match(compra, /const compraMensualDisponible = semanaActiva === 0/, 'Comp
 assert.match(compra, /ORDEN_SECCIONES_COMPRA/, 'La lista debe conservar el recorrido por secciones.');
 assert.match(compra, /modern-progress/, 'La compra debe mostrar progreso de forma comprensible.');
 
+assert.match(despensa, /inputMode="decimal"/, 'Despensa debe permitir escribir cantidades decimales desde móvil.');
+assert.match(despensa, /replace\(',', '\.'\)/, 'Despensa debe aceptar coma decimal española.');
+assert.match(despensa, /actualizarStockProductoDespensa/, 'El stock decimal debe guardarse en el inventario real.');
+assert.match(despensa, /Math\.min\(1, producto\.stockActual\)/, 'Restar stock no debe generar cantidades internas negativas cuando queda menos de una unidad.');
+assert.match(despensa, /maximumFractionDigits: 3/, 'Despensa debe conservar precisión útil sin redondear a enteros.');
+assert.match(cssDespensa, /\.pantry-stock-editor input/, 'El editor decimal debe tener una presentación táctil específica.');
+
 assert.match(navegacion, /const principales:[\s\S]*'inicio'[\s\S]*'menu'[\s\S]*'compra'[\s\S]*'despensa'/, 'La barra debe priorizar las cuatro áreas de uso diario.');
 assert.match(navegacion, /const secundarios:[\s\S]*'recetas'[\s\S]*'catalogo'[\s\S]*'perfil'/, 'Recetas, Mercadona y Cuenta deben vivir en Más.');
 assert.match(navegacion, />Más</, 'La barra debe ofrecer un acceso Más claro.');
@@ -47,6 +56,7 @@ assert.match(css, /@media \(max-width: 720px\)/, 'La nueva interfaz debe incluir
 console.log('✓ Inicio recupera contraste y reduce su altura en móvil');
 console.log('✓ valoraciones plegables y acciones secundarias agrupadas');
 console.log('✓ compra reversible: marcar todo y desmarcar');
+console.log('✓ despensa acepta y conserva cantidades decimales');
 console.log('✓ compra mensual solo en Semana 1 y recorrido por secciones');
 console.log('✓ navegación principal reducida a cinco destinos');
 console.log('✓ interfaz moderna con adaptación móvil');
