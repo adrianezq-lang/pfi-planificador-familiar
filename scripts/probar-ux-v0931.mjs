@@ -2,16 +2,26 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
 const app = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8');
+const home = await readFile(new URL('../src/pages/Home.tsx', import.meta.url), 'utf8');
 const menu = await readFile(new URL('../src/pages/MenuModern.tsx', import.meta.url), 'utf8');
 const compra = await readFile(new URL('../src/pages/CompraModern.tsx', import.meta.url), 'utf8');
 const navegacion = await readFile(new URL('../src/components/NavegacionInferior.tsx', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles/premium-modern.css', import.meta.url), 'utf8');
+const cssFinal = await readFile(new URL('../src/styles/premium-final.css', import.meta.url), 'utf8');
 const cssNavegacion = await readFile(new URL('../src/styles/premium-navigation.css', import.meta.url), 'utf8');
 
 assert.match(app, /import '\.\/styles\/premium-modern\.css';/, 'La capa visual moderna debe estar cargada.');
 assert.match(app, /import '\.\/styles\/premium-navigation\.css';/, 'La navegación premium debe cargarse después de la capa visual.');
 assert.match(app, /import\('\.\/pages\/MenuModern'\)/, 'Producción debe usar el menú moderno.');
 assert.match(app, /import\('\.\/pages\/CompraModern'\)/, 'Producción debe usar la compra moderna.');
+
+assert.match(home, /etiqueta="Menú de hoy"/, 'Inicio debe identificar claramente el menú de hoy.');
+assert.match(home, /detalle={`Postre · \$\{postreComida\}`}/, 'El postre de la comida debe integrarse en la misma fila para evitar una tarjeta enorme.');
+assert.match(home, /detalle={`Postre · \$\{postreCena\}`}/, 'El postre de la cena debe integrarse en la misma fila para evitar una tarjeta enorme.');
+assert.match(cssFinal, /\.home-card--menu\.pfi-card[\s\S]*background:[\s\S]*!important;/, 'La tarjeta principal debe conservar fondo oscuro sobre el estilo global de Card.');
+assert.match(cssFinal, /\.home-card--menu \.home-day[\s\S]*color: #fff !important;/, 'El texto principal del menú debe conservar contraste alto.');
+assert.match(cssFinal, /\.meal-row__detail/, 'El postre integrado debe tener un estilo legible.');
+assert.match(cssFinal, /@media \(max-width: 720px\)[\s\S]*\.home-card--menu \.meal-row/, 'Inicio debe compactarse explícitamente en móvil.');
 
 assert.match(menu, /<details[\s\S]*className="meal-feedback"/, 'La valoración debe poder plegarse.');
 assert.match(menu, /Valorar este menú/, 'La valoración plegada debe seguir siendo fácil de descubrir.');
@@ -34,6 +44,7 @@ assert.match(css, /\.modern-meal-card/, 'La nueva jerarquía visual del menú de
 assert.match(css, /\.modern-shopping-row/, 'La lista de compra moderna debe tener estilos propios.');
 assert.match(css, /@media \(max-width: 720px\)/, 'La nueva interfaz debe incluir adaptación móvil explícita.');
 
+console.log('✓ Inicio recupera contraste y reduce su altura en móvil');
 console.log('✓ valoraciones plegables y acciones secundarias agrupadas');
 console.log('✓ compra reversible: marcar todo y desmarcar');
 console.log('✓ compra mensual solo en Semana 1 y recorrido por secciones');
