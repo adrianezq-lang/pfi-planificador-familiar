@@ -25,9 +25,10 @@ const {
   crearPerfilParaMomento,
   normalizarPerfil,
 } = await vite.ssrLoadModule('/src/services/perfil.ts');
-const { generarListaCompra } = await vite.ssrLoadModule(
-  '/src/services/listaCompra.ts',
-);
+const {
+  ajustarRecetasAComensalesServicio,
+  generarListaCompra,
+} = await vite.ssrLoadModule('/src/services/listaCompra.ts');
 const { aplicarMigracionV0923 } = await vite.ssrLoadModule(
   '/src/services/migracionV0923.ts',
 );
@@ -62,12 +63,37 @@ if (
   throw new Error('La comida laborable no deja solo a los 2 adultos y al niño de 12 años.');
 }
 
-if (calcularRacionesEquivalentes(comidaLaborable) !== 2.85) {
-  throw new Error('Las raciones laborables no equivalen a 2,85 adultos.');
+if (
+  calcularRacionesEquivalentes(perfilMigrado) !== 3.4 ||
+  calcularRacionesEquivalentes(comidaLaborable) !== 2.85
+) {
+  throw new Error('Las raciones equivalentes por edad no coinciden con el perfil familiar.');
 }
 
 if (calcularComensales(comidaFinSemana) !== 4 || calcularComensales(cena) !== 4) {
   throw new Error('El fin de semana y las cenas no incluyen a los cuatro comensales.');
+}
+
+const recetaManual = [{
+  nombre: 'Prueba manual',
+  categoria: 'Prueba',
+  ingredientes: [{
+    nombre: 'Ingrediente manual',
+    cantidad: 340,
+    unidad: 'g',
+    seccion: 'Prueba',
+    ajusteAutomatico: false,
+  }],
+}];
+const recetaManualLaborable = ajustarRecetasAComensalesServicio(
+  recetaManual,
+  perfilMigrado,
+  comidaLaborable,
+);
+if (recetaManualLaborable[0].ingredientes[0].cantidad !== 285) {
+  throw new Error(
+    `Una cantidad manual de 340 g para 3,4 raciones debe quedar en 285 g para 2,85 raciones, no ${recetaManualLaborable[0].ingredientes[0].cantidad}.`,
+  );
 }
 
 localStorage.setItem('pfi-perfil', JSON.stringify(perfilMigrado));
@@ -113,9 +139,9 @@ const manzanasLaborables = compraLaborable.find(
   (ingrediente) => ingrediente.nombre === 'Manzanas',
 );
 
-if (pastaLaborable?.cantidad !== 250 || manzanasLaborables?.cantidad !== 3) {
+if (pastaLaborable?.cantidad !== 225 || manzanasLaborables?.cantidad !== 3) {
   throw new Error(
-    `La compra laborable no usa 3 comensales: pasta=${pastaLaborable?.cantidad}, manzanas=${manzanasLaborables?.cantidad}`,
+    `La compra laborable debe usar 2,85 raciones equivalentes: pasta=${pastaLaborable?.cantidad}, manzanas=${manzanasLaborables?.cantidad}`,
   );
 }
 
@@ -135,9 +161,9 @@ const manzanasFinSemana = compraFinSemana.find(
   (ingrediente) => ingrediente.nombre === 'Manzanas',
 );
 
-if (pastaFinSemana?.cantidad !== 300 || manzanasFinSemana?.cantidad !== 4) {
+if (pastaFinSemana?.cantidad !== 275 || manzanasFinSemana?.cantidad !== 4) {
   throw new Error(
-    `La compra de fin de semana no usa 4 comensales: pasta=${pastaFinSemana?.cantidad}, manzanas=${manzanasFinSemana?.cantidad}`,
+    `La compra de fin de semana debe usar 3,4 raciones equivalentes: pasta=${pastaFinSemana?.cantidad}, manzanas=${manzanasFinSemana?.cantidad}`,
   );
 }
 
@@ -157,9 +183,9 @@ const pastaSoloAdultos = compraFinSemanaSinNinos.find(
 const manzanasSoloAdultos = compraFinSemanaSinNinos.find(
   (ingrediente) => ingrediente.nombre === 'Manzanas',
 );
-if (pastaSoloAdultos?.cantidad !== 175 || manzanasSoloAdultos?.cantidad !== 2) {
+if (pastaSoloAdultos?.cantidad !== 150 || manzanasSoloAdultos?.cantidad !== 2) {
   throw new Error(
-    `El fin de semana sin niños debe comprar para 2 adultos: pasta=${pastaSoloAdultos?.cantidad}, manzanas=${manzanasSoloAdultos?.cantidad}.`,
+    `El fin de semana sin niños debe comprar para 2 raciones adultas: pasta=${pastaSoloAdultos?.cantidad}, manzanas=${manzanasSoloAdultos?.cantidad}.`,
   );
 }
 
@@ -206,14 +232,14 @@ const polloGenericoCocido = compraCocidoDosDias.find(
   (ingrediente) => ingrediente.nombre === 'Pollo',
 );
 if (
-  jamoncitos?.cantidad !== 270 ||
+  jamoncitos?.cantidad !== 301.76 ||
   jamoncitos.unidad !== 'g' ||
-  garbanzosSecosCocido?.cantidad !== 375 ||
+  garbanzosSecosCocido?.cantidad !== 419.12 ||
   garbanzosSecosCocido.unidad !== 'g' ||
   polloGenericoCocido
 ) {
   throw new Error(
-    `La olla única de cocido para dos días debe comprar 270 g de jamoncitos y 375 g de garbanzos: pollo=${jamoncitos?.cantidad} ${jamoncitos?.unidad}, garbanzos=${garbanzosSecosCocido?.cantidad} ${garbanzosSecosCocido?.unidad}.`,
+    `La olla única de cocido debe escalarse a 2,85 raciones: pollo=${jamoncitos?.cantidad} ${jamoncitos?.unidad}, garbanzos=${garbanzosSecosCocido?.cantidad} ${garbanzosSecosCocido?.unidad}.`,
   );
 }
 
@@ -224,9 +250,9 @@ const compraLentejasDosDias = generarListaCompra([
 const lentejasSecas = compraLentejasDosDias.find(
   (ingrediente) => ingrediente.nombre === 'Lentejas secas',
 );
-if (lentejasSecas?.cantidad !== 375 || lentejasSecas.unidad !== 'g') {
+if (lentejasSecas?.cantidad !== 419.12 || lentejasSecas.unidad !== 'g') {
   throw new Error(
-    `La olla única de lentejas para lunes y jueves debe comprar 375 g con 3 comensales, no ${lentejasSecas?.cantidad} ${lentejasSecas?.unidad}.`,
+    `La olla única de lentejas debe comprar 419,12 g para 2,85 raciones, no ${lentejasSecas?.cantidad} ${lentejasSecas?.unidad}.`,
   );
 }
 
@@ -261,13 +287,15 @@ if (
 await vite.close();
 
 console.log('✓ comida laborable: 2 adultos + niño de 12 años');
+console.log('✓ las cantidades se escalan por raciones equivalentes de edad');
+console.log('✓ cantidades manuales: 340 g familiares -> 285 g laborables');
 console.log('✓ comida de fin de semana y cenas: cuatro comensales');
 console.log('✓ la excepción de fin de semana descuenta a los dos niños');
 console.log('✓ la compra ajusta platos y postres al servicio');
 console.log('✓ fajitas: 6 tortillas para cuatro comensales');
 console.log('✓ fajitas + dos kebabs: 6 tortillas + 8 panes de pita');
-console.log('✓ cocido: una sola olla para lunes y jueves, escalada a comensales');
-console.log('✓ lentejas: una sola olla para lunes y jueves, escalada a comensales');
+console.log('✓ cocido: una sola olla para lunes y jueves, escalada por edad');
+console.log('✓ lentejas: una sola olla para lunes y jueves, escalada por edad');
 console.log('✓ arroz con pollo no hereda pollo entero como corte genérico');
 console.log('✓ morcillo se asocia al zancarrón de vacuno del catálogo');
 console.log('✓ se sanea pan pita, relleno kebab, tomate para untar y pollo genérico');
