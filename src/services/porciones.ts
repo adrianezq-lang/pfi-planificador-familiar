@@ -65,6 +65,14 @@ function unidadesPorComensal(
   });
 }
 
+/**
+ * Las bases generales siguen los rangos de ración publicados por AESAN para
+ * infancia/adolescencia y se expresan como ración adulta equivalente. El perfil
+ * familiar reduce automáticamente la cantidad de los niños según su edad y el
+ * aprendizaje de PFI puede ajustar después la cifra a lo que ocurre en casa.
+ * Las recetas familiares con una regla propia (pizza, tortilla, fajitas, etc.)
+ * mantienen su lógica específica.
+ */
 const REGLAS: ReglaPorcion[] = [
   {
     coincide: ({ nombreIngrediente }) =>
@@ -81,77 +89,77 @@ const REGLAS: ReglaPorcion[] = [
   {
     coincide: ({ nombreIngrediente }) =>
       contiene(nombreIngrediente, ['filete de ternera', 'filetes de ternera']),
-    calcular: gramosPorRacion(190, 25, 'carne principal'),
+    calcular: gramosPorRacion(125, 25, 'carne principal'),
   },
   {
     coincide: ({ nombreIngrediente }) =>
       nombreIngrediente === 'lomo' || nombreIngrediente.includes('filetes de lomo'),
-    calcular: gramosPorRacion(170, 25, 'carne principal'),
+    calcular: gramosPorRacion(125, 25, 'carne principal'),
   },
   {
     coincide: ({ nombreIngrediente, nombreReceta }) =>
       contiene(nombreIngrediente, ['pechugas de pollo', 'pechugas de pavo']) &&
       !nombreReceta.includes('fajita') &&
       !nombreReceta.includes('kebab'),
-    calcular: gramosPorRacion(180, 25, 'ave principal'),
+    calcular: gramosPorRacion(125, 25, 'ave principal'),
   },
   {
     coincide: ({ nombreIngrediente, nombreReceta }) =>
       contiene(nombreIngrediente, ['pechugas de pollo', 'pollo']) &&
       nombreReceta.includes('fajita'),
-    calcular: gramosPorRacion(150, 25, 'relleno de fajitas'),
+    calcular: gramosPorRacion(110, 25, 'relleno de fajitas'),
   },
   {
     coincide: ({ nombreIngrediente, nombreReceta }) =>
       contiene(nombreIngrediente, ['pechugas de pollo', 'pollo']) &&
       nombreReceta.includes('kebab'),
-    calcular: gramosPorRacion(165, 25, 'relleno de kebab'),
+    calcular: gramosPorRacion(120, 25, 'relleno de kebab'),
   },
   {
     coincide: ({ nombreIngrediente }) =>
       contiene(nombreIngrediente, ['salmon', 'bacalao']),
-    calcular: gramosPorRacion(180, 25, 'pescado principal'),
+    calcular: gramosPorRacion(150, 25, 'pescado principal'),
   },
   {
     coincide: ({ nombreIngrediente }) =>
       contiene(nombreIngrediente, ['lubina', 'dorada']),
-    calcular: gramosPorRacion(220, 50, 'pescado entero limpio aproximado'),
+    calcular: gramosPorRacion(200, 50, 'pescado entero, antes de espinas y mermas'),
   },
   {
     coincide: ({ nombreIngrediente, nombreReceta }) =>
       nombreIngrediente === 'carne picada' && nombreReceta.includes('pizza'),
-    calcular: gramosPorRacion(45, 25, 'cobertura de pizza'),
+    calcular: gramosPorRacion(40, 25, 'cobertura de pizza'),
   },
   {
     coincide: ({ nombreIngrediente }) => nombreIngrediente === 'carne picada',
-    calcular: gramosPorRacion(140, 25, 'salsa o plato principal'),
+    calcular: gramosPorRacion(125, 25, 'salsa o plato principal'),
   },
   {
     coincide: ({ nombreIngrediente }) =>
       contiene(nombreIngrediente, ['morcillo']),
-    calcular: gramosPorRacion(130, 25, 'carne para cocido'),
+    calcular: gramosPorRacion(80, 25, 'carne dentro de un cocido con legumbre'),
   },
   {
     coincide: ({ nombreIngrediente, nombreReceta }) =>
       contiene(nombreIngrediente, ['pasta corta', 'espaguetis']) &&
       !nombreReceta.includes('ensalada'),
-    calcular: gramosPorRacion(90, 25, 'pasta seca como plato principal'),
+    calcular: gramosPorRacion(80, 25, 'pasta seca como plato principal'),
   },
   {
     coincide: ({ nombreIngrediente, nombreReceta }) =>
       contiene(nombreIngrediente, ['pasta corta', 'espaguetis']) &&
       nombreReceta.includes('ensalada'),
-    calcular: gramosPorRacion(85, 25, 'pasta seca para ensalada'),
+    calcular: gramosPorRacion(70, 25, 'pasta seca para ensalada con acompañamientos'),
   },
   {
     coincide: ({ nombreIngrediente, nombreReceta }) =>
       nombreIngrediente === 'arroz' &&
       (nombreReceta.includes('arroz con') || nombreReceta === 'arroz con pollo'),
-    calcular: gramosPorRacion(85, 25, 'arroz seco como plato principal'),
+    calcular: gramosPorRacion(80, 25, 'arroz seco como plato principal'),
   },
   {
     coincide: ({ nombreIngrediente }) => nombreIngrediente === 'arroz',
-    calcular: gramosPorRacion(60, 25, 'arroz seco como guarnición'),
+    calcular: gramosPorRacion(50, 25, 'arroz seco como guarnición'),
   },
   {
     coincide: ({ nombreIngrediente }) =>
@@ -161,7 +169,7 @@ const REGLAS: ReglaPorcion[] = [
         'alubias blancas secas',
         'alubias rojas secas',
       ]),
-    calcular: gramosPorRacion(90, 25, 'legumbre seca'),
+    calcular: gramosPorRacion(80, 25, 'legumbre seca'),
   },
   {
     coincide: ({ nombreIngrediente, nombreReceta }) =>
@@ -177,9 +185,9 @@ const REGLAS: ReglaPorcion[] = [
     coincide: ({ nombreIngrediente, nombreReceta }) =>
       nombreIngrediente === 'calabacin' && nombreReceta.includes('crema'),
     calcular: ({ raciones }) => ({
-      cantidad: Math.max(1, Math.round(raciones * 0.85)),
+      cantidad: Math.max(1, Math.round(raciones * 0.5)),
       unidad: 'ud',
-      explicacion: 'aprox. 0,85 calabacines por ración equivalente',
+      explicacion: 'aprox. medio calabacín por ración equivalente',
     }),
   },
   {
@@ -212,9 +220,9 @@ const REGLAS: ReglaPorcion[] = [
     coincide: ({ nombreIngrediente, nombreReceta }) =>
       nombreIngrediente === 'atun' && nombreReceta.includes('ensalada de pasta'),
     calcular: ({ raciones }) => ({
-      cantidad: Math.max(1, Math.ceil(raciones * 0.8)),
+      cantidad: Math.max(1, Math.ceil(raciones * 0.5)),
       unidad: 'lata',
-      explicacion: 'aprox. 0,8 latas por ración equivalente',
+      explicacion: 'aprox. media lata por ración equivalente, junto al resto de ingredientes',
     }),
   },
   {
@@ -265,11 +273,13 @@ const REGLAS: ReglaPorcion[] = [
   {
     coincide: ({ nombreIngrediente }) => nombreIngrediente === 'patatas',
     calcular: ({ raciones, nombreReceta }) => {
-      const gramos = nombreReceta.includes('tortilla') ? 275 : 230;
+      // La tortilla conserva la proporción familiar que da unas 8 unidades de
+      // huevo y alrededor de 900 g de patata para la familia completa.
+      const gramos = nombreReceta.includes('tortilla') ? 275 : 200;
       return {
         cantidad: redondear(raciones * gramos, 100),
         unidad: 'g',
-        explicacion: `${gramos} g por ración equivalente (${nombreReceta.includes('tortilla') ? 'tortilla' : 'guarnición'})`,
+        explicacion: `${gramos} g por ración equivalente (${nombreReceta.includes('tortilla') ? 'proporción familiar de tortilla' : 'guarnición'})`,
       };
     },
   },
@@ -288,7 +298,7 @@ const REGLAS: ReglaPorcion[] = [
     calcular: ({ raciones }) => ({
       cantidad: Math.max(4, Math.round(raciones * 2.25)),
       unidad: 'ud',
-      explicacion: '2,25 huevos por ración equivalente',
+      explicacion: '2,25 huevos por ración equivalente (proporción familiar)',
     }),
   },
   {
@@ -346,9 +356,9 @@ const REGLAS: ReglaPorcion[] = [
   {
     coincide: ({ nombreIngrediente }) => nombreIngrediente === 'pollo entero',
     calcular: ({ raciones }) => ({
-      cantidad: redondear(raciones * 350, 250),
+      cantidad: redondear(raciones * 300, 250),
       unidad: 'g',
-      explicacion: '350 g de pollo con hueso por ración equivalente',
+      explicacion: '300 g de pollo con hueso por ración equivalente',
     }),
   },
   {
