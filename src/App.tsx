@@ -5,7 +5,6 @@ import './styles/navigation-polish.css';
 import './styles/premium-modern.css';
 import './styles/premium-navigation.css';
 import './styles/premium-final.css';
-import './styles/home-modern-fix.css';
 import BottomNav from './components/NavegacionInferior';
 import NavegacionRecetario from './components/NavegacionRecetario';
 import { useMenu } from './hooks/useMenu';
