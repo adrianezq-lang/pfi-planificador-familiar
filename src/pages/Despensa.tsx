@@ -4,6 +4,7 @@ import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 import {
+  actualizarStockProductoDespensa,
   calcularCosteReposicion,
   calcularReposicion,
   cargarDespensa,
@@ -20,6 +21,7 @@ import {
   registrarConsumo,
   type MovimientoInventario,
 } from '../services/inventario';
+import '../styles/pantry-decimal.css';
 
 type VistaDespensa = 'inventario' | 'reposicion' | 'historial';
 type FiltroInventario = 'todos' | 'reposicion' | 'menu-manual';
@@ -115,13 +117,21 @@ function Despensa() {
 
   const restarStock = (producto: ProductoDespensa) => {
     if (producto.stockActual <= 0) return;
+    const cantidad = Math.min(1, producto.stockActual);
     registrarConsumo(
       producto.productoId,
-      1,
+      cantidad,
       'manual',
       'Consumo manual desde despensa',
     );
-    setMensaje(`Consumido 1 ${producto.unidad}.`);
+    setMensaje(`Consumido ${formatearCantidad(cantidad)} ${producto.unidad}.`);
+  };
+
+  const guardarStock = (producto: ProductoDespensa, stockActual: number) => {
+    actualizarStockProductoDespensa(producto.productoId, stockActual);
+    setMensaje(
+      `Stock de ${producto.nombre}: ${formatearCantidad(stockActual)} ${producto.unidad}.`,
+    );
   };
 
   const productosPorId = useMemo(
@@ -235,17 +245,19 @@ function Despensa() {
                     type="button"
                     onClick={() => restarStock(producto)}
                     disabled={producto.stockActual <= 0}
+                    aria-label={`Restar una unidad de ${producto.nombre}`}
                   >
                     −
                   </button>
-                  <div>
-                    <strong>
-                      {producto.stockEsAproximado ? '≈ ' : ''}
-                      {producto.stockActual}
-                    </strong>
-                    <span>{producto.unidad}</span>
-                  </div>
-                  <button type="button" onClick={() => sumarStock(producto)}>
+                  <StockEditable
+                    producto={producto}
+                    onGuardar={(stockActual) => guardarStock(producto, stockActual)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => sumarStock(producto)}
+                    aria-label={`Sumar una unidad de ${producto.nombre}`}
+                  >
                     +
                   </button>
                 </div>
@@ -285,10 +297,12 @@ function Despensa() {
                   onAbrir={() => setProductoAbierto(producto.productoId)}
                 />
                 <div className="pantry-restock-quantity">
-                  Comprar {calcularReposicion(producto)} {producto.unidad}
+                  Comprar {formatearCantidad(calcularReposicion(producto))}{' '}
+                  {producto.unidad}
                 </div>
                 <p className="pantry-lead">
-                  Stock {producto.stockActual} · mínimo {producto.stockMinimo} ·{' '}
+                  Stock {formatearCantidad(producto.stockActual)} · mínimo{' '}
+                  {formatearCantidad(producto.stockMinimo)} ·{' '}
                   {etiquetaFrecuencia(producto.frecuencia)}
                 </p>
                 <strong className="pantry-price">
@@ -364,6 +378,71 @@ function Despensa() {
         onActualizado={recargar}
       />
     </main>
+  );
+}
+
+function StockEditable({
+  producto,
+  onGuardar,
+}: {
+  producto: ProductoDespensa;
+  onGuardar: (stockActual: number) => void;
+}) {
+  const [texto, setTexto] = useState(() => formatearCantidadEditable(producto.stockActual));
+
+  useEffect(() => {
+    setTexto(formatearCantidadEditable(producto.stockActual));
+  }, [producto.stockActual]);
+
+  const restaurar = () => {
+    setTexto(formatearCantidadEditable(producto.stockActual));
+  };
+
+  const confirmar = () => {
+    const cantidad = parsearCantidad(texto);
+    if (cantidad === null) {
+      restaurar();
+      return;
+    }
+
+    const normalizada = normalizarCantidad(cantidad);
+    setTexto(formatearCantidadEditable(normalizada));
+    if (Math.abs(normalizada - producto.stockActual) >= 0.0001) {
+      onGuardar(normalizada);
+    }
+  };
+
+  return (
+    <div className="pantry-stock-editor">
+      <div className="pantry-stock-editor__value">
+        {producto.stockEsAproximado && (
+          <span className="pantry-stock-editor__approx" aria-hidden="true">
+            ≈
+          </span>
+        )}
+        <input
+          type="text"
+          inputMode="decimal"
+          value={texto}
+          aria-label={`Stock actual de ${producto.nombre}`}
+          onFocus={(evento) => evento.currentTarget.select()}
+          onChange={(evento) => {
+            const siguiente = evento.target.value;
+            if (/^\d*(?:[.,]\d*)?$/.test(siguiente)) setTexto(siguiente);
+          }}
+          onBlur={confirmar}
+          onKeyDown={(evento) => {
+            if (evento.key === 'Enter') evento.currentTarget.blur();
+            if (evento.key === 'Escape') {
+              restaurar();
+              evento.currentTarget.blur();
+            }
+          }}
+        />
+      </div>
+      <span className="pantry-stock-editor__unit">{producto.unidad}</span>
+      <small className="pantry-stock-editor__hint">Admite decimales</small>
+    </div>
   );
 }
 
@@ -482,23 +561,47 @@ function estadoProducto(producto: ProductoDespensa): string {
     return 'Según menú';
   }
   if (producto.frecuencia === 'manual') {
-    return `Manual · ${producto.stockActual} ${producto.unidad}`;
+    return `Manual · ${formatearCantidad(producto.stockActual)} ${producto.unidad}`;
   }
   if (producto.stockMinimo <= 0) {
-    return `Sin mínimo · stock ${producto.stockActual} ${producto.unidad}`;
+    return `Sin mínimo · stock ${formatearCantidad(producto.stockActual)} ${producto.unidad}`;
   }
   const faltan = calcularReposicion(producto);
-  return `Mínimo: ${producto.stockMinimo} ${producto.unidad}${
-    faltan > 0 ? ` · faltan ${faltan}` : ' · reserva cubierta'
+  return `Mínimo: ${formatearCantidad(producto.stockMinimo)} ${producto.unidad}${
+    faltan > 0 ? ` · faltan ${formatearCantidad(faltan)}` : ' · reserva cubierta'
   }`;
 }
 
 function etiquetaMovimiento(movimiento: MovimientoInventario): string {
   const signo = movimiento.tipo === 'consumo' ? '−' : movimiento.cantidad >= 0 ? '+' : '−';
-  const cantidad = Math.abs(movimiento.cantidad);
+  const cantidad = formatearCantidad(Math.abs(movimiento.cantidad));
   if (movimiento.tipo === 'compra') return `${signo}${cantidad} compra`;
   if (movimiento.tipo === 'consumo') return `${signo}${cantidad} consumo`;
   return `${signo}${cantidad} ajuste`;
+}
+
+function parsearCantidad(texto: string): number | null {
+  const normalizado = texto.trim().replace(',', '.');
+  if (!normalizado) return null;
+  const numero = Number(normalizado);
+  return Number.isFinite(numero) && numero >= 0 ? numero : null;
+}
+
+function normalizarCantidad(cantidad: number): number {
+  return Math.round(Math.max(0, cantidad) * 1000) / 1000;
+}
+
+function formatearCantidad(cantidad: number): string {
+  return normalizarCantidad(cantidad).toLocaleString('es-ES', {
+    maximumFractionDigits: 3,
+  });
+}
+
+function formatearCantidadEditable(cantidad: number): string {
+  return normalizarCantidad(cantidad).toLocaleString('es-ES', {
+    useGrouping: false,
+    maximumFractionDigits: 3,
+  });
 }
 
 export default Despensa;

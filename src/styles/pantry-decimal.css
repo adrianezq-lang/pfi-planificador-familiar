@@ -1,0 +1,72 @@
+.pantry-stock-editor {
+  min-width: 112px;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+}
+
+.pantry-stock-editor__value {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 3px;
+}
+
+.pantry-stock-editor__approx {
+  color: #536257;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.pantry-stock-editor input {
+  width: 82px;
+  min-width: 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 4px 6px;
+  background: transparent;
+  color: #263229;
+  font: inherit;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+  outline: none;
+  transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.pantry-stock-editor input:hover,
+.pantry-stock-editor input:focus {
+  border-color: rgba(79, 111, 82, 0.28);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.pantry-stock-editor input:focus {
+  box-shadow: 0 0 0 3px rgba(79, 111, 82, 0.12);
+}
+
+.pantry-stock-editor__unit {
+  color: #667067;
+  font-size: 12px;
+}
+
+.pantry-stock-editor__hint {
+  color: #879087;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+@media (max-width: 430px) {
+  .pantry-stock-row {
+    gap: 10px;
+  }
+
+  .pantry-stock-editor {
+    min-width: 96px;
+  }
+
+  .pantry-stock-editor input {
+    width: 74px;
+    font-size: 22px;
+  }
+}
