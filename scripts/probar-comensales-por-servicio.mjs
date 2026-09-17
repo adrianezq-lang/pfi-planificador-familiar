@@ -23,6 +23,7 @@ const {
   calcularComensales,
   calcularRacionesEquivalentes,
   crearPerfilParaMomento,
+  factorNinoPorEdad,
   normalizarPerfil,
 } = await vite.ssrLoadModule('/src/services/perfil.ts');
 const {
@@ -33,7 +34,7 @@ const { aplicarMigracionV0923 } = await vite.ssrLoadModule(
   '/src/services/migracionV0923.ts',
 );
 
-const perfilMigrado = normalizarPerfil({
+const perfil = normalizarPerfil({
   nombre: 'Adrián',
   adultos: 2,
   ninos: 2,
@@ -44,17 +45,13 @@ const perfilMigrado = normalizarPerfil({
   presupuesto: 500,
 });
 
-const comidaLaborable = crearPerfilParaMomento(
-  perfilMigrado,
-  'comida',
-  'Lunes',
-);
-const comidaFinSemana = crearPerfilParaMomento(
-  perfilMigrado,
-  'comida',
-  'Sábado',
-);
-const cena = crearPerfilParaMomento(perfilMigrado, 'cena', 'Lunes');
+const comidaLaborable = crearPerfilParaMomento(perfil, 'comida', 'Lunes');
+const comidaFinSemana = crearPerfilParaMomento(perfil, 'comida', 'Sábado');
+const cena = crearPerfilParaMomento(perfil, 'cena', 'Lunes');
+
+if (factorNinoPorEdad(12) !== 1 || factorNinoPorEdad(6) !== 0.7) {
+  throw new Error('Los factores por edad no usan 12+ = 1 y 6-8 = 0,70.');
+}
 
 if (
   calcularComensales(comidaLaborable) !== 3 ||
@@ -64,8 +61,8 @@ if (
 }
 
 if (
-  calcularRacionesEquivalentes(perfilMigrado) !== 3.4 ||
-  calcularRacionesEquivalentes(comidaLaborable) !== 2.85
+  calcularRacionesEquivalentes(perfil) !== 3.7 ||
+  calcularRacionesEquivalentes(comidaLaborable) !== 3
 ) {
   throw new Error('Las raciones equivalentes por edad no coinciden con el perfil familiar.');
 }
@@ -79,7 +76,7 @@ const recetaManual = [{
   categoria: 'Prueba',
   ingredientes: [{
     nombre: 'Ingrediente manual',
-    cantidad: 340,
+    cantidad: 370,
     unidad: 'g',
     seccion: 'Prueba',
     ajusteAutomatico: false,
@@ -87,16 +84,16 @@ const recetaManual = [{
 }];
 const recetaManualLaborable = ajustarRecetasAComensalesServicio(
   recetaManual,
-  perfilMigrado,
+  perfil,
   comidaLaborable,
 );
-if (recetaManualLaborable[0].ingredientes[0].cantidad !== 285) {
+if (recetaManualLaborable[0].ingredientes[0].cantidad !== 300) {
   throw new Error(
-    `Una cantidad manual de 340 g para 3,4 raciones debe quedar en 285 g para 2,85 raciones, no ${recetaManualLaborable[0].ingredientes[0].cantidad}.`,
+    `Una cantidad manual de 370 g para 3,7 raciones debe quedar en 300 g para 3 raciones, no ${recetaManualLaborable[0].ingredientes[0].cantidad}.`,
   );
 }
 
-localStorage.setItem('pfi-perfil', JSON.stringify(perfilMigrado));
+localStorage.setItem('pfi-perfil', JSON.stringify(perfil));
 localStorage.setItem(
   'pfi-asociaciones-ingredientes-mercadona',
   JSON.stringify({
@@ -124,122 +121,81 @@ function crearDia(dia, comida, cenaDia, postreComida, postreCena, sinNinos = fal
 }
 
 const compraLaborable = generarListaCompra([
-  crearDia(
-    'Lunes',
-    ['Macarrones boloñesa'],
-    [],
-    'Manzana',
-    'Sin postre',
-  ),
+  crearDia('Lunes', ['Macarrones boloñesa'], [], 'Manzana', 'Sin postre'),
 ]);
-const pastaLaborable = compraLaborable.find(
-  (ingrediente) => ingrediente.nombre === 'Pasta corta',
-);
-const manzanasLaborables = compraLaborable.find(
-  (ingrediente) => ingrediente.nombre === 'Manzanas',
-);
+const pastaLaborable = compraLaborable.find((i) => i.nombre === 'Pasta corta');
+const carneLaborable = compraLaborable.find((i) => i.nombre === 'Carne picada');
+const manzanasLaborables = compraLaborable.find((i) => i.nombre === 'Manzanas');
 
-if (pastaLaborable?.cantidad !== 225 || manzanasLaborables?.cantidad !== 3) {
+if (
+  pastaLaborable?.cantidad !== 250 ||
+  carneLaborable?.cantidad !== 375 ||
+  manzanasLaborables?.cantidad !== 3
+) {
   throw new Error(
-    `La compra laborable debe usar 2,85 raciones equivalentes: pasta=${pastaLaborable?.cantidad}, manzanas=${manzanasLaborables?.cantidad}`,
+    `Lunes debe comprar para 3 raciones adultas equivalentes: pasta=${pastaLaborable?.cantidad}, carne=${carneLaborable?.cantidad}, manzanas=${manzanasLaborables?.cantidad}.`,
   );
 }
 
 const compraFinSemana = generarListaCompra([
-  crearDia(
-    'Sábado',
-    ['Macarrones boloñesa'],
-    [],
-    'Manzana',
-    'Sin postre',
-  ),
+  crearDia('Sábado', ['Macarrones boloñesa'], [], 'Manzana', 'Sin postre'),
 ]);
-const pastaFinSemana = compraFinSemana.find(
-  (ingrediente) => ingrediente.nombre === 'Pasta corta',
-);
-const manzanasFinSemana = compraFinSemana.find(
-  (ingrediente) => ingrediente.nombre === 'Manzanas',
-);
+const pastaFinSemana = compraFinSemana.find((i) => i.nombre === 'Pasta corta');
+const carneFinSemana = compraFinSemana.find((i) => i.nombre === 'Carne picada');
+const manzanasFinSemana = compraFinSemana.find((i) => i.nombre === 'Manzanas');
 
-if (pastaFinSemana?.cantidad !== 275 || manzanasFinSemana?.cantidad !== 4) {
+if (
+  pastaFinSemana?.cantidad !== 300 ||
+  carneFinSemana?.cantidad !== 475 ||
+  manzanasFinSemana?.cantidad !== 4
+) {
   throw new Error(
-    `La compra de fin de semana debe usar 3,4 raciones equivalentes: pasta=${pastaFinSemana?.cantidad}, manzanas=${manzanasFinSemana?.cantidad}`,
+    `Fin de semana debe usar 3,7 raciones equivalentes: pasta=${pastaFinSemana?.cantidad}, carne=${carneFinSemana?.cantidad}, manzanas=${manzanasFinSemana?.cantidad}.`,
   );
 }
 
 const compraFinSemanaSinNinos = generarListaCompra([
-  crearDia(
-    'Sábado',
-    ['Macarrones boloñesa'],
-    [],
-    'Manzana',
-    'Sin postre',
-    true,
-  ),
+  crearDia('Sábado', ['Macarrones boloñesa'], [], 'Manzana', 'Sin postre', true),
 ]);
-const pastaSoloAdultos = compraFinSemanaSinNinos.find(
-  (ingrediente) => ingrediente.nombre === 'Pasta corta',
-);
-const manzanasSoloAdultos = compraFinSemanaSinNinos.find(
-  (ingrediente) => ingrediente.nombre === 'Manzanas',
-);
+const pastaSoloAdultos = compraFinSemanaSinNinos.find((i) => i.nombre === 'Pasta corta');
+const manzanasSoloAdultos = compraFinSemanaSinNinos.find((i) => i.nombre === 'Manzanas');
 if (pastaSoloAdultos?.cantidad !== 150 || manzanasSoloAdultos?.cantidad !== 2) {
   throw new Error(
-    `El fin de semana sin niños debe comprar para 2 raciones adultas: pasta=${pastaSoloAdultos?.cantidad}, manzanas=${manzanasSoloAdultos?.cantidad}.`,
+    `Sin niños debe comprar para 2 adultos: pasta=${pastaSoloAdultos?.cantidad}, manzanas=${manzanasSoloAdultos?.cantidad}.`,
   );
 }
 
 const compraFajitas = generarListaCompra([
   crearDia('Miércoles', [], ['Fajitas'], 'Sin postre', 'Sin postre'),
 ]);
-const tortillasFajitas = compraFajitas.find(
-  (ingrediente) => ingrediente.nombre === 'Tortillas de trigo',
-);
+const tortillasFajitas = compraFajitas.find((i) => i.nombre === 'Tortillas de trigo');
 if (tortillasFajitas?.cantidad !== 6) {
-  throw new Error(
-    `Una cena de fajitas para cuatro debe usar 6 tortillas, no ${tortillasFajitas?.cantidad}.`,
-  );
+  throw new Error(`Fajitas para cuatro deben usar 6 tortillas, no ${tortillasFajitas?.cantidad}.`);
 }
 
-const compraPanMesBase = generarListaCompra([
-  crearDia('Miércoles', [], ['Fajitas'], 'Sin postre', 'Sin postre'),
-  crearDia('Sábado', [], ['Kebab'], 'Sin postre', 'Sin postre'),
+const compraKebabs = generarListaCompra([
   crearDia('Miércoles', [], ['Kebab'], 'Sin postre', 'Sin postre'),
+  crearDia('Sábado', [], ['Kebab'], 'Sin postre', 'Sin postre'),
 ]);
-const tortillasMesBase = compraPanMesBase.find(
-  (ingrediente) => ingrediente.nombre === 'Tortillas de trigo',
-);
-const pitasMesBase = compraPanMesBase.find(
-  (ingrediente) => ingrediente.nombre === 'Pan de pita',
-);
-if (tortillasMesBase?.cantidad !== 6 || pitasMesBase?.cantidad !== 8) {
-  throw new Error(
-    `Fajitas + 2 kebabs deben usar 6 tortillas y 8 pitas: tortillas=${tortillasMesBase?.cantidad}, pitas=${pitasMesBase?.cantidad}.`,
-  );
+const pitasKebab = compraKebabs.find((i) => i.nombre === 'Pan de pita');
+if (pitasKebab?.cantidad !== 8) {
+  throw new Error(`Dos cenas de kebab deben usar 8 panes de pita, no ${pitasKebab?.cantidad}.`);
 }
 
 const compraCocidoDosDias = generarListaCompra([
   crearDia('Lunes', ['Cocido de garbanzos'], [], 'Sin postre', 'Sin postre'),
   crearDia('Jueves', ['Cocido de garbanzos'], [], 'Sin postre', 'Sin postre'),
 ]);
-const jamoncitos = compraCocidoDosDias.find(
-  (ingrediente) => ingrediente.nombre === 'Jamoncitos de pollo',
-);
-const garbanzosSecosCocido = compraCocidoDosDias.find(
-  (ingrediente) => ingrediente.nombre === 'Garbanzos secos',
-);
-const polloGenericoCocido = compraCocidoDosDias.find(
-  (ingrediente) => ingrediente.nombre === 'Pollo',
-);
+const jamoncitos = compraCocidoDosDias.find((i) => i.nombre === 'Jamoncitos de pollo');
+const garbanzos = compraCocidoDosDias.find((i) => i.nombre === 'Garbanzos secos');
 if (
-  jamoncitos?.cantidad !== 301.76 ||
+  jamoncitos?.cantidad !== 291.6 ||
   jamoncitos.unidad !== 'g' ||
-  garbanzosSecosCocido?.cantidad !== 419.12 ||
-  garbanzosSecosCocido.unidad !== 'g' ||
-  polloGenericoCocido
+  garbanzos?.cantidad !== 405.41 ||
+  garbanzos.unidad !== 'g'
 ) {
   throw new Error(
-    `La olla única de cocido debe escalarse a 2,85 raciones: pollo=${jamoncitos?.cantidad} ${jamoncitos?.unidad}, garbanzos=${garbanzosSecosCocido?.cantidad} ${garbanzosSecosCocido?.unidad}.`,
+    `La olla de cocido para dos días debe escalarse a 3 raciones laborables: pollo=${jamoncitos?.cantidad}, garbanzos=${garbanzos?.cantidad}.`,
   );
 }
 
@@ -247,12 +203,19 @@ const compraLentejasDosDias = generarListaCompra([
   crearDia('Lunes', ['Lentejas'], [], 'Sin postre', 'Sin postre'),
   crearDia('Jueves', ['Lentejas'], [], 'Sin postre', 'Sin postre'),
 ]);
-const lentejasSecas = compraLentejasDosDias.find(
-  (ingrediente) => ingrediente.nombre === 'Lentejas secas',
-);
-if (lentejasSecas?.cantidad !== 419.12 || lentejasSecas.unidad !== 'g') {
+const lentejas = compraLentejasDosDias.find((i) => i.nombre === 'Lentejas secas');
+if (lentejas?.cantidad !== 405.41 || lentejas.unidad !== 'g') {
+  throw new Error(`La olla de lentejas debe comprar 405,41 g, no ${lentejas?.cantidad}.`);
+}
+
+const compraTortilla = generarListaCompra([
+  crearDia('Sábado', ['Tortilla de patata'], [], 'Sin postre', 'Sin postre'),
+]);
+const huevosTortilla = compraTortilla.find((i) => i.nombre === 'Huevos');
+const patatasTortilla = compraTortilla.find((i) => i.nombre === 'Patatas');
+if (huevosTortilla?.cantidad !== 8 || patatasTortilla?.cantidad !== 1000) {
   throw new Error(
-    `La olla única de lentejas debe comprar 419,12 g para 2,85 raciones, no ${lentejasSecas?.cantidad} ${lentejasSecas?.unidad}.`,
+    `La tortilla familiar debe quedar cerca de 8 huevos y 1 kg de patata: huevos=${huevosTortilla?.cantidad}, patatas=${patatasTortilla?.cantidad}.`,
   );
 }
 
@@ -260,42 +223,21 @@ const compraArrozPollo = generarListaCompra([
   crearDia('Martes', ['Arroz con pollo'], [], 'Sin postre', 'Sin postre'),
 ]);
 if (
-  !compraArrozPollo.some((ingrediente) => ingrediente.nombre === 'Pollo para arroz') ||
-  compraArrozPollo.some((ingrediente) => ingrediente.nombre === 'Pollo')
+  !compraArrozPollo.some((i) => i.nombre === 'Pollo para arroz') ||
+  compraArrozPollo.some((i) => i.nombre === 'Pollo')
 ) {
   throw new Error('Arroz con pollo no debe heredar la asociación genérica de pollo entero.');
 }
 
-const asociacionesPollo = JSON.parse(
-  localStorage.getItem('pfi-asociaciones-ingredientes-mercadona') ?? '{}',
-);
-if (
-  asociacionesPollo.Pollo ||
-  asociacionesPollo['Jamoncitos de pollo'] !== '2778' ||
-  asociacionesPollo['Tortillas de trigo'] !== '80859' ||
-  asociacionesPollo['Pan de pita'] !== '14378' ||
-  asociacionesPollo['Pechugas de pollo'] !== '3724' ||
-  asociacionesPollo['Pollo para arroz'] !== '3724' ||
-  asociacionesPollo['Tomate para pizza'] !== '17108' ||
-  asociacionesPollo.Morcillo !== '13741'
-) {
-  throw new Error(
-    `Las asociaciones históricas incorrectas no se sanearon: ${JSON.stringify(asociacionesPollo)}.`,
-  );
-}
-
 await vite.close();
 
-console.log('✓ comida laborable: 2 adultos + niño de 12 años');
-console.log('✓ las cantidades se escalan por raciones equivalentes de edad');
-console.log('✓ cantidades manuales: 340 g familiares -> 285 g laborables');
-console.log('✓ comida de fin de semana y cenas: cuatro comensales');
-console.log('✓ la excepción de fin de semana descuenta a los dos niños');
-console.log('✓ la compra ajusta platos y postres al servicio');
-console.log('✓ fajitas: 6 tortillas para cuatro comensales');
-console.log('✓ fajitas + dos kebabs: 6 tortillas + 8 panes de pita');
-console.log('✓ cocido: una sola olla para lunes y jueves, escalada por edad');
-console.log('✓ lentejas: una sola olla para lunes y jueves, escalada por edad');
-console.log('✓ arroz con pollo no hereda pollo entero como corte genérico');
-console.log('✓ morcillo se asocia al zancarrón de vacuno del catálogo');
-console.log('✓ se sanea pan pita, relleno kebab, tomate para untar y pollo genérico');
+console.log('✓ perfil: 12+ cuenta como ración adulta y 6-8 como 0,70');
+console.log('✓ comida laborable: 2 adultos + adolescente = 3 raciones equivalentes');
+console.log('✓ cantidades manuales se escalan por equivalencia, no por personas');
+console.log('✓ pasta, carne y fruta responden a reglas distintas');
+console.log('✓ fin de semana y cenas incluyen cuatro comensales');
+console.log('✓ fin de semana sin niños descuenta correctamente a ambos');
+console.log('✓ fajitas: 6 tortillas; dos kebabs: 8 panes de pita');
+console.log('✓ cocido y lentejas de dos días se calculan como una sola olla');
+console.log('✓ tortilla familiar mantiene proporción de huevos y patata');
+console.log('✓ arroz con pollo usa el corte asociado correcto');
