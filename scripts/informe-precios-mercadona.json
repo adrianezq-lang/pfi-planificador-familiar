@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-09-16T09:59:50.020Z",
+  "actualizado": "2026-09-17T10:01:37.865Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 61,
@@ -177,7 +177,7 @@
     {
       "ingrediente": "Salmón",
       "productoId": "87204",
-      "nombreComercial": "Filete de salmón",
+      "nombreComercial": "Porción de  salmón",
       "precio": 8.05,
       "puntuacion": 10000
     },
