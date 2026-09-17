@@ -1,0 +1,157 @@
+/* Ajustes derivados de revisión visual en móvil real.
+   Mantienen el lenguaje pro, mejoran contraste y reducen scroll innecesario. */
+
+/* El total acumulado nunca debe quedar blanco sobre una pastilla clara. */
+.budget-card--total .budget-amount {
+  width: auto !important;
+  max-width: none !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+  text-align: left !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.12);
+}
+
+.budget-card--total .home-card__icon,
+.budget-card--total .home-card__arrow {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.11) !important;
+}
+
+/* Presupuestos con identidad visual distinta sin perder sobriedad. */
+.budget-grid > .budget-card:not(.budget-card--total):first-child {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(82, 116, 90, 0.10), transparent 32%),
+    linear-gradient(150deg, #fffdf8, #e6eee2) !important;
+}
+
+.budget-grid > .budget-card:not(.budget-card--total):nth-child(2) {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(183, 138, 69, 0.12), transparent 32%),
+    linear-gradient(150deg, #fffdf8, #efe5d2) !important;
+}
+
+@media (max-width: 720px) {
+  /* Más contenido útil por pantalla: las tarjetas de presupuesto eran demasiado altas. */
+  .home-page {
+    padding-bottom: calc(148px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .budget-grid {
+    gap: 12px !important;
+    margin-top: 14px !important;
+  }
+
+  .budget-card.pfi-card {
+    min-height: 0 !important;
+  }
+
+  .budget-card .home-card__body {
+    min-height: 164px !important;
+    display: flex !important;
+    flex-direction: column;
+    padding: 18px 20px !important;
+  }
+
+  .budget-card .home-card__top {
+    margin-bottom: 24px !important;
+  }
+
+  .budget-card .budget-amount {
+    margin-top: auto !important;
+    font-size: clamp(32px, 8vw, 38px) !important;
+    line-height: 1 !important;
+  }
+
+  .budget-card--total .home-card__body {
+    min-height: 164px !important;
+  }
+
+  /* Compra: compacta el resumen sin perder información ni tamaño táctil. */
+  .compra-page--modern,
+  .menu-page--modern {
+    padding-bottom: calc(164px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .modern-shopping-toolbar {
+    padding: 10px !important;
+  }
+
+  .modern-segmented-control > button {
+    min-height: 54px !important;
+    padding: 9px 11px !important;
+  }
+
+  .modern-shopping-summary {
+    padding: 15px !important;
+  }
+
+  .modern-shopping-summary__top {
+    gap: 8px !important;
+  }
+
+  .modern-progress {
+    margin-top: 10px !important;
+  }
+
+  .modern-shopping-stats {
+    gap: 7px !important;
+    margin-top: 10px !important;
+  }
+
+  .modern-shopping-stats > div {
+    padding: 9px 7px !important;
+    border-radius: 13px !important;
+  }
+
+  .modern-shopping-stats strong {
+    font-size: 18px !important;
+  }
+
+  .modern-shopping-actions {
+    gap: 9px !important;
+    margin-top: 11px !important;
+    padding-top: 11px !important;
+  }
+
+  .modern-shopping-actions > div:first-child small {
+    line-height: 1.35;
+  }
+
+  .modern-shopping-actions > div:last-child {
+    gap: 7px !important;
+  }
+
+  .modern-shopping-actions .modern-button {
+    min-height: 44px !important;
+  }
+
+  .modern-manual-shopping,
+  .modern-covered-card {
+    margin-top: 12px !important;
+  }
+
+  /* La barra fija tiene zona segura propia y el contenido puede pasar completamente por encima. */
+  .bottom-nav {
+    padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .budget-card .home-card__body,
+  .budget-card--total .home-card__body {
+    min-height: 154px !important;
+    padding: 16px 17px !important;
+  }
+
+  .budget-card .home-card__top {
+    margin-bottom: 18px !important;
+  }
+
+  .modern-shopping-summary {
+    padding: 14px !important;
+  }
+}
