@@ -8,6 +8,7 @@ import './styles/premium-final.css';
 import './styles/pro-product.css';
 import BottomNav from './components/NavegacionInferior';
 import NavegacionRecetario from './components/NavegacionRecetario';
+import ContextoFamiliar from './components/ContextoFamiliar';
 import { useMenu } from './hooks/useMenu';
 import { RecetarioFiltroProvider } from './hooks/useRecetas';
 import Home from './pages/Home';
@@ -156,6 +157,8 @@ function App() {
       )}
 
       <NavegacionRecetario pantalla={pantalla} cambiarPantalla={cambiarPantalla} />
+
+      {(pantalla === 'menu' || pantalla === 'compra') && <ContextoFamiliar />}
 
       <Suspense fallback={<main className="page page-loading"><span>Abriendo…</span></main>}>
         {pantalla === 'inicio' && (
