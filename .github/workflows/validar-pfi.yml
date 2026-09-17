@@ -79,3 +79,5 @@ jobs:
         run: npm run test:v0930
       - name: Probar jerarquía visual y acciones reversibles
         run: npm run test:v0931
+      - name: Probar cálculo familiar y diseño pro
+        run: npm run test:v0935
