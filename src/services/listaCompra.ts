@@ -9,6 +9,7 @@ import { unirIngredientes } from './UnirIngredientes';
 import { obtenerRecetaPostre } from './menu';
 import {
   calcularComensales,
+  calcularRacionesEquivalentes,
   cargarPerfil,
   crearPerfilParaMomento,
   type PerfilFamiliar,
@@ -25,7 +26,7 @@ const PRODUCTO_TOMATE_UNTAR = '17647';
 const PRODUCTO_TOMATE_FRITO = '17108';
 const PRODUCTO_ZANCARRON = '13741';
 const GRAMOS_APROXIMADOS_POR_JAMONCITO = 180;
-const GRAMOS_POLLO_POR_RACION_ARROZ = 150;
+const GRAMOS_POLLO_POR_RACION_ARROZ = 125;
 const GRAMOS_REFERENCIA_OLLA_DOS_DIAS = 500;
 
 const OLLAS_DOS_DIAS = new Set([
@@ -181,20 +182,26 @@ function normalizarCortePolloParaCompra(
  * Las recetas guardadas son la referencia familiar. Al usarlas en un servicio
  * concreto, la compra debe adaptarse a quienes realmente comen ese día.
  *
- * Las ollas de legumbre que se preparan para lunes + jueves son una excepción
- * deliberada a las reglas automáticas históricas de una sola comida: si una
- * legumbre seca sigue marcada como automática por la migración antigua, usamos
- * 500 g como referencia familiar del lote completo y la escalamos por número de
- * comensales. Una cantidad editada manualmente sigue respetándose tal cual.
+ * Las cantidades manuales y las ollas de dos días se escalan por raciones
+ * equivalentes, no por simple número de personas. Así un niño de 6 años no pesa
+ * lo mismo que un adulto en pasta, carne o legumbre, mientras que una pieza de
+ * fruta sigue calculándose por comensal mediante su regla específica.
+ *
+ * Las ollas de legumbre que se preparan para lunes + jueves usan 500 g como
+ * referencia familiar del lote completo. Una cantidad editada manualmente se
+ * conserva como referencia y se escala con el mismo criterio por edad.
  */
 export function ajustarRecetasAComensalesServicio(
   recetas: Receta[],
   perfilReferencia: PerfilFamiliar,
   perfilServicio: PerfilFamiliar,
 ): Receta[] {
-  const comensalesReferencia = Math.max(1, calcularComensales(perfilReferencia));
-  const comensalesServicio = calcularComensales(perfilServicio);
-  const factor = comensalesServicio / comensalesReferencia;
+  const racionesReferencia = Math.max(
+    0.01,
+    calcularRacionesEquivalentes(perfilReferencia),
+  );
+  const racionesServicio = calcularRacionesEquivalentes(perfilServicio);
+  const factor = racionesServicio / racionesReferencia;
 
   return recetas.map((receta) => ({
     ...receta,
