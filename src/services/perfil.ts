@@ -246,10 +246,19 @@ export function guardarPerfil(perfil: PerfilFamiliar): PerfilFamiliar {
   return normalizado;
 }
 
+/**
+ * Equivalencia práctica de una ración infantil frente a una ración adulta.
+ *
+ * La escala aproxima los tamaños de ración publicados por AESAN para población
+ * escolar: desde la adolescencia muchas raciones ya son comparables a las de un
+ * adulto, mientras que entre 6 y 8 años suelen situarse alrededor del 60-70 %
+ * según el grupo de alimentos. Las reglas específicas de cada ingrediente se
+ * aplican después y pueden afinar esta base.
+ */
 export function factorNinoPorEdad(edad: number): number {
-  if (edad >= 16) return 1;
-  if (edad >= 12) return 0.85;
-  if (edad >= 8) return 0.7;
+  if (edad >= 12) return 1;
+  if (edad >= 9) return 0.85;
+  if (edad >= 6) return 0.7;
   if (edad >= 4) return 0.55;
   return 0.35;
 }

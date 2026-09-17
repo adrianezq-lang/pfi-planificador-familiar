@@ -1,0 +1,492 @@
+:root {
+  --pfi-ink: #17251c;
+  --pfi-muted: #5f6c63;
+  --pfi-green: #315b3f;
+  --pfi-green-strong: #1f432e;
+  --pfi-green-deep: #173722;
+  --pfi-green-soft: #dfe9dc;
+  --pfi-sage: #b8c9b3;
+  --pfi-cream: #f2ecdf;
+  --pfi-cream-strong: #e9dfcd;
+  --pfi-gold: #b78a45;
+  --pfi-card: #fffdf8;
+  --pfi-line: rgba(38, 71, 48, 0.18);
+  --pfi-shadow: 0 18px 52px rgba(26, 52, 34, 0.16);
+  --pfi-shadow-soft: 0 10px 28px rgba(26, 52, 34, 0.10);
+}
+
+html {
+  background: #e6ece4;
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(79, 118, 85, 0.20), transparent 28%),
+    radial-gradient(circle at 100% 12%, rgba(183, 138, 69, 0.14), transparent 24%),
+    linear-gradient(180deg, #edf2ea 0%, #e8eee6 48%, #f0eadf 100%);
+  color: var(--pfi-ink);
+}
+
+.app-header {
+  border-bottom: 0;
+  background:
+    radial-gradient(circle at 85% -30%, rgba(255, 255, 255, 0.12), transparent 34%),
+    linear-gradient(135deg, #173722 0%, #244b32 58%, #315d3e 100%);
+  box-shadow: 0 10px 28px rgba(17, 45, 27, 0.18);
+}
+
+.app-logo {
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+.app-brand h1,
+.app-brand p {
+  color: #fff !important;
+}
+
+.app-brand p {
+  opacity: .72;
+}
+
+.app-version {
+  border-color: rgba(255,255,255,.14);
+  background: rgba(255,255,255,.09);
+  color: rgba(255,255,255,.72);
+}
+
+.pfi-card,
+.modern-month-card,
+.modern-day-card,
+.month-overview-details,
+.modern-shopping-toolbar,
+.modern-store-card,
+.modern-manual-shopping,
+.modern-covered-card,
+.modern-loading-card,
+.modern-error-card {
+  border-color: var(--pfi-line) !important;
+  background: var(--pfi-card) !important;
+  box-shadow: var(--pfi-shadow-soft) !important;
+}
+
+.modern-page-heading {
+  padding-top: 18px;
+}
+
+.modern-page-heading__eyebrow {
+  color: #42634b;
+}
+
+.modern-page-heading h2 {
+  color: #183222;
+  text-shadow: 0 1px 0 rgba(255,255,255,.65);
+}
+
+.modern-page-heading p {
+  color: #53645a;
+  font-size: 15px;
+}
+
+/* Inicio: cada bloque tiene identidad propia y no parece una cuadrícula blanca. */
+.home-card--menu.pfi-card {
+  border-color: rgba(255,255,255,.08) !important;
+  background:
+    radial-gradient(circle at 96% 96%, rgba(216, 186, 122, 0.18), transparent 34%),
+    linear-gradient(145deg, #173a27 0%, #2f5c3d 100%) !important;
+  box-shadow: 0 20px 48px rgba(18, 50, 29, 0.25) !important;
+}
+
+.home-card--prep.pfi-card {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(183, 138, 69, 0.20), transparent 30%),
+    linear-gradient(145deg, #fffaf0, #f1e7d4) !important;
+  border-color: rgba(153, 111, 49, 0.18) !important;
+}
+
+.home-card--restock.pfi-card {
+  background:
+    radial-gradient(circle at 90% 0%, rgba(50, 92, 60, 0.10), transparent 30%),
+    linear-gradient(145deg, #f8fbf5, #dfe9db) !important;
+}
+
+.budget-card.pfi-card {
+  background: linear-gradient(160deg, #fffdf8, #eee8da) !important;
+}
+
+.budget-card--total.pfi-card {
+  border-color: rgba(33, 67, 43, .38) !important;
+  background: linear-gradient(145deg, #244a31, #376545) !important;
+  color: #fff !important;
+}
+
+.budget-card--total .home-card__eyebrow,
+.budget-card--total .budget-amount,
+.budget-card--total .home-card__arrow {
+  color: #fff !important;
+}
+
+.home-card__arrow {
+  border: 1px solid rgba(37, 72, 46, .11);
+  border-radius: 999px;
+  background: rgba(255,255,255,.55);
+}
+
+/* Menú: navegación más marcada y tarjetas con niveles visuales distintos. */
+.modern-month-card {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(183, 138, 69, .12), transparent 30%),
+    linear-gradient(145deg, #fffdf7, #eee8dc) !important;
+}
+
+.modern-month-nav > button {
+  border-color: rgba(31, 67, 46, .18);
+  background: #e5ece2;
+  color: #21492f;
+}
+
+.modern-day-tabs {
+  border-color: rgba(31, 67, 46, .18) !important;
+  background: #dce6d8 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+}
+
+.modern-day-tabs .week-day-button {
+  color: #395044;
+}
+
+.modern-day-tabs .week-day-button--active {
+  border-color: #20482f !important;
+  background: linear-gradient(145deg, #1f472f, #376445) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 18px rgba(26, 65, 39, .24);
+}
+
+.modern-day-card {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(184, 201, 179, .30), transparent 34%),
+    linear-gradient(180deg, #fffefb, #f6f2e9) !important;
+}
+
+.modern-day-card__header h3 {
+  color: #173a27;
+}
+
+.modern-pill {
+  border: 1px solid rgba(48, 93, 59, .13);
+  background: #dce9d9;
+  color: #285737;
+}
+
+.modern-meal-grid {
+  gap: 16px;
+}
+
+.modern-meal-card {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(35, 75, 47, .17);
+  background: #fffdf8;
+  box-shadow: 0 10px 24px rgba(31, 64, 39, .08);
+}
+
+.modern-meal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, #315f40, #8aa37f);
+}
+
+.modern-meal-card:nth-child(2)::before {
+  background: linear-gradient(180deg, #8a6b3f, #c3a267);
+}
+
+.modern-meal-card__icon {
+  border: 1px solid rgba(45, 91, 58, .12);
+  background: #dfe9dc;
+}
+
+.modern-meal-card:nth-child(2) .modern-meal-card__icon {
+  border-color: rgba(153, 111, 49, .14);
+  background: #f0e5d1;
+}
+
+.modern-dish-list strong {
+  border: 1px solid rgba(39, 78, 50, .10);
+  background: #eef3eb;
+  color: #1e3827;
+}
+
+.modern-edit-button {
+  border-color: rgba(35, 76, 47, .24);
+  background: #e2ece0;
+  color: #214d30;
+}
+
+.modern-dessert-select select,
+.modern-search-field input,
+.modern-manual-form input,
+.modern-manual-form select {
+  border-color: rgba(38, 74, 48, .22);
+  background: #fffefa;
+}
+
+.meal-feedback > summary {
+  color: #405a49;
+}
+
+.meal-feedback > summary > small {
+  color: #6d776f;
+}
+
+.meal-feedback__options button {
+  border-color: rgba(42, 80, 52, .17);
+  background: #f7f3ea;
+  color: #44564a;
+}
+
+.meal-feedback__options button[aria-pressed='true'] {
+  border-color: #4f7d58;
+  background: #dcebd8;
+  color: #214c2f;
+}
+
+.month-overview-details,
+.modern-manual-shopping,
+.modern-covered-card {
+  background: linear-gradient(145deg, #fffdf9, #eee9de) !important;
+}
+
+/* Compra: resumen protagonista, lista clara y acciones fáciles de distinguir. */
+.modern-shopping-toolbar {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(183, 138, 69, .10), transparent 30%),
+    linear-gradient(145deg, #fffdf7, #eee8dc) !important;
+}
+
+.modern-segmented-control > button {
+  border-color: rgba(40, 75, 50, .18);
+  background: #e9eee6;
+  color: #354d3d;
+}
+
+.modern-segmented-control > button[aria-pressed='true'] {
+  border-color: #1f432e;
+  background: linear-gradient(145deg, #1e432d, #376545);
+  box-shadow: 0 10px 22px rgba(26, 65, 39, .24);
+}
+
+.modern-shopping-summary {
+  border: 1px solid rgba(255,255,255,.08) !important;
+  background:
+    radial-gradient(circle at 95% 0%, rgba(204, 174, 112, .20), transparent 28%),
+    linear-gradient(145deg, #183923, #2d5a3a 72%, #3f6848) !important;
+  color: #fff;
+  box-shadow: 0 20px 48px rgba(18, 50, 29, .24) !important;
+}
+
+.modern-shopping-summary__top small,
+.modern-shopping-summary__top strong,
+.modern-shopping-summary__top > span,
+.modern-shopping-actions > div:first-child strong,
+.modern-shopping-actions > div:first-child small,
+.modern-shopping-stats strong,
+.modern-shopping-stats span {
+  color: #fff !important;
+}
+
+.modern-shopping-summary__top small,
+.modern-shopping-actions > div:first-child small,
+.modern-shopping-stats span {
+  opacity: .72;
+}
+
+.modern-progress {
+  background: rgba(255,255,255,.13);
+}
+
+.modern-progress > span {
+  background: linear-gradient(90deg, #f0d79b, #d9b66f);
+}
+
+.modern-shopping-stats > div {
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.08);
+}
+
+.modern-shopping-actions {
+  border-top-color: rgba(255,255,255,.12);
+}
+
+.modern-shopping-summary .modern-button--ghost,
+.modern-shopping-summary .modern-button--secondary {
+  border-color: rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  color: #fff;
+}
+
+.modern-shopping-summary .modern-button--primary {
+  border-color: #d7b36b;
+  background: linear-gradient(145deg, #d3ad63, #b88942);
+  color: #1f311f;
+  box-shadow: 0 8px 20px rgba(0,0,0,.16);
+}
+
+.modern-inline-message {
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+
+.modern-store-card {
+  background: #f8f3e9 !important;
+}
+
+.modern-store-card__header {
+  background:
+    radial-gradient(circle at 90% 0%, rgba(255,255,255,.09), transparent 25%),
+    linear-gradient(145deg, #1b412a, #315d3d);
+}
+
+.modern-store-sections {
+  background: #f3eee4;
+}
+
+.modern-shop-section {
+  border-color: rgba(44, 79, 52, .16);
+  background: #fffdf8;
+  box-shadow: 0 5px 14px rgba(33, 64, 39, .05);
+}
+
+.modern-shop-section > header {
+  background: linear-gradient(90deg, #dce8d8, #ece8dc);
+}
+
+.modern-shop-section__number {
+  background: #315e3f;
+  color: #fff;
+}
+
+.modern-shopping-row {
+  border-top-color: rgba(46, 80, 54, .10);
+}
+
+.modern-shopping-row:hover {
+  background: #f6f0e5;
+}
+
+.modern-shopping-row.is-complete {
+  background: #e7eee3;
+  opacity: .78;
+}
+
+.modern-check span {
+  border-color: #8da28d;
+  background: #fffdf8;
+}
+
+.modern-check input:checked + span {
+  border-color: #2a5938;
+  background: #2a5938;
+}
+
+.modern-format-pill {
+  border: 1px solid rgba(61, 94, 67, .10);
+  background: #e7ece3;
+  color: #53685a;
+}
+
+.modern-leftover {
+  color: #54715a !important;
+  font-weight: 700;
+}
+
+/* Secundarias: más separación entre cabecera y contenido. */
+.page-hero-card.pfi-card,
+.recipes-intro-card.pfi-card {
+  border-color: rgba(37, 75, 47, .20) !important;
+  background:
+    radial-gradient(circle at 92% 5%, rgba(179, 201, 174, .55), transparent 30%),
+    linear-gradient(145deg, #fffdf8, #e9e4d8) !important;
+  box-shadow: var(--pfi-shadow-soft) !important;
+}
+
+.page-hero-card .pfi-title,
+.recipes-intro-card .pfi-title {
+  color: #1b3f29 !important;
+}
+
+.recipe-library-card,
+.pantry-product-card,
+.recipes-browser {
+  border-color: rgba(39, 76, 49, .16) !important;
+  background: #fffdf9 !important;
+}
+
+/* Navegación: más presencia sin quitar espacio útil. */
+.bottom-nav__inner {
+  border-color: rgba(30, 65, 42, .22);
+  background: rgba(248, 244, 235, .96);
+  box-shadow: 0 18px 48px rgba(20, 48, 29, .24);
+}
+
+.nav-button {
+  color: #58665d;
+}
+
+.nav-button--active {
+  background: linear-gradient(145deg, #1d422c, #376344) !important;
+  box-shadow: 0 8px 20px rgba(26, 63, 38, .26);
+}
+
+@media (max-width: 720px) {
+  body {
+    background:
+      radial-gradient(circle at 0% 0%, rgba(74, 112, 80, .18), transparent 24%),
+      linear-gradient(180deg, #edf1e9 0%, #eee8dd 100%);
+  }
+
+  .app-header__inner {
+    min-height: 62px;
+  }
+
+  .modern-page-heading {
+    padding-top: 14px;
+    padding-bottom: 16px;
+  }
+
+  .modern-page-heading h2 {
+    font-size: 34px;
+  }
+
+  .modern-meal-grid {
+    gap: 12px;
+  }
+
+  .modern-meal-card {
+    border-radius: 19px;
+  }
+
+  .modern-shopping-summary {
+    border-radius: 22px;
+  }
+
+  .modern-shopping-actions {
+    gap: 10px;
+  }
+
+  .modern-shopping-actions > div:last-child {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .modern-shopping-actions .modern-button {
+    flex: 1 1 120px;
+  }
+
+  .modern-shop-section {
+    border-radius: 15px;
+  }
+}
