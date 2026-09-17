@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  calcularRacionesEquivalentes,
   cargarPerfil,
   describirFamilia,
   EVENTO_PERFIL,
@@ -15,29 +14,18 @@ export default function ContextoFamiliar() {
     return () => window.removeEventListener(EVENTO_PERFIL, actualizar);
   }, []);
 
-  const raciones = useMemo(
-    () => calcularRacionesEquivalentes(perfil),
-    [perfil],
-  );
-
   return (
-    <aside style={estiloContenedor} aria-label="Contexto del cálculo familiar">
-      <span style={estiloIcono} aria-hidden="true">◎</span>
+    <aside style={estiloContenedor} aria-label="Personas incluidas en el cálculo">
+      <span style={estiloIcono} aria-hidden="true">✓</span>
       <div style={estiloTexto}>
-        <strong style={estiloTitulo}>Base familiar</strong>
-        <span style={estiloDetalle}>
-          {describirFamilia(perfil)} · {formatear(raciones)} raciones equivalentes
-        </span>
+        <strong style={estiloTitulo}>Cantidades adaptadas a vuestra familia</strong>
+        <span style={estiloDetalle}>{describirFamilia(perfil)}</span>
         <small style={estiloAyuda}>
-          PFI ajusta cada comida según quién come ese día.
+          PFI ajusta automáticamente las cantidades según quién come en casa cada día.
         </small>
       </div>
     </aside>
   );
-}
-
-function formatear(valor: number): string {
-  return valor.toLocaleString('es-ES', { maximumFractionDigits: 2 });
 }
 
 const estiloContenedor = {
@@ -63,7 +51,7 @@ const estiloIcono = {
   borderRadius: 12,
   background: '#2d5b3b',
   color: '#fff',
-  fontSize: 18,
+  fontSize: 17,
   fontWeight: 900,
 } as const;
 
