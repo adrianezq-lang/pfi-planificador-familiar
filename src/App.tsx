@@ -6,6 +6,7 @@ import './styles/premium-modern.css';
 import './styles/premium-navigation.css';
 import './styles/premium-final.css';
 import './styles/pro-product.css';
+import './styles/mobile-visual-fixes.css';
 import BottomNav from './components/NavegacionInferior';
 import NavegacionRecetario from './components/NavegacionRecetario';
 import ContextoFamiliar from './components/ContextoFamiliar';
@@ -53,6 +54,10 @@ function App() {
     (destino: Pantalla) => startTransition(() => setPantalla(destino)),
     [],
   );
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pantalla]);
 
   const menusSemanasCompra = useMemo(
     () => planMensual.map((semana) => menuEfectivoSemana(semana, excepciones)),
