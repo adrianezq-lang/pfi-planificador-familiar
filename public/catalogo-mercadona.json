@@ -1,25 +1,9 @@
 {
-  "actualizado": "2026-09-17T10:00:28.737Z",
+  "actualizado": "2026-09-18T09:47:07.531Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4290,
+  "totalProductos": 4286,
   "productos": [
-    {
-      "productoId": "3505.2",
-      "nombre": "1/4 Sandía baja en semillas",
-      "precio": 1.7,
-      "precioReferencia": 1.05,
-      "formato": "1/4 Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.62,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Melón y sandía",
-      "imagen": "https://prod-mercadona.imgix.net/images/691e1274d514dac5d35bd5c952f8c1f6.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/3505.2/14-sandia-baja-semillas-14-pieza",
-      "disponible": true
-    },
     {
       "productoId": "40339",
       "nombre": "11 Panecillos",
@@ -2357,22 +2341,6 @@
       "disponible": true
     },
     {
-      "productoId": "25184",
-      "nombre": "Alas de pollo congeladas",
-      "precio": 3.7,
-      "precioReferencia": 3.7,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/c57822e42dafc3bcab953b8755a6a40f.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/25184/alas-pollo-congeladas-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "2785",
       "nombre": "Alas partidas de pollo",
       "precio": 3,
@@ -3600,7 +3568,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Amoníaco y salfumán",
-      "imagen": "https://prod-mercadona.imgix.net/images/b826321dd74b57aa5e67490403949e7c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/afaf120d288805d92135a27848b2c9d0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43802/amoniaco-con-detergente-bosque-verde-botella",
       "disponible": true
     },
@@ -9045,6 +9013,22 @@
       "disponible": true
     },
     {
+      "productoId": "14915",
+      "nombre": "Bocaditos de carne en salsa gato adulto esterilizado Delikuit",
+      "precio": 3.8,
+      "precioReferencia": 3.167,
+      "formato": "Paquete",
+      "unidadesTotales": 12,
+      "tamañoUnidad": 1.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/f334a95b0c8bfcd89253c7ee017ec7fd.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/14915/bocaditos-salsa-gato-adulto-delikuit-esterilizado-contiene-6-con-pavo-salsa-6-con-ternera-salsa-caja",
+      "disponible": true
+    },
+    {
       "productoId": "21846",
       "nombre": "Bocaditos de queso y chile Hot Cheese Hacendado ultracongelados",
       "precio": 2.3,
@@ -9170,22 +9154,6 @@
       "subcategoria": "Alimentación húmeda",
       "imagen": "https://prod-mercadona.imgix.net/images/8177b80f978aa45728d829285b8067b5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9832/bocaditos-salsa-perro-adulto-special-dog-excellence-con-ternera-higado-verduras-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "14915",
-      "nombre": "Bocaditos en salsa de pavo y ternera gato adulto esterilizado Delikuit",
-      "precio": 3.8,
-      "precioReferencia": 3.167,
-      "formato": "Paquete",
-      "unidadesTotales": 12,
-      "tamañoUnidad": 1.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/f334a95b0c8bfcd89253c7ee017ec7fd.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/14915/bocaditos-salsa-gato-adulto-delikuit-esterilizado-contiene-6-con-pavo-salsa-6-con-ternera-salsa-caja",
       "disponible": true
     },
     {
@@ -9799,8 +9767,8 @@
     {
       "productoId": "81661.2",
       "nombre": "Boquerón limpio sin cabeza",
-      "precio": 0.99,
-      "precioReferencia": 4.95,
+      "precio": 1.19,
+      "precioReferencia": 5.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -18608,7 +18576,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Coloración rubio",
-      "imagen": "https://prod-mercadona.imgix.net/images/2f6e7e97917ab7d67bf5da8abeb212ee.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2f6e7e97917ab7d67bf5da8abeb212ee.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/75309/coloracion-permanente-loreal-71-rubio-ceniza-excellence-creme-caja",
       "disponible": true
     },
@@ -22354,22 +22322,6 @@
       "subcategoria": "Perfilador de ojos",
       "imagen": "https://prod-mercadona.imgix.net/images/d37932bb7bb25a34aa40bbb3d8e48020.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52504/delineador-ojos-deliplus-02-marron",
-      "disponible": true
-    },
-    {
-      "productoId": "80264",
-      "nombre": "Delineador de ojos Deliplus negro",
-      "precio": 3.75,
-      "precioReferencia": 3.75,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Perfilador de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/a492ad5ba70672af6e26729a6efb7cc8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/80264/delineador-ojos-deliplus-negro",
       "disponible": true
     },
     {
@@ -30832,7 +30784,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Gomina y cera",
-      "imagen": "https://prod-mercadona.imgix.net/images/1f7e3144e4006e5ee13accc06f8cef5b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/25f47b3cfee06d5a6cddfc0567a5846d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23763/gel-fijador-cabello-control-total-giorgi-fijacion-5-bote",
       "disponible": true
     },
@@ -41685,22 +41637,6 @@
       "disponible": true
     },
     {
-      "productoId": "3505.1",
-      "nombre": "Media sandía baja en semillas",
-      "precio": 2.97,
-      "precioReferencia": 1.05,
-      "formato": "1/2 Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 2.83,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Melón y sandía",
-      "imagen": "https://prod-mercadona.imgix.net/images/6f968b5212959c76552ae95c4fd8b619.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/3505.1/media-sandia-baja-semillas-12-pieza",
-      "disponible": true
-    },
-    {
       "productoId": "60128",
       "nombre": "Media tortilla de patata con calabacín Listo para Comer",
       "precio": 4.75,
@@ -43590,7 +43526,7 @@
     },
     {
       "productoId": "15984",
-      "nombre": "Mousse con ternera y pollo gato adulto Delikuit",
+      "nombre": "Mousse de carne gato adulto Delikuit",
       "precio": 2,
       "precioReferencia": 5.883,
       "formato": "Tarrina",
@@ -48096,7 +48032,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Patata",
-      "imagen": "https://prod-mercadona.imgix.net/images/9573ce3b902f86934b52cae8ccc3f484.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9573ce3b902f86934b52cae8ccc3f484.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69448/patatas-especial-freir-malla",
       "disponible": true
     },
@@ -48416,7 +48352,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Patata",
-      "imagen": "https://prod-mercadona.imgix.net/images/12962dac735b6d3c60e7448d339640a8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/12962dac735b6d3c60e7448d339640a8.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69098/patatas-rojas-malla",
       "disponible": true
     },
@@ -60261,22 +60197,6 @@
       "disponible": true
     },
     {
-      "productoId": "3529",
-      "nombre": "Sandía baja en semillas",
-      "precio": 3.46,
-      "precioReferencia": 0.6,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 5.77,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Melón y sandía",
-      "imagen": "https://prod-mercadona.imgix.net/images/5a83042e3754877c18b14e2cbf64a973.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/3529/sandia-baja-semillas-pieza",
-      "disponible": true
-    },
-    {
       "productoId": "4106",
       "nombre": "Sándwich atún y huevo Hacendado",
       "precio": 1.8,
@@ -60375,8 +60295,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 1.39,
+      "precioReferencia": 6.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60391,8 +60311,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 1.39,
+      "precioReferencia": 6.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -62706,6 +62626,22 @@
       "subcategoria": "Platos fríos",
       "imagen": "https://prod-mercadona.imgix.net/images/5b3d69558d76a35d8edf3243f7c60d5d.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13233/surtido-sushi-bento-pequeno-contiene-2-nigiris-4-makis-2-uramakis-salsa-soja-salsa-wasabi-bandeja",
+      "disponible": true
+    },
+    {
+      "productoId": "50999",
+      "nombre": "Tabla de quesos nacionales Hacendado",
+      "precio": 4.95,
+      "precioReferencia": 20.625,
+      "formato": "Bandeja",
+      "unidadesTotales": 24,
+      "tamañoUnidad": 0.24,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Queso curado",
+      "imagen": "https://prod-mercadona.imgix.net/images/fd4abf9a02e72ce2a636dc02c1086d80.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/50999/tabla-quesos-nacionales-hacendado-bandeja",
       "disponible": true
     },
     {
