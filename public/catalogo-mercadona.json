@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-18T09:47:07.531Z",
+  "actualizado": "2026-09-19T09:32:10.123Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4286,
+  "totalProductos": 4285,
   "productos": [
     {
       "productoId": "40339",
@@ -1280,7 +1280,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Activador y antical lavadora",
-      "imagen": "https://prod-mercadona.imgix.net/images/f8e15abbdcc94a37f5feef434cfe8b0e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0d72ee50b60eb533e07f2d5e80c0fa83.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/40230/activador-lavado-ropa-blanca-oxi-active-bosque-verde-gel-botella",
       "disponible": true
     },
@@ -4480,7 +4480,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Atún",
-      "imagen": "https://prod-mercadona.imgix.net/images/f99f0a2b9e478cee5b0e02fac62d4686.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/003c8146e861ce8abd19032687b62da0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18002/atun-claro-aceite-oliva-hacendado-pack-6",
       "disponible": true
     },
@@ -5527,8 +5527,8 @@
     {
       "productoId": "9445",
       "nombre": "Barritas con proteínas sabor coco y chocolate Enervit Sport",
-      "precio": 3.6,
-      "precioReferencia": 30,
+      "precio": 2.95,
+      "precioReferencia": 24.584,
       "formato": "Caja",
       "unidadesTotales": 3,
       "tamañoUnidad": 0.12,
@@ -5936,7 +5936,7 @@
       "pesoAproximado": true,
       "sección": "Fitoterapia y parafarmacia",
       "subcategoria": "Botiquín",
-      "imagen": "https://prod-mercadona.imgix.net/images/7bf370b6723091feb8b9302f07d0ff0d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9afc4558dfdad0a9ca1f0c7a680e8655.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21848/bastoncillos-algodon-100-deliplus-caja",
       "disponible": true
     },
@@ -10960,7 +10960,7 @@
       "pesoAproximado": true,
       "sección": "Cacao, café e infusiones",
       "subcategoria": "Cápsulas compatibles Nespresso",
-      "imagen": "https://prod-mercadona.imgix.net/images/dd84f71224c87ca3675092c9d8f31090.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b8db5512c598c53826634ac7f967e574.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10355/cafe-capsula-descafeinado-hacendado-compatibles-maquinas-nespresso-caja",
       "disponible": true
     },
@@ -11090,6 +11090,22 @@
       "subcategoria": "Cápsulas compatibles Dolce gusto",
       "imagen": "https://prod-mercadona.imgix.net/images/74b8483ab4c065c8001e564b019419b6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13635/cafe-capsula-forte-hacendado-compatibles-maquinas-dolce-gusto-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "17674",
+      "nombre": "Café en cápsula Perú Hacendado",
+      "precio": 3.8,
+      "precioReferencia": 0.19,
+      "formato": "Caja",
+      "unidadesTotales": 20,
+      "tamañoUnidad": 0.104,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Cacao, café e infusiones",
+      "subcategoria": "Cápsulas compatibles Nespresso",
+      "imagen": "https://prod-mercadona.imgix.net/images/0a0ea79857445a9b519a84579e3c1a05.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17674/cafe-capsula-peru-hacendado-compatibles-maquinas-nespresso-caja",
       "disponible": true
     },
     {
@@ -13008,7 +13024,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Cebolla y ajo",
-      "imagen": "https://prod-mercadona.imgix.net/images/8285fa6f80ced45d544f8013b72fe799.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8285fa6f80ced45d544f8013b72fe799.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69162/cebollas-rojas-malla",
       "disponible": true
     },
@@ -21221,22 +21237,6 @@
       "disponible": true
     },
     {
-      "productoId": "8448",
-      "nombre": "Crema de pollo Hacendado con verduras",
-      "precio": 1,
-      "precioReferencia": 2,
-      "formato": "Brik",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Conservas, caldos y cremas",
-      "subcategoria": "Cremas y puré",
-      "imagen": "https://prod-mercadona.imgix.net/images/e7dd64a7791cb538c4d48e8a333cdbc8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8448/crema-pollo-hacendado-con-verduras-brick",
-      "disponible": true
-    },
-    {
       "productoId": "51181",
       "nombre": "Crema de queso camembert Hacendado",
       "precio": 1.8,
@@ -22192,7 +22192,7 @@
       "pesoAproximado": true,
       "sección": "Postres y yogures",
       "subcategoria": "Yogures y postres infantiles",
-      "imagen": "https://prod-mercadona.imgix.net/images/b0f2724413c1c235b25a0948010a0c6a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7bb3cda89d78cf3b773ea4a9d9f885c5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/68124/danonino-sabor-fresa-danone-pack-6",
       "disponible": true
     },
@@ -22322,6 +22322,22 @@
       "subcategoria": "Perfilador de ojos",
       "imagen": "https://prod-mercadona.imgix.net/images/d37932bb7bb25a34aa40bbb3d8e48020.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52504/delineador-ojos-deliplus-02-marron",
+      "disponible": true
+    },
+    {
+      "productoId": "80264",
+      "nombre": "Delineador de ojos Deliplus negro",
+      "precio": 3.75,
+      "precioReferencia": 3.75,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Perfilador de ojos",
+      "imagen": "https://prod-mercadona.imgix.net/images/a492ad5ba70672af6e26729a6efb7cc8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/80264/delineador-ojos-deliplus-negro",
       "disponible": true
     },
     {
@@ -23472,7 +23488,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Detergente líquido y gel",
-      "imagen": "https://prod-mercadona.imgix.net/images/8f6b39034dbd905b7d32f54886cf1e16.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0903e7cc7f3b7b746b5423037fad8865.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/16830/detergente-ropa-total-ariel-liquido-botella",
       "disponible": true
     },
@@ -26768,7 +26784,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Espuma de afeitar",
-      "imagen": "https://prod-mercadona.imgix.net/images/df13fc3b422e8defa82659c383b77199.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4163fbf7f19abb7cdd0576cec51ca1bf.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35610/espuma-afeitar-piel-sensible-gillette-con-aloe-vera-bote",
       "disponible": true
     },
@@ -28608,7 +28624,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Friegasuelos",
-      "imagen": "https://prod-mercadona.imgix.net/images/29bb3e58f87fe4671e364098c500a25f.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a7a6e2dbd87fbc7043ecf7266ee877f6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43070/friegasuelos-insecticida-krisul-liquido-botella",
       "disponible": true
     },
@@ -35344,7 +35360,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Laca de uñas",
-      "imagen": "https://prod-mercadona.imgix.net/images/c84121514e53d97b7369170c2a516fc5.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/beccd559ee17da74978c5808c870409d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35538/tratamiento-unas-base-brillo-deliplus-67",
       "disponible": true
     },
@@ -35378,6 +35394,22 @@
       "subcategoria": "Laca de uñas",
       "imagen": "https://prod-mercadona.imgix.net/images/eb63799585eee450877572d68b726fba.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/41685/laca-unas-manicura-francesa-deliplus-03-rosa",
+      "disponible": true
+    },
+    {
+      "productoId": "23021",
+      "nombre": "Laca de uñas manicura francesa Deliplus 06 blanco milky",
+      "precio": 2.75,
+      "precioReferencia": 2.75,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.011,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Laca de uñas",
+      "imagen": "https://prod-mercadona.imgix.net/images/0db4702442230ded318a82c9a2caec6b.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/23021/laca-unas-manicura-francesa-deliplus-06-blanco",
       "disponible": true
     },
     {
@@ -44469,6 +44501,22 @@
       "disponible": true
     },
     {
+      "productoId": "34236",
+      "nombre": "Nuez de Brasil natural Hacendado",
+      "precio": 3.5,
+      "precioReferencia": 17.5,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Aperitivos",
+      "subcategoria": "Frutos secos",
+      "imagen": "https://prod-mercadona.imgix.net/images/f73efc85361a05e42008a997e5d62881.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/34236/nuez-brasil-natural-hacendado-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "34838",
       "nombre": "Nuez macadamia Hacendado tostada con sal",
       "precio": 2.9,
@@ -46374,7 +46422,7 @@
     },
     {
       "productoId": "47038",
-      "nombre": "Pañal bebé braguita talla L de 12-18 kg Deliplus",
+      "nombre": "Pañal bebé braguita talla L Deliplus de 12-18 kg",
       "precio": 6.9,
       "precioReferencia": 0.288,
       "formato": "Paquete",
@@ -46613,19 +46661,19 @@
       "disponible": true
     },
     {
-      "productoId": "13301",
+      "productoId": "17792",
       "nombre": "Pañales bebé talla 5 Deliplus de 14-18 kg",
-      "precio": 6.05,
-      "precioReferencia": 0.202,
+      "precio": 7,
+      "precioReferencia": 0.195,
       "formato": "Paquete",
       "unidadesTotales": 0,
-      "tamañoUnidad": 30,
+      "tamañoUnidad": 36,
       "formatoUnidad": "ud",
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Pañal talla de 4 a XL",
-      "imagen": "https://prod-mercadona.imgix.net/images/abdb995cdbc50df5d5c17be4c0839f4f.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13301/panales-bebe-talla-5-13-18-kg-deliplus-paquete",
+      "imagen": "https://prod-mercadona.imgix.net/images/038291ace8072335004b28024752ba3e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17792/panales-bebe-talla-5-deliplus-14-18-kg-paquete",
       "disponible": true
     },
     {
@@ -48085,22 +48133,6 @@
       "disponible": true
     },
     {
-      "productoId": "15589",
-      "nombre": "Patatas fritas corte ondulado Hacendado",
-      "precio": 1.1,
-      "precioReferencia": 7.334,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.15,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Aperitivos",
-      "subcategoria": "Patatas fritas",
-      "imagen": "https://prod-mercadona.imgix.net/images/edc2fc7f9b7e7a1447cce4255b0b66f2.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/15589/patatas-fritas-corte-ondulado-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "86146",
       "nombre": "Patatas fritas extra crujientes Hacendado",
       "precio": 1.35,
@@ -48130,6 +48162,22 @@
       "subcategoria": "Patatas",
       "imagen": "https://prod-mercadona.imgix.net/images/e5cc47ec53ae7ed1f090d8069bf9ab6e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/7879/patatas-fritas-horno-air-fryer-hacendado-ultracongeladas-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "15589",
+      "nombre": "Patatas fritas onduladas Hacendado",
+      "precio": 1.1,
+      "precioReferencia": 7.334,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.15,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Aperitivos",
+      "subcategoria": "Patatas fritas",
+      "imagen": "https://prod-mercadona.imgix.net/images/edc2fc7f9b7e7a1447cce4255b0b66f2.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/15589/patatas-fritas-corte-ondulado-hacendado-paquete",
       "disponible": true
     },
     {
@@ -48768,7 +48816,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Pavo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/42caa18db79c87be197d47cdb41c0e28.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/84d531a5c228105c5f64d35feba6d5e3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/5710/pechuga-pavo-92-hacendado-lonchas-paquete",
       "disponible": true
     },
@@ -49314,6 +49362,22 @@
       "subcategoria": "Cejas",
       "imagen": "https://prod-mercadona.imgix.net/images/5fe7beb9c84e09f307e5bbaa30f4bf26.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/67721/perfilador-cejas-micro-deliplus-01-claro-con-cepillo",
+      "disponible": true
+    },
+    {
+      "productoId": "67722",
+      "nombre": "Perfilador de cejas micro Deliplus 02 oscuro",
+      "precio": 3.5,
+      "precioReferencia": 3.5,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Cejas",
+      "imagen": "https://prod-mercadona.imgix.net/images/af08ad008dac77fe571d7901bd9253a9.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/67722/perfilador-cejas-micro-deliplus-02-oscuro-con-cepillo",
       "disponible": true
     },
     {
@@ -52229,22 +52293,6 @@
       "disponible": true
     },
     {
-      "productoId": "21565",
-      "nombre": "Pollo Koreano con salsa",
-      "precio": 3.42,
-      "precioReferencia": 9,
-      "formato": "Bandeja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.38,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Carne",
-      "subcategoria": "Empanados y elaborados",
-      "imagen": "https://prod-mercadona.imgix.net/images/ac37019a80dc87068739a38554e06fce.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21565/pollo-koreano-con-salsa-bandeja",
-      "disponible": true
-    },
-    {
       "productoId": "60306",
       "nombre": "Pollo marinado rebozado Crispy American Style Hacendado ultracongelado",
       "precio": 4.9,
@@ -54069,6 +54117,22 @@
       "disponible": true
     },
     {
+      "productoId": "51627",
+      "nombre": "Queso azul de vaca Hacendado",
+      "precio": 2.3,
+      "precioReferencia": 12.778,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.18,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Queso especialidades",
+      "imagen": "https://prod-mercadona.imgix.net/images/b4c1536ca2733eea0acbaca8ac4f6810.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/51627/queso-azul-vaca-hacendado-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "50619",
       "nombre": "Queso brie marcillat de vaca Plaisir de Roy",
       "precio": 1.65,
@@ -55237,22 +55301,6 @@
       "disponible": true
     },
     {
-      "productoId": "50935",
-      "nombre": "Queso tierno de vaca Hacendado",
-      "precio": 6,
-      "precioReferencia": 5.715,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.05,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Queso tierno",
-      "imagen": "https://prod-mercadona.imgix.net/images/6321f051781cee8452a9a4437ddef8df.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/50935/queso-tierno-vaca-hacendado-pieza",
-      "disponible": true
-    },
-    {
       "productoId": "50916",
       "nombre": "Queso tierno de vaca Hacendado cortado en cuñitas",
       "precio": 2.56,
@@ -55586,22 +55634,6 @@
       "subcategoria": "Arroz",
       "imagen": "https://prod-mercadona.imgix.net/images/cccf4ae8ce7152534fba1cd7c2689433.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22278/quinoa-cocida-blanca-roja-sabroz-brillante-pack-2",
-      "disponible": true
-    },
-    {
-      "productoId": "9430",
-      "nombre": "Quinoa Hacendado",
-      "precio": 2.65,
-      "precioReferencia": 5.3,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Arroz, legumbres y pasta",
-      "subcategoria": "Arroz",
-      "imagen": "https://prod-mercadona.imgix.net/images/5f96e6f16b3a5d30f2fd7135e3d1f74e.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9430/quinoa-hacendado-paquete",
       "disponible": true
     },
     {
@@ -57282,22 +57314,6 @@
       "subcategoria": "Naranja",
       "imagen": "https://prod-mercadona.imgix.net/images/bdfbc11243450cf7147421c26a111976.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/27510/refresco-fanta-naranja-zero-azucares-anadidos-lata",
-      "disponible": true
-    },
-    {
-      "productoId": "27669",
-      "nombre": "Refresco Kas limón",
-      "precio": 1.59,
-      "precioReferencia": 0.707,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 2.25,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Agua y refrescos",
-      "subcategoria": "Limón",
-      "imagen": "https://prod-mercadona.imgix.net/images/d33aefc6b7c99126325dc2944280dbf0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/27669/refresco-kas-limon-botella",
       "disponible": true
     },
     {
@@ -62208,7 +62224,7 @@
       "pesoAproximado": true,
       "sección": "Fitoterapia y parafarmacia",
       "subcategoria": "Botiquín",
-      "imagen": "https://prod-mercadona.imgix.net/images/8385ca3502cd60d049b3c5277ea994c2.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8385ca3502cd60d049b3c5277ea994c2.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52740/stick-arnica-cata-pum-deliplus-caja",
       "disponible": true
     },
@@ -63253,22 +63269,6 @@
       "disponible": true
     },
     {
-      "productoId": "17539",
-      "nombre": "Tarta tropical Hacendado congelada",
-      "precio": 8.6,
-      "precioReferencia": 14.577,
-      "formato": "Bandeja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.59,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Tartas",
-      "imagen": "https://prod-mercadona.imgix.net/images/3d30723b440d594a7c2b223001deaf06.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17539/tarta-tropical-hacendado-congelada-con-mango-maracuya-melocoton-bandeja",
-      "disponible": true
-    },
-    {
       "productoId": "14173",
       "nombre": "Tartaletas con relleno de fresa Hacendado",
       "precio": 1.05,
@@ -63744,7 +63744,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Empanados y elaborados",
-      "imagen": "https://prod-mercadona.imgix.net/images/7fafe2d936735af1aeb576e10e31aa3e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/262d6fa9aaa7c0ff081cdac0b8d0f2da.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17575/tiras-empanadas-pollo-marinado-chicken-fries-bandeja",
       "disponible": true
     },
@@ -64946,22 +64946,6 @@
       "subcategoria": "Pasta rellena",
       "imagen": "https://prod-mercadona.imgix.net/images/44b8ffd1b3cbe2d21d219fffd79f9cef.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/6565/tortellini-carne-pagani-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "6566",
-      "nombre": "Tortellini tres quesos Pagani",
-      "precio": 1.4,
-      "precioReferencia": 5.6,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.25,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Arroz, legumbres y pasta",
-      "subcategoria": "Pasta rellena",
-      "imagen": "https://prod-mercadona.imgix.net/images/a4efb6b5f38489bbe632b2ca70fcd63e.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/6566/tortellini-tres-quesos-pagani-paquete",
       "disponible": true
     },
     {
