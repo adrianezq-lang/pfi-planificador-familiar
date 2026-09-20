@@ -24,6 +24,7 @@ assert.match(listaCompra, /const racionesReferencia = Math\.max/);
 assert.match(listaCompra, /const racionesServicio = calcularRacionesEquivalentes/);
 
 assert.match(app, /import '\.\/styles\/pro-product\.css';/);
+assert.match(app, /import '\.\/styles\/premium-v2\.css';/);
 assert.match(app, /import '\.\/styles\/mobile-visual-fixes\.css';/);
 assert.match(app, /window\.scrollTo\(\{ top: 0, left: 0, behavior: 'auto' \}\);/);
 assert.match(app, /<ContextoFamiliar \/>/);
@@ -37,6 +38,11 @@ assert.match(css, /\.modern-shopping-summary \{/);
 assert.match(css, /\.modern-meal-card::before/);
 assert.match(css, /\.home-card--prep\.pfi-card/);
 assert.match(css, /\.budget-card--total\.pfi-card/);
+assert.match(cssPremium, /\.budget-grid \{[\s\S]*grid-template-columns: repeat\(2, minmax\(0,1fr\)\)/);
+assert.match(cssPremium, /\.nav-button--active \.nav-button__icon/);
+assert.match(cssPremium, /\.family-context/);
+assert.match(navegacion, /<AppIcon name=\{boton\.icono\}/);
+assert.match(iconos, /export type AppIconName/);
 
 assert.match(cssMovil, /\.budget-card--total \.budget-amount/);
 assert.match(cssMovil, /background: transparent !important;/);
@@ -51,6 +57,8 @@ console.log('✓ cantidades manuales y ollas escalan por raciones equivalentes')
 console.log('✓ contexto familiar visible en Menú y Compra');
 console.log('✓ valoración plegable y compra reversible siguen presentes');
 console.log('✓ cabecera, resumen de compra, comidas e Inicio tienen jerarquía de alto contraste');
+console.log('✓ navegación usa iconografía propia y el dashboard móvil aprovecha dos columnas');
+console.log('✓ contexto familiar queda integrado en la identidad premium');
 console.log('✓ cada sección abre desde arriba al navegar');
 console.log('✓ total acumulado mantiene contraste y tarjetas móviles son más compactas');
 console.log('✓ barra inferior deja zona segura suficiente para el contenido');
