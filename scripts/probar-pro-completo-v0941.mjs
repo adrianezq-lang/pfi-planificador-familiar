@@ -1,9 +1,19 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { createServer } from 'vite';
 
 const memoria = new Map();
-globalThis.window = { dispatchEvent() {} };
-globalThis.CustomEvent = class { constructor(type) { this.type = type; } };
+globalThis.window = {
+  addEventListener() {},
+  removeEventListener() {},
+  dispatchEvent() {},
+};
+globalThis.CustomEvent = class {
+  constructor(type, init = {}) {
+    this.type = type;
+    this.detail = init.detail;
+  }
+};
 globalThis.localStorage = {
   get length() { return memoria.size; },
   key(indice) { return Array.from(memoria.keys())[indice] ?? null; },
@@ -56,11 +66,16 @@ assert.match(css, /\.recipe-favorite-button/);
 assert.match(recetasServicio, /PREFIJO_PLAN_MES = 'pfi-menu-mes-';/);
 assert.match(recetasServicio, /transformarPlanesMensualesGuardados/);
 
-const { menuMensualInicial } = await import('../src/data/MenuMensual.ts');
+const vite = await createServer({
+  configFile: false,
+  server: { middlewareMode: true },
+  appType: 'custom',
+});
+const { menuMensualInicial } = await vite.ssrLoadModule('/src/data/MenuMensual.ts');
 const {
   actualizarNombreRecetaEnMenu,
   eliminarRecetaDelMenu,
-} = await import('../src/services/recetas.ts');
+} = await vite.ssrLoadModule('/src/services/recetas.ts');
 
 function planCon(nombre, mes) {
   const semanas = structuredClone(menuMensualInicial.slice(0, 2));
@@ -119,3 +134,4 @@ console.log('✓ Catálogo permite ordenar productos');
 console.log('✓ Perfil muestra resumen y aviso de cambios sin guardar');
 console.log('✓ El lenguaje visual premium cubre las pantallas secundarias');
 console.log('✓ Renombrar y borrar recetas actualiza todos los meses guardados');
+await vite.close();
