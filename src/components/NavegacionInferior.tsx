@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Pantalla } from '../App';
+import AppIcon, { type AppIconName } from './AppIcon';
 
 type NavegacionInferiorProps = {
   pantallaActual: Pantalla;
@@ -8,21 +9,21 @@ type NavegacionInferiorProps = {
 
 type BotonNavegacion = {
   id: Pantalla;
-  icono: string;
+  icono: AppIconName;
   texto: string;
 };
 
 const principales: BotonNavegacion[] = [
-  { id: 'inicio', icono: '🏠', texto: 'Inicio' },
-  { id: 'menu', icono: '📅', texto: 'Menú' },
-  { id: 'compra', icono: '🛒', texto: 'Compra' },
-  { id: 'despensa', icono: '📦', texto: 'Despensa' },
+  { id: 'inicio', icono: 'home', texto: 'Inicio' },
+  { id: 'menu', icono: 'calendar', texto: 'Menú' },
+  { id: 'compra', icono: 'cart', texto: 'Compra' },
+  { id: 'despensa', icono: 'box', texto: 'Despensa' },
 ];
 
 const secundarios: BotonNavegacion[] = [
-  { id: 'recetas', icono: '📖', texto: 'Recetas y postres' },
-  { id: 'catalogo', icono: '🏪', texto: 'Mercadona' },
-  { id: 'perfil', icono: '👤', texto: 'Cuenta y datos' },
+  { id: 'recetas', icono: 'book', texto: 'Recetas y postres' },
+  { id: 'catalogo', icono: 'store', texto: 'Mercadona' },
+  { id: 'perfil', icono: 'user', texto: 'Cuenta y datos' },
 ];
 
 function NavegacionInferior({
@@ -76,7 +77,7 @@ function NavegacionInferior({
                 className={activo ? 'bottom-more-item is-active' : 'bottom-more-item'}
                 onClick={() => navegar(boton.id)}
               >
-                <span aria-hidden="true">{boton.icono}</span>
+                <span aria-hidden="true"><AppIcon name={boton.icono} size={18} /></span>
                 <strong>{boton.texto}</strong>
                 <span aria-hidden="true">›</span>
               </button>
@@ -96,7 +97,7 @@ function NavegacionInferior({
               className={`nav-button${activo ? ' nav-button--active' : ''}`}
               aria-current={activo ? 'page' : undefined}
             >
-              <span className="nav-button__icon" aria-hidden="true">{boton.icono}</span>
+              <span className="nav-button__icon" aria-hidden="true"><AppIcon name={boton.icono} /></span>
               <span className="nav-button__text">{boton.texto}</span>
             </button>
           );
@@ -108,7 +109,7 @@ function NavegacionInferior({
           aria-haspopup="menu"
           onClick={() => setMasAbierto((abierto) => !abierto)}
         >
-          <span className="nav-button__icon nav-button__icon--more" aria-hidden="true">•••</span>
+          <span className="nav-button__icon nav-button__icon--more" aria-hidden="true"><AppIcon name="more" /></span>
           <span className="nav-button__text">Más</span>
         </button>
       </div>
