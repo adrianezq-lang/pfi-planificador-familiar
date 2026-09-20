@@ -7,7 +7,9 @@ import './styles/premium-navigation.css';
 import './styles/premium-final.css';
 import './styles/pro-product.css';
 import './styles/mobile-visual-fixes.css';
+import './styles/premium-v2.css';
 import BottomNav from './components/NavegacionInferior';
+import AppIcon from './components/AppIcon';
 import NavegacionRecetario from './components/NavegacionRecetario';
 import ContextoFamiliar from './components/ContextoFamiliar';
 import { useMenu } from './hooks/useMenu';
@@ -133,7 +135,7 @@ function App() {
     <div className={`app-shell app-shell--${pantalla}`}>
       <header className="app-header">
         <div className="app-header__inner">
-          <div className="app-logo" aria-hidden="true">🏡</div>
+          <div className="app-logo" aria-hidden="true"><AppIcon name="home" size={25} /></div>
           <div className="app-brand">
             <h1>PFI</h1>
             <p>Planificador familiar</p>
