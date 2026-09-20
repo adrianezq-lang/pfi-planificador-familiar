@@ -264,6 +264,23 @@ export default function MenuModern({
   const tieneFinDeSemana = Boolean(semana && fechasFinDeSemana(semana).length);
   const ninosFueraElFinDeSemana = finDeSemanaSinNinos(semana, excepciones);
   const diaEsFinDeSemana = Boolean(fechaActiva && indiceDiaSemana(fechaActiva) >= 5);
+  const preparacionesSemana = fechas.flatMap((fecha) => {
+    const diaSemana = menu[indiceDiaSemana(fecha)];
+    const excepcionFecha = excepciones[fecha];
+    const preparacion = diaSemana?.preparar?.trim() ?? '';
+    if (
+      !preparacion ||
+      /nada pendiente/i.test(preparacion) ||
+      excepcionFecha?.noEnCasa
+    ) {
+      return [];
+    }
+    return [{
+      fecha,
+      dia: diaSemana?.dia ?? 'Día',
+      texto: preparacion,
+    }];
+  });
 
   const recetasPlato = useMemo(
     () =>
@@ -554,6 +571,37 @@ export default function MenuModern({
               );
             })}
           </nav>
+
+          <details className="modern-week-prep">
+            <summary>
+              <span>
+                <strong>Preparar con antelación</strong>
+                <small>
+                  {preparacionesSemana.length > 0
+                    ? `${preparacionesSemana.length} tarea${preparacionesSemana.length === 1 ? '' : 's'} esta semana`
+                    : 'No hay preparaciones pendientes'}
+                </small>
+              </span>
+              <span aria-hidden="true">›</span>
+            </summary>
+            {preparacionesSemana.length > 0 ? (
+              <div className="modern-week-prep__timeline">
+                {preparacionesSemana.map((preparacion) => (
+                  <article key={`${preparacion.fecha}-${preparacion.texto}`}>
+                    <span>
+                      <strong>{preparacion.dia}</strong>
+                      <small>{preparacion.fecha.slice(8, 10)}/{preparacion.fecha.slice(5, 7)}</small>
+                    </span>
+                    <p>{preparacion.texto}</p>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <p className="modern-week-prep__empty">
+                Esta semana no necesitas adelantar nada.
+              </p>
+            )}
+          </details>
 
           <section className="modern-day-card">
             <header className="modern-day-card__header">
