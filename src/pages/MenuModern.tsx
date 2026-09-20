@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { DiaMenu, MomentoPostre, PostreMenu } from '../data/Menusemanal';
+import AppIcon from '../components/AppIcon';
 import type { SemanaMenu } from '../data/MenuMensual';
 import { useRecetas } from '../hooks/useRecetas';
 import {
@@ -169,7 +170,7 @@ function ResumenMes({
   return (
     <details className="month-overview-details">
       <summary>
-        <span>🗓️ Ver mes completo</span>
+        <span>Ver mes completo</span>
         <small>Consulta cualquier día sin perder la semana actual</small>
       </summary>
       <div className="monthly-week-rail">
@@ -517,7 +518,7 @@ export default function MenuModern({
         </div>
 
         <details className="menu-options">
-          <summary>⚙️ Opciones de esta semana</summary>
+          <summary>Opciones de esta semana</summary>
           <div className="menu-options__grid">
             <button type="button" onClick={() => excluirSemana(indiceSemanaSeguro, !semana?.excluida)}>
               {semana?.excluida ? '↩ Incluir esta semana' : '🏖️ Semana fuera de casa'}
@@ -645,7 +646,7 @@ export default function MenuModern({
                 <article className="modern-meal-card">
                   <header>
                     <div>
-                      <span className="modern-meal-card__icon">🍽️</span>
+                      <span className="modern-meal-card__icon"><AppIcon name="utensils" /></span>
                       <div><small>COMIDA</small><h4>Mediodía</h4></div>
                     </div>
                     {!excepcion?.sinComida && (
@@ -683,7 +684,7 @@ export default function MenuModern({
                 <article className="modern-meal-card">
                   <header>
                     <div>
-                      <span className="modern-meal-card__icon">🌙</span>
+                      <span className="modern-meal-card__icon"><AppIcon name="moon" /></span>
                       <div><small>CENA</small><h4>Noche</h4></div>
                     </div>
                     {!excepcion?.sinCena && (
