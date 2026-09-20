@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
 import Card from './ui/Card';
+import AppIcon from './AppIcon';
 import Title from './ui/Title';
 import { cargarPerfil } from '../services/perfil';
 import { recopilarDatosPFI } from '../services/copiasSeguridad';
@@ -278,7 +279,10 @@ export default function CuentaSincronizacion() {
       <div className="account-sync__heading">
         <div>
           <Title style={{ color: '#4f6f52', fontSize: '22px' }}>
-            ☁️ Cuenta y sincronización
+            <span className="profile-subsection-title">
+              <span><AppIcon name="cloud" /></span>
+              Cuenta y sincronización
+            </span>
           </Title>
         </div>
         <span className={`account-sync__status account-sync__status--${usuario ? 'online' : 'local'}`}>
