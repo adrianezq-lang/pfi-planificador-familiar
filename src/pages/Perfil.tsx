@@ -65,6 +65,7 @@ function Perfil() {
   const [perfil, setPerfil] =
     useState<PerfilFamiliar>(cargarPerfil);
   const [guardado, setGuardado] = useState(false);
+  const [cambiosPendientes, setCambiosPendientes] = useState(false);
   const [resumenAprendizaje, setResumenAprendizaje] = useState(
     obtenerResumenAprendizaje,
   );
@@ -101,6 +102,7 @@ function Perfil() {
       [campo]: valor,
     }));
     setGuardado(false);
+    setCambiosPendientes(true);
   };
 
   const actualizarNumeroNinos = (cantidad: number) => {
@@ -127,6 +129,7 @@ function Perfil() {
       ),
     }));
     setGuardado(false);
+    setCambiosPendientes(true);
   };
 
   const actualizarNumeroAdultos = (cantidad: number) => {
@@ -143,6 +146,7 @@ function Perfil() {
       ),
     }));
     setGuardado(false);
+    setCambiosPendientes(true);
   };
 
   const actualizarNumeroBebes = (cantidad: number) => {
@@ -159,6 +163,7 @@ function Perfil() {
       ),
     }));
     setGuardado(false);
+    setCambiosPendientes(true);
   };
 
   const actualizarBebesEnMenu = (incluidos: boolean) => {
@@ -173,6 +178,7 @@ function Perfil() {
           ),
     }));
     setGuardado(false);
+    setCambiosPendientes(true);
   };
 
   const actualizarConfiguracionComensales = (
@@ -190,6 +196,7 @@ function Perfil() {
       },
     }));
     setGuardado(false);
+    setCambiosPendientes(true);
   };
 
   const cambiarNinoEnServicio = (
@@ -213,6 +220,7 @@ function Perfil() {
       ),
     }));
     setGuardado(false);
+    setCambiosPendientes(true);
   };
 
   const guardar = () => {
@@ -221,6 +229,7 @@ function Perfil() {
     recalcularRecetasParaPerfil(normalizado);
     crearCopiaAutomaticaSiNecesaria('perfil familiar actualizado');
     setGuardado(true);
+    setCambiosPendientes(false);
   };
 
   const borrarAprendizaje = () => {
@@ -237,18 +246,56 @@ function Perfil() {
   };
 
   return (
-    <main className="page legacy-page" style={estiloPagina}>
-      <Card className="page-hero-card">
+    <main className="page legacy-page profile-page" style={estiloPagina}>
+      <Card className="page-hero-card profile-hero-card">
         <Title style={{ color: '#4f6f52' }}>
-          👤 Cuenta y perfil
+          Cuenta y perfil
         </Title>
+        <p className="profile-hero-copy">
+          Aquí defines cómo vive vuestra familia. PFI usa estos datos para ajustar menú, cantidades y presupuesto.
+        </p>
       </Card>
+
+      <section className="profile-overview" aria-label="Resumen de configuración">
+        <article>
+          <span>Familia</span>
+          <strong>{perfil.adultos + perfil.ninos + perfil.bebes}</strong>
+          <small>{describirFamilia(perfil)}</small>
+        </article>
+        <article>
+          <span>Presupuesto mensual</span>
+          <strong>
+            {perfil.presupuesto.toLocaleString('es-ES', {
+              style: 'currency',
+              currency: 'EUR',
+              maximumFractionDigits: 0,
+            })}
+          </strong>
+          <small>Referencia para controlar el gasto</small>
+        </article>
+        <article>
+          <span>PFI aprende</span>
+          <strong>
+            {resumenAprendizaje.valoraciones +
+              resumenAprendizaje.ajustesPorciones +
+              resumenAprendizaje.ajustesRecetas}
+          </strong>
+          <small>señales personales aplicadas</small>
+        </article>
+      </section>
 
       <CuentaSincronizacion />
 
       <CentroDatosCopias />
 
-      <Card>
+      <Card className="profile-settings-card">
+        <div className="profile-section-heading">
+          <div>
+            <span>CONFIGURACIÓN FAMILIAR</span>
+            <strong>Quién come en casa y cuánto planificamos</strong>
+          </div>
+          <small>Los cambios se aplican al guardar.</small>
+        </div>
         <div style={estiloCuadricula}>
           <label style={estiloEtiqueta}>
             Nombre
@@ -482,10 +529,13 @@ function Perfil() {
         )}
       </Card>
 
-      <Card>
+      <Card className="profile-learning-card">
         <Title style={{ color: '#4f6f52', fontSize: '22px' }}>
-          🧠 Aprendizaje inteligente
+          Aprendizaje inteligente
         </Title>
+        <p className="profile-learning-copy">
+          Cuanto más usas y valoras el menú, más se ajustan las sugerencias y cantidades a vuestra casa.
+        </p>
 
         <div style={estiloCuadriculaAprendizaje}>
           <div style={estiloDatoAprendizaje}>
@@ -521,6 +571,17 @@ function Perfil() {
         )}
       </Card>
 
+      {cambiosPendientes && (
+        <div className="profile-save-bar" role="status">
+          <span>
+            <strong>Cambios sin guardar</strong>
+            <small>Guárdalos para recalcular las cantidades.</small>
+          </span>
+          <button type="button" onClick={guardar}>
+            Guardar
+          </button>
+        </div>
+      )}
     </main>
   );
 }
