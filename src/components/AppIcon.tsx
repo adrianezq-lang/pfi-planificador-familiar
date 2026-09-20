@@ -20,7 +20,9 @@ export type AppIconName =
   | 'sparkles'
   | 'search'
   | 'pin'
-  | 'history';
+  | 'history'
+  | 'cloud'
+  | 'database';
 
 type AppIconProps = Omit<SVGProps<SVGSVGElement>, 'name'> & {
   name: AppIconName;
@@ -83,5 +85,9 @@ export default function AppIcon({ name, size = 22, ...props }: AppIconProps) {
       return <svg {...common}><path d="M20 10c0 5.5-8 11-8 11S4 15.5 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>;
     case 'history':
       return <svg {...common}><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>;
+    case 'cloud':
+      return <svg {...common}><path d="M7.5 18H18a4 4 0 0 0 .6-7.9A7 7 0 0 0 5.2 8.3 4.8 4.8 0 0 0 7.5 18Z"/></svg>;
+    case 'database':
+      return <svg {...common}><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>;
   }
 }
