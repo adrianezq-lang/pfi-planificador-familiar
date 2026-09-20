@@ -20,6 +20,7 @@ import {
   obtenerRecetaPostre,
 } from '../services/menu';
 import type { ResumenPresupuestoMensual } from '../services/presupuestoMensual';
+import AppIcon, { type AppIconName } from '../components/AppIcon';
 import {
   generarCompraMensual,
   generarCompraSemanalProyectada,
@@ -153,7 +154,7 @@ function Home({
         <HomeCard
           destino="menu"
           navegar={navegar}
-          icono="🍽️"
+          icono="utensils"
           etiqueta="Menú de hoy"
           className="home-card--menu"
         >
@@ -182,7 +183,7 @@ function Home({
           <HomeCard
             destino="menu"
             navegar={navegar}
-            icono="🧊"
+            icono="snowflake"
             etiqueta="Preparar para mañana"
             className="home-card--prep"
           >
@@ -194,7 +195,7 @@ function Home({
           <HomeCard
             destino="despensa"
             navegar={navegar}
-            icono="📦"
+            icono="box"
             etiqueta="Próximas reposiciones"
             className="home-card--restock"
           >
@@ -227,22 +228,22 @@ function Home({
         }`}
       >
         <BudgetCard
-          etiqueta="Presupuesto semanal"
-          icono="🥬"
+          etiqueta="Esta semana"
+          icono="leaf"
           valor={presupuesto.presupuestoSemanal}
           navegar={navegar}
         />
         {presupuesto.mostrarPresupuestoMensual && (
           <BudgetCard
-            etiqueta="Presupuesto mensual"
-            icono="🧺"
+            etiqueta="Este mes"
+            icono="basket"
             valor={presupuesto.presupuestoMensual}
             navegar={navegar}
           />
         )}
         <BudgetCard
-          etiqueta="Total acumulado"
-          icono="💶"
+          etiqueta="Total previsto"
+          icono="euro"
           valor={presupuesto.totalAcumulado}
           navegar={navegar}
           total
@@ -262,7 +263,7 @@ function HomeCard({
 }: {
   destino: DestinoInicio;
   navegar: (destino: DestinoInicio) => void;
-  icono: string;
+  icono: AppIconName;
   etiqueta: string;
   className?: string;
   children: ReactNode;
@@ -278,7 +279,7 @@ function HomeCard({
         <div className="home-card__top">
           <span className="home-card__eyebrow">
             <span className="home-card__icon" aria-hidden="true">
-              {icono}
+              <AppIcon name={icono} />
             </span>
             {etiqueta}
           </span>
@@ -320,7 +321,7 @@ function BudgetCard({
   total = false,
 }: {
   etiqueta: string;
-  icono: string;
+  icono: AppIconName;
   valor: number;
   navegar: (destino: DestinoInicio) => void;
   total?: boolean;

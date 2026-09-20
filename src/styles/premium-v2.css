@@ -1,0 +1,602 @@
+/* PFI Premium v2 — capa visual final.
+   Refuerza identidad, profundidad y jerarquía sin añadir ruido funcional. */
+
+:root {
+  --pfi-v2-deep: #153824;
+  --pfi-v2-forest: #225238;
+  --pfi-v2-sage: #7f9b80;
+  --pfi-v2-mist: #dfe8dc;
+  --pfi-v2-ivory: #fbf7ee;
+  --pfi-v2-sand: #eadbc0;
+  --pfi-v2-gold: #d3ad63;
+  --pfi-v2-terracotta: #bf7658;
+  --pfi-v2-ink: #193022;
+  --pfi-v2-muted: #69766d;
+}
+
+body {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(91, 132, 96, .22), transparent 26%),
+    radial-gradient(circle at 92% 15%, rgba(211, 173, 99, .16), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(120, 151, 123, .14), transparent 32%),
+    linear-gradient(180deg, #e7eee5 0%, #f2eee4 48%, #e9eee7 100%) !important;
+}
+
+.app-header {
+  border-bottom: 1px solid rgba(255,255,255,.10) !important;
+  background:
+    radial-gradient(circle at 82% -65%, rgba(230, 200, 139, .22), transparent 44%),
+    linear-gradient(128deg, #12351f 0%, #1d4b31 52%, #2f6844 100%) !important;
+  box-shadow: 0 12px 34px rgba(12, 42, 24, .24) !important;
+}
+
+.app-header__inner {
+  min-height: 64px !important;
+}
+
+.app-logo {
+  color: #f3dfaa !important;
+  border-color: rgba(255,255,255,.18) !important;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.06)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 8px 18px rgba(4, 28, 15, .16) !important;
+}
+
+.app-logo svg {
+  filter: drop-shadow(0 2px 7px rgba(0,0,0,.12));
+}
+
+.app-version {
+  border-color: rgba(255,255,255,.14) !important;
+  background: rgba(255,255,255,.08) !important;
+  color: rgba(255,255,255,.72) !important;
+}
+
+/* Inicio: composiciones distintas para que parezca un dashboard, no una lista de tarjetas. */
+.home-page {
+  position: relative;
+}
+
+.home-card,
+.budget-card {
+  isolation: isolate;
+}
+
+.home-card::before,
+.budget-card::before {
+  pointer-events: none;
+}
+
+.home-card--menu.pfi-card {
+  background:
+    radial-gradient(circle at 92% 88%, rgba(224, 186, 110, .22), transparent 36%),
+    radial-gradient(circle at 8% 4%, rgba(255,255,255,.08), transparent 28%),
+    linear-gradient(142deg, #123820 0%, #23563a 58%, #38704a 100%) !important;
+  box-shadow: 0 22px 54px rgba(15, 55, 31, .24) !important;
+}
+
+.home-card--prep.pfi-card {
+  background:
+    radial-gradient(circle at 92% 12%, rgba(191,118,88,.18), transparent 30%),
+    linear-gradient(145deg, #fffaf0 0%, #f0e0c4 100%) !important;
+  border-color: rgba(175, 123, 64, .22) !important;
+}
+
+.home-card--restock.pfi-card {
+  background:
+    radial-gradient(circle at 94% 10%, rgba(79,118,85,.18), transparent 30%),
+    linear-gradient(145deg, #f8fbf6 0%, #d7e4d4 100%) !important;
+  border-color: rgba(51, 93, 61, .18) !important;
+}
+
+.home-card__icon {
+  color: #315e3f;
+}
+
+.home-card--menu .home-card__icon {
+  color: #f2dca6 !important;
+}
+
+.home-card--prep .home-card__icon {
+  color: #9d5f46 !important;
+  background: rgba(255,248,233,.80) !important;
+}
+
+.home-card--restock .home-card__icon {
+  color: #315d3e !important;
+  background: rgba(255,255,255,.58) !important;
+}
+
+.home-card__icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.home-card__arrow {
+  font-size: 0 !important;
+}
+
+.home-card__arrow::after {
+  content: '›';
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1;
+  transform: translateX(1px);
+}
+
+.budget-grid {
+  align-items: stretch;
+}
+
+.budget-card.pfi-card {
+  overflow: hidden !important;
+}
+
+.budget-card.pfi-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, #6e9170, #b7c9ae);
+}
+
+.budget-grid > .budget-card:nth-child(2)::before {
+  background: linear-gradient(90deg, #c38f52, #e1c589);
+}
+
+.budget-card--total.pfi-card::before {
+  height: 5px;
+  background: linear-gradient(90deg, #f0d79b, #c99d4b, #f0d79b);
+}
+
+.budget-card:not(.budget-card--total) .home-card__eyebrow {
+  color: #42604a !important;
+}
+
+.budget-card .home-card__eyebrow {
+  text-transform: none !important;
+  letter-spacing: -.01em !important;
+  font-size: 12px !important;
+}
+
+.budget-card .budget-amount {
+  color: #173824 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.budget-card--total.pfi-card {
+  background:
+    radial-gradient(circle at 95% 15%, rgba(240,215,155,.20), transparent 30%),
+    linear-gradient(135deg, #153824 0%, #27583a 62%, #356a46 100%) !important;
+  box-shadow: 0 20px 46px rgba(16, 55, 31, .24) !important;
+}
+
+.budget-card--total .budget-amount {
+  color: #fff !important;
+}
+
+/* Contexto familiar: información visible, compacta y sin aspecto de aviso técnico. */
+.family-context {
+  box-sizing: border-box;
+  width: min(1120px, calc(100% - 32px));
+  margin: 12px auto 0;
+  display: grid;
+  grid-template-columns: 36px minmax(0,1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid rgba(37,77,49,.16);
+  border-radius: 15px;
+  background:
+    linear-gradient(135deg, rgba(255,253,247,.92), rgba(222,233,218,.90));
+  box-shadow: 0 8px 22px rgba(29, 62, 38, .07);
+}
+
+.family-context__icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #244f34;
+  color: #f2dfaa;
+}
+
+.family-context__copy {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr);
+  gap: 2px 8px;
+  align-items: baseline;
+}
+
+.family-context__copy strong {
+  color: #1c4029;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.family-context__copy span {
+  min-width: 0;
+  color: #52645a;
+  font-size: 11px;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.family-context__copy small {
+  grid-column: 1 / -1;
+  color: #758079;
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+/* Menú: más contraste entre controles y contenido. */
+.modern-month-card {
+  border-color: rgba(53, 91, 62, .17) !important;
+  background:
+    radial-gradient(circle at 98% 0%, rgba(211,173,99,.13), transparent 28%),
+    linear-gradient(145deg, #fffaf1, #e8eee3) !important;
+}
+
+.modern-day-tabs {
+  padding: 6px !important;
+  background: rgba(212,226,209,.90) !important;
+}
+
+.modern-day-tabs .week-day-button:not(.week-day-button--active) {
+  color: #486052 !important;
+}
+
+.modern-day-tabs .week-day-button--active {
+  background:
+    linear-gradient(145deg, #183c27, #347048) !important;
+  box-shadow: 0 9px 22px rgba(22, 63, 36, .25) !important;
+}
+
+.modern-day-card {
+  border-color: rgba(47,84,56,.16) !important;
+  background:
+    radial-gradient(circle at 96% 0%, rgba(184,201,179,.30), transparent 28%),
+    linear-gradient(180deg, #fffdf8 0%, #f1ede3 100%) !important;
+}
+
+.modern-meal-card {
+  border-color: rgba(39,79,49,.15) !important;
+  background:
+    linear-gradient(180deg, #fffefa, #f6f1e6) !important;
+  box-shadow: 0 10px 26px rgba(27, 60, 36, .08) !important;
+}
+
+.modern-meal-card:nth-child(2) {
+  background:
+    linear-gradient(180deg, #fffaf3, #efe3cf) !important;
+}
+
+.modern-meal-card__icon {
+  color: #2b5a39 !important;
+}
+
+/* Compra: más “app financiera” en resumen y más legibilidad en tienda. */
+.modern-shopping-toolbar {
+  border-color: rgba(47,84,56,.17) !important;
+  background:
+    radial-gradient(circle at 96% 0%, rgba(211,173,99,.14), transparent 28%),
+    linear-gradient(145deg, #fffaf1, #e7eee2) !important;
+}
+
+.modern-segmented-control > button {
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-segmented-control > button[aria-pressed='true'] {
+  background:
+    linear-gradient(145deg, #173b27, #347047) !important;
+  box-shadow: 0 9px 22px rgba(20, 59, 33, .24) !important;
+}
+
+.modern-shopping-summary {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 94% 4%, rgba(238,204,137,.26), transparent 28%),
+    radial-gradient(circle at 5% 105%, rgba(255,255,255,.08), transparent 30%),
+    linear-gradient(145deg, #123720 0%, #24583a 65%, #376f49 100%) !important;
+  box-shadow: 0 22px 52px rgba(15, 52, 29, .26) !important;
+}
+
+.modern-shopping-summary::after {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -62px;
+  top: -68px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 50%;
+  box-shadow: 0 0 0 28px rgba(255,255,255,.035);
+  pointer-events: none;
+}
+
+.modern-shopping-stats > div {
+  border-color: rgba(255,255,255,.13) !important;
+  background: rgba(255,255,255,.09) !important;
+  backdrop-filter: blur(8px);
+}
+
+.modern-shopping-stats strong {
+  color: #fff !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.modern-shopping-stats span {
+  color: rgba(255,255,255,.70) !important;
+}
+
+.modern-progress {
+  height: 8px !important;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.modern-progress > span {
+  background: linear-gradient(90deg, #f3dda8, #d3ad63) !important;
+  box-shadow: 0 0 16px rgba(240,215,155,.24);
+}
+
+.modern-shopping-summary .modern-button--primary {
+  border-color: #dfc078 !important;
+  background: linear-gradient(145deg, #e0bf76, #c6964e) !important;
+  color: #173321 !important;
+}
+
+.modern-store-card {
+  overflow: hidden;
+  border-color: rgba(45,80,53,.17) !important;
+  background: #f5efe3 !important;
+}
+
+.modern-store-card__header {
+  background:
+    radial-gradient(circle at 92% 0%, rgba(240,215,155,.14), transparent 28%),
+    linear-gradient(145deg, #173d28, #2e6341) !important;
+}
+
+.modern-shop-section {
+  overflow: hidden;
+  border-color: rgba(45,80,53,.14) !important;
+  background: #fffdf8 !important;
+}
+
+.modern-shop-section > header {
+  background: linear-gradient(90deg, #dce8d8 0%, #eee4d3 100%) !important;
+}
+
+/* Navegación nativa: iconos de línea y una base más lujosa. */
+.bottom-nav__inner {
+  border-color: rgba(24,60,38,.18) !important;
+  background: rgba(252,249,241,.94) !important;
+  box-shadow:
+    0 18px 52px rgba(18,48,29,.25),
+    inset 0 1px 0 rgba(255,255,255,.76) !important;
+}
+
+.nav-button {
+  color: #647269 !important;
+}
+
+.nav-button__icon {
+  width: 30px;
+  height: 28px;
+  border-radius: 10px;
+  transition: background .16s ease, color .16s ease, transform .16s ease;
+}
+
+.nav-button__icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.nav-button--active {
+  background:
+    linear-gradient(145deg, #163a26, #326d47) !important;
+  box-shadow: 0 8px 21px rgba(20,58,33,.26) !important;
+}
+
+.nav-button--active .nav-button__icon {
+  background: rgba(255,255,255,.11);
+  color: #f1d99f;
+}
+
+.nav-button--active .nav-button__text {
+  color: #fff !important;
+}
+
+.bottom-more-menu {
+  border-color: rgba(28,67,41,.18) !important;
+  background: rgba(252,249,241,.97) !important;
+}
+
+.bottom-more-item > span:first-child {
+  color: #315d3e;
+  background: #e4ece0 !important;
+}
+
+.bottom-more-item.is-active > span:first-child {
+  color: #f1d99f;
+  background: #28583a !important;
+}
+
+@media (max-width: 720px) {
+  .home-grid {
+    gap: 12px !important;
+  }
+
+  .home-side-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px !important;
+  }
+
+  .home-card--prep .home-card__body,
+  .home-card--restock .home-card__body {
+    padding: 14px !important;
+  }
+
+  .home-card--prep .home-card__top,
+  .home-card--restock .home-card__top {
+    align-items: flex-start;
+    margin-bottom: 12px !important;
+  }
+
+  .home-card--prep .home-card__eyebrow,
+  .home-card--restock .home-card__eyebrow {
+    align-items: flex-start;
+    gap: 7px;
+    font-size: 10px !important;
+    line-height: 1.15;
+  }
+
+  .home-card--prep .home-card__icon,
+  .home-card--restock .home-card__icon {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+  }
+
+  .home-card--prep .home-card__arrow,
+  .home-card--restock .home-card__arrow {
+    width: 28px;
+    height: 28px;
+  }
+
+  .home-highlight-text,
+  .empty-copy {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  .budget-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .budget-card .home-card__body {
+    min-height: 142px !important;
+    padding: 14px !important;
+  }
+
+  .budget-card .home-card__top {
+    margin-bottom: 14px !important;
+  }
+
+  .budget-card .home-card__eyebrow {
+    gap: 7px !important;
+    font-size: 10px !important;
+    line-height: 1.15;
+  }
+
+  .budget-card .home-card__icon {
+    width: 31px;
+    height: 31px;
+    flex: 0 0 31px;
+  }
+
+  .budget-card .home-card__arrow {
+    display: none !important;
+  }
+
+  .budget-card .budget-amount {
+    margin-top: auto !important;
+    font-size: clamp(25px, 7vw, 32px) !important;
+  }
+
+  .budget-card--total {
+    grid-column: 1 / -1;
+  }
+
+  .budget-card--total .home-card__body {
+    min-height: 124px !important;
+  }
+
+  .family-context {
+    width: calc(100% - 24px);
+    margin-top: 10px;
+    grid-template-columns: 32px minmax(0,1fr);
+    padding: 9px 10px;
+  }
+
+  .family-context__icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  .family-context__copy {
+    display: block;
+  }
+
+  .family-context__copy strong,
+  .family-context__copy span {
+    font-size: 10px;
+  }
+
+  .family-context__copy strong::after {
+    content: ' · ';
+  }
+
+  .family-context__copy small {
+    display: none;
+  }
+
+  .modern-page-heading {
+    padding-top: 10px !important;
+    padding-bottom: 13px !important;
+  }
+
+  .modern-page-heading h2 {
+    font-size: 31px !important;
+  }
+
+  .modern-shopping-summary {
+    border-radius: 21px !important;
+  }
+
+  .modern-shopping-summary__top strong {
+    font-size: 22px !important;
+  }
+
+  .modern-shopping-actions > div:first-child small {
+    opacity: .68 !important;
+  }
+
+  .bottom-nav__inner {
+    border-radius: 20px !important;
+  }
+
+  .nav-button__icon {
+    width: 27px;
+    height: 25px;
+  }
+
+  .nav-button__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 390px) {
+  .home-side-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .budget-card .home-card__body {
+    min-height: 136px !important;
+  }
+
+  .budget-card .budget-amount {
+    font-size: 26px !important;
+  }
+}

@@ -124,7 +124,7 @@ if (asociaciones.Pollo) {
 const sinAsociar = Array.from(ingredientesRecetario)
   .filter((ingrediente) => !asociaciones[ingrediente])
   .sort((a, b) => a.localeCompare(b, 'es'));
-const pendientesEsperados = ['Especias kebab', 'Fruta variada', 'Pollo']
+const pendientesEsperados = ['Especias kebab', 'Fruta variada', 'Media sandía', 'Pollo']
   .sort((a, b) => a.localeCompare(b, 'es'));
 if (JSON.stringify(sinAsociar) !== JSON.stringify(pendientesEsperados)) {
   throw new Error(
