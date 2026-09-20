@@ -591,6 +591,66 @@
   font-weight: 900;
 }
 
+
+/* Cuenta, copias y recetario comparten el mismo lenguaje de navegación. */
+.profile-subsection-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.profile-subsection-title > span {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #e3ece0;
+  color: #315d3e;
+}
+
+.profile-subsection-title svg {
+  width: 18px;
+  height: 18px;
+}
+
+.recetario-tabs {
+  top: 72px !important;
+  z-index: 55 !important;
+  width: min(560px, calc(100% - 24px));
+  box-sizing: border-box;
+  margin: 10px auto 0;
+  padding: 5px !important;
+  border: 1px solid rgba(34,74,46,.15) !important;
+  border-radius: 17px !important;
+  background: rgba(250,247,239,.91) !important;
+  box-shadow: 0 10px 26px rgba(24,57,34,.10);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+.recetario-tab {
+  min-height: 43px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  color: #627168 !important;
+  font-weight: 850 !important;
+}
+
+.recetario-tab--active {
+  background: linear-gradient(145deg, #173b27, #347047) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 20px rgba(20,59,33,.22) !important;
+}
+
+.recetario-tab--active svg {
+  color: var(--pfi-pro-gold-soft);
+}
+
 /* MENÚ: batch cooking semanal */
 .modern-week-prep {
   margin: 12px 0;
