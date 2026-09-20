@@ -15,7 +15,12 @@ export type AppIconName =
   | 'basket'
   | 'euro'
   | 'users'
-  | 'check';
+  | 'check'
+  | 'moon'
+  | 'sparkles'
+  | 'search'
+  | 'pin'
+  | 'history';
 
 type AppIconProps = Omit<SVGProps<SVGSVGElement>, 'name'> & {
   name: AppIconName;
@@ -68,5 +73,15 @@ export default function AppIcon({ name, size = 22, ...props }: AppIconProps) {
       return <svg {...common}><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3.5 20c.4-4 2.5-6.1 5.5-6.1s5.1 2.1 5.5 6.1M14 14.4c3.6-.5 5.8 1.3 6.5 4.6"/></svg>;
     case 'check':
       return <svg {...common}><path d="m5 12.5 4.2 4.2L19 7"/></svg>;
+    case 'moon':
+      return <svg {...common}><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"/></svg>;
+    case 'sparkles':
+      return <svg {...common}><path d="m12 3 1.2 3.3L16.5 7.5l-3.3 1.2L12 12l-1.2-3.3-3.3-1.2 3.3-1.2L12 3Z"/><path d="m18.5 13 .7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8ZM6 14l.9 2.4 2.4.9-2.4.9L6 20.6l-.9-2.4-2.4-.9 2.4-.9L6 14Z"/></svg>;
+    case 'search':
+      return <svg {...common}><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>;
+    case 'pin':
+      return <svg {...common}><path d="M20 10c0 5.5-8 11-8 11S4 15.5 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>;
+    case 'history':
+      return <svg {...common}><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>;
   }
 }
