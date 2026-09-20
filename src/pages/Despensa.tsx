@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import ProductoDetalleModal from '../components/ProductoDetalleModal';
+import AppIcon from '../components/AppIcon';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
@@ -183,7 +184,12 @@ function Despensa() {
   return (
     <main className="page legacy-page pantry-page">
       <Card className="page-hero-card">
-        <Title style={{ color: '#4f6f52' }}>📦 Despensa e inventario</Title>
+        <Title style={{ color: '#4f6f52' }}>
+          <span className="legacy-page-title">
+            <span className="legacy-page-title__icon"><AppIcon name="box" /></span>
+            Despensa e inventario
+          </span>
+        </Title>
 
         <div className="pantry-summary-grid">
           <Resumen
