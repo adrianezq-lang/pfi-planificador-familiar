@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react';
 import SelectorProductoIngrediente from '../components/SelectorProductoIngrediente';
+import AppIcon from '../components/AppIcon';
 import ProductoDetalleModal from '../components/ProductoDetalleModal';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
@@ -790,7 +791,12 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
     <main className="page legacy-page" style={estiloPagina}>
       <Card className="page-hero-card page-hero-card--compact recipes-intro-card">
         <Title style={{ color: '#4f6f52' }}>
-          {esModoPostres ? '🍰 Postres' : '📖 Recetas'}
+          <span className="legacy-page-title">
+            <span className="legacy-page-title__icon">
+              <AppIcon name={esModoPostres ? 'sparkles' : 'book'} />
+            </span>
+            {esModoPostres ? 'Postres' : 'Recetas'}
+          </span>
         </Title>
 
         {mensaje && <p style={estiloMensajeExito}>{mensaje}</p>}
