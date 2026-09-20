@@ -25,6 +25,7 @@ import '../styles/pantry-decimal.css';
 
 type VistaDespensa = 'inventario' | 'reposicion' | 'historial';
 type FiltroInventario = 'todos' | 'reposicion' | 'menu-manual';
+type OrdenInventario = 'prioridad' | 'nombre' | 'stock';
 
 function Despensa() {
   const [vista, setVista] = useState<VistaDespensa>('inventario');
@@ -33,6 +34,8 @@ function Despensa() {
   const [movimientos, setMovimientos] = useState<MovimientoInventario[]>([]);
   const [productoAbierto, setProductoAbierto] = useState<string | null>(null);
   const [mensaje, setMensaje] = useState('');
+  const [consulta, setConsulta] = useState('');
+  const [orden, setOrden] = useState<OrdenInventario>('prioridad');
 
   const recargar = useCallback(() => {
     setProductos(cargarDespensa());
@@ -76,10 +79,48 @@ function Despensa() {
   );
 
   const productosVisibles = useMemo(() => {
-    if (filtro === 'reposicion') return productosReposicion;
-    if (filtro === 'menu-manual') return productosSegunMenuOManual;
-    return productos;
-  }, [filtro, productos, productosReposicion, productosSegunMenuOManual]);
+    const base = filtro === 'reposicion'
+      ? productosReposicion
+      : filtro === 'menu-manual'
+        ? productosSegunMenuOManual
+        : productos;
+    const termino = consulta
+      .toLocaleLowerCase('es')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
+
+    const filtrados = termino
+      ? base.filter((producto) =>
+          [producto.nombre, producto.formato, producto.unidad]
+            .join(' ')
+            .toLocaleLowerCase('es')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .includes(termino),
+        )
+      : [...base];
+
+    return filtrados.sort((a, b) => {
+      if (orden === 'nombre') return a.nombre.localeCompare(b.nombre, 'es');
+      if (orden === 'stock') {
+        const proporcionA = a.stockMinimo > 0 ? a.stockActual / a.stockMinimo : Number.POSITIVE_INFINITY;
+        const proporcionB = b.stockMinimo > 0 ? b.stockActual / b.stockMinimo : Number.POSITIVE_INFINITY;
+        return proporcionA - proporcionB || a.nombre.localeCompare(b.nombre, 'es');
+      }
+
+      const prioridadA = necesitaReposicion(a) ? 0 : a.tipo === 'perecedero' ? 1 : 2;
+      const prioridadB = necesitaReposicion(b) ? 0 : b.tipo === 'perecedero' ? 1 : 2;
+      return prioridadA - prioridadB || a.nombre.localeCompare(b.nombre, 'es');
+    });
+  }, [
+    consulta,
+    filtro,
+    orden,
+    productos,
+    productosReposicion,
+    productosSegunMenuOManual,
+  ]);
 
   const totalReposicion = useMemo(
     () =>
@@ -211,12 +252,59 @@ function Despensa() {
           <div className="pantry-filter-heading">
             <div>
               <strong>{etiquetaFiltro(filtro)}</strong>
+              <small>{productosVisibles.length} visibles</small>
             </div>
             {filtro !== 'todos' && (
               <button type="button" onClick={() => setFiltro('todos')}>
                 Ver todos
               </button>
             )}
+          </div>
+
+          <div className="pantry-smart-toolbar">
+            <label className="pantry-search">
+              <span>Buscar en despensa</span>
+              <input
+                type="search"
+                value={consulta}
+                onChange={(evento) => setConsulta(evento.target.value)}
+                placeholder="Leche, arroz, salmón…"
+              />
+            </label>
+            <label className="pantry-sort">
+              <span>Ordenar</span>
+              <select
+                value={orden}
+                onChange={(evento) => setOrden(evento.target.value as OrdenInventario)}
+              >
+                <option value="prioridad">Lo importante primero</option>
+                <option value="stock">Menos stock primero</option>
+                <option value="nombre">Nombre A–Z</option>
+              </select>
+            </label>
+            <div className="pantry-filter-chips" aria-label="Filtros de inventario">
+              <button
+                type="button"
+                aria-pressed={filtro === 'todos'}
+                onClick={() => setFiltro('todos')}
+              >
+                Todo
+              </button>
+              <button
+                type="button"
+                aria-pressed={filtro === 'reposicion'}
+                onClick={() => setFiltro('reposicion')}
+              >
+                Falta stock <span>{productosReposicion.length}</span>
+              </button>
+              <button
+                type="button"
+                aria-pressed={filtro === 'menu-manual'}
+                onClick={() => setFiltro('menu-manual')}
+              >
+                Según menú
+              </button>
+            </div>
           </div>
 
           <div className="pantry-grid">
@@ -281,7 +369,11 @@ function Despensa() {
 
           {productosVisibles.length === 0 && (
             <Card>
-              <p className="pantry-empty">No hay productos en esta lista.</p>
+              <p className="pantry-empty">
+                {consulta
+                  ? 'No hay productos que coincidan con la búsqueda.'
+                  : 'No hay productos en esta lista.'}
+              </p>
             </Card>
           )}
         </section>
