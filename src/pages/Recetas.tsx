@@ -788,7 +788,7 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
     : null;
 
   return (
-    <main className="page legacy-page" style={estiloPagina}>
+    <main className="page legacy-page recipes-page" style={estiloPagina}>
       <Card className="page-hero-card page-hero-card--compact recipes-intro-card">
         <Title style={{ color: '#4f6f52' }}>
           <span className="legacy-page-title">
