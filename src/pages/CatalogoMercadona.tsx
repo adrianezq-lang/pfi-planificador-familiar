@@ -193,11 +193,15 @@ function CatalogoMercadona() {
         return a.nombre.localeCompare(b.nombre, 'es');
       }
 
-      const precioA = a.precio ?? Number.POSITIVE_INFINITY;
-      const precioB = b.precio ?? Number.POSITIVE_INFINITY;
+      if (a.precio === null && b.precio === null) {
+        return a.nombre.localeCompare(b.nombre, 'es');
+      }
+      if (a.precio === null) return 1;
+      if (b.precio === null) return -1;
+
       return ordenCatalogo === 'precio-desc'
-        ? precioB - precioA || a.nombre.localeCompare(b.nombre, 'es')
-        : precioA - precioB || a.nombre.localeCompare(b.nombre, 'es');
+        ? b.precio - a.precio || a.nombre.localeCompare(b.nombre, 'es')
+        : a.precio - b.precio || a.nombre.localeCompare(b.nombre, 'es');
     });
   }, [
     catalogo,
