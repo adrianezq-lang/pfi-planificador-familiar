@@ -4,6 +4,7 @@ import {
   useState,
 } from 'react';
 import ProductoDetalleModal from '../components/ProductoDetalleModal';
+import AppIcon from '../components/AppIcon';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import { useRecetas } from '../hooks/useRecetas';
@@ -321,7 +322,10 @@ function CatalogoMercadona() {
     <main className="page legacy-page catalog-page" style={estiloPagina}>
       <Card className="page-hero-card catalog-hero-card">
         <Title style={{ color: '#4f6f52' }}>
-          🏪 Catálogo Mercadona
+          <span className="legacy-page-title">
+            <span className="legacy-page-title__icon"><AppIcon name="store" /></span>
+            Catálogo Mercadona
+          </span>
         </Title>
 
         <div style={estiloResumenGrid}>
@@ -344,7 +348,7 @@ function CatalogoMercadona() {
         </div>
 
         <div className="catalog-zone-status">
-          <strong>📍 Zona Mercadona: CP {codigoPostalCatalogo || '48950'}</strong>
+          <strong><AppIcon name="pin" size={16} /> Zona Mercadona: CP {codigoPostalCatalogo || '48950'}</strong>
           {fechaCatalogo && (
             <small>Actualizado: {formatearFechaCatalogo(fechaCatalogo)}</small>
           )}
