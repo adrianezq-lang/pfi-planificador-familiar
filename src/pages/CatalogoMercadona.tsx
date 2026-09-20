@@ -29,6 +29,7 @@ type VistaCatalogo =
   | 'todos'
   | 'mis-productos'
   | 'asociaciones';
+type OrdenCatalogo = 'relevancia' | 'precio-asc' | 'precio-desc' | 'nombre';
 
 const LIMITE_INICIAL = 120;
 
@@ -79,6 +80,8 @@ function CatalogoMercadona() {
   const [busqueda, setBusqueda] = useState('');
   const [seccionActiva, setSeccionActiva] =
     useState('Todas');
+  const [ordenCatalogo, setOrdenCatalogo] =
+    useState<OrdenCatalogo>('relevancia');
   const [limite, setLimite] = useState(LIMITE_INICIAL);
   const [misProductos, setMisProductos] = useState<
     string[]
@@ -164,7 +167,7 @@ function CatalogoMercadona() {
   const productosFiltrados = useMemo(() => {
     const idsFavoritos = new Set(misProductos);
 
-    return catalogo.filter((producto) => {
+    const filtrados = catalogo.filter((producto) => {
       if (
         vista === 'mis-productos' &&
         !idsFavoritos.has(producto.productoId)
@@ -181,10 +184,25 @@ function CatalogoMercadona() {
 
       return coincideBusqueda(producto, busqueda);
     });
+
+    if (ordenCatalogo === 'relevancia') return filtrados;
+
+    return [...filtrados].sort((a, b) => {
+      if (ordenCatalogo === 'nombre') {
+        return a.nombre.localeCompare(b.nombre, 'es');
+      }
+
+      const precioA = a.precio ?? Number.POSITIVE_INFINITY;
+      const precioB = b.precio ?? Number.POSITIVE_INFINITY;
+      return ordenCatalogo === 'precio-desc'
+        ? precioB - precioA || a.nombre.localeCompare(b.nombre, 'es')
+        : precioA - precioB || a.nombre.localeCompare(b.nombre, 'es');
+    });
   }, [
     catalogo,
     misProductos,
     busqueda,
+    ordenCatalogo,
     seccionActiva,
     vista,
   ]);
@@ -300,8 +318,8 @@ function CatalogoMercadona() {
   };
 
   return (
-    <main className="page legacy-page" style={estiloPagina}>
-      <Card className="page-hero-card">
+    <main className="page legacy-page catalog-page" style={estiloPagina}>
+      <Card className="page-hero-card catalog-hero-card">
         <Title style={{ color: '#4f6f52' }}>
           🏪 Catálogo Mercadona
         </Title>
@@ -348,7 +366,7 @@ function CatalogoMercadona() {
         )}
       </Card>
 
-      <Card>
+      <Card className="catalog-toolbar-card">
         <div style={estiloPestañas}>
           <Pestana
             activa={vista === 'todos'}
@@ -389,6 +407,19 @@ function CatalogoMercadona() {
                   {seccion}
                 </option>
               ))}
+            </select>
+            <select
+              value={ordenCatalogo}
+              onChange={(evento) =>
+                setOrdenCatalogo(evento.target.value as OrdenCatalogo)
+              }
+              style={estiloSelect}
+              aria-label="Ordenar catálogo"
+            >
+              <option value="relevancia">Orden del catálogo</option>
+              <option value="precio-asc">Precio: menor primero</option>
+              <option value="precio-desc">Precio: mayor primero</option>
+              <option value="nombre">Nombre A–Z</option>
             </select>
           </div>
         )}
@@ -482,6 +513,7 @@ function CatalogoMercadona() {
               return (
                 <article
                   key={producto.productoId}
+                  className="catalog-product-card"
                   style={{
                     ...estiloProducto,
                     border: favorito
