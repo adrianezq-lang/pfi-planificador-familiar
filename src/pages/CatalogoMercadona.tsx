@@ -832,7 +832,7 @@ function Resumen({
   texto: string;
 }) {
   return (
-    <div style={estiloResumen}>
+    <div className="catalog-summary-card" style={estiloResumen}>
       <strong style={estiloNumero}>{numero}</strong>
       <span>{texto}</span>
     </div>
