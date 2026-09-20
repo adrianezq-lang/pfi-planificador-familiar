@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 
 const leer = (ruta) => readFile(new URL(`../${ruta}`, import.meta.url), 'utf8');
 
-const [perfil, porciones, listaCompra, app, menu, compra, css, cssMovil] = await Promise.all([
+const [perfil, porciones, listaCompra, app, menu, compra, css, cssMovil, cssPremium, navegacion, iconos] = await Promise.all([
   leer('src/services/perfil.ts'),
   leer('src/services/porciones.ts'),
   leer('src/services/listaCompra.ts'),
@@ -12,6 +12,9 @@ const [perfil, porciones, listaCompra, app, menu, compra, css, cssMovil] = await
   leer('src/pages/CompraModern.tsx'),
   leer('src/styles/pro-product.css'),
   leer('src/styles/mobile-visual-fixes.css'),
+  leer('src/styles/premium-v2.css'),
+  leer('src/components/NavegacionInferior.tsx'),
+  leer('src/components/AppIcon.tsx'),
 ]);
 
 assert.match(perfil, /if \(edad >= 12\) return 1;/);
