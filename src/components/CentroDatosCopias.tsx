@@ -13,6 +13,7 @@ import {
   type EstadoSaludDatos,
 } from '../services/copiasSeguridad';
 import RescateAsociaciones from './RescateAsociaciones';
+import AppIcon from './AppIcon';
 import Card from './ui/Card';
 import Title from './ui/Title';
 
@@ -127,7 +128,10 @@ export default function CentroDatosCopias() {
       <div className="data-center__heading">
         <div>
           <Title style={{ color: '#4f6f52', fontSize: '22px' }}>
-            💾 Datos y copias
+            <span className="profile-subsection-title">
+              <span><AppIcon name="database" /></span>
+              Datos y copias
+            </span>
           </Title>
         </div>
         <span className={`data-health data-health--${estado.nivel}`}>
