@@ -73,7 +73,6 @@ export const ASOCIACIONES_SEGURAS_POR_DEFECTO: Record<string, string> = {
   Lubina: '81241.1',
   Manzanas: '3269',
   Mayonesa: '15793',
-  'Media sandía': '3505.1',
   'Menestra de verduras': '52534',
   'Mezcla cuatro quesos': '21581',
   Morcillo: '13741',
