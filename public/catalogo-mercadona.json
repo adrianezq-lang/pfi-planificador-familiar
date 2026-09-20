@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-19T09:32:10.123Z",
+  "actualizado": "2026-09-20T09:49:54.777Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4285,
+  "totalProductos": 4280,
   "productos": [
     {
       "productoId": "40339",
@@ -21317,22 +21317,6 @@
       "disponible": true
     },
     {
-      "productoId": "60308",
-      "nombre": "Crema de verduras Hacendado",
-      "precio": 1,
-      "precioReferencia": 2,
-      "formato": "Brik",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Conservas, caldos y cremas",
-      "subcategoria": "Cremas y puré",
-      "imagen": "https://prod-mercadona.imgix.net/images/2ae243e8f790af2975eacc75f302b24d.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60308/crema-verduras-hacendado-brick",
-      "disponible": true
-    },
-    {
       "productoId": "4908",
       "nombre": "Crema de vinagre balsámico de Módena Hacendado",
       "precio": 1.8,
@@ -22322,22 +22306,6 @@
       "subcategoria": "Perfilador de ojos",
       "imagen": "https://prod-mercadona.imgix.net/images/d37932bb7bb25a34aa40bbb3d8e48020.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52504/delineador-ojos-deliplus-02-marron",
-      "disponible": true
-    },
-    {
-      "productoId": "80264",
-      "nombre": "Delineador de ojos Deliplus negro",
-      "precio": 3.75,
-      "precioReferencia": 3.75,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Perfilador de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/a492ad5ba70672af6e26729a6efb7cc8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/80264/delineador-ojos-deliplus-negro",
       "disponible": true
     },
     {
@@ -33202,22 +33170,6 @@
       "subcategoria": "Bebidas vegetales",
       "imagen": "https://prod-mercadona.imgix.net/images/e5828585becf129f783eca669ea72496.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/5673/horchata-chufa-hacendado-brick",
-      "disponible": true
-    },
-    {
-      "productoId": "14176",
-      "nombre": "Horchata de chufa sin azúcares añadidos Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 1.6,
-      "formato": "Brik",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Huevos, leche y mantequilla",
-      "subcategoria": "Bebidas vegetales",
-      "imagen": "https://prod-mercadona.imgix.net/images/0f0a4480be2b1c5446e3c0c1f201e340.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/14176/horchata-chufa-sin-azucares-anadidos-hacendado-brick",
       "disponible": true
     },
     {
@@ -49365,22 +49317,6 @@
       "disponible": true
     },
     {
-      "productoId": "67722",
-      "nombre": "Perfilador de cejas micro Deliplus 02 oscuro",
-      "precio": 3.5,
-      "precioReferencia": 3.5,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Cejas",
-      "imagen": "https://prod-mercadona.imgix.net/images/af08ad008dac77fe571d7901bd9253a9.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/67722/perfilador-cejas-micro-deliplus-02-oscuro-con-cepillo",
-      "disponible": true
-    },
-    {
       "productoId": "80295",
       "nombre": "Perfilador de labios Deliplus 02 marsala",
       "precio": 2.5,
@@ -49410,22 +49346,6 @@
       "subcategoria": "Perfilador labios",
       "imagen": "https://prod-mercadona.imgix.net/images/f0067848d655476f8ae07be733eb6ddc.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22350/perfilador-labios-deliplus-06-canela",
-      "disponible": true
-    },
-    {
-      "productoId": "67888",
-      "nombre": "Perfilador de labios Deliplus 07 cereza",
-      "precio": 2.5,
-      "precioReferencia": 2.5,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Perfilador labios",
-      "imagen": "https://prod-mercadona.imgix.net/images/a441c7ae50e28ac0f58c3edaf5c2af93.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/67888/perfilador-labios-deliplus-07-cereza",
       "disponible": true
     },
     {
