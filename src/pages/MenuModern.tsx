@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { DiaMenu, MomentoPostre, PostreMenu } from '../data/Menusemanal';
+import AppIcon from '../components/AppIcon';
 import type { SemanaMenu } from '../data/MenuMensual';
 import { useRecetas } from '../hooks/useRecetas';
 import {
@@ -169,7 +170,7 @@ function ResumenMes({
   return (
     <details className="month-overview-details">
       <summary>
-        <span>🗓️ Ver mes completo</span>
+        <span>Ver mes completo</span>
         <small>Consulta cualquier día sin perder la semana actual</small>
       </summary>
       <div className="monthly-week-rail">
@@ -264,6 +265,23 @@ export default function MenuModern({
   const tieneFinDeSemana = Boolean(semana && fechasFinDeSemana(semana).length);
   const ninosFueraElFinDeSemana = finDeSemanaSinNinos(semana, excepciones);
   const diaEsFinDeSemana = Boolean(fechaActiva && indiceDiaSemana(fechaActiva) >= 5);
+  const preparacionesSemana = fechas.flatMap((fecha) => {
+    const diaSemana = menu[indiceDiaSemana(fecha)];
+    const excepcionFecha = excepciones[fecha];
+    const preparacion = diaSemana?.preparar?.trim() ?? '';
+    if (
+      !preparacion ||
+      /nada pendiente/i.test(preparacion) ||
+      excepcionFecha?.noEnCasa
+    ) {
+      return [];
+    }
+    return [{
+      fecha,
+      dia: diaSemana?.dia ?? 'Día',
+      texto: preparacion,
+    }];
+  });
 
   const recetasPlato = useMemo(
     () =>
@@ -500,7 +518,7 @@ export default function MenuModern({
         </div>
 
         <details className="menu-options">
-          <summary>⚙️ Opciones de esta semana</summary>
+          <summary>Opciones de esta semana</summary>
           <div className="menu-options__grid">
             <button type="button" onClick={() => excluirSemana(indiceSemanaSeguro, !semana?.excluida)}>
               {semana?.excluida ? '↩ Incluir esta semana' : '🏖️ Semana fuera de casa'}
@@ -555,6 +573,37 @@ export default function MenuModern({
             })}
           </nav>
 
+          <details className="modern-week-prep">
+            <summary>
+              <span>
+                <strong>Preparar con antelación</strong>
+                <small>
+                  {preparacionesSemana.length > 0
+                    ? `${preparacionesSemana.length} tarea${preparacionesSemana.length === 1 ? '' : 's'} esta semana`
+                    : 'No hay preparaciones pendientes'}
+                </small>
+              </span>
+              <span aria-hidden="true">›</span>
+            </summary>
+            {preparacionesSemana.length > 0 ? (
+              <div className="modern-week-prep__timeline">
+                {preparacionesSemana.map((preparacion) => (
+                  <article key={`${preparacion.fecha}-${preparacion.texto}`}>
+                    <span>
+                      <strong>{preparacion.dia}</strong>
+                      <small>{preparacion.fecha.slice(8, 10)}/{preparacion.fecha.slice(5, 7)}</small>
+                    </span>
+                    <p>{preparacion.texto}</p>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <p className="modern-week-prep__empty">
+                Esta semana no necesitas adelantar nada.
+              </p>
+            )}
+          </details>
+
           <section className="modern-day-card">
             <header className="modern-day-card__header">
               <div>
@@ -597,7 +646,7 @@ export default function MenuModern({
                 <article className="modern-meal-card">
                   <header>
                     <div>
-                      <span className="modern-meal-card__icon">🍽️</span>
+                      <span className="modern-meal-card__icon"><AppIcon name="utensils" /></span>
                       <div><small>COMIDA</small><h4>Mediodía</h4></div>
                     </div>
                     {!excepcion?.sinComida && (
@@ -635,7 +684,7 @@ export default function MenuModern({
                 <article className="modern-meal-card">
                   <header>
                     <div>
-                      <span className="modern-meal-card__icon">🌙</span>
+                      <span className="modern-meal-card__icon"><AppIcon name="moon" /></span>
                       <div><small>CENA</small><h4>Noche</h4></div>
                     </div>
                     {!excepcion?.sinCena && (

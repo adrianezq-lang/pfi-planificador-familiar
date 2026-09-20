@@ -4,6 +4,7 @@ import {
   useState,
 } from 'react';
 import ProductoDetalleModal from '../components/ProductoDetalleModal';
+import AppIcon from '../components/AppIcon';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import { useRecetas } from '../hooks/useRecetas';
@@ -29,6 +30,7 @@ type VistaCatalogo =
   | 'todos'
   | 'mis-productos'
   | 'asociaciones';
+type OrdenCatalogo = 'relevancia' | 'precio-asc' | 'precio-desc' | 'nombre';
 
 const LIMITE_INICIAL = 120;
 
@@ -79,6 +81,8 @@ function CatalogoMercadona() {
   const [busqueda, setBusqueda] = useState('');
   const [seccionActiva, setSeccionActiva] =
     useState('Todas');
+  const [ordenCatalogo, setOrdenCatalogo] =
+    useState<OrdenCatalogo>('relevancia');
   const [limite, setLimite] = useState(LIMITE_INICIAL);
   const [misProductos, setMisProductos] = useState<
     string[]
@@ -164,7 +168,7 @@ function CatalogoMercadona() {
   const productosFiltrados = useMemo(() => {
     const idsFavoritos = new Set(misProductos);
 
-    return catalogo.filter((producto) => {
+    const filtrados = catalogo.filter((producto) => {
       if (
         vista === 'mis-productos' &&
         !idsFavoritos.has(producto.productoId)
@@ -181,10 +185,29 @@ function CatalogoMercadona() {
 
       return coincideBusqueda(producto, busqueda);
     });
+
+    if (ordenCatalogo === 'relevancia') return filtrados;
+
+    return [...filtrados].sort((a, b) => {
+      if (ordenCatalogo === 'nombre') {
+        return a.nombre.localeCompare(b.nombre, 'es');
+      }
+
+      if (a.precio === null && b.precio === null) {
+        return a.nombre.localeCompare(b.nombre, 'es');
+      }
+      if (a.precio === null) return 1;
+      if (b.precio === null) return -1;
+
+      return ordenCatalogo === 'precio-desc'
+        ? b.precio - a.precio || a.nombre.localeCompare(b.nombre, 'es')
+        : a.precio - b.precio || a.nombre.localeCompare(b.nombre, 'es');
+    });
   }, [
     catalogo,
     misProductos,
     busqueda,
+    ordenCatalogo,
     seccionActiva,
     vista,
   ]);
@@ -300,10 +323,13 @@ function CatalogoMercadona() {
   };
 
   return (
-    <main className="page legacy-page" style={estiloPagina}>
-      <Card className="page-hero-card">
+    <main className="page legacy-page catalog-page" style={estiloPagina}>
+      <Card className="page-hero-card catalog-hero-card">
         <Title style={{ color: '#4f6f52' }}>
-          🏪 Catálogo Mercadona
+          <span className="legacy-page-title">
+            <span className="legacy-page-title__icon"><AppIcon name="store" /></span>
+            Catálogo Mercadona
+          </span>
         </Title>
 
         <div style={estiloResumenGrid}>
@@ -326,7 +352,7 @@ function CatalogoMercadona() {
         </div>
 
         <div className="catalog-zone-status">
-          <strong>📍 Zona Mercadona: CP {codigoPostalCatalogo || '48950'}</strong>
+          <strong><AppIcon name="pin" size={16} /> Zona Mercadona: CP {codigoPostalCatalogo || '48950'}</strong>
           {fechaCatalogo && (
             <small>Actualizado: {formatearFechaCatalogo(fechaCatalogo)}</small>
           )}
@@ -348,7 +374,7 @@ function CatalogoMercadona() {
         )}
       </Card>
 
-      <Card>
+      <Card className="catalog-toolbar-card">
         <div style={estiloPestañas}>
           <Pestana
             activa={vista === 'todos'}
@@ -389,6 +415,19 @@ function CatalogoMercadona() {
                   {seccion}
                 </option>
               ))}
+            </select>
+            <select
+              value={ordenCatalogo}
+              onChange={(evento) =>
+                setOrdenCatalogo(evento.target.value as OrdenCatalogo)
+              }
+              style={estiloSelect}
+              aria-label="Ordenar catálogo"
+            >
+              <option value="relevancia">Orden del catálogo</option>
+              <option value="precio-asc">Precio: menor primero</option>
+              <option value="precio-desc">Precio: mayor primero</option>
+              <option value="nombre">Nombre A–Z</option>
             </select>
           </div>
         )}
@@ -482,6 +521,7 @@ function CatalogoMercadona() {
               return (
                 <article
                   key={producto.productoId}
+                  className="catalog-product-card"
                   style={{
                     ...estiloProducto,
                     border: favorito
@@ -796,7 +836,7 @@ function Resumen({
   texto: string;
 }) {
   return (
-    <div style={estiloResumen}>
+    <div className="catalog-summary-card" style={estiloResumen}>
       <strong style={estiloNumero}>{numero}</strong>
       <span>{texto}</span>
     </div>

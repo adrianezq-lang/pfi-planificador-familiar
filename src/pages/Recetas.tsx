@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react';
 import SelectorProductoIngrediente from '../components/SelectorProductoIngrediente';
+import AppIcon from '../components/AppIcon';
 import ProductoDetalleModal from '../components/ProductoDetalleModal';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
@@ -103,6 +104,27 @@ const UNIDADES_SUGERIDAS = [
   'ración',
 ];
 
+const CLAVE_RECETAS_FAVORITAS = 'pfi-recetas-favoritas-v1';
+
+function cargarRecetasFavoritas(): string[] {
+  try {
+    const guardadas = JSON.parse(
+      localStorage.getItem(CLAVE_RECETAS_FAVORITAS) ?? '[]',
+    ) as unknown;
+    return Array.isArray(guardadas)
+      ? guardadas.filter((nombre): nombre is string => typeof nombre === 'string')
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+function guardarRecetasFavoritas(nombres: string[]): string[] {
+  const limpias = Array.from(new Set(nombres.filter(Boolean)));
+  localStorage.setItem(CLAVE_RECETAS_FAVORITAS, JSON.stringify(limpias));
+  return limpias;
+}
+
 function crearIdEditor(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
@@ -195,6 +217,8 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
   const [consultaRecetas, setConsultaRecetas] = useState('');
   const [categoriaActiva, setCategoriaActiva] = useState('Todas');
   const [soloSinHorno, setSoloSinHorno] = useState(false);
+  const [soloFavoritas, setSoloFavoritas] = useState(false);
+  const [favoritas, setFavoritas] = useState<string[]>(cargarRecetasFavoritas);
   const [recetasAbiertas, setRecetasAbiertas] = useState<Set<string>>(
     () => new Set(),
   );
@@ -219,6 +243,7 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
     return recetas.filter((receta) => {
       if (categoriaAplicada !== 'Todas' && receta.categoria !== categoriaAplicada) return false;
       if (soloSinHorno && recetaUsaHorno(receta)) return false;
+      if (soloFavoritas && !favoritas.includes(receta.nombre)) return false;
       if (!consulta) return true;
       return textoNormalizado([
         receta.nombre,
@@ -226,7 +251,7 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
         ...receta.ingredientes.map((ingrediente) => ingrediente.nombre),
       ].join(' ')).includes(consulta);
     });
-  }, [categoriaAplicada, consultaRecetas, recetas, soloSinHorno]);
+  }, [categoriaAplicada, consultaRecetas, favoritas, recetas, soloFavoritas, soloSinHorno]);
 
   const alternarRecetaAbierta = (nombre: string) => {
     setRecetasAbiertas((actuales) => {
@@ -302,6 +327,16 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
       ),
     [nombresIngredientes, productosPorIngrediente],
   );
+
+  const alternarFavorita = (nombre: string) => {
+    setFavoritas((actuales) =>
+      guardarRecetasFavoritas(
+        actuales.includes(nombre)
+          ? actuales.filter((receta) => receta !== nombre)
+          : [...actuales, nombre],
+      ),
+    );
+  };
 
   const abrirSelector = (
     ingrediente: string,
@@ -694,6 +729,17 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
         editor.nombreOriginal,
         recetaLimpia.nombre,
       );
+      if (
+        editor.nombreOriginal !== recetaLimpia.nombre &&
+        favoritas.includes(editor.nombreOriginal)
+      ) {
+        setFavoritas(
+          guardarRecetasFavoritas([
+            ...favoritas.filter((nombre) => nombre !== editor.nombreOriginal),
+            recetaLimpia.nombre,
+          ]),
+        );
+      }
     }
 
     setEditor(null);
@@ -714,6 +760,13 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
     crearCopiaAutomaticaSiNecesaria('antes de eliminar una receta');
     guardar(recetas.filter((receta) => receta.nombre !== nombreReceta));
     eliminarRecetaDelMenu(nombreReceta);
+    if (favoritas.includes(nombreReceta)) {
+      setFavoritas(
+        guardarRecetasFavoritas(
+          favoritas.filter((nombre) => nombre !== nombreReceta),
+        ),
+      );
+    }
     if (editor?.nombreOriginal === nombreReceta) setEditor(null);
     setMensaje(`Receta «${nombreReceta}» eliminada del recetario y del menú.`);
   };
@@ -735,10 +788,15 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
     : null;
 
   return (
-    <main className="page legacy-page" style={estiloPagina}>
+    <main className="page legacy-page recipes-page" style={estiloPagina}>
       <Card className="page-hero-card page-hero-card--compact recipes-intro-card">
         <Title style={{ color: '#4f6f52' }}>
-          {esModoPostres ? '🍰 Postres' : '📖 Recetas'}
+          <span className="legacy-page-title">
+            <span className="legacy-page-title__icon">
+              <AppIcon name={esModoPostres ? 'sparkles' : 'book'} />
+            </span>
+            {esModoPostres ? 'Postres' : 'Recetas'}
+          </span>
         </Title>
 
         {mensaje && <p style={estiloMensajeExito}>{mensaje}</p>}
@@ -805,6 +863,14 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
               🍳 Sin horno
             </button>
           )}
+          <button
+            type="button"
+            className="recipes-favorites-filter"
+            aria-pressed={soloFavoritas}
+            onClick={() => setSoloFavoritas((activo) => !activo)}
+          >
+            ★ Favoritas <span>{favoritas.length}</span>
+          </button>
         </div>
         <div className="recipes-category-buttons" aria-label="Filtrar por categoría">
           {['Todas', ...categorias].map((categoria) => (
@@ -882,6 +948,19 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
               </div>
 
               <div style={estiloAccionesReceta}>
+                <button
+                  type="button"
+                  className={favoritas.includes(receta.nombre)
+                    ? 'recipe-favorite-button is-active'
+                    : 'recipe-favorite-button'}
+                  aria-pressed={favoritas.includes(receta.nombre)}
+                  aria-label={favoritas.includes(receta.nombre)
+                    ? `Quitar ${receta.nombre} de favoritas`
+                    : `Añadir ${receta.nombre} a favoritas`}
+                  onClick={() => alternarFavorita(receta.nombre)}
+                >
+                  {favoritas.includes(receta.nombre) ? '★' : '☆'}
+                </button>
                 <span style={estiloContador}>
                   {receta.ingredientes.length}
                 </span>

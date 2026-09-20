@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import type { DiaMenu } from '../data/Menusemanal';
+import AppIcon from '../components/AppIcon';
 import type { LineaCompra, ResultadoCompra } from '../motor/compra';
 import {
   ORDEN_SECCIONES_COMPRA,
@@ -75,6 +76,7 @@ export default function CompraModern({
   const [errorManual, setErrorManual] = useState('');
   const [marcados, setMarcados] = useState<string[]>([]);
   const [registrados, setRegistrados] = useState<string[]>([]);
+  const [ocultarCompletados, setOcultarCompletados] = useState(false);
 
   const compraMensualDisponible = semanaActiva === 0;
   const menuObjetivo = periodo === 'semana' ? menu : menuMes;
@@ -158,6 +160,37 @@ export default function CompraModern({
       }];
     });
   }, [lineas]);
+
+  const lineasPorSeccionVisibles = useMemo<GrupoSeccionCompra[]>(() => {
+    if (!ocultarCompletados) return lineasPorSeccion;
+    return lineasPorSeccion.flatMap((grupo) => {
+      const pendientes = grupo.lineas.filter(
+        (linea) => !marcadosSet.has(linea.clave) && !registradosSet.has(linea.clave),
+      );
+      if (pendientes.length === 0) return [];
+      return [{
+        ...grupo,
+        lineas: pendientes,
+        subtotal: pendientes.reduce((suma, linea) => suma + (linea.subtotal ?? 0), 0),
+        preciosPendientes: pendientes.filter((linea) => linea.subtotal === null).length,
+      }];
+    });
+  }, [
+    lineasPorSeccion,
+    marcadosSet,
+    ocultarCompletados,
+    registradosSet,
+  ]);
+
+  const manualesPeriodoVisibles = useMemo(
+    () =>
+      ocultarCompletados
+        ? manualesPeriodo.filter(
+            (producto) => !producto.comprado && !producto.guardadoEnDespensa,
+          )
+        : manualesPeriodo,
+    [manualesPeriodo, ocultarCompletados],
+  );
 
   const pendientesInventario = useMemo(
     () => obtenerLineasPendientesDeInventario(lineas, marcados, registrados),
@@ -321,7 +354,7 @@ export default function CompraModern({
             aria-pressed={periodo === 'semana'}
             onClick={() => setPeriodo('semana')}
           >
-            <span>🥬</span>
+            <span className="shopping-period-icon"><AppIcon name="leaf" /></span>
             <div><strong>Semanal</strong><small>Semana {semanaActiva + 1}</small></div>
           </button>
           {compraMensualDisponible && (
@@ -330,7 +363,7 @@ export default function CompraModern({
               aria-pressed={periodo === 'mes'}
               onClick={() => setPeriodo('mes')}
             >
-              <span>🧺</span>
+              <span className="shopping-period-icon"><AppIcon name="basket" /></span>
               <div><strong>Mensual</strong><small>Solo Semana 1</small></div>
             </button>
           )}
@@ -393,6 +426,21 @@ export default function CompraModern({
             {mensajeInventario && <p className="modern-inline-message" role="status">{mensajeInventario}</p>}
           </section>
 
+          <section className="shopping-view-controls" aria-label="Vista de compra">
+            <div>
+              <strong>Modo tienda</strong>
+              <small>Oculta lo que ya has metido en el carro y deja solo lo pendiente.</small>
+            </div>
+            <button
+              type="button"
+              aria-pressed={ocultarCompletados}
+              onClick={() => setOcultarCompletados((activo) => !activo)}
+              disabled={totalMarcados === 0}
+            >
+              {ocultarCompletados ? 'Mostrar todo' : 'Ocultar comprados'}
+            </button>
+          </section>
+
           <details className="modern-manual-shopping" open={manualesPeriodo.length > 0 || formularioManualAbierto}>
             <summary>
               <span>＋ Productos de otros sitios</span>
@@ -441,9 +489,9 @@ export default function CompraModern({
                 </form>
               )}
 
-              {manualesPeriodo.length > 0 && (
+              {manualesPeriodoVisibles.length > 0 && (
                 <div className="modern-manual-list">
-                  {manualesPeriodo.map((producto) => (
+                  {manualesPeriodoVisibles.map((producto) => (
                     <LineaProductoManual
                       key={producto.id}
                       producto={producto}
@@ -469,11 +517,11 @@ export default function CompraModern({
                   <span className="modern-store-card__logo">M</span>
                   <div><small>RECORRIDO DE TIENDA</small><h3>Mercadona</h3></div>
                 </div>
-                <div><strong>{euros(totalAutomatico)}</strong><small>{lineas.length} productos</small></div>
+                <div><strong>{euros(totalAutomatico)}</strong><small>{ocultarCompletados ? `${lineasPorSeccionVisibles.reduce((total, grupo) => total + grupo.lineas.length, 0)} pendientes` : `${lineas.length} productos`}</small></div>
               </header>
 
               <div className="modern-store-sections">
-                {lineasPorSeccion.map((grupo, indice) => (
+                {lineasPorSeccionVisibles.map((grupo, indice) => (
                   <section className="modern-shop-section" key={grupo.seccion}>
                     <header>
                       <span className="modern-shop-section__number">{String(indice + 1).padStart(2, '0')}</span>
@@ -496,6 +544,19 @@ export default function CompraModern({
               </div>
             </section>
           )}
+
+          {ocultarCompletados &&
+            totalProductos > 0 &&
+            lineasPorSeccionVisibles.length === 0 &&
+            manualesPeriodoVisibles.length === 0 && (
+              <section className="shopping-complete-state">
+                <span aria-hidden="true">✓</span>
+                <div>
+                  <strong>Compra completada</strong>
+                  <small>Todo está marcado. Puedes guardarlo en despensa cuando termines.</small>
+                </div>
+              </section>
+            )}
 
           {periodo === 'semana' && resultado.lineasCubiertas && resultado.lineasCubiertas.length > 0 && (
             <details className="modern-covered-card">

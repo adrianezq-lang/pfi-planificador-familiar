@@ -1,4 +1,5 @@
 import type { Pantalla } from '../App';
+import AppIcon from './AppIcon';
 
 type Props = {
   pantalla: Pantalla;
@@ -15,14 +16,14 @@ export default function NavegacionRecetario({ pantalla, cambiarPantalla }: Props
         className={pantalla === 'recetas' ? 'recetario-tab recetario-tab--active' : 'recetario-tab'}
         onClick={() => cambiarPantalla('recetas')}
       >
-        🍽️ Recetas
+        <AppIcon name="book" size={17} /> Recetas
       </button>
       <button
         type="button"
         className={pantalla === 'postres' ? 'recetario-tab recetario-tab--active' : 'recetario-tab'}
         onClick={() => cambiarPantalla('postres')}
       >
-        🍰 Postres
+        <AppIcon name="sparkles" size={17} /> Postres
       </button>
     </nav>
   );

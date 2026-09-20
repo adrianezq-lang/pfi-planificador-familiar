@@ -25,6 +25,8 @@ const CLAVE_RECETAS = 'pfi-recetas';
 const CLAVE_MENU = 'pfi-menu';
 const CLAVE_PLAN_MENSUAL = 'pfi-menu-mensual-v1';
 const CLAVE_SEMANA_ACTIVA = 'pfi-semana-activa';
+const CLAVE_MES_ACTIVO = 'pfi-mes-activo';
+const PREFIJO_PLAN_MES = 'pfi-menu-mes-';
 const CLAVE_MIGRACION_PORCIONES = 'pfi-migracion-porciones-v090';
 const CLAVE_MIGRACION_RECETAS_V095 = 'pfi-migracion-recetas-v095';
 const CLAVE_MIGRACION_POSTRES_V0910 = 'pfi-migracion-postres-v0910';
@@ -677,6 +679,92 @@ export function restaurarRecetasOriginales(): void {
   window.dispatchEvent(new CustomEvent('pfi-menu-actualizado'));
 }
 
+function transformarPlanesMensualesGuardados(
+  transformarDia: (dia: DiaMenu) => DiaMenu,
+): { actualizados: boolean; menuActivo: DiaMenu[] | null } {
+  const claves = Array.from(
+    { length: localStorage.length },
+    (_, indice) => localStorage.key(indice),
+  ).filter(
+    (clave): clave is string => Boolean(clave?.startsWith(PREFIJO_PLAN_MES)),
+  );
+  const mesActivo = localStorage.getItem(CLAVE_MES_ACTIVO);
+  const indiceGuardado = Number(localStorage.getItem(CLAVE_SEMANA_ACTIVA));
+  let actualizados = false;
+  let menuActivo: DiaMenu[] | null = null;
+
+  claves.forEach((clave) => {
+    try {
+      const guardado = localStorage.getItem(clave);
+      if (!guardado) return;
+      const parsed = JSON.parse(guardado) as {
+        mes?: unknown;
+        semanas?: unknown;
+      };
+      if (!Array.isArray(parsed.semanas)) return;
+
+      const semanas = recalcularPreparacionesPlan(
+        normalizarPlanMensual(parsed.semanas).map((semana) => ({
+          ...semana,
+          menu: semana.menu.map(transformarDia),
+        })),
+      );
+      const mes =
+        typeof parsed.mes === 'string'
+          ? parsed.mes
+          : clave.slice(PREFIJO_PLAN_MES.length);
+
+      localStorage.setItem(
+        clave,
+        JSON.stringify({ mes, semanas }),
+      );
+      actualizados = true;
+
+      if (mes === mesActivo) {
+        const indice = Number.isInteger(indiceGuardado)
+          ? Math.max(0, Math.min(indiceGuardado, semanas.length - 1))
+          : 0;
+        menuActivo = semanas[indice]?.excluida
+          ? []
+          : semanas[indice]?.menu ?? [];
+      }
+    } catch {
+      // Se ignora únicamente el mes dañado; useMenu lo podrá regenerar.
+    }
+  });
+
+  if (menuActivo) {
+    localStorage.setItem(CLAVE_MENU, JSON.stringify(menuActivo));
+  }
+
+  return { actualizados, menuActivo };
+}
+
+function transformarPlanLegacy(
+  transformarDia: (dia: DiaMenu) => DiaMenu,
+): DiaMenu[] | null {
+  const planGuardado = localStorage.getItem(CLAVE_PLAN_MENSUAL);
+  if (!planGuardado) return null;
+
+  const plan = recalcularPreparacionesPlan(
+    normalizarPlanMensual(
+      JSON.parse(planGuardado) as unknown,
+    ).map((semana) => ({
+      ...semana,
+      menu: semana.menu.map(transformarDia),
+    })),
+  );
+  const indiceGuardado = Number(
+    localStorage.getItem(CLAVE_SEMANA_ACTIVA),
+  );
+  const indice = Number.isInteger(indiceGuardado)
+    ? Math.max(0, Math.min(indiceGuardado, plan.length - 1))
+    : 0;
+
+  localStorage.setItem(CLAVE_PLAN_MENSUAL, JSON.stringify(plan));
+  return plan[indice]?.excluida ? [] : plan[indice]?.menu ?? [];
+}
+
 export function actualizarNombreRecetaEnMenu(
   nombreAnterior: string,
   nombreNuevo: string,
@@ -684,80 +772,50 @@ export function actualizarNombreRecetaEnMenu(
   if (nombreAnterior === nombreNuevo) return;
   renombrarRecetaPostreConfigurada(nombreAnterior, nombreNuevo);
 
+  const transformarDia = (dia: DiaMenu): DiaMenu => ({
+    ...dia,
+    comida: renombrarPlatoEnLista(
+      dia.comida,
+      nombreAnterior,
+      nombreNuevo,
+    ),
+    cena: renombrarPlatoEnLista(
+      dia.cena,
+      nombreAnterior,
+      nombreNuevo,
+    ),
+    postreComidaReceta:
+      dia.postreComidaReceta === nombreAnterior
+        ? nombreNuevo
+        : dia.postreComidaReceta,
+    postreCenaReceta:
+      dia.postreCenaReceta === nombreAnterior
+        ? nombreNuevo
+        : dia.postreCenaReceta,
+  });
+
   try {
-    const planGuardado = localStorage.getItem(CLAVE_PLAN_MENSUAL);
+    const meses = transformarPlanesMensualesGuardados(transformarDia);
+    const menuLegacy = transformarPlanLegacy(transformarDia);
 
-    if (planGuardado) {
-      const plan = normalizarPlanMensual(
-        JSON.parse(planGuardado) as unknown,
-      ).map((semana) => ({
-        ...semana,
-        menu: semana.menu.map((dia) => ({
-          ...dia,
-          comida: renombrarPlatoEnLista(
-            dia.comida,
-            nombreAnterior,
-            nombreNuevo,
-          ),
-          cena: renombrarPlatoEnLista(
-            dia.cena,
-            nombreAnterior,
-            nombreNuevo,
-          ),
-          postreComidaReceta:
-            dia.postreComidaReceta === nombreAnterior
-              ? nombreNuevo
-              : dia.postreComidaReceta,
-          postreCenaReceta:
-            dia.postreCenaReceta === nombreAnterior
-              ? nombreNuevo
-              : dia.postreCenaReceta,
-        })),
-      }));
-      const indiceGuardado = Number(
-        localStorage.getItem(CLAVE_SEMANA_ACTIVA),
-      );
-      const indice = Number.isInteger(indiceGuardado)
-        ? Math.max(0, Math.min(indiceGuardado, plan.length - 1))
-        : 0;
-
-      localStorage.setItem(CLAVE_PLAN_MENSUAL, JSON.stringify(plan));
-      localStorage.setItem(CLAVE_MENU, JSON.stringify(plan[indice].menu));
-      window.dispatchEvent(new CustomEvent('pfi-menu-actualizado'));
-      return;
+    if (!meses.menuActivo && menuLegacy) {
+      localStorage.setItem(CLAVE_MENU, JSON.stringify(menuLegacy));
     }
 
-    const menuGuardado = localStorage.getItem(CLAVE_MENU);
-    const menu = menuGuardado
-      ? normalizarMenu(
-          JSON.parse(menuGuardado) as unknown,
-          menuSemanal,
-        )
-      : normalizarMenu(menuSemanal, menuSemanal);
+    if (!meses.actualizados && !menuLegacy) {
+      const menuGuardado = localStorage.getItem(CLAVE_MENU);
+      const menu = menuGuardado
+        ? normalizarMenu(
+            JSON.parse(menuGuardado) as unknown,
+            menuSemanal,
+          )
+        : normalizarMenu(menuSemanal, menuSemanal);
+      localStorage.setItem(
+        CLAVE_MENU,
+        JSON.stringify(menu.map(transformarDia)),
+      );
+    }
 
-    const actualizado: DiaMenu[] = menu.map((dia) => ({
-      ...dia,
-      comida: renombrarPlatoEnLista(
-        dia.comida,
-        nombreAnterior,
-        nombreNuevo,
-      ),
-      cena: renombrarPlatoEnLista(
-        dia.cena,
-        nombreAnterior,
-        nombreNuevo,
-      ),
-      postreComidaReceta:
-        dia.postreComidaReceta === nombreAnterior
-          ? nombreNuevo
-          : dia.postreComidaReceta,
-      postreCenaReceta:
-        dia.postreCenaReceta === nombreAnterior
-          ? nombreNuevo
-          : dia.postreCenaReceta,
-    }));
-
-    localStorage.setItem(CLAVE_MENU, JSON.stringify(actualizado));
     window.dispatchEvent(new CustomEvent('pfi-menu-actualizado'));
   } catch {
     // useMenu recuperará un plan válido si el guardado no es correcto.
@@ -767,61 +825,45 @@ export function actualizarNombreRecetaEnMenu(
 export function eliminarRecetaDelMenu(nombreReceta: string): void {
   quitarRecetaPostreConfigurada(nombreReceta);
 
+  const transformarDia = (dia: DiaMenu): DiaMenu => ({
+    ...dia,
+    comida: dia.comida.filter((plato) => plato !== nombreReceta),
+    cena: dia.cena.filter((plato) => plato !== nombreReceta),
+    postreComidaReceta:
+      dia.postreComidaReceta === nombreReceta
+        ? 'Sin postre'
+        : dia.postreComidaReceta,
+    postreCenaReceta:
+      dia.postreCenaReceta === nombreReceta
+        ? 'Sin postre'
+        : dia.postreCenaReceta,
+  });
+
   try {
-    const planGuardado = localStorage.getItem(CLAVE_PLAN_MENSUAL);
+    const meses = transformarPlanesMensualesGuardados(transformarDia);
+    const menuLegacy = transformarPlanLegacy(transformarDia);
 
-    if (planGuardado) {
-      const planBase = normalizarPlanMensual(
-        JSON.parse(planGuardado) as unknown,
-      ).map((semana) => ({
-        ...semana,
-        menu: semana.menu.map((dia) => ({
-          ...dia,
-          comida: dia.comida.filter((plato) => plato !== nombreReceta),
-          cena: dia.cena.filter((plato) => plato !== nombreReceta),
-          postreComidaReceta:
-            dia.postreComidaReceta === nombreReceta
-              ? 'Sin postre'
-              : dia.postreComidaReceta,
-          postreCenaReceta:
-            dia.postreCenaReceta === nombreReceta
-              ? 'Sin postre'
-              : dia.postreCenaReceta,
-        })),
-      }));
-      const plan = recalcularPreparacionesPlan(planBase);
-      const indiceGuardado = Number(localStorage.getItem(CLAVE_SEMANA_ACTIVA));
-      const indice = Number.isInteger(indiceGuardado)
-        ? Math.max(0, Math.min(indiceGuardado, plan.length - 1))
-        : 0;
-
-      localStorage.setItem(CLAVE_PLAN_MENSUAL, JSON.stringify(plan));
-      localStorage.setItem(CLAVE_MENU, JSON.stringify(plan[indice]?.menu ?? []));
-      window.dispatchEvent(new CustomEvent('pfi-menu-actualizado'));
-      return;
+    if (!meses.menuActivo && menuLegacy) {
+      localStorage.setItem(CLAVE_MENU, JSON.stringify(menuLegacy));
     }
 
-    const menuGuardado = localStorage.getItem(CLAVE_MENU);
-    const menu = menuGuardado
-      ? normalizarMenu(JSON.parse(menuGuardado) as unknown, menuSemanal)
-      : normalizarMenu(menuSemanal, menuSemanal);
-    const actualizado = menu.map((dia) => ({
-      ...dia,
-      comida: dia.comida.filter((plato) => plato !== nombreReceta),
-      cena: dia.cena.filter((plato) => plato !== nombreReceta),
-      postreComidaReceta:
-        dia.postreComidaReceta === nombreReceta
-          ? 'Sin postre'
-          : dia.postreComidaReceta,
-      postreCenaReceta:
-        dia.postreCenaReceta === nombreReceta
-          ? 'Sin postre'
-          : dia.postreCenaReceta,
-    }));
+    if (!meses.actualizados && !menuLegacy) {
+      const menuGuardado = localStorage.getItem(CLAVE_MENU);
+      const menu = menuGuardado
+        ? normalizarMenu(
+            JSON.parse(menuGuardado) as unknown,
+            menuSemanal,
+          )
+        : normalizarMenu(menuSemanal, menuSemanal);
+      localStorage.setItem(
+        CLAVE_MENU,
+        JSON.stringify(menu.map(transformarDia)),
+      );
+    }
 
-    localStorage.setItem(CLAVE_MENU, JSON.stringify(actualizado));
     window.dispatchEvent(new CustomEvent('pfi-menu-actualizado'));
   } catch {
     // useMenu recuperará un plan válido si el guardado no es correcto.
   }
 }
+
