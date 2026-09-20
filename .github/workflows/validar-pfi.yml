@@ -81,3 +81,5 @@ jobs:
         run: npm run test:v0931
       - name: Probar cálculo familiar y diseño pro
         run: npm run test:v0935
+      - name: Probar experiencia completa PFI Pro
+        run: npm run test:v0941
