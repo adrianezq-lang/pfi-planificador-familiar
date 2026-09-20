@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import Card from '../components/ui/Card';
+import AppIcon from '../components/AppIcon';
 import CentroDatosCopias from '../components/CentroDatosCopias';
 import CuentaSincronizacion from '../components/CuentaSincronizacion';
 import Title from '../components/ui/Title';
@@ -249,7 +250,10 @@ function Perfil() {
     <main className="page legacy-page profile-page" style={estiloPagina}>
       <Card className="page-hero-card profile-hero-card">
         <Title style={{ color: '#4f6f52' }}>
-          Cuenta y perfil
+          <span className="legacy-page-title">
+            <span className="legacy-page-title__icon"><AppIcon name="user" /></span>
+            Cuenta y perfil
+          </span>
         </Title>
         <p className="profile-hero-copy">
           Aquí defines cómo vive vuestra familia. PFI usa estos datos para ajustar menú, cantidades y presupuesto.
