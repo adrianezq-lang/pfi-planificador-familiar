@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import type { DiaMenu } from '../data/Menusemanal';
+import AppIcon from '../components/AppIcon';
 import type { LineaCompra, ResultadoCompra } from '../motor/compra';
 import {
   ORDEN_SECCIONES_COMPRA,
@@ -353,7 +354,7 @@ export default function CompraModern({
             aria-pressed={periodo === 'semana'}
             onClick={() => setPeriodo('semana')}
           >
-            <span>🥬</span>
+            <span className="shopping-period-icon"><AppIcon name="leaf" /></span>
             <div><strong>Semanal</strong><small>Semana {semanaActiva + 1}</small></div>
           </button>
           {compraMensualDisponible && (
@@ -362,7 +363,7 @@ export default function CompraModern({
               aria-pressed={periodo === 'mes'}
               onClick={() => setPeriodo('mes')}
             >
-              <span>🧺</span>
+              <span className="shopping-period-icon"><AppIcon name="basket" /></span>
               <div><strong>Mensual</strong><small>Solo Semana 1</small></div>
             </button>
           )}
