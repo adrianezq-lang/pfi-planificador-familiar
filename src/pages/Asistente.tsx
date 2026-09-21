@@ -131,6 +131,7 @@ function normalizar(texto: string): string {
 function destinoAccion(propuesta: PropuestaAccionAsistente): DestinoAsistente {
   switch (propuesta.accion.tipo) {
     case 'cambiar-menu':
+    case 'copiar-menu':
     case 'fin-semana-sin-ninos':
     case 'excepcion-dia':
       return 'menu';
@@ -336,7 +337,12 @@ export default function Asistente({
 
     setResultadoAccion('');
     setDestinoResultado(null);
-    const deteccion = detectarAccionAsistente(limpio, menuEditable, recetas);
+    const deteccion = detectarAccionAsistente(
+      limpio,
+      menuEditable,
+      recetas,
+      planMensual[semanaActiva],
+    );
 
     if (deteccion?.propuesta) {
       setPropuestaPendiente(deteccion.propuesta);
@@ -387,6 +393,21 @@ export default function Asistente({
           guardarMenu(menuActualizado);
           setResultadoAccion(
             `He cambiado la ${accion.momento} del ${accion.dia.toLocaleLowerCase('es')} por ${accion.platoNuevo}.`,
+          );
+          break;
+        }
+
+        case 'copiar-menu': {
+          const accion = propuesta.accion;
+          const menuActualizado = menuEditable.map((dia) => {
+            if (normalizar(dia.dia) !== normalizar(accion.diaDestino)) return dia;
+            return accion.momentoDestino === 'comida'
+              ? { ...dia, comida: [...accion.platosNuevos] }
+              : { ...dia, cena: [...accion.platosNuevos] };
+          });
+          guardarMenu(menuActualizado);
+          setResultadoAccion(
+            `He puesto en la ${accion.momentoDestino} de ${accion.etiquetaDestino} lo que había en ${accion.etiquetaOrigen}: ${accion.platosNuevos.join(' + ')}.`,
           );
           break;
         }
