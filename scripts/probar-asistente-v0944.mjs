@@ -46,7 +46,7 @@ assert.match(css, /\.assistant-hero/);
 assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.47');
+assert.equal(packageJson.version, '0.9.48');
 assert.match(app, /v0\.9\.47/);
 assert.match(sw, /pfi-v0\.9\.47-1/);
 assert.match(copias, /VERSION_APP = '0\.9\.47'/);
@@ -151,4 +151,4 @@ await vite.close();
 console.log('✓ Despensa está en la barra principal y el Asistente en Más');
 console.log('✓ entiende compra pendiente, presupuesto y revisión del menú');
 console.log('✓ conserva historial local y separa respuestas de acciones confirmables');
-console.log('✓ versión, caché y copias están alineadas en v0.9.47');
+console.log('✓ versión, caché y copias están alineadas en v0.9.48');
