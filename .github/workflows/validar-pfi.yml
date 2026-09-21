@@ -89,3 +89,5 @@ jobs:
         run: npm run test:v0943
       - name: Probar Asistente PFI v0.9.44
         run: npm run test:v0944
+      - name: Probar acciones Asistente PFI v0.9.45
+        run: npm run test:v0945
