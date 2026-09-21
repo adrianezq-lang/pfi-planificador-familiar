@@ -441,6 +441,7 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
       titulo: `PFI · ${receta.nombre}`,
       texto: `${receta.nombre}\n${receta.categoria}\n\nIngredientes:\n${ingredientes}`,
     });
+    if (respuesta === 'cancelado') return;
     setMensaje(
       respuesta === 'compartido'
         ? `«${receta.nombre}» compartida.`
