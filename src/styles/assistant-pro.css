@@ -699,3 +699,210 @@
     display: none;
   }
 }
+
+
+/* Acciones confirmables del Asistente PFI */
+.assistant-action-examples {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(55, 88, 62, .10);
+}
+
+.assistant-action-examples > small {
+  color: #8a957e;
+  font-size: 8px;
+  font-weight: 950;
+  letter-spacing: .14em;
+}
+
+.assistant-action-examples > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.assistant-action-examples button {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(57, 91, 64, .13);
+  border-radius: 999px;
+  background: #f4f7f1;
+  color: #42604a;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.assistant-confirm {
+  display: grid;
+  gap: 12px;
+  margin-top: 15px;
+  padding: 16px;
+  border: 1px solid rgba(174, 126, 62, .24);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 96% 0%, rgba(224, 190, 120, .24), transparent 33%),
+    linear-gradient(145deg, #fffaf0, #f1e4cc);
+  color: #5b472d;
+  box-shadow: 0 12px 28px rgba(87, 63, 34, .08);
+}
+
+.assistant-confirm__head {
+  display: grid;
+  grid-template-columns: 34px minmax(0,1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.assistant-confirm__head > span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #6b5633;
+  color: #f1d99f;
+}
+
+.assistant-confirm__head small {
+  display: block;
+  color: #a17d46;
+  font-size: 8px;
+  font-weight: 950;
+  letter-spacing: .13em;
+}
+
+.assistant-confirm__head strong {
+  display: block;
+  margin-top: 2px;
+  color: #584229;
+  font-size: 13px;
+}
+
+.assistant-confirm > p {
+  margin: 0;
+  color: #725c3c;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.assistant-confirm__changes {
+  display: grid;
+  gap: 6px;
+}
+
+.assistant-confirm__changes > span {
+  position: relative;
+  padding: 8px 10px 8px 26px;
+  border: 1px solid rgba(166, 120, 63, .12);
+  border-radius: 11px;
+  background: rgba(255,255,255,.55);
+  color: #6a573d;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.assistant-confirm__changes > span::before {
+  content: '•';
+  position: absolute;
+  left: 11px;
+  top: 6px;
+  color: #af7f42;
+  font-size: 16px;
+}
+
+.assistant-confirm__actions {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1.35fr);
+  gap: 8px;
+}
+
+.assistant-confirm__actions button {
+  min-height: 42px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.assistant-confirm__cancel {
+  border: 1px solid rgba(104, 83, 50, .16);
+  background: rgba(255,255,255,.58);
+  color: #745f43;
+}
+
+.assistant-confirm__apply {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  background: linear-gradient(145deg, #315f3f, #214a30);
+  color: white;
+  box-shadow: 0 8px 20px rgba(34, 77, 48, .18);
+}
+
+.assistant-action-result {
+  display: grid;
+  grid-template-columns: 32px minmax(0,1fr);
+  gap: 10px;
+  align-items: start;
+  margin-top: 12px;
+  padding: 12px 13px;
+  border: 1px solid rgba(68, 119, 76, .16);
+  border-radius: 15px;
+  background: linear-gradient(145deg, #f7fbf5, #e5f0e1);
+  color: #365a3d;
+}
+
+.assistant-action-result > span {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #315f3f;
+  color: #fff;
+}
+
+.assistant-action-result > div {
+  display: grid;
+  gap: 7px;
+}
+
+.assistant-action-result strong {
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.assistant-action-result button {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #315f3f;
+  font-size: 10px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.assistant-action-result button span {
+  font-size: 17px;
+  line-height: 1;
+}
+
+@media (max-width: 520px) {
+  .assistant-confirm__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .assistant-confirm__apply {
+    grid-row: 1;
+  }
+}

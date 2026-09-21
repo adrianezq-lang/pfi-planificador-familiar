@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
+import type { SemanaMenu } from '../data/MenuMensual';
 import type { DiaMenu } from '../data/Menusemanal';
 import AppIcon from '../components/AppIcon';
 import {
@@ -27,22 +28,38 @@ import {
   type DestinoAsistente,
   type RespuestaAsistentePFI,
 } from '../services/asistentePFI';
+import {
+  detectarAccionAsistente,
+  type PropuestaAccionAsistente,
+} from '../services/accionesAsistente';
 import type { ResultadoCompra } from '../motor/compra';
 import {
   cargarClavesGuardadas,
   crearClavesEstadoCompra,
 } from '../services/registroCompra';
 import {
+  añadirProductoManualCompra,
   cargarProductosManualesCompra,
   crearPeriodoIdCompraManual,
 } from '../services/productosManualesCompra';
+import {
+  cargarExcepciones,
+  fechasSemana,
+  guardarExcepcion,
+  guardarFinDeSemanaSinNinos,
+  indiceDiaSemana,
+} from '../services/excepcionesCalendario';
+import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 
 type Props = {
   menu: DiaMenu[];
+  menuEditable: DiaMenu[];
   menuMes: DiaMenu[];
   menusSemanas: DiaMenu[][];
+  planMensual: SemanaMenu[];
   semanaActiva: number;
   mesActivo: string;
+  guardarMenu: (menu: DiaMenu[]) => void;
   navegar: (destino: DestinoAsistente) => void;
 };
 
@@ -63,6 +80,13 @@ const PREGUNTAS_RAPIDAS = [
   { icono: 'box' as const, texto: '¿Qué falta en despensa?' },
   { icono: 'sparkles' as const, texto: '¿Qué puedo cocinar con lo que tengo?' },
   { icono: 'calendar' as const, texto: 'Revisa mi semana' },
+] as const;
+
+const ACCIONES_RAPIDAS = [
+  'Añade leche a la compra',
+  'Este finde no están los niños',
+  'Pon salmón el sábado',
+  'El domingo comemos fuera',
 ] as const;
 
 function cargarHistorial(): Conversacion[] {
@@ -96,12 +120,34 @@ function crearId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
+function normalizar(texto: string): string {
+  return texto
+    .toLocaleLowerCase('es')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+}
+
+function destinoAccion(propuesta: PropuestaAccionAsistente): DestinoAsistente {
+  switch (propuesta.accion.tipo) {
+    case 'cambiar-menu':
+    case 'fin-semana-sin-ninos':
+    case 'excepcion-dia':
+      return 'menu';
+    case 'anadir-compra':
+      return 'compra';
+  }
+}
+
 export default function Asistente({
   menu,
+  menuEditable,
   menuMes,
   menusSemanas,
+  planMensual,
   semanaActiva,
   mesActivo,
+  guardarMenu,
   navegar,
 }: Props) {
   const [consulta, setConsulta] = useState('');
@@ -114,6 +160,11 @@ export default function Asistente({
   const [compraMes, setCompraMes] = useState<ResultadoCompra | null>(null);
   const [comprasSemanas, setComprasSemanas] = useState<ResultadoCompra[]>([]);
   const [calculando, setCalculando] = useState(true);
+  const [propuestaPendiente, setPropuestaPendiente] =
+    useState<PropuestaAccionAsistente | null>(null);
+  const [resultadoAccion, setResultadoAccion] = useState('');
+  const [destinoResultado, setDestinoResultado] = useState<DestinoAsistente | null>(null);
+  const [revisionAcciones, setRevisionAcciones] = useState(0);
   const finalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -168,9 +219,10 @@ export default function Asistente({
     return () => {
       activo = false;
     };
-  }, [menuMes, menusSemanas, semanaActiva]);
+  }, [menuMes, menusSemanas, semanaActiva, revisionAcciones]);
 
   const estadoCompra = useMemo(() => {
+    void revisionAcciones;
     const compra = compraSemana;
     if (!compra) {
       return {
@@ -218,7 +270,7 @@ export default function Asistente({
         ),
       cantidad: automaticos.length + manuales.length,
     };
-  }, [compraSemana, mesActivo, semanaActiva]);
+  }, [compraSemana, mesActivo, revisionAcciones, semanaActiva]);
 
   const contexto = useMemo(
     () => ({
@@ -260,16 +312,15 @@ export default function Asistente({
     [contexto],
   );
 
-  const preguntar = (texto: string) => {
-    const limpio = texto.trim();
-    if (!limpio) return;
-
-    const respuesta = responderAsistente(limpio, contexto);
+  const agregarConversacion = (
+    pregunta: string,
+    respuesta: RespuestaAsistentePFI,
+  ) => {
     const siguiente = [
       ...historial,
       {
         id: crearId(),
-        pregunta: limpio,
+        pregunta,
         respuesta,
         fecha: new Date().toISOString(),
       },
@@ -277,11 +328,155 @@ export default function Asistente({
 
     setHistorial(siguiente);
     guardarHistorial(siguiente);
-    setConsulta('');
+  };
 
+  const preguntar = (texto: string) => {
+    const limpio = texto.trim();
+    if (!limpio) return;
+
+    setResultadoAccion('');
+    setDestinoResultado(null);
+    const deteccion = detectarAccionAsistente(limpio, menuEditable, recetas);
+
+    if (deteccion?.propuesta) {
+      setPropuestaPendiente(deteccion.propuesta);
+      agregarConversacion(limpio, {
+        titulo: 'He preparado el cambio',
+        resumen: deteccion.propuesta.resumen,
+        puntos: deteccion.propuesta.cambios,
+        tono: 'atencion',
+      });
+    } else if (deteccion?.aclaracion) {
+      setPropuestaPendiente(null);
+      agregarConversacion(limpio, {
+        titulo: 'Necesito un detalle',
+        resumen: deteccion.aclaracion,
+        puntos: [
+          'No haré ningún cambio hasta que quede claro qué quieres modificar.',
+        ],
+        tono: 'atencion',
+      });
+    } else {
+      setPropuestaPendiente(null);
+      agregarConversacion(limpio, responderAsistente(limpio, contexto));
+    }
+
+    setConsulta('');
     window.setTimeout(() => {
       finalRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 40);
+  };
+
+  const ejecutarPropuesta = () => {
+    const propuesta = propuestaPendiente;
+    if (!propuesta) return;
+
+    crearCopiaAutomaticaSiNecesaria('antes de una acción del Asistente PFI');
+    setDestinoResultado(destinoAccion(propuesta));
+
+    try {
+      switch (propuesta.accion.tipo) {
+        case 'cambiar-menu': {
+          const accion = propuesta.accion;
+          const menuActualizado = menuEditable.map((dia) => {
+            if (normalizar(dia.dia) !== normalizar(accion.dia)) return dia;
+            return accion.momento === 'comida'
+              ? { ...dia, comida: [accion.platoNuevo] }
+              : { ...dia, cena: [accion.platoNuevo] };
+          });
+          guardarMenu(menuActualizado);
+          setResultadoAccion(
+            `He cambiado la ${accion.momento} del ${accion.dia.toLocaleLowerCase('es')} por ${accion.platoNuevo}.`,
+          );
+          break;
+        }
+
+        case 'anadir-compra': {
+          const accion = propuesta.accion;
+          const periodoId = crearPeriodoIdCompraManual(
+            'semana',
+            mesActivo,
+            semanaActiva,
+          );
+          const duplicado = cargarProductosManualesCompra().some(
+            (producto) =>
+              producto.periodoId === periodoId &&
+              normalizar(producto.nombre) === normalizar(accion.nombre) &&
+              !producto.comprado &&
+              !producto.guardadoEnDespensa,
+          );
+
+          if (duplicado) {
+            setResultadoAccion(
+              `${accion.nombre} ya estaba en la compra semanal, así que no lo he duplicado.`,
+            );
+          } else {
+            añadirProductoManualCompra({
+              periodoId,
+              nombre: accion.nombre,
+              cantidad: accion.cantidad,
+              unidad: accion.unidad,
+              tienda: accion.tienda,
+              precioTotal: null,
+            });
+            setResultadoAccion(
+              `He añadido ${accion.cantidad.toLocaleString('es-ES')} ${accion.unidad} de ${accion.nombre} a Compra.`,
+            );
+          }
+          break;
+        }
+
+        case 'fin-semana-sin-ninos': {
+          const semana = planMensual[semanaActiva];
+          if (!semana) throw new Error('No encuentro la semana activa.');
+          guardarFinDeSemanaSinNinos(
+            semana,
+            propuesta.accion.sinNinos,
+          );
+          setResultadoAccion(
+            propuesta.accion.sinNinos
+              ? 'He marcado sábado y domingo sin niños. PFI recalculará las cantidades.'
+              : 'He vuelto a incluir a los niños en sábado y domingo.',
+          );
+          break;
+        }
+
+        case 'excepcion-dia': {
+          const accion = propuesta.accion;
+          const semana = planMensual[semanaActiva];
+          if (!semana) throw new Error('No encuentro la semana activa.');
+          const fecha = fechasSemana(semana).find((fechaIso) => {
+            const dia = semana.menu[indiceDiaSemana(fechaIso)];
+            return dia && normalizar(dia.dia) === normalizar(accion.dia);
+          });
+          if (!fecha) throw new Error(`No encuentro ${accion.dia} en la semana activa.`);
+
+          const excepciones = cargarExcepciones();
+          guardarExcepcion(fecha, {
+            ...excepciones[fecha],
+            [accion.excepcion]: accion.activa,
+          });
+          setResultadoAccion(
+            accion.excepcion === 'noEnCasa'
+              ? `He marcado el ${accion.dia.toLocaleLowerCase('es')} como fuera de casa.`
+              : accion.excepcion === 'sinComida'
+                ? `He quitado la comida del ${accion.dia.toLocaleLowerCase('es')} del cálculo.`
+                : `He quitado la cena del ${accion.dia.toLocaleLowerCase('es')} del cálculo.`,
+          );
+          break;
+        }
+      }
+
+      setRevisionAcciones((valor) => valor + 1);
+      setPropuestaPendiente(null);
+    } catch (error) {
+      setDestinoResultado(null);
+      setResultadoAccion(
+        error instanceof Error
+          ? error.message
+          : 'No he podido aplicar el cambio. No se ha modificado nada.',
+      );
+    }
   };
 
   const enviar = (evento: FormEvent) => {
@@ -291,6 +486,9 @@ export default function Asistente({
 
   const borrarHistorial = () => {
     setHistorial([]);
+    setPropuestaPendiente(null);
+    setResultadoAccion('');
+    setDestinoResultado(null);
     localStorage.removeItem(CLAVE_HISTORIAL);
   };
 
@@ -304,7 +502,7 @@ export default function Asistente({
           <span>ASISTENTE PFI</span>
           <h2>¿Qué necesitas?</h2>
           <p>
-            Cruzo tu menú, compra, despensa, presupuesto y lo que PFI aprende de la familia.
+            Cruzo tu menú, compra, despensa y presupuesto. También puedo preparar cambios y aplicarlos cuando tú los confirmes.
           </p>
         </div>
         <div className="assistant-live-badge">
@@ -362,7 +560,7 @@ export default function Asistente({
         <div className="assistant-section-heading">
           <div>
             <span>ACCESOS RÁPIDOS</span>
-            <h3>Pregúntame directamente</h3>
+            <h3>Pregúntame o pídeme cambios</h3>
           </div>
         </div>
         <div className="assistant-quick-grid">
@@ -377,6 +575,16 @@ export default function Asistente({
               <b aria-hidden="true">›</b>
             </button>
           ))}
+        </div>
+        <div className="assistant-action-examples">
+          <small>PRUEBA TAMBIÉN</small>
+          <div>
+            {ACCIONES_RAPIDAS.map((accion) => (
+              <button key={accion} type="button" onClick={() => preguntar(accion)}>
+                {accion}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -398,8 +606,8 @@ export default function Asistente({
             <div aria-hidden="true"><AppIcon name="sparkles" size={24} /></div>
             <strong>No necesitas aprender comandos.</strong>
             <p>
-              Escribe como hablarías normalmente: “¿qué cenamos?”, “¿qué falta?”,
-              “¿puedo cocinar algo con lo que tengo?” o “revisa el menú”.
+              Puedes preguntar o dar órdenes normales: “añade leche a la compra”,
+              “pon salmón el sábado” o “este finde no están los niños”.
             </p>
           </div>
         ) : (
@@ -442,23 +650,77 @@ export default function Asistente({
           </div>
         )}
 
+        {propuestaPendiente && (
+          <aside className="assistant-confirm" aria-label="Confirmar cambio">
+            <div className="assistant-confirm__head">
+              <span aria-hidden="true"><AppIcon name="alert" size={18} /></span>
+              <div>
+                <small>CONFIRMACIÓN NECESARIA</small>
+                <strong>{propuestaPendiente.titulo}</strong>
+              </div>
+            </div>
+            <p>{propuestaPendiente.resumen}</p>
+            <div className="assistant-confirm__changes">
+              {propuestaPendiente.cambios.map((cambio) => (
+                <span key={cambio}>{cambio}</span>
+              ))}
+            </div>
+            <div className="assistant-confirm__actions">
+              <button
+                type="button"
+                className="assistant-confirm__cancel"
+                onClick={() => {
+                  setPropuestaPendiente(null);
+                  setDestinoResultado(null);
+                  setResultadoAccion('Cambio cancelado. No he modificado nada.');
+                }}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                className="assistant-confirm__apply"
+                onClick={ejecutarPropuesta}
+              >
+                <AppIcon name="check" size={17} />
+                {propuestaPendiente.confirmar}
+              </button>
+            </div>
+          </aside>
+        )}
+
+        {resultadoAccion && (
+          <aside className="assistant-action-result" role="status">
+            <span aria-hidden="true"><AppIcon name="check" size={17} /></span>
+            <div>
+              <strong>{resultadoAccion}</strong>
+              {destinoResultado && (
+                <button type="button" onClick={() => navegar(destinoResultado)}>
+                  Ver resultado
+                  <span aria-hidden="true">›</span>
+                </button>
+              )}
+            </div>
+          </aside>
+        )}
+
         <form className="assistant-composer" onSubmit={enviar}>
           <label>
             <span className="sr-only">Pregunta al Asistente PFI</span>
             <input
               value={consulta}
               onChange={(evento) => setConsulta(evento.target.value)}
-              placeholder="Pregunta algo sobre tu planificación…"
+              placeholder="Pregunta o pide un cambio…"
               autoComplete="off"
             />
           </label>
           <button type="submit" disabled={!consulta.trim()}>
             <AppIcon name="sparkles" size={18} />
-            <span>Preguntar</span>
+            <span>Enviar</span>
           </button>
         </form>
         <small className="assistant-privacy">
-          Funciona con los datos guardados en PFI. No modifica nada sin que tú vayas a la sección correspondiente.
+          PFI nunca aplica un cambio desde el asistente sin enseñártelo antes y pedirte confirmación.
         </small>
       </section>
     </main>

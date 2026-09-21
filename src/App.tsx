@@ -153,7 +153,7 @@ function App() {
             <h1>PFI</h1>
             <p>Planificador familiar</p>
           </div>
-          <span className="app-version">v0.9.44</span>
+          <span className="app-version">v0.9.45</span>
         </div>
       </header>
 
@@ -228,10 +228,13 @@ function App() {
         {pantalla === 'asistente' && (
           <Asistente
             menu={menuCompra}
+            menuEditable={menu}
             menuMes={menuMes}
             menusSemanas={menusSemanasCompra}
+            planMensual={planMensual}
             semanaActiva={semanaActiva}
             mesActivo={mesActivo}
+            guardarMenu={guardarMenu}
             navegar={cambiarPantalla}
           />
         )}
