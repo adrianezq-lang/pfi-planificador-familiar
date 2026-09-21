@@ -34,7 +34,7 @@ assert.match(app, /const Asistente = lazy/);
 assert.match(app, /pantalla === 'asistente'/);
 assert.match(nav, /id: 'asistente'/);
 assert.match(nav, /icono: 'sparkles'/);
-assert.match(page, /Pregúntame directamente/);
+assert.match(page, /Pregúntame o pídeme cambios/);
 assert.match(page, /¿Qué puedo cocinar con lo que tengo\?/);
 assert.match(page, /pfi-asistente-historial-v1/);
 assert.match(page, /crearClavesEstadoCompra/);
@@ -149,5 +149,5 @@ await vite.close();
 
 console.log('✓ el Asistente está integrado como destino principal de PFI');
 console.log('✓ entiende compra pendiente, presupuesto y revisión del menú');
-console.log('✓ conserva historial local y nunca modifica datos desde una respuesta');
+console.log('✓ conserva historial local y separa respuestas de acciones confirmables');
 console.log('✓ versión, caché y copias están alineadas en v0.9.45');
