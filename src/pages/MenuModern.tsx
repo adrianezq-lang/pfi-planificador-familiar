@@ -30,6 +30,8 @@ import {
   obtenerOpcionesEspeciales,
 } from '../services/menu';
 import { esRecetaPostre } from '../services/recetas';
+import { compartirTexto } from '../services/compartir';
+import { cargarNotaSemana, guardarNotaSemana } from '../services/notasSemana';
 
 type MenuProps = {
   menu: DiaMenu[];
@@ -250,6 +252,7 @@ export default function MenuModern({
   const [busquedaEditor, setBusquedaEditor] = useState('');
   const [errorEditor, setErrorEditor] = useState('');
   const [mensaje, setMensaje] = useState('');
+  const [notaSemana, setNotaSemana] = useState(() => cargarNotaSemana(mesActivo, semanaActiva));
 
   const indiceSemanaSeguro = planMensual.length === 0
     ? 0
@@ -343,6 +346,10 @@ export default function MenuModern({
   useEffect(() => {
     if (diaActivo >= fechas.length && fechas.length > 0) setDiaActivo(0);
   }, [diaActivo, fechas.length]);
+
+  useEffect(() => {
+    setNotaSemana(cargarNotaSemana(mesActivo, indiceSemanaSeguro));
+  }, [indiceSemanaSeguro, mesActivo]);
 
   const cambiar = (delta: number) => {
     cambiarMes(delta);
@@ -458,6 +465,46 @@ export default function MenuModern({
     setMensaje('Valoración guardada.');
   };
 
+  const textoCompartirSemana = () => {
+    const titulo = `PFI · ${mesBonito} · Semana ${indiceSemanaSeguro + 1}`;
+    const lineas = fechas.map((fecha) => {
+      const menuDia = menu[indiceDiaSemana(fecha)];
+      const excepcionFecha = excepciones[fecha];
+      if (semana?.excluida || excepcionFecha?.noEnCasa) {
+        return `${menuDia?.dia ?? 'Día'} ${fecha.slice(8, 10)}/${fecha.slice(5, 7)}\nFuera de casa`;
+      }
+      const comida = excepcionFecha?.sinComida
+        ? 'Sin comida en casa'
+        : menuDia?.comida.join(' + ') || 'Sin plan';
+      const cena = excepcionFecha?.sinCena
+        ? 'Sin cena en casa'
+        : menuDia?.cena.join(' + ') || 'Sin plan';
+      return `${menuDia?.dia ?? 'Día'} ${fecha.slice(8, 10)}/${fecha.slice(5, 7)}\nComida: ${comida}\nCena: ${cena}`;
+    });
+
+    const nota = notaSemana.trim() ? `\n\nNotas de la semana:\n${notaSemana.trim()}` : '';
+    return `${titulo}\n\n${lineas.join('\n\n')}${nota}`;
+  };
+
+  const compartirSemana = async () => {
+    const resultado = await compartirTexto({
+      titulo: `PFI · Menú semana ${indiceSemanaSeguro + 1}`,
+      texto: textoCompartirSemana(),
+    });
+    if (resultado === 'cancelado') return;
+    setMensaje(
+      resultado === 'compartido'
+        ? 'Menú compartido.'
+        : resultado === 'copiado'
+          ? 'Menú copiado al portapapeles.'
+          : 'No se ha podido compartir el menú.',
+    );
+  };
+
+  const imprimirSemana = () => {
+    window.print();
+  };
+
   const generarMesProtegido = () => {
     if (!window.confirm(
       `Se generará un menú nuevo para ${mesBonito}. Antes se guardará una copia. ¿Continuar?`,
@@ -540,6 +587,17 @@ export default function MenuModern({
             <button type="button" onClick={reiniciarMesProtegido}>↺ Reiniciar mes</button>
           </div>
         </details>
+      </section>
+
+      <section className="pro-action-bar pro-action-bar--menu" aria-label="Acciones del menú">
+        <button type="button" onClick={() => void compartirSemana()}>
+          <AppIcon name="share" size={18} />
+          <span><strong>Compartir</strong><small>Envía el menú de la semana</small></span>
+        </button>
+        <button type="button" onClick={imprimirSemana}>
+          <AppIcon name="printer" size={18} />
+          <span><strong>Imprimir / PDF</strong><small>Versión limpia para guardar</small></span>
+        </button>
       </section>
 
       {semana?.excluida ? (
@@ -723,6 +781,70 @@ export default function MenuModern({
           </section>
         </>
       ) : null}
+
+      {semana && (
+        <section className="print-week-menu" aria-hidden="true">
+          <header>
+            <strong>PFI · Menú semanal</strong>
+            <span>{mesBonito} · Semana {indiceSemanaSeguro + 1}</span>
+          </header>
+          <div>
+            {fechas.map((fecha) => {
+              const menuDia = menu[indiceDiaSemana(fecha)];
+              const excepcionFecha = excepciones[fecha];
+              const fuera = semana.excluida || excepcionFecha?.noEnCasa;
+              return (
+                <article key={`print-${fecha}`}>
+                  <h3>{menuDia?.dia ?? 'Día'} <small>{fecha.slice(8, 10)}/{fecha.slice(5, 7)}</small></h3>
+                  {fuera ? (
+                    <p>Fuera de casa</p>
+                  ) : (
+                    <>
+                      <p><strong>Comida:</strong> {excepcionFecha?.sinComida ? 'Sin comida en casa' : menuDia?.comida.join(' + ') || 'Sin plan'}</p>
+                      <p><strong>Cena:</strong> {excepcionFecha?.sinCena ? 'Sin cena en casa' : menuDia?.cena.join(' + ') || 'Sin plan'}</p>
+                    </>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+          {notaSemana.trim() && (
+            <footer>
+              <strong>Notas</strong>
+              <p>{notaSemana}</p>
+            </footer>
+          )}
+        </section>
+      )}
+
+      {semana && (
+        <details className="week-notes">
+          <summary>
+            <span>
+              <AppIcon name="note" size={17} />
+              <strong>Notas de la semana</strong>
+            </span>
+            <small>{notaSemana.trim() ? 'Guardadas automáticamente' : 'Opcional'}</small>
+          </summary>
+          <div className="week-notes__body">
+            <textarea
+              value={notaSemana}
+              maxLength={2400}
+              onChange={(evento) => {
+                const siguiente = guardarNotaSemana(
+                  mesActivo,
+                  indiceSemanaSeguro,
+                  evento.target.value,
+                );
+                setNotaSemana(siguiente);
+              }}
+              placeholder="Pendientes, cambios, cosas que comprar fuera, recordatorios…"
+              aria-label="Notas de la semana"
+            />
+            <small>{notaSemana.length}/2400 · Se guarda automáticamente</small>
+          </div>
+        </details>
+      )}
 
       <ResumenMes
         planMensual={planMensual}

@@ -1,0 +1,526 @@
+/* PFI Pro Plus v0.9.42
+   Utilidades visuales para acciones, notas, salud de datos, compartir e impresión. */
+
+.budget-detail {
+  display: block;
+  margin-top: 7px;
+  max-width: 260px;
+  color: #607267;
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.budget-card--total .budget-detail {
+  color: rgba(255,255,255,.72);
+}
+
+.pro-action-bar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.pro-action-bar > button {
+  min-width: 0;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid rgba(34,75,46,.15);
+  border-radius: 17px;
+  padding: 11px 13px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(211,173,99,.12), transparent 30%),
+    linear-gradient(145deg, #fffdf8, #e7eee3);
+  color: #274b33;
+  text-align: left;
+  box-shadow: 0 9px 25px rgba(23,56,33,.07);
+  cursor: pointer;
+  transition: transform .14s ease, box-shadow .16s ease, border-color .16s ease;
+}
+
+.pro-action-bar > button:hover {
+  border-color: rgba(39,87,52,.26);
+  box-shadow: 0 13px 30px rgba(23,56,33,.10);
+}
+
+.pro-action-bar > button:active {
+  transform: scale(.985);
+}
+
+.pro-action-bar > button:disabled {
+  opacity: .46;
+  cursor: default;
+  transform: none;
+}
+
+.pro-action-bar > button > svg {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 11px;
+  background: #28583a;
+  color: #efd79b;
+}
+
+.pro-action-bar > button > span {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.pro-action-bar strong {
+  color: #24482f;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.pro-action-bar small {
+  color: #718078;
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.shopping-data-health,
+.catalog-health {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(39,78,50,.15);
+  border-radius: 17px;
+  background: linear-gradient(145deg, #edf4e9, #faf5e8);
+  box-shadow: 0 8px 23px rgba(24,57,34,.06);
+}
+
+.shopping-data-health.is-warning,
+.catalog-health.is-warning {
+  border-color: rgba(166,109,57,.22);
+  background: linear-gradient(145deg, #fff7e8, #f1e1c7);
+}
+
+.shopping-data-health__icon,
+.catalog-health > span {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 36px;
+  border-radius: 12px;
+  background: #28583a;
+  color: #f1d99f;
+}
+
+.shopping-data-health.is-warning .shopping-data-health__icon,
+.catalog-health.is-warning > span {
+  background: #9a663c;
+  color: #fff1cf;
+}
+
+.shopping-data-health > div,
+.catalog-health > div {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.shopping-data-health strong,
+.catalog-health strong {
+  color: #254a31;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.shopping-data-health.is-warning strong,
+.catalog-health.is-warning strong {
+  color: #684327;
+}
+
+.shopping-data-health small,
+.catalog-health small {
+  color: #68776e;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.week-notes {
+  overflow: hidden;
+  margin: 12px 0;
+  border: 1px solid rgba(35,75,47,.15);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(211,173,99,.12), transparent 30%),
+    linear-gradient(145deg, #fffdf8, #eee6d7);
+  box-shadow: 0 9px 26px rgba(24,57,34,.07);
+}
+
+.week-notes > summary {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.week-notes > summary::-webkit-details-marker {
+  display: none;
+}
+
+.week-notes > summary > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #2c5638;
+}
+
+.week-notes > summary > span svg {
+  color: #9f7740;
+}
+
+.week-notes > summary strong {
+  font-size: 12px;
+}
+
+.week-notes > summary small {
+  color: #78847c;
+  font-size: 9px;
+}
+
+.week-notes__body {
+  display: grid;
+  gap: 5px;
+  padding: 0 14px 13px;
+}
+
+.week-notes__body textarea {
+  width: 100%;
+  min-height: 105px;
+  box-sizing: border-box;
+  resize: vertical;
+  border: 1px solid rgba(39,78,50,.16);
+  border-radius: 13px;
+  padding: 11px 12px;
+  background: rgba(255,255,255,.75);
+  color: #233a2a;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.week-notes__body textarea:focus {
+  outline: 3px solid rgba(63,111,74,.12);
+  border-color: #5c8663;
+}
+
+.week-notes__body > small {
+  color: #7b857f;
+  font-size: 9px;
+  text-align: right;
+}
+
+.print-week-menu {
+  display: none;
+}
+
+.recipe-utility-button {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(38,76,48,.14);
+  border-radius: 12px;
+  background: #edf2e9;
+  color: #3c6147;
+  cursor: pointer;
+}
+
+.recipe-utility-button:hover {
+  border-color: rgba(38,76,48,.26);
+  background: #e2eadf;
+}
+
+.profile-quick-guide {
+  overflow: hidden;
+  margin: 0 0 16px;
+  border: 1px solid rgba(36,76,48,.15);
+  border-radius: 19px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(211,173,99,.14), transparent 30%),
+    linear-gradient(145deg, #fffaf1, #e5eee2);
+  box-shadow: 0 10px 28px rgba(24,57,34,.07);
+}
+
+.profile-quick-guide > summary {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 15px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.profile-quick-guide > summary::-webkit-details-marker {
+  display: none;
+}
+
+.profile-quick-guide > summary > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #254d32;
+}
+
+.profile-quick-guide > summary > span svg {
+  color: #a37c42;
+}
+
+.profile-quick-guide > summary strong {
+  font-size: 13px;
+}
+
+.profile-quick-guide > summary small {
+  color: #718078;
+  font-size: 9px;
+}
+
+.profile-quick-guide__steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 9px;
+  padding: 0 14px 14px;
+}
+
+.profile-quick-guide__steps article {
+  display: grid;
+  grid-template-columns: 30px minmax(0,1fr);
+  gap: 9px;
+  align-items: start;
+  padding: 11px;
+  border: 1px solid rgba(41,81,52,.11);
+  border-radius: 14px;
+  background: rgba(255,255,255,.64);
+}
+
+.profile-quick-guide__steps article > span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: #28583a;
+  color: #efd79b;
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.profile-quick-guide__steps article > div {
+  display: grid;
+  gap: 2px;
+}
+
+.profile-quick-guide__steps strong {
+  color: #294d34;
+  font-size: 11px;
+}
+
+.profile-quick-guide__steps small {
+  color: #6d7b72;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .pro-action-bar {
+    gap: 8px;
+  }
+
+  .pro-action-bar > button {
+    min-height: 54px;
+    padding: 9px 10px;
+  }
+
+  .pro-action-bar > button > svg {
+    width: 31px;
+    height: 31px;
+    flex-basis: 31px;
+    padding: 7px;
+  }
+
+  .pro-action-bar small {
+    display: none;
+  }
+
+  .profile-quick-guide__steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 390px) {
+  .pro-action-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .shopping-data-health,
+  .catalog-health {
+    align-items: flex-start;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .app-header,
+  .bottom-nav,
+  .recetario-tabs,
+  .family-context,
+  .pro-action-bar,
+  .profile-save-bar,
+  .offline-banner {
+    display: none !important;
+  }
+
+  .page {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .menu-page > * {
+    display: none !important;
+  }
+
+  .menu-page > .print-week-menu {
+    display: block !important;
+  }
+
+  .print-week-menu {
+    color: #111;
+    font-family: system-ui, sans-serif;
+  }
+
+  .print-week-menu > header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #315d3e;
+  }
+
+  .print-week-menu > header strong {
+    font-size: 20px;
+  }
+
+  .print-week-menu > header span {
+    font-size: 11px;
+  }
+
+  .print-week-menu > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .print-week-menu article {
+    break-inside: avoid;
+    border: 1px solid #cfd6d0;
+    border-radius: 8px;
+    padding: 9px 10px;
+  }
+
+  .print-week-menu article h3 {
+    margin: 0 0 6px;
+    color: #244a31;
+    font-size: 13px;
+  }
+
+  .print-week-menu article h3 small {
+    color: #666;
+    font-size: 9px;
+  }
+
+  .print-week-menu article p {
+    margin: 4px 0;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .print-week-menu footer {
+    margin-top: 10px;
+    border-top: 1px solid #d8ddd9;
+    padding-top: 8px;
+    white-space: pre-wrap;
+    font-size: 10px;
+  }
+
+  .compra-page--modern .modern-page-heading,
+  .compra-page--modern .modern-shopping-toolbar,
+  .compra-page--modern .modern-shopping-summary,
+  .compra-page--modern .shopping-view-controls,
+  .compra-page--modern .shopping-data-health,
+  .compra-page--modern .modern-covered-card,
+  .compra-page--modern .modern-empty-state {
+    display: none !important;
+  }
+
+  .compra-page--modern .modern-store-card,
+  .compra-page--modern .modern-manual-shopping {
+    margin: 0 0 10px !important;
+    border: 1px solid #cfd6d0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  .compra-page--modern .modern-store-card__header {
+    background: #315d3e !important;
+    color: #fff !important;
+  }
+
+  .compra-page--modern .modern-shop-section {
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  .compra-page--modern .modern-shopping-row {
+    break-inside: avoid;
+  }
+
+  .compra-page--modern .modern-check,
+  .compra-page--modern .modern-row-delete,
+  .compra-page--modern .modern-calculation,
+  .compra-page--modern .modern-manual-form,
+  .compra-page--modern .modern-manual-shopping__body > .modern-button {
+    display: none !important;
+  }
+
+  .compra-page--modern details:not([open]) > *:not(summary) {
+    display: block !important;
+  }
+
+  .compra-page--modern .modern-manual-shopping > summary {
+    border-bottom: 1px solid #d8ddd9;
+  }
+}

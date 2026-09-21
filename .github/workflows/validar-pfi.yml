@@ -83,3 +83,5 @@ jobs:
         run: npm run test:v0935
       - name: Probar experiencia completa PFI Pro
         run: npm run test:v0941
+      - name: Probar funciones Pro Plus y salida PDF
+        run: npm run test:v0942

@@ -29,6 +29,7 @@ import {
   type ProductoManualCompra,
   type UnidadProductoManual,
 } from '../services/productosManualesCompra';
+import { compartirTexto } from '../services/compartir';
 
 type Props = {
   menu: DiaMenu[];
@@ -236,10 +237,68 @@ export default function CompraModern({
     0,
   );
   const pendiente = pendienteAutomatico + pendienteManual;
+  const sinProductoExacto = resultado?.productosSinSeleccionar.length ?? 0;
+  const sinPrecioAutomatico = resultado?.productosSinPrecio.length ?? 0;
+  const sinPrecioManual = manualesPeriodo.filter(
+    (producto) => producto.precioTotal === null,
+  ).length;
+  const sinPrecioTotal = sinPrecioAutomatico + sinPrecioManual;
+  const calculosEstimados = resultado?.productosEstimados.length ?? 0;
+  const datosCompletos = sinProductoExacto === 0 && sinPrecioTotal === 0;
   const mesTexto = new Intl.DateTimeFormat('es-ES', {
     month: 'long',
     year: 'numeric',
   }).format(new Date(`${mesActivo}-01T12:00:00`));
+
+  const textoCompraPendiente = () => {
+    const titulo = periodo === 'mes'
+      ? `PFI · Compra mensual · ${mesTexto}`
+      : `PFI · Compra semana ${semanaActiva + 1} · ${mesTexto}`;
+    const grupos = lineasPorSeccion.flatMap((grupo) => {
+      const pendientesGrupo = grupo.lineas.filter(
+        (linea) => !marcadosSet.has(linea.clave) && !registradosSet.has(linea.clave),
+      );
+      if (pendientesGrupo.length === 0) return [];
+      const productos = pendientesGrupo.map(
+        (linea) => `- ${nombreLinea(linea)} · ${resumenEnvases(linea, linea.envases)}`,
+      );
+      return [`${grupo.seccion}\n${productos.join('\n')}`];
+    });
+    const manuales = manualesPeriodo
+      .filter((producto) => !producto.comprado && !producto.guardadoEnDespensa)
+      .map(
+        (producto) =>
+          `- ${producto.nombre} · ${formatear(producto.cantidad)} ${unidadNatural(producto.unidad, producto.cantidad)}${producto.tienda ? ` · ${producto.tienda}` : ''}`,
+      );
+
+    if (manuales.length > 0) {
+      grupos.push(`Otros sitios\n${manuales.join('\n')}`);
+    }
+
+    const avisoPrecio = hayPreciosPendientes
+      ? '\n\n* Hay productos sin precio; el importe es parcial.'
+      : '';
+    return `${titulo}\n\n${grupos.join('\n\n')}\n\nPendiente conocido: ${euros(pendiente)}${avisoPrecio}`;
+  };
+
+  const compartirCompra = async () => {
+    const respuesta = await compartirTexto({
+      titulo: periodo === 'mes' ? 'PFI · Compra mensual' : `PFI · Compra semana ${semanaActiva + 1}`,
+      texto: textoCompraPendiente(),
+    });
+    if (respuesta === 'cancelado') return;
+    setMensajeInventario(
+      respuesta === 'compartido'
+        ? 'Lista compartida.'
+        : respuesta === 'copiado'
+          ? 'Lista copiada al portapapeles.'
+          : 'No se ha podido compartir la lista.',
+    );
+  };
+
+  const imprimirCompra = () => {
+    window.print();
+  };
 
   const cambiar = (linea: LineaCompra) => {
     if (registradosSet.has(linea.clave)) return;
@@ -424,6 +483,40 @@ export default function CompraModern({
               </div>
             </div>
             {mensajeInventario && <p className="modern-inline-message" role="status">{mensajeInventario}</p>}
+          </section>
+
+          <section className="pro-action-bar pro-action-bar--shopping" aria-label="Acciones de la compra">
+            <button
+              type="button"
+              onClick={() => void compartirCompra()}
+              disabled={totalProductos === 0 || totalMarcados === totalProductos}
+            >
+              <AppIcon name="share" size={18} />
+              <span><strong>Compartir pendientes</strong><small>WhatsApp, mensajes o copiar</small></span>
+            </button>
+            <button type="button" onClick={imprimirCompra} disabled={totalProductos === 0}>
+              <AppIcon name="printer" size={18} />
+              <span><strong>Imprimir / PDF</strong><small>Lista limpia para llevar</small></span>
+            </button>
+          </section>
+
+          <section className={datosCompletos ? 'shopping-data-health is-ok' : 'shopping-data-health is-warning'} aria-label="Calidad de los datos de compra">
+            <span className="shopping-data-health__icon" aria-hidden="true">
+              <AppIcon name={datosCompletos ? 'check' : 'alert'} size={18} />
+            </span>
+            <div>
+              <strong>{datosCompletos ? 'Importes completos' : 'Hay datos pendientes de completar'}</strong>
+              <small>
+                {datosCompletos
+                  ? calculosEstimados > 0
+                    ? `${calculosEstimados} cálculo${calculosEstimados === 1 ? '' : 's'} aproximado${calculosEstimados === 1 ? '' : 's'} por formato comercial.`
+                    : 'Todos los productos tienen referencia y precio.'
+                  : [
+                      sinProductoExacto > 0 ? `${sinProductoExacto} sin producto exacto` : '',
+                      sinPrecioTotal > 0 ? `${sinPrecioTotal} sin precio` : '',
+                    ].filter(Boolean).join(' · ')}
+              </small>
+            </div>
           </section>
 
           <section className="shopping-view-controls" aria-label="Vista de compra">

@@ -155,6 +155,15 @@ function CatalogoMercadona() {
     [catalogo],
   );
 
+  const ingredientesSinAsociar = useMemo(
+    () =>
+      ingredientesDisponibles.filter((ingrediente) => {
+        const productoId = asociaciones[ingrediente];
+        return !productoId || !productosPorId.has(productoId);
+      }),
+    [asociaciones, ingredientesDisponibles, productosPorId],
+  );
+
   const secciones = useMemo(
     () => [
       'Todas',
@@ -367,6 +376,26 @@ function CatalogoMercadona() {
               : '↻ Comprobar actualización'}
           </button>
         </div>
+
+        {!cargando && !error && (
+          <div className={ingredientesSinAsociar.length === 0 ? 'catalog-health is-ok' : 'catalog-health is-warning'}>
+            <span aria-hidden="true">
+              <AppIcon name={ingredientesSinAsociar.length === 0 ? 'check' : 'alert'} size={17} />
+            </span>
+            <div>
+              <strong>
+                {ingredientesSinAsociar.length === 0
+                  ? 'Recetario conectado al catálogo'
+                  : `${ingredientesSinAsociar.length} ingrediente${ingredientesSinAsociar.length === 1 ? '' : 's'} sin producto exacto`}
+              </strong>
+              <small>
+                {ingredientesSinAsociar.length === 0
+                  ? 'PFI puede calcular formatos y precios con las asociaciones actuales.'
+                  : 'Revísalos desde Recetas → Asociar pendientes para completar importes y formatos.'}
+              </small>
+            </div>
+          </div>
+        )}
         {mensaje && (
           <p className="catalog-success-message" style={estiloMensajeExito}>
             {mensaje}

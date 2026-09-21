@@ -6,8 +6,6 @@ import CuentaSincronizacion from '../components/CuentaSincronizacion';
 import Title from '../components/ui/Title';
 import {
   calcularComensalesMomento,
-  calcularRacionesEquivalentes,
-  calcularRacionesMomento,
   cargarPerfil,
   describirFamilia,
   guardarPerfil,
@@ -72,20 +70,10 @@ function Perfil() {
   );
   const [mensajeAprendizaje, setMensajeAprendizaje] = useState('');
 
-  const raciones = useMemo(
-    () => calcularRacionesEquivalentes(perfil),
-    [perfil],
-  );
-
   const resumenServicios = useMemo(
     () => SERVICIOS_COMENSALES.map((servicio) => ({
       ...servicio,
       comensales: calcularComensalesMomento(
-        perfil,
-        servicio.momento,
-        servicio.dia,
-      ),
-      raciones: calcularRacionesMomento(
         perfil,
         servicio.momento,
         servicio.dia,
@@ -440,8 +428,7 @@ function Perfil() {
                 <section key={servicio.clave} style={estiloTarjetaComensales}>
                   <strong style={estiloNombreServicio}>{servicio.titulo}</strong>
                   <span style={estiloResumenServicio}>
-                    {servicio.comensales} comensal{servicio.comensales === 1 ? '' : 'es'} ·{' '}
-                    {servicio.raciones.toLocaleString('es-ES')} raciones equivalentes
+                    {servicio.comensales} comensal{servicio.comensales === 1 ? '' : 'es'} · cantidades adaptadas por edad
                   </span>
 
                   <label style={estiloEtiquetaCompacta}>
@@ -516,10 +503,8 @@ function Perfil() {
         </div>
 
         <div style={estiloResumenRaciones}>
-          <strong>
-            Familia completa: {raciones.toLocaleString('es-ES')} raciones adultas equivalentes
-          </strong>
-          <span>{describirFamilia(perfil)}</span>
+          <strong>Cantidades familiares configuradas</strong>
+          <span>{describirFamilia(perfil)} · PFI adapta automáticamente cada receta según quién come en casa.</span>
         </div>
 
         <button type="button" onClick={guardar} style={estiloBotonGuardar}>
@@ -532,6 +517,19 @@ function Perfil() {
           </p>
         )}
       </Card>
+
+      <details className="profile-quick-guide">
+        <summary>
+          <span><AppIcon name="sparkles" size={18} /><strong>Cómo funciona PFI</strong></span>
+          <small>Guía rápida · 30 segundos</small>
+        </summary>
+        <div className="profile-quick-guide__steps">
+          <article><span>1</span><div><strong>Planifica</strong><small>Revisa el Menú y cambia cualquier comida o excepción.</small></div></article>
+          <article><span>2</span><div><strong>Compra</strong><small>PFI calcula lo que falta descontando stock y sobrantes.</small></div></article>
+          <article><span>3</span><div><strong>Actualiza despensa</strong><small>Al terminar la compra, guarda los productos para mantener el inventario al día.</small></div></article>
+          <article><span>4</span><div><strong>PFI aprende</strong><small>Las valoraciones y ajustes afinan sugerencias y cantidades futuras.</small></div></article>
+        </div>
+      </details>
 
       <Card className="profile-learning-card">
         <Title style={{ color: '#4f6f52', fontSize: '22px' }}>
