@@ -38,6 +38,7 @@ assert.match(page, /añadirProductoManualCompra/);
 assert.match(page, /guardarExcepcion/);
 assert.match(page, /PFI nunca aplica un cambio/);
 assert.match(actions, /tipo: 'cambiar-menu'/);
+assert.match(actions, /tipo: 'copiar-menu'/);
 assert.match(actions, /tipo: 'anadir-compra'/);
 assert.match(actions, /tipo: 'fin-semana-sin-ninos'/);
 assert.match(actions, /tipo: 'excepcion-dia'/);
@@ -72,6 +73,40 @@ const recetas = [
   { nombre: 'Salmón', categoria: 'Pescado', ingredientes: [] },
   { nombre: 'Lentejas', categoria: 'Legumbres', ingredientes: [] },
 ];
+
+const semanaActiva = {
+  id: 'semana-4',
+  nombre: 'Semana 4',
+  inicio: '2026-09-21',
+  fin: '2026-09-27',
+  menu,
+};
+
+const copiaEntreDias = detectarAccionAsistente(
+  'Cambia la comida del martes 22 por la del miércoles23',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.equal(copiaEntreDias?.propuesta?.accion.tipo, 'copiar-menu');
+assert.equal(copiaEntreDias?.propuesta?.accion.diaDestino, 'Martes');
+assert.equal(copiaEntreDias?.propuesta?.accion.diaOrigen, 'Miércoles');
+assert.equal(copiaEntreDias?.propuesta?.accion.momentoDestino, 'comida');
+assert.equal(copiaEntreDias?.propuesta?.accion.momentoOrigen, 'comida');
+assert.deepEqual(copiaEntreDias?.propuesta?.accion.platosNuevos, ['Pasta']);
+assert.match(copiaEntreDias?.propuesta?.resumen ?? '', /Martes 22/);
+assert.match(copiaEntreDias?.propuesta?.resumen ?? '', /Miércoles 23/);
+
+const fechaIncorrecta = detectarAccionAsistente(
+  'Cambia la comida del martes 29 por la del miércoles 23',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.ok(fechaIncorrecta?.aclaracion);
+assert.match(fechaIncorrecta?.aclaracion ?? '', /martes es 22, no 29/);
+assert.equal(fechaIncorrecta?.propuesta, undefined);
+
 
 const cambioCena = detectarAccionAsistente(
   'Cámbiame la cena del martes por salmón',
@@ -129,7 +164,8 @@ assert.equal(incompleto?.propuesta, undefined);
 
 await vite.close();
 
-console.log('✓ el asistente interpreta cambios de menú sin ejecutarlos directamente');
+console.log('✓ el asistente interpreta cambios de menú y referencias entre días sin ejecutarlos directamente');
 console.log('✓ añadir compra, fin de semana sin niños y comidas fuera requieren confirmación');
+console.log('✓ entiende «martes 22 / miércoles23» y valida que las fechas pertenezcan a la semana activa');
 console.log('✓ las órdenes incompletas piden aclaración en lugar de adivinar');
 console.log('✓ versión, caché y copias están alineadas en v0.9.46');
