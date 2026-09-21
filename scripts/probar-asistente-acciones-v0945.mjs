@@ -39,6 +39,8 @@ assert.match(page, /guardarExcepcion/);
 assert.match(page, /PFI nunca aplica un cambio/);
 assert.match(actions, /tipo: 'cambiar-menu'/);
 assert.match(actions, /tipo: 'copiar-menu'/);
+assert.match(actions, /tipo: 'mover-menu'/);
+assert.match(actions, /tipo: 'intercambiar-menu'/);
 assert.match(actions, /tipo: 'anadir-compra'/);
 assert.match(actions, /tipo: 'fin-semana-sin-ninos'/);
 assert.match(actions, /tipo: 'excepcion-dia'/);
@@ -46,10 +48,10 @@ assert.match(css, /\.assistant-confirm/);
 assert.match(css, /\.assistant-action-result/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.47');
-assert.match(app, /v0\.9\.47/);
-assert.match(sw, /pfi-v0\.9\.47-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.47'/);
+assert.equal(packageJson.version, '0.9.48');
+assert.match(app, /v0\.9\.48/);
+assert.match(sw, /pfi-v0\.9\.48-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.48'/);
 
 const vite = await createServer({
   configFile: false,
@@ -96,6 +98,96 @@ assert.equal(copiaEntreDias?.propuesta?.accion.momentoOrigen, 'comida');
 assert.deepEqual(copiaEntreDias?.propuesta?.accion.platosNuevos, ['Pasta']);
 assert.match(copiaEntreDias?.propuesta?.resumen ?? '', /Martes 22/);
 assert.match(copiaEntreDias?.propuesta?.resumen ?? '', /Miércoles 23/);
+
+const copiaOrigenPrimero = detectarAccionAsistente(
+  'Pon la comida del miércoles 23 el martes 22',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.equal(copiaOrigenPrimero?.propuesta?.accion.tipo, 'copiar-menu');
+assert.equal(copiaOrigenPrimero?.propuesta?.accion.diaDestino, 'Martes');
+assert.equal(copiaOrigenPrimero?.propuesta?.accion.diaOrigen, 'Miércoles');
+assert.deepEqual(copiaOrigenPrimero?.propuesta?.accion.platosNuevos, ['Pasta']);
+
+const copiaConAl = detectarAccionAsistente(
+  'Copia la cena del viernes al jueves',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.equal(copiaConAl?.propuesta?.accion.tipo, 'copiar-menu');
+assert.equal(copiaConAl?.propuesta?.accion.diaDestino, 'Jueves');
+assert.equal(copiaConAl?.propuesta?.accion.diaOrigen, 'Viernes');
+assert.equal(copiaConAl?.propuesta?.accion.momentoDestino, 'cena');
+assert.equal(copiaConAl?.propuesta?.accion.momentoOrigen, 'cena');
+assert.deepEqual(copiaConAl?.propuesta?.accion.platosNuevos, ['Pizza']);
+
+const mismoQue = detectarAccionAsistente(
+  'El martes 22 quiero comer lo mismo que el miércoles23',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.equal(mismoQue?.propuesta?.accion.tipo, 'copiar-menu');
+assert.equal(mismoQue?.propuesta?.accion.diaDestino, 'Martes');
+assert.equal(mismoQue?.propuesta?.accion.diaOrigen, 'Miércoles');
+assert.equal(mismoQue?.propuesta?.accion.momentoDestino, 'comida');
+
+const mover = detectarAccionAsistente(
+  'Pasa la comida del miércoles23 al martes22',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.equal(mover?.propuesta?.accion.tipo, 'mover-menu');
+assert.equal(mover?.propuesta?.accion.diaDestino, 'Martes');
+assert.equal(mover?.propuesta?.accion.diaOrigen, 'Miércoles');
+assert.deepEqual(mover?.propuesta?.accion.platosOrigenAntes, ['Pasta']);
+assert.match(mover?.propuesta?.cambios.join(' ') ?? '', /Después en origen: Sin plan/);
+
+const intercambio = detectarAccionAsistente(
+  'Intercambia la comida del martes22 y miércoles23',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.equal(intercambio?.propuesta?.accion.tipo, 'intercambiar-menu');
+assert.equal(intercambio?.propuesta?.accion.diaDestino, 'Martes');
+assert.equal(intercambio?.propuesta?.accion.diaOrigen, 'Miércoles');
+assert.deepEqual(intercambio?.propuesta?.accion.platosDestinoAntes, ['Arroz']);
+assert.deepEqual(intercambio?.propuesta?.accion.platosOrigenAntes, ['Pasta']);
+
+const cruzado = detectarAccionAsistente(
+  'Copia la cena del miércoles23 como comida del martes22',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.equal(cruzado?.propuesta?.accion.tipo, 'copiar-menu');
+assert.equal(cruzado?.propuesta?.accion.diaDestino, 'Martes');
+assert.equal(cruzado?.propuesta?.accion.diaOrigen, 'Miércoles');
+assert.equal(cruzado?.propuesta?.accion.momentoDestino, 'comida');
+assert.equal(cruzado?.propuesta?.accion.momentoOrigen, 'cena');
+assert.deepEqual(cruzado?.propuesta?.accion.platosNuevos, ['Fajitas']);
+
+const ambiguoEntreDias = detectarAccionAsistente(
+  'Pon lo del miércoles23 el martes22',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.ok(ambiguoEntreDias?.aclaracion);
+assert.equal(ambiguoEntreDias?.propuesta, undefined);
+
+const cambiaDosDiasSinSentido = detectarAccionAsistente(
+  'Cambia la comida del martes22 y miércoles23',
+  menu,
+  recetas,
+  semanaActiva,
+);
+assert.ok(cambiaDosDiasSinSentido?.aclaracion);
+assert.equal(cambiaDosDiasSinSentido?.propuesta, undefined);
 
 const fechaIncorrecta = detectarAccionAsistente(
   'Cambia la comida del martes 29 por la del miércoles 23',
@@ -164,8 +256,9 @@ assert.equal(incompleto?.propuesta, undefined);
 
 await vite.close();
 
-console.log('✓ el asistente interpreta cambios de menú y referencias entre días sin ejecutarlos directamente');
+console.log('✓ el asistente interpreta copias, movimientos e intercambios entre días sin ejecutarlos directamente');
+console.log('✓ entiende órdenes con origen primero, destino primero y cruces comida/cena');
 console.log('✓ añadir compra, fin de semana sin niños y comidas fuera requieren confirmación');
-console.log('✓ entiende «martes 22 / miércoles23» y valida que las fechas pertenezcan a la semana activa');
+console.log('✓ valida fechas de la semana activa y pregunta cuando el sentido es ambiguo');
 console.log('✓ las órdenes incompletas piden aclaración en lugar de adivinar');
-console.log('✓ versión, caché y copias están alineadas en v0.9.47');
+console.log('✓ versión, caché y copias están alineadas en v0.9.48');
