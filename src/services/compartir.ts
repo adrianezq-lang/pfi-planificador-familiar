@@ -1,4 +1,4 @@
-export type ResultadoCompartir = 'compartido' | 'copiado' | 'error';
+export type ResultadoCompartir = 'compartido' | 'copiado' | 'cancelado' | 'error';
 
 type DatosCompartir = {
   titulo: string;
@@ -42,7 +42,7 @@ export async function compartirTexto({
     }
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') {
-      return 'error';
+      return 'cancelado';
     }
   }
 
