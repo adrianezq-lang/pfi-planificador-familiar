@@ -63,8 +63,18 @@ function normalizar(texto: string): string {
     .trim();
 }
 
+const ETIQUETAS_DIA: Record<string, string> = {
+  lunes: 'Lunes',
+  martes: 'Martes',
+  miercoles: 'Miércoles',
+  jueves: 'Jueves',
+  viernes: 'Viernes',
+  sabado: 'Sábado',
+  domingo: 'Domingo',
+};
+
 function capitalizarDia(dia: string): string {
-  return dia.charAt(0).toUpperCase() + dia.slice(1);
+  return ETIQUETAS_DIA[dia] ?? (dia.charAt(0).toUpperCase() + dia.slice(1));
 }
 
 function diaMencionado(consulta: string): string | null {
