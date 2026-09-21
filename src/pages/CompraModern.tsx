@@ -461,7 +461,7 @@ export default function CompraModern({
               <div>
                 {totalEditablesMarcados > 0 && (
                   <button type="button" className="modern-button modern-button--ghost" onClick={desmarcarTodo}>
-                    ↩ Desmarcar
+                    ↩ Desmarcar todo
                   </button>
                 )}
                 <button
