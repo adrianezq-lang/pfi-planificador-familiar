@@ -42,6 +42,7 @@ function App() {
   const [sinConexion, setSinConexion] = useState(
     () => typeof navigator !== 'undefined' && !navigator.onLine,
   );
+  const [actualizacionDisponible, setActualizacionDisponible] = useState(false);
   const {
     menu,
     planMensual,
@@ -78,6 +79,13 @@ function App() {
     const actualizar = () => setExcepciones(cargarExcepciones());
     window.addEventListener(EVENTO_EXCEPCIONES, actualizar);
     return () => window.removeEventListener(EVENTO_EXCEPCIONES, actualizar);
+  }, []);
+
+  useEffect(() => {
+    const mostrarActualizacion = () => setActualizacionDisponible(true);
+    window.addEventListener('pfi-version-disponible', mostrarActualizacion);
+    return () =>
+      window.removeEventListener('pfi-version-disponible', mostrarActualizacion);
   }, []);
 
   useEffect(() => {
@@ -143,9 +151,21 @@ function App() {
             <h1>PFI</h1>
             <p>Planificador familiar</p>
           </div>
-          <span className="app-version">v0.9.42</span>
+          <span className="app-version">v0.9.43</span>
         </div>
       </header>
+
+      {actualizacionDisponible && (
+        <aside className="app-update-banner" role="status">
+          <span>
+            <strong>PFI se ha actualizado</strong>
+            <small>Hay una versión nueva lista para usar.</small>
+          </span>
+          <button type="button" onClick={() => window.location.reload()}>
+            Actualizar ahora
+          </button>
+        </aside>
+      )}
 
       {sinConexion && (
         <div
