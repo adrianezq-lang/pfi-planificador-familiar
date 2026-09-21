@@ -187,6 +187,7 @@ function Despensa() {
       titulo: 'PFI · Reposición de despensa',
       texto: `PFI · Reposición de despensa\n\n${lineas.join('\n')}\n\nTotal conocido: ${totalReposicion.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}`,
     });
+    if (respuesta === 'cancelado') return;
     setMensaje(
       respuesta === 'compartido'
         ? 'Reposición compartida.'
