@@ -37,6 +37,10 @@ type VentanaConIdle = Window & {
   cancelIdleCallback?: (id: number) => void;
 };
 
+type ResumenInicio = ResumenPresupuestoMensual & {
+  previsionMes: number;
+};
+
 type HomeProps = {
   menu: DiaMenu[];
   menusSemanas: DiaMenu[][];
@@ -45,11 +49,12 @@ type HomeProps = {
   navegar: (destino: DestinoInicio) => void;
 };
 
-const RESUMEN_VACIO: ResumenPresupuestoMensual = {
+const RESUMEN_VACIO: ResumenInicio = {
   presupuestoSemanal: 0,
   presupuestoMensual: 0,
   totalAcumulado: 0,
   mostrarPresupuestoMensual: true,
+  previsionMes: 0,
 };
 
 function Home({
@@ -60,7 +65,7 @@ function Home({
   navegar,
 }: HomeProps) {
   const [presupuesto, setPresupuesto] =
-    useState<ResumenPresupuestoMensual>(RESUMEN_VACIO);
+    useState<ResumenInicio>(RESUMEN_VACIO);
   const [despensa, setDespensa] = useState<ProductoDespensa[]>([]);
   const [version, setVersion] = useState(0);
   const [limiteMensual, setLimiteMensual] = useState(() => cargarPerfil().presupuesto);
@@ -80,10 +85,14 @@ function Home({
         (total, resultado) => total + resultado.total,
         0,
       );
+      const acumuladoHastaSemana = semanales
+        .slice(0, semanaActiva + 1)
+        .reduce((total, resultado) => total + resultado.total, mensual.total);
       setPresupuesto({
         presupuestoSemanal: semanalActual,
         presupuestoMensual: mensual.total,
-        totalAcumulado: mensual.total + totalSemanas,
+        totalAcumulado: acumuladoHastaSemana,
+        previsionMes: mensual.total + totalSemanas,
         mostrarPresupuestoMensual: semanaActiva === 0,
       });
     } catch {
@@ -154,8 +163,8 @@ function Home({
     : '';
 
   const detallePresupuesto = useMemo(() => {
-    if (limiteMensual <= 0 || presupuesto.totalAcumulado <= 0) return '';
-    const diferencia = limiteMensual - presupuesto.totalAcumulado;
+    if (limiteMensual <= 0 || presupuesto.previsionMes <= 0) return '';
+    const diferencia = limiteMensual - presupuesto.previsionMes;
     const importe = Math.abs(diferencia).toLocaleString('es-ES', {
       style: 'currency',
       currency: 'EUR',
@@ -163,7 +172,7 @@ function Home({
     return diferencia >= 0
       ? `Te quedarían ${importe} de tu objetivo mensual`
       : `${importe} por encima de tu objetivo mensual`;
-  }, [limiteMensual, presupuesto.totalAcumulado]);
+  }, [limiteMensual, presupuesto.previsionMes]);
 
   return (
     <main className="page home-page">
@@ -261,7 +270,7 @@ function Home({
         <BudgetCard
           etiqueta="Previsión del mes"
           icono="euro"
-          valor={presupuesto.totalAcumulado}
+          valor={presupuesto.previsionMes}
           navegar={navegar}
           detalle={detallePresupuesto}
           total
