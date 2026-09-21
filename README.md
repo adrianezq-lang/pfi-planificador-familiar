@@ -2,6 +2,8 @@
 
 Versión 0.9.47.
 
+La v0.9.47 mejora el Asistente PFI para entender referencias entre días y fechas reales del menú. Frases como **«cambia la comida del martes 22 por la del miércoles 23»** copian la comida del día origen al destino, muestran Antes / Origen / Después y validan que las fechas correspondan a la semana activa antes de pedir confirmación.
+
 La v0.9.42 convierte PFI en una experiencia más completa: previsión mensual real contra el presupuesto familiar, menú semanal compartible e imprimible, notas semanales persistentes, lista de compra compartible, estado de calidad de precios/asociaciones, reposición de despensa compartible, recetas duplicables/compartibles y una guía rápida de uso. También mejora la salida A4/PDF y simplifica la explicación de cantidades para evitar tecnicismos.
 
 La v0.9.29 recupera la compra manual para productos de otros comercios y mantiene
