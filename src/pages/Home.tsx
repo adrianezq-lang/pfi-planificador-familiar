@@ -27,7 +27,7 @@ import {
   generarCompraSemanalProyectada,
 } from '../services/planificacionCompra';
 
-type DestinoInicio = 'menu' | 'compra' | 'despensa';
+type DestinoInicio = 'menu' | 'asistente' | 'compra' | 'despensa';
 
 type VentanaConIdle = Window & {
   requestIdleCallback?: (
@@ -247,6 +247,22 @@ function Home({
           </HomeCard>
         </div>
       </section>
+
+      <button
+        type="button"
+        className="assistant-home-cta"
+        onClick={() => navegar('asistente')}
+      >
+        <span className="assistant-home-cta__icon" aria-hidden="true">
+          <AppIcon name="sparkles" size={22} />
+        </span>
+        <span className="assistant-home-cta__copy">
+          <small>ASISTENTE PFI</small>
+          <strong>Pregunta sobre tu planificación</strong>
+          <span>Qué toca hoy, qué falta, presupuesto, despensa o qué cocinar con lo que tienes.</span>
+        </span>
+        <span className="assistant-home-cta__arrow" aria-hidden="true">›</span>
+      </button>
 
       <section
         className={`budget-grid${

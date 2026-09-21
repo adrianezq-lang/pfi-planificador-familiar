@@ -16,11 +16,12 @@ type BotonNavegacion = {
 const principales: BotonNavegacion[] = [
   { id: 'inicio', icono: 'home', texto: 'Inicio' },
   { id: 'menu', icono: 'calendar', texto: 'Menú' },
+  { id: 'asistente', icono: 'sparkles', texto: 'Asistente' },
   { id: 'compra', icono: 'cart', texto: 'Compra' },
-  { id: 'despensa', icono: 'box', texto: 'Despensa' },
 ];
 
 const secundarios: BotonNavegacion[] = [
+  { id: 'despensa', icono: 'box', texto: 'Despensa' },
   { id: 'recetas', icono: 'book', texto: 'Recetas y postres' },
   { id: 'catalogo', icono: 'store', texto: 'Mercadona' },
   { id: 'perfil', icono: 'user', texto: 'Cuenta y datos' },
@@ -32,7 +33,8 @@ function NavegacionInferior({
 }: NavegacionInferiorProps) {
   const [masAbierto, setMasAbierto] = useState(false);
   const contenedor = useRef<HTMLElement | null>(null);
-  const secundarioActivo = pantallaActual === 'recetas' ||
+  const secundarioActivo = pantallaActual === 'despensa' ||
+    pantallaActual === 'recetas' ||
     pantallaActual === 'postres' ||
     pantallaActual === 'catalogo' ||
     pantallaActual === 'perfil';
@@ -64,7 +66,7 @@ function NavegacionInferior({
         <div className="bottom-more-menu" role="menu" aria-label="Más secciones">
           <div className="bottom-more-menu__heading">
             <strong>Más</strong>
-            <small>Recetas, tienda y tu cuenta</small>
+            <small>Despensa, recetas, tienda y tu cuenta</small>
           </div>
           {secundarios.map((boton) => {
             const activo = pantallaActual === boton.id ||

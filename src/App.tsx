@@ -11,6 +11,7 @@ import './styles/premium-v2.css';
 import './styles/premium-v3.css';
 import './styles/premium-v4.css';
 import './styles/premium-v5.css';
+import './styles/assistant-pro.css';
 import BottomNav from './components/NavegacionInferior';
 import AppIcon from './components/AppIcon';
 import NavegacionRecetario from './components/NavegacionRecetario';
@@ -33,8 +34,9 @@ const Postres = lazy(() => import('./pages/Postres'));
 const Despensa = lazy(() => import('./pages/Despensa'));
 const CatalogoMercadona = lazy(() => import('./pages/CatalogoMercadona'));
 const Perfil = lazy(() => import('./pages/Perfil'));
+const Asistente = lazy(() => import('./pages/Asistente'));
 
-export type Pantalla = 'inicio' | 'menu' | 'compra' | 'despensa' | 'recetas' | 'postres' | 'catalogo' | 'perfil';
+export type Pantalla = 'inicio' | 'menu' | 'asistente' | 'compra' | 'despensa' | 'recetas' | 'postres' | 'catalogo' | 'perfil';
 
 function App() {
   const [pantalla, setPantalla] = useState<Pantalla>('inicio');
@@ -151,7 +153,7 @@ function App() {
             <h1>PFI</h1>
             <p>Planificador familiar</p>
           </div>
-          <span className="app-version">v0.9.43</span>
+          <span className="app-version">v0.9.44</span>
         </div>
       </header>
 
@@ -221,6 +223,16 @@ function App() {
             menusSemanas={menusSemanasCompra}
             mesActivo={mesActivo}
             semanaActiva={semanaActiva}
+          />
+        )}
+        {pantalla === 'asistente' && (
+          <Asistente
+            menu={menuCompra}
+            menuMes={menuMes}
+            menusSemanas={menusSemanasCompra}
+            semanaActiva={semanaActiva}
+            mesActivo={mesActivo}
+            navegar={cambiarPantalla}
           />
         )}
         {pantalla === 'despensa' && <Despensa />}

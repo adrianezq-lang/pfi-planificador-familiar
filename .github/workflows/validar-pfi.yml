@@ -87,3 +87,5 @@ jobs:
         run: npm run test:v0942
       - name: Probar actualización PWA v0.9.43
         run: npm run test:v0943
+      - name: Probar Asistente PFI v0.9.44
+        run: npm run test:v0944
