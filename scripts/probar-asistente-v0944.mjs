@@ -46,9 +46,9 @@ assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
 assert.equal(packageJson.version, '0.9.45');
-assert.match(app, /v0\.9\.44/);
-assert.match(sw, /pfi-v0\.9\.44-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.44'/);
+assert.match(app, /v0\.9\.45/);
+assert.match(sw, /pfi-v0\.9\.45-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.45'/);
 
 const vite = await createServer({
   configFile: false,
