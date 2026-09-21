@@ -4,6 +4,7 @@ import AppIcon from '../components/AppIcon';
 import Card from '../components/ui/Card';
 import Title from '../components/ui/Title';
 import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
+import { compartirTexto } from '../services/compartir';
 import {
   actualizarStockProductoDespensa,
   calcularCosteReposicion,
@@ -173,6 +174,25 @@ function Despensa() {
     actualizarStockProductoDespensa(producto.productoId, stockActual);
     setMensaje(
       `Stock de ${producto.nombre}: ${formatearCantidad(stockActual)} ${producto.unidad}.`,
+    );
+  };
+
+  const compartirReposicion = async () => {
+    const lineas = productosReposicion.map((producto) => {
+      const cantidad = calcularReposicion(producto);
+      const precio = calcularCosteReposicion(producto);
+      return `- ${producto.nombre} · ${formatearCantidad(cantidad)} ${producto.unidad}${precio === null ? '' : ` · ${precio.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}`}`;
+    });
+    const respuesta = await compartirTexto({
+      titulo: 'PFI · Reposición de despensa',
+      texto: `PFI · Reposición de despensa\n\n${lineas.join('\n')}\n\nTotal conocido: ${totalReposicion.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}`,
+    });
+    setMensaje(
+      respuesta === 'compartido'
+        ? 'Reposición compartida.'
+        : respuesta === 'copiado'
+          ? 'Reposición copiada al portapapeles.'
+          : 'No se ha podido compartir la reposición.',
     );
   };
 
@@ -387,6 +407,17 @@ function Despensa() {
 
       {vista === 'reposicion' && (
         <>
+          {productosReposicion.length > 0 && (
+            <section className="pro-action-bar pro-action-bar--pantry" aria-label="Acciones de reposición">
+              <button type="button" onClick={() => void compartirReposicion()}>
+                <AppIcon name="share" size={18} />
+                <span>
+                  <strong>Compartir reposición</strong>
+                  <small>{productosReposicion.length} producto{productosReposicion.length === 1 ? '' : 's'} por reponer</small>
+                </span>
+              </button>
+            </section>
+          )}
           <section className="pantry-grid">
             {productosReposicion.map((producto) => (
               <Card key={producto.id} className="pantry-product-card">
