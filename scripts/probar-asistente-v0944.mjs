@@ -32,7 +32,8 @@ const [app, nav, page, service, css, pkg, sw, copias] = await Promise.all([
 
 assert.match(app, /const Asistente = lazy/);
 assert.match(app, /pantalla === 'asistente'/);
-assert.match(nav, /id: 'asistente'/);
+assert.match(nav, /const principales:[\s\S]*id: 'despensa'[\s\S]*const secundarios:/);
+assert.match(nav, /const secundarios:[\s\S]*id: 'asistente'/);
 assert.match(nav, /icono: 'sparkles'/);
 assert.match(page, /Pregúntame o pídeme cambios/);
 assert.match(page, /¿Qué puedo cocinar con lo que tengo\?/);
@@ -45,10 +46,10 @@ assert.match(css, /\.assistant-hero/);
 assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.45');
-assert.match(app, /v0\.9\.45/);
-assert.match(sw, /pfi-v0\.9\.45-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.45'/);
+assert.equal(packageJson.version, '0.9.46');
+assert.match(app, /v0\.9\.46/);
+assert.match(sw, /pfi-v0\.9\.46-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.46'/);
 
 const vite = await createServer({
   configFile: false,
@@ -147,7 +148,7 @@ assert.match(resumen.presupuesto, /105,00/);
 
 await vite.close();
 
-console.log('✓ el Asistente está integrado como destino principal de PFI');
+console.log('✓ Despensa está en la barra principal y el Asistente en Más');
 console.log('✓ entiende compra pendiente, presupuesto y revisión del menú');
 console.log('✓ conserva historial local y separa respuestas de acciones confirmables');
-console.log('✓ versión, caché y copias están alineadas en v0.9.45');
+console.log('✓ versión, caché y copias están alineadas en v0.9.46');
