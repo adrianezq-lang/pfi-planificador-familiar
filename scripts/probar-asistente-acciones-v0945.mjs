@@ -45,10 +45,10 @@ assert.match(css, /\.assistant-confirm/);
 assert.match(css, /\.assistant-action-result/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.45');
-assert.match(app, /v0\.9\.45/);
-assert.match(sw, /pfi-v0\.9\.45-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.45'/);
+assert.equal(packageJson.version, '0.9.46');
+assert.match(app, /v0\.9\.46/);
+assert.match(sw, /pfi-v0\.9\.46-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.46'/);
 
 const vite = await createServer({
   configFile: false,
@@ -132,4 +132,4 @@ await vite.close();
 console.log('✓ el asistente interpreta cambios de menú sin ejecutarlos directamente');
 console.log('✓ añadir compra, fin de semana sin niños y comidas fuera requieren confirmación');
 console.log('✓ las órdenes incompletas piden aclaración en lugar de adivinar');
-console.log('✓ versión, caché y copias están alineadas en v0.9.45');
+console.log('✓ versión, caché y copias están alineadas en v0.9.46');
