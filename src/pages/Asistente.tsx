@@ -28,6 +28,14 @@ import {
   type RespuestaAsistentePFI,
 } from '../services/asistentePFI';
 import type { ResultadoCompra } from '../motor/compra';
+import {
+  cargarClavesGuardadas,
+  crearClavesEstadoCompra,
+} from '../services/registroCompra';
+import {
+  cargarProductosManualesCompra,
+  crearPeriodoIdCompraManual,
+} from '../services/productosManualesCompra';
 
 type Props = {
   menu: DiaMenu[];
@@ -162,6 +170,56 @@ export default function Asistente({
     };
   }, [menuMes, menusSemanas, semanaActiva]);
 
+  const estadoCompra = useMemo(() => {
+    const compra = compraSemana;
+    if (!compra) {
+      return {
+        nombres: [] as string[],
+        total: 0,
+        cantidad: 0,
+      };
+    }
+
+    const claves = crearClavesEstadoCompra('semana', mesActivo, semanaActiva);
+    const completadas = new Set([
+      ...cargarClavesGuardadas(claves.marcados),
+      ...cargarClavesGuardadas(claves.registrados),
+    ]);
+    const automaticos = compra.lineas.filter(
+      (linea) => !completadas.has(linea.clave),
+    );
+    const periodoManual = crearPeriodoIdCompraManual(
+      'semana',
+      mesActivo,
+      semanaActiva,
+    );
+    const manuales = cargarProductosManualesCompra().filter(
+      (producto) =>
+        producto.periodoId === periodoManual &&
+        !producto.comprado &&
+        !producto.guardadoEnDespensa,
+    );
+
+    return {
+      nombres: [
+        ...automaticos.map(
+          (linea) => linea.producto?.nombre ?? linea.ingrediente.nombre,
+        ),
+        ...manuales.map((producto) => producto.nombre),
+      ],
+      total:
+        automaticos.reduce(
+          (suma, linea) => suma + (linea.subtotal ?? 0),
+          0,
+        ) +
+        manuales.reduce(
+          (suma, producto) => suma + (producto.precioTotal ?? 0),
+          0,
+        ),
+      cantidad: automaticos.length + manuales.length,
+    };
+  }, [compraSemana, mesActivo, semanaActiva]);
+
   const contexto = useMemo(
     () => ({
       menuSemana: menu,
@@ -170,6 +228,9 @@ export default function Asistente({
       semanaActiva,
       mesActivo,
       compraSemana,
+      compraPendienteNombres: estadoCompra.nombres,
+      compraPendienteTotal: estadoCompra.total,
+      compraPendienteCantidad: estadoCompra.cantidad,
       compraMes,
       comprasSemanas,
       despensa,
@@ -182,6 +243,7 @@ export default function Asistente({
       compraMes,
       compraSemana,
       comprasSemanas,
+      estadoCompra,
       despensa,
       menu,
       menuMes,
