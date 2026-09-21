@@ -163,6 +163,7 @@ export default function Asistente({
   const [propuestaPendiente, setPropuestaPendiente] =
     useState<PropuestaAccionAsistente | null>(null);
   const [resultadoAccion, setResultadoAccion] = useState('');
+  const [destinoResultado, setDestinoResultado] = useState<DestinoAsistente | null>(null);
   const [revisionAcciones, setRevisionAcciones] = useState(0);
   const finalRef = useRef<HTMLDivElement | null>(null);
 
@@ -334,6 +335,7 @@ export default function Asistente({
     if (!limpio) return;
 
     setResultadoAccion('');
+    setDestinoResultado(null);
     const deteccion = detectarAccionAsistente(limpio, menuEditable, recetas);
 
     if (deteccion?.propuesta) {
@@ -370,6 +372,7 @@ export default function Asistente({
     if (!propuesta) return;
 
     crearCopiaAutomaticaSiNecesaria('antes de una acción del Asistente PFI');
+    setDestinoResultado(destinoAccion(propuesta));
 
     try {
       switch (propuesta.accion.tipo) {
@@ -467,6 +470,7 @@ export default function Asistente({
       setRevisionAcciones((valor) => valor + 1);
       setPropuestaPendiente(null);
     } catch (error) {
+      setDestinoResultado(null);
       setResultadoAccion(
         error instanceof Error
           ? error.message
@@ -484,6 +488,7 @@ export default function Asistente({
     setHistorial([]);
     setPropuestaPendiente(null);
     setResultadoAccion('');
+    setDestinoResultado(null);
     localStorage.removeItem(CLAVE_HISTORIAL);
   };
 
@@ -666,6 +671,7 @@ export default function Asistente({
                 className="assistant-confirm__cancel"
                 onClick={() => {
                   setPropuestaPendiente(null);
+                  setDestinoResultado(null);
                   setResultadoAccion('Cambio cancelado. No he modificado nada.');
                 }}
               >
@@ -688,34 +694,10 @@ export default function Asistente({
             <span aria-hidden="true"><AppIcon name="check" size={17} /></span>
             <div>
               <strong>{resultadoAccion}</strong>
-              {!resultadoAccion.startsWith('Cambio cancelado') && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    propuestaPendiente
-                      ? undefined
-                      : navegar(
-                          historial.length
-                            ? destinoAccion({
-                                titulo: '',
-                                resumen: '',
-                                cambios: [],
-                                confirmar: '',
-                                accion: {
-                                  tipo: 'anadir-compra',
-                                  nombre: '',
-                                  cantidad: 1,
-                                  unidad: 'ud',
-                                  tienda: '',
-                                },
-                              })
-                            : 'menu'
-                        )
-                  }
-                  style={{ display: 'none' }}
-                  aria-hidden="true"
-                >
-                  Ver cambio
+              {destinoResultado && (
+                <button type="button" onClick={() => navegar(destinoResultado)}>
+                  Ver resultado
+                  <span aria-hidden="true">›</span>
                 </button>
               )}
             </div>
