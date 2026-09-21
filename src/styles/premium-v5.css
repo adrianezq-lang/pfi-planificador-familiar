@@ -439,3 +439,69 @@
     transform: none;
   }
 }
+
+
+/* Actualizaciones PWA: visibles pero no invasivas. */
+.app-update-banner {
+  position: sticky;
+  top: 8px;
+  z-index: 95;
+  box-sizing: border-box;
+  width: min(960px, calc(100% - 24px));
+  margin: 8px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 12px 10px 14px;
+  border: 1px solid rgba(68, 101, 75, .2);
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(232, 205, 145, .22), transparent 35%),
+    linear-gradient(135deg, rgba(244, 249, 241, .98), rgba(235, 242, 231, .98));
+  color: #2e4b35;
+  box-shadow: 0 12px 28px rgba(34, 58, 40, .14);
+  backdrop-filter: blur(16px);
+}
+
+.app-update-banner > span {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.app-update-banner strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.app-update-banner small {
+  color: #6e7b71;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.app-update-banner button {
+  flex: 0 0 auto;
+  min-height: 38px;
+  border: 0;
+  border-radius: 11px;
+  padding: 0 13px;
+  background: linear-gradient(145deg, #315d3e, #21482f);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .app-update-banner {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .app-update-banner button {
+    width: 100%;
+  }
+}

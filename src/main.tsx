@@ -9,6 +9,43 @@ import { crearCopiaAutomaticaSiNecesaria } from './services/copiasSeguridad.ts'
 import { aplicarMigracionVariedadV0922 } from './services/migracionV0922.ts'
 import { instalarMigracionV0923 } from './services/migracionV0923.ts'
 
+const EVENTO_VERSION_DISPONIBLE = 'pfi-version-disponible'
+
+function recursoPrincipalActual(): string | null {
+  const script = Array.from(document.scripts).find((elemento) =>
+    elemento.type === 'module' && elemento.src.includes('/assets/index-'),
+  )
+  return script ? new URL(script.src).pathname : null
+}
+
+async function comprobarVersionPublicada(): Promise<void> {
+  if (!navigator.onLine) return
+
+  try {
+    const actual = recursoPrincipalActual()
+    if (!actual) return
+
+    const respuesta = await fetch(`/?pfi-version=${Date.now()}`, {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache' },
+    })
+    if (!respuesta.ok) return
+
+    const html = await respuesta.text()
+    const coincidencia = html.match(
+      /<script[^>]+src=["']([^"']*\/assets\/index-[^"']+\.js)["']/i,
+    )
+    if (!coincidencia) return
+
+    const publicada = new URL(coincidencia[1], window.location.origin).pathname
+    if (publicada !== actual) {
+      window.dispatchEvent(new CustomEvent(EVENTO_VERSION_DISPONIBLE))
+    }
+  } catch {
+    // Una comprobación de actualización nunca debe impedir usar PFI.
+  }
+}
+
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     const teniaControlador = Boolean(navigator.serviceWorker.controller)
@@ -24,8 +61,16 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
       .register('/sw.js')
       .then((registro) => {
         void registro.update()
+        void comprobarVersionPublicada()
+
         document.addEventListener('visibilitychange', () => {
-          if (document.visibilityState === 'visible') void registro.update()
+          if (document.visibilityState !== 'visible') return
+          void registro.update()
+          void comprobarVersionPublicada()
+        })
+
+        window.addEventListener('focus', () => {
+          void comprobarVersionPublicada()
         })
       })
       .catch((error) => {

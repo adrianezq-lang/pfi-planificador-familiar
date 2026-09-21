@@ -85,3 +85,5 @@ jobs:
         run: npm run test:v0941
       - name: Probar funciones Pro Plus y salida PDF
         run: npm run test:v0942
+      - name: Probar actualización PWA v0.9.43
+        run: npm run test:v0943
