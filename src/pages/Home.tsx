@@ -21,6 +21,7 @@ import {
 } from '../services/menu';
 import type { ResumenPresupuestoMensual } from '../services/presupuestoMensual';
 import AppIcon, { type AppIconName } from '../components/AppIcon';
+import { cargarPerfil, EVENTO_PERFIL } from '../services/perfil';
 import {
   generarCompraMensual,
   generarCompraSemanalProyectada,
@@ -62,6 +63,7 @@ function Home({
     useState<ResumenPresupuestoMensual>(RESUMEN_VACIO);
   const [despensa, setDespensa] = useState<ProductoDespensa[]>([]);
   const [version, setVersion] = useState(0);
+  const [limiteMensual, setLimiteMensual] = useState(() => cargarPerfil().presupuesto);
 
   const cargarResumen = useCallback(async () => {
     setDespensa(cargarDespensa());
@@ -69,19 +71,19 @@ function Home({
     try {
       const [mensual, ...semanales] = await Promise.all([
         generarCompraMensual(menuMes),
-        ...menusSemanas.slice(0, semanaActiva + 1).map((_, indice) =>
+        ...menusSemanas.map((_, indice) =>
           generarCompraSemanalProyectada(menusSemanas, indice),
         ),
       ]);
       const semanalActual = semanales[semanaActiva]?.total ?? 0;
-      const acumuladoSemanal = semanales.reduce(
+      const totalSemanas = semanales.reduce(
         (total, resultado) => total + resultado.total,
         0,
       );
       setPresupuesto({
         presupuestoSemanal: semanalActual,
         presupuestoMensual: mensual.total,
-        totalAcumulado: mensual.total + acumuladoSemanal,
+        totalAcumulado: mensual.total + totalSemanas,
         mostrarPresupuestoMensual: semanaActiva === 0,
       });
     } catch {
@@ -114,11 +116,14 @@ function Home({
 
   useEffect(() => {
     const actualizar = () => setVersion((valor) => valor + 1);
+    const actualizarPerfil = () => setLimiteMensual(cargarPerfil().presupuesto);
     window.addEventListener(EVENTO_DESPENSA, actualizar);
     window.addEventListener(EVENTO_INVENTARIO, actualizar);
+    window.addEventListener(EVENTO_PERFIL, actualizarPerfil);
     return () => {
       window.removeEventListener(EVENTO_DESPENSA, actualizar);
       window.removeEventListener(EVENTO_INVENTARIO, actualizar);
+      window.removeEventListener(EVENTO_PERFIL, actualizarPerfil);
     };
   }, []);
 
@@ -147,6 +152,18 @@ function Home({
   const postreCena = menuHoy
     ? `${iconoRecetaPostre(obtenerRecetaPostre(menuHoy, 'cena'))} ${formatearPostreMenu(menuHoy, 'cena')}`
     : '';
+
+  const detallePresupuesto = useMemo(() => {
+    if (limiteMensual <= 0 || presupuesto.totalAcumulado <= 0) return '';
+    const diferencia = limiteMensual - presupuesto.totalAcumulado;
+    const importe = Math.abs(diferencia).toLocaleString('es-ES', {
+      style: 'currency',
+      currency: 'EUR',
+    });
+    return diferencia >= 0
+      ? `Te quedarían ${importe} de tu objetivo mensual`
+      : `${importe} por encima de tu objetivo mensual`;
+  }, [limiteMensual, presupuesto.totalAcumulado]);
 
   return (
     <main className="page home-page">
@@ -242,10 +259,11 @@ function Home({
           />
         )}
         <BudgetCard
-          etiqueta="Total previsto"
+          etiqueta="Previsión del mes"
           icono="euro"
           valor={presupuesto.totalAcumulado}
           navegar={navegar}
+          detalle={detallePresupuesto}
           total
         />
       </section>
@@ -319,12 +337,14 @@ function BudgetCard({
   valor,
   navegar,
   total = false,
+  detalle = '',
 }: {
   etiqueta: string;
   icono: AppIconName;
   valor: number;
   navegar: (destino: DestinoInicio) => void;
   total?: boolean;
+  detalle?: string;
 }) {
   return (
     <HomeCard
@@ -340,6 +360,7 @@ function BudgetCard({
           currency: 'EUR',
         })}
       </p>
+      {detalle && <small className="budget-detail">{detalle}</small>}
     </HomeCard>
   );
 }
