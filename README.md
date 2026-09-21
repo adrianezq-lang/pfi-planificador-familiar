@@ -1,6 +1,8 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.47.
+Versión 0.9.48.
+
+La v0.9.48 hace más natural y segura la reorganización del menú desde el Asistente: distingue copiar, mover e intercambiar, entiende si el origen o el destino se nombran primero, admite cruces entre comida y cena, pregunta cuando la orden es ambigua y vuelve a validar el estado del menú al confirmar para no sobrescribir cambios recientes.
 
 La v0.9.47 mejora el Asistente PFI para entender referencias entre días y fechas reales del menú. Frases como **«cambia la comida del martes 22 por la del miércoles 23»** copian la comida del día origen al destino, muestran Antes / Origen / Después y validan que las fechas correspondan a la semana activa antes de pedir confirmación.
 

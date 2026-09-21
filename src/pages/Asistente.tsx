@@ -128,10 +128,42 @@ function normalizar(texto: string): string {
     .trim();
 }
 
+function platosDeMomento(
+  menu: DiaMenu[],
+  diaBuscado: string,
+  momento: 'comida' | 'cena',
+): string[] | null {
+  const dia = menu.find(
+    (item) => normalizar(item.dia) === normalizar(diaBuscado),
+  );
+  if (!dia) return null;
+  return momento === 'comida' ? dia.comida : dia.cena;
+}
+
+function mismosPlatos(a: string[] | null, b: string[]): boolean {
+  return (
+    a !== null &&
+    a.length === b.length &&
+    a.every((plato, indice) => plato === b[indice])
+  );
+}
+
+function conMomento(
+  dia: DiaMenu,
+  momento: 'comida' | 'cena',
+  platos: string[],
+): DiaMenu {
+  return momento === 'comida'
+    ? { ...dia, comida: [...platos] }
+    : { ...dia, cena: [...platos] };
+}
+
 function destinoAccion(propuesta: PropuestaAccionAsistente): DestinoAsistente {
   switch (propuesta.accion.tipo) {
     case 'cambiar-menu':
     case 'copiar-menu':
+    case 'mover-menu':
+    case 'intercambiar-menu':
     case 'fin-semana-sin-ninos':
     case 'excepcion-dia':
       return 'menu';
@@ -384,30 +416,140 @@ export default function Asistente({
       switch (propuesta.accion.tipo) {
         case 'cambiar-menu': {
           const accion = propuesta.accion;
+          const actual = platosDeMomento(menuEditable, accion.dia, accion.momento);
+          if (!mismosPlatos(actual, accion.platosAnteriores)) {
+            throw new Error(
+              'El menú ha cambiado desde que preparé la propuesta. Vuelve a pedirme el cambio para enseñarte una vista previa actualizada.',
+            );
+          }
+
           const menuActualizado = menuEditable.map((dia) => {
             if (normalizar(dia.dia) !== normalizar(accion.dia)) return dia;
-            return accion.momento === 'comida'
-              ? { ...dia, comida: [accion.platoNuevo] }
-              : { ...dia, cena: [accion.platoNuevo] };
+            return conMomento(dia, accion.momento, [accion.platoNuevo]);
           });
           guardarMenu(menuActualizado);
           setResultadoAccion(
-            `He cambiado la ${accion.momento} del ${accion.dia.toLocaleLowerCase('es')} por ${accion.platoNuevo}.`,
+            `He cambiado la ${accion.momento} del ${accion.dia.toLocaleLowerCase('es')} por ${accion.platoNuevo}. La compra se recalculará con el nuevo menú.`,
           );
           break;
         }
 
         case 'copiar-menu': {
           const accion = propuesta.accion;
+          const destinoActual = platosDeMomento(
+            menuEditable,
+            accion.diaDestino,
+            accion.momentoDestino,
+          );
+          const origenActual = platosDeMomento(
+            menuEditable,
+            accion.diaOrigen,
+            accion.momentoOrigen,
+          );
+          if (
+            !mismosPlatos(destinoActual, accion.platosAnteriores) ||
+            !mismosPlatos(origenActual, accion.platosNuevos)
+          ) {
+            throw new Error(
+              'El origen o el destino han cambiado desde la vista previa. Vuelve a pedirme el cambio para no sobrescribir un menú más reciente.',
+            );
+          }
+
           const menuActualizado = menuEditable.map((dia) => {
             if (normalizar(dia.dia) !== normalizar(accion.diaDestino)) return dia;
-            return accion.momentoDestino === 'comida'
-              ? { ...dia, comida: [...accion.platosNuevos] }
-              : { ...dia, cena: [...accion.platosNuevos] };
+            return conMomento(dia, accion.momentoDestino, accion.platosNuevos);
           });
           guardarMenu(menuActualizado);
           setResultadoAccion(
-            `He puesto en la ${accion.momentoDestino} de ${accion.etiquetaDestino} lo que había en ${accion.etiquetaOrigen}: ${accion.platosNuevos.join(' + ')}.`,
+            `He copiado la ${accion.momentoOrigen} de ${accion.etiquetaOrigen} en la ${accion.momentoDestino} de ${accion.etiquetaDestino}: ${accion.platosNuevos.join(' + ')}. El origen se mantiene igual y la compra se recalculará.`,
+          );
+          break;
+        }
+
+        case 'mover-menu': {
+          const accion = propuesta.accion;
+          const destinoActual = platosDeMomento(
+            menuEditable,
+            accion.diaDestino,
+            accion.momentoDestino,
+          );
+          const origenActual = platosDeMomento(
+            menuEditable,
+            accion.diaOrigen,
+            accion.momentoOrigen,
+          );
+          if (
+            !mismosPlatos(destinoActual, accion.platosDestinoAntes) ||
+            !mismosPlatos(origenActual, accion.platosOrigenAntes)
+          ) {
+            throw new Error(
+              'El origen o el destino han cambiado desde la vista previa. Vuelve a pedirme el movimiento para no perder ningún plato.',
+            );
+          }
+
+          const menuActualizado = menuEditable.map((dia) => {
+            let actualizado = dia;
+            if (normalizar(dia.dia) === normalizar(accion.diaDestino)) {
+              actualizado = conMomento(
+                actualizado,
+                accion.momentoDestino,
+                accion.platosOrigenAntes,
+              );
+            }
+            if (normalizar(dia.dia) === normalizar(accion.diaOrigen)) {
+              actualizado = conMomento(actualizado, accion.momentoOrigen, []);
+            }
+            return actualizado;
+          });
+          guardarMenu(menuActualizado);
+          setResultadoAccion(
+            `He movido ${accion.platosOrigenAntes.join(' + ')} de ${accion.etiquetaOrigen} a ${accion.etiquetaDestino}. El hueco de origen queda vacío y la compra se recalculará.`,
+          );
+          break;
+        }
+
+        case 'intercambiar-menu': {
+          const accion = propuesta.accion;
+          const destinoActual = platosDeMomento(
+            menuEditable,
+            accion.diaDestino,
+            accion.momentoDestino,
+          );
+          const origenActual = platosDeMomento(
+            menuEditable,
+            accion.diaOrigen,
+            accion.momentoOrigen,
+          );
+          if (
+            !mismosPlatos(destinoActual, accion.platosDestinoAntes) ||
+            !mismosPlatos(origenActual, accion.platosOrigenAntes)
+          ) {
+            throw new Error(
+              'Uno de los dos huecos ha cambiado desde la vista previa. Vuelve a pedirme el intercambio para usar el menú actual.',
+            );
+          }
+
+          const menuActualizado = menuEditable.map((dia) => {
+            let actualizado = dia;
+            if (normalizar(dia.dia) === normalizar(accion.diaDestino)) {
+              actualizado = conMomento(
+                actualizado,
+                accion.momentoDestino,
+                accion.platosOrigenAntes,
+              );
+            }
+            if (normalizar(dia.dia) === normalizar(accion.diaOrigen)) {
+              actualizado = conMomento(
+                actualizado,
+                accion.momentoOrigen,
+                accion.platosDestinoAntes,
+              );
+            }
+            return actualizado;
+          });
+          guardarMenu(menuActualizado);
+          setResultadoAccion(
+            `He intercambiado ${accion.etiquetaDestino} y ${accion.etiquetaOrigen}. Ningún plato se pierde y la compra se recalculará con el nuevo orden.`,
           );
           break;
         }
@@ -523,7 +665,7 @@ export default function Asistente({
           <span>ASISTENTE PFI</span>
           <h2>¿Qué necesitas?</h2>
           <p>
-            Cruzo tu menú, compra, despensa y presupuesto. También puedo preparar cambios y aplicarlos cuando tú los confirmes.
+            Cruzo tu menú, compra, despensa y presupuesto. También entiendo cambios entre días: puedo copiar, mover o intercambiar comidas y cenas, siempre con vista previa y confirmación.
           </p>
         </div>
         <div className="assistant-live-badge">

@@ -26,6 +26,28 @@ export type AccionAsistente =
       etiquetaOrigen: string;
     }
   | {
+      tipo: 'mover-menu';
+      diaDestino: string;
+      diaOrigen: string;
+      momentoDestino: MomentoAccionMenu;
+      momentoOrigen: MomentoAccionMenu;
+      platosDestinoAntes: string[];
+      platosOrigenAntes: string[];
+      etiquetaDestino: string;
+      etiquetaOrigen: string;
+    }
+  | {
+      tipo: 'intercambiar-menu';
+      diaDestino: string;
+      diaOrigen: string;
+      momentoDestino: MomentoAccionMenu;
+      momentoOrigen: MomentoAccionMenu;
+      platosDestinoAntes: string[];
+      platosOrigenAntes: string[];
+      etiquetaDestino: string;
+      etiquetaOrigen: string;
+    }
+  | {
       tipo: 'anadir-compra';
       nombre: string;
       cantidad: number;
@@ -157,13 +179,99 @@ function validarReferenciaFecha(
 function detectarMomentoCerca(
   consulta: string,
   indiceDia: number,
-  fallback: MomentoAccionMenu,
-): MomentoAccionMenu {
-  const inicio = Math.max(0, indiceDia - 28);
-  const fragmento = consulta.slice(inicio, indiceDia + 8);
-  if (/\bcena\b/.test(fragmento)) return 'cena';
-  if (/\b(comida|almuerzo)\b/.test(fragmento)) return 'comida';
-  return fallback;
+  fallback: MomentoAccionMenu | null,
+): MomentoAccionMenu | null {
+  const inicio = Math.max(0, indiceDia - 40);
+  const fin = Math.min(consulta.length, indiceDia + 28);
+  const fragmento = consulta.slice(inicio, fin);
+  const patron = /\b(comida|comidas|comer|almuerzo|almuerzos|cena|cenas|cenar)\b/g;
+  let coincidencia: RegExpExecArray | null;
+  let mejor: { momento: MomentoAccionMenu; distancia: number } | null = null;
+
+  while ((coincidencia = patron.exec(fragmento)) !== null) {
+    const posicion = inicio + coincidencia.index;
+    const distancia = Math.abs(posicion - indiceDia);
+    const momento: MomentoAccionMenu =
+      /^(cena|cenas|cenar)$/.test(coincidencia[1]) ? 'cena' : 'comida';
+    if (!mejor || distancia < mejor.distancia) {
+      mejor = { momento, distancia };
+    }
+  }
+
+  return mejor?.momento ?? fallback;
+}
+
+type OperacionEntreDias = 'copiar' | 'mover' | 'intercambiar';
+
+function detectarOperacionEntreDias(consulta: string): OperacionEntreDias | null {
+  if (
+    /\b(intercambia|intercambiame|permuta|permutame)\b/.test(consulta) ||
+    /\bcambia(?:me)?\b.*\bentre si\b/.test(consulta)
+  ) {
+    return 'intercambiar';
+  }
+  if (/\b(mueve|mueveme|pasa|pasame|traslada|trasladame)\b/.test(consulta)) {
+    return 'mover';
+  }
+  if (
+    /\b(copia|copiame|pon|ponme|usa|haz|cambia|cambiame|sustituye|reemplaza)\b/.test(consulta) ||
+    /\b(lo mismo que|igual que)\b/.test(consulta)
+  ) {
+    return 'copiar';
+  }
+  return null;
+}
+
+function orientarReferencias(
+  consulta: string,
+  referencias: ReferenciaDia[],
+  operacion: OperacionEntreDias,
+): { destino: ReferenciaDia; origen: ReferenciaDia } | { aclaracion: string } {
+  const primero = referencias[0];
+  const segundo = referencias[1];
+
+  if (operacion === 'intercambiar') {
+    return { destino: primero, origen: segundo };
+  }
+
+  const antesPrimero = consulta.slice(0, primero.indiceTexto);
+  const entre = consulta.slice(primero.indiceTexto, segundo.indiceTexto);
+  const contextoPrimero = consulta.slice(
+    Math.max(0, primero.indiceTexto - 34),
+    primero.indiceTexto,
+  );
+
+  const primeroEsDestinoExplicito =
+    /\b(?:al|a|en|para)\s+(?:el|la)?\s*$/.test(antesPrimero) ||
+    /\b(lo mismo que|igual que|por|con)\b/.test(entre) ||
+    /\b(tenga|quiero|queremos)\b/.test(entre);
+
+  if (primeroEsDestinoExplicito) {
+    return { destino: primero, origen: segundo };
+  }
+
+  if (operacion === 'mover') {
+    return { destino: segundo, origen: primero };
+  }
+
+  const primeroEsOrigenExplicito =
+    /\b(?:al|a|en|para)\b/.test(entre) ||
+    (
+      /\b(comida|comidas|cena|cenas|almuerzo)\s+del?\s*$/.test(contextoPrimero) &&
+      /\b(copia|copiame|pon|ponme|usa)\b/.test(antesPrimero)
+    );
+
+  if (primeroEsOrigenExplicito) {
+    return { destino: segundo, origen: primero };
+  }
+
+  return {
+    aclaracion: `No quiero adivinar el sentido del cambio. ¿Quieres copiar ${etiquetaDia(primero).toLocaleLowerCase('es')} en ${etiquetaDia(segundo).toLocaleLowerCase('es')} o al revés?`,
+  };
+}
+
+function mismosPlatos(a: string[], b: string[]): boolean {
+  return a.length === b.length && a.every((plato, indice) => plato === b[indice]);
 }
 
 function extraerCopiaEntreDias(
@@ -171,20 +279,21 @@ function extraerCopiaEntreDias(
   menu: DiaMenu[],
   semana?: SemanaMenu,
 ): ResultadoDeteccionAccion | null {
-  const pareceReferencia =
-    /\b(cambia|cambiame|sustituye|reemplaza|copia|copiame|pon|usa)\b/.test(consulta) &&
-    (
-      /\bpor\s+(?:la|el)?\s*(?:comida|cena)?\s*del\b/.test(consulta) ||
-      /\bcopia(?:me)?\b/.test(consulta) ||
-      /\busa\b/.test(consulta)
-    );
-  if (!pareceReferencia) return null;
+  const operacion = detectarOperacionEntreDias(consulta);
+  if (!operacion) return null;
 
   const referencias = referenciasDia(consulta);
   if (referencias.length < 2) return null;
+  if (referencias.length > 2) {
+    return {
+      aclaracion: 'Veo más de dos días en la orden. Indícame solo el origen y el destino para evitar cambiar el día equivocado.',
+    };
+  }
 
-  const destino = referencias[0];
-  const origen = referencias[1];
+  const orientacion = orientarReferencias(consulta, referencias, operacion);
+  if ('aclaracion' in orientacion) return { aclaracion: orientacion.aclaracion };
+
+  const { destino, origen } = orientacion;
   const errorDestino = validarReferenciaFecha(destino, semana);
   if (errorDestino) return { aclaracion: errorDestino };
   const errorOrigen = validarReferenciaFecha(origen, semana);
@@ -196,7 +305,7 @@ function extraerCopiaEntreDias(
     };
   }
 
-  const momentoGeneral = detectarMomento(consulta) ?? 'comida';
+  const momentoGeneral = detectarMomento(consulta);
   const momentoDestino = detectarMomentoCerca(
     consulta,
     destino.indiceTexto,
@@ -205,36 +314,118 @@ function extraerCopiaEntreDias(
   const momentoOrigen = detectarMomentoCerca(
     consulta,
     origen.indiceTexto,
-    momentoDestino,
+    momentoGeneral,
   );
+
+  if (!momentoDestino || !momentoOrigen) {
+    return {
+      aclaracion: `¿Quieres ${operacion === 'copiar' ? 'copiar' : operacion === 'mover' ? 'mover' : 'intercambiar'} la comida o la cena entre esos días? No haré el cambio hasta saberlo.`,
+    };
+  }
+
+  if (
+    normalizar(destino.dia) === normalizar(origen.dia) &&
+    momentoDestino === momentoOrigen
+  ) {
+    return {
+      aclaracion: 'El origen y el destino son el mismo hueco del menú, así que no hay nada que cambiar.',
+    };
+  }
 
   const diaDestino = buscarDia(menu, destino.dia);
   const diaOrigen = buscarDia(menu, origen.dia);
   if (!diaDestino || !diaOrigen) return null;
 
-  const anteriores =
+  const destinoAntes =
     momentoDestino === 'comida' ? diaDestino.comida : diaDestino.cena;
-  const nuevos =
+  const origenAntes =
     momentoOrigen === 'comida' ? diaOrigen.comida : diaOrigen.cena;
 
-  if (nuevos.length === 0) {
+  if ((operacion === 'copiar' || operacion === 'mover') && origenAntes.length === 0) {
     return {
-      aclaracion: `La ${momentoOrigen} del ${etiquetaDia(origen, semana).toLocaleLowerCase('es')} está vacía. No hay nada que copiar.`,
+      aclaracion: `La ${momentoOrigen} del ${etiquetaDia(origen, semana).toLocaleLowerCase('es')} está vacía. No hay nada que ${operacion === 'copiar' ? 'copiar' : 'mover'}.`,
+    };
+  }
+
+  if (
+    (operacion === 'copiar' || operacion === 'intercambiar') &&
+    mismosPlatos(destinoAntes, origenAntes)
+  ) {
+    return {
+      aclaracion: 'Esos dos huecos ya tienen exactamente los mismos platos. No hace falta aplicar ningún cambio.',
     };
   }
 
   const etiquetaDestinoTexto = etiquetaDia(destino, semana);
   const etiquetaOrigenTexto = etiquetaDia(origen, semana);
+  const nombreMomentoDestino = momentoDestino === 'comida' ? 'Comida' : 'Cena';
+  const nombreMomentoOrigen = momentoOrigen === 'comida' ? 'Comida' : 'Cena';
+
+  if (operacion === 'mover') {
+    return {
+      propuesta: {
+        titulo: `Mover ${momentoOrigen} de ${etiquetaOrigenTexto.toLocaleLowerCase('es')}`,
+        resumen: `Voy a mover ${origenAntes.join(' + ')} de ${etiquetaOrigenTexto} a ${etiquetaDestinoTexto}. El origen quedará vacío.`,
+        cambios: [
+          `Destino: ${etiquetaDestinoTexto} · ${nombreMomentoDestino}`,
+          `Antes en destino: ${destinoAntes.join(' + ') || 'Sin plan'}`,
+          `Origen: ${etiquetaOrigenTexto} · ${nombreMomentoOrigen} · ${origenAntes.join(' + ')}`,
+          `Después en destino: ${origenAntes.join(' + ')}`,
+          'Después en origen: Sin plan',
+          'La lista de la compra se recalculará con el nuevo menú.',
+        ],
+        accion: {
+          tipo: 'mover-menu',
+          diaDestino: destino.dia,
+          diaOrigen: origen.dia,
+          momentoDestino,
+          momentoOrigen,
+          platosDestinoAntes: [...destinoAntes],
+          platosOrigenAntes: [...origenAntes],
+          etiquetaDestino: etiquetaDestinoTexto,
+          etiquetaOrigen: etiquetaOrigenTexto,
+        },
+        confirmar: 'Confirmar movimiento',
+      },
+    };
+  }
+
+  if (operacion === 'intercambiar') {
+    return {
+      propuesta: {
+        titulo: `Intercambiar ${etiquetaDestinoTexto} y ${etiquetaOrigenTexto}`,
+        resumen: `Voy a intercambiar la ${momentoDestino} de ${etiquetaDestinoTexto} con la ${momentoOrigen} de ${etiquetaOrigenTexto}.`,
+        cambios: [
+          `${etiquetaDestinoTexto} · ${nombreMomentoDestino}: ${destinoAntes.join(' + ') || 'Sin plan'} → ${origenAntes.join(' + ') || 'Sin plan'}`,
+          `${etiquetaOrigenTexto} · ${nombreMomentoOrigen}: ${origenAntes.join(' + ') || 'Sin plan'} → ${destinoAntes.join(' + ') || 'Sin plan'}`,
+          'Ningún plato se pierde: solo cambian de sitio.',
+          'La lista de la compra se recalculará con el nuevo menú.',
+        ],
+        accion: {
+          tipo: 'intercambiar-menu',
+          diaDestino: destino.dia,
+          diaOrigen: origen.dia,
+          momentoDestino,
+          momentoOrigen,
+          platosDestinoAntes: [...destinoAntes],
+          platosOrigenAntes: [...origenAntes],
+          etiquetaDestino: etiquetaDestinoTexto,
+          etiquetaOrigen: etiquetaOrigenTexto,
+        },
+        confirmar: 'Confirmar intercambio',
+      },
+    };
+  }
 
   return {
     propuesta: {
-      titulo: `Cambiar ${momentoDestino} del ${etiquetaDestinoTexto.toLocaleLowerCase('es')}`,
-      resumen: `Voy a poner en ${etiquetaDestinoTexto} la ${momentoOrigen} de ${etiquetaOrigenTexto}: ${nuevos.join(' + ')}.`,
+      titulo: `Copiar ${momentoOrigen} de ${etiquetaOrigenTexto.toLocaleLowerCase('es')}`,
+      resumen: `Voy a poner en ${etiquetaDestinoTexto} la ${momentoOrigen} de ${etiquetaOrigenTexto}: ${origenAntes.join(' + ')}.`,
       cambios: [
-        `Destino: ${etiquetaDestinoTexto} · ${momentoDestino === 'comida' ? 'Comida' : 'Cena'}`,
-        `Antes: ${anteriores.join(' + ') || 'Sin plan'}`,
-        `Origen: ${etiquetaOrigenTexto} · ${momentoOrigen === 'comida' ? 'Comida' : 'Cena'}`,
-        `Después: ${nuevos.join(' + ')}`,
+        `Destino: ${etiquetaDestinoTexto} · ${nombreMomentoDestino}`,
+        `Antes: ${destinoAntes.join(' + ') || 'Sin plan'}`,
+        `Origen: ${etiquetaOrigenTexto} · ${nombreMomentoOrigen}`,
+        `Después: ${origenAntes.join(' + ')}`,
         'El día de origen se mantiene igual.',
         'La lista de la compra se recalculará con el cambio.',
       ],
@@ -244,8 +435,8 @@ function extraerCopiaEntreDias(
         diaOrigen: origen.dia,
         momentoDestino,
         momentoOrigen,
-        platosAnteriores: [...anteriores],
-        platosNuevos: [...nuevos],
+        platosAnteriores: [...destinoAntes],
+        platosNuevos: [...origenAntes],
         etiquetaDestino: etiquetaDestinoTexto,
         etiquetaOrigen: etiquetaOrigenTexto,
       },
@@ -265,8 +456,8 @@ function buscarDia(menu: DiaMenu[], dia: string): DiaMenu | undefined {
 }
 
 function detectarMomento(consulta: string): MomentoAccionMenu | null {
-  if (/\b(cena|cenar|cenamos|por la noche)\b/.test(consulta)) return 'cena';
-  if (/\b(comida|comer|comemos|mediodia|almuerzo)\b/.test(consulta)) return 'comida';
+  if (/\b(cena|cenas|cenar|cenamos|por la noche)\b/.test(consulta)) return 'cena';
+  if (/\b(comida|comidas|comer|comemos|mediodia|almuerzo|almuerzos)\b/.test(consulta)) return 'comida';
   return null;
 }
 

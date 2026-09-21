@@ -1,3 +1,13 @@
+# v0.9.48 — Asistente más natural y seguro
+
+- Distingue entre copiar, mover e intercambiar comidas o cenas entre dos días.
+- Entiende frases con el origen primero o el destino primero, incluyendo «pon la comida del miércoles el martes», «el martes quiero comer lo mismo que el miércoles» y «pasa la comida del miércoles al martes».
+- Permite cruces explícitos entre momentos, por ejemplo copiar la cena de un día como comida de otro.
+- Valida día y fecha contra la semana activa y pregunta cuando falta el momento o el sentido de la operación es ambiguo.
+- Evita operaciones sin efecto y no copia ni mueve desde un hueco vacío.
+- Antes de ejecutar, comprueba que origen y destino sigan como estaban en la vista previa; si el menú cambió, cancela de forma segura y pide rehacer la propuesta.
+- Mantiene vista previa y confirmación obligatoria, y recalcula la compra a partir del menú confirmado.
+
 # v0.9.28 — Compra sencilla y sin comparador
 
 - Se retira el comparador de supermercados y todos sus accesos desde Compra.
