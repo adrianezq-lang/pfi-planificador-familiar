@@ -122,7 +122,6 @@ function ValoracionPlegable({
   void revision;
   const [abierto, setAbierto] = useState(false);
   const actual = obtenerValoracionComida(dia, momento, platos)?.resultado ?? null;
-  const resultadoActual = RESULTADOS.find((resultado) => resultado.valor === actual);
 
   return (
     <details
@@ -131,12 +130,12 @@ function ValoracionPlegable({
       onToggle={(evento) => setAbierto(evento.currentTarget.open)}
     >
       <summary>
-        <span>
-          {resultadoActual
-            ? `${resultadoActual.icono} ${resultadoActual.texto}`
-            : '✨ Valorar este menú'}
-        </span>
-        <small>{resultadoActual ? 'Cambiar valoración' : 'Opcional · ayuda a PFI a aprender'}</small>
+        <span>Valorar</span>
+        <small>
+          {actual
+            ? 'Valoración guardada · toca para cambiar'
+            : 'Opcional · PFI aprende de tus comidas'}
+        </small>
       </summary>
       <div className="meal-feedback__options" aria-label={`Valorar ${momento}`}>
         {RESULTADOS.map((resultado) => (
