@@ -228,10 +228,13 @@ function App() {
         {pantalla === 'asistente' && (
           <Asistente
             menu={menuCompra}
+            menuEditable={menu}
             menuMes={menuMes}
             menusSemanas={menusSemanasCompra}
+            planMensual={planMensual}
             semanaActiva={semanaActiva}
             mesActivo={mesActivo}
+            guardarMenu={guardarMenu}
             navegar={cambiarPantalla}
           />
         )}
