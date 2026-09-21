@@ -782,6 +782,41 @@ export default function MenuModern({
       ) : null}
 
       {semana && (
+        <section className="print-week-menu" aria-hidden="true">
+          <header>
+            <strong>PFI · Menú semanal</strong>
+            <span>{mesBonito} · Semana {indiceSemanaSeguro + 1}</span>
+          </header>
+          <div>
+            {fechas.map((fecha) => {
+              const menuDia = menu[indiceDiaSemana(fecha)];
+              const excepcionFecha = excepciones[fecha];
+              const fuera = semana.excluida || excepcionFecha?.noEnCasa;
+              return (
+                <article key={`print-${fecha}`}>
+                  <h3>{menuDia?.dia ?? 'Día'} <small>{fecha.slice(8, 10)}/{fecha.slice(5, 7)}</small></h3>
+                  {fuera ? (
+                    <p>Fuera de casa</p>
+                  ) : (
+                    <>
+                      <p><strong>Comida:</strong> {excepcionFecha?.sinComida ? 'Sin comida en casa' : menuDia?.comida.join(' + ') || 'Sin plan'}</p>
+                      <p><strong>Cena:</strong> {excepcionFecha?.sinCena ? 'Sin cena en casa' : menuDia?.cena.join(' + ') || 'Sin plan'}</p>
+                    </>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+          {notaSemana.trim() && (
+            <footer>
+              <strong>Notas</strong>
+              <p>{notaSemana}</p>
+            </footer>
+          )}
+        </section>
+      )}
+
+      {semana && (
         <details className="week-notes">
           <summary>
             <span>
