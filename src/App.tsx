@@ -11,6 +11,7 @@ import './styles/premium-v2.css';
 import './styles/premium-v3.css';
 import './styles/premium-v4.css';
 import './styles/premium-v5.css';
+import './styles/assistant-pro.css';
 import BottomNav from './components/NavegacionInferior';
 import AppIcon from './components/AppIcon';
 import NavegacionRecetario from './components/NavegacionRecetario';
