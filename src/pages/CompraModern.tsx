@@ -286,6 +286,7 @@ export default function CompraModern({
       titulo: periodo === 'mes' ? 'PFI · Compra mensual' : `PFI · Compra semana ${semanaActiva + 1}`,
       texto: textoCompraPendiente(),
     });
+    if (respuesta === 'cancelado') return;
     setMensajeInventario(
       respuesta === 'compartido'
         ? 'Lista compartida.'
