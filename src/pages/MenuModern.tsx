@@ -491,6 +491,7 @@ export default function MenuModern({
       titulo: `PFI · Menú semana ${indiceSemanaSeguro + 1}`,
       texto: textoCompartirSemana(),
     });
+    if (resultado === 'cancelado') return;
     setMensaje(
       resultado === 'compartido'
         ? 'Menú compartido.'
