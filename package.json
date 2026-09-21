@@ -41,7 +41,7 @@
     "test:v0930": "node --experimental-strip-types scripts/probar-auditoria-v0930.mjs",
     "test:v0931": "node scripts/probar-ux-v0931.mjs",
     "test:v0935": "node scripts/probar-pro-v0935.mjs",
-    "test:v0941": "node --experimental-strip-types scripts/probar-pro-completo-v0941.mjs"
+    "test:v0941": "node --experimental-strip-types scripts/probar-pro-completo-v0941.mjs",\n    "test:v0942": "node --experimental-strip-types scripts/probar-pro-plus-v0942.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.115.0",
