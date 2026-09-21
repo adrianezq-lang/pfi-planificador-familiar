@@ -1,5 +1,7 @@
 import type { DiaMenu } from '../data/Menusemanal';
+import type { SemanaMenu } from '../data/MenuMensual';
 import type { Receta } from '../data/Recetas';
+import { fechasSemana, indiceDiaSemana } from './excepcionesCalendario';
 import type { UnidadProductoManual } from './productosManualesCompra';
 
 export type MomentoAccionMenu = 'comida' | 'cena';
@@ -11,6 +13,17 @@ export type AccionAsistente =
       momento: MomentoAccionMenu;
       platoNuevo: string;
       platosAnteriores: string[];
+    }
+  | {
+      tipo: 'copiar-menu';
+      diaDestino: string;
+      diaOrigen: string;
+      momentoDestino: MomentoAccionMenu;
+      momentoOrigen: MomentoAccionMenu;
+      platosAnteriores: string[];
+      platosNuevos: string[];
+      etiquetaDestino: string;
+      etiquetaOrigen: string;
     }
   | {
       tipo: 'anadir-compra';
@@ -59,6 +72,7 @@ function normalizar(texto: string): string {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[¿?¡!.,;:]+/g, ' ')
+    .replace(/([a-zñ])(\d{1,2})\b/g, '$1 $2')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -82,6 +96,162 @@ function diaMencionado(consulta: string): string | null {
     new RegExp(`\\b${valor}\\b`).test(consulta),
   );
   return dia ? capitalizarDia(dia) : null;
+}
+
+type ReferenciaDia = {
+  dia: string;
+  numero?: number;
+  indiceTexto: number;
+};
+
+function referenciasDia(consulta: string): ReferenciaDia[] {
+  const referencias: ReferenciaDia[] = [];
+  const patron = /\b(lunes|martes|miercoles|jueves|viernes|sabado|domingo)\b(?:\s+(\d{1,2}))?/g;
+  let coincidencia: RegExpExecArray | null;
+
+  while ((coincidencia = patron.exec(consulta)) !== null) {
+    referencias.push({
+      dia: capitalizarDia(coincidencia[1]),
+      numero: coincidencia[2] ? Number(coincidencia[2]) : undefined,
+      indiceTexto: coincidencia.index,
+    });
+  }
+
+  return referencias;
+}
+
+function fechaDeDiaEnSemana(
+  semana: SemanaMenu | undefined,
+  dia: string,
+): string | null {
+  if (!semana) return null;
+  const objetivo = DIAS.indexOf(normalizar(dia) as (typeof DIAS)[number]);
+  if (objetivo < 0) return null;
+  return (
+    fechasSemana(semana).find((fecha) => indiceDiaSemana(fecha) === objetivo) ??
+    null
+  );
+}
+
+function etiquetaDia(
+  referencia: ReferenciaDia,
+  semana?: SemanaMenu,
+): string {
+  const fecha = fechaDeDiaEnSemana(semana, referencia.dia);
+  const numero = referencia.numero ?? (fecha ? Number(fecha.slice(-2)) : undefined);
+  return numero ? `${referencia.dia} ${numero}` : referencia.dia;
+}
+
+function validarReferenciaFecha(
+  referencia: ReferenciaDia,
+  semana?: SemanaMenu,
+): string | null {
+  if (!semana || referencia.numero === undefined) return null;
+  const fecha = fechaDeDiaEnSemana(semana, referencia.dia);
+  if (!fecha) return null;
+  const real = Number(fecha.slice(-2));
+  if (real === referencia.numero) return null;
+  return `En la semana activa, el ${referencia.dia.toLocaleLowerCase('es')} es ${real}, no ${referencia.numero}. No haré el cambio hasta que confirmes la fecha correcta.`;
+}
+
+function detectarMomentoCerca(
+  consulta: string,
+  indiceDia: number,
+  fallback: MomentoAccionMenu,
+): MomentoAccionMenu {
+  const inicio = Math.max(0, indiceDia - 28);
+  const fragmento = consulta.slice(inicio, indiceDia + 8);
+  if (/\bcena\b/.test(fragmento)) return 'cena';
+  if (/\b(comida|almuerzo)\b/.test(fragmento)) return 'comida';
+  return fallback;
+}
+
+function extraerCopiaEntreDias(
+  consulta: string,
+  menu: DiaMenu[],
+  semana?: SemanaMenu,
+): ResultadoDeteccionAccion | null {
+  const pareceReferencia =
+    /\b(cambia|cambiame|sustituye|reemplaza|copia|copiame|pon|usa)\b/.test(consulta) &&
+    (
+      /\bpor\s+(?:la|el)?\s*(?:comida|cena)?\s*del\b/.test(consulta) ||
+      /\bcopia(?:me)?\b/.test(consulta) ||
+      /\busa\b/.test(consulta)
+    );
+  if (!pareceReferencia) return null;
+
+  const referencias = referenciasDia(consulta);
+  if (referencias.length < 2) return null;
+
+  const destino = referencias[0];
+  const origen = referencias[1];
+  const errorDestino = validarReferenciaFecha(destino, semana);
+  if (errorDestino) return { aclaracion: errorDestino };
+  const errorOrigen = validarReferenciaFecha(origen, semana);
+  if (errorOrigen) return { aclaracion: errorOrigen };
+
+  if (!nombreDiaExiste(menu, destino.dia) || !nombreDiaExiste(menu, origen.dia)) {
+    return {
+      aclaracion: 'Uno de los días indicados no está disponible en la semana activa.',
+    };
+  }
+
+  const momentoGeneral = detectarMomento(consulta) ?? 'comida';
+  const momentoDestino = detectarMomentoCerca(
+    consulta,
+    destino.indiceTexto,
+    momentoGeneral,
+  );
+  const momentoOrigen = detectarMomentoCerca(
+    consulta,
+    origen.indiceTexto,
+    momentoDestino,
+  );
+
+  const diaDestino = buscarDia(menu, destino.dia);
+  const diaOrigen = buscarDia(menu, origen.dia);
+  if (!diaDestino || !diaOrigen) return null;
+
+  const anteriores =
+    momentoDestino === 'comida' ? diaDestino.comida : diaDestino.cena;
+  const nuevos =
+    momentoOrigen === 'comida' ? diaOrigen.comida : diaOrigen.cena;
+
+  if (nuevos.length === 0) {
+    return {
+      aclaracion: `La ${momentoOrigen} del ${etiquetaDia(origen, semana).toLocaleLowerCase('es')} está vacía. No hay nada que copiar.`,
+    };
+  }
+
+  const etiquetaDestinoTexto = etiquetaDia(destino, semana);
+  const etiquetaOrigenTexto = etiquetaDia(origen, semana);
+
+  return {
+    propuesta: {
+      titulo: `Cambiar ${momentoDestino} del ${etiquetaDestinoTexto.toLocaleLowerCase('es')}`,
+      resumen: `Voy a poner en ${etiquetaDestinoTexto} la ${momentoOrigen} de ${etiquetaOrigenTexto}: ${nuevos.join(' + ')}.`,
+      cambios: [
+        `Destino: ${etiquetaDestinoTexto} · ${momentoDestino === 'comida' ? 'Comida' : 'Cena'}`,
+        `Antes: ${anteriores.join(' + ') || 'Sin plan'}`,
+        `Origen: ${etiquetaOrigenTexto} · ${momentoOrigen === 'comida' ? 'Comida' : 'Cena'}`,
+        `Después: ${nuevos.join(' + ')}`,
+        'El día de origen se mantiene igual.',
+        'La lista de la compra se recalculará con el cambio.',
+      ],
+      accion: {
+        tipo: 'copiar-menu',
+        diaDestino: destino.dia,
+        diaOrigen: origen.dia,
+        momentoDestino,
+        momentoOrigen,
+        platosAnteriores: [...anteriores],
+        platosNuevos: [...nuevos],
+        etiquetaDestino: etiquetaDestinoTexto,
+        etiquetaOrigen: etiquetaOrigenTexto,
+      },
+      confirmar: 'Confirmar cambio',
+    },
+  };
 }
 
 function nombreDiaExiste(menu: DiaMenu[], dia: string): boolean {
@@ -374,10 +544,12 @@ export function detectarAccionAsistente(
   pregunta: string,
   menuEditable: DiaMenu[],
   recetas: Receta[],
+  semanaActiva?: SemanaMenu,
 ): ResultadoDeteccionAccion | null {
   const consulta = normalizar(pregunta);
 
   return (
+    extraerCopiaEntreDias(consulta, menuEditable, semanaActiva) ??
     extraerFinDeSemana(consulta) ??
     extraerFueraCasa(consulta, menuEditable) ??
     extraerCompra(pregunta, consulta) ??
