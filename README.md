@@ -1,6 +1,6 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.44.
+Versión 0.9.45.
 
 La v0.9.42 convierte PFI en una experiencia más completa: previsión mensual real contra el presupuesto familiar, menú semanal compartible e imprimible, notas semanales persistentes, lista de compra compartible, estado de calidad de precios/asociaciones, reposición de despensa compartible, recetas duplicables/compartibles y una guía rápida de uso. También mejora la salida A4/PDF y simplifica la explicación de cantidades para evitar tecnicismos.
 
