@@ -37,6 +37,7 @@ import {
   obtenerSugerenciaBaseIngrediente,
   obtenerSugerenciaIngrediente,
 } from '../services/porciones';
+import { compartirTexto } from '../services/compartir';
 
 type ProductosPorIngrediente = Record<
   string,
@@ -404,6 +405,49 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
       },
     });
     setSelectorEditorIndice(0);
+  };
+
+  const duplicarReceta = (receta: Receta) => {
+    const base = `${receta.nombre} · copia`;
+    let nombre = base;
+    let numero = 2;
+    const existentes = new Set(recetas.map((elemento) => elemento.nombre.toLocaleLowerCase('es')));
+    while (existentes.has(nombre.toLocaleLowerCase('es'))) {
+      nombre = `${base} ${numero}`;
+      numero += 1;
+    }
+
+    const copia = crearRecetaEditor(receta);
+    setMensaje('');
+    setErrorEditor('');
+    setEditor({
+      nombreOriginal: null,
+      receta: {
+        ...copia,
+        nombre,
+        ingredientes: copia.ingredientes.map((ingrediente) => ({
+          ...ingrediente,
+          nombreOriginal: null,
+        })),
+      },
+    });
+  };
+
+  const compartirReceta = async (receta: Receta) => {
+    const ingredientes = receta.ingredientes
+      .map((ingrediente) => `- ${ingrediente.cantidad} ${ingrediente.unidad} · ${ingrediente.nombre}`)
+      .join('\n');
+    const respuesta = await compartirTexto({
+      titulo: `PFI · ${receta.nombre}`,
+      texto: `${receta.nombre}\n${receta.categoria}\n\nIngredientes:\n${ingredientes}`,
+    });
+    setMensaje(
+      respuesta === 'compartido'
+        ? `«${receta.nombre}» compartida.`
+        : respuesta === 'copiado'
+          ? `«${receta.nombre}» copiada al portapapeles.`
+          : 'No se ha podido compartir la receta.',
+    );
   };
 
   const actualizarCampoReceta = (
@@ -964,6 +1008,22 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
                 <span style={estiloContador}>
                   {receta.ingredientes.length}
                 </span>
+                <button
+                  type="button"
+                  className="recipe-utility-button"
+                  onClick={() => void compartirReceta(receta)}
+                  aria-label={`Compartir ${receta.nombre}`}
+                >
+                  <AppIcon name="share" size={16} />
+                </button>
+                <button
+                  type="button"
+                  className="recipe-utility-button"
+                  onClick={() => duplicarReceta(receta)}
+                  aria-label={`Duplicar ${receta.nombre}`}
+                >
+                  <AppIcon name="copy" size={16} />
+                </button>
                 <button
                   type="button"
                   onClick={() => abrirEditor(receta)}
