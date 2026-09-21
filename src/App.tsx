@@ -33,8 +33,9 @@ const Postres = lazy(() => import('./pages/Postres'));
 const Despensa = lazy(() => import('./pages/Despensa'));
 const CatalogoMercadona = lazy(() => import('./pages/CatalogoMercadona'));
 const Perfil = lazy(() => import('./pages/Perfil'));
+const Asistente = lazy(() => import('./pages/Asistente'));
 
-export type Pantalla = 'inicio' | 'menu' | 'compra' | 'despensa' | 'recetas' | 'postres' | 'catalogo' | 'perfil';
+export type Pantalla = 'inicio' | 'menu' | 'asistente' | 'compra' | 'despensa' | 'recetas' | 'postres' | 'catalogo' | 'perfil';
 
 function App() {
   const [pantalla, setPantalla] = useState<Pantalla>('inicio');
@@ -221,6 +222,16 @@ function App() {
             menusSemanas={menusSemanasCompra}
             mesActivo={mesActivo}
             semanaActiva={semanaActiva}
+          />
+        )}
+        {pantalla === 'asistente' && (
+          <Asistente
+            menu={menuCompra}
+            menuMes={menuMes}
+            menusSemanas={menusSemanasCompra}
+            semanaActiva={semanaActiva}
+            mesActivo={mesActivo}
+            navegar={cambiarPantalla}
           />
         )}
         {pantalla === 'despensa' && <Despensa />}
