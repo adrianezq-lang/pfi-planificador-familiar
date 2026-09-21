@@ -33,6 +33,9 @@ export type ContextoAsistentePFI = {
   semanaActiva: number;
   mesActivo: string;
   compraSemana: ResultadoCompra | null;
+  compraPendienteNombres: string[];
+  compraPendienteTotal: number;
+  compraPendienteCantidad: number;
   compraMes: ResultadoCompra | null;
   comprasSemanas: ResultadoCompra[];
   despensa: ProductoDespensa[];
@@ -240,7 +243,7 @@ export function obtenerResumenProactivo(
       ? `Comida: ${hoy.comida.join(' + ')} · Cena: ${hoy.cena.join(' + ')}`
       : 'No encuentro el día actual en el menú activo.',
     compra: compra
-      ? `${compra.lineas.length} productos · ${euros(compra.total)} estimados`
+      ? `${contexto.compraPendienteCantidad} pendientes · ${euros(contexto.compraPendienteTotal)}`
       : 'Calculando la compra actual…',
     despensa:
       reposicion.length === 0
@@ -304,14 +307,14 @@ export function responderAsistente(
       };
     }
 
-    const nombres = compra.lineas.map(
-      (linea) => linea.producto?.nombre ?? linea.ingrediente.nombre,
-    );
+    const nombres = contexto.compraPendienteNombres;
     return {
       titulo: 'Compra de esta semana',
-      resumen: `Hay ${compra.lineas.length} productos por unos ${euros(
-        compra.total,
-      )}.`,
+      resumen: contexto.compraPendienteCantidad === 0
+        ? 'No veo productos pendientes de compra en esta semana.'
+        : `Quedan ${contexto.compraPendienteCantidad} productos por unos ${euros(
+            contexto.compraPendienteTotal,
+          )}.`,
       puntos: [
         nombres.length > 0
           ? `Lo principal: ${listaCorta(nombres)}.`
