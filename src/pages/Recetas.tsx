@@ -797,7 +797,7 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
 
   const eliminarReceta = (nombreReceta: string) => {
     const confirmado = window.confirm(
-      `Se eliminará «${nombreReceta}» y se quitará de las cuatro semanas del menú. ¿Continuar?`,
+      `Se eliminará «${nombreReceta}» y se quitará de todos los menús guardados. ¿Continuar?`,
     );
     if (!confirmado) return;
 
