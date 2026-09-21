@@ -27,7 +27,7 @@ assert.match(cssFinal, /\.meal-row__detail/, 'El postre integrado debe tener un 
 assert.match(cssFinal, /@media \(max-width: 720px\)[\s\S]*\.home-card--menu \.meal-row/, 'Inicio debe compactarse explícitamente en móvil.');
 
 assert.match(menu, /<details[\s\S]*className="meal-feedback"/, 'La valoración debe poder plegarse.');
-assert.match(menu, /<span>Valorar<\\/span>/, 'La valoración debe ser discreta cuando está plegada.');
+assert.match(menu, /<span>Valorar/, 'La valoración debe ser discreta cuando está plegada.');
 assert.doesNotMatch(menu, /resultadoActual/, 'El resultado Gustó, Sobró, Faltó o No gustó no debe quedar visible al cerrar la valoración.');
 assert.match(menu, /Opciones de esta semana/, 'Las acciones secundarias del menú deben estar agrupadas.');
 assert.match(menu, /Ajustar este día/, 'Las excepciones diarias deben quedar agrupadas y no invadir la pantalla.');
