@@ -142,7 +142,7 @@ function App() {
             <h1>PFI</h1>
             <p>Planificador familiar</p>
           </div>
-          <span className="app-version">v0.9.29</span>
+          <span className="app-version">v0.9.42</span>
         </div>
       </header>
 
