@@ -1,6 +1,8 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.49.
+Versión 0.9.50.
+
+La v0.9.50 añade comprensión temporal real al Asistente PFI. Entiende **hoy, ayer, mañana, pasado mañana, anteayer**, fechas como **«el 24»** y consultas como **«¿qué cenamos ayer?»**. Todas las referencias se validan contra las fechas de la semana activa. También permite continuar una acción ya aplicada con **«haz lo mismo también el viernes»** cuando repetirla es seguro.
 
 La v0.9.49 añade contexto conversacional al Asistente PFI: una propuesta pendiente puede retocarse con frases como **«mejor el jueves»** o **«que sea cena»**, confirmarse con **«sí, hazlo»**, cancelarse por texto y deshacerse después mediante una reversión segura con nueva vista previa. El Asistente comprueba que el menú no haya cambiado antes de restaurar nada.
 

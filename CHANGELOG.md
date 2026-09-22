@@ -1,3 +1,14 @@
+# v0.9.50 — Tiempo natural y continuidad conversacional
+
+- El Asistente entiende hoy, ayer, mañana, pasado mañana y anteayer usando la fecha real del dispositivo.
+- Las referencias relativas se validan contra la semana activa; si caen fuera, no se aplica ni se inventa ningún cambio.
+- Se admiten fechas numéricas como «el 24» o «día 24» y se convierten al día correcto de la semana activa.
+- Las referencias temporales funcionan tanto en órdenes como en consultas: «¿qué cenamos ayer?», «¿qué hay mañana para comer?» o «¿qué toca el 24?».
+- Las combinaciones con dos referencias también funcionan: «copia la cena de ayer en mañana» o «cambia la comida de hoy por la de mañana».
+- «Haz lo mismo también el viernes» repite el último cambio compatible usando una nueva vista previa y confirmación.
+- Repetir movimientos o intercambios no se hace a ciegas: el Asistente pide origen y destino completos para evitar perder platos.
+- El bloque HOY deja de asumir solo el nombre del día cuando la semana activa tiene fechas reales.
+
 # v0.9.49 — Asistente conversacional y reversible
 
 - Las propuestas pendientes se pueden retocar sin repetir la orden completa: «mejor el jueves», «prefiero cena» o «que sea para cenar».

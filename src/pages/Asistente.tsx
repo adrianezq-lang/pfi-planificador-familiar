@@ -31,6 +31,7 @@ import {
 import {
   ajustarPropuestaPendiente,
   crearPropuestaDeshacerMenu,
+  crearPropuestaRepetirUltimaAccion,
   detectarAccionAsistente,
   detectarIntencionPropuestaPendiente,
   type PropuestaAccionAsistente,
@@ -222,6 +223,8 @@ export default function Asistente({
   const [revisionAcciones, setRevisionAcciones] = useState(0);
   const [ultimoCambioMenu, setUltimoCambioMenu] =
     useState<CambioMenuReversible | null>(null);
+  const [ultimaPropuestaAplicada, setUltimaPropuestaAplicada] =
+    useState<PropuestaAccionAsistente | null>(null);
   const finalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -335,6 +338,7 @@ export default function Asistente({
       menuMes,
       menusSemanas,
       semanaActiva,
+      semanaMenuActiva: planMensual[semanaActiva],
       mesActivo,
       compraSemana,
       compraPendienteNombres: estadoCompra.nombres,
@@ -359,6 +363,7 @@ export default function Asistente({
       menusSemanas,
       mesActivo,
       perfil,
+      planMensual,
       recetas,
       semanaActiva,
     ],
@@ -493,6 +498,57 @@ export default function Asistente({
       });
       setConsulta('');
       return;
+    }
+
+    const pideRepetirUltimo =
+      /\b(?:lo mismo|igual)\b/i.test(limpio) &&
+      /\b(?:haz|pon|repite|también|tambien|otro|otra)\b/i.test(limpio);
+
+    if (propuestaPendiente && pideRepetirUltimo) {
+      agregarConversacion(limpio, {
+        titulo: 'Primero decide la propuesta pendiente',
+        resumen:
+          'Todavía hay un cambio sin confirmar. Para no mezclar dos operaciones, confírmalo o cancélalo antes de pedirme “haz lo mismo también…”.',
+        puntos: [
+          'La propuesta pendiente sigue intacta.',
+          'No he aplicado ningún cambio nuevo.',
+        ],
+        tono: 'atencion',
+      });
+      setConsulta('');
+      return;
+    }
+
+    if (!propuestaPendiente && ultimaPropuestaAplicada && pideRepetirUltimo) {
+      const repeticion = crearPropuestaRepetirUltimaAccion(
+        limpio,
+        ultimaPropuestaAplicada,
+        menuEditable,
+        planMensual[semanaActiva],
+      );
+
+      if (repeticion?.propuesta) {
+        setPropuestaPendiente(repeticion.propuesta);
+        agregarConversacion(limpio, {
+          titulo: 'He preparado la repetición',
+          resumen: repeticion.propuesta.resumen,
+          puntos: repeticion.propuesta.cambios,
+          tono: 'atencion',
+        });
+        setConsulta('');
+        return;
+      }
+
+      if (repeticion?.aclaracion) {
+        agregarConversacion(limpio, {
+          titulo: 'Necesito un detalle',
+          resumen: repeticion.aclaracion,
+          puntos: ['No he repetido nada todavía.'],
+          tono: 'atencion',
+        });
+        setConsulta('');
+        return;
+      }
     }
 
     if (propuestaPendiente) {
@@ -823,6 +879,18 @@ export default function Asistente({
         }
       }
 
+      if (
+        propuesta.accion.tipo === 'cambiar-menu' ||
+        propuesta.accion.tipo === 'copiar-menu' ||
+        propuesta.accion.tipo === 'mover-menu' ||
+        propuesta.accion.tipo === 'intercambiar-menu' ||
+        propuesta.accion.tipo === 'excepcion-dia'
+      ) {
+        setUltimaPropuestaAplicada(propuesta);
+      } else {
+        setUltimaPropuestaAplicada(null);
+      }
+
       setRevisionAcciones((valor) => valor + 1);
       setPropuestaPendiente(null);
     } catch (error) {
@@ -846,6 +914,7 @@ export default function Asistente({
     setResultadoAccion('');
     setDestinoResultado(null);
     setUltimoCambioMenu(null);
+    setUltimaPropuestaAplicada(null);
     localStorage.removeItem(CLAVE_HISTORIAL);
   };
 
@@ -859,7 +928,7 @@ export default function Asistente({
           <span>ASISTENTE PFI</span>
           <h2>¿Qué necesitas?</h2>
           <p>
-            Cruzo tu menú, compra, despensa y presupuesto. Puedo seguir el hilo de una propuesta: «mejor el jueves», «que sea cena», «sí, hazlo», «cancela» o «deshazlo», siempre con vista previa y confirmación segura.
+            Cruzo tu menú, compra, despensa y presupuesto. Entiendo «hoy», «mañana», «ayer», «pasado mañana», fechas como «el 24» y continuaciones como «haz lo mismo también el viernes», siempre con vista previa y confirmación segura.
           </p>
         </div>
         <div className="assistant-live-badge">

@@ -3,6 +3,10 @@ import type { SemanaMenu } from '../data/MenuMensual';
 import type { Receta } from '../data/Recetas';
 import { fechasSemana, indiceDiaSemana } from './excepcionesCalendario';
 import type { UnidadProductoManual } from './productosManualesCompra';
+import {
+  resolverReferenciasTemporales,
+  type ReferenciaTemporalDia,
+} from './referenciasTemporales';
 
 export type MomentoAccionMenu = 'comida' | 'cena';
 
@@ -105,47 +109,18 @@ function normalizar(texto: string): string {
     .trim();
 }
 
-const ETIQUETAS_DIA: Record<string, string> = {
-  lunes: 'Lunes',
-  martes: 'Martes',
-  miercoles: 'Miércoles',
-  jueves: 'Jueves',
-  viernes: 'Viernes',
-  sabado: 'Sábado',
-  domingo: 'Domingo',
-};
+type ReferenciaDia = ReferenciaTemporalDia;
 
-function capitalizarDia(dia: string): string {
-  return ETIQUETAS_DIA[dia] ?? (dia.charAt(0).toUpperCase() + dia.slice(1));
-}
-
-function diaMencionado(consulta: string): string | null {
-  const dia = DIAS.find((valor) =>
-    new RegExp(`\\b${valor}\\b`).test(consulta),
+function resolverReferenciasDia(
+  consulta: string,
+  semana?: SemanaMenu,
+  fechaReferencia: Date | string = new Date(),
+): { referencias: ReferenciaDia[]; error?: string } {
+  return resolverReferenciasTemporales(
+    consulta,
+    semana,
+    fechaReferencia,
   );
-  return dia ? capitalizarDia(dia) : null;
-}
-
-type ReferenciaDia = {
-  dia: string;
-  numero?: number;
-  indiceTexto: number;
-};
-
-function referenciasDia(consulta: string): ReferenciaDia[] {
-  const referencias: ReferenciaDia[] = [];
-  const patron = /\b(lunes|martes|miercoles|jueves|viernes|sabado|domingo)\b(?:\s+(\d{1,2}))?/g;
-  let coincidencia: RegExpExecArray | null;
-
-  while ((coincidencia = patron.exec(consulta)) !== null) {
-    referencias.push({
-      dia: capitalizarDia(coincidencia[1]),
-      numero: coincidencia[2] ? Number(coincidencia[2]) : undefined,
-      indiceTexto: coincidencia.index,
-    });
-  }
-
-  return referencias;
 }
 
 function fechaDeDiaEnSemana(
@@ -284,11 +259,20 @@ function extraerCopiaEntreDias(
   consulta: string,
   menu: DiaMenu[],
   semana?: SemanaMenu,
+  fechaReferencia: Date | string = new Date(),
 ): ResultadoDeteccionAccion | null {
   const operacion = detectarOperacionEntreDias(consulta);
   if (!operacion) return null;
 
-  const referencias = referenciasDia(consulta);
+  const resolucionReferencias = resolverReferenciasDia(
+    consulta,
+    semana,
+    fechaReferencia,
+  );
+  if (resolucionReferencias.error) {
+    return { aclaracion: resolucionReferencias.error };
+  }
+  const referencias = resolucionReferencias.referencias;
   if (referencias.length < 2) return null;
   if (referencias.length > 2) {
     return {
@@ -518,20 +502,38 @@ function extraerCambioMenu(
   consulta: string,
   menu: DiaMenu[],
   recetas: Receta[],
+  semana?: SemanaMenu,
+  fechaReferencia: Date | string = new Date(),
 ): ResultadoDeteccionAccion | null {
   const pareceCambio =
     /\b(cambia|cambiame|sustituye|reemplaza|pon|ponme|mete)\b/.test(consulta);
   if (!pareceCambio) return null;
 
-  const dia = diaMencionado(consulta);
-  if (!dia) return null;
+  const resolucionReferencias = resolverReferenciasDia(
+    consulta,
+    semana,
+    fechaReferencia,
+  );
+  if (resolucionReferencias.error) {
+    return { aclaracion: resolucionReferencias.error };
+  }
+  if (resolucionReferencias.referencias.length === 0) return null;
+  if (resolucionReferencias.referencias.length > 1) {
+    return {
+      aclaracion:
+        'Veo más de un día en la orden. Para cambiar un plato concreto dime un único día de destino.',
+    };
+  }
+  const dia = resolucionReferencias.referencias[0].dia;
   if (!nombreDiaExiste(menu, dia)) {
     return { aclaracion: `No encuentro ${dia} en la semana activa.` };
   }
 
   let momento = detectarMomento(consulta);
   const conPor = original.match(/\b(?:por|a)\s+(.+)$/i);
-  const conPon = original.match(/\b(?:pon|ponme|mete)\s+(.+?)\s+(?:el\s+)?(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo)\b/i);
+  const conPon = original.match(
+    /\b(?:pon|ponme|mete)\s+(.+?)\s+(?:(?:el\s+)?(?:lunes|martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo)(?:\s+\d{1,2})?|(?:para\s+)?(?:hoy|mañana|manana|pasado\s+mañana|pasado\s+manana|ayer|anteayer)|(?:el|día|dia)\s+\d{1,2})\b/i,
+  );
   let objetivo = conPor?.[1]?.trim() ?? conPon?.[1]?.trim() ?? '';
 
   objetivo = limpiarObjetivoMenu(objetivo);
@@ -661,6 +663,7 @@ export function ajustarPropuestaPendiente(
   propuesta: PropuestaAccionAsistente,
   menu: DiaMenu[],
   semana?: SemanaMenu,
+  fechaReferencia: Date | string = new Date(),
 ): ResultadoDeteccionAccion | null {
   const consulta = normalizar(pregunta);
   const pareceAjuste =
@@ -680,7 +683,15 @@ export function ajustarPropuestaPendiente(
     return null;
   }
 
-  const referencias = referenciasDia(consulta);
+  const resolucionReferencias = resolverReferenciasDia(
+    consulta,
+    semana,
+    fechaReferencia,
+  );
+  if (resolucionReferencias.error) {
+    return { aclaracion: resolucionReferencias.error };
+  }
+  const referencias = resolucionReferencias.referencias;
   if (referencias.length > 1) {
     return {
       aclaracion:
@@ -852,6 +863,173 @@ export function ajustarPropuestaPendiente(
   };
 }
 
+export function crearPropuestaRepetirUltimaAccion(
+  pregunta: string,
+  propuestaAnterior: PropuestaAccionAsistente,
+  menu: DiaMenu[],
+  semana?: SemanaMenu,
+  fechaReferencia: Date | string = new Date(),
+): ResultadoDeteccionAccion | null {
+  const consulta = normalizar(pregunta);
+  const pideRepetir =
+    /\b(?:haz|pon|repite|repetir)\b.*\b(?:lo mismo|igual)\b/.test(consulta) ||
+    /\b(?:lo mismo|igual)\b.*\b(?:tambien|otro|otra)\b/.test(consulta);
+  if (!pideRepetir) return null;
+
+  const resolucion = resolverReferenciasDia(
+    consulta,
+    semana,
+    fechaReferencia,
+  );
+  if (resolucion.error) return { aclaracion: resolucion.error };
+  if (resolucion.referencias.length !== 1) {
+    return {
+      aclaracion:
+        'Dime un único día para repetir el último cambio, por ejemplo “haz lo mismo también el viernes”.',
+    };
+  }
+
+  const destino = resolucion.referencias[0];
+  if (!nombreDiaExiste(menu, destino.dia)) {
+    return {
+      aclaracion: `No encuentro ${destino.dia} en la semana activa.`,
+    };
+  }
+
+  const momentoPedido = detectarMomento(consulta);
+  const accion = propuestaAnterior.accion;
+
+  if (accion.tipo === 'cambiar-menu') {
+    const momento = momentoPedido ?? accion.momento;
+    const diaDestino = buscarDia(menu, destino.dia);
+    if (!diaDestino) return null;
+    const anteriores =
+      momento === 'comida' ? diaDestino.comida : diaDestino.cena;
+
+    if (
+      normalizar(destino.dia) === normalizar(accion.dia) &&
+      momento === accion.momento
+    ) {
+      return {
+        aclaracion:
+          'Ese es el mismo hueco del último cambio. Dime otro día o cambia comida/cena.',
+      };
+    }
+
+    return {
+      propuesta: {
+        titulo: `Repetir cambio en ${etiquetaDia(destino, semana)}`,
+        resumen: `Voy a poner también ${accion.platoNuevo} en la ${momento} de ${etiquetaDia(destino, semana)}.`,
+        cambios: [
+          `Destino: ${etiquetaDia(destino, semana)} · ${momento === 'comida' ? 'Comida' : 'Cena'}`,
+          `Antes: ${anteriores.join(' + ') || 'Sin plan'}`,
+          `Después: ${accion.platoNuevo}`,
+          'La lista de la compra se recalculará con el cambio.',
+        ],
+        accion: {
+          tipo: 'cambiar-menu',
+          dia: destino.dia,
+          momento,
+          platoNuevo: accion.platoNuevo,
+          platosAnteriores: [...anteriores],
+        },
+        confirmar: 'Confirmar cambio',
+      },
+    };
+  }
+
+  if (accion.tipo === 'copiar-menu') {
+    const momentoDestino = momentoPedido ?? accion.momentoDestino;
+    const origen = buscarDia(menu, accion.diaOrigen);
+    const diaDestino = buscarDia(menu, destino.dia);
+    if (!origen || !diaDestino) return null;
+
+    const origenActual =
+      accion.momentoOrigen === 'comida' ? origen.comida : origen.cena;
+    if (!mismosPlatos(origenActual, accion.platosNuevos)) {
+      return {
+        aclaracion:
+          'El origen del último cambio ya no tiene el mismo contenido. Prefiero que me indiques de nuevo qué quieres copiar.',
+      };
+    }
+
+    const anteriores =
+      momentoDestino === 'comida' ? diaDestino.comida : diaDestino.cena;
+    if (
+      normalizar(destino.dia) === normalizar(accion.diaOrigen) &&
+      momentoDestino === accion.momentoOrigen
+    ) {
+      return {
+        aclaracion:
+          'Ese destino coincide con el origen. Dime otro día o cambia comida/cena.',
+      };
+    }
+
+    return {
+      propuesta: {
+        titulo: `Repetir copia en ${etiquetaDia(destino, semana)}`,
+        resumen: `Voy a copiar también ${origenActual.join(' + ')} en la ${momentoDestino} de ${etiquetaDia(destino, semana)}.`,
+        cambios: [
+          `Destino: ${etiquetaDia(destino, semana)} · ${momentoDestino === 'comida' ? 'Comida' : 'Cena'}`,
+          `Antes: ${anteriores.join(' + ') || 'Sin plan'}`,
+          `Origen: ${accion.etiquetaOrigen} · ${accion.momentoOrigen === 'comida' ? 'Comida' : 'Cena'}`,
+          `Después: ${origenActual.join(' + ')}`,
+          'El origen se mantiene igual.',
+        ],
+        accion: {
+          tipo: 'copiar-menu',
+          diaDestino: destino.dia,
+          diaOrigen: accion.diaOrigen,
+          momentoDestino,
+          momentoOrigen: accion.momentoOrigen,
+          platosAnteriores: [...anteriores],
+          platosNuevos: [...origenActual],
+          etiquetaDestino: etiquetaDia(destino, semana),
+          etiquetaOrigen: accion.etiquetaOrigen,
+        },
+        confirmar: 'Confirmar cambio',
+      },
+    };
+  }
+
+  if (accion.tipo === 'excepcion-dia') {
+    return {
+      propuesta: {
+        titulo: `Repetir excepción en ${etiquetaDia(destino, semana)}`,
+        resumen:
+          accion.excepcion === 'noEnCasa'
+            ? `Marcaré también ${etiquetaDia(destino, semana)} como fuera de casa.`
+            : accion.excepcion === 'sinComida'
+              ? `Quitaré también la comida de ${etiquetaDia(destino, semana)} del cálculo.`
+              : `Quitaré también la cena de ${etiquetaDia(destino, semana)} del cálculo.`,
+        cambios: [
+          'Repite exactamente la última excepción familiar en otro día.',
+          'La compra y las cantidades se recalcularán después de confirmar.',
+        ],
+        accion: {
+          tipo: 'excepcion-dia',
+          dia: destino.dia,
+          excepcion: accion.excepcion,
+          activa: accion.activa,
+        },
+        confirmar: 'Confirmar',
+      },
+    };
+  }
+
+  if (accion.tipo === 'mover-menu' || accion.tipo === 'intercambiar-menu') {
+    return {
+      aclaracion:
+        'El último cambio movía o intercambiaba dos huecos. Para repetirlo sin perder platos, dime de nuevo el origen y el destino completos.',
+    };
+  }
+
+  return {
+    aclaracion:
+      'El último cambio no se puede repetir de forma segura con “lo mismo”. Dime la acción completa.',
+  };
+}
+
 function unidadCompra(texto: string): UnidadProductoManual {
   const n = normalizar(texto);
   if (/\b(kg|kilo|kilos|kilogramo|kilogramos)\b/.test(n)) return 'kg';
@@ -951,9 +1129,29 @@ function extraerFinDeSemana(consulta: string): ResultadoDeteccionAccion | null {
   };
 }
 
-function extraerFueraCasa(consulta: string, menu: DiaMenu[]): ResultadoDeteccionAccion | null {
-  const dia = diaMencionado(consulta);
-  if (!dia || !nombreDiaExiste(menu, dia)) return null;
+function extraerFueraCasa(
+  consulta: string,
+  menu: DiaMenu[],
+  semana?: SemanaMenu,
+  fechaReferencia: Date | string = new Date(),
+): ResultadoDeteccionAccion | null {
+  const resolucionReferencias = resolverReferenciasDia(
+    consulta,
+    semana,
+    fechaReferencia,
+  );
+  if (resolucionReferencias.error) {
+    return { aclaracion: resolucionReferencias.error };
+  }
+  if (resolucionReferencias.referencias.length === 0) return null;
+  if (resolucionReferencias.referencias.length > 1) {
+    return {
+      aclaracion:
+        'Para marcar una comida o cena fuera dime un único día.',
+    };
+  }
+  const dia = resolucionReferencias.referencias[0].dia;
+  if (!nombreDiaExiste(menu, dia)) return null;
 
   if (/\b(no estamos|fuera todo el dia|todo el dia fuera)\b/.test(consulta)) {
     return {
@@ -1008,14 +1206,32 @@ export function detectarAccionAsistente(
   menuEditable: DiaMenu[],
   recetas: Receta[],
   semanaActiva?: SemanaMenu,
+  fechaReferencia: Date | string = new Date(),
 ): ResultadoDeteccionAccion | null {
   const consulta = normalizar(pregunta);
 
   return (
-    extraerCopiaEntreDias(consulta, menuEditable, semanaActiva) ??
+    extraerCopiaEntreDias(
+      consulta,
+      menuEditable,
+      semanaActiva,
+      fechaReferencia,
+    ) ??
     extraerFinDeSemana(consulta) ??
-    extraerFueraCasa(consulta, menuEditable) ??
+    extraerFueraCasa(
+      consulta,
+      menuEditable,
+      semanaActiva,
+      fechaReferencia,
+    ) ??
     extraerCompra(pregunta, consulta) ??
-    extraerCambioMenu(pregunta, consulta, menuEditable, recetas)
+    extraerCambioMenu(
+      pregunta,
+      consulta,
+      menuEditable,
+      recetas,
+      semanaActiva,
+      fechaReferencia,
+    )
   );
 }

@@ -44,7 +44,10 @@ assert.match(actions, /tipo: 'intercambiar-menu'/);
 assert.match(actions, /tipo: 'restaurar-menu'/);
 assert.match(actions, /detectarIntencionPropuestaPendiente/);
 assert.match(actions, /ajustarPropuestaPendiente/);
+assert.match(actions, /crearPropuestaRepetirUltimaAccion/);
+assert.match(actions, /resolverReferenciasTemporales/);
 assert.match(page, /crearPropuestaDeshacerMenu/);
+assert.match(page, /He preparado la repetición/);
 assert.match(page, /He ajustado la propuesta/);
 assert.match(actions, /tipo: 'anadir-compra'/);
 assert.match(actions, /tipo: 'fin-semana-sin-ninos'/);
@@ -53,10 +56,10 @@ assert.match(css, /\.assistant-confirm/);
 assert.match(css, /\.assistant-action-result/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.49');
-assert.match(app, /v0\.9\.49/);
-assert.match(sw, /pfi-v0\.9\.49-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.49'/);
+assert.equal(packageJson.version, '0.9.50');
+assert.match(app, /v0\.9\.50/);
+assert.match(sw, /pfi-v0\.9\.50-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.50'/);
 
 const vite = await createServer({
   configFile: false,
@@ -66,6 +69,7 @@ const vite = await createServer({
 const {
   ajustarPropuestaPendiente,
   crearPropuestaDeshacerMenu,
+  crearPropuestaRepetirUltimaAccion,
   detectarAccionAsistente,
   detectarIntencionPropuestaPendiente,
 } = await vite.ssrLoadModule('/src/services/accionesAsistente.ts');
@@ -93,11 +97,84 @@ const semanaActiva = {
   menu,
 };
 
+const fechaReferencia = '2026-09-22';
+
+const cambioManana = detectarAccionAsistente(
+  'Cámbiame la cena de mañana por salmón',
+  menu,
+  recetas,
+  semanaActiva,
+  fechaReferencia,
+);
+assert.equal(cambioManana?.propuesta?.accion.tipo, 'cambiar-menu');
+assert.equal(cambioManana?.propuesta?.accion.dia, 'Miércoles');
+assert.equal(cambioManana?.propuesta?.accion.momento, 'cena');
+assert.equal(cambioManana?.propuesta?.accion.platoNuevo, 'Salmón');
+
+const cambioFecha = detectarAccionAsistente(
+  'Pon salmón el 24',
+  menu,
+  recetas,
+  semanaActiva,
+  fechaReferencia,
+);
+assert.equal(cambioFecha?.propuesta?.accion.tipo, 'cambiar-menu');
+assert.equal(cambioFecha?.propuesta?.accion.dia, 'Jueves');
+assert.equal(cambioFecha?.propuesta?.accion.momento, 'comida');
+
+const copiaRelativa = detectarAccionAsistente(
+  'Copia la cena de ayer en mañana',
+  menu,
+  recetas,
+  semanaActiva,
+  fechaReferencia,
+);
+assert.equal(copiaRelativa?.propuesta?.accion.tipo, 'copiar-menu');
+assert.equal(copiaRelativa?.propuesta?.accion.diaOrigen, 'Lunes');
+assert.equal(copiaRelativa?.propuesta?.accion.diaDestino, 'Miércoles');
+assert.equal(copiaRelativa?.propuesta?.accion.momentoOrigen, 'cena');
+assert.equal(copiaRelativa?.propuesta?.accion.momentoDestino, 'cena');
+assert.deepEqual(copiaRelativa?.propuesta?.accion.platosNuevos, ['Lomo']);
+
+const copiaHoyManana = detectarAccionAsistente(
+  'Cambia la comida de hoy por la de mañana',
+  menu,
+  recetas,
+  semanaActiva,
+  fechaReferencia,
+);
+assert.equal(copiaHoyManana?.propuesta?.accion.tipo, 'copiar-menu');
+assert.equal(copiaHoyManana?.propuesta?.accion.diaDestino, 'Martes');
+assert.equal(copiaHoyManana?.propuesta?.accion.diaOrigen, 'Miércoles');
+
+const fueraManana = detectarAccionAsistente(
+  'Mañana cenamos fuera',
+  menu,
+  recetas,
+  semanaActiva,
+  fechaReferencia,
+);
+assert.equal(fueraManana?.propuesta?.accion.tipo, 'excepcion-dia');
+assert.equal(fueraManana?.propuesta?.accion.dia, 'Miércoles');
+assert.equal(fueraManana?.propuesta?.accion.excepcion, 'sinCena');
+
+const fueraDeSemana = detectarAccionAsistente(
+  'Pasado mañana cenamos fuera',
+  menu,
+  recetas,
+  semanaActiva,
+  '2026-09-27',
+);
+assert.ok(fueraDeSemana?.aclaracion);
+assert.match(fueraDeSemana?.aclaracion ?? '', /fuera de la semana activa/i);
+assert.equal(fueraDeSemana?.propuesta, undefined);
+
 const copiaEntreDias = detectarAccionAsistente(
   'Cambia la comida del martes 22 por la del miércoles23',
   menu,
   recetas,
   semanaActiva,
+  fechaReferencia,
 );
 assert.equal(copiaEntreDias?.propuesta?.accion.tipo, 'copiar-menu');
 assert.equal(copiaEntreDias?.propuesta?.accion.diaDestino, 'Martes');
@@ -224,6 +301,42 @@ assert.equal(cambioCena?.propuesta?.accion.momento, 'cena');
 assert.equal(cambioCena?.propuesta?.accion.dia, 'Martes');
 assert.equal(cambioCena?.propuesta?.accion.platoNuevo, 'Salmón');
 
+const repetirCambio = crearPropuestaRepetirUltimaAccion(
+  'Haz lo mismo también el viernes',
+  cambioManana.propuesta,
+  menu,
+  semanaActiva,
+  fechaReferencia,
+);
+assert.equal(repetirCambio?.propuesta?.accion.tipo, 'cambiar-menu');
+assert.equal(repetirCambio?.propuesta?.accion.dia, 'Viernes');
+assert.equal(repetirCambio?.propuesta?.accion.momento, 'cena');
+assert.equal(repetirCambio?.propuesta?.accion.platoNuevo, 'Salmón');
+assert.deepEqual(repetirCambio?.propuesta?.accion.platosAnteriores, ['Pizza']);
+
+const repetirCopia = crearPropuestaRepetirUltimaAccion(
+  'Haz lo mismo también el sábado para cenar',
+  copiaEntreDias.propuesta,
+  menu,
+  semanaActiva,
+  fechaReferencia,
+);
+assert.equal(repetirCopia?.propuesta?.accion.tipo, 'copiar-menu');
+assert.equal(repetirCopia?.propuesta?.accion.diaDestino, 'Sábado');
+assert.equal(repetirCopia?.propuesta?.accion.momentoDestino, 'cena');
+assert.equal(repetirCopia?.propuesta?.accion.diaOrigen, 'Miércoles');
+assert.deepEqual(repetirCopia?.propuesta?.accion.platosNuevos, ['Pasta']);
+
+const noRepetirMover = crearPropuestaRepetirUltimaAccion(
+  'Haz lo mismo también el viernes',
+  mover.propuesta,
+  menu,
+  semanaActiva,
+  fechaReferencia,
+);
+assert.ok(noRepetirMover?.aclaracion);
+assert.equal(noRepetirMover?.propuesta, undefined);
+
 const ajusteCambio = ajustarPropuestaPendiente(
   'Mejor el jueves para comer',
   cambioCena.propuesta,
@@ -241,6 +354,7 @@ const ajusteCopia = ajustarPropuestaPendiente(
   copiaEntreDias.propuesta,
   menu,
   semanaActiva,
+  fechaReferencia,
 );
 assert.equal(ajusteCopia?.propuesta?.accion.tipo, 'copiar-menu');
 assert.equal(ajusteCopia?.propuesta?.accion.diaDestino, 'Viernes');
@@ -319,8 +433,9 @@ await vite.close();
 
 console.log('✓ el asistente interpreta copias, movimientos e intercambios entre días sin ejecutarlos directamente');
 console.log('✓ mantiene contexto para confirmar, cancelar, ajustar y deshacer propuestas de forma segura');
+console.log('✓ entiende hoy, mañana, ayer, pasado mañana, fechas numéricas y «haz lo mismo también…»');
 console.log('✓ entiende órdenes con origen primero, destino primero y cruces comida/cena');
 console.log('✓ añadir compra, fin de semana sin niños y comidas fuera requieren confirmación');
 console.log('✓ valida fechas de la semana activa y pregunta cuando el sentido es ambiguo');
 console.log('✓ las órdenes incompletas piden aclaración en lugar de adivinar');
-console.log('✓ versión, caché y copias están alineadas en v0.9.49');
+console.log('✓ versión, caché y copias están alineadas en v0.9.50');

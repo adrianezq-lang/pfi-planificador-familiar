@@ -1,4 +1,5 @@
 import type { DiaMenu } from '../data/Menusemanal';
+import type { SemanaMenu } from '../data/MenuMensual';
 import type { Receta } from '../data/Recetas';
 import type { ResultadoCompra } from '../motor/compra';
 import type { ProductoDespensa } from './despensa';
@@ -6,6 +7,10 @@ import type { ResumenAprendizaje } from './aprendizaje';
 import type { PerfilFamiliar } from './perfil';
 import { cargarAsociacionesIngredientes } from './asociacionesIngredientes';
 import { esRecetaPostre } from './recetas';
+import {
+  etiquetaReferenciaTemporal,
+  resolverReferenciasTemporales,
+} from './referenciasTemporales';
 
 export type DestinoAsistente =
   | 'menu'
@@ -31,6 +36,7 @@ export type ContextoAsistentePFI = {
   menuMes: DiaMenu[];
   menusSemanas: DiaMenu[][];
   semanaActiva: number;
+  semanaMenuActiva?: SemanaMenu;
   mesActivo: string;
   compraSemana: ResultadoCompra | null;
   compraPendienteNombres: string[];
@@ -85,9 +91,35 @@ function listaCorta(valores: string[], maximo = 4): string {
   return `${limpios.slice(0, maximo).join(', ')} y ${limpios.length - maximo} más`;
 }
 
-function diaActual(menu: DiaMenu[]): DiaMenu | undefined {
-  const nombre = DIAS[new Date().getDay()];
+function buscarDiaMenu(menu: DiaMenu[], nombre: string): DiaMenu | undefined {
   return menu.find((dia) => normalizar(dia.dia) === normalizar(nombre));
+}
+
+function diaActual(
+  contexto: ContextoAsistentePFI,
+  fechaReferencia: Date | string = new Date(),
+): DiaMenu | undefined {
+  if (contexto.semanaMenuActiva) {
+    const resolucion = resolverReferenciasTemporales(
+      'hoy',
+      contexto.semanaMenuActiva,
+      fechaReferencia,
+    );
+    const referencia = resolucion.referencias[0];
+    if (resolucion.error || !referencia) return undefined;
+    return buscarDiaMenu(contexto.menuSemana, referencia.dia);
+  }
+
+  const fecha =
+    typeof fechaReferencia === 'string'
+      ? new Date(
+          /^\d{4}-\d{2}-\d{2}$/.test(fechaReferencia)
+            ? `${fechaReferencia}T12:00:00`
+            : fechaReferencia,
+        )
+      : new Date(fechaReferencia);
+  const nombre = DIAS[fecha.getDay()];
+  return buscarDiaMenu(contexto.menuSemana, nombre);
 }
 
 function platosSemana(menu: DiaMenu[]): string[] {
@@ -215,8 +247,9 @@ function preparacionesSemana(menu: DiaMenu[]): string[] {
 
 export function obtenerResumenProactivo(
   contexto: ContextoAsistentePFI,
+  fechaReferencia: Date | string = new Date(),
 ): ResumenProactivoAsistente {
-  const hoy = diaActual(contexto.menuSemana);
+  const hoy = diaActual(contexto, fechaReferencia);
   const reposicion = productosReposicion(contexto.despensa);
   const compra = contexto.compraSemana;
   const prevision = previsionMes(contexto);
@@ -262,13 +295,98 @@ export function obtenerResumenProactivo(
 export function responderAsistente(
   pregunta: string,
   contexto: ContextoAsistentePFI,
+  fechaReferencia: Date | string = new Date(),
 ): RespuestaAsistentePFI {
   const consulta = normalizar(pregunta);
-  const hoy = diaActual(contexto.menuSemana);
+  const hoy = diaActual(contexto, fechaReferencia);
   const compra = contexto.compraSemana;
   const reposicion = productosReposicion(contexto.despensa);
   const presupuestoPrevisto = previsionMes(contexto);
   const preparaciones = preparacionesSemana(contexto.menuSemana);
+
+  const referenciaTemporal = resolverReferenciasTemporales(
+    consulta,
+    contexto.semanaMenuActiva,
+    fechaReferencia,
+  );
+  const mencionaReferenciaTemporal =
+    referenciaTemporal.referencias.length > 0 ||
+    /\b(hoy|manana|pasado manana|ayer|anteayer)\b/.test(consulta) ||
+    /\b(?:el|dia)\s+\d{1,2}\b/.test(consulta);
+
+  if (mencionaReferenciaTemporal && referenciaTemporal.error) {
+    return {
+      titulo: 'Esa fecha queda fuera de la semana activa',
+      resumen: referenciaTemporal.error,
+      puntos: [
+        'No voy a mezclar días de otra semana con el menú que tienes abierto.',
+      ],
+      accion: { etiqueta: 'Abrir Menú', destino: 'menu' },
+      tono: 'atencion',
+    };
+  }
+
+  if (referenciaTemporal.referencias.length === 1) {
+    const referencia = referenciaTemporal.referencias[0];
+    const dia = buscarDiaMenu(contexto.menuSemana, referencia.dia);
+    if (!dia) {
+      return {
+        titulo: `No encuentro ${referencia.dia}`,
+        resumen:
+          'La referencia de fecha es válida, pero ese día no aparece en el menú activo.',
+        puntos: ['Revisa la semana seleccionada antes de continuar.'],
+        accion: { etiqueta: 'Abrir Menú', destino: 'menu' },
+        tono: 'atencion',
+      };
+    }
+
+    const pideCena = /\b(cena|cenar|cenamos|noche)\b/.test(consulta);
+    const pideComida = /\b(comida|comer|comemos|almuerzo|mediodia)\b/.test(
+      consulta,
+    );
+    const etiqueta = etiquetaReferenciaTemporal(referencia);
+
+    if (pideCena && !pideComida) {
+      return {
+        titulo: `Cena · ${etiqueta}`,
+        resumen: `Para cenar tienes ${dia.cena.join(' + ') || 'sin plan'}.`,
+        puntos: [
+          `Postre: ${dia.postreCenaReceta ?? dia.postreCena}.`,
+          dia.preparar
+            ? `Preparación marcada: ${dia.preparar}.`
+            : 'No hay preparación adelantada marcada para ese día.',
+        ],
+        accion: { etiqueta: 'Ver en Menú', destino: 'menu' },
+      };
+    }
+
+    if (pideComida && !pideCena) {
+      return {
+        titulo: `Comida · ${etiqueta}`,
+        resumen: `Para comer tienes ${dia.comida.join(' + ') || 'sin plan'}.`,
+        puntos: [
+          `Postre: ${dia.postreComidaReceta ?? dia.postreComida}.`,
+          dia.preparar
+            ? `Preparación marcada: ${dia.preparar}.`
+            : 'No hay preparación adelantada marcada para ese día.',
+        ],
+        accion: { etiqueta: 'Ver en Menú', destino: 'menu' },
+      };
+    }
+
+    return {
+      titulo: `Plan · ${etiqueta}`,
+      resumen: `Comida: ${dia.comida.join(' + ') || 'sin plan'} · Cena: ${dia.cena.join(' + ') || 'sin plan'}.`,
+      puntos: [
+        `Postre comida: ${dia.postreComidaReceta ?? dia.postreComida}.`,
+        `Postre cena: ${dia.postreCenaReceta ?? dia.postreCena}.`,
+        dia.preparar
+          ? `Preparación marcada: ${dia.preparar}.`
+          : 'No hay preparación adelantada marcada para ese día.',
+      ],
+      accion: { etiqueta: 'Ver en Menú', destino: 'menu' },
+    };
+  }
 
   if (/hoy|comida|cena|cenar|comer/.test(consulta)) {
     if (!hoy) {
