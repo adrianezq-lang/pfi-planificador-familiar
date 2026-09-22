@@ -70,7 +70,7 @@ assert.match(css, /\.profile-quick-guide/);
 
 const packageJson = JSON.parse(packageJsonTexto);
 const version = packageJson.version;
-assert.equal(version, '0.9.48');
+assert.equal(version, '0.9.49');
 assert.match(app, new RegExp(`app-version\\">v${version.replaceAll('.', '\\.')}`));
 assert.match(copias, new RegExp(`VERSION_APP = '${version.replaceAll('.', '\\.')}'`));
 assert.match(sw, new RegExp(`CACHE_NAME = 'pfi-v${version.replaceAll('.', '\\.')}-`));
@@ -101,4 +101,4 @@ console.log('✓ Despensa comparte la reposición');
 console.log('✓ Recetas y postres se pueden duplicar y compartir');
 console.log('✓ Catálogo informa de asociaciones pendientes');
 console.log('✓ Perfil evita tecnicismos y añade guía rápida');
-console.log('✓ versión, copias, PWA y documentación están alineadas en v0.9.48');
+console.log('✓ versión, copias, PWA y documentación están alineadas en v0.9.49');

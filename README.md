@@ -1,6 +1,8 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.48.
+Versión 0.9.49.
+
+La v0.9.49 añade contexto conversacional al Asistente PFI: una propuesta pendiente puede retocarse con frases como **«mejor el jueves»** o **«que sea cena»**, confirmarse con **«sí, hazlo»**, cancelarse por texto y deshacerse después mediante una reversión segura con nueva vista previa. El Asistente comprueba que el menú no haya cambiado antes de restaurar nada.
 
 La v0.9.48 hace más natural y segura la reorganización del menú desde el Asistente: distingue copiar, mover e intercambiar, entiende si el origen o el destino se nombran primero, admite cruces entre comida y cena, pregunta cuando la orden es ambigua y vuelve a validar el estado del menú al confirmar para no sobrescribir cambios recientes.
 

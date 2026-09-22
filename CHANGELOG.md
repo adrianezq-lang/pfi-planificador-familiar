@@ -1,3 +1,13 @@
+# v0.9.49 — Asistente conversacional y reversible
+
+- Las propuestas pendientes se pueden retocar sin repetir la orden completa: «mejor el jueves», «prefiero cena» o «que sea para cenar».
+- «Sí», «sí, hazlo», «confirmar» y «adelante» confirman únicamente la propuesta visible; «cancela» o «no» la descartan sin tocar datos.
+- «Deshazlo» prepara una reversión del último cambio de menú hecho por el Asistente en la sesión y vuelve a pedir confirmación antes de restaurarlo.
+- La reversión solo se ofrece si el menú actual sigue coincidiendo exactamente con el estado posterior al cambio original, evitando borrar ediciones posteriores.
+- Ajustar una propuesta vuelve a leer el menú actual y actualiza Antes / Después, origen, destino y compra prevista.
+- Los intercambios ambiguos no se retocan por aproximación: el Asistente pide los dos lados de nuevo.
+- Las acciones no relacionadas con el menú invalidan el contexto de deshacer para impedir que «deshazlo» afecte a una operación anterior distinta.
+
 # v0.9.48 — Asistente más natural y seguro
 
 - Distingue entre copiar, mover e intercambiar comidas o cenas entre dos días.

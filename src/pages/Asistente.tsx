@@ -29,7 +29,10 @@ import {
   type RespuestaAsistentePFI,
 } from '../services/asistentePFI';
 import {
+  ajustarPropuestaPendiente,
+  crearPropuestaDeshacerMenu,
   detectarAccionAsistente,
+  detectarIntencionPropuestaPendiente,
   type PropuestaAccionAsistente,
 } from '../services/accionesAsistente';
 import type { ResultadoCompra } from '../motor/compra';
@@ -68,6 +71,12 @@ type Conversacion = {
   pregunta: string;
   respuesta: RespuestaAsistentePFI;
   fecha: string;
+};
+
+type CambioMenuReversible = {
+  antes: DiaMenu[];
+  despues: DiaMenu[];
+  descripcion: string;
 };
 
 const CLAVE_HISTORIAL = 'pfi-asistente-historial-v1';
@@ -158,12 +167,25 @@ function conMomento(
     : { ...dia, cena: [...platos] };
 }
 
+function clonarMenu(menu: DiaMenu[]): DiaMenu[] {
+  return menu.map((dia) => ({
+    ...dia,
+    comida: [...dia.comida],
+    cena: [...dia.cena],
+  }));
+}
+
+function menusIguales(a: DiaMenu[], b: DiaMenu[]): boolean {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
 function destinoAccion(propuesta: PropuestaAccionAsistente): DestinoAsistente {
   switch (propuesta.accion.tipo) {
     case 'cambiar-menu':
     case 'copiar-menu':
     case 'mover-menu':
     case 'intercambiar-menu':
+    case 'restaurar-menu':
     case 'fin-semana-sin-ninos':
     case 'excepcion-dia':
       return 'menu';
@@ -198,6 +220,8 @@ export default function Asistente({
   const [resultadoAccion, setResultadoAccion] = useState('');
   const [destinoResultado, setDestinoResultado] = useState<DestinoAsistente | null>(null);
   const [revisionAcciones, setRevisionAcciones] = useState(0);
+  const [ultimoCambioMenu, setUltimoCambioMenu] =
+    useState<CambioMenuReversible | null>(null);
   const finalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -363,12 +387,148 @@ export default function Asistente({
     guardarHistorial(siguiente);
   };
 
+  const aplicarMenuReversible = (
+    siguiente: DiaMenu[],
+    descripcion: string,
+  ) => {
+    const antes = clonarMenu(menuEditable);
+    const despues = clonarMenu(siguiente);
+    setUltimoCambioMenu({ antes, despues, descripcion });
+    guardarMenu(despues);
+  };
+
   const preguntar = (texto: string) => {
     const limpio = texto.trim();
     if (!limpio) return;
 
     setResultadoAccion('');
     setDestinoResultado(null);
+
+    const intencion = detectarIntencionPropuestaPendiente(limpio);
+
+    if (propuestaPendiente && intencion === 'confirmar') {
+      agregarConversacion(limpio, {
+        titulo: 'Confirmación recibida',
+        resumen: propuestaPendiente.resumen,
+        puntos: ['Aplicaré exactamente la propuesta que acabas de revisar.'],
+        tono: 'neutro',
+      });
+      setConsulta('');
+      ejecutarPropuesta();
+      return;
+    }
+
+    if (propuestaPendiente && intencion === 'cancelar') {
+      setPropuestaPendiente(null);
+      setResultadoAccion('Cambio cancelado. No he modificado nada.');
+      agregarConversacion(limpio, {
+        titulo: 'Cambio cancelado',
+        resumen: 'He descartado la propuesta pendiente sin aplicar ningún cambio.',
+        puntos: [],
+        tono: 'neutro',
+      });
+      setConsulta('');
+      return;
+    }
+
+    if (propuestaPendiente && intencion === 'deshacer') {
+      setPropuestaPendiente(null);
+      setResultadoAccion(
+        'He descartado la propuesta pendiente. Como todavía no se había aplicado, el menú sigue igual.',
+      );
+      agregarConversacion(limpio, {
+        titulo: 'Propuesta descartada',
+        resumen:
+          'Ese cambio todavía no se había aplicado, así que no había nada que revertir.',
+        puntos: [
+          'Si quieres deshacer el último cambio ya aplicado, vuelve a decir «deshazlo».',
+        ],
+        tono: 'neutro',
+      });
+      setConsulta('');
+      return;
+    }
+
+    if (!propuestaPendiente && intencion === 'deshacer') {
+      if (!ultimoCambioMenu) {
+        agregarConversacion(limpio, {
+          titulo: 'No hay un cambio reciente para deshacer',
+          resumen:
+            'No tengo guardado en esta sesión un último cambio de menú hecho por el Asistente.',
+          puntos: [
+            'No tocaré el menú sin una referencia segura del estado anterior.',
+          ],
+          tono: 'atencion',
+        });
+        setConsulta('');
+        return;
+      }
+
+      if (!menusIguales(menuEditable, ultimoCambioMenu.despues)) {
+        agregarConversacion(limpio, {
+          titulo: 'No puedo deshacerlo automáticamente',
+          resumen:
+            'El menú ha cambiado después de la última acción del Asistente, así que restaurarlo ahora podría borrar cambios posteriores.',
+          puntos: [
+            'No he modificado nada.',
+            'Puedes pedirme el cambio concreto que quieras hacer sobre el menú actual.',
+          ],
+          tono: 'atencion',
+        });
+        setConsulta('');
+        return;
+      }
+
+      const propuestaDeshacer = crearPropuestaDeshacerMenu(
+        ultimoCambioMenu.antes,
+        ultimoCambioMenu.despues,
+        ultimoCambioMenu.descripcion,
+      );
+      setPropuestaPendiente(propuestaDeshacer);
+      agregarConversacion(limpio, {
+        titulo: 'He preparado la reversión',
+        resumen: propuestaDeshacer.resumen,
+        puntos: propuestaDeshacer.cambios,
+        tono: 'atencion',
+      });
+      setConsulta('');
+      return;
+    }
+
+    if (propuestaPendiente) {
+      const ajuste = ajustarPropuestaPendiente(
+        limpio,
+        propuestaPendiente,
+        menuEditable,
+        planMensual[semanaActiva],
+      );
+
+      if (ajuste?.propuesta) {
+        setPropuestaPendiente(ajuste.propuesta);
+        agregarConversacion(limpio, {
+          titulo: 'He ajustado la propuesta',
+          resumen: ajuste.propuesta.resumen,
+          puntos: ajuste.propuesta.cambios,
+          tono: 'atencion',
+        });
+        setConsulta('');
+        return;
+      }
+
+      if (ajuste?.aclaracion) {
+        agregarConversacion(limpio, {
+          titulo: 'Necesito un detalle',
+          resumen: ajuste.aclaracion,
+          puntos: [
+            'La propuesta anterior sigue pendiente y no he aplicado nada.',
+          ],
+          tono: 'atencion',
+        });
+        setConsulta('');
+        return;
+      }
+    }
+
     const deteccion = detectarAccionAsistente(
       limpio,
       menuEditable,
@@ -405,7 +565,7 @@ export default function Asistente({
     }, 40);
   };
 
-  const ejecutarPropuesta = () => {
+  function ejecutarPropuesta() {
     const propuesta = propuestaPendiente;
     if (!propuesta) return;
 
@@ -427,7 +587,10 @@ export default function Asistente({
             if (normalizar(dia.dia) !== normalizar(accion.dia)) return dia;
             return conMomento(dia, accion.momento, [accion.platoNuevo]);
           });
-          guardarMenu(menuActualizado);
+          aplicarMenuReversible(
+            menuActualizado,
+            `cambiar la ${accion.momento} del ${accion.dia.toLocaleLowerCase('es')} por ${accion.platoNuevo}`,
+          );
           setResultadoAccion(
             `He cambiado la ${accion.momento} del ${accion.dia.toLocaleLowerCase('es')} por ${accion.platoNuevo}. La compra se recalculará con el nuevo menú.`,
           );
@@ -459,7 +622,10 @@ export default function Asistente({
             if (normalizar(dia.dia) !== normalizar(accion.diaDestino)) return dia;
             return conMomento(dia, accion.momentoDestino, accion.platosNuevos);
           });
-          guardarMenu(menuActualizado);
+          aplicarMenuReversible(
+            menuActualizado,
+            `copiar la ${accion.momentoOrigen} de ${accion.etiquetaOrigen} en ${accion.etiquetaDestino}`,
+          );
           setResultadoAccion(
             `He copiado la ${accion.momentoOrigen} de ${accion.etiquetaOrigen} en la ${accion.momentoDestino} de ${accion.etiquetaDestino}: ${accion.platosNuevos.join(' + ')}. El origen se mantiene igual y la compra se recalculará.`,
           );
@@ -501,7 +667,10 @@ export default function Asistente({
             }
             return actualizado;
           });
-          guardarMenu(menuActualizado);
+          aplicarMenuReversible(
+            menuActualizado,
+            `mover la ${accion.momentoOrigen} de ${accion.etiquetaOrigen} a ${accion.etiquetaDestino}`,
+          );
           setResultadoAccion(
             `He movido ${accion.platosOrigenAntes.join(' + ')} de ${accion.etiquetaOrigen} a ${accion.etiquetaDestino}. El hueco de origen queda vacío y la compra se recalculará.`,
           );
@@ -547,14 +716,36 @@ export default function Asistente({
             }
             return actualizado;
           });
-          guardarMenu(menuActualizado);
+          aplicarMenuReversible(
+            menuActualizado,
+            `intercambiar ${accion.etiquetaDestino} y ${accion.etiquetaOrigen}`,
+          );
           setResultadoAccion(
             `He intercambiado ${accion.etiquetaDestino} y ${accion.etiquetaOrigen}. Ningún plato se pierde y la compra se recalculará con el nuevo orden.`,
           );
           break;
         }
 
+        case 'restaurar-menu': {
+          const accion = propuesta.accion;
+          if (!menusIguales(menuEditable, accion.menuDespues)) {
+            throw new Error(
+              'El menú ha cambiado desde que preparé la reversión. No voy a sobrescribir esos cambios; vuelve a pedirme lo que quieras modificar sobre el menú actual.',
+            );
+          }
+
+          aplicarMenuReversible(
+            accion.menuAntes,
+            `deshacer ${accion.descripcion}`,
+          );
+          setResultadoAccion(
+            `He deshecho ${accion.descripcion}. El menú anterior vuelve a estar activo y la compra se recalculará.`,
+          );
+          break;
+        }
+
         case 'anadir-compra': {
+          setUltimoCambioMenu(null);
           const accion = propuesta.accion;
           const periodoId = crearPeriodoIdCompraManual(
             'semana',
@@ -590,6 +781,7 @@ export default function Asistente({
         }
 
         case 'fin-semana-sin-ninos': {
+          setUltimoCambioMenu(null);
           const semana = planMensual[semanaActiva];
           if (!semana) throw new Error('No encuentro la semana activa.');
           guardarFinDeSemanaSinNinos(
@@ -605,6 +797,7 @@ export default function Asistente({
         }
 
         case 'excepcion-dia': {
+          setUltimoCambioMenu(null);
           const accion = propuesta.accion;
           const semana = planMensual[semanaActiva];
           if (!semana) throw new Error('No encuentro la semana activa.');
@@ -640,7 +833,7 @@ export default function Asistente({
           : 'No he podido aplicar el cambio. No se ha modificado nada.',
       );
     }
-  };
+  }
 
   const enviar = (evento: FormEvent) => {
     evento.preventDefault();
@@ -652,6 +845,7 @@ export default function Asistente({
     setPropuestaPendiente(null);
     setResultadoAccion('');
     setDestinoResultado(null);
+    setUltimoCambioMenu(null);
     localStorage.removeItem(CLAVE_HISTORIAL);
   };
 
@@ -665,7 +859,7 @@ export default function Asistente({
           <span>ASISTENTE PFI</span>
           <h2>¿Qué necesitas?</h2>
           <p>
-            Cruzo tu menú, compra, despensa y presupuesto. También entiendo cambios entre días: puedo copiar, mover o intercambiar comidas y cenas, siempre con vista previa y confirmación.
+            Cruzo tu menú, compra, despensa y presupuesto. Puedo seguir el hilo de una propuesta: «mejor el jueves», «que sea cena», «sí, hazlo», «cancela» o «deshazlo», siempre con vista previa y confirmación segura.
           </p>
         </div>
         <div className="assistant-live-badge">
