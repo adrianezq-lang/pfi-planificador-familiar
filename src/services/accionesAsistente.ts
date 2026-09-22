@@ -109,7 +109,11 @@ function normalizar(texto: string): string {
     .trim();
 }
 
-type ReferenciaDia = ReferenciaTemporalDia;
+type ReferenciaDia = Pick<
+  ReferenciaTemporalDia,
+  'dia' | 'indiceTexto'
+> &
+  Partial<Omit<ReferenciaTemporalDia, 'dia' | 'indiceTexto'>>;
 
 function resolverReferenciasDia(
   consulta: string,
