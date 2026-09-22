@@ -48,6 +48,12 @@ export type AccionAsistente =
       etiquetaOrigen: string;
     }
   | {
+      tipo: 'restaurar-menu';
+      menuAntes: DiaMenu[];
+      menuDespues: DiaMenu[];
+      descripcion: string;
+    }
+  | {
       tipo: 'anadir-compra';
       nombre: string;
       cantidad: number;
@@ -576,6 +582,272 @@ function extraerCambioMenu(
         platosAnteriores: [...anteriores],
       },
       confirmar: 'Confirmar cambio',
+    },
+  };
+}
+
+
+export type IntencionPropuestaPendiente =
+  | 'confirmar'
+  | 'cancelar'
+  | 'deshacer'
+  | null;
+
+export function detectarIntencionPropuestaPendiente(
+  pregunta: string,
+): IntencionPropuestaPendiente {
+  const consulta = normalizar(pregunta);
+
+  if (
+    /^(?:si|si hazlo|si confirma|hazlo|confirma|confirmar|adelante|aplicalo|aplica el cambio)$/.test(
+      consulta,
+    )
+  ) {
+    return 'confirmar';
+  }
+
+  if (
+    /^(?:no|cancela|cancelalo|cancelar|dejalo|olvidalo|no lo hagas)$/.test(
+      consulta,
+    )
+  ) {
+    return 'cancelar';
+  }
+
+  if (
+    /^(?:deshazlo|deshacer|deshaz el ultimo cambio|vuelve atras|volver atras|restaura el menu anterior)$/.test(
+      consulta,
+    )
+  ) {
+    return 'deshacer';
+  }
+
+  return null;
+}
+
+function clonarMenu(menu: DiaMenu[]): DiaMenu[] {
+  return menu.map((dia) => ({
+    ...dia,
+    comida: [...dia.comida],
+    cena: [...dia.cena],
+  }));
+}
+
+export function crearPropuestaDeshacerMenu(
+  menuAntes: DiaMenu[],
+  menuDespues: DiaMenu[],
+  descripcion: string,
+): PropuestaAccionAsistente {
+  return {
+    titulo: 'Deshacer último cambio de menú',
+    resumen: `Voy a deshacer ${descripcion} y restaurar el menú tal como estaba antes.`,
+    cambios: [
+      `Cambio a deshacer: ${descripcion}`,
+      'Primero comprobaré que el menú no haya cambiado desde entonces.',
+      'La lista de la compra se recalculará con el menú restaurado.',
+    ],
+    accion: {
+      tipo: 'restaurar-menu',
+      menuAntes: clonarMenu(menuAntes),
+      menuDespues: clonarMenu(menuDespues),
+      descripcion,
+    },
+    confirmar: 'Confirmar deshacer',
+  };
+}
+
+export function ajustarPropuestaPendiente(
+  pregunta: string,
+  propuesta: PropuestaAccionAsistente,
+  menu: DiaMenu[],
+  semana?: SemanaMenu,
+): ResultadoDeteccionAccion | null {
+  const consulta = normalizar(pregunta);
+  const pareceAjuste =
+    /\b(mejor|prefiero|cambialo|cambiala|ponlo|ponla|que sea|en vez de)\b/.test(
+      consulta,
+    );
+
+  if (!pareceAjuste) return null;
+
+  const accion = propuesta.accion;
+  if (
+    accion.tipo !== 'cambiar-menu' &&
+    accion.tipo !== 'copiar-menu' &&
+    accion.tipo !== 'mover-menu' &&
+    accion.tipo !== 'intercambiar-menu'
+  ) {
+    return null;
+  }
+
+  const referencias = referenciasDia(consulta);
+  if (referencias.length > 1) {
+    return {
+      aclaracion:
+        'Para retocar una propuesta pendiente indícame solo el nuevo día de destino. Si quieres cambiar origen y destino, dame la orden completa.',
+    };
+  }
+
+  const referenciaDestino = referencias[0];
+  const momentoPedido = detectarMomento(consulta);
+  if (!referenciaDestino && !momentoPedido) return null;
+
+  if (accion.tipo === 'intercambiar-menu') {
+    return {
+      aclaracion:
+        'En un intercambio no quiero adivinar cuál de los dos lados quieres cambiar. Dime de nuevo los dos días y si hablamos de comida o cena.',
+    };
+  }
+
+  const diaActual =
+    accion.tipo === 'cambiar-menu' ? accion.dia : accion.diaDestino;
+  const momentoActual =
+    accion.tipo === 'cambiar-menu' ? accion.momento : accion.momentoDestino;
+
+  const diaNuevo = referenciaDestino?.dia ?? diaActual;
+  const momentoNuevo = momentoPedido ?? momentoActual;
+
+  if (referenciaDestino) {
+    const errorFecha = validarReferenciaFecha(referenciaDestino, semana);
+    if (errorFecha) return { aclaracion: errorFecha };
+  }
+
+  if (!nombreDiaExiste(menu, diaNuevo)) {
+    return { aclaracion: `No encuentro ${diaNuevo} en la semana activa.` };
+  }
+
+  if (
+    normalizar(diaNuevo) === normalizar(diaActual) &&
+    momentoNuevo === momentoActual
+  ) {
+    return {
+      aclaracion:
+        'La propuesta ya usa ese día y ese momento. Dime qué parte quieres cambiar.',
+    };
+  }
+
+  const diaDestino = buscarDia(menu, diaNuevo);
+  if (!diaDestino) return null;
+  const destinoAntes =
+    momentoNuevo === 'comida' ? diaDestino.comida : diaDestino.cena;
+  const refDestino: ReferenciaDia =
+    referenciaDestino ?? { dia: diaNuevo, indiceTexto: 0 };
+  const etiquetaDestinoTexto = etiquetaDia(refDestino, semana);
+  const nombreMomentoDestino = momentoNuevo === 'comida' ? 'Comida' : 'Cena';
+
+  if (accion.tipo === 'cambiar-menu') {
+    return {
+      propuesta: {
+        titulo: `Cambiar ${momentoNuevo} del ${etiquetaDestinoTexto.toLocaleLowerCase('es')}`,
+        resumen: `Mantengo ${accion.platoNuevo}, pero lo pondré en la ${momentoNuevo} de ${etiquetaDestinoTexto}.`,
+        cambios: [
+          `Nuevo destino: ${etiquetaDestinoTexto} · ${nombreMomentoDestino}`,
+          `Antes: ${destinoAntes.join(' + ') || 'Sin plan'}`,
+          `Después: ${accion.platoNuevo}`,
+          'La lista de la compra se recalculará con el cambio.',
+        ],
+        accion: {
+          tipo: 'cambiar-menu',
+          dia: diaNuevo,
+          momento: momentoNuevo,
+          platoNuevo: accion.platoNuevo,
+          platosAnteriores: [...destinoAntes],
+        },
+        confirmar: 'Confirmar cambio',
+      },
+    };
+  }
+
+  const diaOrigen = buscarDia(menu, accion.diaOrigen);
+  if (!diaOrigen) {
+    return { aclaracion: `Ya no encuentro ${accion.diaOrigen} en la semana activa.` };
+  }
+  const origenAntes =
+    accion.momentoOrigen === 'comida' ? diaOrigen.comida : diaOrigen.cena;
+
+  if (origenAntes.length === 0) {
+    return {
+      aclaracion: `La ${accion.momentoOrigen} de ${accion.diaOrigen.toLocaleLowerCase('es')} está vacía. Ya no hay nada que usar como origen.`,
+    };
+  }
+
+  if (
+    normalizar(diaNuevo) === normalizar(accion.diaOrigen) &&
+    momentoNuevo === accion.momentoOrigen
+  ) {
+    return {
+      aclaracion:
+        'El nuevo destino coincide con el origen. Elige otro día o cambia comida/cena.',
+    };
+  }
+
+  const etiquetaOrigenTexto = etiquetaDia(
+    { dia: accion.diaOrigen, indiceTexto: 0 },
+    semana,
+  );
+  const nombreMomentoOrigen =
+    accion.momentoOrigen === 'comida' ? 'Comida' : 'Cena';
+
+  if (accion.tipo === 'copiar-menu') {
+    if (mismosPlatos(destinoAntes, origenAntes)) {
+      return {
+        aclaracion:
+          'Ese destino ya tiene exactamente lo mismo que el origen. No hace falta aplicar el cambio.',
+      };
+    }
+
+    return {
+      propuesta: {
+        titulo: `Copiar ${accion.momentoOrigen} de ${etiquetaOrigenTexto.toLocaleLowerCase('es')}`,
+        resumen: `Mantengo el origen en ${etiquetaOrigenTexto}, pero copiaré ${origenAntes.join(' + ')} en la ${momentoNuevo} de ${etiquetaDestinoTexto}.`,
+        cambios: [
+          `Destino: ${etiquetaDestinoTexto} · ${nombreMomentoDestino}`,
+          `Antes: ${destinoAntes.join(' + ') || 'Sin plan'}`,
+          `Origen: ${etiquetaOrigenTexto} · ${nombreMomentoOrigen}`,
+          `Después: ${origenAntes.join(' + ')}`,
+          'El origen se mantiene igual.',
+          'La lista de la compra se recalculará con el cambio.',
+        ],
+        accion: {
+          tipo: 'copiar-menu',
+          diaDestino: diaNuevo,
+          diaOrigen: accion.diaOrigen,
+          momentoDestino: momentoNuevo,
+          momentoOrigen: accion.momentoOrigen,
+          platosAnteriores: [...destinoAntes],
+          platosNuevos: [...origenAntes],
+          etiquetaDestino: etiquetaDestinoTexto,
+          etiquetaOrigen: etiquetaOrigenTexto,
+        },
+        confirmar: 'Confirmar cambio',
+      },
+    };
+  }
+
+  return {
+    propuesta: {
+      titulo: `Mover ${accion.momentoOrigen} de ${etiquetaOrigenTexto.toLocaleLowerCase('es')}`,
+      resumen: `Mantengo el origen en ${etiquetaOrigenTexto}, pero moveré ${origenAntes.join(' + ')} a la ${momentoNuevo} de ${etiquetaDestinoTexto}.`,
+      cambios: [
+        `Destino: ${etiquetaDestinoTexto} · ${nombreMomentoDestino}`,
+        `Antes en destino: ${destinoAntes.join(' + ') || 'Sin plan'}`,
+        `Origen: ${etiquetaOrigenTexto} · ${nombreMomentoOrigen} · ${origenAntes.join(' + ')}`,
+        `Después en destino: ${origenAntes.join(' + ')}`,
+        'Después en origen: Sin plan',
+        'La lista de la compra se recalculará con el cambio.',
+      ],
+      accion: {
+        tipo: 'mover-menu',
+        diaDestino: diaNuevo,
+        diaOrigen: accion.diaOrigen,
+        momentoDestino: momentoNuevo,
+        momentoOrigen: accion.momentoOrigen,
+        platosDestinoAntes: [...destinoAntes],
+        platosOrigenAntes: [...origenAntes],
+        etiquetaDestino: etiquetaDestinoTexto,
+        etiquetaOrigen: etiquetaOrigenTexto,
+      },
+      confirmar: 'Confirmar movimiento',
     },
   };
 }

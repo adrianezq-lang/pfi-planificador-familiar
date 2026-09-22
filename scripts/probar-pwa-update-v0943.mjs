@@ -9,9 +9,9 @@ const [app, main, sw, pkg, css] = await Promise.all([
   readFile(new URL('../src/styles/premium-v5.css', import.meta.url), 'utf8'),
 ]);
 
-assert.match(pkg, /"version": "0\.9\.48"/);
-assert.match(app, /v0\.9\.48/);
-assert.match(sw, /pfi-v0\.9\.48-1/);
+assert.match(pkg, /"version": "0\.9\.49"/);
+assert.match(app, /v0\.9\.49/);
+assert.match(sw, /pfi-v0\.9\.49-1/);
 assert.match(main, /pfi-version-disponible/);
 assert.match(main, /pfi-version=\$\{Date\.now\(\)\}/);
 assert.match(main, /cache: 'no-store'/);
