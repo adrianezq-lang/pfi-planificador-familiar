@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-21T10:45:42.245Z",
+  "actualizado": "2026-09-22T09:58:46.569Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4285,
+  "totalProductos": 4287,
   "productos": [
     {
       "productoId": "40339",
@@ -738,6 +738,22 @@
       "subcategoria": "Limpieza de cara",
       "imagen": "https://prod-mercadona.imgix.net/images/a1aa65102da6336443e5a1003c74c2a1.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8822/aceite-facial-micelar-desmaquillante-limpiador-deliplus-facial-clean-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "17803",
+      "nombre": "Aceite labial Lip Oil Caramel Kiss Deliplus miel",
+      "precio": 4.25,
+      "precioReferencia": 4.25,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios cremoso y brillos",
+      "imagen": "https://prod-mercadona.imgix.net/images/c3c5f82788d74e70368a154a3397a935.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17803/aceite-labial-lip-oil-caramell-kiss-deliplus-miel",
       "disponible": true
     },
     {
@@ -3776,7 +3792,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Patatas fritas",
-      "imagen": "https://prod-mercadona.imgix.net/images/29aa77eb2357d35b1dab5691d3c71317.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/29aa77eb2357d35b1dab5691d3c71317.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/33556/aperitivo-patata-sabor-crema-agria-cebolla-pringles-bote",
       "disponible": true
     },
@@ -3824,7 +3840,7 @@
       "pesoAproximado": true,
       "sección": "Fitoterapia y parafarmacia",
       "subcategoria": "Botiquín",
-      "imagen": "https://prod-mercadona.imgix.net/images/3233c4f6f14b6479de209e1f99714c9e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d8b9c0ac77bcb271190e2cfcf9f293aa.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35735/apositos-hidrocoloides-adhesivos-ampollas-rozaduras-deliplus-surtidos-caja",
       "disponible": true
     },
@@ -9029,6 +9045,38 @@
       "disponible": true
     },
     {
+      "productoId": "21487",
+      "nombre": "Bocaditos de carne en gelatina gato adulto Delikuit",
+      "precio": 3.4,
+      "precioReferencia": 2.834,
+      "formato": "Paquete",
+      "unidadesTotales": 12,
+      "tamañoUnidad": 1.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/d1d7aa66b0d4d4a66faae526e74907c0.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21487/bocaditos-gelatina-gato-adulto-delikuit-contiene-6-con-ternera-higado-verduras-6-con-pato-pollo-verduras-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "22007",
+      "nombre": "Bocaditos de carne en gelatina gato júnior Delikuit",
+      "precio": 2.5,
+      "precioReferencia": 3.125,
+      "formato": "Paquete",
+      "unidadesTotales": 8,
+      "tamañoUnidad": 0.8,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/cff6be7f5e3bb601884d53db9e25f823.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/22007/bocaditos-gelatina-gato-junior-delikuit-con-pollo-pavo-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "14915",
       "nombre": "Bocaditos de carne en salsa gato adulto esterilizado Delikuit",
       "precio": 3.8,
@@ -9042,6 +9090,38 @@
       "subcategoria": "Alimentación húmeda",
       "imagen": "https://prod-mercadona.imgix.net/images/f334a95b0c8bfcd89253c7ee017ec7fd.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14915/bocaditos-salsa-gato-adulto-delikuit-esterilizado-contiene-6-con-pavo-salsa-6-con-ternera-salsa-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "18165",
+      "nombre": "Bocaditos de carne y pescado en salsa gato adulto Delikuit",
+      "precio": 6.65,
+      "precioReferencia": 3.26,
+      "formato": "Paquete",
+      "unidadesTotales": 24,
+      "tamañoUnidad": 2.04,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/4b688f515cc2f1a8202b673902184cd0.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18165/bocaditos-salsa-gato-adulto-delikuit-contiene-6-con-ternera-6-con-pollo-6-con-salmon-6-con-trucha-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "21490",
+      "nombre": "Bocaditos de pescado en gelatina gato adulto Delikuit",
+      "precio": 3.4,
+      "precioReferencia": 2.834,
+      "formato": "Paquete",
+      "unidadesTotales": 12,
+      "tamañoUnidad": 1.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/f68e06b8809f18fb33a5f00bcff739eb.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21490/bocaditos-gelatina-gato-adulto-delikuit-contiene-6-con-atun-trucha-verduras-6-con-salmon-bacalo-verduras-caja",
       "disponible": true
     },
     {
@@ -9061,51 +9141,35 @@
       "disponible": true
     },
     {
-      "productoId": "22007",
-      "nombre": "Bocaditos en gelatina con pollo y pavo gato júnior Delikuit",
-      "precio": 2.5,
-      "precioReferencia": 3.125,
-      "formato": "Paquete",
-      "unidadesTotales": 8,
-      "tamañoUnidad": 0.8,
+      "productoId": "9833",
+      "nombre": "Bocaditos de salmón y verduras en salsa perro adulto Special Dog Excellence",
+      "precio": 1.5,
+      "precioReferencia": 1.22,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.23,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Mascotas",
       "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/cff6be7f5e3bb601884d53db9e25f823.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/22007/bocaditos-gelatina-gato-junior-delikuit-con-pollo-pavo-paquete",
+      "imagen": "https://prod-mercadona.imgix.net/images/7cf69a2dd67016694191f93777116a0d.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/9833/bocaditos-salsa-perro-adulto-special-dog-excellence-con-salmon-verduras-bote",
       "disponible": true
     },
     {
-      "productoId": "21490",
-      "nombre": "Bocaditos en gelatina gato adulto Delikuit",
-      "precio": 3.4,
-      "precioReferencia": 2.834,
-      "formato": "Paquete",
-      "unidadesTotales": 12,
-      "tamañoUnidad": 1.2,
+      "productoId": "9832",
+      "nombre": "Bocaditos de ternera, hígado y verduras en salsa perro adulto Special Dog Excellence",
+      "precio": 1.5,
+      "precioReferencia": 1.22,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.23,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Mascotas",
       "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/f68e06b8809f18fb33a5f00bcff739eb.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21490/bocaditos-gelatina-gato-adulto-delikuit-contiene-6-con-atun-trucha-verduras-6-con-salmon-bacalo-verduras-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "21487",
-      "nombre": "Bocaditos en gelatina gato adulto Delikuit",
-      "precio": 3.4,
-      "precioReferencia": 2.834,
-      "formato": "Paquete",
-      "unidadesTotales": 12,
-      "tamañoUnidad": 1.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/d1d7aa66b0d4d4a66faae526e74907c0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21487/bocaditos-gelatina-gato-adulto-delikuit-contiene-6-con-ternera-higado-verduras-6-con-pato-pollo-verduras-caja",
+      "imagen": "https://prod-mercadona.imgix.net/images/8177b80f978aa45728d829285b8067b5.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/9832/bocaditos-salsa-perro-adulto-special-dog-excellence-con-ternera-higado-verduras-bote",
       "disponible": true
     },
     {
@@ -9125,22 +9189,6 @@
       "disponible": true
     },
     {
-      "productoId": "9833",
-      "nombre": "Bocaditos en salsa con salmón y verduras perro adulto Special Dog Excellence",
-      "precio": 1.5,
-      "precioReferencia": 1.22,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.23,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/7cf69a2dd67016694191f93777116a0d.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9833/bocaditos-salsa-perro-adulto-special-dog-excellence-con-salmon-verduras-bote",
-      "disponible": true
-    },
-    {
       "productoId": "52711",
       "nombre": "Bocaditos en salsa con salmón, trucha y verduras gato adulto Lechat Excellence",
       "precio": 0.7,
@@ -9154,38 +9202,6 @@
       "subcategoria": "Alimentación húmeda",
       "imagen": "https://prod-mercadona.imgix.net/images/7b3ad728d68666008f7f4b4ecda401ce.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52711/bocaditos-salsa-gato-adulto-lechat-excellence-con-salmon-trucha-verduras-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "9832",
-      "nombre": "Bocaditos en salsa con ternera, hígado y verduras perro adulto Special Dog Excellence",
-      "precio": 1.5,
-      "precioReferencia": 1.22,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.23,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/8177b80f978aa45728d829285b8067b5.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9832/bocaditos-salsa-perro-adulto-special-dog-excellence-con-ternera-higado-verduras-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "18165",
-      "nombre": "Bocaditos en salsa gato adulto Delikuit",
-      "precio": 6.65,
-      "precioReferencia": 3.26,
-      "formato": "Paquete",
-      "unidadesTotales": 24,
-      "tamañoUnidad": 2.04,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/4b688f515cc2f1a8202b673902184cd0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18165/bocaditos-salsa-gato-adulto-delikuit-contiene-6-con-ternera-6-con-pollo-6-con-salmon-6-con-trucha-caja",
       "disponible": true
     },
     {
@@ -10023,8 +10039,8 @@
     {
       "productoId": "35902",
       "nombre": "Brochetas de pollo, pimiento verde y tocino de cerdo con varilla",
-      "precio": 2.96,
-      "precioReferencia": 8,
+      "precio": 3.11,
+      "precioReferencia": 8.4,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.37,
@@ -10066,22 +10082,6 @@
       "subcategoria": "Verdura",
       "imagen": "https://prod-mercadona.imgix.net/images/4137c2c4c17cd4cc22e3161b5d9b50d9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/61261/brocoli-hacendado-ultracongelado-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "8320",
-      "nombre": "Bronceador facial fluido Bronzer luminoso Deliplus 01 terracota",
-      "precio": 4.75,
-      "precioReferencia": 4.75,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.012,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Colorete",
-      "imagen": "https://prod-mercadona.imgix.net/images/e57e7162ca2b46e897e86f979c807e54.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8320/bronceador-facial-fluido-bronzer-luminoso-deliplus-01",
       "disponible": true
     },
     {
@@ -10231,8 +10231,8 @@
     {
       "productoId": "3547",
       "nombre": "Burger de vacuno gruesas",
-      "precio": 5.1,
-      "precioReferencia": 14.167,
+      "precio": 5.4,
+      "precioReferencia": 15,
       "formato": "Bandeja",
       "unidadesTotales": 2,
       "tamañoUnidad": 0.36,
@@ -14279,8 +14279,8 @@
     {
       "productoId": "66587",
       "nombre": "Cerveza especial Estrella Galicia",
-      "precio": 8.16,
-      "precioReferencia": 2.72,
+      "precio": 7.32,
+      "precioReferencia": 2.44,
       "formato": "Pack-12",
       "unidadesTotales": 12,
       "tamañoUnidad": 3,
@@ -14311,8 +14311,8 @@
     {
       "productoId": "28078",
       "nombre": "Cerveza especial Keler",
-      "precio": 7.8,
-      "precioReferencia": 1.97,
+      "precio": 9.6,
+      "precioReferencia": 2.425,
       "formato": "latas",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -14327,8 +14327,8 @@
     {
       "productoId": "27981",
       "nombre": "Cerveza especial Keler",
-      "precio": 0.68,
-      "precioReferencia": 2.061,
+      "precio": 0.84,
+      "precioReferencia": 2.546,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -17538,22 +17538,6 @@
       "subcategoria": "Limpieza baño y WC",
       "imagen": "https://prod-mercadona.imgix.net/images/da7803a87e1a2a18588249dc80366124.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43484/colgador-wc-azul-limpieza-activa-bosque-verde-triple-accion-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "43474",
-      "nombre": "Colgador WC Azul perfume marino Bosque Verde",
-      "precio": 1.25,
-      "precioReferencia": 15.625,
-      "formato": "Paquete",
-      "unidadesTotales": 2,
-      "tamañoUnidad": 0.08,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Limpieza baño y WC",
-      "imagen": "https://prod-mercadona.imgix.net/images/92123675a6e17897648463b65ed2a191.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/43474/colgador-wc-azul-perfume-marino-bosque-verde-triple-accion-paquete",
       "disponible": true
     },
     {
@@ -21952,7 +21936,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pollo",
-      "imagen": "https://prod-mercadona.imgix.net/images/79b5a7244ff93c42acf5917150bca750.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/79b5a7244ff93c42acf5917150bca750.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3680/cuartos-traseros-familiar-pollo-bandeja",
       "disponible": true
     },
@@ -22261,6 +22245,22 @@
       "disponible": true
     },
     {
+      "productoId": "21356",
+      "nombre": "Delicias carne y piscado en salsa gato adulto Delikuit",
+      "precio": 2.35,
+      "precioReferencia": 6.912,
+      "formato": "Tarrina",
+      "unidadesTotales": 4,
+      "tamañoUnidad": 0.34,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/41f016cb8c0d3230efe0c9eacc567936.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21356/delicias-salsa-gato-adulto-delikuit-contiene-2-con-atun-2-con-pavo-caja",
+      "disponible": true
+    },
+    {
       "productoId": "63322",
       "nombre": "Delicias de pollo Hacendado ultracongeladas",
       "precio": 3.7,
@@ -22293,22 +22293,6 @@
       "disponible": true
     },
     {
-      "productoId": "21356",
-      "nombre": "Delicias en salsa gato adulto Delikuit",
-      "precio": 2.35,
-      "precioReferencia": 6.912,
-      "formato": "Tarrina",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 0.34,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/41f016cb8c0d3230efe0c9eacc567936.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21356/delicias-salsa-gato-adulto-delikuit-contiene-2-con-atun-2-con-pavo-caja",
-      "disponible": true
-    },
-    {
       "productoId": "52504",
       "nombre": "Delineador de ojos Deliplus 02 marrón",
       "precio": 3.75,
@@ -22322,6 +22306,22 @@
       "subcategoria": "Perfilador de ojos",
       "imagen": "https://prod-mercadona.imgix.net/images/d37932bb7bb25a34aa40bbb3d8e48020.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52504/delineador-ojos-deliplus-02-marron",
+      "disponible": true
+    },
+    {
+      "productoId": "17800",
+      "nombre": "Delineador dúo para ojos y pecas Caramel Kiss Deliplus marrón",
+      "precio": 4,
+      "precioReferencia": 4,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Perfilador de ojos",
+      "imagen": "https://prod-mercadona.imgix.net/images/612ba996792022c635ea4f86ec01b62d.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17800/delineador-duo-ojos-pecas-caramel-kiss-deliplus-marron",
       "disponible": true
     },
     {
@@ -22784,7 +22784,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Desodorante Spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/ef64fa05126e4180bbe71c84462f6245.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/ef64fa05126e4180bbe71c84462f6245.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35363/desodorante-aloe-deliplus-antitranspirante-0-alcohol-spray",
       "disponible": true
     },
@@ -29984,7 +29984,7 @@
       "pesoAproximado": true,
       "sección": "Arroz, legumbres y pasta",
       "subcategoria": "Garbanzos",
-      "imagen": "https://prod-mercadona.imgix.net/images/2656519be58b65a23ab94cbd25329b3e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/67571a2b439d77ba4bdab208c51a5320.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/5220/garbanzo-lechoso-andaluz-hacendado-paquete",
       "disponible": true
     },
@@ -34640,7 +34640,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pollo",
-      "imagen": "https://prod-mercadona.imgix.net/images/bdb83c7c681de567327ae97747a5d2bf.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/bdb83c7c681de567327ae97747a5d2bf.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/2778/jamoncitos-pollo-bandeja",
       "disponible": true
     },
@@ -34914,6 +34914,22 @@
       "subcategoria": "Cepillo de dientes",
       "imagen": "https://prod-mercadona.imgix.net/images/453a310e1288d24fd5cab65276ca6687.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12818/kit-viaje-higiene-dental-deliplus-3-action-contiene-dentifrico-50-ml-cepillo-dental",
+      "disponible": true
+    },
+    {
+      "productoId": "17555",
+      "nombre": "Kit esponjas de maquillaje Deliplus",
+      "precio": 4,
+      "precioReferencia": 4,
+      "formato": "Caja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 2,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pinceles y brochas",
+      "imagen": "https://prod-mercadona.imgix.net/images/ac086b44b889b0c6be1c49b3683c72aa.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17555/kit-esponjas-maquillaje-deliplus-caja",
       "disponible": true
     },
     {
@@ -36944,7 +36960,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Lechuga",
-      "imagen": "https://prod-mercadona.imgix.net/images/320cf3cbed15d3543322144333ce1a98.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/320cf3cbed15d3543322144333ce1a98.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/68130/lechuga-iceberg-pieza",
       "disponible": true
     },
@@ -38151,8 +38167,8 @@
     {
       "productoId": "43338",
       "nombre": "Limpiahogar Oxi Active Bosque Verde sin lejía",
-      "precio": 1.35,
-      "precioReferencia": 1.35,
+      "precio": 1.3,
+      "precioReferencia": 1.3,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -41205,6 +41221,22 @@
       "disponible": true
     },
     {
+      "productoId": "17802",
+      "nombre": "Mascarilla labial Caramel Kiss Deliplus aroma miel y caramelo",
+      "precio": 4.25,
+      "precioReferencia": 4.25,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Cuidado",
+      "imagen": "https://prod-mercadona.imgix.net/images/22ac7f8d1fa8132f56cd00fde5fbab82.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17802/mascarilla-labial-caramell-kiss-deliplus-aroma-miel-caramelo",
+      "disponible": true
+    },
+    {
       "productoId": "44283",
       "nombre": "Mascarilla Liss Frizz Control Deliplus cabello rebelde",
       "precio": 2.4,
@@ -42581,6 +42613,22 @@
       "disponible": true
     },
     {
+      "productoId": "14355",
+      "nombre": "Mini bombones de chocolate con leche Peanut Cups Hacendado relleno de crema y pedazos de cacahuete",
+      "precio": 1.9,
+      "precioReferencia": 15.08,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.126,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Bombones",
+      "imagen": "https://prod-mercadona.imgix.net/images/31b869bb2ad25a9d58f56f0d9331fe5e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/14355/bombones-chocolate-con-leche-mini-peanut-cups-hacendado-relleno-crema-pedazos-cacahuete-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "10467",
       "nombre": "Mini burgers de pollo",
       "precio": 2.9,
@@ -42599,8 +42647,8 @@
     {
       "productoId": "10453",
       "nombre": "Mini burgers de vacuno y cerdo",
-      "precio": 2.95,
-      "precioReferencia": 10.536,
+      "precio": 3.1,
+      "precioReferencia": 11.072,
       "formato": "Bandeja",
       "unidadesTotales": 8,
       "tamañoUnidad": 0.28,
@@ -43557,22 +43605,6 @@
       "disponible": true
     },
     {
-      "productoId": "15985",
-      "nombre": "Mousse con pescados blancos y salmón gato adulto Delikuit",
-      "precio": 2,
-      "precioReferencia": 5.883,
-      "formato": "Tarrina",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 0.34,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/a8a3813be7fed348c745fbbb4c510d43.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/15985/mousse-con-lenguado-salmon-gato-adulto-delikuit-caja",
-      "disponible": true
-    },
-    {
       "productoId": "15984",
       "nombre": "Mousse de carne gato adulto Delikuit",
       "precio": 2,
@@ -43618,6 +43650,22 @@
       "subcategoria": "Paté",
       "imagen": "https://prod-mercadona.imgix.net/images/22479f2754a9f7d930d6d6b3243c0d15.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52167/mousse-pato-hacendado-bandeja",
+      "disponible": true
+    },
+    {
+      "productoId": "15985",
+      "nombre": "Mousse de pescado gato adulto Delikuit",
+      "precio": 2,
+      "precioReferencia": 5.883,
+      "formato": "Tarrina",
+      "unidadesTotales": 4,
+      "tamañoUnidad": 0.34,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/a8a3813be7fed348c745fbbb4c510d43.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/15985/mousse-con-lenguado-salmon-gato-adulto-delikuit-caja",
       "disponible": true
     },
     {
@@ -44048,7 +44096,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Snacks",
-      "imagen": "https://prod-mercadona.imgix.net/images/5ea6209ff18125614b1c278484587d91.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5ea6209ff18125614b1c278484587d91.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/33640/nachos-hacendado-paquete",
       "disponible": true
     },
@@ -44592,7 +44640,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Frutos secos",
-      "imagen": "https://prod-mercadona.imgix.net/images/de768af5358346867a912d57ec96b69c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/de768af5358346867a912d57ec96b69c.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/34024/nuez-natural-hacendado-pelada-paquete",
       "disponible": true
     },
@@ -44885,6 +44933,22 @@
       "disponible": true
     },
     {
+      "productoId": "17799",
+      "nombre": "Paleta sombras de ojos Caramel Kiss Deliplus",
+      "precio": 5,
+      "precioReferencia": 5,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.007,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Sombra de ojos",
+      "imagen": "https://prod-mercadona.imgix.net/images/d096d6568dbcdefa1727c18d459edbe7.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17799/paleta-sombras-ojos-caramel-kiss-deliplus-contiene-3-tonos-mates-4-perlados",
+      "disponible": true
+    },
+    {
       "productoId": "12087",
       "nombre": "Paleta sombras de ojos Deliplus 07 marrones",
       "precio": 4,
@@ -45047,8 +45111,8 @@
     {
       "productoId": "62502",
       "nombre": "Palitos de surimi Hacendado",
-      "precio": 1.9,
-      "precioReferencia": 4.131,
+      "precio": 2,
+      "precioReferencia": 4.348,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.46,
@@ -46374,7 +46438,7 @@
     },
     {
       "productoId": "47496",
-      "nombre": "Pañal adulto braguita Deliplus Pants Plus talla L",
+      "nombre": "Pañal adulto braguita Pants Deliplus plus talla L",
       "precio": 11.95,
       "precioReferencia": 0.854,
       "formato": "Paquete",
@@ -46390,7 +46454,7 @@
     },
     {
       "productoId": "47608",
-      "nombre": "Pañal adulto braguita Deliplus Pants plus talla M",
+      "nombre": "Pañal adulto braguita Pants Deliplus plus talla M",
       "precio": 10.8,
       "precioReferencia": 0.772,
       "formato": "Paquete",
@@ -46438,7 +46502,7 @@
     },
     {
       "productoId": "47038",
-      "nombre": "Pañal bebé braguita talla L Deliplus de 12-18 kg",
+      "nombre": "Pañal bebé braguita talla L Pants Deliplus de 12-18 kg",
       "precio": 6.9,
       "precioReferencia": 0.288,
       "formato": "Paquete",
@@ -46454,7 +46518,7 @@
     },
     {
       "productoId": "47039",
-      "nombre": "Pañal bebé braguita talla XL de 16-28 kg Deliplus",
+      "nombre": "Pañal bebé braguita talla XL Pants Deliplus de 16-28 kg",
       "precio": 6.9,
       "precioReferencia": 0.314,
       "formato": "Paquete",
@@ -46470,7 +46534,7 @@
     },
     {
       "productoId": "47366",
-      "nombre": "Pañal junior braguita noche infantil de 17-30 kg Deliplus",
+      "nombre": "Pañal junior braguita noche Deliplus de 17-30 kg",
       "precio": 10.65,
       "precioReferencia": 0.666,
       "formato": "Paquete",
@@ -46486,7 +46550,7 @@
     },
     {
       "productoId": "47367",
-      "nombre": "Pañal junior braguita noche infantil de 27-57 kg Deliplus",
+      "nombre": "Pañal junior braguita noche Deliplus de 27-57 kg",
       "precio": 10.65,
       "precioReferencia": 0.82,
       "formato": "Paquete",
@@ -46944,7 +47008,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Papel higiénico",
-      "imagen": "https://prod-mercadona.imgix.net/images/286f24c12adab78274a9cb5cca4f1278.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b28e83f87f4061d7092638225b942bdf.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/47293/papel-higienico-humedo-wc-bosque-verde-con-aloe-vera-camomila-paquete",
       "disponible": true
     },
@@ -48453,54 +48517,6 @@
       "disponible": true
     },
     {
-      "productoId": "16554",
-      "nombre": "Paté con pollo perro adulto Delikuit",
-      "precio": 2.1,
-      "precioReferencia": 1.75,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/9f75b65c6b0f073a8f72545f451dc708.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/16554/pate-perro-adulto-delikuit-con-pollo-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "9889",
-      "nombre": "Paté con pollo y ternera gato adulto Delikuit",
-      "precio": 2,
-      "precioReferencia": 5,
-      "formato": "Paquete",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 0.4,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/e498e89a3ff2973df26e23d1765fe8d2.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9889/pate-gato-adulto-delikuit-con-pollo-ternera-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "9888",
-      "nombre": "Paté con pollo y ternera gato júnior Delikuit",
-      "precio": 2,
-      "precioReferencia": 5,
-      "formato": "Paquete",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 0.4,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/be41e529323283dcb0e5022434446c50.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9888/pate-gato-junior-delikuit-con-pollo-ternera-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "16578",
       "nombre": "Paté con salmón gato adulto Delikuit",
       "precio": 0.35,
@@ -48514,38 +48530,6 @@
       "subcategoria": "Alimentación húmeda",
       "imagen": "https://prod-mercadona.imgix.net/images/2dd98576f1e265aadf75a8d63f6edb70.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/16578/pate-gato-adulto-delikuit-con-salmon-tarrina",
-      "disponible": true
-    },
-    {
-      "productoId": "9890",
-      "nombre": "Paté con salmón y atún gato adulto Delikuit",
-      "precio": 2,
-      "precioReferencia": 5,
-      "formato": "Paquete",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 0.4,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/3b08912069dad3853310f9ceab402a3b.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9890/pate-gato-adulto-delikuit-con-salmon-atun-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "70733",
-      "nombre": "Paté con salmón y verduras perro adulto Delikuit",
-      "precio": 0.95,
-      "precioReferencia": 3.167,
-      "formato": "Tarrina",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/e8f86ec3de7bd5c92c2e850731588bb7.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/70733/pate-perro-adulto-delikuit-con-salmon-verduras-tarrina",
       "disponible": true
     },
     {
@@ -48565,10 +48549,10 @@
       "disponible": true
     },
     {
-      "productoId": "8955",
-      "nombre": "Paté con ternera y cordero perro adulto Delikuit",
-      "precio": 2.25,
-      "precioReferencia": 5.625,
+      "productoId": "9889",
+      "nombre": "Paté de carne gato adulto Delikuit",
+      "precio": 2,
+      "precioReferencia": 5,
       "formato": "Paquete",
       "unidadesTotales": 4,
       "tamañoUnidad": 0.4,
@@ -48576,13 +48560,29 @@
       "pesoAproximado": true,
       "sección": "Mascotas",
       "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/7e414e98b930b8b230005e5a02cc6fbd.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8955/pate-perro-adulto-delikuit-con-ternera-cordero-paquete",
+      "imagen": "https://prod-mercadona.imgix.net/images/e498e89a3ff2973df26e23d1765fe8d2.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/9889/pate-gato-adulto-delikuit-con-pollo-ternera-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "9888",
+      "nombre": "Paté de carne gato júnior Delikuit",
+      "precio": 2,
+      "precioReferencia": 5,
+      "formato": "Paquete",
+      "unidadesTotales": 4,
+      "tamañoUnidad": 0.4,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/be41e529323283dcb0e5022434446c50.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/9888/pate-gato-junior-delikuit-con-pollo-ternera-paquete",
       "disponible": true
     },
     {
       "productoId": "8956",
-      "nombre": "Paté con ternera y cordero perro junior Delikuit",
+      "nombre": "Paté de carne perro junior Delikuit",
       "precio": 2.25,
       "precioReferencia": 5.625,
       "formato": "Paquete",
@@ -48594,22 +48594,6 @@
       "subcategoria": "Alimentación húmeda",
       "imagen": "https://prod-mercadona.imgix.net/images/1c5d86e676019e5393757b1baac0a212.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8956/pate-perro-junior-delikuit-con-ternera-cordero-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "52059",
-      "nombre": "Paté con ternera, hígado y verduras perro adulto Delikuit",
-      "precio": 0.95,
-      "precioReferencia": 3.167,
-      "formato": "Tarrina",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/2c91977ea1987d39821d9db39016ddb0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/52059/pate-perro-adulto-delikuit-con-ternera-higado-verduras-tarrina",
       "disponible": true
     },
     {
@@ -48805,6 +48789,22 @@
       "disponible": true
     },
     {
+      "productoId": "9890",
+      "nombre": "Paté de pescado gato adulto Delikuit",
+      "precio": 2,
+      "precioReferencia": 5,
+      "formato": "Paquete",
+      "unidadesTotales": 4,
+      "tamañoUnidad": 0.4,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/3b08912069dad3853310f9ceab402a3b.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/9890/pate-gato-adulto-delikuit-con-salmon-atun-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "23596",
       "nombre": "Paté de pollo asado Hacendado",
       "precio": 1.1,
@@ -48821,6 +48821,22 @@
       "disponible": true
     },
     {
+      "productoId": "16554",
+      "nombre": "Paté de pollo perro adulto Delikuit",
+      "precio": 2.1,
+      "precioReferencia": 1.75,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/9f75b65c6b0f073a8f72545f451dc708.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/16554/pate-perro-adulto-delikuit-con-pollo-bote",
+      "disponible": true
+    },
+    {
       "productoId": "52336",
       "nombre": "Paté de salmón Hacendado",
       "precio": 1.1,
@@ -48834,6 +48850,54 @@
       "subcategoria": "Paté",
       "imagen": "https://prod-mercadona.imgix.net/images/23f1824d81823378bd3eb3adc85d9320.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52336/pate-salmon-hacendado-tarro",
+      "disponible": true
+    },
+    {
+      "productoId": "70733",
+      "nombre": "Paté de salmón y verduras perro adulto Delikuit",
+      "precio": 0.95,
+      "precioReferencia": 3.167,
+      "formato": "Tarrina",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/e8f86ec3de7bd5c92c2e850731588bb7.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/70733/pate-perro-adulto-delikuit-con-salmon-verduras-tarrina",
+      "disponible": true
+    },
+    {
+      "productoId": "8955",
+      "nombre": "Paté de ternera y cordero perro adulto Delikuit",
+      "precio": 2.25,
+      "precioReferencia": 5.625,
+      "formato": "Paquete",
+      "unidadesTotales": 4,
+      "tamañoUnidad": 0.4,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/7e414e98b930b8b230005e5a02cc6fbd.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/8955/pate-perro-adulto-delikuit-con-ternera-cordero-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "52059",
+      "nombre": "Paté de ternera, hígado y verduras perro adulto Delikuit",
+      "precio": 0.95,
+      "precioReferencia": 3.167,
+      "formato": "Tarrina",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/2c91977ea1987d39821d9db39016ddb0.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/52059/pate-perro-adulto-delikuit-con-ternera-higado-verduras-tarrina",
       "disponible": true
     },
     {
@@ -49296,7 +49360,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Manzana y pera",
-      "imagen": "https://prod-mercadona.imgix.net/images/158b08c139cba5362b335f8b0a715cc8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/158b08c139cba5362b335f8b0a715cc8.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14470/peras-conferencia",
       "disponible": true
     },
@@ -55968,7 +56032,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Ambientador eléctrico",
-      "imagen": "https://prod-mercadona.imgix.net/images/3c6a5207e56bd803ee8caa8ffc7717b1.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5db0d44068527ea379dd9df37b537324.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11489/ambientador-electrico-matcha-bosque-verde-recambio-caja",
       "disponible": true
     },
@@ -56048,7 +56112,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Ambientador eléctrico",
-      "imagen": "https://prod-mercadona.imgix.net/images/8b315f93c619a2cc08f5a4ffb2c1d18d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/3a7ad4f921bf89dc4e84115b61ffb533.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52588/ambientador-electrico-sugar-bosque-verde-6-fragancias-recambio-caja",
       "disponible": true
     },
@@ -56400,7 +56464,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Herméticos y moldes",
-      "imagen": "https://prod-mercadona.imgix.net/images/ead406c7f2a2bdd9ed67fe47d3df62a3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/1524ba01bd1fce632f1e823fb4f3b2dc.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35894/recipiente-hermetico-plastico-rectangular-1l-bosque-verde-paquete",
       "disponible": true
     },
@@ -57349,6 +57413,22 @@
       "disponible": true
     },
     {
+      "productoId": "27892",
+      "nombre": "Refresco Kas limón",
+      "precio": 1.89,
+      "precioReferencia": 0.945,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 2,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Agua y refrescos",
+      "subcategoria": "Limón",
+      "imagen": "https://prod-mercadona.imgix.net/images/c7a7cd2631f16cb1c8dea7fd67eb8133.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/27892/refresco-kas-limon-botella",
+      "disponible": true
+    },
+    {
       "productoId": "27668",
       "nombre": "Refresco Kas naranja",
       "precio": 1.59,
@@ -58230,7 +58310,7 @@
     },
     {
       "productoId": "87197",
-      "nombre": "Rodajas de atún de aleta amarilla",
+      "nombre": "Rodajas de atún de aleta amarilla descongelada",
       "precio": 5.23,
       "precioReferencia": 22.25,
       "formato": "Bandeja",
@@ -58240,7 +58320,7 @@
       "pesoAproximado": true,
       "sección": "Marisco y pescado",
       "subcategoria": "Otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/3575d37231fa5c37125c3fd65d2d6143.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/3575d37231fa5c37125c3fd65d2d6143.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/87197/rodajas-atun-aleta-amarilla-bandeja",
       "disponible": true
     },
@@ -60311,8 +60391,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 1.39,
-      "precioReferencia": 6.95,
+      "precio": 1.19,
+      "precioReferencia": 5.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60327,8 +60407,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 1.39,
-      "precioReferencia": 6.95,
+      "precio": 1.19,
+      "precioReferencia": 5.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -61751,8 +61831,8 @@
     {
       "productoId": "14974",
       "nombre": "Solomillos de pollo adobados",
-      "precio": 3.23,
-      "precioReferencia": 8.5,
+      "precio": 3.34,
+      "precioReferencia": 8.8,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.38,
@@ -63525,22 +63605,6 @@
       "disponible": true
     },
     {
-      "productoId": "66746",
-      "nombre": "Tinto de verano 0,0% sin alcohol limón Don Simón",
-      "precio": 1.4,
-      "precioReferencia": 0.934,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Tinto de verano y sangría",
-      "imagen": "https://prod-mercadona.imgix.net/images/3a87cbc85e13a3bd2126ea70ba6c80b4.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/66746/tinto-verano-00-sin-alcohol-limon-don-simon-botella",
-      "disponible": true
-    },
-    {
       "productoId": "11564",
       "nombre": "Tinto de verano Casón Histórico",
       "precio": 1.3,
@@ -63586,6 +63650,22 @@
       "subcategoria": "Tinto de verano y sangría",
       "imagen": "https://prod-mercadona.imgix.net/images/97ad8a1e3a0f8286a6ba44d90006aeb8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/66747/tinto-verano-limon-don-simon-botella",
+      "disponible": true
+    },
+    {
+      "productoId": "66746",
+      "nombre": "Tinto de verano sin alcohol limón Don Simón",
+      "precio": 1.4,
+      "precioReferencia": 0.934,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Bodega",
+      "subcategoria": "Tinto de verano y sangría",
+      "imagen": "https://prod-mercadona.imgix.net/images/3a87cbc85e13a3bd2126ea70ba6c80b4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/66746/tinto-verano-00-sin-alcohol-limon-don-simon-botella",
       "disponible": true
     },
     {
@@ -64821,22 +64901,6 @@
       "disponible": true
     },
     {
-      "productoId": "14940",
-      "nombre": "Tónico facial vitaminas y minerales Facial Clean hidratante y regenerador",
-      "precio": 3.2,
-      "precioReferencia": 1.255,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.255,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Limpieza de cara",
-      "imagen": "https://prod-mercadona.imgix.net/images/2bf350d2aa9485505ebbf60d2e3c0570.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/14940/tonico-facial-vitaminas-minerales-facial-clean-deliplus-hidratante-regenerador-tipo-piel-bote",
-      "disponible": true
-    },
-    {
       "productoId": "11600",
       "nombre": "Topping de chocolate avellana Hacendado",
       "precio": 2.55,
@@ -65317,22 +65381,6 @@
       "disponible": true
     },
     {
-      "productoId": "23977",
-      "nombre": "Tratamiento corporal reductor de grasa & push up Deliplus Sculpt Intense",
-      "precio": 6.75,
-      "precioReferencia": 5.625,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.12,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Crema corporal",
-      "imagen": "https://prod-mercadona.imgix.net/images/29443ad4836ce034e09c0f760db7ac42.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23977/tratamiento-corporal-reductor-grasa-push-up-deliplus-sculpt-intense-con-peptido-biomimetico-bote",
-      "disponible": true
-    },
-    {
       "productoId": "12879",
       "nombre": "Tratamiento Matizador Antiamarillos Deliplus 0% amoníaco y ácido hialurónico",
       "precio": 3.9,
@@ -65392,7 +65440,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Laca de uñas",
-      "imagen": "https://prod-mercadona.imgix.net/images/7b433a9d3ce5f77061e2f5a97674c95b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7b433a9d3ce5f77061e2f5a97674c95b.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35287/tratamiento-unas-endurecedor-deliplus",
       "disponible": true
     },
@@ -65510,7 +65558,7 @@
     },
     {
       "productoId": "60552",
-      "nombre": "Trozos en salsa con pollo y verduras perros adultos Quartett",
+      "nombre": "Trozos de pollo y verduras en salsa perros adultos Quartett",
       "precio": 2.25,
       "precioReferencia": 5.625,
       "formato": "Paquete",
@@ -65526,7 +65574,7 @@
     },
     {
       "productoId": "70735",
-      "nombre": "Trozos en salsa con salmón y verduras perro adulto Delikuit",
+      "nombre": "Trozos de salmón y verduras en salsa perro adulto Delikuit",
       "precio": 0.95,
       "precioReferencia": 3.167,
       "formato": "Tarrina",
@@ -65542,7 +65590,7 @@
     },
     {
       "productoId": "52068",
-      "nombre": "Trozos en salsa con ternera, pavo y verduras perro adulto Delikuit",
+      "nombre": "Trozos de ternera, pavo y verduras  en salsa perro adulto Delikuit",
       "precio": 0.95,
       "precioReferencia": 3.167,
       "formato": "Tarrina",
@@ -65714,22 +65762,6 @@
       "subcategoria": "Cuidado",
       "imagen": "https://prod-mercadona.imgix.net/images/0a2a01b1e05e143852ccd7680b41e8ea.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/77749/vaselina-hidratante-deliplus-tarro",
-      "disponible": true
-    },
-    {
-      "productoId": "95730",
-      "nombre": "Vaselina perfumada para labios Deliplus frambuesa",
-      "precio": 1.6,
-      "precioReferencia": 10.667,
-      "formato": "Tarro",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.015,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Cuidado",
-      "imagen": "https://prod-mercadona.imgix.net/images/1b8e86d03fae83d78ce00b7727867c85.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/95730/vaselina-perfumada-labios-deliplus-frambuesa-tarro",
       "disponible": true
     },
     {
