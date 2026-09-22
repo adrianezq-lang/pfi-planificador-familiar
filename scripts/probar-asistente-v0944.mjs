@@ -46,10 +46,10 @@ assert.match(css, /\.assistant-hero/);
 assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.49');
-assert.match(app, /v0\.9\.49/);
-assert.match(sw, /pfi-v0\.9\.49-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.49'/);
+assert.equal(packageJson.version, '0.9.50');
+assert.match(app, /v0\.9\.50/);
+assert.match(sw, /pfi-v0\.9\.50-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.50'/);
 
 const vite = await createServer({
   configFile: false,
@@ -95,6 +95,13 @@ const contexto = {
   menuMes: menuSemana,
   menusSemanas: [menuSemana],
   semanaActiva: 0,
+  semanaMenuActiva: {
+    id: 'semana-4',
+    nombre: 'Semana 4',
+    inicio: '2026-09-21',
+    fin: '2026-09-27',
+    menu: menuSemana,
+  },
   mesActivo: '2026-09',
   compraSemana,
   compraPendienteNombres: ['Leche', 'Salmón'],
@@ -128,6 +135,42 @@ const contexto = {
   },
 };
 
+const fechaReferencia = '2026-09-22';
+
+const cenaAyer = responderAsistente(
+  '¿Qué cenamos ayer?',
+  contexto,
+  fechaReferencia,
+);
+assert.match(cenaAyer.titulo, /Lunes 21/);
+assert.match(cenaAyer.resumen, /Lomo/);
+assert.doesNotMatch(cenaAyer.resumen, /Lentejas/);
+
+const comidaManana = responderAsistente(
+  '¿Qué hay mañana para comer?',
+  contexto,
+  fechaReferencia,
+);
+assert.match(comidaManana.titulo, /Miércoles 23/);
+assert.match(comidaManana.resumen, /Ensalada de pasta/);
+
+const dia24 = responderAsistente(
+  '¿Qué toca el 24?',
+  contexto,
+  fechaReferencia,
+);
+assert.match(dia24.titulo, /Jueves 24/);
+assert.match(dia24.resumen, /Garbanzos/);
+assert.match(dia24.resumen, /Filete de ternera/);
+
+const fueraSemana = responderAsistente(
+  '¿Qué cenamos mañana?',
+  contexto,
+  '2026-09-27',
+);
+assert.match(fueraSemana.titulo, /fuera de la semana activa/i);
+assert.equal(fueraSemana.tono, 'atencion');
+
 const compra = responderAsistente('¿Qué tengo que comprar?', contexto);
 assert.match(compra.resumen, /Quedan 2 productos/);
 assert.equal(compra.accion?.destino, 'compra');
@@ -142,7 +185,9 @@ assert.equal(revision.puntos.length, 4);
 assert.ok(revision.puntos.some((punto) => punto.includes('ensalada de pasta')));
 assert.ok(revision.puntos.some((punto) => punto.includes('pizza del viernes')));
 
-const resumen = obtenerResumenProactivo(contexto);
+const resumen = obtenerResumenProactivo(contexto, fechaReferencia);
+assert.match(resumen.hoy, /Comida: Salmón/);
+assert.match(resumen.hoy, /Cena: Tortilla/);
 assert.match(resumen.compra, /2 pendientes/);
 assert.match(resumen.presupuesto, /105,00/);
 
@@ -150,5 +195,6 @@ await vite.close();
 
 console.log('✓ Despensa está en la barra principal y el Asistente en Más');
 console.log('✓ entiende compra pendiente, presupuesto y revisión del menú');
+console.log('✓ responde consultas con ayer, hoy, mañana, pasado mañana y fechas del calendario');
 console.log('✓ conserva historial local y separa respuestas de acciones confirmables');
-console.log('✓ versión, caché y copias están alineadas en v0.9.49');
+console.log('✓ versión, caché y copias están alineadas en v0.9.50');
