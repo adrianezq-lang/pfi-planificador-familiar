@@ -1,6 +1,8 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.50.
+Versión 0.9.51.
+
+La v0.9.51 convierte el Asistente en un **copiloto familiar**: cruza menú, comensales, compra, despensa y presupuesto para organizar las próximas 48 horas, ordenar prioridades reales y detectar oportunidades de ahorro sin dar consejos genéricos.
 
 La v0.9.50 añade comprensión temporal real al Asistente PFI. Entiende **hoy, ayer, mañana, pasado mañana, anteayer**, fechas como **«el 24»** y consultas como **«¿qué cenamos ayer?»**. Todas las referencias se validan contra las fechas de la semana activa. También permite continuar una acción ya aplicada con **«haz lo mismo también el viernes»** cuando repetirla es seguro.
 
