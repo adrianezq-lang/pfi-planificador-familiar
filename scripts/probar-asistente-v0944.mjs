@@ -226,7 +226,7 @@ const chequeo = responderAsistente(
 assert.equal(chequeo.titulo, 'Chequeo familiar · prioridades');
 assert.equal(chequeo.tono, 'atencion');
 assert.ok(chequeo.puntos[0].includes('producto asociado'));
-assert.ok(chequeo.puntos.some((punto) => punto.includes('sin precio')));
+assert.ok(chequeo.puntos.some((punto) => punto.includes('no tienen precio')));
 assert.ok(chequeo.puntos.some((punto) => punto.includes('stock mínimo')));
 
 const ahorro = responderAsistente(
