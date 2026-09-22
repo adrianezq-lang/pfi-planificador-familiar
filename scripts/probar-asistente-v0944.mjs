@@ -37,6 +37,9 @@ assert.match(nav, /const secundarios:[\s\S]*id: 'asistente'/);
 assert.match(nav, /icono: 'sparkles'/);
 assert.match(page, /Pregúntame o pídeme cambios/);
 assert.match(page, /¿Qué puedo cocinar con lo que tengo\?/);
+assert.match(page, /Organízame las próximas 48 h/);
+assert.match(page, /Revisa todo y dime prioridades/);
+assert.match(page, /¿Cómo puedo ahorrar esta semana\?/);
 assert.match(page, /pfi-asistente-historial-v1/);
 assert.match(page, /crearClavesEstadoCompra/);
 assert.match(service, /compraPendienteCantidad/);
@@ -46,10 +49,10 @@ assert.match(css, /\.assistant-hero/);
 assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.50');
-assert.match(app, /v0\.9\.50/);
-assert.match(sw, /pfi-v0\.9\.50-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.50'/);
+assert.equal(packageJson.version, '0.9.51');
+assert.match(app, /v0\.9\.51/);
+assert.match(sw, /pfi-v0\.9\.51-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.51'/);
 
 const vite = await createServer({
   configFile: false,
@@ -88,6 +91,7 @@ const compraSemana = {
   productosSinSeleccionar: [],
   productosSinPrecio: [],
   productosEstimados: [],
+  lineasCubiertas: [{ clave: 'stock-arroz' }],
 };
 
 const contexto = {
@@ -171,6 +175,69 @@ const fueraSemana = responderAsistente(
 assert.match(fueraSemana.titulo, /fuera de la semana activa/i);
 assert.equal(fueraSemana.tono, 'atencion');
 
+const plan48h = responderAsistente(
+  'Organízame las próximas 48 h',
+  contexto,
+  fechaReferencia,
+);
+assert.equal(plan48h.titulo, 'Copiloto familiar · próximas 48 h');
+assert.ok(plan48h.puntos.some((punto) => punto.includes('Martes 22')));
+assert.ok(plan48h.puntos.some((punto) => punto.includes('Miércoles 23')));
+assert.ok(plan48h.puntos.some((punto) => punto.includes('para comer (3)')));
+assert.ok(plan48h.puntos.some((punto) => punto.includes('para cenar (4)')));
+
+const chequeo = responderAsistente(
+  'Revisa todo y dime prioridades',
+  {
+    ...contexto,
+    compraSemana: {
+      ...compraSemana,
+      productosSinSeleccionar: ['Tomate'],
+      productosSinPrecio: ['Leche'],
+      productosEstimados: ['Arroz'],
+    },
+    compraPendienteCantidad: 4,
+    compraPendienteTotal: 31.4,
+    despensa: [
+      {
+        id: 'leche',
+        productoId: 'leche',
+        nombre: 'Leche',
+        imagen: null,
+        formato: '6 x 1 l',
+        precio: 6,
+        stockActual: 0,
+        stockEsAproximado: false,
+        stockMinimo: 1,
+        unidad: 'envase',
+        frecuencia: 'semanal',
+        tipo: 'despensa',
+        ultimaCompraTiendaId: null,
+        ultimaCompraTienda: null,
+        ultimoProductoComprado: null,
+        ultimoPrecioCompra: null,
+        ultimaCompraEn: null,
+        actualizado: '2026-09-22T10:00:00.000Z',
+      },
+    ],
+  },
+  fechaReferencia,
+);
+assert.equal(chequeo.titulo, 'Chequeo familiar · prioridades');
+assert.equal(chequeo.tono, 'atencion');
+assert.ok(chequeo.puntos[0].includes('producto asociado'));
+assert.ok(chequeo.puntos.some((punto) => punto.includes('no tienen precio')));
+assert.ok(chequeo.puntos.some((punto) => punto.includes('stock mínimo')));
+
+const ahorro = responderAsistente(
+  '¿Cómo puedo ahorrar esta semana?',
+  contexto,
+  fechaReferencia,
+);
+assert.equal(ahorro.titulo, 'Ahorro inteligente');
+assert.ok(ahorro.puntos.some((punto) => punto.includes('cubiertas por el stock')));
+assert.ok(ahorro.puntos.some((punto) => punto.includes('por debajo del objetivo mensual')));
+
 const compra = responderAsistente('¿Qué tengo que comprar?', contexto);
 assert.match(compra.resumen, /Quedan 2 productos/);
 assert.equal(compra.accion?.destino, 'compra');
@@ -190,11 +257,14 @@ assert.match(resumen.hoy, /Comida: Salmón/);
 assert.match(resumen.hoy, /Cena: Tortilla/);
 assert.match(resumen.compra, /2 pendientes/);
 assert.match(resumen.presupuesto, /105,00/);
+assert.ok(resumen.alertas.some((alerta) => alerta.includes('pendientes de la compra semanal')));
 
 await vite.close();
 
 console.log('✓ Despensa está en la barra principal y el Asistente en Más');
 console.log('✓ entiende compra pendiente, presupuesto y revisión del menú');
 console.log('✓ responde consultas con ayer, hoy, mañana, pasado mañana y fechas del calendario');
+console.log('✓ actúa como copiloto familiar cruzando 48 h, comensales, compra, stock y presupuesto');
+console.log('✓ prioriza incidencias y propone ahorro basándose en datos reales del PFI');
 console.log('✓ conserva historial local y separa respuestas de acciones confirmables');
-console.log('✓ versión, caché y copias están alineadas en v0.9.50');
+console.log('✓ versión, caché y copias están alineadas en v0.9.51');

@@ -84,11 +84,11 @@ const CLAVE_HISTORIAL = 'pfi-asistente-historial-v1';
 const MAX_HISTORIAL = 12;
 
 const PREGUNTAS_RAPIDAS = [
-  { icono: 'utensils' as const, texto: '¿Qué toca hoy?' },
+  { icono: 'sparkles' as const, texto: 'Organízame las próximas 48 h' },
+  { icono: 'alert' as const, texto: 'Revisa todo y dime prioridades' },
+  { icono: 'wallet' as const, texto: '¿Cómo puedo ahorrar esta semana?' },
   { icono: 'cart' as const, texto: '¿Qué tengo que comprar?' },
-  { icono: 'wallet' as const, texto: '¿Cómo voy de presupuesto?' },
-  { icono: 'box' as const, texto: '¿Qué falta en despensa?' },
-  { icono: 'sparkles' as const, texto: '¿Qué puedo cocinar con lo que tengo?' },
+  { icono: 'utensils' as const, texto: '¿Qué puedo cocinar con lo que tengo?' },
   { icono: 'calendar' as const, texto: 'Revisa mi semana' },
 ] as const;
 
@@ -928,7 +928,7 @@ export default function Asistente({
           <span>ASISTENTE PFI</span>
           <h2>¿Qué necesitas?</h2>
           <p>
-            Cruzo tu menú, compra, despensa y presupuesto. Entiendo «hoy», «mañana», «ayer», «pasado mañana», fechas como «el 24» y continuaciones como «haz lo mismo también el viernes», siempre con vista previa y confirmación segura.
+            Soy tu copiloto familiar: cruzo menú, comensales, compra, despensa, presupuesto y próximos días para decirte qué conviene hacer primero. También entiendo cambios en lenguaje natural y nunca los aplico sin confirmación.
           </p>
         </div>
         <div className="assistant-live-badge">
@@ -1032,8 +1032,8 @@ export default function Asistente({
             <div aria-hidden="true"><AppIcon name="sparkles" size={24} /></div>
             <strong>No necesitas aprender comandos.</strong>
             <p>
-              Puedes preguntar o dar órdenes normales: “añade leche a la compra”,
-              “pon salmón el sábado” o “este finde no están los niños”.
+              Puedes decir “organízame las próximas 48 h”, “revisa todo y dime prioridades”,
+              “¿cómo puedo ahorrar esta semana?” o pedir cambios normales en el menú y la compra.
             </p>
           </div>
         ) : (

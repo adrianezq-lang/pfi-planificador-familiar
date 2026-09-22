@@ -245,6 +245,366 @@ function preparacionesSemana(menu: DiaMenu[]): string[] {
   return Array.from(new Set(preparaciones));
 }
 
+
+type PrioridadFamiliar = {
+  nivel: 1 | 2 | 3;
+  texto: string;
+  destino: DestinoAsistente;
+};
+
+function totalComensales(configuracion: {
+  adultos: number;
+  ninos: boolean[];
+  bebes: number;
+}): number {
+  return (
+    configuracion.adultos +
+    configuracion.ninos.filter(Boolean).length +
+    configuracion.bebes
+  );
+}
+
+function comensalesDelDia(
+  contexto: ContextoAsistentePFI,
+  dia: string,
+): { comida: number; cena: number } {
+  const finDeSemana =
+    normalizar(dia) === 'sabado' || normalizar(dia) === 'domingo';
+  const comida = finDeSemana
+    ? contexto.perfil.comensales.comidaFinSemana
+    : contexto.perfil.comensales.comidaLaborable;
+
+  return {
+    comida: totalComensales(comida),
+    cena: totalComensales(contexto.perfil.comensales.cena),
+  };
+}
+
+function planDiaRelativo(
+  contexto: ContextoAsistentePFI,
+  literal: 'hoy' | 'manana',
+  fechaReferencia: Date | string,
+): {
+  etiqueta: string;
+  dia: DiaMenu;
+  comensales: { comida: number; cena: number };
+} | null {
+  if (!contexto.semanaMenuActiva) return null;
+  const referencia = resolverReferenciasTemporales(
+    literal,
+    contexto.semanaMenuActiva,
+    fechaReferencia,
+  );
+  if (referencia.error || referencia.referencias.length !== 1) return null;
+
+  const ref = referencia.referencias[0];
+  const dia = buscarDiaMenu(contexto.menuSemana, ref.dia);
+  if (!dia) return null;
+
+  return {
+    etiqueta: etiquetaReferenciaTemporal(ref),
+    dia,
+    comensales: comensalesDelDia(contexto, ref.dia),
+  };
+}
+
+function prioridadesFamiliares(
+  contexto: ContextoAsistentePFI,
+  fechaReferencia: Date | string,
+): PrioridadFamiliar[] {
+  const prioridades: PrioridadFamiliar[] = [];
+  const compra = contexto.compraSemana;
+  const prevision = previsionMes(contexto);
+  const presupuesto = contexto.perfil.presupuesto;
+  const reposicion = productosReposicion(contexto.despensa);
+  const hoy = planDiaRelativo(contexto, 'hoy', fechaReferencia);
+  const manana = planDiaRelativo(contexto, 'manana', fechaReferencia);
+
+  if (presupuesto > 0 && prevision > presupuesto) {
+    prioridades.push({
+      nivel: 1,
+      texto: `La previsión mensual supera el objetivo en ${euros(
+        prevision - presupuesto,
+      )}.`,
+      destino: 'compra',
+    });
+  }
+
+  if ((compra?.productosSinSeleccionar.length ?? 0) > 0) {
+    prioridades.push({
+      nivel: 1,
+      texto: `${compra?.productosSinSeleccionar.length ?? 0} ingrediente(s) no tienen producto asociado; la compra puede quedar incompleta.`,
+      destino: 'catalogo',
+    });
+  }
+
+  if ((compra?.productosSinPrecio.length ?? 0) > 0) {
+    prioridades.push({
+      nivel: 2,
+      texto: `${compra?.productosSinPrecio.length ?? 0} producto(s) no tienen precio y el presupuesto está subestimado.`,
+      destino: 'compra',
+    });
+  }
+
+  if ((compra?.productosEstimados.length ?? 0) > 0) {
+    prioridades.push({
+      nivel: 2,
+      texto: `${compra?.productosEstimados.length ?? 0} producto(s) usan una cantidad estimada; conviene revisarlos si buscas una compra muy precisa.`,
+      destino: 'compra',
+    });
+  }
+
+  for (const plan of [hoy, manana]) {
+    if (!plan) continue;
+    if (plan.dia.comida.length === 0) {
+      prioridades.push({
+        nivel: 1,
+        texto: `${plan.etiqueta}: la comida está sin plan en el menú efectivo.`,
+        destino: 'menu',
+      });
+    }
+    if (plan.dia.cena.length === 0) {
+      prioridades.push({
+        nivel: 1,
+        texto: `${plan.etiqueta}: la cena está sin plan en el menú efectivo.`,
+        destino: 'menu',
+      });
+    }
+  }
+
+  if (contexto.compraPendienteCantidad > 0) {
+    prioridades.push({
+      nivel: 2,
+      texto: `Quedan ${contexto.compraPendienteCantidad} producto(s) pendientes de la compra semanal por unos ${euros(
+        contexto.compraPendienteTotal,
+      )}.`,
+      destino: 'compra',
+    });
+  }
+
+  if (reposicion.length > 0) {
+    prioridades.push({
+      nivel: 2,
+      texto: `${reposicion.length} producto(s) están por debajo del stock mínimo configurado.`,
+      destino: 'despensa',
+    });
+  }
+
+  const preparaciones48h = [hoy, manana]
+    .flatMap((plan) => (plan?.dia.preparar?.trim() ? [plan.dia.preparar.trim()] : []))
+    .filter((valor) => normalizar(valor) !== 'nada');
+
+  if (preparaciones48h.length > 0) {
+    prioridades.push({
+      nivel: 3,
+      texto: `Puedes adelantar: ${listaCorta(
+        Array.from(new Set(preparaciones48h)),
+        3,
+      )}.`,
+      destino: 'menu',
+    });
+  }
+
+  return prioridades
+    .sort((a, b) => a.nivel - b.nivel)
+    .filter(
+      (prioridad, indice, todas) =>
+        todas.findIndex((otra) => otra.texto === prioridad.texto) === indice,
+    );
+}
+
+function textoPlanDia(plan: {
+  etiqueta: string;
+  dia: DiaMenu;
+  comensales: { comida: number; cena: number };
+}): string {
+  const comida = plan.dia.comida.join(' + ') || 'sin plan';
+  const cena = plan.dia.cena.join(' + ') || 'sin plan';
+  return `${plan.etiqueta}: ${comida} para comer (${plan.comensales.comida}) · ${cena} para cenar (${plan.comensales.cena}).`;
+}
+
+function respuestaPlanFamiliar(
+  contexto: ContextoAsistentePFI,
+  fechaReferencia: Date | string,
+): RespuestaAsistentePFI {
+  const hoy = planDiaRelativo(contexto, 'hoy', fechaReferencia);
+  const manana = planDiaRelativo(contexto, 'manana', fechaReferencia);
+  const prioridades = prioridadesFamiliares(contexto, fechaReferencia);
+  const puntos: string[] = [];
+
+  if (hoy) puntos.push(textoPlanDia(hoy));
+  if (manana) puntos.push(textoPlanDia(manana));
+
+  const preparaciones = [hoy, manana]
+    .flatMap((plan) => (plan?.dia.preparar?.trim() ? [plan.dia.preparar.trim()] : []))
+    .filter((valor) => normalizar(valor) !== 'nada');
+
+  if (preparaciones.length > 0) {
+    puntos.push(
+      `Adelanta si puedes: ${listaCorta(
+        Array.from(new Set(preparaciones)),
+        3,
+      )}.`,
+    );
+  }
+
+  if (contexto.compraPendienteCantidad > 0) {
+    puntos.push(
+      `Compra pendiente: ${contexto.compraPendienteCantidad} producto(s), unos ${euros(
+        contexto.compraPendienteTotal,
+      )}.`,
+    );
+  } else {
+    puntos.push('La compra semanal no tiene productos pendientes registrados.');
+  }
+
+  if (prioridades.length > 0) {
+    puntos.push(`Prioridad principal: ${prioridades[0].texto}`);
+  } else {
+    puntos.push('No veo incidencias importantes en menú, compra, stock o presupuesto.');
+  }
+
+  const destino = prioridades[0]?.destino ?? 'menu';
+  return {
+    titulo: 'Copiloto familiar · próximas 48 h',
+    resumen:
+      'He cruzado menú, comensales, compra, despensa, preparación y presupuesto para darte un plan corto y accionable.',
+    puntos: puntos.slice(0, 6),
+    accion: {
+      etiqueta:
+        destino === 'compra'
+          ? 'Revisar Compra'
+          : destino === 'despensa'
+            ? 'Revisar Despensa'
+            : destino === 'catalogo'
+              ? 'Resolver productos'
+              : 'Abrir Menú',
+      destino,
+    },
+    tono: prioridades.some((prioridad) => prioridad.nivel === 1)
+      ? 'atencion'
+      : 'normal',
+  };
+}
+
+function respuestaChequeoIntegral(
+  contexto: ContextoAsistentePFI,
+  fechaReferencia: Date | string,
+): RespuestaAsistentePFI {
+  const prioridades = prioridadesFamiliares(contexto, fechaReferencia);
+  const compra = contexto.compraSemana;
+  const cubiertas = compra?.lineasCubiertas?.length ?? 0;
+
+  if (prioridades.length === 0) {
+    return {
+      titulo: 'Chequeo familiar · todo estable',
+      resumen:
+        'No veo problemas importantes en las áreas que PFI puede comprobar ahora mismo.',
+      puntos: [
+        'El menú de las próximas 48 horas tiene comida y cena planificadas.',
+        'No hay avisos de stock mínimo, asociaciones o precios pendientes.',
+        cubiertas > 0
+          ? `${cubiertas} línea(s) de compra ya están cubiertas por stock y no hace falta recomprarlas.`
+          : 'La compra calculada no muestra incidencias relevantes.',
+      ],
+      accion: { etiqueta: 'Ver Menú', destino: 'menu' },
+      tono: 'positivo',
+    };
+  }
+
+  const primera = prioridades[0];
+  return {
+    titulo: 'Chequeo familiar · prioridades',
+    resumen: `He encontrado ${prioridades.length} punto(s) que merece la pena revisar, ordenados por impacto.`,
+    puntos: prioridades.slice(0, 6).map((prioridad, indice) =>
+      `${indice + 1}. ${prioridad.texto}`,
+    ),
+    accion: {
+      etiqueta:
+        primera.destino === 'catalogo'
+          ? 'Resolver productos'
+          : primera.destino === 'compra'
+            ? 'Revisar Compra'
+            : primera.destino === 'despensa'
+              ? 'Revisar Despensa'
+              : 'Abrir Menú',
+      destino: primera.destino,
+    },
+    tono: prioridades.some((prioridad) => prioridad.nivel === 1)
+      ? 'atencion'
+      : 'normal',
+  };
+}
+
+function respuestaAhorroInteligente(
+  contexto: ContextoAsistentePFI,
+): RespuestaAsistentePFI {
+  const compra = contexto.compraSemana;
+  const prevision = previsionMes(contexto);
+  const presupuesto = contexto.perfil.presupuesto;
+  const diferencia = presupuesto - prevision;
+  const cubiertas = compra?.lineasCubiertas?.length ?? 0;
+  const puntos: string[] = [];
+
+  if (presupuesto > 0 && prevision > 0) {
+    puntos.push(
+      diferencia >= 0
+        ? `La previsión está ${euros(diferencia)} por debajo del objetivo mensual.`
+        : `La previsión está ${euros(Math.abs(diferencia))} por encima del objetivo mensual.`,
+    );
+  }
+
+  if (cubiertas > 0) {
+    puntos.push(
+      `${cubiertas} línea(s) ya están cubiertas por el stock registrado: no las vuelvas a comprar salvo que ajustes existencias.`,
+    );
+  }
+
+  if ((compra?.productosSinSeleccionar.length ?? 0) > 0) {
+    puntos.push(
+      `Primero resuelve ${compra?.productosSinSeleccionar.length ?? 0} ingrediente(s) sin producto: comparar o recortar gasto antes de eso puede ser engañoso.`,
+    );
+  }
+
+  if ((compra?.productosSinPrecio.length ?? 0) > 0) {
+    puntos.push(
+      `Hay ${compra?.productosSinPrecio.length ?? 0} producto(s) sin precio; el gasto real puede ser mayor que la previsión.`,
+    );
+  }
+
+  if ((compra?.productosEstimados.length ?? 0) > 0) {
+    puntos.push(
+      `Revisa ${compra?.productosEstimados.length ?? 0} cantidad(es) estimadas para evitar comprar envases de más.`,
+    );
+  }
+
+  if (contexto.compraPendienteCantidad > 0) {
+    puntos.push(
+      `Antes de añadir extras, la compra pendiente ya suma unos ${euros(
+        contexto.compraPendienteTotal,
+      )}.`,
+    );
+  }
+
+  if (puntos.length === 0) {
+    puntos.push(
+      'No veo ahora mismo un ahorro claro basado en los datos registrados sin cambiar el menú.',
+    );
+    puntos.push(
+      'La mejor forma de afinar más es mantener precios y stock actualizados para que PFI detecte duplicados y formatos innecesarios.',
+    );
+  }
+
+  return {
+    titulo: 'Ahorro inteligente',
+    resumen:
+      'No voy a proponerte recortes genéricos: he mirado dónde puede escaparse dinero dentro de tu PFI.',
+    puntos: puntos.slice(0, 6),
+    accion: { etiqueta: 'Revisar Compra', destino: 'compra' },
+    tono: diferencia < 0 ? 'atencion' : 'normal',
+  };
+}
+
 export function obtenerResumenProactivo(
   contexto: ContextoAsistentePFI,
   fechaReferencia: Date | string = new Date(),
@@ -253,23 +613,11 @@ export function obtenerResumenProactivo(
   const reposicion = productosReposicion(contexto.despensa);
   const compra = contexto.compraSemana;
   const prevision = previsionMes(contexto);
-  const alertas: string[] = [];
-
-  if ((compra?.productosSinSeleccionar.length ?? 0) > 0) {
-    alertas.push(
-      `${compra?.productosSinSeleccionar.length ?? 0} producto(s) de la compra necesitan una asociación.`,
-    );
-  }
-  if ((compra?.productosSinPrecio.length ?? 0) > 0) {
-    alertas.push(
-      `${compra?.productosSinPrecio.length ?? 0} producto(s) no tienen precio actualizado.`,
-    );
-  }
-  if (reposicion.length > 0) {
-    alertas.push(
-      `${reposicion.length} producto(s) están por debajo del stock mínimo.`,
-    );
-  }
+  const prioridades = prioridadesFamiliares(
+    contexto,
+    fechaReferencia,
+  );
+  const alertas = prioridades.slice(0, 4).map((prioridad) => prioridad.texto);
 
   return {
     hoy: hoy
@@ -303,6 +651,30 @@ export function responderAsistente(
   const reposicion = productosReposicion(contexto.despensa);
   const presupuestoPrevisto = previsionMes(contexto);
   const preparaciones = preparacionesSemana(contexto.menuSemana);
+
+  if (
+    /\b(organizame|organiza mi dia|plan familiar|planificame|proximas 48|48 horas|ponme al dia|que deberia hacer|que tengo que hacer hoy|prioridades de hoy)\b/.test(
+      consulta,
+    )
+  ) {
+    return respuestaPlanFamiliar(contexto, fechaReferencia);
+  }
+
+  if (
+    /\b(revisa todo|revision completa|chequeo completo|audita|que problemas ves|dime prioridades|prioridades familiares)\b/.test(
+      consulta,
+    )
+  ) {
+    return respuestaChequeoIntegral(contexto, fechaReferencia);
+  }
+
+  if (
+    /\b(ahorrar|ahorro inteligente|como ahorro|como puedo ahorrar|reducir gasto|abaratar|optimiza la compra|optimizar compra)\b/.test(
+      consulta,
+    )
+  ) {
+    return respuestaAhorroInteligente(contexto);
+  }
 
   const referenciaTemporal = resolverReferenciasTemporales(
     consulta,

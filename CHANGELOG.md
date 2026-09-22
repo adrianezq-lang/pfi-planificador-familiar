@@ -1,3 +1,13 @@
+# v0.9.51 — Copiloto familiar
+
+- «Organízame las próximas 48 h» cruza menú, comensales reales, compra pendiente, preparación, despensa y presupuesto en una sola respuesta.
+- El plan de 48 h muestra cuántas personas comen y cenan cada día según la configuración familiar de laborables y fin de semana.
+- «Revisa todo y dime prioridades» ordena incidencias por impacto: huecos de menú, productos sin asociación, precios ausentes, cantidades estimadas, compra pendiente, stock mínimo y desviación de presupuesto.
+- «¿Cómo puedo ahorrar esta semana?» usa datos reales del PFI: líneas ya cubiertas por stock, cantidades estimadas, productos sin precio y desviación frente al presupuesto.
+- Los avisos proactivos de la pantalla del Asistente dejan de ser una lista fija y pasan a usar el mismo motor de prioridades familiares.
+- El Asistente distingue entre problemas críticos y tareas de menor urgencia y abre directamente la pantalla más útil para resolver la prioridad principal.
+- No inventa ahorro ni necesidades: si los datos no permiten una conclusión fiable, lo dice y recomienda mejorar stock/precios antes de proponer recortes.
+
 # v0.9.50 — Tiempo natural y continuidad conversacional
 
 - El Asistente entiende hoy, ayer, mañana, pasado mañana y anteayer usando la fecha real del dispositivo.
