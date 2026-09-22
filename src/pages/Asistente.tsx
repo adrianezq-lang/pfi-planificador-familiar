@@ -411,7 +411,7 @@ export default function Asistente({
         titulo: 'Confirmación recibida',
         resumen: propuestaPendiente.resumen,
         puntos: ['Aplicaré exactamente la propuesta que acabas de revisar.'],
-        tono: 'neutro',
+        tono: 'normal',
       });
       setConsulta('');
       ejecutarPropuesta();
@@ -425,7 +425,7 @@ export default function Asistente({
         titulo: 'Cambio cancelado',
         resumen: 'He descartado la propuesta pendiente sin aplicar ningún cambio.',
         puntos: [],
-        tono: 'neutro',
+        tono: 'normal',
       });
       setConsulta('');
       return;
@@ -443,7 +443,7 @@ export default function Asistente({
         puntos: [
           'Si quieres deshacer el último cambio ya aplicado, vuelve a decir «deshazlo».',
         ],
-        tono: 'neutro',
+        tono: 'normal',
       });
       setConsulta('');
       return;
