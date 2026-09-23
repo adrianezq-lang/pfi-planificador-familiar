@@ -22,7 +22,7 @@ import Home from './pages/Home';
 import { asegurarAsociacionesBasicas } from './services/asociacionesBasicas';
 import { EVENTO_ASOCIACIONES, repararAsociacionesIngredientes } from './services/asociacionesIngredientes';
 import { cargarDespensa, sincronizarProductosRecetasConDespensa } from './services/despensa';
-import { cargarRecetas, esRecetaPostre, EVENTO_RECETAS } from './services/recetas';
+import { cargarRecetas, EVENTO_RECETAS, seccionRecetarioParaIngrediente } from './services/recetas';
 import { cargarExcepciones, EVENTO_EXCEPCIONES, menuEfectivoMes, menuEfectivoSemana } from './services/excepcionesCalendario';
 import { preservarCopiasAsociacionesExistentes } from './services/rescateAsociaciones';
 import { crearCopiaAutomaticaSiNecesaria } from './services/copiasSeguridad';
@@ -65,12 +65,7 @@ function App() {
   );
   const resolverIngrediente = useCallback((ingrediente: string) => {
     setIngredienteAResolver(ingrediente);
-    const recetasConIngrediente = cargarRecetas().filter((receta) =>
-      receta.ingredientes.some((item) => item.nombre === ingrediente),
-    );
-    const soloEnPostres = recetasConIngrediente.length > 0
-      && recetasConIngrediente.every(esRecetaPostre);
-    cambiarPantalla(soloEnPostres ? 'postres' : 'recetas');
+    cambiarPantalla(seccionRecetarioParaIngrediente(cargarRecetas(), ingrediente));
   }, [cambiarPantalla]);
   const asociacionAbierta = useCallback(() => setIngredienteAResolver(null), []);
 

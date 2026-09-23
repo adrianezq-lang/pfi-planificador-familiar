@@ -63,6 +63,14 @@ const { responderAsistente, obtenerResumenProactivo } =
   await vite.ssrLoadModule('/src/services/asistentePFI.ts');
 const { indiceSemanaParaFecha, indiceDiaParaFecha, semanaContieneFecha } =
   await vite.ssrLoadModule('/src/services/fechaSemana.ts');
+const { cargarRecetas, seccionRecetarioParaIngrediente } =
+  await vite.ssrLoadModule('/src/services/recetas.ts');
+
+const recetasParaAsociar = cargarRecetas();
+assert.equal(seccionRecetarioParaIngrediente(recetasParaAsociar, 'Media sandía'), 'postres');
+assert.equal(seccionRecetarioParaIngrediente(recetasParaAsociar, 'Huevos'), 'recetas');
+assert.equal(seccionRecetarioParaIngrediente(recetasParaAsociar, 'No existe'), 'recetas');
+assert.match(app, /<Postres[\s\S]*ingredientePendiente=\{ingredienteAResolver\}/);
 
 const tramos = [
   { inicio: '2026-09-01', fin: '2026-09-06' },
