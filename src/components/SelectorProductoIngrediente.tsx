@@ -236,9 +236,10 @@ function SelectorProductoIngrediente({
             {error && <p style={estiloError}>{error}</p>}
             {!cargando && !error && resultadosCatalogo.length === 0 && (
               <p style={estiloEstado}>
-                No hay productos para esta búsqueda en el catálogo actual. Prueba
-                otro nombre; si no aparece el producto correcto, deja esta
-                asociación pendiente para no falsear el presupuesto.
+                No hay productos para esta búsqueda en el catálogo actual. El
+                surtido puede variar según la temporada y la zona. Prueba otro
+                nombre; si no aparece el producto correcto, deja esta asociación
+                pendiente para no falsear el presupuesto.
               </p>
             )}
             {!error &&

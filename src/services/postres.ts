@@ -11,6 +11,7 @@ export type ConfiguracionPostres = {
 
 export type OpcionesAplicacionPostres = {
   respetarEdicionesManuales?: boolean;
+  mesPlan?: string;
 };
 
 type ConfiguracionPostresNormalizada = {
@@ -37,6 +38,18 @@ function normalizarTexto(texto: string): string {
     .replace(/[^a-z0-9]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+// Temporada habitual de consumo en España (MAPA). La presencia real
+// en la tienda se comprueba por separado y puede variar dentro de estos meses.
+const MESES_POSTRES_ESTACIONALES: Record<string, readonly number[]> = {
+  sandia: [5, 6, 7, 8, 9],
+};
+
+export function esPostreDeTemporada(nombre: string, mesOFecha: string): boolean {
+  const mes = /^\d{4}-(0[1-9]|1[0-2])(?:-\d{2})?$/.exec(mesOFecha)?.[1];
+  const meses = MESES_POSTRES_ESTACIONALES[normalizarTexto(nombre)];
+  return !mes || !meses || meses.includes(Number(mes));
 }
 
 function limpiarNombres(valores: unknown): string[] {
@@ -236,6 +249,13 @@ export function aplicarConfiguracionPostresAlPlan(
   return plan.map((semana) => {
     let indiceComida = 0;
     let indiceCena = 0;
+    const mesOFecha = opciones.mesPlan || semana.inicio;
+    const postresComida = config.comida.filter((nombre) =>
+      esPostreDeTemporada(nombre, mesOFecha),
+    );
+    const postresCena = config.cena.filter((nombre) =>
+      esPostreDeTemporada(nombre, mesOFecha),
+    );
 
     return {
       ...semana,
@@ -248,11 +268,11 @@ export function aplicarConfiguracionPostresAlPlan(
           return dia;
         }
 
-        const postreComida = config.comida.length > 0
-          ? config.comida[indiceComida++ % config.comida.length]
+        const postreComida = postresComida.length > 0
+          ? postresComida[indiceComida++ % postresComida.length]
           : 'Sin postre';
-        const postreCena = config.cena.length > 0
-          ? config.cena[indiceCena++ % config.cena.length]
+        const postreCena = postresCena.length > 0
+          ? postresCena[indiceCena++ % postresCena.length]
           : 'Sin postre';
 
         dia = aplicarPostre(dia, 'comida', postreComida, opciones);

@@ -643,7 +643,7 @@ function sincronizarPostresRecetarioConPlan(recetasActuales: Receta[]): void {
     const plan = aplicarConfiguracionPostresAlPlan(
       planBase,
       configuracion,
-      { respetarEdicionesManuales: true },
+      { respetarEdicionesManuales: true, mesPlan: localStorage.getItem(CLAVE_MES_ACTIVO) ?? '' },
     );
     const indiceGuardado = Number(localStorage.getItem(CLAVE_SEMANA_ACTIVA));
     const indice = Number.isInteger(indiceGuardado)

@@ -149,12 +149,12 @@ function aplicarPreferenciaEnsaladaPasta(
   return huboCambios ? recalcularPreparacionesPlan(ajustadas) : semanas;
 }
 
-function aplicarPostresDelRecetario(semanas: SemanaMenu[]): SemanaMenu[] {
+function aplicarPostresDelRecetario(semanas: SemanaMenu[], mes: string): SemanaMenu[] {
   const configuracion = crearConfiguracionPostresDesdeRecetas(cargarRecetas());
   return aplicarConfiguracionPostresAlPlan(
     semanas,
     configuracion,
-    { respetarEdicionesManuales: true },
+    { respetarEdicionesManuales: true, mesPlan: mes },
   );
 }
 
@@ -189,7 +189,7 @@ function aplicarReglasMensuales(
   const sinGarbanzosFritosRepetidos = aplicarReglaGarbanzosFritos(conCenasLigeras);
   const conLegumbresRepetidas = aplicarRepeticionLegumbres(sinGarbanzosFritosRepetidos);
   const preparadas = recalcularPreparacionesPlan(conLegumbresRepetidas);
-  return aplicarPostresDelRecetario(preparadas);
+  return aplicarPostresDelRecetario(preparadas, mes);
 }
 
 function aplicarVariedadCenasMartes(semanas: SemanaMenu[]): SemanaMenu[] {
@@ -508,7 +508,7 @@ export function useMenu() {
     const actualizarPostres = () => {
       setMesPlan((planActual) => ({
         ...planActual,
-        semanas: aplicarPostresDelRecetario(planActual.semanas),
+        semanas: aplicarPostresDelRecetario(planActual.semanas, planActual.mes),
       }));
     };
 

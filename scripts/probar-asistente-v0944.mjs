@@ -49,10 +49,10 @@ assert.match(css, /\.assistant-hero/);
 assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.52');
-assert.match(app, /v0\.9\.52/);
-assert.match(sw, /pfi-v0\.9\.52-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.52'/);
+assert.equal(packageJson.version, '0.9.53');
+assert.match(app, /v0\.9\.53/);
+assert.match(sw, /pfi-v0\.9\.53-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.53'/);
 
 const vite = await createServer({
   configFile: false,
@@ -324,4 +324,4 @@ console.log('✓ actúa como copiloto familiar cruzando 48 h, comensales, compra
 console.log('✓ prioriza incidencias y propone ahorro basándose en datos reales del PFI');
 console.log('✓ conserva historial local y separa respuestas de acciones confirmables');
 console.log('✓ semana actual, asociaciones concretas y presupuesto por encima del objetivo tienen respuesta coherente');
-console.log('✓ versión, caché y copias están alineadas en v0.9.52');
+console.log('✓ versión, caché y copias están alineadas en v0.9.53');

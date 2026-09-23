@@ -1,9 +1,15 @@
+# v0.9.53 — Postres de temporada
+
+- La rotación automática de postres usa el mes del plan: sandía de mayo a septiembre, sin forzarla en otros meses. Un postre escogido manualmente se conserva y se identifica si queda fuera de su temporada habitual.
+- El catálogo y la temporada son señales distintas: la ausencia temporal o local de un producto no se sustituye por artículos de sabor parecido ni por un precio inventado.
+- Temporada habitual de consumo de sandía en España según el [Ministerio de Agricultura](https://www.mapa.gob.es/dam/mapa/contenido/prensa/notas-de-prensa/documentos/documentos-2025/25-08-20-consumo-de-melon-y-sandia.pdf).
+
 # v0.9.52 — Coherencia de semana y datos
 
 - En una instalación nueva, el menú arranca en la semana y el día actuales; las selecciones guardadas siguen respetándose.
 - Inicio y Menú distinguen el plan de la semana elegida del día de hoy.
 - Cada respuesta del Asistente muestra a qué semana pertenece; al cambiar de semana la compra se recalcula antes de admitir nuevas consultas.
-- La acción de resolver un producto sin asociación abre el selector del ingrediente concreto en Recetas.
+- La acción de resolver un producto sin asociación abre el selector del ingrediente concreto en Recetas o Postres según corresponda.
 - Los cálculos pendientes o fallidos no se presentan como importes cero; se puede reintentar si falla la compra o el presupuesto.
 - La versión visible, el servicio de copias y la caché PWA avanzan juntos a v0.9.52.
 

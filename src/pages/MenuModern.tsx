@@ -30,6 +30,7 @@ import {
   obtenerOpcionesEspeciales,
 } from '../services/menu';
 import { esRecetaPostre } from '../services/recetas';
+import { esPostreDeTemporada } from '../services/postres';
 import { compartirTexto } from '../services/compartir';
 import { cargarNotaSemana, guardarNotaSemana } from '../services/notasSemana';
 import { fechaLocalISO, indiceDiaParaFecha } from '../services/fechaSemana';
@@ -727,7 +728,7 @@ export default function MenuModern({
                           onChange={(evento) => cambiarPostre('comida', evento.target.value)}
                           aria-label="Cambiar postre de la comida"
                         >
-                          {postres.map((postre) => <option key={postre} value={postre}>{iconoRecetaPostre(postre)} {postre}</option>)}
+                          {postres.map((postre) => <option key={postre} value={postre}>{iconoRecetaPostre(postre)} {postre}{esPostreDeTemporada(postre, mesActivo) ? '' : ' · fuera de temporada habitual'}</option>)}
                         </select>
                       </label>
                       <ValoracionPlegable
@@ -765,7 +766,7 @@ export default function MenuModern({
                           onChange={(evento) => cambiarPostre('cena', evento.target.value)}
                           aria-label="Cambiar postre de la cena"
                         >
-                          {postres.map((postre) => <option key={postre} value={postre}>{iconoRecetaPostre(postre)} {postre}</option>)}
+                          {postres.map((postre) => <option key={postre} value={postre}>{iconoRecetaPostre(postre)} {postre}{esPostreDeTemporada(postre, mesActivo) ? '' : ' · fuera de temporada habitual'}</option>)}
                         </select>
                       </label>
                       <ValoracionPlegable
