@@ -1,6 +1,8 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.52.
+Versión 0.9.53.
+
+La v0.9.53 rota automáticamente los postres de temporada según el mes del menú: la sandía se propone de mayo a septiembre y deja de repetirse fuera de ese período. Las elecciones manuales se conservan. Que una fruta esté en temporada no garantiza que figure en el catálogo de una tienda o zona, y la compra sigue avisando si no tiene un producto correcto asociado.
 
 La v0.9.52 elige la semana actual al abrir una instalación nueva, distingue el día seleccionado de hoy y etiqueta las respuestas guardadas con su semana. Desde el Asistente se puede abrir la asociación del ingrediente concreto que falta; durante el recálculo de compra o presupuesto no se muestran cifras anteriores como actuales.
 

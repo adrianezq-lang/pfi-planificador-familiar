@@ -10,6 +10,7 @@ globalThis.localStorage = {
 const {
   aplicarConfiguracionPostresAlPlan,
   crearConfiguracionPostresDesdeRecetas,
+  esPostreDeTemporada,
 } = await import('../src/services/postres.ts');
 const {
   cargarAsociacionesIngredientes,
@@ -69,6 +70,44 @@ for (let i = 0; i < 6; i += 1) {
 }
 if (aplicado[6].postreComidaReceta !== 'Sin postre' || aplicado[6].postreCenaReceta !== 'Sin postre') {
   throw new Error('El domingo debe quedar sin postre por defecto.');
+}
+
+const semanaEn = (inicio) => [{ ...plan[0], inicio }];
+const postresJunio = aplicarConfiguracionPostresAlPlan(semanaEn('2026-06-01'), config)[0].menu;
+const postresSeptiembre = aplicarConfiguracionPostresAlPlan(semanaEn('2026-09-21'), config)[0].menu;
+const postresOctubre = aplicarConfiguracionPostresAlPlan(semanaEn('2026-10-05'), config)[0].menu;
+if (postresJunio[0].postreComidaReceta !== 'Sandía' ||
+    postresSeptiembre[0].postreComidaReceta !== 'Sandía' ||
+    postresOctubre.slice(0, 6).some((dia) => dia.postreComidaReceta !== 'Manzana')) {
+  throw new Error('La sandía debe rotar solo en sus meses habituales; septiembre sigue incluido.');
+}
+const octubreAntiguo = aplicarConfiguracionPostresAlPlan(
+  plan, config, { mesPlan: '2026-10' },
+)[0].menu;
+if (octubreAntiguo[0].postreComidaReceta !== 'Manzana') {
+  throw new Error('Los planes antiguos sin fecha semanal deben respetar el mes activo.');
+}
+if (esPostreDeTemporada('Sandía', '2026-10') || !esPostreDeTemporada('Manzana', '2026-10')) {
+  throw new Error('La temporada no distingue correctamente la sandía de los postres sin regla.');
+}
+const octubreConSandiaEnCena = aplicarConfiguracionPostresAlPlan(
+  semanaEn('2026-10-05'), { comida: ['Manzana'], cena: ['Sandía', 'Yogur natural'] },
+)[0].menu;
+if (octubreConSandiaEnCena[0].postreCenaReceta !== 'Yogur natural') {
+  throw new Error('La rotación de la cena también debe respetar la temporada.');
+}
+const semanaConEleccionManual = semanaEn('2026-10-05');
+semanaConEleccionManual[0].menu = semanaConEleccionManual[0].menu.map((dia, indice) =>
+  indice === 0 ? { ...dia, postreComidaReceta: 'Sandía', postreComidaManual: true } : dia,
+);
+const octubreManual = aplicarConfiguracionPostresAlPlan(
+  semanaConEleccionManual,
+  config,
+  { respetarEdicionesManuales: true },
+)[0].menu;
+if (octubreManual[0].postreComidaReceta !== 'Sandía' ||
+    octubreManual[1].postreComidaReceta !== 'Manzana') {
+  throw new Error('La rotación estacional no debe sobrescribir un postre elegido manualmente.');
 }
 
 function linea(seccionProducto, nombre, seccionIngrediente) {
