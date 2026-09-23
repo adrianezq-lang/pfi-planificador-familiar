@@ -72,6 +72,18 @@ export function esRecetaPostre(receta: Pick<Receta, 'categoria' | 'tipo'>): bool
   return receta.tipo === 'postre' || esCategoriaPostre(receta.categoria);
 }
 
+export function seccionRecetarioParaIngrediente(
+  recetas: Receta[],
+  ingrediente: string,
+): 'recetas' | 'postres' {
+  const recetasConIngrediente = recetas.filter((receta) =>
+    receta.ingredientes.some((item) => item.nombre === ingrediente),
+  );
+  return recetasConIngrediente.length > 0 && recetasConIngrediente.every(esRecetaPostre)
+    ? 'postres'
+    : 'recetas';
+}
+
 function esIngredienteValido(valor: unknown): valor is Ingrediente {
   if (typeof valor !== 'object' || valor === null) return false;
 
@@ -866,4 +878,3 @@ export function eliminarRecetaDelMenu(nombreReceta: string): void {
     // useMenu recuperará un plan válido si el guardado no es correcto.
   }
 }
-

@@ -22,7 +22,7 @@ import Home from './pages/Home';
 import { asegurarAsociacionesBasicas } from './services/asociacionesBasicas';
 import { EVENTO_ASOCIACIONES, repararAsociacionesIngredientes } from './services/asociacionesIngredientes';
 import { cargarDespensa, sincronizarProductosRecetasConDespensa } from './services/despensa';
-import { cargarRecetas, EVENTO_RECETAS } from './services/recetas';
+import { cargarRecetas, EVENTO_RECETAS, seccionRecetarioParaIngrediente } from './services/recetas';
 import { cargarExcepciones, EVENTO_EXCEPCIONES, menuEfectivoMes, menuEfectivoSemana } from './services/excepcionesCalendario';
 import { preservarCopiasAsociacionesExistentes } from './services/rescateAsociaciones';
 import { crearCopiaAutomaticaSiNecesaria } from './services/copiasSeguridad';
@@ -40,6 +40,7 @@ export type Pantalla = 'inicio' | 'menu' | 'asistente' | 'compra' | 'despensa' |
 
 function App() {
   const [pantalla, setPantalla] = useState<Pantalla>('inicio');
+  const [ingredienteAResolver, setIngredienteAResolver] = useState<string | null>(null);
   const [excepciones, setExcepciones] = useState(cargarExcepciones);
   const [sinConexion, setSinConexion] = useState(
     () => typeof navigator !== 'undefined' && !navigator.onLine,
@@ -62,6 +63,11 @@ function App() {
     (destino: Pantalla) => startTransition(() => setPantalla(destino)),
     [],
   );
+  const resolverIngrediente = useCallback((ingrediente: string) => {
+    setIngredienteAResolver(ingrediente);
+    cambiarPantalla(seccionRecetarioParaIngrediente(cargarRecetas(), ingrediente));
+  }, [cambiarPantalla]);
+  const asociacionAbierta = useCallback(() => setIngredienteAResolver(null), []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
@@ -153,7 +159,7 @@ function App() {
             <h1>PFI</h1>
             <p>Planificador familiar</p>
           </div>
-          <span className="app-version">v0.9.51</span>
+          <span className="app-version">v0.9.52</span>
         </div>
       </header>
 
@@ -196,6 +202,7 @@ function App() {
         {pantalla === 'inicio' && (
           <Home
             menu={menuCompra}
+            semana={planMensual[semanaActiva]}
             menusSemanas={menusSemanasCompra}
             menuMes={menuMes}
             semanaActiva={semanaActiva}
@@ -236,17 +243,24 @@ function App() {
             mesActivo={mesActivo}
             guardarMenu={guardarMenu}
             navegar={cambiarPantalla}
+            resolverIngrediente={resolverIngrediente}
           />
         )}
         {pantalla === 'despensa' && <Despensa />}
         {pantalla === 'recetas' && (
           <RecetarioFiltroProvider filtro="platos">
-            <Recetas />
+            <Recetas
+              ingredientePendiente={ingredienteAResolver}
+              onAsociacionAbierta={asociacionAbierta}
+            />
           </RecetarioFiltroProvider>
         )}
         {pantalla === 'postres' && (
           <RecetarioFiltroProvider filtro="postres">
-            <Postres />
+            <Postres
+              ingredientePendiente={ingredienteAResolver}
+              onAsociacionAbierta={asociacionAbierta}
+            />
           </RecetarioFiltroProvider>
         )}
         {pantalla === 'catalogo' && <CatalogoMercadona />}

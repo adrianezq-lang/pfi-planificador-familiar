@@ -32,6 +32,7 @@ import {
 import { esRecetaPostre } from '../services/recetas';
 import { compartirTexto } from '../services/compartir';
 import { cargarNotaSemana, guardarNotaSemana } from '../services/notasSemana';
+import { fechaLocalISO, indiceDiaParaFecha } from '../services/fechaSemana';
 
 type MenuProps = {
   menu: DiaMenu[];
@@ -243,7 +244,9 @@ export default function MenuModern({
   reiniciarMes,
 }: MenuProps) {
   const { recetas } = useRecetas();
-  const [diaActivo, setDiaActivo] = useState(0);
+  const [diaActivo, setDiaActivo] = useState(() =>
+    indiceDiaParaFecha(planMensual[semanaActiva]),
+  );
   const [, setRevisionExcepciones] = useState(0);
   const [revisionAprendizaje, setRevisionAprendizaje] = useState(0);
   const [editorMomento, setEditorMomento] = useState<MomentoMenu | null>(null);
@@ -553,7 +556,7 @@ export default function MenuModern({
               className={`month-week-tab${indice === indiceSemanaSeguro ? ' month-week-tab--active' : ''}${semanaPlan.excluida ? ' month-week-tab--excluded' : ''}`}
               onClick={() => {
                 seleccionarSemana(indice);
-                setDiaActivo(0);
+                setDiaActivo(indiceDiaParaFecha(semanaPlan));
                 setEditorMomento(null);
               }}
             >
@@ -664,7 +667,7 @@ export default function MenuModern({
           <section className="modern-day-card">
             <header className="modern-day-card__header">
               <div>
-                <span>HOY EN EL MENÚ</span>
+                <span>{fechaActiva === fechaLocalISO() ? 'HOY EN EL MENÚ' : 'DÍA SELECCIONADO'}</span>
                 <h3>{dia.dia}</h3>
                 <small>{fechaActiva?.slice(8, 10)}/{fechaActiva?.slice(5, 7)}</small>
               </div>

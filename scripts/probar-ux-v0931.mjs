@@ -18,7 +18,8 @@ assert.match(app, /import '\.\/styles\/premium-navigation\.css';/, 'La navegaci�
 assert.match(app, /import\('\.\/pages\/MenuModern'\)/, 'Producción debe usar el menú moderno.');
 assert.match(app, /import\('\.\/pages\/CompraModern'\)/, 'Producción debe usar la compra moderna.');
 
-assert.match(home, /etiqueta="Menú de hoy"/, 'Inicio debe identificar claramente el menú de hoy.');
+assert.match(home, /Menú de hoy/, 'Inicio debe identificar claramente el menú de hoy.');
+assert.match(home, /Menú de la semana elegida/, 'Inicio debe distinguir la semana consultada de hoy.');
 assert.match(home, /detalle={`Postre · \$\{postreComida\}`}/, 'El postre de la comida debe integrarse en la misma fila para evitar una tarjeta enorme.');
 assert.match(home, /detalle={`Postre · \$\{postreCena\}`}/, 'El postre de la cena debe integrarse en la misma fila para evitar una tarjeta enorme.');
 assert.match(cssFinal, /\.home-card--menu\.pfi-card[\s\S]*background:[\s\S]*!important;/, 'La tarjeta principal debe conservar fondo oscuro sobre el estilo global de Card.');

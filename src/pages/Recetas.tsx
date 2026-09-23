@@ -62,6 +62,8 @@ type ModoRecetario = 'platos' | 'postres';
 
 type RecetasProps = {
   modo?: ModoRecetario;
+  ingredientePendiente?: string | null;
+  onAsociacionAbierta?: () => void;
 };
 
 const CATEGORIAS_SUGERIDAS = [
@@ -196,7 +198,7 @@ function recetaUsaHorno(receta: Receta): boolean {
   );
 }
 
-function Recetas({ modo = 'platos' }: RecetasProps) {
+function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }: RecetasProps) {
   const { recetas, guardar, restaurar } = useRecetas();
   const esModoPostres = modo === 'postres';
   const tipoFijo: TipoReceta = esModoPostres ? 'postre' : 'plato';
@@ -328,6 +330,17 @@ function Recetas({ modo = 'platos' }: RecetasProps) {
       ),
     [nombresIngredientes, productosPorIngrediente],
   );
+
+  useEffect(() => {
+    if (!ingredientePendiente || cargandoProductos) return;
+    if (nombresIngredientes.includes(ingredientePendiente)) {
+      setIngredienteSelector(ingredientePendiente);
+      setModoPendientes(false);
+    } else {
+      setMensaje(`No encuentro «${ingredientePendiente}» en las recetas actuales.`);
+    }
+    onAsociacionAbierta?.();
+  }, [cargandoProductos, ingredientePendiente, nombresIngredientes, onAsociacionAbierta]);
 
   const alternarFavorita = (nombre: string) => {
     setFavoritas((actuales) =>

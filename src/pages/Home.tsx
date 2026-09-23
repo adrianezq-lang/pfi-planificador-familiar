@@ -2,10 +2,13 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
 import type { DiaMenu } from '../data/Menusemanal';
+import type { SemanaMenu } from '../data/MenuMensual';
+import { semanaContieneFecha } from '../services/fechaSemana';
 import {
   calcularReposicion,
   cargarDespensa,
@@ -43,34 +46,31 @@ type ResumenInicio = ResumenPresupuestoMensual & {
 
 type HomeProps = {
   menu: DiaMenu[];
+  semana: SemanaMenu | undefined;
   menusSemanas: DiaMenu[][];
   menuMes: DiaMenu[];
   semanaActiva: number;
   navegar: (destino: DestinoInicio) => void;
 };
 
-const RESUMEN_VACIO: ResumenInicio = {
-  presupuestoSemanal: 0,
-  presupuestoMensual: 0,
-  totalAcumulado: 0,
-  mostrarPresupuestoMensual: true,
-  previsionMes: 0,
-};
-
 function Home({
   menu,
+  semana,
   menusSemanas,
   menuMes,
   semanaActiva,
   navegar,
 }: HomeProps) {
-  const [presupuesto, setPresupuesto] =
-    useState<ResumenInicio>(RESUMEN_VACIO);
+  const [presupuesto, setPresupuesto] = useState<ResumenInicio | null>(null);
+  const [errorPresupuesto, setErrorPresupuesto] = useState(false);
+  const solicitudPresupuesto = useRef(0);
   const [despensa, setDespensa] = useState<ProductoDespensa[]>([]);
   const [version, setVersion] = useState(0);
   const [limiteMensual, setLimiteMensual] = useState(() => cargarPerfil().presupuesto);
 
   const cargarResumen = useCallback(async () => {
+    const solicitud = ++solicitudPresupuesto.current;
+    setErrorPresupuesto(false);
     setDespensa(cargarDespensa());
 
     try {
@@ -88,6 +88,7 @@ function Home({
       const acumuladoHastaSemana = semanales
         .slice(0, semanaActiva + 1)
         .reduce((total, resultado) => total + resultado.total, mensual.total);
+      if (solicitud !== solicitudPresupuesto.current) return;
       setPresupuesto({
         presupuestoSemanal: semanalActual,
         presupuestoMensual: mensual.total,
@@ -96,7 +97,7 @@ function Home({
         mostrarPresupuestoMensual: semanaActiva === 0,
       });
     } catch {
-      setPresupuesto(RESUMEN_VACIO);
+      if (solicitud === solicitudPresupuesto.current) setErrorPresupuesto(true);
     }
   }, [menusSemanas, menuMes, semanaActiva]);
 
@@ -105,6 +106,8 @@ function Home({
     let cancelado = false;
     let idleId: number | undefined;
     let temporizador: number | undefined;
+    setPresupuesto(null);
+    setErrorPresupuesto(false);
 
     const ejecutar = () => {
       if (!cancelado) void cargarResumen();
@@ -118,6 +121,7 @@ function Home({
 
     return () => {
       cancelado = true;
+      solicitudPresupuesto.current += 1;
       if (temporizador !== undefined) window.clearTimeout(temporizador);
       if (idleId !== undefined) ventana.cancelIdleCallback?.(idleId);
     };
@@ -145,8 +149,11 @@ function Home({
     'Viernes',
     'Sábado',
   ];
+  const semanaDeHoy = semanaContieneFecha(semana);
   const menuHoy =
-    menu.find((dia) => dia.dia === diasSemana[new Date().getDay()]) ?? menu[0];
+    (semanaDeHoy
+      ? menu.find((dia) => dia.dia === diasSemana[new Date().getDay()])
+      : undefined) ?? menu[0];
   const reposicion = useMemo(
     () =>
       despensa
@@ -163,7 +170,7 @@ function Home({
     : '';
 
   const detallePresupuesto = useMemo(() => {
-    if (limiteMensual <= 0 || presupuesto.previsionMes <= 0) return '';
+    if (limiteMensual <= 0 || !presupuesto || presupuesto.previsionMes <= 0) return '';
     const diferencia = limiteMensual - presupuesto.previsionMes;
     const importe = Math.abs(diferencia).toLocaleString('es-ES', {
       style: 'currency',
@@ -172,7 +179,7 @@ function Home({
     return diferencia >= 0
       ? `Te quedarían ${importe} de tu objetivo mensual`
       : `${importe} por encima de tu objetivo mensual`;
-  }, [limiteMensual, presupuesto.previsionMes]);
+  }, [limiteMensual, presupuesto]);
 
   return (
     <main className="page home-page">
@@ -181,7 +188,7 @@ function Home({
           destino="menu"
           navegar={navegar}
           icono="utensils"
-          etiqueta="Menú de hoy"
+          etiqueta={semanaDeHoy ? 'Menú de hoy' : 'Menú de la semana elegida'}
           className="home-card--menu"
         >
           {menuHoy ? (
@@ -210,7 +217,7 @@ function Home({
             destino="menu"
             navegar={navegar}
             icono="snowflake"
-            etiqueta="Preparar para mañana"
+            etiqueta={semanaDeHoy ? 'Preparar para mañana' : 'Preparación de la semana elegida'}
             className="home-card--prep"
           >
             <p className="home-highlight-text">
@@ -264,7 +271,7 @@ function Home({
         <span className="assistant-home-cta__arrow" aria-hidden="true">›</span>
       </button>
 
-      <section
+      {presupuesto ? <section
         className={`budget-grid${
           presupuesto.mostrarPresupuestoMensual ? '' : ' budget-grid--compact'
         }`}
@@ -291,7 +298,14 @@ function Home({
           detalle={detallePresupuesto}
           total
         />
-      </section>
+      </section> : <section className="budget-grid" aria-live="polite">
+        <p role={errorPresupuesto ? 'alert' : 'status'}>
+          {errorPresupuesto ? 'No se pudo calcular el presupuesto del mes.' : 'Calculando presupuesto del mes…'}
+          {errorPresupuesto && (
+            <button type="button" onClick={() => void cargarResumen()}>Reintentar</button>
+          )}
+        </p>
+      </section>}
     </main>
   );
 }
