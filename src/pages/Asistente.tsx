@@ -65,6 +65,7 @@ type Props = {
   mesActivo: string;
   guardarMenu: (menu: DiaMenu[]) => void;
   navegar: (destino: DestinoAsistente) => void;
+  resolverIngrediente: (ingrediente: string) => void;
 };
 
 type Conversacion = {
@@ -72,7 +73,23 @@ type Conversacion = {
   pregunta: string;
   respuesta: RespuestaAsistentePFI;
   fecha: string;
+  semanaId?: string;
+  semanaNombre?: string;
+  mes?: string;
 };
+
+type CalculoCompra = {
+  menuMes: DiaMenu[];
+  menusSemanas: DiaMenu[][];
+  semanaActiva: number;
+  revision: number;
+  semana: ResultadoCompra | null;
+  mes: ResultadoCompra | null;
+  semanas: ResultadoCompra[];
+  error: boolean;
+};
+
+const COMPRAS_VACIAS: ResultadoCompra[] = [];
 
 type CambioMenuReversible = {
   antes: DiaMenu[];
@@ -205,6 +222,7 @@ export default function Asistente({
   mesActivo,
   guardarMenu,
   navegar,
+  resolverIngrediente,
 }: Props) {
   const [consulta, setConsulta] = useState('');
   const [historial, setHistorial] = useState<Conversacion[]>(cargarHistorial);
@@ -212,10 +230,7 @@ export default function Asistente({
   const [recetas, setRecetas] = useState(cargarRecetas);
   const [perfil, setPerfil] = useState(cargarPerfil);
   const [aprendizaje, setAprendizaje] = useState(obtenerResumenAprendizaje);
-  const [compraSemana, setCompraSemana] = useState<ResultadoCompra | null>(null);
-  const [compraMes, setCompraMes] = useState<ResultadoCompra | null>(null);
-  const [comprasSemanas, setComprasSemanas] = useState<ResultadoCompra[]>([]);
-  const [calculando, setCalculando] = useState(true);
+  const [calculoCompra, setCalculoCompra] = useState<CalculoCompra | null>(null);
   const [propuestaPendiente, setPropuestaPendiente] =
     useState<PropuestaAccionAsistente | null>(null);
   const [resultadoAccion, setResultadoAccion] = useState('');
@@ -226,6 +241,17 @@ export default function Asistente({
   const [ultimaPropuestaAplicada, setUltimaPropuestaAplicada] =
     useState<PropuestaAccionAsistente | null>(null);
   const finalRef = useRef<HTMLDivElement | null>(null);
+  const calculoVigente = calculoCompra?.menuMes === menuMes &&
+    calculoCompra.menusSemanas === menusSemanas &&
+    calculoCompra.semanaActiva === semanaActiva &&
+    calculoCompra.revision === revisionAcciones
+    ? calculoCompra
+    : null;
+  const compraSemana = calculoVigente?.semana ?? null;
+  const compraMes = calculoVigente?.mes ?? null;
+  const comprasSemanas = calculoVigente?.semanas ?? COMPRAS_VACIAS;
+  const calculando = calculoVigente === null;
+  const errorCalculo = calculoVigente?.error === true;
 
   useEffect(() => {
     const actualizarDespensa = () => setDespensa(cargarDespensa());
@@ -249,7 +275,6 @@ export default function Asistente({
 
   useEffect(() => {
     let activo = true;
-    setCalculando(true);
 
     Promise.all([
       generarCompraSemanalProyectada(menusSemanas, semanaActiva),
@@ -262,18 +287,17 @@ export default function Asistente({
     ])
       .then(([semana, mes, semanas]) => {
         if (!activo) return;
-        setCompraSemana(semana);
-        setCompraMes(mes);
-        setComprasSemanas(semanas);
+        setCalculoCompra({
+          menuMes, menusSemanas, semanaActiva, revision: revisionAcciones,
+          semana, mes, semanas, error: false,
+        });
       })
       .catch(() => {
         if (!activo) return;
-        setCompraSemana(null);
-        setCompraMes(null);
-        setComprasSemanas([]);
-      })
-      .finally(() => {
-        if (activo) setCalculando(false);
+        setCalculoCompra({
+          menuMes, menusSemanas, semanaActiva, revision: revisionAcciones,
+          semana: null, mes: null, semanas: COMPRAS_VACIAS, error: true,
+        });
       });
 
     return () => {
@@ -385,6 +409,9 @@ export default function Asistente({
         pregunta,
         respuesta,
         fecha: new Date().toISOString(),
+        semanaId: planMensual[semanaActiva]?.id,
+        semanaNombre: planMensual[semanaActiva]?.nombre,
+        mes: mesActivo,
       },
     ].slice(-MAX_HISTORIAL);
 
@@ -404,7 +431,7 @@ export default function Asistente({
 
   const preguntar = (texto: string) => {
     const limpio = texto.trim();
-    if (!limpio) return;
+    if (!limpio || calculando || errorCalculo) return;
 
     setResultadoAccion('');
     setDestinoResultado(null);
@@ -933,7 +960,7 @@ export default function Asistente({
         </div>
         <div className="assistant-live-badge">
           <span aria-hidden="true" />
-          {calculando ? 'Actualizando datos' : 'Datos conectados'}
+          {errorCalculo ? 'Error al calcular la compra' : calculando ? 'Actualizando datos' : 'Datos conectados'}
         </div>
       </section>
 
@@ -949,7 +976,7 @@ export default function Asistente({
           <span className="assistant-snapshot-card__icon"><AppIcon name="cart" size={18} /></span>
           <div>
             <small>COMPRA</small>
-            <strong>{resumen.compra}</strong>
+            <strong>{errorCalculo ? 'No se pudo calcular la compra' : resumen.compra}</strong>
           </div>
         </article>
         <article className="assistant-snapshot-card">
@@ -967,6 +994,15 @@ export default function Asistente({
           </div>
         </article>
       </section>
+
+      {errorCalculo && (
+        <p role="alert">
+          No se ha podido actualizar la compra.{' '}
+          <button type="button" onClick={() => setRevisionAcciones((valor) => valor + 1)}>
+            Reintentar cálculo
+          </button>
+        </p>
+      )}
 
       {resumen.alertas.length > 0 && (
         <section className="assistant-alerts" aria-label="Avisos útiles">
@@ -994,6 +1030,7 @@ export default function Asistente({
             <button
               key={pregunta.texto}
               type="button"
+              disabled={calculando || errorCalculo}
               onClick={() => preguntar(pregunta.texto)}
             >
               <AppIcon name={pregunta.icono} size={18} />
@@ -1006,7 +1043,7 @@ export default function Asistente({
           <small>PRUEBA TAMBIÉN</small>
           <div>
             {ACCIONES_RAPIDAS.map((accion) => (
-              <button key={accion} type="button" onClick={() => preguntar(accion)}>
+              <button key={accion} type="button" disabled={calculando || errorCalculo} onClick={() => preguntar(accion)}>
                 {accion}
               </button>
             ))}
@@ -1051,6 +1088,11 @@ export default function Asistente({
                       <strong>{item.respuesta.titulo}</strong>
                     </div>
                   </div>
+                  <small className="assistant-answer__context">
+                    {item.semanaNombre && item.mes
+                      ? `Respuesta guardada para ${item.semanaNombre} (${item.mes})${item.semanaId !== planMensual[semanaActiva]?.id ? ' · otra semana' : ''}`
+                      : 'Respuesta anterior · semana no registrada'}
+                  </small>
                   <p>{item.respuesta.resumen}</p>
                   {item.respuesta.puntos.length > 0 && (
                     <ul>
@@ -1063,7 +1105,14 @@ export default function Asistente({
                     <button
                       type="button"
                       className="assistant-answer__action"
-                      onClick={() => navegar(item.respuesta.accion!.destino)}
+                      onClick={() => {
+                        const accion = item.respuesta.accion!;
+                        if (accion.destino === 'recetas' && accion.ingrediente) {
+                          resolverIngrediente(accion.ingrediente);
+                        } else {
+                          navegar(accion.destino);
+                        }
+                      }}
                     >
                       {item.respuesta.accion.etiqueta}
                       <span aria-hidden="true">›</span>
@@ -1140,7 +1189,7 @@ export default function Asistente({
               autoComplete="off"
             />
           </label>
-          <button type="submit" disabled={!consulta.trim()}>
+          <button type="submit" disabled={!consulta.trim() || calculando || errorCalculo}>
             <AppIcon name="sparkles" size={18} />
             <span>Enviar</span>
           </button>

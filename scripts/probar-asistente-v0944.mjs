@@ -49,10 +49,10 @@ assert.match(css, /\.assistant-hero/);
 assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.51');
-assert.match(app, /v0\.9\.51/);
-assert.match(sw, /pfi-v0\.9\.51-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.51'/);
+assert.equal(packageJson.version, '0.9.52');
+assert.match(app, /v0\.9\.52/);
+assert.match(sw, /pfi-v0\.9\.52-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.52'/);
 
 const vite = await createServer({
   configFile: false,
@@ -61,6 +61,21 @@ const vite = await createServer({
 });
 const { responderAsistente, obtenerResumenProactivo } =
   await vite.ssrLoadModule('/src/services/asistentePFI.ts');
+const { indiceSemanaParaFecha, indiceDiaParaFecha, semanaContieneFecha } =
+  await vite.ssrLoadModule('/src/services/fechaSemana.ts');
+
+const tramos = [
+  { inicio: '2026-09-01', fin: '2026-09-06' },
+  { inicio: '2026-09-07', fin: '2026-09-13' },
+  { inicio: '2026-09-14', fin: '2026-09-20' },
+  { inicio: '2026-09-21', fin: '2026-09-27' },
+  { inicio: '2026-09-28', fin: '2026-09-30' },
+];
+assert.equal(indiceSemanaParaFecha(tramos, new Date(2026, 8, 23, 12)), 3);
+assert.equal(indiceDiaParaFecha(tramos[3], new Date(2026, 8, 23, 12)), 2);
+assert.equal(indiceDiaParaFecha(tramos[0], new Date(2026, 8, 1, 12)), 0);
+assert.equal(indiceSemanaParaFecha(tramos, new Date(2026, 9, 1, 12)), 0);
+assert.equal(semanaContieneFecha(tramos[0], new Date(2026, 8, 23, 12)), false);
 
 const dia = (nombre, comida, cena, preparar = '') => ({
   dia: nombre,
@@ -259,6 +274,39 @@ assert.match(resumen.compra, /2 pendientes/);
 assert.match(resumen.presupuesto, /105,00/);
 assert.ok(resumen.alertas.some((alerta) => alerta.includes('pendientes de la compra semanal')));
 
+const sinAsociar = {
+  ...contexto,
+  compraSemana: {
+    ...compraSemana,
+    productosSinSeleccionar: ['Media sandía'],
+  },
+};
+const prioridadAsociacion = responderAsistente('Revisa todo y dime prioridades', sinAsociar, fechaReferencia);
+assert.equal(prioridadAsociacion.accion?.destino, 'recetas');
+assert.equal(prioridadAsociacion.accion?.ingrediente, 'Media sandía');
+assert.match(prioridadAsociacion.puntos[0], /Media sandía/);
+
+const sobreObjetivo = {
+  ...contexto,
+  perfil: { ...contexto.perfil, presupuesto: 90 },
+};
+const prioridadPresupuesto = responderAsistente('Revisa todo y dime prioridades', sobreObjetivo, fechaReferencia);
+const ahorroSobreObjetivo = responderAsistente('¿Cómo puedo ahorrar esta semana?', sobreObjetivo, fechaReferencia);
+assert.match(prioridadPresupuesto.puntos[0], /objetivo en 15,00/);
+assert.match(ahorroSobreObjetivo.puntos[0], /15,00.*por encima/);
+assert.equal(prioridadPresupuesto.accion?.destino, 'compra');
+
+const semanaAnterior = {
+  ...contexto,
+  semanaMenuActiva: { ...contexto.semanaMenuActiva, inicio: '2026-09-01', fin: '2026-09-06' },
+};
+const planFueraDeSemana = responderAsistente('Organízame las próximas 48 h', semanaAnterior, '2026-09-23');
+assert.match(planFueraDeSemana.resumen, /no cubre las próximas 48 h completas/);
+assert.match(planFueraDeSemana.puntos[0], /semana seleccionada no contiene hoy/);
+
+const planDomingo = responderAsistente('Organízame las próximas 48 h', contexto, '2026-09-27');
+assert.ok(planDomingo.puntos.some((punto) => /Mañana queda fuera de la semana seleccionada/.test(punto)));
+
 await vite.close();
 
 console.log('✓ Despensa está en la barra principal y el Asistente en Más');
@@ -267,4 +315,5 @@ console.log('✓ responde consultas con ayer, hoy, mañana, pasado mañana y fec
 console.log('✓ actúa como copiloto familiar cruzando 48 h, comensales, compra, stock y presupuesto');
 console.log('✓ prioriza incidencias y propone ahorro basándose en datos reales del PFI');
 console.log('✓ conserva historial local y separa respuestas de acciones confirmables');
-console.log('✓ versión, caché y copias están alineadas en v0.9.51');
+console.log('✓ semana actual, asociaciones concretas y presupuesto por encima del objetivo tienen respuesta coherente');
+console.log('✓ versión, caché y copias están alineadas en v0.9.52');

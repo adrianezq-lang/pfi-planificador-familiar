@@ -1,3 +1,12 @@
+# v0.9.52 — Coherencia de semana y datos
+
+- En una instalación nueva, el menú arranca en la semana y el día actuales; las selecciones guardadas siguen respetándose.
+- Inicio y Menú distinguen el plan de la semana elegida del día de hoy.
+- Cada respuesta del Asistente muestra a qué semana pertenece; al cambiar de semana la compra se recalcula antes de admitir nuevas consultas.
+- La acción de resolver un producto sin asociación abre el selector del ingrediente concreto en Recetas.
+- Los cálculos pendientes o fallidos no se presentan como importes cero; se puede reintentar si falla la compra o el presupuesto.
+- La versión visible, el servicio de copias y la caché PWA avanzan juntos a v0.9.52.
+
 # v0.9.51 — Copiloto familiar
 
 - «Organízame las próximas 48 h» cruza menú, comensales reales, compra pendiente, preparación, despensa y presupuesto en una sola respuesta.

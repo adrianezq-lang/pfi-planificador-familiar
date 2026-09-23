@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { menuMensualInicial, type SemanaMenu } from '../data/MenuMensual';
+import { indiceSemanaParaFecha } from '../services/fechaSemana';
 import type { DiaMenu } from '../data/Menusemanal';
 import { recalcularPreparacionesPlan } from '../services/menu';
 import {
@@ -479,8 +480,11 @@ export function useMenu() {
   );
   const [semanaActiva, setSemanaActiva] = useState(() => {
     const planInicial = cargarMes(localStorage.getItem(CLAVE_MES_ACTIVO) || claveMes());
+    const indiceGuardado = localStorage.getItem(CLAVE_SEMANA_ACTIVA);
     return indiceSemanaValido(
-      localStorage.getItem(CLAVE_SEMANA_ACTIVA) || 0,
+      indiceGuardado === null
+        ? indiceSemanaParaFecha(planInicial.semanas)
+        : indiceGuardado,
       planInicial.semanas.length,
     );
   });
@@ -518,9 +522,10 @@ export function useMenu() {
       new Date(anio, mes - 1 + desplazamiento, 1),
     );
     const nuevoPlan = cargarMes(nuevoMes);
+    const indice = indiceSemanaParaFecha(nuevoPlan.semanas);
     setMesPlan(nuevoPlan);
-    setSemanaActiva(0);
-    guardarMes(nuevoPlan, 0);
+    setSemanaActiva(indice);
+    guardarMes(nuevoPlan, indice);
   }
 
   function generarNuevoMes(): void {
@@ -537,9 +542,10 @@ export function useMenu() {
     );
     const semanas = semanasDelMes(mesPlan.mes, nuevoPlanBase);
     const nuevoPlan = { mes: mesPlan.mes, semanas };
+    const indice = indiceSemanaParaFecha(semanas);
     setMesPlan(nuevoPlan);
-    setSemanaActiva(0);
-    guardarMes(nuevoPlan, 0);
+    setSemanaActiva(indice);
+    guardarMes(nuevoPlan, indice);
   }
 
   function reiniciarMes(): void {
@@ -550,9 +556,10 @@ export function useMenu() {
         copiarPlanMensual(menuMensualInicial),
       ),
     };
+    const indice = indiceSemanaParaFecha(nuevoPlan.semanas);
     setMesPlan(nuevoPlan);
-    setSemanaActiva(0);
-    guardarMes(nuevoPlan, 0);
+    setSemanaActiva(indice);
+    guardarMes(nuevoPlan, indice);
   }
 
   function seleccionarSemana(indice: number): void {

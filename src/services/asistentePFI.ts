@@ -27,6 +27,7 @@ export type RespuestaAsistentePFI = {
   accion?: {
     etiqueta: string;
     destino: DestinoAsistente;
+    ingrediente?: string;
   };
   tono?: 'normal' | 'positivo' | 'atencion';
 };
@@ -250,6 +251,7 @@ type PrioridadFamiliar = {
   nivel: 1 | 2 | 3;
   texto: string;
   destino: DestinoAsistente;
+  ingrediente?: string;
 };
 
 function totalComensales(configuracion: {
@@ -330,11 +332,12 @@ function prioridadesFamiliares(
     });
   }
 
-  if ((compra?.productosSinSeleccionar.length ?? 0) > 0) {
+  if (compra && compra.productosSinSeleccionar.length > 0) {
     prioridades.push({
       nivel: 1,
-      texto: `${compra?.productosSinSeleccionar.length ?? 0} ingrediente(s) no tienen producto asociado; la compra puede quedar incompleta.`,
-      destino: 'catalogo',
+      texto: `${compra.productosSinSeleccionar.length} ingrediente(s) no tienen producto asociado (${listaCorta(compra.productosSinSeleccionar, 2)}); la compra puede quedar incompleta.`,
+      destino: 'recetas',
+      ingrediente: compra.productosSinSeleccionar[0],
     });
   }
 
@@ -434,6 +437,11 @@ function respuestaPlanFamiliar(
 
   if (hoy) puntos.push(textoPlanDia(hoy));
   if (manana) puntos.push(textoPlanDia(manana));
+  if (!hoy || !manana) {
+    puntos.push(hoy
+      ? 'Mañana queda fuera de la semana seleccionada; elige la semana siguiente para completar el plan de 48 h.'
+      : 'La semana seleccionada no contiene hoy; elige la semana actual para planificar las próximas 48 h.');
+  }
 
   const preparaciones = [hoy, manana]
     .flatMap((plan) => (plan?.dia.preparar?.trim() ? [plan.dia.preparar.trim()] : []))
@@ -467,8 +475,9 @@ function respuestaPlanFamiliar(
   const destino = prioridades[0]?.destino ?? 'menu';
   return {
     titulo: 'Copiloto familiar · próximas 48 h',
-    resumen:
-      'He cruzado menú, comensales, compra, despensa, preparación y presupuesto para darte un plan corto y accionable.',
+    resumen: hoy && manana
+      ? 'He cruzado menú, comensales, compra, despensa, preparación y presupuesto para darte un plan corto y accionable.'
+      : 'El menú seleccionado no cubre las próximas 48 h completas; los avisos de compra y presupuesto corresponden a esa semana.',
     puntos: puntos.slice(0, 6),
     accion: {
       etiqueta:
@@ -476,10 +485,11 @@ function respuestaPlanFamiliar(
           ? 'Revisar Compra'
           : destino === 'despensa'
             ? 'Revisar Despensa'
-            : destino === 'catalogo'
-              ? 'Resolver productos'
-              : 'Abrir Menú',
+            : destino === 'recetas'
+              ? 'Asociar ingrediente'
+               : 'Abrir Menú',
       destino,
+      ingrediente: prioridades[0]?.ingrediente,
     },
     tono: prioridades.some((prioridad) => prioridad.nivel === 1)
       ? 'atencion'
@@ -501,7 +511,10 @@ function respuestaChequeoIntegral(
       resumen:
         'No veo problemas importantes en las áreas que PFI puede comprobar ahora mismo.',
       puntos: [
-        'El menú de las próximas 48 horas tiene comida y cena planificadas.',
+        planDiaRelativo(contexto, 'hoy', fechaReferencia) &&
+        planDiaRelativo(contexto, 'manana', fechaReferencia)
+          ? 'El menú de las próximas 48 horas tiene comida y cena planificadas.'
+          : 'La semana seleccionada no cubre hoy y mañana completos; revisa la semana apropiada para comprobar las próximas 48 h.',
         'No hay avisos de stock mínimo, asociaciones o precios pendientes.',
         cubiertas > 0
           ? `${cubiertas} línea(s) de compra ya están cubiertas por stock y no hace falta recomprarlas.`
@@ -521,14 +534,15 @@ function respuestaChequeoIntegral(
     ),
     accion: {
       etiqueta:
-        primera.destino === 'catalogo'
-          ? 'Resolver productos'
+        primera.destino === 'recetas'
+          ? 'Asociar ingrediente'
           : primera.destino === 'compra'
             ? 'Revisar Compra'
             : primera.destino === 'despensa'
               ? 'Revisar Despensa'
               : 'Abrir Menú',
       destino: primera.destino,
+      ingrediente: primera.ingrediente,
     },
     tono: prioridades.some((prioridad) => prioridad.nivel === 1)
       ? 'atencion'
@@ -622,7 +636,7 @@ export function obtenerResumenProactivo(
   return {
     hoy: hoy
       ? `Comida: ${hoy.comida.join(' + ')} · Cena: ${hoy.cena.join(' + ')}`
-      : 'No encuentro el día actual en el menú activo.',
+      : 'Hoy no está en la semana seleccionada; revisa la semana actual.',
     compra: compra
       ? `${contexto.compraPendienteCantidad} pendientes · ${euros(contexto.compraPendienteTotal)}`
       : 'Calculando la compra actual…',
@@ -963,8 +977,9 @@ export function responderAsistente(
         'Resolver estos avisos mejora tanto el presupuesto como las recomendaciones del asistente.',
       ],
       accion: {
-        etiqueta: sinProducto > 0 ? 'Abrir Mercadona' : 'Abrir Compra',
-        destino: sinProducto > 0 ? 'catalogo' : 'compra',
+        etiqueta: sinProducto > 0 ? 'Asociar ingrediente' : 'Abrir Compra',
+        destino: sinProducto > 0 ? 'recetas' : 'compra',
+        ingrediente: sinProducto > 0 ? compra?.productosSinSeleccionar[0] : undefined,
       },
       tono: sinProducto + sinPrecio > 0 ? 'atencion' : 'positivo',
     };
