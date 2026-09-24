@@ -22,13 +22,21 @@ import {
   iconoRecetaPostre,
   obtenerRecetaPostre,
 } from '../services/menu';
-import type { ResumenPresupuestoMensual } from '../services/presupuestoMensual';
 import AppIcon, { type AppIconName } from '../components/AppIcon';
 import { cargarPerfil, EVENTO_PERFIL } from '../services/perfil';
 import {
   generarCompraMensual,
   generarCompraSemanalProyectada,
 } from '../services/planificacionCompra';
+import {
+  cargarProductosManualesCompra,
+  EVENTO_PRODUCTOS_MANUALES_COMPRA,
+} from '../services/productosManualesCompra';
+import {
+  calcularResumenEconomicoMensual,
+  type DesgloseEconomico,
+  type ResumenEconomicoMensual,
+} from '../services/resumenEconomico';
 
 type DestinoInicio = 'menu' | 'asistente' | 'compra' | 'despensa';
 
@@ -40,15 +48,12 @@ type VentanaConIdle = Window & {
   cancelIdleCallback?: (id: number) => void;
 };
 
-type ResumenInicio = ResumenPresupuestoMensual & {
-  previsionMes: number;
-};
-
 type HomeProps = {
   menu: DiaMenu[];
   semana: SemanaMenu | undefined;
   menusSemanas: DiaMenu[][];
   menuMes: DiaMenu[];
+  mesActivo: string;
   semanaActiva: number;
   navegar: (destino: DestinoInicio) => void;
 };
@@ -58,10 +63,12 @@ function Home({
   semana,
   menusSemanas,
   menuMes,
+  mesActivo,
   semanaActiva,
   navegar,
 }: HomeProps) {
-  const [presupuesto, setPresupuesto] = useState<ResumenInicio | null>(null);
+  const [presupuesto, setPresupuesto] =
+    useState<ResumenEconomicoMensual | null>(null);
   const [errorPresupuesto, setErrorPresupuesto] = useState(false);
   const solicitudPresupuesto = useRef(0);
   const [despensa, setDespensa] = useState<ProductoDespensa[]>([]);
@@ -80,26 +87,20 @@ function Home({
           generarCompraSemanalProyectada(menusSemanas, indice),
         ),
       ]);
-      const semanalActual = semanales[semanaActiva]?.total ?? 0;
-      const totalSemanas = semanales.reduce(
-        (total, resultado) => total + resultado.total,
-        0,
-      );
-      const acumuladoHastaSemana = semanales
-        .slice(0, semanaActiva + 1)
-        .reduce((total, resultado) => total + resultado.total, mensual.total);
       if (solicitud !== solicitudPresupuesto.current) return;
-      setPresupuesto({
-        presupuestoSemanal: semanalActual,
-        presupuestoMensual: mensual.total,
-        totalAcumulado: acumuladoHastaSemana,
-        previsionMes: mensual.total + totalSemanas,
-        mostrarPresupuestoMensual: semanaActiva === 0,
-      });
+      setPresupuesto(
+        calcularResumenEconomicoMensual({
+          compraMes: mensual,
+          comprasSemanas: semanales,
+          productosManuales: cargarProductosManualesCompra(),
+          mesActivo,
+          semanaActiva,
+        }),
+      );
     } catch {
       if (solicitud === solicitudPresupuesto.current) setErrorPresupuesto(true);
     }
-  }, [menusSemanas, menuMes, semanaActiva]);
+  }, [menusSemanas, menuMes, mesActivo, semanaActiva]);
 
   useEffect(() => {
     const ventana = window as VentanaConIdle;
@@ -132,10 +133,12 @@ function Home({
     const actualizarPerfil = () => setLimiteMensual(cargarPerfil().presupuesto);
     window.addEventListener(EVENTO_DESPENSA, actualizar);
     window.addEventListener(EVENTO_INVENTARIO, actualizar);
+    window.addEventListener(EVENTO_PRODUCTOS_MANUALES_COMPRA, actualizar);
     window.addEventListener(EVENTO_PERFIL, actualizarPerfil);
     return () => {
       window.removeEventListener(EVENTO_DESPENSA, actualizar);
       window.removeEventListener(EVENTO_INVENTARIO, actualizar);
+      window.removeEventListener(EVENTO_PRODUCTOS_MANUALES_COMPRA, actualizar);
       window.removeEventListener(EVENTO_PERFIL, actualizarPerfil);
     };
   }, []);
@@ -170,14 +173,28 @@ function Home({
     : '';
 
   const detallePresupuesto = useMemo(() => {
-    if (limiteMensual <= 0 || !presupuesto || presupuesto.previsionMes <= 0) return '';
+    if (!presupuesto) return '';
+    const pendientes = presupuesto.prevision.partidasSinImporte;
+    const estimadas = presupuesto.prevision.cantidadesEstimadas;
+    const precision = detallePrecision(presupuesto.prevision);
+    if (limiteMensual <= 0 || presupuesto.previsionMes <= 0) return precision;
     const diferencia = limiteMensual - presupuesto.previsionMes;
     const importe = Math.abs(diferencia).toLocaleString('es-ES', {
       style: 'currency',
       currency: 'EUR',
     });
+    if (pendientes > 0) {
+      return diferencia >= 0
+        ? `Margen máximo ${importe} · faltan ${pendientes} importe${pendientes === 1 ? '' : 's'}`
+        : `Al menos ${importe} por encima · faltan ${pendientes} importe${pendientes === 1 ? '' : 's'}`;
+    }
+    if (estimadas > 0) {
+      return diferencia >= 0
+        ? `Margen estimado ${importe} · ${estimadas} cantidad${estimadas === 1 ? '' : 'es'} estimada${estimadas === 1 ? '' : 's'}`
+        : `${importe} por encima (estimado) · ${estimadas} cantidad${estimadas === 1 ? '' : 'es'} por confirmar`;
+    }
     return diferencia >= 0
-      ? `Te quedarían ${importe} de tu objetivo mensual`
+      ? `Te quedan ${importe} de tu objetivo mensual`
       : `${importe} por encima de tu objetivo mensual`;
   }, [limiteMensual, presupuesto]);
 
@@ -281,6 +298,7 @@ function Home({
           icono="leaf"
           valor={presupuesto.presupuestoSemanal}
           navegar={navegar}
+          detalle={detallePrecision(presupuesto.semana)}
         />
         {presupuesto.mostrarPresupuestoMensual && (
           <BudgetCard
@@ -288,6 +306,7 @@ function Home({
             icono="basket"
             valor={presupuesto.presupuestoMensual}
             navegar={navegar}
+            detalle={detallePrecision(presupuesto.compraMensual)}
           />
         )}
         <BudgetCard
@@ -308,6 +327,22 @@ function Home({
       </section>}
     </main>
   );
+}
+
+function detallePrecision(desglose: DesgloseEconomico): string {
+  const partes: string[] = [];
+  if (desglose.partidasSinImporte > 0) {
+    partes.push(
+      `${desglose.partidasSinImporte} importe${desglose.partidasSinImporte === 1 ? '' : 's'} pendiente${desglose.partidasSinImporte === 1 ? '' : 's'}`,
+    );
+  }
+  if (desglose.cantidadesEstimadas > 0) {
+    partes.push(
+      `${desglose.cantidadesEstimadas} cantidad${desglose.cantidadesEstimadas === 1 ? '' : 'es'} estimada${desglose.cantidadesEstimadas === 1 ? '' : 's'}`,
+    );
+  }
+  if (partes.length === 0) return '';
+  return `${desglose.partidasSinImporte > 0 ? 'Subtotal mínimo' : 'Total estimado'} · ${partes.join(' · ')}`;
 }
 
 function HomeCard({

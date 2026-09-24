@@ -11,6 +11,10 @@ import { generarListaCompra } from '../services/listaCompra';
 
 export type TipoCompra = 'semanal' | 'despensa';
 export type OrigenLineaCompra = 'menu' | 'reposicion';
+export type OrigenCoberturaCompra =
+  | 'stock-real'
+  | 'sobrante-proyectado'
+  | 'mixta';
 
 export type ExplicacionCantidadCompra = {
   periodo: 'semana' | 'mes';
@@ -23,6 +27,8 @@ export type ExplicacionCantidadCompra = {
   compraEnvases: number;
   sobranteDespuesEnvases: number;
   stockAplicado: boolean;
+  stockRealAntesEnvases?: number;
+  sobranteProyectadoAntesEnvases?: number;
 };
 
 export type LineaCompra = {
@@ -38,6 +44,7 @@ export type LineaCompra = {
   tipoCompra: TipoCompra;
   origen: OrigenLineaCompra;
   explicacionCantidad?: ExplicacionCantidadCompra;
+  origenCobertura?: OrigenCoberturaCompra;
 };
 
 export type ResultadoCompra = {

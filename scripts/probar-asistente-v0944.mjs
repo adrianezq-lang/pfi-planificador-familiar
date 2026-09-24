@@ -49,10 +49,10 @@ assert.match(css, /\.assistant-hero/);
 assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.53');
-assert.match(app, /v0\.9\.53/);
-assert.match(sw, /pfi-v0\.9\.53-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.53'/);
+assert.equal(packageJson.version, '0.9.54');
+assert.match(app, /v0\.9\.54/);
+assert.match(sw, /pfi-v0\.9\.54-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.54'/);
 
 const vite = await createServer({
   configFile: false,
@@ -65,6 +65,8 @@ const { indiceSemanaParaFecha, indiceDiaParaFecha, semanaContieneFecha } =
   await vite.ssrLoadModule('/src/services/fechaSemana.ts');
 const { cargarRecetas, seccionRecetarioParaIngrediente } =
   await vite.ssrLoadModule('/src/services/recetas.ts');
+const { calcularResumenEconomicoMensual } =
+  await vite.ssrLoadModule('/src/services/resumenEconomico.ts');
 
 const recetasParaAsociar = cargarRecetas();
 assert.equal(seccionRecetarioParaIngrediente(recetasParaAsociar, 'Media sandía'), 'postres');
@@ -117,25 +119,39 @@ const compraSemana = {
   lineasCubiertas: [{ clave: 'stock-arroz' }],
 };
 
+const semanaMenuActiva = {
+  id: 'semana-4',
+  nombre: 'Semana 4',
+  inicio: '2026-09-21',
+  fin: '2026-09-27',
+  menu: menuSemana,
+};
+const compraMes = { ...compraSemana, total: 80, totalDespensa: 80 };
+const comprasSemanas = [{ ...compraSemana, total: 25 }];
+const resumenEconomico = calcularResumenEconomicoMensual({
+  compraMes,
+  comprasSemanas,
+  productosManuales: [],
+  mesActivo: '2026-09',
+  semanaActiva: 0,
+});
+
 const contexto = {
   menuSemana,
   menuMes: menuSemana,
   menusSemanas: [menuSemana],
+  planMensual: [semanaMenuActiva],
   semanaActiva: 0,
-  semanaMenuActiva: {
-    id: 'semana-4',
-    nombre: 'Semana 4',
-    inicio: '2026-09-21',
-    fin: '2026-09-27',
-    menu: menuSemana,
-  },
+  semanaMenuActiva,
   mesActivo: '2026-09',
   compraSemana,
   compraPendienteNombres: ['Leche', 'Salmón'],
   compraPendienteTotal: 12.5,
   compraPendienteCantidad: 2,
-  compraMes: { ...compraSemana, total: 80, totalDespensa: 80 },
-  comprasSemanas: [{ ...compraSemana, total: 25 }],
+  compraPendienteSinImporte: 0,
+  compraMes,
+  comprasSemanas,
+  resumenEconomico,
   despensa: [],
   recetas: [],
   aprendizaje: {
@@ -162,7 +178,7 @@ const contexto = {
   },
 };
 
-const fechaReferencia = '2026-09-22';
+const fechaReferencia = '2026-09-22T16:55:00';
 
 const cenaAyer = responderAsistente(
   '¿Qué cenamos ayer?',
@@ -206,8 +222,10 @@ const plan48h = responderAsistente(
 assert.equal(plan48h.titulo, 'Copiloto familiar · próximas 48 h');
 assert.ok(plan48h.puntos.some((punto) => punto.includes('Martes 22')));
 assert.ok(plan48h.puntos.some((punto) => punto.includes('Miércoles 23')));
-assert.ok(plan48h.puntos.some((punto) => punto.includes('para comer (3)')));
-assert.ok(plan48h.puntos.some((punto) => punto.includes('para cenar (4)')));
+assert.ok(plan48h.puntos.some((punto) => punto.includes('comida 14:00') && punto.includes('(3 comensales)')));
+assert.ok(plan48h.puntos.some((punto) => punto.includes('cena 21:00') && punto.includes('(4 comensales)')));
+assert.ok(!plan48h.puntos.some((punto) => punto.includes('Martes 22 · comida')));
+assert.match(plan48h.resumen, /comidas ya pasadas quedan fuera/);
 
 const chequeo = responderAsistente(
   'Revisa todo y dime prioridades',
@@ -221,6 +239,7 @@ const chequeo = responderAsistente(
     },
     compraPendienteCantidad: 4,
     compraPendienteTotal: 31.4,
+    compraPendienteSinImporte: 2,
     despensa: [
       {
         id: 'leche',
@@ -248,7 +267,8 @@ const chequeo = responderAsistente(
 );
 assert.equal(chequeo.titulo, 'Chequeo familiar · prioridades');
 assert.equal(chequeo.tono, 'atencion');
-assert.ok(chequeo.puntos[0].includes('producto asociado'));
+assert.ok(chequeo.puntos[0].includes('Quedan 4'));
+assert.ok(chequeo.puntos[0].includes('Tomate'));
 assert.ok(chequeo.puntos.some((punto) => punto.includes('no tienen precio')));
 assert.ok(chequeo.puntos.some((punto) => punto.includes('stock mínimo')));
 
@@ -258,8 +278,8 @@ const ahorro = responderAsistente(
   fechaReferencia,
 );
 assert.equal(ahorro.titulo, 'Ahorro inteligente');
-assert.ok(ahorro.puntos.some((punto) => punto.includes('cubiertas por el stock')));
-assert.ok(ahorro.puntos.some((punto) => punto.includes('por debajo del objetivo mensual')));
+assert.ok(ahorro.puntos.some((punto) => punto.includes('sobrantes proyectados')));
+assert.ok(ahorro.puntos.some((punto) => punto.includes('previsión completa')));
 
 const compra = responderAsistente('¿Qué tengo que comprar?', contexto);
 assert.match(compra.resumen, /Quedan 2 productos/);
@@ -300,8 +320,8 @@ const sobreObjetivo = {
 };
 const prioridadPresupuesto = responderAsistente('Revisa todo y dime prioridades', sobreObjetivo, fechaReferencia);
 const ahorroSobreObjetivo = responderAsistente('¿Cómo puedo ahorrar esta semana?', sobreObjetivo, fechaReferencia);
-assert.match(prioridadPresupuesto.puntos[0], /objetivo en 15,00/);
-assert.match(ahorroSobreObjetivo.puntos[0], /15,00.*por encima/);
+assert.ok(prioridadPresupuesto.puntos.some((punto) => /objetivo en 15,00/.test(punto)));
+assert.match(ahorroSobreObjetivo.puntos[0], /15,00.*encima/);
 assert.equal(prioridadPresupuesto.accion?.destino, 'compra');
 
 const semanaAnterior = {
@@ -309,11 +329,11 @@ const semanaAnterior = {
   semanaMenuActiva: { ...contexto.semanaMenuActiva, inicio: '2026-09-01', fin: '2026-09-06' },
 };
 const planFueraDeSemana = responderAsistente('Organízame las próximas 48 h', semanaAnterior, '2026-09-23');
-assert.match(planFueraDeSemana.resumen, /no cubre las próximas 48 h completas/);
-assert.match(planFueraDeSemana.puntos[0], /semana seleccionada no contiene hoy/);
+assert.match(planFueraDeSemana.resumen, /Ventana móvil desde ahora/);
+assert.ok(planFueraDeSemana.puntos.some((punto) => /Miércoles 23/.test(punto)));
 
 const planDomingo = responderAsistente('Organízame las próximas 48 h', contexto, '2026-09-27');
-assert.ok(planDomingo.puntos.some((punto) => /Mañana queda fuera de la semana seleccionada/.test(punto)));
+assert.ok(planDomingo.puntos.some((punto) => /no cubre las 48 horas completas/.test(punto)));
 
 await vite.close();
 
@@ -324,4 +344,4 @@ console.log('✓ actúa como copiloto familiar cruzando 48 h, comensales, compra
 console.log('✓ prioriza incidencias y propone ahorro basándose en datos reales del PFI');
 console.log('✓ conserva historial local y separa respuestas de acciones confirmables');
 console.log('✓ semana actual, asociaciones concretas y presupuesto por encima del objetivo tienen respuesta coherente');
-console.log('✓ versión, caché y copias están alineadas en v0.9.53');
+console.log('✓ versión, caché y copias están alineadas');

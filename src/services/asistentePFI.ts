@@ -5,6 +5,8 @@ import type { ResultadoCompra } from '../motor/compra';
 import type { ProductoDespensa } from './despensa';
 import type { ResumenAprendizaje } from './aprendizaje';
 import type { PerfilFamiliar } from './perfil';
+import type { ResumenEconomicoMensual } from './resumenEconomico';
+import { fechaLocalISO } from './fechaSemana';
 import { cargarAsociacionesIngredientes } from './asociacionesIngredientes';
 import { esRecetaPostre } from './recetas';
 import {
@@ -36,6 +38,7 @@ export type ContextoAsistentePFI = {
   menuSemana: DiaMenu[];
   menuMes: DiaMenu[];
   menusSemanas: DiaMenu[][];
+  planMensual: SemanaMenu[];
   semanaActiva: number;
   semanaMenuActiva?: SemanaMenu;
   mesActivo: string;
@@ -43,8 +46,10 @@ export type ContextoAsistentePFI = {
   compraPendienteNombres: string[];
   compraPendienteTotal: number;
   compraPendienteCantidad: number;
+  compraPendienteSinImporte: number;
   compraMes: ResultadoCompra | null;
   comprasSemanas: ResultadoCompra[];
+  resumenEconomico: ResumenEconomicoMensual;
   despensa: ProductoDespensa[];
   recetas: Receta[];
   aprendizaje: ResumenAprendizaje;
@@ -143,11 +148,7 @@ function productosReposicion(despensa: ProductoDespensa[]): ProductoDespensa[] {
 }
 
 function previsionMes(contexto: ContextoAsistentePFI): number {
-  const semanal = contexto.comprasSemanas.reduce(
-    (total, compra) => total + compra.total,
-    0,
-  );
-  return semanal + (contexto.compraMes?.total ?? 0);
+  return contexto.resumenEconomico.previsionMes;
 }
 
 function platosQuePuedeCocinar(
@@ -246,12 +247,38 @@ function preparacionesSemana(menu: DiaMenu[]): string[] {
   return Array.from(new Set(preparaciones));
 }
 
+type EscalaPrioridad = 1 | 2 | 3 | 4 | 5;
 
 type PrioridadFamiliar = {
-  nivel: 1 | 2 | 3;
+  impacto: EscalaPrioridad;
+  urgencia: EscalaPrioridad;
+  orden: number;
   texto: string;
   destino: DestinoAsistente;
   ingrediente?: string;
+};
+
+type MomentoComida = 'comida' | 'cena';
+
+type EventoPlanFamiliar = {
+  instante: Date;
+  momento: MomentoComida;
+  dia: DiaMenu;
+  platos: string[];
+  comensales: number;
+  etiqueta: string;
+};
+
+type VentanaPlanFamiliar = {
+  ahora: Date;
+  fin: Date;
+  eventos: EventoPlanFamiliar[];
+  coberturaCompleta: boolean;
+};
+
+const HORAS_SERVICIO: Record<MomentoComida, number> = {
+  comida: 14,
+  cena: 21,
 };
 
 function totalComensales(configuracion: {
@@ -282,32 +309,128 @@ function comensalesDelDia(
   };
 }
 
-function planDiaRelativo(
-  contexto: ContextoAsistentePFI,
-  literal: 'hoy' | 'manana',
-  fechaReferencia: Date | string,
-): {
-  etiqueta: string;
-  dia: DiaMenu;
-  comensales: { comida: number; cena: number };
-} | null {
-  if (!contexto.semanaMenuActiva) return null;
-  const referencia = resolverReferenciasTemporales(
-    literal,
-    contexto.semanaMenuActiva,
-    fechaReferencia,
-  );
-  if (referencia.error || referencia.referencias.length !== 1) return null;
+function fechaReferenciaLocal(fechaReferencia: Date | string): Date {
+  if (fechaReferencia instanceof Date) return new Date(fechaReferencia);
+  const soloFecha = /^(\d{4})-(\d{2})-(\d{2})$/.exec(fechaReferencia);
+  if (soloFecha) {
+    return new Date(
+      Number(soloFecha[1]),
+      Number(soloFecha[2]) - 1,
+      Number(soloFecha[3]),
+      12,
+    );
+  }
+  return new Date(fechaReferencia);
+}
 
-  const ref = referencia.referencias[0];
-  const dia = buscarDiaMenu(contexto.menuSemana, ref.dia);
-  if (!dia) return null;
+function fechaLocalDesdeIso(fechaIso: string, hora = 12): Date | null {
+  const partes = /^(\d{4})-(\d{2})-(\d{2})$/.exec(fechaIso);
+  if (!partes) return null;
+  return new Date(
+    Number(partes[1]),
+    Number(partes[2]) - 1,
+    Number(partes[3]),
+    hora,
+  );
+}
+
+function etiquetaFechaEvento(instante: Date, ahora: Date): string {
+  const fecha = fechaLocalISO(instante);
+  const hoy = fechaLocalISO(ahora);
+  const manana = new Date(ahora);
+  manana.setDate(manana.getDate() + 1);
+  const dia = `${DIAS[instante.getDay()]} ${instante.getDate()}`;
+  if (fecha === hoy) return `Hoy · ${dia}`;
+  if (fecha === fechaLocalISO(manana)) return `Mañana · ${dia}`;
+  return dia;
+}
+
+function crearVentanaPlanFamiliar(
+  contexto: ContextoAsistentePFI,
+  fechaReferencia: Date | string,
+): VentanaPlanFamiliar {
+  const ahora = fechaReferenciaLocal(fechaReferencia);
+  const fin = new Date(ahora.getTime() + 48 * 60 * 60 * 1000);
+  const eventos: EventoPlanFamiliar[] = [];
+
+  contexto.planMensual.forEach((semana, indiceSemana) => {
+    const inicio = fechaLocalDesdeIso(semana.inicio);
+    const finSemana = fechaLocalDesdeIso(semana.fin);
+    if (!inicio || !finSemana) return;
+    const menu = contexto.menusSemanas[indiceSemana] ?? semana.menu;
+
+    for (
+      const fecha = new Date(inicio);
+      fecha <= finSemana;
+      fecha.setDate(fecha.getDate() + 1)
+    ) {
+      const fechaIso = fechaLocalISO(fecha);
+      const nombreDia = DIAS[fecha.getDay()];
+      const dia = buscarDiaMenu(menu, nombreDia);
+      if (!dia) continue;
+      const comensales = comensalesDelDia(contexto, nombreDia);
+
+      (['comida', 'cena'] as const).forEach((momento) => {
+        const instante = fechaLocalDesdeIso(
+          fechaIso,
+          HORAS_SERVICIO[momento],
+        );
+        if (!instante || instante < ahora || instante > fin) return;
+        eventos.push({
+          instante,
+          momento,
+          dia,
+          platos: momento === 'comida' ? dia.comida : dia.cena,
+          comensales:
+            momento === 'comida' ? comensales.comida : comensales.cena,
+          etiqueta: etiquetaFechaEvento(instante, ahora),
+        });
+      });
+    }
+  });
+
+  const fechasNecesarias = new Set<string>();
+  const cursor = new Date(
+    ahora.getFullYear(),
+    ahora.getMonth(),
+    ahora.getDate(),
+    12,
+  );
+  const ultimoDia = new Date(
+    fin.getFullYear(),
+    fin.getMonth(),
+    fin.getDate(),
+    12,
+  );
+  while (cursor <= ultimoDia) {
+    fechasNecesarias.add(fechaLocalISO(cursor));
+    cursor.setDate(cursor.getDate() + 1);
+  }
+  const coberturaCompleta = Array.from(fechasNecesarias).every((fecha) =>
+    contexto.planMensual.some(
+      (semana) => semana.inicio <= fecha && fecha <= semana.fin,
+    ),
+  );
 
   return {
-    etiqueta: etiquetaReferenciaTemporal(ref),
-    dia,
-    comensales: comensalesDelDia(contexto, ref.dia),
+    ahora,
+    fin,
+    eventos: eventos.sort(
+      (a, b) => a.instante.getTime() - b.instante.getTime(),
+    ),
+    coberturaCompleta,
   };
+}
+
+function horasHasta(instante: Date, ahora: Date): number {
+  return Math.max(0, (instante.getTime() - ahora.getTime()) / 3_600_000);
+}
+
+function urgenciaPorHoras(horas: number): EscalaPrioridad {
+  if (horas <= 8) return 5;
+  if (horas <= 24) return 4;
+  if (horas <= 48) return 3;
+  return 1;
 }
 
 function prioridadesFamiliares(
@@ -317,24 +440,78 @@ function prioridadesFamiliares(
   const prioridades: PrioridadFamiliar[] = [];
   const compra = contexto.compraSemana;
   const prevision = previsionMes(contexto);
+  const precision = contexto.resumenEconomico.prevision;
   const presupuesto = contexto.perfil.presupuesto;
   const reposicion = productosReposicion(contexto.despensa);
-  const hoy = planDiaRelativo(contexto, 'hoy', fechaReferencia);
-  const manana = planDiaRelativo(contexto, 'manana', fechaReferencia);
+  const ventana = crearVentanaPlanFamiliar(contexto, fechaReferencia);
+  const primerEvento = ventana.eventos[0];
+  const urgenciaCompra = primerEvento
+    ? urgenciaPorHoras(horasHasta(primerEvento.instante, ventana.ahora))
+    : 2;
+  let orden = 0;
+
+  if (contexto.compraPendienteCantidad > 0) {
+    const ingredienteSinAsociar = compra?.productosSinSeleccionar[0];
+    const textoPendiente = contexto.compraPendienteSinImporte > 0
+      ? `Quedan ${contexto.compraPendienteCantidad} producto(s) pendientes: ${euros(
+          contexto.compraPendienteTotal,
+        )} de subtotal conocido y ${contexto.compraPendienteSinImporte} importe(s) sin valorar.`
+      : `Quedan ${contexto.compraPendienteCantidad} producto(s) pendientes de la compra semanal por ${euros(
+          contexto.compraPendienteTotal,
+        )}.`;
+    prioridades.push({
+      impacto: 5,
+      urgencia: urgenciaCompra,
+      orden: orden++,
+      texto: `${textoPendiente}${
+        ingredienteSinAsociar
+          ? ` Empieza asociando ${ingredienteSinAsociar} al producto exacto.`
+          : ''
+      }`,
+      destino: ingredienteSinAsociar ? 'recetas' : 'compra',
+      ingrediente: ingredienteSinAsociar,
+    });
+  }
+
+  ventana.eventos
+    .filter((evento) => evento.platos.length === 0)
+    .forEach((evento) => {
+      prioridades.push({
+        impacto: 5,
+        urgencia: urgenciaPorHoras(
+          horasHasta(evento.instante, ventana.ahora),
+        ),
+        orden: orden++,
+        texto: `${evento.etiqueta}: la ${evento.momento} está sin plan en el menú efectivo.`,
+        destino: 'menu',
+      });
+    });
 
   if (presupuesto > 0 && prevision > presupuesto) {
     prioridades.push({
-      nivel: 1,
-      texto: `La previsión mensual supera el objetivo en ${euros(
+      impacto: 5,
+      urgencia: 2,
+      orden: orden++,
+      texto: `${precision.partidasSinImporte > 0 ? 'El subtotal conocido' : 'La previsión mensual'} supera el objetivo en ${euros(
         prevision - presupuesto,
-      )}.`,
+      )}${precision.partidasSinImporte > 0 ? ` y aún faltan ${precision.partidasSinImporte} importe(s).` : '.'}`,
+      destino: 'compra',
+    });
+  } else if (precision.partidasSinImporte > 0) {
+    prioridades.push({
+      impacto: 4,
+      urgencia: 2,
+      orden: orden++,
+      texto: `La previsión mensual solo es un mínimo conocido de ${euros(prevision)}: faltan ${precision.partidasSinImporte} importe(s), así que el saldo aún no es real.`,
       destino: 'compra',
     });
   }
 
   if (compra && compra.productosSinSeleccionar.length > 0) {
     prioridades.push({
-      nivel: 1,
+      impacto: 4,
+      urgencia: urgenciaCompra,
+      orden: orden++,
       texto: `${compra.productosSinSeleccionar.length} ingrediente(s) no tienen producto asociado (${listaCorta(compra.productosSinSeleccionar, 2)}); la compra puede quedar incompleta.`,
       destino: 'recetas',
       ingrediente: compra.productosSinSeleccionar[0],
@@ -343,7 +520,9 @@ function prioridadesFamiliares(
 
   if ((compra?.productosSinPrecio.length ?? 0) > 0) {
     prioridades.push({
-      nivel: 2,
+      impacto: 4,
+      urgencia: 2,
+      orden: orden++,
       texto: `${compra?.productosSinPrecio.length ?? 0} producto(s) no tienen precio y el presupuesto está subestimado.`,
       destino: 'compra',
     });
@@ -351,55 +530,35 @@ function prioridadesFamiliares(
 
   if ((compra?.productosEstimados.length ?? 0) > 0) {
     prioridades.push({
-      nivel: 2,
+      impacto: 2,
+      urgencia: 1,
+      orden: orden++,
       texto: `${compra?.productosEstimados.length ?? 0} producto(s) usan una cantidad estimada; conviene revisarlos si buscas una compra muy precisa.`,
-      destino: 'compra',
-    });
-  }
-
-  for (const plan of [hoy, manana]) {
-    if (!plan) continue;
-    if (plan.dia.comida.length === 0) {
-      prioridades.push({
-        nivel: 1,
-        texto: `${plan.etiqueta}: la comida está sin plan en el menú efectivo.`,
-        destino: 'menu',
-      });
-    }
-    if (plan.dia.cena.length === 0) {
-      prioridades.push({
-        nivel: 1,
-        texto: `${plan.etiqueta}: la cena está sin plan en el menú efectivo.`,
-        destino: 'menu',
-      });
-    }
-  }
-
-  if (contexto.compraPendienteCantidad > 0) {
-    prioridades.push({
-      nivel: 2,
-      texto: `Quedan ${contexto.compraPendienteCantidad} producto(s) pendientes de la compra semanal por unos ${euros(
-        contexto.compraPendienteTotal,
-      )}.`,
       destino: 'compra',
     });
   }
 
   if (reposicion.length > 0) {
     prioridades.push({
-      nivel: 2,
+      impacto: 3,
+      urgencia: 3,
+      orden: orden++,
       texto: `${reposicion.length} producto(s) están por debajo del stock mínimo configurado.`,
       destino: 'despensa',
     });
   }
 
-  const preparaciones48h = [hoy, manana]
-    .flatMap((plan) => (plan?.dia.preparar?.trim() ? [plan.dia.preparar.trim()] : []))
+  const preparaciones48h = ventana.eventos
+    .flatMap((evento) =>
+      evento.dia.preparar?.trim() ? [evento.dia.preparar.trim()] : [],
+    )
     .filter((valor) => normalizar(valor) !== 'nada');
 
   if (preparaciones48h.length > 0) {
     prioridades.push({
-      nivel: 3,
+      impacto: 2,
+      urgencia: primerEvento ? urgenciaCompra : 1,
+      orden: orden++,
       texto: `Puedes adelantar: ${listaCorta(
         Array.from(new Set(preparaciones48h)),
         3,
@@ -409,42 +568,53 @@ function prioridadesFamiliares(
   }
 
   return prioridades
-    .sort((a, b) => a.nivel - b.nivel)
+    .sort(
+      (a, b) =>
+        b.impacto - a.impacto ||
+        b.urgencia - a.urgencia ||
+        a.orden - b.orden,
+    )
     .filter(
       (prioridad, indice, todas) =>
         todas.findIndex((otra) => otra.texto === prioridad.texto) === indice,
     );
 }
 
-function textoPlanDia(plan: {
-  etiqueta: string;
-  dia: DiaMenu;
-  comensales: { comida: number; cena: number };
-}): string {
-  const comida = plan.dia.comida.join(' + ') || 'sin plan';
-  const cena = plan.dia.cena.join(' + ') || 'sin plan';
-  return `${plan.etiqueta}: ${comida} para comer (${plan.comensales.comida}) · ${cena} para cenar (${plan.comensales.cena}).`;
+function textoEventoPlan(evento: EventoPlanFamiliar): string {
+  const hora = String(HORAS_SERVICIO[evento.momento]).padStart(2, '0');
+  return `${evento.etiqueta} · ${evento.momento} ${hora}:00: ${evento.platos.join(' + ') || 'sin plan'} (${evento.comensales} comensales).`;
 }
 
 function respuestaPlanFamiliar(
   contexto: ContextoAsistentePFI,
   fechaReferencia: Date | string,
 ): RespuestaAsistentePFI {
-  const hoy = planDiaRelativo(contexto, 'hoy', fechaReferencia);
-  const manana = planDiaRelativo(contexto, 'manana', fechaReferencia);
+  const ventana = crearVentanaPlanFamiliar(contexto, fechaReferencia);
   const prioridades = prioridadesFamiliares(contexto, fechaReferencia);
-  const puntos: string[] = [];
+  const puntos = ventana.eventos.slice(0, 5).map(textoEventoPlan);
 
-  if (hoy) puntos.push(textoPlanDia(hoy));
-  if (manana) puntos.push(textoPlanDia(manana));
-  if (!hoy || !manana) {
-    puntos.push(hoy
-      ? 'Mañana queda fuera de la semana seleccionada; elige la semana siguiente para completar el plan de 48 h.'
-      : 'La semana seleccionada no contiene hoy; elige la semana actual para planificar las próximas 48 h.');
+  if (ventana.eventos.length === 0) {
+    puntos.push(
+      'No encuentro servicios de comida futuros dentro del plan mensual abierto.',
+    );
   }
 
-  const preparaciones = [hoy, manana]
-    .flatMap((plan) => (plan?.dia.preparar?.trim() ? [plan.dia.preparar.trim()] : []))
+  if (!ventana.coberturaCompleta) {
+    puntos.push(
+      'El mes abierto no cubre las 48 horas completas; falta cargar el tramo que cruza el límite del mes.',
+    );
+  }
+
+  if (prioridades.length > 0) {
+    puntos.push(`Prioridad principal: ${prioridades[0].texto}`);
+  } else {
+    puntos.push('No veo incidencias importantes en menú, compra, stock o presupuesto.');
+  }
+
+  const preparaciones = ventana.eventos
+    .flatMap((evento) =>
+      evento.dia.preparar?.trim() ? [evento.dia.preparar.trim()] : [],
+    )
     .filter((valor) => normalizar(valor) !== 'nada');
 
   if (preparaciones.length > 0) {
@@ -456,29 +626,13 @@ function respuestaPlanFamiliar(
     );
   }
 
-  if (contexto.compraPendienteCantidad > 0) {
-    puntos.push(
-      `Compra pendiente: ${contexto.compraPendienteCantidad} producto(s), unos ${euros(
-        contexto.compraPendienteTotal,
-      )}.`,
-    );
-  } else {
-    puntos.push('La compra semanal no tiene productos pendientes registrados.');
-  }
-
-  if (prioridades.length > 0) {
-    puntos.push(`Prioridad principal: ${prioridades[0].texto}`);
-  } else {
-    puntos.push('No veo incidencias importantes en menú, compra, stock o presupuesto.');
-  }
-
   const destino = prioridades[0]?.destino ?? 'menu';
   return {
     titulo: 'Copiloto familiar · próximas 48 h',
-    resumen: hoy && manana
-      ? 'He cruzado menú, comensales, compra, despensa, preparación y presupuesto para darte un plan corto y accionable.'
-      : 'El menú seleccionado no cubre las próximas 48 h completas; los avisos de compra y presupuesto corresponden a esa semana.',
-    puntos: puntos.slice(0, 6),
+    resumen: ventana.coberturaCompleta
+      ? `Ventana móvil desde ahora hasta ${ventana.fin.toLocaleString('es-ES', { weekday: 'long', hour: '2-digit', minute: '2-digit' })}; las comidas ya pasadas quedan fuera.`
+      : 'La ventana empieza ahora y excluye comidas pasadas, pero el plan mensual abierto no llega hasta el final de las 48 horas.',
+    puntos: puntos.slice(0, 7),
     accion: {
       etiqueta:
         destino === 'compra'
@@ -491,7 +645,7 @@ function respuestaPlanFamiliar(
       destino,
       ingrediente: prioridades[0]?.ingrediente,
     },
-    tono: prioridades.some((prioridad) => prioridad.nivel === 1)
+    tono: prioridades.some((prioridad) => prioridad.impacto >= 4)
       ? 'atencion'
       : 'normal',
   };
@@ -503,7 +657,22 @@ function respuestaChequeoIntegral(
 ): RespuestaAsistentePFI {
   const prioridades = prioridadesFamiliares(contexto, fechaReferencia);
   const compra = contexto.compraSemana;
-  const cubiertas = compra?.lineasCubiertas?.length ?? 0;
+  const ventana = crearVentanaPlanFamiliar(contexto, fechaReferencia);
+  const cubiertasReales =
+    compra?.lineasCubiertas?.filter(
+      (linea) => linea.origenCobertura === 'stock-real',
+    ).length ?? 0;
+  const cubiertasProyectadas =
+    compra?.lineasCubiertas?.filter(
+      (linea) => linea.origenCobertura !== 'stock-real',
+    ).length ?? 0;
+  const textoCobertura = cubiertasReales > 0 && cubiertasProyectadas > 0
+    ? `${cubiertasReales} línea(s) están cubiertas por stock físico y ${cubiertasProyectadas} dependen de sobrantes proyectados de compras anteriores.`
+    : cubiertasReales > 0
+      ? `${cubiertasReales} línea(s) están cubiertas por existencias físicas registradas.`
+      : cubiertasProyectadas > 0
+        ? `${cubiertasProyectadas} línea(s) dependen de sobrantes proyectados de compras anteriores; todavía no son stock real.`
+        : 'La compra calculada no muestra coberturas por existencias.';
 
   if (prioridades.length === 0) {
     return {
@@ -511,14 +680,13 @@ function respuestaChequeoIntegral(
       resumen:
         'No veo problemas importantes en las áreas que PFI puede comprobar ahora mismo.',
       puntos: [
-        planDiaRelativo(contexto, 'hoy', fechaReferencia) &&
-        planDiaRelativo(contexto, 'manana', fechaReferencia)
-          ? 'El menú de las próximas 48 horas tiene comida y cena planificadas.'
-          : 'La semana seleccionada no cubre hoy y mañana completos; revisa la semana apropiada para comprobar las próximas 48 h.',
+        ventana.coberturaCompleta &&
+        ventana.eventos.length > 0 &&
+        ventana.eventos.every((evento) => evento.platos.length > 0)
+          ? 'Todos los servicios que quedan en la ventana móvil de 48 horas están planificados.'
+          : 'El plan mensual abierto no permite comprobar completas las próximas 48 horas.',
         'No hay avisos de stock mínimo, asociaciones o precios pendientes.',
-        cubiertas > 0
-          ? `${cubiertas} línea(s) de compra ya están cubiertas por stock y no hace falta recomprarlas.`
-          : 'La compra calculada no muestra incidencias relevantes.',
+        textoCobertura,
       ],
       accion: { etiqueta: 'Ver Menú', destino: 'menu' },
       tono: 'positivo',
@@ -528,7 +696,7 @@ function respuestaChequeoIntegral(
   const primera = prioridades[0];
   return {
     titulo: 'Chequeo familiar · prioridades',
-    resumen: `He encontrado ${prioridades.length} punto(s) que merece la pena revisar, ordenados por impacto.`,
+    resumen: `He encontrado ${prioridades.length} punto(s) que merece la pena revisar, ordenados por impacto y, a igualdad, por urgencia.`,
     puntos: prioridades.slice(0, 6).map((prioridad, indice) =>
       `${indice + 1}. ${prioridad.texto}`,
     ),
@@ -544,7 +712,7 @@ function respuestaChequeoIntegral(
       destino: primera.destino,
       ingrediente: primera.ingrediente,
     },
-    tono: prioridades.some((prioridad) => prioridad.nivel === 1)
+    tono: prioridades.some((prioridad) => prioridad.impacto >= 4)
       ? 'atencion'
       : 'normal',
   };
@@ -555,22 +723,50 @@ function respuestaAhorroInteligente(
 ): RespuestaAsistentePFI {
   const compra = contexto.compraSemana;
   const prevision = previsionMes(contexto);
+  const precision = contexto.resumenEconomico.prevision;
   const presupuesto = contexto.perfil.presupuesto;
   const diferencia = presupuesto - prevision;
-  const cubiertas = compra?.lineasCubiertas?.length ?? 0;
+  const cubiertasReales =
+    compra?.lineasCubiertas?.filter(
+      (linea) => linea.origenCobertura === 'stock-real',
+    ).length ?? 0;
+  const cubiertasProyectadas =
+    compra?.lineasCubiertas?.filter(
+      (linea) => linea.origenCobertura !== 'stock-real',
+    ).length ?? 0;
   const puntos: string[] = [];
 
   if (presupuesto > 0 && prevision > 0) {
+    if (precision.partidasSinImporte > 0) {
+      puntos.push(
+        diferencia >= 0
+          ? `El gasto conocido es como mínimo ${euros(prevision)}. El margen sería como máximo ${euros(diferencia)}, pero faltan ${precision.partidasSinImporte} importe(s): todavía no hay un saldo real.`
+          : `El gasto conocido ya supera el objetivo en al menos ${euros(Math.abs(diferencia))}, y todavía faltan ${precision.partidasSinImporte} importe(s).`,
+      );
+    } else if (precision.cantidadesEstimadas > 0) {
+      puntos.push(
+        diferencia >= 0
+          ? `La previsión estimada deja ${euros(diferencia)} de margen, con ${precision.cantidadesEstimadas} cantidad(es) todavía estimada(s).`
+          : `La previsión estimada supera el objetivo en ${euros(Math.abs(diferencia))}, con ${precision.cantidadesEstimadas} cantidad(es) por confirmar.`,
+      );
+    } else {
+      puntos.push(
+        diferencia >= 0
+          ? `La previsión completa está ${euros(diferencia)} por debajo del objetivo mensual.`
+          : `La previsión completa está ${euros(Math.abs(diferencia))} por encima del objetivo mensual.`,
+      );
+    }
+  }
+
+  if (cubiertasReales > 0) {
     puntos.push(
-      diferencia >= 0
-        ? `La previsión está ${euros(diferencia)} por debajo del objetivo mensual.`
-        : `La previsión está ${euros(Math.abs(diferencia))} por encima del objetivo mensual.`,
+      `${cubiertasReales} línea(s) están cubiertas por existencias físicas registradas; esta cobertura sí es verificable en Despensa.`,
     );
   }
 
-  if (cubiertas > 0) {
+  if (cubiertasProyectadas > 0) {
     puntos.push(
-      `${cubiertas} línea(s) ya están cubiertas por el stock registrado: no las vuelvas a comprar salvo que ajustes existencias.`,
+      `${cubiertasProyectadas} línea(s) dependen de sobrantes proyectados: solo quedarían cubiertas si compras antes y sobra lo previsto. No las cuento como ahorro ni como stock real.`,
     );
   }
 
@@ -594,9 +790,9 @@ function respuestaAhorroInteligente(
 
   if (contexto.compraPendienteCantidad > 0) {
     puntos.push(
-      `Antes de añadir extras, la compra pendiente ya suma unos ${euros(
-        contexto.compraPendienteTotal,
-      )}.`,
+      contexto.compraPendienteSinImporte > 0
+        ? `La compra pendiente suma al menos ${euros(contexto.compraPendienteTotal)} y aún tiene ${contexto.compraPendienteSinImporte} importe(s) sin valorar.`
+        : `La compra pendiente suma ${euros(contexto.compraPendienteTotal)} con todos sus importes informados.`,
     );
   }
 
@@ -611,11 +807,17 @@ function respuestaAhorroInteligente(
 
   return {
     titulo: 'Ahorro inteligente',
-    resumen:
-      'No voy a proponerte recortes genéricos: he mirado dónde puede escaparse dinero dentro de tu PFI.',
+    resumen: precision.partidasSinImporte > 0
+      ? 'No puedo afirmar un ahorro neto todavía: separo el subtotal conocido, los importes pendientes y el stock meramente proyectado.'
+      : precision.cantidadesEstimadas > 0
+        ? 'El margen es una estimación trazable, no un ahorro cerrado, porque aún hay cantidades aproximadas.'
+        : 'He cruzado importes completos y stock físico para mostrar un margen trazable, sin convertir proyecciones en ahorro.',
     puntos: puntos.slice(0, 6),
     accion: { etiqueta: 'Revisar Compra', destino: 'compra' },
-    tono: diferencia < 0 ? 'atencion' : 'normal',
+    tono:
+      diferencia < 0 || precision.partidasSinImporte > 0
+        ? 'atencion'
+        : 'normal',
   };
 }
 
@@ -627,6 +829,7 @@ export function obtenerResumenProactivo(
   const reposicion = productosReposicion(contexto.despensa);
   const compra = contexto.compraSemana;
   const prevision = previsionMes(contexto);
+  const precision = contexto.resumenEconomico.prevision;
   const prioridades = prioridadesFamiliares(
     contexto,
     fechaReferencia,
@@ -638,17 +841,23 @@ export function obtenerResumenProactivo(
       ? `Comida: ${hoy.comida.join(' + ')} · Cena: ${hoy.cena.join(' + ')}`
       : 'Hoy no está en la semana seleccionada; revisa la semana actual.',
     compra: compra
-      ? `${contexto.compraPendienteCantidad} pendientes · ${euros(contexto.compraPendienteTotal)}`
+      ? contexto.compraPendienteSinImporte > 0
+        ? `${contexto.compraPendienteCantidad} pendientes · ${euros(contexto.compraPendienteTotal)} mínimo + ${contexto.compraPendienteSinImporte} sin importe`
+        : `${contexto.compraPendienteCantidad} pendientes · ${euros(contexto.compraPendienteTotal)}`
       : 'Calculando la compra actual…',
     despensa:
       reposicion.length === 0
         ? 'No hay avisos de stock mínimo.'
         : `${reposicion.length} producto(s) necesitan reposición.`,
     presupuesto:
-      prevision > 0
-        ? `${euros(prevision)} previstos este mes · objetivo ${euros(
+      prevision > 0 || precision.partidasSinImporte > 0
+        ? precision.partidasSinImporte > 0
+          ? `${euros(prevision)} mínimo conocido · ${precision.partidasSinImporte} importe(s) pendientes · objetivo ${euros(
             contexto.perfil.presupuesto,
           )}`
+          : `${euros(prevision)} ${precision.cantidadesEstimadas > 0 ? 'estimados' : 'previstos'} este mes · objetivo ${euros(
+              contexto.perfil.presupuesto,
+            )}`
         : `Objetivo mensual: ${euros(contexto.perfil.presupuesto)}`,
     alertas,
   };
@@ -664,6 +873,7 @@ export function responderAsistente(
   const compra = contexto.compraSemana;
   const reposicion = productosReposicion(contexto.despensa);
   const presupuestoPrevisto = previsionMes(contexto);
+  const precisionMes = contexto.resumenEconomico.prevision;
   const preparaciones = preparacionesSemana(contexto.menuSemana);
 
   if (
@@ -816,9 +1026,13 @@ export function responderAsistente(
       titulo: 'Compra de esta semana',
       resumen: contexto.compraPendienteCantidad === 0
         ? 'No veo productos pendientes de compra en esta semana.'
-        : `Quedan ${contexto.compraPendienteCantidad} productos por unos ${euros(
-            contexto.compraPendienteTotal,
-          )}.`,
+        : contexto.compraPendienteSinImporte > 0
+          ? `Quedan ${contexto.compraPendienteCantidad} productos: el subtotal conocido es ${euros(
+              contexto.compraPendienteTotal,
+            )} y faltan ${contexto.compraPendienteSinImporte} importe(s).`
+          : `Quedan ${contexto.compraPendienteCantidad} productos por ${euros(
+              contexto.compraPendienteTotal,
+            )}.`,
       puntos: [
         nombres.length > 0
           ? `Lo principal: ${listaCorta(nombres)}.`
@@ -841,28 +1055,45 @@ export function responderAsistente(
 
   if (/presupuesto|gasto|dinero|ahorro|cuanto.*mes|coste.*mes/.test(consulta)) {
     const diferencia = contexto.perfil.presupuesto - presupuestoPrevisto;
+    const hayImportesPendientes = precisionMes.partidasSinImporte > 0;
+    const hayEstimaciones = precisionMes.cantidadesEstimadas > 0;
     return {
       titulo: 'Previsión de gasto',
       resumen:
-        presupuestoPrevisto > 0
-          ? `PFI estima ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
-              contexto.perfil.presupuesto,
-            )}.`
+        presupuestoPrevisto > 0 || hayImportesPendientes
+          ? hayImportesPendientes
+            ? `PFI conoce un mínimo de ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
+                contexto.perfil.presupuesto,
+              )}; faltan ${precisionMes.partidasSinImporte} importe(s).`
+            : `PFI ${hayEstimaciones ? 'estima' : 'calcula'} ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
+                contexto.perfil.presupuesto,
+              )}.`
           : `Tu objetivo mensual configurado es ${euros(
               contexto.perfil.presupuesto,
             )}.`,
       puntos:
-        presupuestoPrevisto > 0
+        presupuestoPrevisto > 0 || hayImportesPendientes
           ? [
-              diferencia >= 0
-                ? `Ahora mismo estás ${euros(diferencia)} por debajo del objetivo previsto.`
-                : `La previsión supera el objetivo en ${euros(Math.abs(diferencia))}.`,
-              'La previsión combina la compra mensual y las compras semanales calculadas.',
-              'Los productos sin precio pueden hacer que el total real sea algo mayor.',
+              hayImportesPendientes
+                ? diferencia >= 0
+                  ? `El margen máximo provisional es ${euros(diferencia)}; no es un saldo disponible todavía.`
+                  : `El subtotal conocido ya supera el objetivo en al menos ${euros(Math.abs(diferencia))}.`
+                : diferencia >= 0
+                  ? `${hayEstimaciones ? 'El margen estimado es' : 'Te quedan'} ${euros(diferencia)} frente al objetivo.`
+                  : `${hayEstimaciones ? 'La estimación' : 'La previsión'} supera el objetivo en ${euros(Math.abs(diferencia))}.`,
+              'La previsión combina la compra mensual, las semanas y los productos añadidos manualmente.',
+              hayImportesPendientes
+                ? 'Completa los importes pendientes antes de interpretar esa diferencia como ahorro.'
+                : hayEstimaciones
+                  ? `${precisionMes.cantidadesEstimadas} cantidad(es) siguen siendo aproximadas.`
+                  : 'Todos los importes y cantidades del cálculo están informados.',
             ]
           : ['Necesito que termine el cálculo de compra para comparar la previsión completa.'],
       accion: { etiqueta: 'Revisar Compra', destino: 'compra' },
-      tono: diferencia >= 0 ? 'positivo' : 'atencion',
+      tono:
+        diferencia >= 0 && !hayImportesPendientes
+          ? 'positivo'
+          : 'atencion',
     };
   }
 
