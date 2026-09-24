@@ -571,7 +571,15 @@ function prioridadesFamiliares(
     });
   }
 
-  if (compra && compra.productosSinSeleccionar.length > 0) {
+  const asociacionSemanalYaIncluida =
+    contexto.compraPendienteCantidad > 0 &&
+    Boolean(compra?.productosSinSeleccionar[0]);
+
+  if (
+    compra &&
+    compra.productosSinSeleccionar.length > 0 &&
+    !asociacionSemanalYaIncluida
+  ) {
     prioridades.push({
       impacto: 4,
       urgencia: urgenciaCompra,

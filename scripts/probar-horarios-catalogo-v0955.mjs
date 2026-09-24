@@ -194,6 +194,20 @@ const presupuesto = responderAsistente('¿Cómo voy de presupuesto?', contexto);
 assert.match(presupuesto.resumen, /3 partidas sin importe/);
 assert.match(presupuesto.resumen, /1 asociación de producto \(Media sandía\)/);
 
+const prioridades = responderAsistente(
+  'Revisa todo y dime prioridades',
+  {
+    ...contexto,
+    compraPendienteNombres: ['Media sandía', 'Patatas'],
+    compraPendienteTotal: 50,
+    compraPendienteCantidad: 2,
+    compraPendienteSinImporte: 1,
+  },
+  '2026-09-23T13:45:00',
+);
+assert.ok(prioridades.puntos.some((punto) => /Empieza asociando Media sandía/.test(punto)));
+assert.ok(!prioridades.puntos.some((punto) => /la compra puede quedar incompleta/.test(punto)));
+
 const [compraUi, selectorUi, perfilUi] = await Promise.all([
   readFile(new URL('../src/pages/CompraModern.tsx', import.meta.url), 'utf8'),
   readFile(new URL('../src/components/SelectorProductoIngrediente.tsx', import.meta.url), 'utf8'),
@@ -213,3 +227,4 @@ console.log('✓ los horarios migran de forma segura y la ventana móvil usa hor
 console.log('✓ el catálogo filtra por sección y no propone falsos positivos para productos estacionales');
 console.log('✓ las partidas pendientes conservan sus causas únicas y los cálculos estimados trazables');
 console.log('✓ Compra ofrece una acción directa para resolver el producto exacto');
+console.log('✓ las prioridades no repiten la misma asociación semanal como dos avisos');
