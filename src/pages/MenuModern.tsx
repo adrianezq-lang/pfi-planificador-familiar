@@ -318,18 +318,21 @@ export default function MenuModern({
       .slice(0, 80);
   }, [busquedaEditor, platosDisponibles]);
   const sugerencias = useMemo(
-    () =>
-      editorMomento && dia
+    () => {
+      void revisionAprendizaje;
+      return editorMomento && dia
         ? obtenerSugerenciasMenu(
             dia.dia,
             editorMomento,
             editorMomento === 'comida' ? dia.comida : dia.cena,
             3,
           )
-        : [],
+        : [];
+    },
     [dia, editorMomento, revisionAprendizaje],
   );
   const complementos = useMemo(() => {
+    void revisionAprendizaje;
     if (!editorMomento || seleccionEditor.length === 0) return [];
     return obtenerComplementosSugeridos(
       seleccionEditor[0],

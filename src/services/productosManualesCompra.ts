@@ -1,5 +1,7 @@
 import {
   añadirProductoDespensa,
+  actualizarProductoDespensa,
+  cargarDespensa,
   type ProductoDespensa,
 } from './despensa.ts';
 import { registrarCompra } from './inventario.ts';
@@ -191,6 +193,40 @@ export function marcarProductoManualCompra(
       : producto,
   );
   return guardarProductosManualesCompra(productos);
+}
+
+export function actualizarPrecioProductoManualCompra(
+  id: string,
+  precioTotal: number | null,
+): ProductoManualCompra[] {
+  if (
+    precioTotal !== null &&
+    (!Number.isFinite(precioTotal) || precioTotal < 0)
+  ) {
+    throw new Error('El precio no es válido.');
+  }
+
+  const productos = cargarProductosManualesCompra().map((producto) =>
+    producto.id === id ? { ...producto, precioTotal } : producto,
+  );
+  const guardados = guardarProductosManualesCompra(productos);
+  const actualizado = guardados.find((producto) => producto.id === id);
+
+  if (actualizado?.guardadoEnDespensa) {
+    const datos = datosDespensa(actualizado);
+    const productoDespensa = cargarDespensa().find(
+      (producto) => producto.productoId === datos.productoId,
+    );
+    if (productoDespensa) {
+      actualizarProductoDespensa(productoDespensa.id, {
+        precio: datos.precio,
+        ultimoPrecioCompra: datos.precio,
+        ultimaCompraEn: new Date().toISOString(),
+      });
+    }
+  }
+
+  return guardados;
 }
 
 export function marcarTodosProductosManualesCompra(

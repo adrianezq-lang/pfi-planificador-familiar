@@ -17,6 +17,7 @@ import {
 
 type SelectorProductoIngredienteProps = {
   ingrediente: string | null;
+  seccionIngrediente?: string;
   productoActual?: ProductoMercadonaCatalogo | null;
   pendientesRestantes?: number;
   busquedaInicial?: string;
@@ -32,6 +33,7 @@ type SelectorProductoIngredienteProps = {
 
 function SelectorProductoIngrediente({
   ingrediente,
+  seccionIngrediente,
   productoActual = null,
   pendientesRestantes,
   busquedaInicial,
@@ -44,6 +46,7 @@ function SelectorProductoIngrediente({
   const [resultados, setResultados] = useState<ProductoMercadonaCatalogo[]>([]);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState('');
+  const [mostrarOtrasSecciones, setMostrarOtrasSecciones] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -52,6 +55,7 @@ function SelectorProductoIngrediente({
     setBusqueda(busquedaInicial ?? ingrediente);
     setResultados([]);
     setError('');
+    setMostrarOtrasSecciones(false);
 
     window.setTimeout(() => {
       inputRef.current?.focus();
@@ -69,7 +73,10 @@ function SelectorProductoIngrediente({
           setCargando(true);
           setError('');
 
-          const productos = await buscarEnCatalogoMercadona(busqueda.trim());
+          const productos = await buscarEnCatalogoMercadona(busqueda.trim(), {
+            seccionPreferida: seccionIngrediente,
+            incluirOtrasSecciones: mostrarOtrasSecciones,
+          });
           if (activo) setResultados(productos.slice(0, 40));
         } catch (errorDesconocido) {
           if (!activo) return;
@@ -90,7 +97,7 @@ function SelectorProductoIngrediente({
       activo = false;
       window.clearTimeout(temporizador);
     };
-  }, [busqueda, ingrediente]);
+  }, [busqueda, ingrediente, mostrarOtrasSecciones, seccionIngrediente]);
 
   useEffect(() => {
     if (ingrediente === null) return;
@@ -217,6 +224,7 @@ function SelectorProductoIngrediente({
             value={busqueda}
             onChange={(evento) => setBusqueda(evento.target.value)}
             placeholder="Buscar producto de Mercadona"
+            aria-label="Buscar producto de Mercadona"
             style={estiloInput}
           />
           {busqueda && (
@@ -232,15 +240,46 @@ function SelectorProductoIngrediente({
               <strong>🛒 Catálogo Mercadona</strong>
               {!cargando && <span>{resultadosCatalogo.length}</span>}
             </div>
+            {seccionIngrediente && (
+              <div style={estiloFiltroSeccion}>
+                <span>
+                  {mostrarOtrasSecciones
+                    ? 'Mostrando todo el catálogo'
+                    : `Solo productos de ${seccionIngrediente}`}
+                </span>
+                {mostrarOtrasSecciones && (
+                  <button
+                    type="button"
+                    onClick={() => setMostrarOtrasSecciones(false)}
+                    style={estiloBotonAlternativo}
+                  >
+                    Volver a la sección
+                  </button>
+                )}
+              </div>
+            )}
             {cargando && <p style={estiloEstado}>Buscando productos…</p>}
             {error && <p style={estiloError}>{error}</p>}
             {!cargando && !error && resultadosCatalogo.length === 0 && (
-              <p style={estiloEstado}>
-                No hay productos para esta búsqueda en el catálogo actual. El
-                surtido puede variar según la temporada y la zona. Prueba otro
-                nombre; si no aparece el producto correcto, deja esta asociación
-                pendiente para no falsear el presupuesto.
-              </p>
+              <div style={estiloEstadoVacio}>
+                <p style={estiloEstado}>
+                  No hay productos compatibles para esta búsqueda
+                  {seccionIngrediente && !mostrarOtrasSecciones
+                    ? ` en ${seccionIngrediente}`
+                    : ''}. El surtido puede variar según la temporada y la zona.
+                  Si no aparece el producto correcto, deja la asociación pendiente
+                  para no falsear el presupuesto.
+                </p>
+                {seccionIngrediente && !mostrarOtrasSecciones && (
+                  <button
+                    type="button"
+                    onClick={() => setMostrarOtrasSecciones(true)}
+                    style={estiloBotonAlternativo}
+                  >
+                    Buscar en todo el catálogo
+                  </button>
+                )}
+              </div>
             )}
             {!error &&
               resultadosCatalogo.map((producto) =>
@@ -462,7 +501,37 @@ const estiloElegir = {
   fontWeight: 800,
 };
 
+const estiloFiltroSeccion = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: '10px',
+  padding: '9px 11px',
+  borderRadius: '11px',
+  background: '#eef5ed',
+  color: '#4f6f52',
+  fontSize: '12px',
+  fontWeight: 750,
+};
 
+const estiloEstadoVacio = {
+  display: 'grid',
+  justifyItems: 'center',
+  gap: '10px',
+};
+
+const estiloBotonAlternativo = {
+  minHeight: '34px',
+  padding: '7px 11px',
+  border: '1px solid #b6c9b4',
+  borderRadius: '10px',
+  background: '#fff',
+  color: '#3f6846',
+  fontFamily: 'inherit',
+  fontSize: '12px',
+  fontWeight: 800,
+  cursor: 'pointer',
+};
 
 const estiloEstado = {
   margin: 0,

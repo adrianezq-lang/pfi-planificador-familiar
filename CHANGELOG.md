@@ -1,3 +1,13 @@
+# v0.9.55 — Horarios y datos pendientes explicables
+
+- El perfil permite configurar las horas habituales de comida y cena; el plan móvil de 48 horas usa esas horas y minutos para excluir servicios ya pasados y cerrar la ventana con precisión.
+- Inicio y Asistente distinguen el número de partidas sin importe de sus causas únicas: asociaciones pendientes, productos sin precio o compras manuales sin precio.
+- Compra muestra los nombres que bloquean un total completo y mantiene visibles, por separado, los cálculos aproximados por formato comercial.
+- Las compras manuales sin importe permiten completar el precio total en su propia línea, sin tener que eliminarlas y crearlas de nuevo.
+- Cada línea sin asociación ofrece una acción directa para elegir el producto exacto.
+- El selector filtra primero por la sección real del ingrediente. Así evita falsos positivos como zumos o productos con sabor a sandía cuando se necesita fruta fresca.
+- Si un artículo estacional no existe en el catálogo actual, PFI lo indica y permite ampliar la búsqueda de forma explícita sin crear una asociación falsa.
+
 # v0.9.54 — Copiloto y presupuesto trazables
 
 - «Próximas 48 h» empieza en la hora actual: excluye servicios ya pasados, cruza semanas y avisa cuando el mes abierto no cubre toda la ventana.

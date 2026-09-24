@@ -12,6 +12,8 @@ export type PlanComensales = {
 
 export type MomentoComida = 'comida' | 'cena';
 
+export type HorariosFamiliares = Record<MomentoComida, string>;
+
 export type PerfilFamiliar = {
   nombre: string;
   adultos: number;
@@ -20,6 +22,7 @@ export type PerfilFamiliar = {
   bebes: number;
   bebesComenMenu: boolean;
   comensales: PlanComensales;
+  horarios: HorariosFamiliares;
   supermercado: string;
   presupuesto: number;
 };
@@ -54,6 +57,10 @@ export const perfilInicial: PerfilFamiliar = {
   bebes: 1,
   bebesComenMenu: false,
   comensales: comensalesIniciales,
+  horarios: {
+    comida: '14:00',
+    cena: '21:00',
+  },
   supermercado: 'Mercadona',
   presupuesto: 500,
 };
@@ -80,6 +87,18 @@ function ajustarEdades(edades: unknown, cantidadNinos: number): number[] {
 
 function limitarEntero(valor: unknown, alternativa: number, maximo: number): number {
   return Math.min(maximo, Math.round(numeroSeguro(valor, alternativa)));
+}
+
+function normalizarHora(valor: unknown, alternativa: string): string {
+  if (typeof valor !== 'string') return alternativa;
+  const coincidencia = /^(\d{1,2}):(\d{2})$/.exec(valor.trim());
+  if (!coincidencia) return alternativa;
+  const horas = Number(coincidencia[1]);
+  const minutos = Number(coincidencia[2]);
+  if (horas < 0 || horas > 23 || minutos < 0 || minutos > 59) {
+    return alternativa;
+  }
+  return `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`;
 }
 
 function crearPlanComensalesPredeterminado(
@@ -214,6 +233,16 @@ export function normalizarPerfil(valor: unknown): PerfilFamiliar {
       bebes,
       bebesComenMenu,
     ),
+    horarios: {
+      comida: normalizarHora(
+        parcial.horarios?.comida,
+        perfilInicial.horarios.comida,
+      ),
+      cena: normalizarHora(
+        parcial.horarios?.cena,
+        perfilInicial.horarios.cena,
+      ),
+    },
     supermercado:
       typeof parcial.supermercado === 'string' && parcial.supermercado.trim()
         ? parcial.supermercado.trim()
@@ -276,6 +305,18 @@ export function calcularRacionesEquivalentes(perfil: PerfilFamiliar): number {
 
 export function calcularComensales(perfil: PerfilFamiliar): number {
   return perfil.adultos + perfil.ninos + (perfil.bebesComenMenu ? perfil.bebes : 0);
+}
+
+export function obtenerHorarioServicio(
+  perfil: PerfilFamiliar,
+  momento: MomentoComida,
+): { hora: number; minutos: number; texto: string } {
+  const texto = normalizarHora(
+    perfil.horarios?.[momento],
+    perfilInicial.horarios[momento],
+  );
+  const [hora, minutos] = texto.split(':').map(Number);
+  return { hora, minutos, texto };
 }
 
 function esFinDeSemana(dia: string): boolean {

@@ -49,10 +49,10 @@ assert.match(css, /\.assistant-hero/);
 assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.54');
-assert.match(app, /v0\.9\.54/);
-assert.match(sw, /pfi-v0\.9\.54-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.54'/);
+assert.equal(packageJson.version, '0.9.55');
+assert.match(app, /v0\.9\.55/);
+assert.match(sw, /pfi-v0\.9\.55-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.55'/);
 
 const vite = await createServer({
   configFile: false,
@@ -168,6 +168,7 @@ const contexto = {
     edadesNinos: [12, 6],
     bebes: 0,
     bebesComenMenu: false,
+    horarios: { comida: '14:00', cena: '21:00' },
     comensales: {
       comidaLaborable: { adultos: 2, ninos: [true, false], bebes: 0 },
       comidaFinSemana: { adultos: 2, ninos: [true, true], bebes: 0 },
@@ -269,7 +270,7 @@ assert.equal(chequeo.titulo, 'Chequeo familiar · prioridades');
 assert.equal(chequeo.tono, 'atencion');
 assert.ok(chequeo.puntos[0].includes('Quedan 4'));
 assert.ok(chequeo.puntos[0].includes('Tomate'));
-assert.ok(chequeo.puntos.some((punto) => punto.includes('no tienen precio')));
+assert.ok(chequeo.puntos.some((punto) => punto.includes('sin precio')));
 assert.ok(chequeo.puntos.some((punto) => punto.includes('stock mínimo')));
 
 const ahorro = responderAsistente(

@@ -1386,11 +1386,83 @@ summary:focus-visible {
   font-weight: 800;
 }
 
+.modern-missing-product {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.modern-missing-product > small {
+  font-size: 10px;
+}
+
+.modern-missing-product > button {
+  min-height: 32px;
+  border: 1px solid rgba(154,103,52,.28);
+  border-radius: 9px;
+  padding: 6px 9px;
+  background: #fff8ec;
+  color: #805029;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
 .modern-shopping-row__price {
   padding-top: 2px;
   color: #3f5c45;
   font-size: 12px;
   white-space: nowrap;
+}
+
+.modern-manual-price {
+  display: grid;
+  grid-template-columns: 72px auto;
+  gap: 5px;
+  align-items: center;
+}
+
+.modern-manual-price label > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.modern-manual-price input {
+  width: 72px;
+  min-height: 32px;
+  box-sizing: border-box;
+  border: 1px solid #d6ded4;
+  border-radius: 9px;
+  padding: 6px 8px;
+  background: #fff;
+  color: #314637;
+  font: inherit;
+  font-size: 11px;
+}
+
+.modern-manual-price button {
+  min-height: 32px;
+  border: 1px solid rgba(63,94,69,.2);
+  border-radius: 9px;
+  padding: 6px 8px;
+  background: #eef4ea;
+  color: #3f5e45;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.modern-manual-price > small {
+  grid-column: 1 / -1;
+  color: #9b443c;
+  font-size: 9px;
 }
 
 .modern-row-delete {
@@ -1626,6 +1698,11 @@ textarea:focus {
   }
 
   .modern-shopping-row__price {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .modern-manual-price {
     grid-column: 2;
     justify-self: start;
   }

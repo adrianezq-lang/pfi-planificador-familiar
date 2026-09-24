@@ -34,6 +34,7 @@ import {
 } from '../services/productosManualesCompra';
 import {
   calcularResumenEconomicoMensual,
+  contarCausasImportePendiente,
   type DesgloseEconomico,
   type ResumenEconomicoMensual,
 } from '../services/resumenEconomico';
@@ -184,9 +185,10 @@ function Home({
       currency: 'EUR',
     });
     if (pendientes > 0) {
+      const causas = detalleCausasPendientes(presupuesto.prevision);
       return diferencia >= 0
-        ? `Margen máximo ${importe} · faltan ${pendientes} importe${pendientes === 1 ? '' : 's'}`
-        : `Al menos ${importe} por encima · faltan ${pendientes} importe${pendientes === 1 ? '' : 's'}`;
+        ? `Margen máximo ${importe} · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`
+        : `Al menos ${importe} por encima · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`;
     }
     if (estimadas > 0) {
       return diferencia >= 0
@@ -333,16 +335,41 @@ function detallePrecision(desglose: DesgloseEconomico): string {
   const partes: string[] = [];
   if (desglose.partidasSinImporte > 0) {
     partes.push(
-      `${desglose.partidasSinImporte} importe${desglose.partidasSinImporte === 1 ? '' : 's'} pendiente${desglose.partidasSinImporte === 1 ? '' : 's'}`,
+      `${desglose.partidasSinImporte} partida${desglose.partidasSinImporte === 1 ? '' : 's'} sin importe`,
     );
+    const causas = detalleCausasPendientes(desglose);
+    if (causas) partes.push(causas);
   }
   if (desglose.cantidadesEstimadas > 0) {
+    const productos = desglose.productosEstimados.length;
     partes.push(
-      `${desglose.cantidadesEstimadas} cantidad${desglose.cantidadesEstimadas === 1 ? '' : 'es'} estimada${desglose.cantidadesEstimadas === 1 ? '' : 's'}`,
+      `${desglose.cantidadesEstimadas} cálculo${desglose.cantidadesEstimadas === 1 ? '' : 's'} aproximado${desglose.cantidadesEstimadas === 1 ? '' : 's'}${productos > 0 ? ` en ${productos} producto${productos === 1 ? '' : 's'}` : ''}`,
     );
   }
   if (partes.length === 0) return '';
   return `${desglose.partidasSinImporte > 0 ? 'Subtotal mínimo' : 'Total estimado'} · ${partes.join(' · ')}`;
+}
+
+function detalleCausasPendientes(desglose: DesgloseEconomico): string {
+  const causas: string[] = [];
+  if (desglose.ingredientesSinProducto.length > 0) {
+    causas.push(
+      `${desglose.ingredientesSinProducto.length} asociación${desglose.ingredientesSinProducto.length === 1 ? '' : 'es'} pendiente${desglose.ingredientesSinProducto.length === 1 ? '' : 's'}`,
+    );
+  }
+  if (desglose.productosSinPrecio.length > 0) {
+    causas.push(
+      `${desglose.productosSinPrecio.length} producto${desglose.productosSinPrecio.length === 1 ? '' : 's'} sin precio`,
+    );
+  }
+  if (desglose.comprasManualesSinPrecio.length > 0) {
+    causas.push(
+      `${desglose.comprasManualesSinPrecio.length} compra${desglose.comprasManualesSinPrecio.length === 1 ? '' : 's'} manual${desglose.comprasManualesSinPrecio.length === 1 ? '' : 'es'} sin precio`,
+    );
+  }
+  return contarCausasImportePendiente(desglose) > 0
+    ? causas.join(' · ')
+    : '';
 }
 
 function HomeCard({

@@ -274,6 +274,11 @@ function Perfil() {
           </strong>
           <small>señales personales aplicadas</small>
         </article>
+        <article>
+          <span>Horarios habituales</span>
+          <strong>{perfil.horarios.comida} · {perfil.horarios.cena}</strong>
+          <small>Comida y cena para el plan móvil de 48 h</small>
+        </article>
       </section>
 
       <CuentaSincronizacion />
@@ -370,7 +375,42 @@ function Perfil() {
               <span style={estiloEuro}>€</span>
             </div>
           </label>
+
+          <label style={estiloEtiqueta}>
+            Hora habitual de comida
+            <input
+              type="time"
+              value={perfil.horarios.comida}
+              onChange={(evento) =>
+                actualizarCampo('horarios', {
+                  ...perfil.horarios,
+                  comida: evento.target.value,
+                })
+              }
+              style={estiloInput}
+            />
+          </label>
+
+          <label style={estiloEtiqueta}>
+            Hora habitual de cena
+            <input
+              type="time"
+              value={perfil.horarios.cena}
+              onChange={(evento) =>
+                actualizarCampo('horarios', {
+                  ...perfil.horarios,
+                  cena: evento.target.value,
+                })
+              }
+              style={estiloInput}
+            />
+          </label>
         </div>
+
+        <p style={estiloAyudaHorarios}>
+          El Copiloto usa estas horas para excluir servicios ya pasados y cerrar
+          exactamente las próximas 48 horas. Se aplican al guardar el perfil.
+        </p>
 
         {perfil.ninos > 0 && (
           <div style={estiloBloqueEdades}>
@@ -625,6 +665,13 @@ const estiloEuro = {
   transform: 'translateY(-50%)',
   color: '#667067',
   fontWeight: 700,
+};
+
+const estiloAyudaHorarios = {
+  margin: '12px 0 0',
+  color: '#667067',
+  fontSize: '13px',
+  lineHeight: 1.45,
 };
 
 const estiloBloqueEdades = {
