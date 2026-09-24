@@ -354,7 +354,7 @@ function detalleCausasPendientes(desglose: DesgloseEconomico): string {
   const causas: string[] = [];
   if (desglose.ingredientesSinProducto.length > 0) {
     causas.push(
-      `${desglose.ingredientesSinProducto.length} asociación${desglose.ingredientesSinProducto.length === 1 ? '' : 'es'} pendiente${desglose.ingredientesSinProducto.length === 1 ? '' : 's'}`,
+      `${desglose.ingredientesSinProducto.length} ${desglose.ingredientesSinProducto.length === 1 ? 'asociación pendiente' : 'asociaciones pendientes'}`,
     );
   }
   if (desglose.productosSinPrecio.length > 0) {
