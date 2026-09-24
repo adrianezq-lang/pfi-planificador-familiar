@@ -1,7 +1,7 @@
 {
   "name": "pfi-planificador-familiar",
   "private": true,
-  "version": "0.9.53",
+  "version": "0.9.54",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -45,7 +45,8 @@
     "test:v0942": "node --experimental-strip-types scripts/probar-pro-plus-v0942.mjs",
     "test:v0943": "node scripts/probar-pwa-update-v0943.mjs",
     "test:v0944": "node --experimental-strip-types scripts/probar-asistente-v0944.mjs",
-    "test:v0945": "node --experimental-strip-types scripts/probar-asistente-acciones-v0945.mjs"
+    "test:v0945": "node --experimental-strip-types scripts/probar-asistente-acciones-v0945.mjs",
+    "test:v0954": "node --experimental-strip-types scripts/probar-coherencia-copiloto-v0954.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.115.0",

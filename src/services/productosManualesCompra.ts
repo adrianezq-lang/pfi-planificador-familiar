@@ -33,6 +33,8 @@ export type NuevoProductoManualCompra = Pick<
 >;
 
 const CLAVE_PRODUCTOS_MANUALES = 'pfi-compra-manual-v1';
+export const EVENTO_PRODUCTOS_MANUALES_COMPRA =
+  'pfi:productos-manuales-compra-actualizados';
 const UNIDADES: UnidadProductoManual[] = [
   'ud',
   'envase',
@@ -136,6 +138,9 @@ function guardarProductosManualesCompra(
   productos: ProductoManualCompra[],
 ): ProductoManualCompra[] {
   localStorage.setItem(CLAVE_PRODUCTOS_MANUALES, JSON.stringify(productos));
+  if (typeof window !== 'undefined' && typeof Event !== 'undefined') {
+    window.dispatchEvent(new Event(EVENTO_PRODUCTOS_MANUALES_COMPRA));
+  }
   return productos;
 }
 

@@ -1,3 +1,12 @@
+# v0.9.54 — Copiloto y presupuesto trazables
+
+- «Próximas 48 h» empieza en la hora actual: excluye servicios ya pasados, cruza semanas y avisa cuando el mes abierto no cubre toda la ventana.
+- Las prioridades se ordenan por impacto y, a igualdad, urgencia respecto a la siguiente comida; una compra pendiente inmediata deja de quedar detrás de avisos secundarios.
+- Inicio y Asistente comparten un único resumen económico que incluye compras manuales semanales y mensuales, incluso después de marcarlas o guardarlas en despensa.
+- Los totales con productos sin asociación o sin precio se etiquetan como subtotales mínimos; el margen pasa a ser máximo provisional y las cantidades estimadas permanecen visibles.
+- Compra distingue stock físico de sobrantes proyectados de compras anteriores. El Asistente no presenta esos sobrantes futuros como ahorro ni como existencias reales.
+- Las acciones para resolver asociaciones siguen abriendo el ingrediente exacto, también cuando la compra pendiente es la prioridad principal.
+
 # v0.9.53 — Postres de temporada
 
 - La rotación automática de postres usa el mes del plan: sandía de mayo a septiembre, sin forzarla en otros meses. Un postre escogido manualmente se conserva y se identifica si queda fuera de su temporada habitual.

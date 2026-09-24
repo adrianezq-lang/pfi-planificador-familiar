@@ -223,6 +223,26 @@ if (
     `La explicación semanal del ajo no refleja su arrastre: antes=${stockAntesAjos}; después=${stockDespuesAjos}.`,
   );
 }
+if (
+  mallaAjos.pasos[0].origenCobertura !== undefined ||
+  mallaAjos.pasos[1].origenCobertura !== 'sobrante-proyectado' ||
+  mallaAjos.pasos[1].stockRealAntes !== 0 ||
+  mallaAjos.pasos[1].sobranteProyectadoAntes !== 0.75
+) {
+  throw new Error(
+    `El sobrante de una compra prevista no se distingue del stock físico: ${JSON.stringify(mallaAjos.pasos)}.`,
+  );
+}
+const ajosConStockReal = proyectarComprasEnvases([0.25], 1);
+if (
+  ajosConStockReal.pasos[0].origenCobertura !== 'stock-real' ||
+  ajosConStockReal.pasos[0].stockRealAntes !== 1 ||
+  ajosConStockReal.pasos[0].sobranteProyectadoAntes !== 0
+) {
+  throw new Error(
+    `El stock físico no conserva su procedencia: ${JSON.stringify(ajosConStockReal.pasos[0])}.`,
+  );
+}
 
 const tortillasCatorce = proyectarComprasEnvases([14 / 10], 0);
 if (

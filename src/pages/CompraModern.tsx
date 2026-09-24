@@ -654,8 +654,8 @@ export default function CompraModern({
           {periodo === 'semana' && resultado.lineasCubiertas && resultado.lineasCubiertas.length > 0 && (
             <details className="modern-covered-card">
               <summary>
-                <span>✅ Ya lo tienes en casa</span>
-                <small>{resultado.lineasCubiertas.length} producto{resultado.lineasCubiertas.length === 1 ? '' : 's'} cubierto{resultado.lineasCubiertas.length === 1 ? '' : 's'} con stock</small>
+                <span>✅ No hace falta comprarlo esta semana</span>
+                <small>{resumenOrigenCobertura(resultado.lineasCubiertas)}</small>
               </summary>
               <div>
                 {resultado.lineasCubiertas.map((linea) => <LineaCubierta key={linea.clave} linea={linea} />)}
@@ -740,12 +740,20 @@ function LineaProducto({
 
 function LineaCubierta({ linea }: { linea: LineaCompra }) {
   const explicacion = linea.explicacionCantidad;
+  const origen = linea.origenCobertura;
   return (
     <div className="modern-covered-row">
       <strong>{nombreLinea(linea)}</strong>
       <small>{resumenNecesidades(linea)}</small>
       {explicacion && (
-        <small>Había {resumenEnvasesConContenido(linea, explicacion.stockAntesEnvases)} · quedarán {resumenEnvasesConContenido(linea, explicacion.sobranteDespuesEnvases)}</small>
+        <small>
+          {origen === 'stock-real'
+            ? `Stock físico registrado: ${resumenEnvasesConContenido(linea, explicacion.stockRealAntesEnvases ?? explicacion.stockAntesEnvases)}`
+            : origen === 'mixta'
+              ? `Cobertura mixta: ${resumenEnvasesConContenido(linea, explicacion.stockRealAntesEnvases ?? 0)} físicos + ${resumenEnvasesConContenido(linea, explicacion.sobranteProyectadoAntesEnvases ?? 0)} previstos`
+              : `Sobrante previsto de compras anteriores: ${resumenEnvasesConContenido(linea, explicacion.sobranteProyectadoAntesEnvases ?? explicacion.stockAntesEnvases)}`}
+          {' · '}quedarán {resumenEnvasesConContenido(linea, explicacion.sobranteDespuesEnvases)}
+        </small>
       )}
     </div>
   );
@@ -760,12 +768,34 @@ function ExplicacionCantidad({ linea }: { linea: LineaCompra }) {
       <summary>Ver cálculo</summary>
       <div>
         <DatoCalculo etiqueta={etiquetaObjetivo} valor={resumenEnvases(linea, explicacion.objetivoEnvases)} />
-        <DatoCalculo etiqueta="Disponible antes" valor={resumenEnvases(linea, explicacion.stockAntesEnvases)} />
+        {explicacion.stockRealAntesEnvases !== undefined && (
+          <DatoCalculo etiqueta="Stock físico antes" valor={resumenEnvases(linea, explicacion.stockRealAntesEnvases)} />
+        )}
+        {explicacion.sobranteProyectadoAntesEnvases !== undefined && explicacion.sobranteProyectadoAntesEnvases > UMBRAL_CERO && (
+          <DatoCalculo etiqueta="Sobrante previsto antes" valor={resumenEnvases(linea, explicacion.sobranteProyectadoAntesEnvases)} />
+        )}
+        {explicacion.stockRealAntesEnvases === undefined && (
+          <DatoCalculo etiqueta="Disponible antes" valor={resumenEnvases(linea, explicacion.stockAntesEnvases)} />
+        )}
         <DatoCalculo etiqueta="Comprar" valor={resumenEnvases(linea, explicacion.compraEnvases)} />
         <DatoCalculo etiqueta="Quedará" valor={resumenEnvases(linea, explicacion.sobranteDespuesEnvases)} />
       </div>
     </details>
   );
+}
+
+function resumenOrigenCobertura(lineas: LineaCompra[]): string {
+  const reales = lineas.filter(
+    (linea) => linea.origenCobertura === 'stock-real',
+  ).length;
+  const proyectadas = lineas.length - reales;
+  if (reales > 0 && proyectadas > 0) {
+    return `${reales} con stock físico · ${proyectadas} con sobrante previsto`;
+  }
+  if (reales > 0) {
+    return `${reales} producto${reales === 1 ? '' : 's'} con stock físico registrado`;
+  }
+  return `${proyectadas} producto${proyectadas === 1 ? '' : 's'} con sobrante previsto, aún no real`;
 }
 
 function DatoCalculo({ etiqueta, valor }: { etiqueta: string; valor: string }) {

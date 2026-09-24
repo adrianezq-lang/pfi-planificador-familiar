@@ -46,6 +46,7 @@ import {
   cargarProductosManualesCompra,
   crearPeriodoIdCompraManual,
 } from '../services/productosManualesCompra';
+import { calcularResumenEconomicoMensual } from '../services/resumenEconomico';
 import {
   cargarExcepciones,
   fechasSemana,
@@ -313,6 +314,7 @@ export default function Asistente({
         nombres: [] as string[],
         total: 0,
         cantidad: 0,
+        sinImporte: 0,
       };
     }
 
@@ -353,14 +355,29 @@ export default function Asistente({
           0,
         ),
       cantidad: automaticos.length + manuales.length,
+      sinImporte:
+        automaticos.filter((linea) => linea.subtotal === null).length +
+        manuales.filter((producto) => producto.precioTotal === null).length,
     };
   }, [compraSemana, mesActivo, revisionAcciones, semanaActiva]);
+
+  const resumenEconomico = useMemo(() => {
+    void revisionAcciones;
+    return calcularResumenEconomicoMensual({
+      compraMes,
+      comprasSemanas,
+      productosManuales: cargarProductosManualesCompra(),
+      mesActivo,
+      semanaActiva,
+    });
+  }, [compraMes, comprasSemanas, mesActivo, revisionAcciones, semanaActiva]);
 
   const contexto = useMemo(
     () => ({
       menuSemana: menu,
       menuMes,
       menusSemanas,
+      planMensual,
       semanaActiva,
       semanaMenuActiva: planMensual[semanaActiva],
       mesActivo,
@@ -368,8 +385,10 @@ export default function Asistente({
       compraPendienteNombres: estadoCompra.nombres,
       compraPendienteTotal: estadoCompra.total,
       compraPendienteCantidad: estadoCompra.cantidad,
+      compraPendienteSinImporte: estadoCompra.sinImporte,
       compraMes,
       comprasSemanas,
+      resumenEconomico,
       despensa,
       recetas,
       aprendizaje,
@@ -389,6 +408,7 @@ export default function Asistente({
       perfil,
       planMensual,
       recetas,
+      resumenEconomico,
       semanaActiva,
     ],
   );

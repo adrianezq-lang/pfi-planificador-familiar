@@ -1,9 +1,12 @@
 export type PasoProyeccionStock = {
   necesidad: number;
   stockAntes: number;
+  stockRealAntes: number;
+  sobranteProyectadoAntes: number;
   deficit: number;
   compra: number;
   stockDespues: number;
+  origenCobertura?: 'stock-real' | 'sobrante-proyectado' | 'mixta';
 };
 
 export type ProyeccionStock = {
@@ -18,11 +21,14 @@ export function proyectarComprasEnvases(
   coberturaMaximaPorEnvase = 1,
 ): ProyeccionStock {
   let stock = Math.max(0, stockInicial);
+  let stockReal = stock;
   const cobertura = Math.max(1, coberturaMaximaPorEnvase);
   const pasos: PasoProyeccionStock[] = [];
   const compras = necesidadesExactas.map((necesidadOriginal) => {
     const necesidad = Math.max(0, necesidadOriginal);
     const stockAntes = stock;
+    const stockRealAntes = Math.min(stockReal, stockAntes);
+    const sobranteProyectadoAntes = Math.max(0, stockAntes - stockRealAntes);
     const deficit = Math.max(0, necesidad - stock);
     const envases = Math.max(
       0,
@@ -34,12 +40,31 @@ export function proyectarComprasEnvases(
     // stock ficticio: el sobrante real sigue calculándose con el tamaño medio
     // publicado del envase.
     stock = Math.max(0, stock + envases - necesidad);
+    const stockRealUsado = Math.min(stockRealAntes, necesidad);
+    const sobranteProyectadoUsado = Math.min(
+      sobranteProyectadoAntes,
+      Math.max(0, necesidad - stockRealUsado),
+    );
+    const origenCobertura = envases === 0 && necesidad > 0
+      ? sobranteProyectadoUsado <= 0.000001
+        ? 'stock-real'
+        : stockRealUsado <= 0.000001
+          ? 'sobrante-proyectado'
+          : 'mixta'
+      : undefined;
+    stockReal = Math.min(
+      Math.max(0, stockRealAntes - necesidad),
+      stock,
+    );
     pasos.push({
       necesidad,
       stockAntes,
+      stockRealAntes,
+      sobranteProyectadoAntes,
       deficit,
       compra: envases,
       stockDespues: stock,
+      origenCobertura,
     });
     return envases;
   });

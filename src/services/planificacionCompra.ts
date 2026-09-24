@@ -4,6 +4,7 @@ import {
   generarCompraMercadona,
   type ExplicacionCantidadCompra,
   type LineaCompra,
+  type OrigenCoberturaCompra,
   type ResultadoCompra,
 } from '../motor/compra';
 import { obtenerSeccionCompra } from './categoriasCompra';
@@ -389,6 +390,8 @@ export async function generarCompraSemanalProyectada(
     if (!linea?.producto) return;
     const envases = proyeccion.compras[semanaActiva] ?? 0;
     const paso = proyeccion.pasos[semanaActiva];
+    const origenCobertura: OrigenCoberturaCompra | undefined =
+      paso?.origenCobertura;
     const ajustada: LineaCompra = {
       ...linea,
       envases,
@@ -405,8 +408,11 @@ export async function generarCompraSemanalProyectada(
             compraEnvases: paso.compra,
             sobranteDespuesEnvases: paso.stockDespues,
             stockAplicado: true,
+            stockRealAntesEnvases: paso.stockRealAntes,
+            sobranteProyectadoAntesEnvases: paso.sobranteProyectadoAntes,
           }
         : undefined,
+      origenCobertura,
     };
     if (envases > 0) comprasActivas.push(ajustada);
     else cubiertasActivas.push(ajustada);

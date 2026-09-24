@@ -1,6 +1,8 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.53.
+Versión 0.9.54.
+
+La v0.9.54 convierte el plan de 48 horas en una ventana móvil desde la hora real, ordena las prioridades por impacto y urgencia, y unifica los importes de Inicio y Asistente con las compras manuales. Los importes ausentes se presentan como un mínimo conocido, las cantidades aproximadas como estimaciones y los sobrantes de compras futuras dejan de confundirse con stock físico o ahorro confirmado.
 
 La v0.9.53 rota automáticamente los postres de temporada según el mes del menú: la sandía se propone de mayo a septiembre y deja de repetirse fuera de ese período. Las elecciones manuales se conservan. Que una fruta esté en temporada no garantiza que figure en el catálogo de una tienda o zona, y la compra sigue avisando si no tiene un producto correcto asociado.
 
