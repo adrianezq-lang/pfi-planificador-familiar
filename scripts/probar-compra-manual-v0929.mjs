@@ -56,6 +56,16 @@ productos = compraManual.añadirProductoManualCompra({
 assert.equal(productos.length, 2);
 assert.equal(productos[1].tienda, 'Otra tienda');
 
+productos = compraManual.actualizarPrecioProductoManualCompra(
+  productos[1].id,
+  12.4,
+);
+assert.equal(productos[1].precioTotal, 12.4);
+assert.throws(
+  () => compraManual.actualizarPrecioProductoManualCompra(productos[1].id, -1),
+  /precio no es válido/i,
+);
+
 productos = compraManual.marcarTodosProductosManualesCompra(semana);
 assert.equal(productos[0].comprado, true);
 assert.equal(productos[1].comprado, false);
@@ -82,9 +92,34 @@ const segundoRegistro = compraManual.registrarProductosManualesEnDespensa(
 assert.equal(segundoRegistro.registrados, 0);
 assert.equal(inventario.obtenerStockActual(productoDespensa.productoId), 2);
 
+productos = compraManual.añadirProductoManualCompra({
+  periodoId: semana,
+  nombre: 'Pan de barrio',
+  cantidad: 2,
+  unidad: 'ud',
+  tienda: 'Panadería',
+  precioTotal: null,
+});
+const panManual = productos.at(-1);
+assert.ok(panManual);
+compraManual.marcarProductoManualCompra(panManual.id, true);
+const registroSinPrecio = compraManual.registrarProductosManualesEnDespensa(
+  semana,
+  'Compra sin precio inicial',
+);
+assert.equal(registroSinPrecio.registrados, 1);
+productos = compraManual.actualizarPrecioProductoManualCompra(panManual.id, 3.6);
+assert.equal(productos.find((producto) => producto.id === panManual.id)?.precioTotal, 3.6);
+const panDespensa = despensa
+  .cargarDespensa()
+  .find((producto) => producto.nombre === 'Pan de barrio');
+assert.equal(panDespensa?.precio, 1.8);
+assert.equal(panDespensa?.ultimoPrecioCompra, 1.8);
+
 const datos = copias.recopilarDatosPFI();
 assert.ok(datos['pfi-compra-manual-v1']);
 
 console.log('✓ los productos manuales se guardan por semana o mes');
 console.log('✓ la compra manual entra una sola vez en despensa e inventario');
+console.log('✓ los precios manuales pendientes se pueden completar incluso después de guardar en despensa');
 console.log('✓ tienda, precio y productos manuales quedan incluidos en las copias');

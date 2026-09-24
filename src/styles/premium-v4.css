@@ -148,6 +148,42 @@
   line-height: 1.4;
 }
 
+.shopping-data-health__details {
+  margin-top: 6px;
+  color: #684327;
+  font-size: 10px;
+}
+
+.shopping-data-health__details > summary {
+  width: max-content;
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.shopping-data-health__details > div {
+  display: grid;
+  gap: 7px;
+  margin-top: 7px;
+}
+
+.shopping-data-health__details p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.shopping-data-health__details button {
+  justify-self: start;
+  min-height: 34px;
+  border: 1px solid rgba(104,67,39,.25);
+  border-radius: 10px;
+  padding: 7px 10px;
+  background: #fffdf8;
+  color: #684327;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
 .week-notes {
   overflow: hidden;
   margin: 12px 0;

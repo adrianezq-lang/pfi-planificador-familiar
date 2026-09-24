@@ -4,8 +4,14 @@ import type { Receta } from '../data/Recetas';
 import type { ResultadoCompra } from '../motor/compra';
 import type { ProductoDespensa } from './despensa';
 import type { ResumenAprendizaje } from './aprendizaje';
-import type { PerfilFamiliar } from './perfil';
-import type { ResumenEconomicoMensual } from './resumenEconomico';
+import {
+  obtenerHorarioServicio,
+  type PerfilFamiliar,
+} from './perfil';
+import type {
+  DesgloseEconomico,
+  ResumenEconomicoMensual,
+} from './resumenEconomico';
 import { fechaLocalISO } from './fechaSemana';
 import { cargarAsociacionesIngredientes } from './asociacionesIngredientes';
 import { esRecetaPostre } from './recetas';
@@ -95,6 +101,58 @@ function listaCorta(valores: string[], maximo = 4): string {
   const limpios = valores.map((valor) => valor.trim()).filter(Boolean);
   if (limpios.length <= maximo) return limpios.join(', ');
   return `${limpios.slice(0, maximo).join(', ')} y ${limpios.length - maximo} más`;
+}
+
+function cantidadTexto(
+  cantidad: number,
+  singular: string,
+  plural = `${singular}s`,
+): string {
+  return `${cantidad} ${cantidad === 1 ? singular : plural}`;
+}
+
+function segunCantidad(cantidad: number, singular: string, plural: string): string {
+  return cantidad === 1 ? singular : plural;
+}
+
+function causasImportePendiente(desglose: DesgloseEconomico): string {
+  const causas: string[] = [];
+  if (desglose.ingredientesSinProducto.length > 0) {
+    causas.push(
+      `${cantidadTexto(
+        desglose.ingredientesSinProducto.length,
+        'asociación de producto',
+        'asociaciones de producto',
+      )} (${listaCorta(
+        desglose.ingredientesSinProducto,
+        2,
+      )})`,
+    );
+  }
+  if (desglose.productosSinPrecio.length > 0) {
+    causas.push(
+      `${cantidadTexto(
+        desglose.productosSinPrecio.length,
+        'producto',
+      )} sin precio (${listaCorta(
+        desglose.productosSinPrecio,
+        2,
+      )})`,
+    );
+  }
+  if (desglose.comprasManualesSinPrecio.length > 0) {
+    causas.push(
+      `${cantidadTexto(
+        desglose.comprasManualesSinPrecio.length,
+        'compra manual',
+        'compras manuales',
+      )} sin precio (${listaCorta(
+        desglose.comprasManualesSinPrecio,
+        2,
+      )})`,
+    );
+  }
+  return causas.join(' · ');
 }
 
 function buscarDiaMenu(menu: DiaMenu[], nombre: string): DiaMenu | undefined {
@@ -263,6 +321,7 @@ type MomentoComida = 'comida' | 'cena';
 type EventoPlanFamiliar = {
   instante: Date;
   momento: MomentoComida;
+  horario: string;
   dia: DiaMenu;
   platos: string[];
   comensales: number;
@@ -274,11 +333,6 @@ type VentanaPlanFamiliar = {
   fin: Date;
   eventos: EventoPlanFamiliar[];
   coberturaCompleta: boolean;
-};
-
-const HORAS_SERVICIO: Record<MomentoComida, number> = {
-  comida: 14,
-  cena: 21,
 };
 
 function totalComensales(configuracion: {
@@ -323,7 +377,11 @@ function fechaReferenciaLocal(fechaReferencia: Date | string): Date {
   return new Date(fechaReferencia);
 }
 
-function fechaLocalDesdeIso(fechaIso: string, hora = 12): Date | null {
+function fechaLocalDesdeIso(
+  fechaIso: string,
+  hora = 12,
+  minutos = 0,
+): Date | null {
   const partes = /^(\d{4})-(\d{2})-(\d{2})$/.exec(fechaIso);
   if (!partes) return null;
   return new Date(
@@ -331,6 +389,7 @@ function fechaLocalDesdeIso(fechaIso: string, hora = 12): Date | null {
     Number(partes[2]) - 1,
     Number(partes[3]),
     hora,
+    minutos,
   );
 }
 
@@ -371,14 +430,17 @@ function crearVentanaPlanFamiliar(
       const comensales = comensalesDelDia(contexto, nombreDia);
 
       (['comida', 'cena'] as const).forEach((momento) => {
+        const horario = obtenerHorarioServicio(contexto.perfil, momento);
         const instante = fechaLocalDesdeIso(
           fechaIso,
-          HORAS_SERVICIO[momento],
+          horario.hora,
+          horario.minutos,
         );
         if (!instante || instante < ahora || instante > fin) return;
         eventos.push({
           instante,
           momento,
+          horario: horario.texto,
           dia,
           platos: momento === 'comida' ? dia.comida : dia.cena,
           comensales:
@@ -453,10 +515,10 @@ function prioridadesFamiliares(
   if (contexto.compraPendienteCantidad > 0) {
     const ingredienteSinAsociar = compra?.productosSinSeleccionar[0];
     const textoPendiente = contexto.compraPendienteSinImporte > 0
-      ? `Quedan ${contexto.compraPendienteCantidad} producto(s) pendientes: ${euros(
+      ? `${segunCantidad(contexto.compraPendienteCantidad, 'Queda', 'Quedan')} ${cantidadTexto(contexto.compraPendienteCantidad, 'producto')} ${segunCantidad(contexto.compraPendienteCantidad, 'pendiente', 'pendientes')}: ${euros(
           contexto.compraPendienteTotal,
-        )} de subtotal conocido y ${contexto.compraPendienteSinImporte} importe(s) sin valorar.`
-      : `Quedan ${contexto.compraPendienteCantidad} producto(s) pendientes de la compra semanal por ${euros(
+        )} de subtotal conocido y ${cantidadTexto(contexto.compraPendienteSinImporte, 'importe')} sin valorar.`
+      : `${segunCantidad(contexto.compraPendienteCantidad, 'Queda', 'Quedan')} ${cantidadTexto(contexto.compraPendienteCantidad, 'producto')} ${segunCantidad(contexto.compraPendienteCantidad, 'pendiente', 'pendientes')} de la compra semanal por ${euros(
           contexto.compraPendienteTotal,
         )}.`;
     prioridades.push({
@@ -488,31 +550,41 @@ function prioridadesFamiliares(
     });
 
   if (presupuesto > 0 && prevision > presupuesto) {
+    const causasPendientes = causasImportePendiente(precision);
     prioridades.push({
       impacto: 5,
       urgencia: 2,
       orden: orden++,
       texto: `${precision.partidasSinImporte > 0 ? 'El subtotal conocido' : 'La previsión mensual'} supera el objetivo en ${euros(
         prevision - presupuesto,
-      )}${precision.partidasSinImporte > 0 ? ` y aún faltan ${precision.partidasSinImporte} importe(s).` : '.'}`,
+      )}${precision.partidasSinImporte > 0 ? ` y aún faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}.` : '.'}`,
       destino: 'compra',
     });
   } else if (precision.partidasSinImporte > 0) {
+    const causasPendientes = causasImportePendiente(precision);
     prioridades.push({
       impacto: 4,
       urgencia: 2,
       orden: orden++,
-      texto: `La previsión mensual solo es un mínimo conocido de ${euros(prevision)}: faltan ${precision.partidasSinImporte} importe(s), así que el saldo aún no es real.`,
+      texto: `La previsión mensual solo es un mínimo conocido de ${euros(prevision)}: faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}, así que el saldo aún no es real.`,
       destino: 'compra',
     });
   }
 
-  if (compra && compra.productosSinSeleccionar.length > 0) {
+  const asociacionSemanalYaIncluida =
+    contexto.compraPendienteCantidad > 0 &&
+    Boolean(compra?.productosSinSeleccionar[0]);
+
+  if (
+    compra &&
+    compra.productosSinSeleccionar.length > 0 &&
+    !asociacionSemanalYaIncluida
+  ) {
     prioridades.push({
       impacto: 4,
       urgencia: urgenciaCompra,
       orden: orden++,
-      texto: `${compra.productosSinSeleccionar.length} ingrediente(s) no tienen producto asociado (${listaCorta(compra.productosSinSeleccionar, 2)}); la compra puede quedar incompleta.`,
+      texto: `Hay ${cantidadTexto(compra.productosSinSeleccionar.length, 'ingrediente')} sin producto asociado (${listaCorta(compra.productosSinSeleccionar, 2)}); la compra puede quedar incompleta.`,
       destino: 'recetas',
       ingrediente: compra.productosSinSeleccionar[0],
     });
@@ -523,7 +595,7 @@ function prioridadesFamiliares(
       impacto: 4,
       urgencia: 2,
       orden: orden++,
-      texto: `${compra?.productosSinPrecio.length ?? 0} producto(s) no tienen precio y el presupuesto está subestimado.`,
+      texto: `Hay ${cantidadTexto(compra?.productosSinPrecio.length ?? 0, 'producto')} sin precio y el presupuesto está subestimado.`,
       destino: 'compra',
     });
   }
@@ -533,7 +605,7 @@ function prioridadesFamiliares(
       impacto: 2,
       urgencia: 1,
       orden: orden++,
-      texto: `${compra?.productosEstimados.length ?? 0} producto(s) usan una cantidad estimada; conviene revisarlos si buscas una compra muy precisa.`,
+      texto: `Hay ${cantidadTexto(compra?.productosEstimados.length ?? 0, 'producto')} con una cantidad estimada; conviene revisar ${segunCantidad(compra?.productosEstimados.length ?? 0, 'ese cálculo', 'esos cálculos')} si buscas una compra muy precisa.`,
       destino: 'compra',
     });
   }
@@ -543,7 +615,7 @@ function prioridadesFamiliares(
       impacto: 3,
       urgencia: 3,
       orden: orden++,
-      texto: `${reposicion.length} producto(s) están por debajo del stock mínimo configurado.`,
+      texto: `Hay ${cantidadTexto(reposicion.length, 'producto')} por debajo del stock mínimo configurado.`,
       destino: 'despensa',
     });
   }
@@ -581,8 +653,7 @@ function prioridadesFamiliares(
 }
 
 function textoEventoPlan(evento: EventoPlanFamiliar): string {
-  const hora = String(HORAS_SERVICIO[evento.momento]).padStart(2, '0');
-  return `${evento.etiqueta} · ${evento.momento} ${hora}:00: ${evento.platos.join(' + ') || 'sin plan'} (${evento.comensales} comensales).`;
+  return `${evento.etiqueta} · ${evento.momento} ${evento.horario}: ${evento.platos.join(' + ') || 'sin plan'} (${evento.comensales} comensales).`;
 }
 
 function respuestaPlanFamiliar(
@@ -667,11 +738,11 @@ function respuestaChequeoIntegral(
       (linea) => linea.origenCobertura !== 'stock-real',
     ).length ?? 0;
   const textoCobertura = cubiertasReales > 0 && cubiertasProyectadas > 0
-    ? `${cubiertasReales} línea(s) están cubiertas por stock físico y ${cubiertasProyectadas} dependen de sobrantes proyectados de compras anteriores.`
+    ? `${cantidadTexto(cubiertasReales, 'línea')} ${segunCantidad(cubiertasReales, 'está cubierta', 'están cubiertas')} por stock físico y ${cantidadTexto(cubiertasProyectadas, 'línea')} ${segunCantidad(cubiertasProyectadas, 'depende', 'dependen')} de sobrantes proyectados de compras anteriores.`
     : cubiertasReales > 0
-      ? `${cubiertasReales} línea(s) están cubiertas por existencias físicas registradas.`
+      ? `${cantidadTexto(cubiertasReales, 'línea')} ${segunCantidad(cubiertasReales, 'está cubierta', 'están cubiertas')} por existencias físicas registradas.`
       : cubiertasProyectadas > 0
-        ? `${cubiertasProyectadas} línea(s) dependen de sobrantes proyectados de compras anteriores; todavía no son stock real.`
+        ? `${cantidadTexto(cubiertasProyectadas, 'línea')} ${segunCantidad(cubiertasProyectadas, 'depende', 'dependen')} de sobrantes proyectados de compras anteriores; todavía no ${segunCantidad(cubiertasProyectadas, 'es', 'son')} stock real.`
         : 'La compra calculada no muestra coberturas por existencias.';
 
   if (prioridades.length === 0) {
@@ -696,7 +767,7 @@ function respuestaChequeoIntegral(
   const primera = prioridades[0];
   return {
     titulo: 'Chequeo familiar · prioridades',
-    resumen: `He encontrado ${prioridades.length} punto(s) que merece la pena revisar, ordenados por impacto y, a igualdad, por urgencia.`,
+    resumen: `He encontrado ${cantidadTexto(prioridades.length, 'punto')} que ${segunCantidad(prioridades.length, 'merece', 'merecen')} la pena revisar, ${segunCantidad(prioridades.length, 'ordenado', 'ordenados')} por impacto y, a igualdad, por urgencia.`,
     puntos: prioridades.slice(0, 6).map((prioridad, indice) =>
       `${indice + 1}. ${prioridad.texto}`,
     ),
@@ -738,16 +809,17 @@ function respuestaAhorroInteligente(
 
   if (presupuesto > 0 && prevision > 0) {
     if (precision.partidasSinImporte > 0) {
+      const causasPendientes = causasImportePendiente(precision);
       puntos.push(
         diferencia >= 0
-          ? `El gasto conocido es como mínimo ${euros(prevision)}. El margen sería como máximo ${euros(diferencia)}, pero faltan ${precision.partidasSinImporte} importe(s): todavía no hay un saldo real.`
-          : `El gasto conocido ya supera el objetivo en al menos ${euros(Math.abs(diferencia))}, y todavía faltan ${precision.partidasSinImporte} importe(s).`,
+          ? `El gasto conocido es como mínimo ${euros(prevision)}. El margen sería como máximo ${euros(diferencia)}, pero faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}: todavía no hay un saldo real.`
+          : `El gasto conocido ya supera el objetivo en al menos ${euros(Math.abs(diferencia))}, y todavía faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}.`,
       );
     } else if (precision.cantidadesEstimadas > 0) {
       puntos.push(
         diferencia >= 0
-          ? `La previsión estimada deja ${euros(diferencia)} de margen, con ${precision.cantidadesEstimadas} cantidad(es) todavía estimada(s).`
-          : `La previsión estimada supera el objetivo en ${euros(Math.abs(diferencia))}, con ${precision.cantidadesEstimadas} cantidad(es) por confirmar.`,
+          ? `La previsión estimada deja ${euros(diferencia)} de margen, con ${cantidadTexto(precision.cantidadesEstimadas, 'cantidad', 'cantidades')} todavía ${segunCantidad(precision.cantidadesEstimadas, 'estimada', 'estimadas')}.`
+          : `La previsión estimada supera el objetivo en ${euros(Math.abs(diferencia))}, con ${cantidadTexto(precision.cantidadesEstimadas, 'cantidad', 'cantidades')} por confirmar.`,
       );
     } else {
       puntos.push(
@@ -760,38 +832,38 @@ function respuestaAhorroInteligente(
 
   if (cubiertasReales > 0) {
     puntos.push(
-      `${cubiertasReales} línea(s) están cubiertas por existencias físicas registradas; esta cobertura sí es verificable en Despensa.`,
+      `${cantidadTexto(cubiertasReales, 'línea')} ${segunCantidad(cubiertasReales, 'está cubierta', 'están cubiertas')} por existencias físicas registradas; esta cobertura sí es verificable en Despensa.`,
     );
   }
 
   if (cubiertasProyectadas > 0) {
     puntos.push(
-      `${cubiertasProyectadas} línea(s) dependen de sobrantes proyectados: solo quedarían cubiertas si compras antes y sobra lo previsto. No las cuento como ahorro ni como stock real.`,
+      `${cantidadTexto(cubiertasProyectadas, 'línea')} ${segunCantidad(cubiertasProyectadas, 'depende', 'dependen')} de sobrantes proyectados: solo ${segunCantidad(cubiertasProyectadas, 'quedaría cubierta', 'quedarían cubiertas')} si compras antes y sobra lo previsto. No ${segunCantidad(cubiertasProyectadas, 'la cuento', 'las cuento')} como ahorro ni como stock real.`,
     );
   }
 
   if ((compra?.productosSinSeleccionar.length ?? 0) > 0) {
     puntos.push(
-      `Primero resuelve ${compra?.productosSinSeleccionar.length ?? 0} ingrediente(s) sin producto: comparar o recortar gasto antes de eso puede ser engañoso.`,
+      `Primero resuelve ${cantidadTexto(compra?.productosSinSeleccionar.length ?? 0, 'ingrediente')} sin producto: comparar o recortar gasto antes de eso puede ser engañoso.`,
     );
   }
 
   if ((compra?.productosSinPrecio.length ?? 0) > 0) {
     puntos.push(
-      `Hay ${compra?.productosSinPrecio.length ?? 0} producto(s) sin precio; el gasto real puede ser mayor que la previsión.`,
+      `Hay ${cantidadTexto(compra?.productosSinPrecio.length ?? 0, 'producto')} sin precio; el gasto real puede ser mayor que la previsión.`,
     );
   }
 
   if ((compra?.productosEstimados.length ?? 0) > 0) {
     puntos.push(
-      `Revisa ${compra?.productosEstimados.length ?? 0} cantidad(es) estimadas para evitar comprar envases de más.`,
+      `Revisa ${cantidadTexto(compra?.productosEstimados.length ?? 0, 'cantidad', 'cantidades')} ${segunCantidad(compra?.productosEstimados.length ?? 0, 'estimada', 'estimadas')} para evitar comprar envases de más.`,
     );
   }
 
   if (contexto.compraPendienteCantidad > 0) {
     puntos.push(
       contexto.compraPendienteSinImporte > 0
-        ? `La compra pendiente suma al menos ${euros(contexto.compraPendienteTotal)} y aún tiene ${contexto.compraPendienteSinImporte} importe(s) sin valorar.`
+        ? `La compra pendiente suma al menos ${euros(contexto.compraPendienteTotal)} y aún tiene ${cantidadTexto(contexto.compraPendienteSinImporte, 'importe')} sin valorar.`
         : `La compra pendiente suma ${euros(contexto.compraPendienteTotal)} con todos sus importes informados.`,
     );
   }
@@ -848,11 +920,11 @@ export function obtenerResumenProactivo(
     despensa:
       reposicion.length === 0
         ? 'No hay avisos de stock mínimo.'
-        : `${reposicion.length} producto(s) necesitan reposición.`,
+        : `${cantidadTexto(reposicion.length, 'producto')} ${segunCantidad(reposicion.length, 'necesita', 'necesitan')} reposición.`,
     presupuesto:
       prevision > 0 || precision.partidasSinImporte > 0
         ? precision.partidasSinImporte > 0
-          ? `${euros(prevision)} mínimo conocido · ${precision.partidasSinImporte} importe(s) pendientes · objetivo ${euros(
+          ? `${euros(prevision)} mínimo conocido · ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precision) ? ` · ${causasImportePendiente(precision)}` : ''} · objetivo ${euros(
             contexto.perfil.presupuesto,
           )}`
           : `${euros(prevision)} ${precision.cantidadesEstimadas > 0 ? 'estimados' : 'previstos'} este mes · objetivo ${euros(
@@ -1029,7 +1101,7 @@ export function responderAsistente(
         : contexto.compraPendienteSinImporte > 0
           ? `Quedan ${contexto.compraPendienteCantidad} productos: el subtotal conocido es ${euros(
               contexto.compraPendienteTotal,
-            )} y faltan ${contexto.compraPendienteSinImporte} importe(s).`
+            )} y faltan ${cantidadTexto(contexto.compraPendienteSinImporte, 'importe')}.`
           : `Quedan ${contexto.compraPendienteCantidad} productos por ${euros(
               contexto.compraPendienteTotal,
             )}.`,
@@ -1038,10 +1110,10 @@ export function responderAsistente(
           ? `Lo principal: ${listaCorta(nombres)}.`
           : 'No hay productos automáticos pendientes.',
         compra.productosSinSeleccionar.length > 0
-          ? `${compra.productosSinSeleccionar.length} ingrediente(s) necesitan elegir producto.`
+          ? `${cantidadTexto(compra.productosSinSeleccionar.length, 'ingrediente')} ${segunCantidad(compra.productosSinSeleccionar.length, 'necesita', 'necesitan')} elegir producto.`
           : 'Todos los ingredientes tienen producto seleccionado.',
         compra.productosSinPrecio.length > 0
-          ? `${compra.productosSinPrecio.length} producto(s) no tienen precio y no entran en el total.`
+          ? `${cantidadTexto(compra.productosSinPrecio.length, 'producto')} no ${segunCantidad(compra.productosSinPrecio.length, 'tiene', 'tienen')} precio y no ${segunCantidad(compra.productosSinPrecio.length, 'entra', 'entran')} en el total.`
           : 'Los productos seleccionados tienen precio.',
       ],
       accion: { etiqueta: 'Ir a Compra', destino: 'compra' },
@@ -1064,7 +1136,7 @@ export function responderAsistente(
           ? hayImportesPendientes
             ? `PFI conoce un mínimo de ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
                 contexto.perfil.presupuesto,
-              )}; faltan ${precisionMes.partidasSinImporte} importe(s).`
+              )}; faltan ${cantidadTexto(precisionMes.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precisionMes) ? ` por ${causasImportePendiente(precisionMes)}` : ''}.`
             : `PFI ${hayEstimaciones ? 'estima' : 'calcula'} ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
                 contexto.perfil.presupuesto,
               )}.`
@@ -1085,7 +1157,7 @@ export function responderAsistente(
               hayImportesPendientes
                 ? 'Completa los importes pendientes antes de interpretar esa diferencia como ahorro.'
                 : hayEstimaciones
-                  ? `${precisionMes.cantidadesEstimadas} cantidad(es) siguen siendo aproximadas.`
+                  ? `${cantidadTexto(precisionMes.cantidadesEstimadas, 'cantidad', 'cantidades')} ${segunCantidad(precisionMes.cantidadesEstimadas, 'sigue', 'siguen')} siendo ${segunCantidad(precisionMes.cantidadesEstimadas, 'aproximada', 'aproximadas')}.`
                   : 'Todos los importes y cantidades del cálculo están informados.',
             ]
           : ['Necesito que termine el cálculo de compra para comparar la previsión completa.'],
@@ -1103,7 +1175,7 @@ export function responderAsistente(
       resumen:
         reposicion.length === 0
           ? 'No veo productos por debajo del stock mínimo configurado.'
-          : `Hay ${reposicion.length} producto(s) que conviene reponer.`,
+          : `Hay ${cantidadTexto(reposicion.length, 'producto')} que conviene reponer.`,
       puntos:
         reposicion.length === 0
           ? [
@@ -1159,7 +1231,7 @@ export function responderAsistente(
       titulo: 'Preparación semanal',
       resumen:
         preparaciones.length > 0
-          ? `Hay ${preparaciones.length} preparación(es) que PFI ya tiene marcadas para adelantar.`
+          ? `Hay ${cantidadTexto(preparaciones.length, 'preparación', 'preparaciones')} que PFI ya tiene ${segunCantidad(preparaciones.length, 'marcada', 'marcadas')} para adelantar.`
           : 'Esta semana no tiene preparaciones adelantadas definidas.',
       puntos:
         preparaciones.length > 0
@@ -1183,10 +1255,10 @@ export function responderAsistente(
       contexto.aprendizaje.ajustesPorciones + contexto.aprendizaje.ajustesRecetas;
     return {
       titulo: 'Lo que PFI está aprendiendo',
-      resumen: `Tengo ${contexto.aprendizaje.valoraciones} valoración(es) y ${contexto.aprendizaje.eleccionesMenu} elección(es) registradas.`,
+      resumen: `Tengo ${cantidadTexto(contexto.aprendizaje.valoraciones, 'valoración', 'valoraciones')} y ${cantidadTexto(contexto.aprendizaje.eleccionesMenu, 'elección', 'elecciones')} registradas.`,
       puntos: [
         `${contexto.aprendizaje.combinacionesMenu} combinaciones de menú conocidas.`,
-        `${totalAjustes} ajuste(s) de cantidades aprendidos.`,
+        `${cantidadTexto(totalAjustes, 'ajuste')} de cantidades ${segunCantidad(totalAjustes, 'aprendido', 'aprendidos')}.`,
         'Valorar comidas como Gustó, Sobró, Faltó o No gustó mejora las siguientes propuestas.',
       ],
       accion: { etiqueta: 'Ir al Menú', destino: 'menu' },
@@ -1203,8 +1275,8 @@ export function responderAsistente(
           ? 'La compra semanal no tiene avisos de producto o precio.'
           : 'Hay datos pendientes que pueden afectar a la precisión de la compra.',
       puntos: [
-        `${sinProducto} ingrediente(s) sin producto seleccionado.`,
-        `${sinPrecio} producto(s) sin precio.`,
+        `${cantidadTexto(sinProducto, 'ingrediente')} sin producto seleccionado.`,
+        `${cantidadTexto(sinPrecio, 'producto')} sin precio.`,
         'Resolver estos avisos mejora tanto el presupuesto como las recomendaciones del asistente.',
       ],
       accion: {

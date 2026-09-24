@@ -8,6 +8,10 @@ export type DesgloseEconomico = {
   subtotalConocido: number;
   partidasSinImporte: number;
   cantidadesEstimadas: number;
+  ingredientesSinProducto: string[];
+  productosSinPrecio: string[];
+  comprasManualesSinPrecio: string[];
+  productosEstimados: string[];
 };
 
 export type ResumenEconomicoMensual = {
@@ -26,7 +30,22 @@ function vacio(): DesgloseEconomico {
     subtotalConocido: 0,
     partidasSinImporte: 0,
     cantidadesEstimadas: 0,
+    ingredientesSinProducto: [],
+    productosSinPrecio: [],
+    comprasManualesSinPrecio: [],
+    productosEstimados: [],
   };
+}
+
+function unirNombres(...listas: readonly string[][]): string[] {
+  return Array.from(
+    new Set(
+      listas
+        .flat()
+        .map((nombre) => nombre.trim())
+        .filter(Boolean),
+    ),
+  );
 }
 
 function sumarDesgloses(
@@ -39,6 +58,22 @@ function sumarDesgloses(
         total.partidasSinImporte + desglose.partidasSinImporte,
       cantidadesEstimadas:
         total.cantidadesEstimadas + desglose.cantidadesEstimadas,
+      ingredientesSinProducto: unirNombres(
+        total.ingredientesSinProducto,
+        desglose.ingredientesSinProducto,
+      ),
+      productosSinPrecio: unirNombres(
+        total.productosSinPrecio,
+        desglose.productosSinPrecio,
+      ),
+      comprasManualesSinPrecio: unirNombres(
+        total.comprasManualesSinPrecio,
+        desglose.comprasManualesSinPrecio,
+      ),
+      productosEstimados: unirNombres(
+        total.productosEstimados,
+        desglose.productosEstimados,
+      ),
     }),
     vacio(),
   );
@@ -54,6 +89,10 @@ function desgloseCompra(
     partidasSinImporte:
       compra.productosSinSeleccionar.length + compra.productosSinPrecio.length,
     cantidadesEstimadas: compra.productosEstimados.length,
+    ingredientesSinProducto: unirNombres(compra.productosSinSeleccionar),
+    productosSinPrecio: unirNombres(compra.productosSinPrecio),
+    comprasManualesSinPrecio: [],
+    productosEstimados: unirNombres(compra.productosEstimados),
   };
 }
 
@@ -69,7 +108,25 @@ function desgloseManuales(
       (producto) => producto.precioTotal === null,
     ).length,
     cantidadesEstimadas: 0,
+    ingredientesSinProducto: [],
+    productosSinPrecio: [],
+    comprasManualesSinPrecio: unirNombres(
+      productos
+        .filter((producto) => producto.precioTotal === null)
+        .map((producto) => producto.nombre),
+    ),
+    productosEstimados: [],
   };
+}
+
+export function contarCausasImportePendiente(
+  desglose: DesgloseEconomico,
+): number {
+  return (
+    desglose.ingredientesSinProducto.length +
+    desglose.productosSinPrecio.length +
+    desglose.comprasManualesSinPrecio.length
+  );
 }
 
 export function calcularResumenEconomicoMensual({

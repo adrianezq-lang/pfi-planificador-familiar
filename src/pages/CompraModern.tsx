@@ -20,6 +20,7 @@ import {
 } from '../services/registroCompra';
 import {
   añadirProductoManualCompra,
+  actualizarPrecioProductoManualCompra,
   cargarProductosManualesCompra,
   crearPeriodoIdCompraManual,
   eliminarProductoManualCompra,
@@ -37,6 +38,7 @@ type Props = {
   menusSemanas: DiaMenu[][];
   mesActivo: string;
   semanaActiva: number;
+  resolverIngrediente: (ingrediente: string) => void;
 };
 
 type GrupoSeccionCompra = {
@@ -61,6 +63,7 @@ export default function CompraModern({
   menusSemanas,
   mesActivo,
   semanaActiva,
+  resolverIngrediente,
 }: Props) {
   const [periodo, setPeriodo] = useState<PeriodoCompra>('semana');
   const [resultado, setResultado] = useState<ResultadoCompra | null>(null);
@@ -242,6 +245,9 @@ export default function CompraModern({
   const sinPrecioManual = manualesPeriodo.filter(
     (producto) => producto.precioTotal === null,
   ).length;
+  const manualesSinPrecio = manualesPeriodo
+    .filter((producto) => producto.precioTotal === null)
+    .map((producto) => producto.nombre);
   const sinPrecioTotal = sinPrecioAutomatico + sinPrecioManual;
   const calculosEstimados = resultado?.productosEstimados.length ?? 0;
   const datosCompletos = sinProductoExacto === 0 && sinPrecioTotal === 0;
@@ -396,6 +402,16 @@ export default function CompraModern({
     setMensajeInventario('Producto eliminado de la lista.');
   };
 
+  const guardarPrecioManual = (
+    producto: ProductoManualCompra,
+    precioTotal: number,
+  ) => {
+    setProductosManuales(
+      actualizarPrecioProductoManualCompra(producto.id, precioTotal),
+    );
+    setMensajeInventario(`Precio de ${producto.nombre} actualizado.`);
+  };
+
   return (
     <main className="page compra-planificada-page compra-page--modern">
       <section className="modern-page-heading modern-page-heading--shopping">
@@ -516,6 +532,44 @@ export default function CompraModern({
                       sinPrecioTotal > 0 ? `${sinPrecioTotal} sin precio` : '',
                     ].filter(Boolean).join(' · ')}
               </small>
+              {!datosCompletos && (
+                <details className="shopping-data-health__details">
+                  <summary>Ver causas y resolver</summary>
+                  <div>
+                    {resultado.productosSinSeleccionar.length > 0 && (
+                      <p>
+                        <strong>Sin producto exacto:</strong>{' '}
+                        {resultado.productosSinSeleccionar.join(', ')}
+                      </p>
+                    )}
+                    {resultado.productosSinPrecio.length > 0 && (
+                      <p>
+                        <strong>Producto sin precio:</strong>{' '}
+                        {resultado.productosSinPrecio.join(', ')}
+                      </p>
+                    )}
+                    {manualesSinPrecio.length > 0 && (
+                      <p>
+                        <strong>Compra manual sin precio:</strong>{' '}
+                        {manualesSinPrecio.join(', ')}
+                      </p>
+                    )}
+                    {resultado.productosSinSeleccionar[0] && (
+                      <button
+                        type="button"
+                        onClick={() => resolverIngrediente(resultado.productosSinSeleccionar[0])}
+                      >
+                        Elegir producto para {resultado.productosSinSeleccionar[0]}
+                      </button>
+                    )}
+                  </div>
+                </details>
+              )}
+              {calculosEstimados > 0 && !datosCompletos && (
+                <small>
+                  Además, {calculosEstimados} cálculo{calculosEstimados === 1 ? '' : 's'} aproximado{calculosEstimados === 1 ? '' : 's'} por formato comercial: {resultado.productosEstimados.join(', ')}.
+                </small>
+              )}
             </div>
           </section>
 
@@ -590,6 +644,9 @@ export default function CompraModern({
                       producto={producto}
                       cambiar={() => cambiarManual(producto)}
                       eliminar={() => eliminarManual(producto)}
+                      guardarPrecio={(precioTotal) =>
+                        guardarPrecioManual(producto, precioTotal)
+                      }
                     />
                   ))}
                 </div>
@@ -629,6 +686,7 @@ export default function CompraModern({
                           marcada={marcadosSet.has(linea.clave)}
                           registrada={registradosSet.has(linea.clave)}
                           cambiar={() => cambiar(linea)}
+                          resolverIngrediente={resolverIngrediente}
                         />
                       ))}
                     </div>
@@ -676,12 +734,37 @@ function LineaProductoManual({
   producto,
   cambiar,
   eliminar,
+  guardarPrecio,
 }: {
   producto: ProductoManualCompra;
   cambiar: () => void;
   eliminar: () => void;
+  guardarPrecio: (precioTotal: number) => void;
 }) {
   const completado = producto.comprado || producto.guardadoEnDespensa;
+  const [precioEdicion, setPrecioEdicion] = useState('');
+  const [errorPrecio, setErrorPrecio] = useState('');
+
+  const enviarPrecio = (evento: FormEvent<HTMLFormElement>) => {
+    evento.preventDefault();
+    const precio = Number(precioEdicion);
+    if (!precioEdicion.trim() || !Number.isFinite(precio) || precio < 0) {
+      setErrorPrecio('Revisa el precio.');
+      return;
+    }
+    try {
+      guardarPrecio(precio);
+      setPrecioEdicion('');
+      setErrorPrecio('');
+    } catch (errorDesconocido) {
+      setErrorPrecio(
+        errorDesconocido instanceof Error
+          ? errorDesconocido.message
+          : 'No se ha podido guardar el precio.',
+      );
+    }
+  };
+
   return (
     <div className={`modern-shopping-row modern-shopping-row--manual${completado ? ' is-complete' : ''}`}>
       <label className="modern-check">
@@ -693,7 +776,29 @@ function LineaProductoManual({
         <small>{formatear(producto.cantidad)} {unidadNatural(producto.unidad, producto.cantidad)} · {producto.tienda}</small>
         {producto.guardadoEnDespensa && <em>✓ En despensa</em>}
       </div>
-      <strong className="modern-shopping-row__price">{producto.precioTotal === null ? '—' : euros(producto.precioTotal)}</strong>
+      {producto.precioTotal === null ? (
+        <form className="modern-manual-price" onSubmit={enviarPrecio}>
+          <label>
+            <span>Precio total de {producto.nombre}</span>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              value={precioEdicion}
+              onChange={(evento) => setPrecioEdicion(evento.target.value)}
+              placeholder="€"
+              aria-invalid={Boolean(errorPrecio)}
+            />
+          </label>
+          <button type="submit">Guardar precio</button>
+          {errorPrecio && <small role="alert">{errorPrecio}</small>}
+        </form>
+      ) : (
+        <strong className="modern-shopping-row__price">
+          {producto.precioTotal === null ? '—' : euros(producto.precioTotal)}
+        </strong>
+      )}
       <button type="button" className="modern-row-delete" onClick={eliminar} aria-label={`Eliminar ${producto.nombre}`}>×</button>
     </div>
   );
@@ -704,11 +809,13 @@ function LineaProducto({
   marcada,
   registrada,
   cambiar,
+  resolverIngrediente,
 }: {
   linea: LineaCompra;
   marcada: boolean;
   registrada: boolean;
   cambiar: () => void;
+  resolverIngrediente: (ingrediente: string) => void;
 }) {
   const sobrante = linea.explicacionCantidad?.sobranteDespuesEnvases ?? 0;
   const nombre = nombreLinea(linea);
@@ -730,7 +837,15 @@ function LineaProducto({
             <ExplicacionCantidad linea={linea} />
           </>
         ) : (
-          <small className="modern-warning">Falta elegir el producto exacto</small>
+          <span className="modern-missing-product">
+            <small className="modern-warning">Falta elegir el producto exacto</small>
+            <button
+              type="button"
+              onClick={() => resolverIngrediente(linea.ingrediente.nombre)}
+            >
+              Elegir producto exacto
+            </button>
+          </span>
         )}
       </div>
       <strong className="modern-shopping-row__price">{linea.subtotal === null ? '—' : euros(linea.subtotal)}</strong>

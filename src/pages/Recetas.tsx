@@ -844,6 +844,14 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
   const productoActual = ingredienteSelector
     ? productosPorIngrediente[ingredienteSelector] ?? null
     : null;
+  const seccionIngredienteSelector = useMemo(
+    () => ingredienteSelector
+      ? recetas
+          .flatMap((receta) => receta.ingredientes)
+          .find((ingrediente) => ingrediente.nombre === ingredienteSelector)?.seccion
+      : undefined,
+    [ingredienteSelector, recetas],
+  );
 
   return (
     <main className="page legacy-page recipes-page" style={estiloPagina}>
@@ -1184,6 +1192,7 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
 
       <SelectorProductoIngrediente
         ingrediente={ingredienteSelector}
+        seccionIngrediente={seccionIngredienteSelector}
         productoActual={productoActual}
         pendientesRestantes={
           modoPendientes ? ingredientesPendientes.length : undefined
@@ -1198,6 +1207,11 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
           selectorEditorIndice === null
             ? null
             : editor?.receta.ingredientes[selectorEditorIndice]?.nombre ?? ''
+        }
+        seccionIngrediente={
+          selectorEditorIndice === null
+            ? undefined
+            : editor?.receta.ingredientes[selectorEditorIndice]?.seccion
         }
         busquedaInicial={
           selectorEditorIndice === null

@@ -26,6 +26,7 @@ assert.match(cssFinal, /\.home-card--menu\.pfi-card[\s\S]*background:[\s\S]*!imp
 assert.match(cssFinal, /\.home-card--menu \.home-day[\s\S]*color: #fff !important;/, 'El texto principal del menú debe conservar contraste alto.');
 assert.match(cssFinal, /\.meal-row__detail/, 'El postre integrado debe tener un estilo legible.');
 assert.match(cssFinal, /@media \(max-width: 720px\)[\s\S]*\.home-card--menu \.meal-row/, 'Inicio debe compactarse explícitamente en móvil.');
+assert.match(cssRefinado, /:focus-visible/, 'Los controles deben conservar un foco de teclado visible.');
 
 assert.match(menu, /<details[\s\S]*className="meal-feedback"/, 'La valoración debe poder plegarse.');
 assert.match(menu, /<span>Valorar/, 'La valoración debe ser discreta cuando está plegada.');

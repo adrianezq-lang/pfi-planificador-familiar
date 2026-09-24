@@ -30,6 +30,11 @@ export type ResultadoCatalogoMercadona = {
   productos: ProductoMercadonaCatalogo[];
 };
 
+export type OpcionesBusquedaCatalogo = {
+  seccionPreferida?: string;
+  incluirOtrasSecciones?: boolean;
+};
+
 export const CLAVE_MIS_PRODUCTOS =
   'pfi-catalogo-mercadona-seleccionados';
 
@@ -47,6 +52,83 @@ function normalizarTexto(texto: string): string {
     .replace(/[^a-z0-9]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+const PALABRAS_NO_ESENCIALES = new Set([
+  'de',
+  'del',
+  'el',
+  'la',
+  'los',
+  'las',
+  'y',
+  'con',
+  'sin',
+  'para',
+  'media',
+  'medio',
+  'medias',
+  'medios',
+  'mitad',
+  'ud',
+  'unidad',
+  'unidades',
+]);
+
+function palabrasEsenciales(texto: string): string[] {
+  const palabras = normalizarTexto(texto)
+    .split(' ')
+    .filter((palabra) => palabra.length >= 2);
+  const esenciales = palabras.filter(
+    (palabra) => !PALABRAS_NO_ESENCIALES.has(palabra),
+  );
+  return esenciales.length > 0 ? esenciales : palabras;
+}
+
+function variantesPalabra(palabra: string): Set<string> {
+  const variantes = new Set([palabra]);
+  if (palabra.length > 4 && palabra.endsWith('es')) {
+    variantes.add(palabra.slice(0, -2));
+  }
+  if (palabra.length > 3 && palabra.endsWith('s')) {
+    variantes.add(palabra.slice(0, -1));
+  }
+  return variantes;
+}
+
+function palabrasCoinciden(a: string, b: string): boolean {
+  const variantesA = variantesPalabra(a);
+  const variantesB = variantesPalabra(b);
+  return Array.from(variantesA).some((variante) => variantesB.has(variante));
+}
+
+type GrupoSeccionCatalogo =
+  | 'fruta-verdura'
+  | 'carne'
+  | 'pescado'
+  | 'lacteos-huevos'
+  | 'panaderia'
+  | null;
+
+function grupoSeccion(texto: string): GrupoSeccionCatalogo {
+  const normalizado = normalizarTexto(texto);
+  if (/fruta|verdura/.test(normalizado)) return 'fruta-verdura';
+  if (/carne|carnicer/.test(normalizado)) return 'carne';
+  if (/pescad|marisco/.test(normalizado)) return 'pescado';
+  if (/lacte|huevo|yogur/.test(normalizado)) return 'lacteos-huevos';
+  if (/panader|pasteler/.test(normalizado)) return 'panaderia';
+  return null;
+}
+
+export function productoCompatibleConSeccion(
+  producto: ProductoMercadonaCatalogo,
+  seccionPreferida: string,
+): boolean {
+  const esperada = grupoSeccion(seccionPreferida);
+  if (!esperada) return true;
+  // La sección principal es la frontera segura. Una subcategoría como
+  // «Fruta y leche» no convierte un zumo en fruta fresca.
+  return grupoSeccion(producto.seccion) === esperada;
 }
 
 function obtenerObjeto(
@@ -401,21 +483,24 @@ function calcularCoincidencia(
     puntuacion += 400;
   }
 
-  termino
-    .split(' ')
-    .filter(
-      (palabra) =>
-        palabra.length >= 2,
-    )
-    .forEach((palabra) => {
-      if (nombre.includes(palabra)) {
-        puntuacion += 150;
-      } else if (
-        contenido.includes(palabra)
-      ) {
-        puntuacion += 60;
-      }
-    });
+  const palabras = palabrasEsenciales(termino);
+  const palabrasNombre = nombre.split(' ');
+  const palabrasContenido = contenido.split(' ');
+  let coincidenciasNombre = 0;
+
+  palabras.forEach((palabra) => {
+    if (palabrasNombre.some((candidata) => palabrasCoinciden(palabra, candidata))) {
+      coincidenciasNombre += 1;
+      puntuacion += 180;
+    } else if (
+      palabrasContenido.some((candidata) => palabrasCoinciden(palabra, candidata))
+    ) {
+      puntuacion += 50;
+    }
+  });
+
+  if (coincidenciasNombre === 0) return 0;
+  if (coincidenciasNombre === palabras.length) puntuacion += 240;
 
   return puntuacion;
 }
@@ -480,6 +565,7 @@ export async function obtenerProductoPorId(
 
 export async function buscarEnCatalogoMercadona(
   texto: string,
+  opciones: OpcionesBusquedaCatalogo = {},
 ): Promise<ProductoMercadonaCatalogo[]> {
   const { productos } =
     await cargarCatalogoMercadona();
@@ -488,7 +574,12 @@ export async function buscarEnCatalogoMercadona(
     normalizarTexto(texto);
 
   if (!termino) {
-    return productos;
+    return productos.filter(
+      (producto) =>
+        opciones.incluirOtrasSecciones ||
+        !opciones.seccionPreferida ||
+        productoCompatibleConSeccion(producto, opciones.seccionPreferida),
+    );
   }
 
   return productos
@@ -502,7 +593,15 @@ export async function buscarEnCatalogoMercadona(
     }))
     .filter(
       (resultado) =>
-        resultado.puntuacion > 0,
+        resultado.puntuacion > 0 &&
+        (
+          opciones.incluirOtrasSecciones ||
+          !opciones.seccionPreferida ||
+          productoCompatibleConSeccion(
+            resultado.producto,
+            opciones.seccionPreferida,
+          )
+        ),
     )
     .sort(
       (a, b) =>

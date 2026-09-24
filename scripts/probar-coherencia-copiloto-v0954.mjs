@@ -166,6 +166,7 @@ const contexto = {
   perfil: {
     nombre: 'Prueba', adultos: 2, ninos: 2, edadesNinos: [12, 6], bebes: 0,
     bebesComenMenu: false, supermercado: 'Mercadona', presupuesto: 500,
+    horarios: { comida: '14:00', cena: '21:00' },
     comensales: {
       comidaLaborable: { adultos: 2, ninos: [true, false], bebes: 0 },
       comidaFinSemana: { adultos: 2, ninos: [true, true], bebes: 0 },
@@ -198,7 +199,7 @@ const ahorro = responderAsistente('¿Cómo puedo ahorrar esta semana?', contexto
 assert.match(ahorro.resumen, /No puedo afirmar un ahorro neto/);
 assert.ok(ahorro.puntos.some((punto) => /mínimo 232,00/.test(punto)));
 assert.ok(ahorro.puntos.some((punto) => /sobrantes proyectados/.test(punto)));
-assert.ok(ahorro.puntos.some((punto) => /No las cuento como ahorro ni como stock real/.test(punto)));
+assert.ok(ahorro.puntos.some((punto) => /No la(?:s)? cuento como ahorro ni como stock real/.test(punto)));
 
 const presupuesto = responderAsistente('¿Cómo voy de presupuesto?', contexto);
 assert.match(presupuesto.resumen, /mínimo de 232,00/);
