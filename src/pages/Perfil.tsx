@@ -94,6 +94,21 @@ function Perfil() {
     setCambiosPendientes(true);
   };
 
+  const actualizarHorario = (
+    momento: keyof PerfilFamiliar['horarios'],
+    valor: string,
+  ) => {
+    setPerfil((perfilActual) => ({
+      ...perfilActual,
+      horarios: {
+        ...perfilActual.horarios,
+        [momento]: valor,
+      },
+    }));
+    setGuardado(false);
+    setCambiosPendientes(true);
+  };
+
   const actualizarNumeroNinos = (cantidad: number) => {
     const ninos = Math.max(0, Math.round(cantidad));
     const edadesNinos = Array.from(
@@ -382,10 +397,7 @@ function Perfil() {
               type="time"
               value={perfil.horarios.comida}
               onChange={(evento) =>
-                actualizarCampo('horarios', {
-                  ...perfil.horarios,
-                  comida: evento.target.value,
-                })
+                actualizarHorario('comida', evento.target.value)
               }
               style={estiloInput}
             />
@@ -397,10 +409,7 @@ function Perfil() {
               type="time"
               value={perfil.horarios.cena}
               onChange={(evento) =>
-                actualizarCampo('horarios', {
-                  ...perfil.horarios,
-                  cena: evento.target.value,
-                })
+                actualizarHorario('cena', evento.target.value)
               }
               style={estiloInput}
             />

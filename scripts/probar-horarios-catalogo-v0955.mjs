@@ -205,6 +205,7 @@ assert.match(compraUi, /Ver causas y resolver/);
 assert.match(selectorUi, /seccionPreferida: seccionIngrediente/);
 assert.match(selectorUi, /Buscar en todo el catálogo/);
 assert.match(perfilUi, /type="time"/);
+assert.match(perfilUi, /const actualizarHorario[\s\S]*setPerfil\(\(perfilActual\)/);
 
 await vite.close();
 
