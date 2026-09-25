@@ -6,8 +6,15 @@ import {
 
 export type DesgloseEconomico = {
   subtotalConocido: number;
+  importeConfirmado: number;
+  importeEstimado: number;
+  partidasConfirmadas: number;
   partidasSinImporte: number;
   cantidadesEstimadas: number;
+  estimadasPesoVariable: number;
+  estimadasConversion: number;
+  formatosIncompletos: number;
+  fiabilidadPorcentaje: number;
   ingredientesSinProducto: string[];
   productosSinPrecio: string[];
   comprasManualesSinPrecio: string[];
@@ -30,15 +37,22 @@ export type ResumenEconomicoMensual = {
 function vacio(): DesgloseEconomico {
   return {
     subtotalConocido: 0,
+    importeConfirmado: 0,
+    importeEstimado: 0,
+    partidasConfirmadas: 0,
     partidasSinImporte: 0,
     cantidadesEstimadas: 0,
+    estimadasPesoVariable: 0,
+    estimadasConversion: 0,
+    formatosIncompletos: 0,
+    fiabilidadPorcentaje: 100,
     ingredientesSinProducto: [],
     productosSinPrecio: [],
     comprasManualesSinPrecio: [],
     productosEstimados: [],
     partidasExcluidasDisponibilidad: 0,
     ingredientesNoDisponibles: [],
-  };
+  });
 }
 
 function unirNombres(...listas: readonly string[][]): string[] {
@@ -52,16 +66,59 @@ function unirNombres(...listas: readonly string[][]): string[] {
   );
 }
 
+function calcularFiabilidad(desglose: {
+  partidasConfirmadas: number;
+  estimadasPesoVariable: number;
+  estimadasConversion: number;
+  formatosIncompletos: number;
+  partidasSinImporte: number;
+  partidasExcluidasDisponibilidad: number;
+}): number {
+  const evaluadas =
+    desglose.partidasConfirmadas +
+    desglose.estimadasPesoVariable +
+    desglose.estimadasConversion +
+    desglose.formatosIncompletos +
+    desglose.partidasSinImporte +
+    desglose.partidasExcluidasDisponibilidad;
+
+  if (evaluadas <= 0) return 100;
+
+  const puntos =
+    desglose.partidasConfirmadas +
+    desglose.estimadasPesoVariable * 0.85 +
+    desglose.estimadasConversion * 0.65 +
+    desglose.formatosIncompletos * 0.25;
+
+  return Math.max(0, Math.min(100, Math.round((puntos / evaluadas) * 100)));
+}
+
+function conFiabilidad(desglose: DesgloseEconomico): DesgloseEconomico {
+  return {
+    ...desglose,
+    fiabilidadPorcentaje: calcularFiabilidad(desglose),
+  };
+}
+
 function sumarDesgloses(
   desgloses: readonly DesgloseEconomico[],
 ): DesgloseEconomico {
-  return desgloses.reduce<DesgloseEconomico>(
+  const unido = desgloses.reduce<DesgloseEconomico>(
     (total, desglose) => ({
       subtotalConocido: total.subtotalConocido + desglose.subtotalConocido,
+      importeConfirmado: total.importeConfirmado + desglose.importeConfirmado,
+      importeEstimado: total.importeEstimado + desglose.importeEstimado,
+      partidasConfirmadas: total.partidasConfirmadas + desglose.partidasConfirmadas,
       partidasSinImporte:
         total.partidasSinImporte + desglose.partidasSinImporte,
       cantidadesEstimadas:
         total.cantidadesEstimadas + desglose.cantidadesEstimadas,
+      estimadasPesoVariable:
+        total.estimadasPesoVariable + desglose.estimadasPesoVariable,
+      estimadasConversion:
+        total.estimadasConversion + desglose.estimadasConversion,
+      formatosIncompletos:
+        total.formatosIncompletos + desglose.formatosIncompletos,
       ingredientesSinProducto: unirNombres(
         total.ingredientesSinProducto,
         desglose.ingredientesSinProducto,
@@ -88,6 +145,8 @@ function sumarDesgloses(
     }),
     vacio(),
   );
+
+  return conFiabilidad(unido);
 }
 
 function desgloseCompra(
@@ -95,11 +154,36 @@ function desgloseCompra(
 ): DesgloseEconomico {
   if (!compra) return vacio();
 
-  return {
+  const lineasValoradas = compra.lineas.filter((linea) => linea.subtotal !== null);
+  const confirmadas = lineasValoradas.filter((linea) => !linea.calculoEstimado);
+  const estimadas = lineasValoradas.filter((linea) => linea.calculoEstimado);
+  const estimadasPesoVariable = estimadas.filter(
+    (linea) => linea.motivoEstimacion === 'peso-variable',
+  ).length;
+  const estimadasConversion = estimadas.filter(
+    (linea) => linea.motivoEstimacion === 'conversion-aproximada',
+  ).length;
+  const formatosIncompletos = estimadas.filter(
+    (linea) => linea.motivoEstimacion === 'formato-incompleto' || !linea.motivoEstimacion,
+  ).length;
+
+  return conFiabilidad({
     subtotalConocido: compra.total,
+    importeConfirmado: confirmadas.reduce(
+      (total, linea) => total + (linea.subtotal ?? 0),
+      0,
+    ),
+    importeEstimado: estimadas.reduce(
+      (total, linea) => total + (linea.subtotal ?? 0),
+      0,
+    ),
+    partidasConfirmadas: confirmadas.length,
     partidasSinImporte:
       compra.productosSinSeleccionar.length + compra.productosSinPrecio.length,
-    cantidadesEstimadas: compra.productosEstimados.length,
+    cantidadesEstimadas: estimadas.length,
+    estimadasPesoVariable,
+    estimadasConversion,
+    formatosIncompletos,
     ingredientesSinProducto: unirNombres(compra.productosSinSeleccionar),
     productosSinPrecio: unirNombres(compra.productosSinPrecio),
     comprasManualesSinPrecio: [],
@@ -108,21 +192,30 @@ function desgloseCompra(
     ingredientesNoDisponibles: unirNombres(
       (compra.ingredientesNoDisponibles ?? []).map((estado) => estado.ingrediente),
     ),
-  };
+  });
 }
 
 function desgloseManuales(
   productos: readonly ProductoManualCompra[],
 ): DesgloseEconomico {
-  return {
-    subtotalConocido: productos.reduce(
-      (total, producto) => total + (producto.precioTotal ?? 0),
-      0,
-    ),
+  const valorados = productos.filter((producto) => producto.precioTotal !== null);
+  const subtotal = valorados.reduce(
+    (total, producto) => total + (producto.precioTotal ?? 0),
+    0,
+  );
+
+  return conFiabilidad({
+    subtotalConocido: subtotal,
+    importeConfirmado: subtotal,
+    importeEstimado: 0,
+    partidasConfirmadas: valorados.length,
     partidasSinImporte: productos.filter(
       (producto) => producto.precioTotal === null,
     ).length,
     cantidadesEstimadas: 0,
+    estimadasPesoVariable: 0,
+    estimadasConversion: 0,
+    formatosIncompletos: 0,
     ingredientesSinProducto: [],
     productosSinPrecio: [],
     comprasManualesSinPrecio: unirNombres(
