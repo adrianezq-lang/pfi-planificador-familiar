@@ -271,7 +271,7 @@ export default function MenuModern({
   const [notaSemana, setNotaSemana] = useState(() => cargarNotaSemana(mesActivo, semanaActiva));
   const [ingredientesNoDisponibles, setIngredientesNoDisponibles] =
     useState<EstadoDisponibilidadIngrediente[]>(cargarIngredientesNoDisponibles);
-  const [, setRevisionConsumo] = useState(0);
+  const [revisionConsumo, setRevisionConsumo] = useState(0);
 
   const indiceSemanaSeguro = planMensual.length === 0
     ? 0
