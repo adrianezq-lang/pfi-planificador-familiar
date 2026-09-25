@@ -93,7 +93,11 @@ function calcularFiabilidad(desglose: {
   return Math.max(0, Math.min(100, Math.round((puntos / evaluadas) * 100)));
 }
 
-function conFiabilidad(desglose: DesgloseEconomico): DesgloseEconomico {
+function conFiabilidad(
+  desglose: Omit<DesgloseEconomico, 'fiabilidadPorcentaje'> & {
+    fiabilidadPorcentaje?: number;
+  },
+): DesgloseEconomico {
   return {
     ...desglose,
     fiabilidadPorcentaje: calcularFiabilidad(desglose),
