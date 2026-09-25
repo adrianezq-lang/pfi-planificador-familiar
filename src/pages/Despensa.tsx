@@ -21,6 +21,7 @@ import {
   EVENTO_INVENTARIO,
   registrarCompra,
   registrarConsumo,
+  registrarDesperdicio,
   type MovimientoInventario,
 } from '../services/inventario';
 import '../styles/pantry-decimal.css';
@@ -170,6 +171,31 @@ function Despensa() {
     setMensaje(`Consumido ${formatearCantidad(cantidad)} ${producto.unidad}.`);
   };
 
+  const registrarMerma = (producto: ProductoDespensa) => {
+    if (producto.stockActual <= 0) return;
+    const respuesta = window.prompt(
+      `¿Cuánto de «${producto.nombre}» se ha desperdiciado? Stock actual: ${formatearCantidad(producto.stockActual)} ${producto.unidad}.`,
+      String(Math.min(1, producto.stockActual)).replace('.', ','),
+    );
+    if (respuesta === null) return;
+    const cantidad = parsearCantidad(respuesta);
+    if (cantidad === null || cantidad <= 0) {
+      setMensaje('Indica una cantidad de merma válida.');
+      return;
+    }
+    if (cantidad > producto.stockActual + 0.0001) {
+      setMensaje(`La merma no puede superar el stock actual de ${formatearCantidad(producto.stockActual)} ${producto.unidad}.`);
+      return;
+    }
+    crearCopiaAutomaticaSiNecesaria('antes de registrar una merma de inventario');
+    registrarDesperdicio(
+      producto.productoId,
+      cantidad,
+      'Merma registrada desde despensa',
+    );
+    setMensaje(`Merma registrada: ${formatearCantidad(cantidad)} ${producto.unidad} de ${producto.nombre}.`);
+  };
+
   const guardarStock = (producto: ProductoDespensa, stockActual: number) => {
     actualizarStockProductoDespensa(producto.productoId, stockActual);
     setMensaje(
@@ -248,6 +274,11 @@ function Despensa() {
             })}
             texto="valor aproximado en casa"
             onClick={() => abrirResumen('todos')}
+          />
+          <Resumen
+            numero={movimientos.filter((movimiento) => movimiento.tipo === 'desperdicio').length}
+            texto="mermas registradas"
+            onClick={() => setVista('historial')}
           />
         </div>
 
@@ -376,6 +407,15 @@ function Despensa() {
                     +
                   </button>
                 </div>
+
+                <button
+                  type="button"
+                  className="pantry-waste-button"
+                  onClick={() => registrarMerma(producto)}
+                  disabled={producto.stockActual <= 0}
+                >
+                  Registrar merma
+                </button>
 
                 {producto.stockMinimo > 0 &&
                   producto.tipo === 'despensa' &&
@@ -712,10 +752,14 @@ function estadoProducto(producto: ProductoDespensa): string {
 }
 
 function etiquetaMovimiento(movimiento: MovimientoInventario): string {
-  const signo = movimiento.tipo === 'consumo' ? '−' : movimiento.cantidad >= 0 ? '+' : '−';
+  const salida =
+    movimiento.tipo === 'consumo' ||
+    movimiento.tipo === 'desperdicio';
+  const signo = salida ? '−' : movimiento.cantidad >= 0 ? '+' : '−';
   const cantidad = formatearCantidad(Math.abs(movimiento.cantidad));
   if (movimiento.tipo === 'compra') return `${signo}${cantidad} compra`;
   if (movimiento.tipo === 'consumo') return `${signo}${cantidad} consumo`;
+  if (movimiento.tipo === 'desperdicio') return `${signo}${cantidad} desperdiciado`;
   return `${signo}${cantidad} ajuste`;
 }
 
