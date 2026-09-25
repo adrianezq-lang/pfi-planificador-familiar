@@ -19,6 +19,12 @@ import {
   reiniciarAprendizaje,
 } from '../services/aprendizaje';
 import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
+import {
+  cargarZonaTemporada,
+  ETIQUETAS_ZONA_TEMPORADA,
+  guardarZonaTemporada,
+  type ZonaTemporada,
+} from '../services/temporadaIngredientes';
 
 const SERVICIOS_COMENSALES: Array<{
   clave: keyof PlanComensales;
@@ -69,6 +75,8 @@ function Perfil() {
     obtenerResumenAprendizaje,
   );
   const [mensajeAprendizaje, setMensajeAprendizaje] = useState('');
+  const [zonaTemporada, setZonaTemporada] =
+    useState<ZonaTemporada>(cargarZonaTemporada);
 
   const resumenServicios = useMemo(
     () => SERVICIOS_COMENSALES.map((servicio) => ({
@@ -230,6 +238,7 @@ function Perfil() {
   const guardar = () => {
     const normalizado = guardarPerfil(perfil);
     setPerfil(normalizado);
+    guardarZonaTemporada(zonaTemporada);
     recalcularRecetasParaPerfil(normalizado);
     crearCopiaAutomaticaSiNecesaria('perfil familiar actualizado');
     setGuardado(true);
@@ -331,6 +340,26 @@ function Perfil() {
               }
               style={estiloInput}
             />
+          </label>
+
+          <label style={estiloEtiqueta}>
+            Zona de temporada
+            <select
+              value={zonaTemporada}
+              onChange={(evento) => {
+                setZonaTemporada(evento.target.value as ZonaTemporada);
+                setGuardado(false);
+                setCambiosPendientes(true);
+              }}
+              style={estiloInput}
+            >
+              {Object.entries(ETIQUETAS_ZONA_TEMPORADA).map(([valor, etiqueta]) => (
+                <option key={valor} value={valor}>{etiqueta}</option>
+              ))}
+            </select>
+            <small>
+              Solo genera avisos y sugerencias; nunca bloquea una receta ni cambia tu elección.
+            </small>
           </label>
 
           <label style={estiloEtiqueta}>
