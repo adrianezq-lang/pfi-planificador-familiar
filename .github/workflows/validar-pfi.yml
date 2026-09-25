@@ -91,3 +91,5 @@ jobs:
         run: npm run test:v0944
       - name: Probar acciones Asistente PFI v0.9.45
         run: npm run test:v0945
+      - name: Probar fiabilidad, inventario y temporada v0.9.57
+        run: npm run test:v0957
