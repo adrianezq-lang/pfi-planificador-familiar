@@ -1022,7 +1022,7 @@ export default function MenuModern({
                       {temporadaComida.length > 0 && (
                         <div className="modern-season-alert" role="status">
                           <strong>Temporada habitual:</strong>{' '}
-                          ${temporadaComida.map((item) => item.ingrediente).filter((valor, indice, lista) => lista.indexOf(valor) === indice).join(', ')} fuera de su ventana habitual para la zona configurada. No se bloquea la receta.
+                          {temporadaComida.map((item) => item.ingrediente).filter((valor, indice, lista) => lista.indexOf(valor) === indice).join(', ')} fuera de su ventana habitual para la zona configurada. No se bloquea la receta.
                           {sustitucionComida && (
                             <div className="modern-season-suggestion">
                               <span>
@@ -1112,7 +1112,7 @@ export default function MenuModern({
                       {temporadaCena.length > 0 && (
                         <div className="modern-season-alert" role="status">
                           <strong>Temporada habitual:</strong>{' '}
-                          ${temporadaCena.map((item) => item.ingrediente).filter((valor, indice, lista) => lista.indexOf(valor) === indice).join(', ')} fuera de su ventana habitual para la zona configurada. No se bloquea la receta.
+                          {temporadaCena.map((item) => item.ingrediente).filter((valor, indice, lista) => lista.indexOf(valor) === indice).join(', ')} fuera de su ventana habitual para la zona configurada. No se bloquea la receta.
                           {sustitucionCena && (
                             <div className="modern-season-suggestion">
                               <span>
