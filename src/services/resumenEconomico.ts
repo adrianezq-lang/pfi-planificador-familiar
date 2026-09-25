@@ -52,7 +52,7 @@ function vacio(): DesgloseEconomico {
     productosEstimados: [],
     partidasExcluidasDisponibilidad: 0,
     ingredientesNoDisponibles: [],
-  });
+  };
 }
 
 function unirNombres(...listas: readonly string[][]): string[] {
@@ -119,6 +119,7 @@ function sumarDesgloses(
         total.estimadasConversion + desglose.estimadasConversion,
       formatosIncompletos:
         total.formatosIncompletos + desglose.formatosIncompletos,
+      fiabilidadPorcentaje: 100,
       ingredientesSinProducto: unirNombres(
         total.ingredientesSinProducto,
         desglose.ingredientesSinProducto,
