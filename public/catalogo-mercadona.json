@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-24T10:02:34.162Z",
+  "actualizado": "2026-09-25T10:13:12.614Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4284,
+  "totalProductos": 4277,
   "productos": [
     {
       "productoId": "40339",
@@ -647,8 +647,8 @@
     {
       "productoId": "4706",
       "nombre": "Aceite de oliva virgen extra Hacendado Gran Selección",
-      "precio": 5.5,
-      "precioReferencia": 7.334,
+      "precio": 5.25,
+      "precioReferencia": 7,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.75,
@@ -4464,7 +4464,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Atún",
-      "imagen": "https://prod-mercadona.imgix.net/images/69aa188c64eb23f4855d6739832b09c1.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/956d1c5ec266d8ac6c94e6aa70335047.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18018/atun-claro-natural-hacendado",
       "disponible": true
     },
@@ -7399,8 +7399,8 @@
     {
       "productoId": "28688",
       "nombre": "Bebida isotónica de naranja Iso drink",
-      "precio": 0.9,
-      "precioReferencia": 0.6,
+      "precio": 1,
+      "precioReferencia": 0.667,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -7607,8 +7607,8 @@
     {
       "productoId": "28576",
       "nombre": "Bebida isotónica sabor cítrico Iso drink",
-      "precio": 0.9,
-      "precioReferencia": 0.6,
+      "precio": 1,
+      "precioReferencia": 0.667,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -7655,8 +7655,8 @@
     {
       "productoId": "11509",
       "nombre": "Bebida isotónica Zero sabor cítrico Iso drink",
-      "precio": 0.9,
-      "precioReferencia": 0.6,
+      "precio": 1,
+      "precioReferencia": 0.667,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -12448,7 +12448,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Caramelos",
-      "imagen": "https://prod-mercadona.imgix.net/images/493387191d1b52afd743e72c6ba0ce03.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9e7ce2de66fd1347ce559bec33dc5bf1.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/65311/caramelos-blandos-fruits-hacendado-sabor-limon-naranja-cereza-fresa-pina-paquete",
       "disponible": true
     },
@@ -13600,7 +13600,7 @@
       "pesoAproximado": true,
       "sección": "Cereales y galletas",
       "subcategoria": "Cereales integrales y muesli",
-      "imagen": "https://prod-mercadona.imgix.net/images/b911f6af2c54a9e27b676aef897ba8ff.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b911f6af2c54a9e27b676aef897ba8ff.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9488/cereales-copos-trigo-integral-arroz-hacendado-0-azucares-anadidos-linnea-v-caja",
       "disponible": true
     },
@@ -15989,22 +15989,6 @@
       "disponible": true
     },
     {
-      "productoId": "86798",
-      "nombre": "Chocolate con leche Fussion Hacendado relleno crema de fresa",
-      "precio": 1.35,
-      "precioReferencia": 12.273,
-      "formato": "Tableta",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.11,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Chocolate con leche",
-      "imagen": "https://prod-mercadona.imgix.net/images/19aa713999445aa47eca1dd187919936.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/86798/chocolate-con-leche-fussion-hacendado-relleno-crema-fresa-tableta",
-      "disponible": true
-    },
-    {
       "productoId": "17917",
       "nombre": "Chocolate con leche Fussion Hacendado relleno de caramelo con leche aireado",
       "precio": 1.35,
@@ -16338,6 +16322,22 @@
       "subcategoria": "Levadura y preparado repostería",
       "imagen": "https://prod-mercadona.imgix.net/images/c402c82c0caf8ff549ec508651892379.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12531/chocolate-negro-fundir-hacendado-tableta",
+      "disponible": true
+    },
+    {
+      "productoId": "12129",
+      "nombre": "Chocolate para hacer a la taza Valor",
+      "precio": 4.5,
+      "precioReferencia": 15,
+      "formato": "Tableta",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Cacao, café e infusiones",
+      "subcategoria": "Chocolate a la taza",
+      "imagen": "https://prod-mercadona.imgix.net/images/3ae15526de0621c0e743f22f0109d474.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/12129/chocolate-hacer-taza-valor-tableta",
       "disponible": true
     },
     {
@@ -17621,6 +17621,22 @@
       "disponible": true
     },
     {
+      "productoId": "17652",
+      "nombre": "Colgador WC azul perfume Violets Bosque Verde",
+      "precio": 1.25,
+      "precioReferencia": 15.625,
+      "formato": "Paquete",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 0.08,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Limpieza y hogar",
+      "subcategoria": "Limpieza baño y WC",
+      "imagen": "https://prod-mercadona.imgix.net/images/99bb8b38c71fe8d16e135ff0dfe1c160.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17652/colgador-wc-azul-perfume-violets-bosque-verde-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "23982",
       "nombre": "Colgador WC Glow Bosque Verde oxi active",
       "precio": 1.3,
@@ -18624,7 +18640,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Coloración rubio",
-      "imagen": "https://prod-mercadona.imgix.net/images/7cbd5127bed7cec648a3b0b5344cf86c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7cbd5127bed7cec648a3b0b5344cf86c.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/75305/coloracion-permanente-loreal-7-rubio-excellence-creme-caja",
       "disponible": true
     },
@@ -22373,22 +22389,6 @@
       "disponible": true
     },
     {
-      "productoId": "80264",
-      "nombre": "Delineador de ojos Deliplus negro",
-      "precio": 3.75,
-      "precioReferencia": 3.75,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Perfilador de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/a492ad5ba70672af6e26729a6efb7cc8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/80264/delineador-ojos-deliplus-negro",
-      "disponible": true
-    },
-    {
       "productoId": "17800",
       "nombre": "Delineador dúo para ojos y pecas Caramel Kiss Deliplus marrón",
       "precio": 4,
@@ -24901,38 +24901,6 @@
       "disponible": true
     },
     {
-      "productoId": "21766",
-      "nombre": "Eau de toilette hombre Aqua Royale Vitae",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/69480f6533a8407958d053acf652e1eb.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21766/eau-toilette-hombre-aqua-royale-vitae-frasco",
-      "disponible": true
-    },
-    {
-      "productoId": "21765",
-      "nombre": "Eau de toilette hombre Aqua Royale Woods",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/ea0704bdaff737f81ed8eb6a3c47af79.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21765/eau-toilette-hombre-aqua-royale-woods-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "13435",
       "nombre": "Eau de toilette hombre Gesto",
       "precio": 5.5,
@@ -25013,22 +24981,6 @@
       "disponible": true
     },
     {
-      "productoId": "21764",
-      "nombre": "Eau de toilette mujer Aqua Royale Amber",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/cc8aa0ed0b1c6f1eef53c065a7ef9b3b.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21764/eau-toilette-mujer-aqua-royale-amber-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "21763",
       "nombre": "Eau de toilette mujer Aqua Royale Verdant",
       "precio": 7.5,
@@ -25042,22 +24994,6 @@
       "subcategoria": "Perfume y colonia mujer",
       "imagen": "https://prod-mercadona.imgix.net/images/4a19fe0fa7e95e905b2bf45dcbee2713.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21763/eau-toilette-hombre-aqua-royale-verdant-frasco",
-      "disponible": true
-    },
-    {
-      "productoId": "17687",
-      "nombre": "Eau de toilette mujer Aqua Royale Wonder",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/bec89c29855a901f49e4faea955c21c1.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17687/eau-toilette-mujer-aqua-royale-wonder-frasco",
       "disponible": true
     },
     {
@@ -26167,8 +26103,8 @@
     {
       "productoId": "8932",
       "nombre": "Entrecot de vacuno añojo",
-      "precio": 6.63,
-      "precioReferencia": 26.5,
+      "precio": 6.78,
+      "precioReferencia": 27.1,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -29056,7 +28992,7 @@
       "pesoAproximado": true,
       "sección": "Zumos",
       "subcategoria": "Fruta + leche",
-      "imagen": "https://prod-mercadona.imgix.net/images/6d7dc4df24253ea7993dd7373e88d52c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/260a12715037348aa2cb174483cee02b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86387/fruta-leche-tropical-hacendado-sin-azucares-anadidos",
       "disponible": true
     },
@@ -31456,7 +31392,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/a2f9408725f1071a1fd3103358296140.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8259e58a10e650dd4f0cf752017eddd6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86288/golosinas-mix-hacendado-paquete",
       "disponible": true
     },
@@ -34720,7 +34656,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pollo",
-      "imagen": "https://prod-mercadona.imgix.net/images/831d545b3296f8a4eb2a2f38593c862d.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d76dee4e2df95ff539429c8925f33d13.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/25461/jamoncitos-pollo-certificado-alimentado-con-50-maiz-bandeja",
       "disponible": true
     },
@@ -38551,8 +38487,8 @@
     {
       "productoId": "8934",
       "nombre": "Lomo de vacuno añojo",
-      "precio": 7.92,
-      "precioReferencia": 23.5,
+      "precio": 8.09,
+      "precioReferencia": 24,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.337,
@@ -41269,22 +41205,6 @@
       "disponible": true
     },
     {
-      "productoId": "17802",
-      "nombre": "Mascarilla labial nutritiva Caramel Kiss Deliplus aroma miel y caramelo",
-      "precio": 4.25,
-      "precioReferencia": 4.25,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Cuidado",
-      "imagen": "https://prod-mercadona.imgix.net/images/22ac7f8d1fa8132f56cd00fde5fbab82.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17802/mascarilla-labial-caramell-kiss-deliplus-aroma-miel-caramelo",
-      "disponible": true
-    },
-    {
       "productoId": "44283",
       "nombre": "Mascarilla Liss Frizz Control Deliplus cabello rebelde",
       "precio": 2.4,
@@ -41472,7 +41392,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Pan de hamburguesa y wrap",
-      "imagen": "https://prod-mercadona.imgix.net/images/004af95bdcfc0463e7d806f7919fc90a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/fb708bb25242783ad87a60db2ddccef1.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13803/pan-maxi-hamburguesa-hacendado-paquete",
       "disponible": true
     },
@@ -42032,7 +41952,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Mejillones",
-      "imagen": "https://prod-mercadona.imgix.net/images/091a1ad796b0be07ad15548343d12ea0.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/091a1ad796b0be07ad15548343d12ea0.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18622/mejillones-salsa-vieira-hacendado-pequenos-13-18-piezas-lata",
       "disponible": true
     },
@@ -42048,7 +41968,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Mejillones",
-      "imagen": "https://prod-mercadona.imgix.net/images/18f3303b51987aacf30b20c7df57f2f1.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/18f3303b51987aacf30b20c7df57f2f1.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18621/mejillones-picantes-escabeche-hacendado-pequenos-15-20-piezas-lata",
       "disponible": true
     },
@@ -46247,8 +46167,8 @@
     {
       "productoId": "19859",
       "nombre": "Panela azúcar moreno de caña integral Hacendado",
-      "precio": 2.05,
-      "precioReferencia": 4.1,
+      "precio": 2.15,
+      "precioReferencia": 4.3,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.5,
@@ -49008,7 +48928,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/1decd31c8b43f5a43102378e2f5c9674.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/beef28a8164cac17abbabfb7d4f4b275.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/30006/pechugas-pollo-enteras-congeladas-paquete",
       "disponible": true
     },
@@ -49346,22 +49266,6 @@
       "subcategoria": "Hierbas aromáticas",
       "imagen": "https://prod-mercadona.imgix.net/images/ee0487661714caef2be3391ad4b8637d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69701/perejil-troceado-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "23524",
-      "nombre": "Perfilador de cejas Deliplus 02 marrón medio",
-      "precio": 2.75,
-      "precioReferencia": 2.75,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Cejas",
-      "imagen": "https://prod-mercadona.imgix.net/images/c593fcfa66db34727cc87460ff3e0320.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23524/perfilador-cejas-deliplus-02-medio-con-cepillo",
       "disponible": true
     },
     {
@@ -50674,22 +50578,6 @@
       "subcategoria": "Pintalabios cremoso y brillos",
       "imagen": "https://prod-mercadona.imgix.net/images/f9122eec40d5b52571a04aaf2e588ec5.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22536/pintalabios-creamy-deliplus-210-rojo",
-      "disponible": true
-    },
-    {
-      "productoId": "41151",
-      "nombre": "Pintalabios Creamy Deliplus 212 marrón crema",
-      "precio": 4.65,
-      "precioReferencia": 4.65,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios cremoso y brillos",
-      "imagen": "https://prod-mercadona.imgix.net/images/523a3e6bc8ebb33c481795ed9c976b90.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/41151/pintalabios-creamy-deliplus-212-marron-crema",
       "disponible": true
     },
     {
@@ -53488,7 +53376,7 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Leche",
-      "imagen": "https://prod-mercadona.imgix.net/images/63e1a9ed7f401ced05f952e506875bec.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/14bfcf692a4d794544953bb4e6e79cc4.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/20321/preparado-lacteo-con-cereales-frutas-peques-3-puleva-12-meses",
       "disponible": true
     },
@@ -54160,7 +54048,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso especialidades",
-      "imagen": "https://prod-mercadona.imgix.net/images/c2446828dd55519f7d18b21249e5e38c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/c2446828dd55519f7d18b21249e5e38c.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/50619/queso-brie-marcillat-vaca-plaisir-roy-pieza",
       "disponible": true
     },
@@ -57381,22 +57269,6 @@
       "disponible": true
     },
     {
-      "productoId": "27668",
-      "nombre": "Refresco Kas naranja",
-      "precio": 1.59,
-      "precioReferencia": 0.707,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 2.25,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Agua y refrescos",
-      "subcategoria": "Naranja",
-      "imagen": "https://prod-mercadona.imgix.net/images/3a0ecc0bd538cb91cc7c5bd9a1111e9d.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/27668/refresco-kas-naranja-botella",
-      "disponible": true
-    },
-    {
       "productoId": "22110",
       "nombre": "Refresco Kas naranja",
       "precio": 6.57,
@@ -57410,6 +57282,22 @@
       "subcategoria": "Naranja",
       "imagen": "https://prod-mercadona.imgix.net/images/a4b69bf6bb7e624770ae6bca83c04b68.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22110/refresco-kas-naranja-pack-9",
+      "disponible": true
+    },
+    {
+      "productoId": "18147",
+      "nombre": "Refresco Kas naranja",
+      "precio": 1.59,
+      "precioReferencia": 0.795,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 2,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Agua y refrescos",
+      "subcategoria": "Naranja",
+      "imagen": "https://prod-mercadona.imgix.net/images/ab39dc0389b5361e546ba7e86ef03245.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18147/refresco-kas-naranja-botella",
       "disponible": true
     },
     {
@@ -58407,8 +58295,8 @@
     {
       "productoId": "28731",
       "nombre": "Ron añejo Negrita",
-      "precio": 9.5,
-      "precioReferencia": 13.572,
+      "precio": 9.3,
+      "precioReferencia": 13.286,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,
@@ -60343,8 +60231,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 1.39,
+      "precioReferencia": 6.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60359,8 +60247,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 1.39,
+      "precioReferencia": 6.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -61751,8 +61639,8 @@
     {
       "productoId": "8931",
       "nombre": "Solomillo de vacuno",
-      "precio": 11.8,
-      "precioReferencia": 41.4,
+      "precio": 11.97,
+      "precioReferencia": 42,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.285,
@@ -63856,7 +63744,7 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Toallitas",
-      "imagen": "https://prod-mercadona.imgix.net/images/196ddfde5df1bf2a1be89aa827b96067.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d29a5562f62361a0e0ac6a1c293723e7.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/79603/toallitas-bebe-frescas-perfumadas-deliplus-pack-3",
       "disponible": true
     },
@@ -63872,7 +63760,7 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Toallitas",
-      "imagen": "https://prod-mercadona.imgix.net/images/1c9c7196bee06cad0b16f1db764526f4.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/527f7fd3ff6c65bd529cc5053654a116.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/79427/toallitas-bebe-frescas-perfumadas-deliplus-paquete",
       "disponible": true
     },
@@ -64000,7 +63888,7 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Toallitas",
-      "imagen": "https://prod-mercadona.imgix.net/images/9de2336dc11894fcc203758a8086e653.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9de2336dc11894fcc203758a8086e653.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22931/toallitas-infantiles-cara-manos-deliplus-paquete",
       "disponible": true
     },
@@ -66976,7 +66864,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Castilla la Mancha",
-      "imagen": "https://prod-mercadona.imgix.net/images/06d7ce21a59c9c2adf197bb412fa26dd.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/c7d49e674b8a3e9d359dcc201928cb99.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/37134/vino-tinto-do-valdepenas-vina-albali-crianza-botella",
       "disponible": true
     },
@@ -67248,7 +67136,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Castilla la Mancha",
-      "imagen": "https://prod-mercadona.imgix.net/images/d3205a8cd978444d0d54a12763b3ad3c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a38d247888b36df8a6322ede045e24a7.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35730/vino-tinto-do-valdepenas-senorio-llanos-crianza-botella",
       "disponible": true
     },
