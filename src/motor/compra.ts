@@ -20,6 +20,11 @@ export type OrigenCoberturaCompra =
   | 'sobrante-proyectado'
   | 'mixta';
 
+export type MotivoEstimacionCompra =
+  | 'peso-variable'
+  | 'conversion-aproximada'
+  | 'formato-incompleto';
+
 export type ExplicacionCantidadCompra = {
   periodo: 'semana' | 'mes';
   semana?: number;
@@ -45,6 +50,7 @@ export type LineaCompra = {
   envasesExactos: number | null;
   subtotal: number | null;
   calculoEstimado: boolean;
+  motivoEstimacion?: MotivoEstimacionCompra;
   tipoCompra: TipoCompra;
   origen: OrigenLineaCompra;
   explicacionCantidad?: ExplicacionCantidadCompra;
@@ -467,6 +473,7 @@ const GRAMOS_POR_VASO_ARROZ: Record<string, number> = {
 
 type NecesidadConvertida = CantidadBase & {
   aproximada: boolean;
+  motivoEstimacion?: Extract<MotivoEstimacionCompra, 'conversion-aproximada'>;
 };
 
 function convertirNecesidadParaProducto(
@@ -500,6 +507,7 @@ function convertirNecesidadParaProducto(
         cantidad: ingrediente.cantidad * gramosPorPieza,
         unidad: 'g',
         aproximada: true,
+        motivoEstimacion: 'conversion-aproximada',
       };
     }
   }
@@ -516,6 +524,7 @@ function convertirNecesidadParaProducto(
         ingrediente.cantidad * GRAMOS_POR_VASO_ARROZ[unidadOriginal],
       unidad: 'g',
       aproximada: true,
+      motivoEstimacion: 'conversion-aproximada',
     };
   }
 
@@ -529,16 +538,13 @@ export type CosteProporcionalIngrediente = {
   coste: number | null;
   envasesExactos: number | null;
   estimado: boolean;
+  motivoEstimacion?: MotivoEstimacionCompra;
 };
 
 export function calcularCosteProporcionalIngrediente(
   ingrediente: Ingrediente,
   producto: ProductoMercadonaCatalogo,
 ): CosteProporcionalIngrediente {
-  if (producto.precio === null) {
-    return { coste: null, envasesExactos: null, estimado: false };
-  }
-
   const capacidades = capacidadesProducto(producto);
   const capacidadPorUnidad = new Map(
     capacidades.map((capacidad) => [capacidad.unidad, capacidad.cantidad]),
@@ -555,21 +561,30 @@ export function calcularCosteProporcionalIngrediente(
       coste: null,
       envasesExactos: null,
       estimado: true,
+      motivoEstimacion: 'formato-incompleto',
     };
   }
 
   const envasesExactos = necesidad.cantidad / capacidad;
+  const motivoEstimacion = necesidad.motivoEstimacion ??
+    (tienePrecioVariable(producto) ? 'peso-variable' : undefined);
   return {
-    coste: producto.precio * envasesExactos,
+    coste: producto.precio === null ? null : producto.precio * envasesExactos,
     envasesExactos,
-    estimado: necesidad.aproximada || tienePrecioVariable(producto),
+    estimado: Boolean(motivoEstimacion),
+    motivoEstimacion,
   };
 }
 
 export function calcularEnvasesParaNecesidades(
   necesidades: Ingrediente[],
   producto: ProductoMercadonaCatalogo,
-): { envases: number; envasesExactos: number; estimado: boolean } {
+): {
+  envases: number;
+  envasesExactos: number;
+  estimado: boolean;
+  motivoEstimacion?: MotivoEstimacionCompra;
+} {
   const capacidades = capacidadesProducto(producto);
   const capacidadPorUnidad = new Map(
     capacidades.map((capacidad) => [capacidad.unidad, capacidad.cantidad]),
@@ -602,14 +617,20 @@ export function calcularEnvasesParaNecesidades(
     }
   });
 
+  const motivoEstimacion: MotivoEstimacionCompra | undefined =
+    conversionIncompleta || capacidades.length === 0
+      ? 'formato-incompleto'
+      : conversionAproximada
+        ? 'conversion-aproximada'
+        : tienePrecioVariable(producto)
+          ? 'peso-variable'
+          : undefined;
+
   return {
     envases: Math.max(1, Math.ceil(equivalentesEnvase)),
     envasesExactos: Math.max(0, equivalentesEnvase),
-    estimado:
-      tienePrecioVariable(producto) ||
-      conversionAproximada ||
-      conversionIncompleta ||
-      capacidades.length === 0,
+    estimado: Boolean(motivoEstimacion),
+    motivoEstimacion,
   };
 }
 
@@ -708,6 +729,7 @@ function combinarLineasProducto(
         ? null
         : envases * producto.precio,
     calculoEstimado: calculo.estimado,
+    motivoEstimacion: calculo.motivoEstimacion,
     tipoCompra: esDespensaAutomatica ? 'despensa' : 'semanal',
     origen: 'menu',
   };
