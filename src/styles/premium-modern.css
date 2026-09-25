@@ -1822,3 +1822,48 @@ textarea:focus {
     display: none;
   }
 }
+
+
+/* v0.9.57 · consumo real confirmado desde cada servicio */
+.meal-consumption {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-top: 0.8rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(79, 111, 82, 0.14);
+}
+
+.meal-consumption__confirm,
+.meal-consumption__undo {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.62rem 0.9rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.meal-consumption__confirm {
+  background: rgba(79, 111, 82, 0.11);
+  color: #3f5e43;
+}
+
+.meal-consumption__confirm:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.meal-consumption__status {
+  color: #3f5e43;
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+.meal-consumption__undo {
+  background: transparent;
+  color: #6c756d;
+  padding-inline: 0.2rem;
+  text-decoration: underline;
+}
