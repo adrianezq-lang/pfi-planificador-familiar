@@ -122,11 +122,14 @@ export function ajustarFormatoComercialEspecial(
   const envasesExactos = exactosEspeciales + (calculoResto?.envasesExactos ?? 0);
   const envases = Math.max(1, Math.ceil(envasesExactos - 0.000001));
 
+  const motivoEstimacion = calculoResto?.motivoEstimacion;
+
   return {
     ...linea,
     envasesExactos,
     envases,
-    calculoEstimado: linea.calculoEstimado || Boolean(calculoResto?.estimado),
+    calculoEstimado: Boolean(motivoEstimacion),
+    motivoEstimacion,
     subtotal:
       producto.precio === null
         ? null
