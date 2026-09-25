@@ -266,6 +266,26 @@ export default function CompraModern({
     .map((producto) => producto.nombre);
   const sinPrecioTotal = sinPrecioAutomatico + sinPrecioManual;
   const calculosEstimados = resultado?.productosEstimados.length ?? 0;
+  const estimadosPesoVariable = lineas.filter(
+    (linea) => linea.subtotal !== null && linea.motivoEstimacion === 'peso-variable',
+  ).length;
+  const estimadosConversion = lineas.filter(
+    (linea) => linea.subtotal !== null && linea.motivoEstimacion === 'conversion-aproximada',
+  ).length;
+  const formatosIncompletos = lineas.filter(
+    (linea) => linea.subtotal !== null && linea.calculoEstimado &&
+      (linea.motivoEstimacion === 'formato-incompleto' || !linea.motivoEstimacion),
+  ).length;
+  const importeAutomaticoConfirmado = lineas
+    .filter((linea) => linea.subtotal !== null && !linea.calculoEstimado)
+    .reduce((suma, linea) => suma + (linea.subtotal ?? 0), 0);
+  const importeAutomaticoEstimado = lineas
+    .filter((linea) => linea.subtotal !== null && linea.calculoEstimado)
+    .reduce((suma, linea) => suma + (linea.subtotal ?? 0), 0);
+  const importeManualConfirmado = manualesPeriodo
+    .reduce((suma, producto) => suma + (producto.precioTotal ?? 0), 0);
+  const importeConfirmado = importeAutomaticoConfirmado + importeManualConfirmado;
+  const importeEstimado = importeAutomaticoEstimado;
   const ingredientesPausados = resultado?.ingredientesNoDisponibles ?? [];
   const datosCompletos = sinProductoExacto === 0 && sinPrecioTotal === 0;
   const planCompleto = datosCompletos && ingredientesPausados.length === 0;
@@ -546,8 +566,12 @@ export default function CompraModern({
               <small>
                 {planCompleto
                   ? calculosEstimados > 0
-                    ? `${calculosEstimados} cálculo${calculosEstimados === 1 ? '' : 's'} aproximado${calculosEstimados === 1 ? '' : 's'} por formato comercial.`
-                    : 'Todos los productos tienen referencia y precio.'
+                    ? [
+                        estimadosPesoVariable > 0 ? `${estimadosPesoVariable} por peso variable real` : '',
+                        estimadosConversion > 0 ? `${estimadosConversion} por conversión aproximada` : '',
+                        formatosIncompletos > 0 ? `${formatosIncompletos} con formato incompleto` : '',
+                      ].filter(Boolean).join(' · ')
+                    : 'Todos los productos tienen referencia, formato y precio.'
                   : [
                       sinProductoExacto > 0 ? `${sinProductoExacto} sin producto exacto` : '',
                       sinPrecioTotal > 0 ? `${sinPrecioTotal} sin precio` : '',
@@ -555,6 +579,13 @@ export default function CompraModern({
                         ? `${ingredientesPausados.length} fuera de la compra por disponibilidad`
                         : '',
                     ].filter(Boolean).join(' · ')}
+              </small>
+              <small>
+                <strong>Importe:</strong>{' '}
+                {euros(importeConfirmado)} confirmado
+                {importeEstimado > 0 ? ` · ${euros(importeEstimado)} estimado` : ''}
+                {sinProductoExacto + sinPrecioTotal > 0 ? ' · desconocido pendiente de valorar' : ''}
+                {ingredientesPausados.length > 0 ? ' · excluido por disponibilidad sin sumar' : ''}
               </small>
               {!planCompleto && (
                 <details className="shopping-data-health__details">
@@ -607,7 +638,7 @@ export default function CompraModern({
               )}
               {calculosEstimados > 0 && !datosCompletos && (
                 <small>
-                  Además, {calculosEstimados} cálculo{calculosEstimados === 1 ? '' : 's'} aproximado{calculosEstimados === 1 ? '' : 's'} por formato comercial: {resultado.productosEstimados.join(', ')}.
+                  Además, {resultado.productosEstimados.join(', ')} requieren una cifra estimada; arriba se distingue si es por peso real, conversión o formato incompleto.
                 </small>
               )}
             </div>
