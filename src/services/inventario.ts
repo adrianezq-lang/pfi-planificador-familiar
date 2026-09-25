@@ -1,6 +1,7 @@
 export type TipoMovimiento =
   | 'compra'
   | 'consumo'
+  | 'desperdicio'
   | 'ajuste';
 
 export type OrigenMovimiento =
@@ -35,6 +36,7 @@ function esTipoMovimiento(
   return (
     valor === 'compra' ||
     valor === 'consumo' ||
+    valor === 'desperdicio' ||
     valor === 'ajuste'
   );
 }
@@ -189,6 +191,20 @@ export function registrarConsumo(
   });
 }
 
+export function registrarDesperdicio(
+  productoId: string,
+  cantidad: number,
+  observaciones = '',
+): MovimientoInventario[] {
+  return registrarMovimiento({
+    productoId,
+    tipo: 'desperdicio',
+    origen: 'manual',
+    cantidad: Math.abs(cantidad),
+    observaciones,
+  });
+}
+
 export function registrarAjuste(
   productoId: string,
   cantidad: number,
@@ -217,7 +233,10 @@ export function obtenerStockActual(
 ): number {
   return movimientosProducto(productoId).reduce(
     (stock, movimiento) => {
-      if (movimiento.tipo === 'consumo') {
+      if (
+        movimiento.tipo === 'consumo' ||
+        movimiento.tipo === 'desperdicio'
+      ) {
         return stock - movimiento.cantidad;
       }
 
@@ -279,6 +298,28 @@ export function consumoEntreFechas(
 
       return (
         movimiento.tipo === 'consumo' &&
+        fecha >= inicio &&
+        fecha <= fin
+      );
+    })
+    .reduce(
+      (total, movimiento) =>
+        total + movimiento.cantidad,
+      0,
+    );
+}
+
+export function desperdicioEntreFechas(
+  productoId: string,
+  inicio: Date,
+  fin: Date,
+): number {
+  return movimientosProducto(productoId)
+    .filter((movimiento) => {
+      const fecha = new Date(movimiento.fecha);
+
+      return (
+        movimiento.tipo === 'desperdicio' &&
         fecha >= inicio &&
         fecha <= fin
       );
