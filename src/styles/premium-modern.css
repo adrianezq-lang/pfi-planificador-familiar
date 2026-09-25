@@ -581,6 +581,25 @@ summary:focus-visible {
   font-weight: 650;
 }
 
+.modern-meal-availability {
+  margin: 12px 0 0;
+  border: 1px solid #ead19f;
+  border-radius: 12px;
+  padding: 10px 11px;
+  background: #fff5df;
+  color: #74521f;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.modern-recipe-picker button strong small {
+  display: block;
+  margin-top: 3px;
+  color: #9a641f;
+  font-size: 10px;
+  font-weight: 750;
+}
+
 .meal-feedback {
   margin-top: 12px;
   border-top: 1px solid rgba(72, 107, 80, 0.08);

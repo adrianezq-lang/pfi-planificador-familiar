@@ -5,6 +5,11 @@ import {
   cargarCatalogoMercadona,
   obtenerProductoCatalogoPorId,
 } from './catalogoMercadona.ts';
+import {
+  convertirPrecioManualAProducto,
+  obtenerPrecioManualIngrediente,
+  obtenerProductosConPrecioManual,
+} from './preciosManualesIngredientes.ts';
 
 export type AsociacionesIngredientes = Record<
   string,
@@ -268,6 +273,9 @@ export async function obtenerProductoAsociado(
 ): Promise<
   ProductoMercadonaCatalogo | undefined
 > {
+  const precioManual = obtenerPrecioManualIngrediente(ingrediente);
+  if (precioManual) return convertirPrecioManualAProducto(precioManual);
+
   const productoId =
     obtenerProductoIdAsociado(
       ingrediente,
@@ -317,6 +325,8 @@ export async function obtenerProductosAsociados():
     },
   );
 
+  Object.assign(resultado, obtenerProductosConPrecioManual());
+
   return resultado;
 }
 
@@ -338,6 +348,7 @@ export function ingredienteTieneAsociacion(
   ingrediente: string,
 ): boolean {
   return Boolean(
+    obtenerPrecioManualIngrediente(ingrediente) ||
     obtenerProductoIdAsociado(
       ingrediente,
     ),

@@ -14,6 +14,22 @@ import {
   cargarDespensa,
   crearProductoDespensaDesdeCatalogo,
 } from '../services/despensa';
+import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
+import {
+  ETIQUETAS_NO_DISPONIBILIDAD,
+  marcarIngredienteNoDisponible,
+  obtenerEstadoDisponibilidadIngrediente,
+  reactivarIngrediente,
+  type EstadoDisponibilidadIngrediente,
+  type MotivoNoDisponibilidadIngrediente,
+} from '../services/disponibilidadIngredientes';
+import {
+  convertirPrecioManualAProducto,
+  guardarPrecioManualIngrediente,
+  obtenerPrecioManualIngrediente,
+  quitarPrecioManualIngrediente,
+  type UnidadEnvaseManual,
+} from '../services/preciosManualesIngredientes';
 
 type SelectorProductoIngredienteProps = {
   ingrediente: string | null;
@@ -28,6 +44,10 @@ type SelectorProductoIngredienteProps = {
     ingrediente: string,
     producto: ProductoMercadonaCatalogo,
   ) => void;
+  onDisponibilidadCambiada?: (
+    ingrediente: string,
+    estado: EstadoDisponibilidadIngrediente | null,
+  ) => void;
 };
 
 
@@ -41,12 +61,24 @@ function SelectorProductoIngrediente({
   asociarAutomaticamente = true,
   onCerrar,
   onAsociado,
+  onDisponibilidadCambiada,
 }: SelectorProductoIngredienteProps) {
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState<ProductoMercadonaCatalogo[]>([]);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState('');
   const [mostrarOtrasSecciones, setMostrarOtrasSecciones] = useState(false);
+  const [estadoDisponibilidad, setEstadoDisponibilidad] =
+    useState<EstadoDisponibilidadIngrediente | null>(null);
+  const [motivo, setMotivo] =
+    useState<MotivoNoDisponibilidadIngrediente>('temporada');
+  const [notaDisponibilidad, setNotaDisponibilidad] = useState('');
+  const [precioManual, setPrecioManual] = useState('');
+  const [cantidadEnvase, setCantidadEnvase] = useState('1');
+  const [unidadEnvase, setUnidadEnvase] = useState<UnidadEnvaseManual>('ud');
+  const [tienda, setTienda] = useState('');
+  const [manualGuardado, setManualGuardado] = useState(false);
+  const [errorAlternativa, setErrorAlternativa] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -56,6 +88,18 @@ function SelectorProductoIngrediente({
     setResultados([]);
     setError('');
     setMostrarOtrasSecciones(false);
+    setErrorAlternativa('');
+
+    const disponibilidad = obtenerEstadoDisponibilidadIngrediente(ingrediente);
+    const manual = obtenerPrecioManualIngrediente(ingrediente);
+    setEstadoDisponibilidad(disponibilidad);
+    setMotivo(disponibilidad?.motivo ?? 'temporada');
+    setNotaDisponibilidad(disponibilidad?.nota ?? '');
+    setPrecioManual(manual ? String(manual.precioEnvase).replace('.', ',') : '');
+    setCantidadEnvase(manual ? String(manual.cantidadEnvase).replace('.', ',') : '1');
+    setUnidadEnvase(manual?.unidadEnvase ?? 'ud');
+    setTienda(manual?.tienda ?? '');
+    setManualGuardado(Boolean(manual));
 
     window.setTimeout(() => {
       inputRef.current?.focus();
@@ -114,20 +158,92 @@ function SelectorProductoIngrediente({
 
   if (ingrediente === null) return null;
 
-  const seleccionar = (producto: ProductoMercadonaCatalogo) => {
+  const añadirProductoADespensa = (producto: ProductoMercadonaCatalogo) => {
     if (
       añadirADespensaAlSeleccionar &&
-      !cargarDespensa().some(
-        (elemento) => elemento.productoId === producto.productoId,
-      )
+      (producto.origenPrecio === 'manual' ||
+        !cargarDespensa().some(
+          (elemento) => elemento.productoId === producto.productoId,
+        ))
     ) {
       crearProductoDespensaDesdeCatalogo(producto);
     }
+  };
+
+  const seleccionar = (producto: ProductoMercadonaCatalogo) => {
+    crearCopiaAutomaticaSiNecesaria(`antes de asociar ${ingrediente}`);
+    añadirProductoADespensa(producto);
 
     if (asociarAutomaticamente && ingrediente.trim()) {
+      quitarPrecioManualIngrediente(ingrediente);
+      setManualGuardado(false);
+      reactivarIngrediente(ingrediente);
       asociarProductoAIngrediente(ingrediente, producto.productoId);
     }
     onAsociado(ingrediente, producto);
+  };
+
+  const pausarIngrediente = () => {
+    try {
+      crearCopiaAutomaticaSiNecesaria(`antes de pausar ${ingrediente}`);
+      const estado = marcarIngredienteNoDisponible(
+        ingrediente,
+        motivo,
+        notaDisponibilidad,
+      );
+      setEstadoDisponibilidad(estado);
+      onDisponibilidadCambiada?.(ingrediente, estado);
+      onCerrar();
+    } catch (errorDesconocido) {
+      setErrorAlternativa(
+        errorDesconocido instanceof Error
+          ? errorDesconocido.message
+          : 'No se ha podido cambiar la disponibilidad.',
+      );
+    }
+  };
+
+  const volverAActivar = () => {
+    crearCopiaAutomaticaSiNecesaria(`antes de reactivar ${ingrediente}`);
+    reactivarIngrediente(ingrediente);
+    setEstadoDisponibilidad(null);
+    onDisponibilidadCambiada?.(ingrediente, null);
+  };
+
+  const usarPrecioManual = () => {
+    try {
+      const precio = Number(precioManual.replace(',', '.'));
+      const cantidad = Number(cantidadEnvase.replace(',', '.'));
+      crearCopiaAutomaticaSiNecesaria(`antes de fijar el precio de ${ingrediente}`);
+      const guardado = guardarPrecioManualIngrediente({
+        ingrediente,
+        precioEnvase: precio,
+        cantidadEnvase: cantidad,
+        unidadEnvase,
+        tienda,
+        seccion: seccionIngrediente?.trim() || 'Otra tienda',
+      });
+      reactivarIngrediente(ingrediente);
+      setManualGuardado(true);
+      setEstadoDisponibilidad(null);
+      const producto = convertirPrecioManualAProducto(guardado);
+      añadirProductoADespensa(producto);
+      onDisponibilidadCambiada?.(ingrediente, null);
+      onAsociado(ingrediente, producto);
+    } catch (errorDesconocido) {
+      setErrorAlternativa(
+        errorDesconocido instanceof Error
+          ? errorDesconocido.message
+          : 'No se ha podido guardar el precio manual.',
+      );
+    }
+  };
+
+  const quitarPrecioManual = () => {
+    crearCopiaAutomaticaSiNecesaria(`antes de retirar el precio de ${ingrediente}`);
+    quitarPrecioManualIngrediente(ingrediente);
+    setManualGuardado(false);
+    onCerrar();
   };
 
   const renderProducto = (producto: ProductoMercadonaCatalogo) => {
@@ -286,6 +402,120 @@ function SelectorProductoIngrediente({
                 renderProducto(producto),
               )}
           </section>
+
+          {asociarAutomaticamente && ingrediente.trim() && (
+            <section style={estiloAlternativas} aria-labelledby="titulo-alternativas-producto">
+              <div>
+                <strong id="titulo-alternativas-producto">Alternativas seguras</strong>
+                <p style={estiloAyudaAlternativa}>
+                  Si no hay un producto exacto, pausa el ingrediente o usa un precio real de otra tienda. La asociación actual se conserva.
+                </p>
+              </div>
+
+              {estadoDisponibilidad ? (
+                <div style={estiloEstadoPausado}>
+                  <div>
+                    <strong>{ETIQUETAS_NO_DISPONIBILIDAD[estadoDisponibilidad.motivo]}</strong>
+                    <span>
+                      No se incluirá en compra ni presupuesto y tampoco contará como ahorro.
+                    </span>
+                    <small>
+                      Pausado el {new Date(estadoDisponibilidad.deshabilitadoEn).toLocaleDateString('es-ES')}.
+                    </small>
+                    {estadoDisponibilidad.nota && <small>{estadoDisponibilidad.nota}</small>}
+                  </div>
+                  <button type="button" onClick={volverAActivar} style={estiloBotonPrincipal}>
+                    Volver a activar
+                  </button>
+                </div>
+              ) : (
+                <div style={estiloFormularioAlternativa}>
+                  <label style={estiloCampoAlternativa}>
+                    <span>Motivo para pausarlo</span>
+                    <select
+                      value={motivo}
+                      onChange={(evento) => setMotivo(evento.target.value as MotivoNoDisponibilidadIngrediente)}
+                      style={estiloControlAlternativa}
+                    >
+                      {Object.entries(ETIQUETAS_NO_DISPONIBILIDAD).map(([valor, etiqueta]) => (
+                        <option key={valor} value={valor}>{etiqueta}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label style={estiloCampoAlternativa}>
+                    <span>Nota opcional</span>
+                    <input
+                      value={notaDisponibilidad}
+                      onChange={(evento) => setNotaDisponibilidad(evento.target.value)}
+                      placeholder="Ej. vuelve en junio"
+                      style={estiloControlAlternativa}
+                    />
+                  </label>
+                  <button type="button" onClick={pausarIngrediente} style={estiloBotonSecundario}>
+                    Pausar ingrediente
+                  </button>
+                </div>
+              )}
+
+              <div style={estiloSeparadorAlternativa}><span>o indicar precio real</span></div>
+              <div style={estiloFormularioPrecio}>
+                <label style={estiloCampoAlternativa}>
+                  <span>Precio del envase (€)</span>
+                  <input
+                    inputMode="decimal"
+                    value={precioManual}
+                    onChange={(evento) => setPrecioManual(evento.target.value)}
+                    placeholder="4,50"
+                    style={estiloControlAlternativa}
+                  />
+                </label>
+                <label style={estiloCampoAlternativa}>
+                  <span>Cantidad del envase</span>
+                  <input
+                    inputMode="decimal"
+                    value={cantidadEnvase}
+                    onChange={(evento) => setCantidadEnvase(evento.target.value)}
+                    style={estiloControlAlternativa}
+                  />
+                </label>
+                <label style={estiloCampoAlternativa}>
+                  <span>Unidad</span>
+                  <select
+                    value={unidadEnvase}
+                    onChange={(evento) => setUnidadEnvase(evento.target.value as UnidadEnvaseManual)}
+                    style={estiloControlAlternativa}
+                  >
+                    <option value="ud">ud</option>
+                    <option value="g">g</option>
+                    <option value="kg">kg</option>
+                    <option value="ml">ml</option>
+                    <option value="l">l</option>
+                  </select>
+                </label>
+                <label style={estiloCampoAlternativa}>
+                  <span>Tienda o fuente</span>
+                  <input
+                    value={tienda}
+                    onChange={(evento) => setTienda(evento.target.value)}
+                    placeholder="Frutería local"
+                    style={estiloControlAlternativa}
+                  />
+                </label>
+                <button type="button" onClick={usarPrecioManual} style={estiloBotonPrincipal}>
+                  {manualGuardado ? 'Actualizar este precio' : 'Usar este precio'}
+                </button>
+                {manualGuardado && (
+                  <button type="button" onClick={quitarPrecioManual} style={estiloBotonSecundario}>
+                    Quitar precio manual
+                  </button>
+                )}
+              </div>
+              <p style={estiloAyudaAlternativa}>
+                El presupuesto guardará el precio, formato, tienda y fecha. Podrás sustituirlo después por un producto del catálogo.
+              </p>
+              {errorAlternativa && <p style={estiloError}>{errorAlternativa}</p>}
+            </section>
+          )}
         </div>
       </section>
     </div>
@@ -404,6 +634,94 @@ const estiloResultados = {
   minHeight: 0,
   overflowY: 'auto' as const,
   padding: '0 20px 20px',
+};
+
+const estiloAlternativas = {
+  display: 'grid',
+  gap: '12px',
+  padding: '15px',
+  border: '1px solid #d8e0d6',
+  borderRadius: '15px',
+  background: '#f8faf7',
+};
+
+const estiloAyudaAlternativa = {
+  margin: '4px 0 0',
+  color: '#667068',
+  fontSize: '12px',
+  lineHeight: 1.45,
+};
+
+const estiloFormularioAlternativa = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+  alignItems: 'end',
+  gap: '9px',
+};
+
+const estiloFormularioPrecio = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+  alignItems: 'end',
+  gap: '9px',
+};
+
+const estiloCampoAlternativa = {
+  display: 'grid',
+  gap: '5px',
+  color: '#4b554d',
+  fontSize: '12px',
+  fontWeight: 700,
+};
+
+const estiloControlAlternativa = {
+  width: '100%',
+  minWidth: 0,
+  padding: '9px 10px',
+  border: '1px solid #cfd8cc',
+  borderRadius: '9px',
+  background: '#fff',
+  color: '#263229',
+  font: 'inherit',
+};
+
+const estiloBotonPrincipal = {
+  padding: '10px 12px',
+  border: 0,
+  borderRadius: '10px',
+  background: '#4f6f52',
+  color: '#fff',
+  fontFamily: 'inherit',
+  fontWeight: 800,
+  cursor: 'pointer',
+};
+
+const estiloBotonSecundario = {
+  ...estiloBotonPrincipal,
+  border: '1px solid #8fa28e',
+  background: '#fff',
+  color: '#4f6f52',
+};
+
+const estiloEstadoPausado = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: '12px',
+  padding: '11px',
+  borderRadius: '11px',
+  background: '#fff4df',
+  color: '#684d1f',
+};
+
+const estiloSeparadorAlternativa = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '#7a827b',
+  fontSize: '11px',
+  textTransform: 'uppercase' as const,
+  letterSpacing: '0.04em',
 };
 
 const estiloBloqueResultados = {

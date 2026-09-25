@@ -49,10 +49,10 @@ assert.match(css, /\.assistant-hero/);
 assert.match(css, /\.assistant-composer/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.55');
-assert.match(app, /v0\.9\.55/);
-assert.match(sw, /pfi-v0\.9\.55-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.55'/);
+assert.equal(packageJson.version, '0.9.56');
+assert.match(app, /v0\.9\.56/);
+assert.match(sw, /pfi-v0\.9\.56-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.56'/);
 
 const vite = await createServer({
   configFile: false,

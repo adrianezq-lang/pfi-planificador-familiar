@@ -12,6 +12,8 @@ export type DesgloseEconomico = {
   productosSinPrecio: string[];
   comprasManualesSinPrecio: string[];
   productosEstimados: string[];
+  partidasExcluidasDisponibilidad: number;
+  ingredientesNoDisponibles: string[];
 };
 
 export type ResumenEconomicoMensual = {
@@ -34,6 +36,8 @@ function vacio(): DesgloseEconomico {
     productosSinPrecio: [],
     comprasManualesSinPrecio: [],
     productosEstimados: [],
+    partidasExcluidasDisponibilidad: 0,
+    ingredientesNoDisponibles: [],
   };
 }
 
@@ -74,6 +78,13 @@ function sumarDesgloses(
         total.productosEstimados,
         desglose.productosEstimados,
       ),
+      partidasExcluidasDisponibilidad:
+        (total.partidasExcluidasDisponibilidad ?? 0) +
+        (desglose.partidasExcluidasDisponibilidad ?? 0),
+      ingredientesNoDisponibles: unirNombres(
+        total.ingredientesNoDisponibles ?? [],
+        desglose.ingredientesNoDisponibles ?? [],
+      ),
     }),
     vacio(),
   );
@@ -93,6 +104,10 @@ function desgloseCompra(
     productosSinPrecio: unirNombres(compra.productosSinPrecio),
     comprasManualesSinPrecio: [],
     productosEstimados: unirNombres(compra.productosEstimados),
+    partidasExcluidasDisponibilidad: compra.ingredientesNoDisponibles?.length ?? 0,
+    ingredientesNoDisponibles: unirNombres(
+      (compra.ingredientesNoDisponibles ?? []).map((estado) => estado.ingrediente),
+    ),
   };
 }
 
@@ -116,6 +131,8 @@ function desgloseManuales(
         .map((producto) => producto.nombre),
     ),
     productosEstimados: [],
+    partidasExcluidasDisponibilidad: 0,
+    ingredientesNoDisponibles: [],
   };
 }
 

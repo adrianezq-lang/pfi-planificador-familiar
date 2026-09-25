@@ -13,6 +13,9 @@ export type ProductoMercadonaCatalogo = {
   imagen: string | null;
   url: string;
   disponible: boolean;
+  origenPrecio?: 'catalogo' | 'manual';
+  tiendaPrecio?: string | null;
+  actualizadoPrecioEn?: string | null;
 };
 
 type CatalogoMercadonaJson = {

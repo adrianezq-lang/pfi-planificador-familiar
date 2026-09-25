@@ -155,6 +155,20 @@ function causasImportePendiente(desglose: DesgloseEconomico): string {
   return causas.join(' · ');
 }
 
+function causaDisponibilidad(desglose: DesgloseEconomico): string {
+  const cantidad = desglose.partidasExcluidasDisponibilidad ?? 0;
+  if (cantidad === 0) return '';
+  return `${cantidadTexto(
+    cantidad,
+    'partida excluida',
+    'partidas excluidas',
+  )} por disponibilidad (${listaCorta(desglose.ingredientesNoDisponibles ?? [], 2)})`;
+}
+
+function previsionIncompleta(desglose: DesgloseEconomico): boolean {
+  return desglose.partidasSinImporte > 0 || desglose.partidasExcluidasDisponibilidad > 0;
+}
+
 function buscarDiaMenu(menu: DiaMenu[], nombre: string): DiaMenu | undefined {
   return menu.find((dia) => normalizar(dia.dia) === normalizar(nombre));
 }
@@ -512,6 +526,19 @@ function prioridadesFamiliares(
     : 2;
   let orden = 0;
 
+  const noDisponiblesSemana = compra?.ingredientesNoDisponibles ?? [];
+  if (noDisponiblesSemana.length > 0) {
+    const primero = noDisponiblesSemana[0];
+    prioridades.push({
+      impacto: 5,
+      urgencia: urgenciaCompra,
+      orden: orden++,
+      texto: `${primero.ingrediente} está fuera de la compra y del presupuesto por no estar disponible. Cambia el menú o reactívalo si ya puedes comprarlo; no se cuenta como ahorro.`,
+      destino: 'recetas',
+      ingrediente: primero.ingrediente,
+    });
+  }
+
   if (contexto.compraPendienteCantidad > 0) {
     const ingredienteSinAsociar = compra?.productosSinSeleccionar[0];
     const textoPendiente = contexto.compraPendienteSinImporte > 0
@@ -549,24 +576,32 @@ function prioridadesFamiliares(
       });
     });
 
+  const calculoIncompleto = previsionIncompleta(precision);
   if (presupuesto > 0 && prevision > presupuesto) {
     const causasPendientes = causasImportePendiente(precision);
+    const causaExcluida = causaDisponibilidad(precision);
     prioridades.push({
       impacto: 5,
       urgencia: 2,
       orden: orden++,
-      texto: `${precision.partidasSinImporte > 0 ? 'El subtotal conocido' : 'La previsión mensual'} supera el objetivo en ${euros(
+      texto: `${calculoIncompleto ? 'El subtotal conocido' : 'La previsión mensual'} supera el objetivo en ${euros(
         prevision - presupuesto,
-      )}${precision.partidasSinImporte > 0 ? ` y aún faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}.` : '.'}`,
+      )}${precision.partidasSinImporte > 0 ? ` y aún faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}` : ''}${causaExcluida ? `${precision.partidasSinImporte > 0 ? '; además hay' : ' y hay'} ${causaExcluida}` : ''}.`,
       destino: 'compra',
     });
-  } else if (precision.partidasSinImporte > 0) {
+  } else if (calculoIncompleto) {
     const causasPendientes = causasImportePendiente(precision);
+    const causaExcluida = causaDisponibilidad(precision);
     prioridades.push({
       impacto: 4,
       urgencia: 2,
       orden: orden++,
-      texto: `La previsión mensual solo es un mínimo conocido de ${euros(prevision)}: faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}, así que el saldo aún no es real.`,
+      texto: `La previsión mensual solo es un subtotal conocido de ${euros(prevision)}: ${[
+        precision.partidasSinImporte > 0
+          ? `faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}`
+          : '',
+        causaExcluida,
+      ].filter(Boolean).join(' y ')}, así que el saldo aún no es real.`,
       destino: 'compra',
     });
   }
@@ -808,12 +843,23 @@ function respuestaAhorroInteligente(
   const puntos: string[] = [];
 
   if (presupuesto > 0 && prevision > 0) {
-    if (precision.partidasSinImporte > 0) {
+    if (previsionIncompleta(precision)) {
       const causasPendientes = causasImportePendiente(precision);
+      const causaExcluida = causaDisponibilidad(precision);
+      const pendientes = [
+        precision.partidasSinImporte > 0
+          ? `${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}`
+          : '',
+        causaExcluida,
+      ].filter(Boolean).join(' y ');
       puntos.push(
-        diferencia >= 0
-          ? `El gasto conocido es como mínimo ${euros(prevision)}. El margen sería como máximo ${euros(diferencia)}, pero faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}: todavía no hay un saldo real.`
-          : `El gasto conocido ya supera el objetivo en al menos ${euros(Math.abs(diferencia))}, y todavía faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}.`,
+        precision.partidasExcluidasDisponibilidad > 0
+          ? diferencia >= 0
+            ? `El gasto incluido suma ${euros(prevision)}. La diferencia sería como máximo ${euros(diferencia)}, pero hay ${pendientes}: todavía no hay un saldo ni un ahorro real.`
+            : `El gasto incluido ya supera el objetivo en al menos ${euros(Math.abs(diferencia))}, y todavía hay ${pendientes}.`
+          : diferencia >= 0
+            ? `El gasto conocido es como mínimo ${euros(prevision)}. El margen sería como máximo ${euros(diferencia)}, pero faltan ${pendientes}: todavía no hay un saldo real.`
+            : `El gasto conocido ya supera el objetivo en al menos ${euros(Math.abs(diferencia))}, y todavía faltan ${pendientes}.`,
       );
     } else if (precision.cantidadesEstimadas > 0) {
       puntos.push(
@@ -854,6 +900,13 @@ function respuestaAhorroInteligente(
     );
   }
 
+  if ((compra?.ingredientesNoDisponibles?.length ?? 0) > 0) {
+    const noDisponibles = compra?.ingredientesNoDisponibles ?? [];
+    puntos.push(
+      `${listaCorta(noDisponibles.map((estado) => estado.ingrediente), 3)} ${segunCantidad(noDisponibles.length, 'está', 'están')} fuera de compra y presupuesto por disponibilidad. No ${segunCantidad(noDisponibles.length, 'lo cuento', 'los cuento')} como ahorro: cambia el menú o reactiva ${segunCantidad(noDisponibles.length, 'el ingrediente', 'los ingredientes')}.`,
+    );
+  }
+
   if ((compra?.productosEstimados.length ?? 0) > 0) {
     puntos.push(
       `Revisa ${cantidadTexto(compra?.productosEstimados.length ?? 0, 'cantidad', 'cantidades')} ${segunCantidad(compra?.productosEstimados.length ?? 0, 'estimada', 'estimadas')} para evitar comprar envases de más.`,
@@ -879,15 +932,15 @@ function respuestaAhorroInteligente(
 
   return {
     titulo: 'Ahorro inteligente',
-    resumen: precision.partidasSinImporte > 0
-      ? 'No puedo afirmar un ahorro neto todavía: separo el subtotal conocido, los importes pendientes y el stock meramente proyectado.'
+    resumen: previsionIncompleta(precision)
+      ? 'No puedo afirmar un ahorro neto todavía: separo el subtotal conocido, los importes pendientes, los ingredientes excluidos y el stock meramente proyectado.'
       : precision.cantidadesEstimadas > 0
         ? 'El margen es una estimación trazable, no un ahorro cerrado, porque aún hay cantidades aproximadas.'
         : 'He cruzado importes completos y stock físico para mostrar un margen trazable, sin convertir proyecciones en ahorro.',
     puntos: puntos.slice(0, 6),
     accion: { etiqueta: 'Revisar Compra', destino: 'compra' },
     tono:
-      diferencia < 0 || precision.partidasSinImporte > 0
+      diferencia < 0 || previsionIncompleta(precision)
         ? 'atencion'
         : 'normal',
   };
@@ -907,6 +960,7 @@ export function obtenerResumenProactivo(
     fechaReferencia,
   );
   const alertas = prioridades.slice(0, 4).map((prioridad) => prioridad.texto);
+  const excluidosSemana = compra?.ingredientesNoDisponibles?.length ?? 0;
 
   return {
     hoy: hoy
@@ -914,17 +968,17 @@ export function obtenerResumenProactivo(
       : 'Hoy no está en la semana seleccionada; revisa la semana actual.',
     compra: compra
       ? contexto.compraPendienteSinImporte > 0
-        ? `${contexto.compraPendienteCantidad} pendientes · ${euros(contexto.compraPendienteTotal)} mínimo + ${contexto.compraPendienteSinImporte} sin importe`
-        : `${contexto.compraPendienteCantidad} pendientes · ${euros(contexto.compraPendienteTotal)}`
+        ? `${contexto.compraPendienteCantidad} pendientes · ${euros(contexto.compraPendienteTotal)} mínimo + ${contexto.compraPendienteSinImporte} sin importe${excluidosSemana > 0 ? ` · ${cantidadTexto(excluidosSemana, 'ingrediente')} excluido por disponibilidad` : ''}`
+        : `${contexto.compraPendienteCantidad} pendientes · ${euros(contexto.compraPendienteTotal)}${excluidosSemana > 0 ? ` · ${cantidadTexto(excluidosSemana, 'ingrediente')} excluido por disponibilidad` : ''}`
       : 'Calculando la compra actual…',
     despensa:
       reposicion.length === 0
         ? 'No hay avisos de stock mínimo.'
         : `${cantidadTexto(reposicion.length, 'producto')} ${segunCantidad(reposicion.length, 'necesita', 'necesitan')} reposición.`,
     presupuesto:
-      prevision > 0 || precision.partidasSinImporte > 0
-        ? precision.partidasSinImporte > 0
-          ? `${euros(prevision)} mínimo conocido · ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precision) ? ` · ${causasImportePendiente(precision)}` : ''} · objetivo ${euros(
+      prevision > 0 || previsionIncompleta(precision)
+        ? previsionIncompleta(precision)
+          ? `${euros(prevision)} subtotal conocido${precision.partidasSinImporte > 0 ? ` · ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precision) ? ` · ${causasImportePendiente(precision)}` : ''}` : ''}${precision.partidasExcluidasDisponibilidad > 0 ? ` · ${causaDisponibilidad(precision)}` : ''} · objetivo ${euros(
             contexto.perfil.presupuesto,
           )}`
           : `${euros(prevision)} ${precision.cantidadesEstimadas > 0 ? 'estimados' : 'previstos'} este mes · objetivo ${euros(
@@ -1094,10 +1148,13 @@ export function responderAsistente(
     }
 
     const nombres = contexto.compraPendienteNombres;
+    const noDisponibles = compra.ingredientesNoDisponibles ?? [];
     return {
       titulo: 'Compra de esta semana',
       resumen: contexto.compraPendienteCantidad === 0
-        ? 'No veo productos pendientes de compra en esta semana.'
+        ? noDisponibles.length > 0
+          ? `No veo productos pendientes, pero ${cantidadTexto(noDisponibles.length, 'ingrediente')} ${segunCantidad(noDisponibles.length, 'está', 'están')} fuera de compra y presupuesto por disponibilidad.`
+          : 'No veo productos pendientes de compra en esta semana.'
         : contexto.compraPendienteSinImporte > 0
           ? `Quedan ${contexto.compraPendienteCantidad} productos: el subtotal conocido es ${euros(
               contexto.compraPendienteTotal,
@@ -1115,11 +1172,20 @@ export function responderAsistente(
         compra.productosSinPrecio.length > 0
           ? `${cantidadTexto(compra.productosSinPrecio.length, 'producto')} no ${segunCantidad(compra.productosSinPrecio.length, 'tiene', 'tienen')} precio y no ${segunCantidad(compra.productosSinPrecio.length, 'entra', 'entran')} en el total.`
           : 'Los productos seleccionados tienen precio.',
+        (compra.ingredientesNoDisponibles?.length ?? 0) > 0
+          ? `${listaCorta((compra.ingredientesNoDisponibles ?? []).map((estado) => estado.ingrediente), 3)} fuera de la compra por disponibilidad; cambia el menú o reactiva el ingrediente. No cuenta como ahorro.`
+          : 'No hay ingredientes excluidos por disponibilidad.',
       ],
-      accion: { etiqueta: 'Ir a Compra', destino: 'compra' },
+      accion: noDisponibles.length > 0 && compra.productosSinSeleccionar.length === 0
+        ? {
+            etiqueta: `Revisar ${noDisponibles[0].ingrediente}`,
+            destino: 'recetas',
+            ingrediente: noDisponibles[0].ingrediente,
+          }
+        : { etiqueta: 'Ir a Compra', destino: 'compra' },
       tono:
-        compra.productosSinSeleccionar.length + compra.productosSinPrecio.length >
-        0
+        compra.productosSinSeleccionar.length + compra.productosSinPrecio.length +
+        (compra.ingredientesNoDisponibles?.length ?? 0) > 0
           ? 'atencion'
           : 'positivo',
     };
@@ -1128,15 +1194,17 @@ export function responderAsistente(
   if (/presupuesto|gasto|dinero|ahorro|cuanto.*mes|coste.*mes/.test(consulta)) {
     const diferencia = contexto.perfil.presupuesto - presupuestoPrevisto;
     const hayImportesPendientes = precisionMes.partidasSinImporte > 0;
+    const hayExclusiones = precisionMes.partidasExcluidasDisponibilidad > 0;
+    const hayCalculoIncompleto = hayImportesPendientes || hayExclusiones;
     const hayEstimaciones = precisionMes.cantidadesEstimadas > 0;
     return {
       titulo: 'Previsión de gasto',
       resumen:
-        presupuestoPrevisto > 0 || hayImportesPendientes
-          ? hayImportesPendientes
-            ? `PFI conoce un mínimo de ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
+        presupuestoPrevisto > 0 || hayCalculoIncompleto
+          ? hayCalculoIncompleto
+            ? `PFI conoce ${hayExclusiones ? 'un subtotal' : 'un mínimo'} de ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
                 contexto.perfil.presupuesto,
-              )}; faltan ${cantidadTexto(precisionMes.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precisionMes) ? ` por ${causasImportePendiente(precisionMes)}` : ''}.`
+              )}${hayImportesPendientes ? `; faltan ${cantidadTexto(precisionMes.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precisionMes) ? ` por ${causasImportePendiente(precisionMes)}` : ''}` : ''}${hayExclusiones ? `${hayImportesPendientes ? ' y hay' : '; hay'} ${causaDisponibilidad(precisionMes)}` : ''}.`
             : `PFI ${hayEstimaciones ? 'estima' : 'calcula'} ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
                 contexto.perfil.presupuesto,
               )}.`
@@ -1144,9 +1212,9 @@ export function responderAsistente(
               contexto.perfil.presupuesto,
             )}.`,
       puntos:
-        presupuestoPrevisto > 0 || hayImportesPendientes
+        presupuestoPrevisto > 0 || hayCalculoIncompleto
           ? [
-              hayImportesPendientes
+              hayCalculoIncompleto
                 ? diferencia >= 0
                   ? `El margen máximo provisional es ${euros(diferencia)}; no es un saldo disponible todavía.`
                   : `El subtotal conocido ya supera el objetivo en al menos ${euros(Math.abs(diferencia))}.`
@@ -1154,8 +1222,8 @@ export function responderAsistente(
                   ? `${hayEstimaciones ? 'El margen estimado es' : 'Te quedan'} ${euros(diferencia)} frente al objetivo.`
                   : `${hayEstimaciones ? 'La estimación' : 'La previsión'} supera el objetivo en ${euros(Math.abs(diferencia))}.`,
               'La previsión combina la compra mensual, las semanas y los productos añadidos manualmente.',
-              hayImportesPendientes
-                ? 'Completa los importes pendientes antes de interpretar esa diferencia como ahorro.'
+              hayCalculoIncompleto
+                ? 'Completa los importes pendientes y revisa los ingredientes excluidos antes de interpretar esa diferencia como ahorro.'
                 : hayEstimaciones
                   ? `${cantidadTexto(precisionMes.cantidadesEstimadas, 'cantidad', 'cantidades')} ${segunCantidad(precisionMes.cantidadesEstimadas, 'sigue', 'siguen')} siendo ${segunCantidad(precisionMes.cantidadesEstimadas, 'aproximada', 'aproximadas')}.`
                   : 'Todos los importes y cantidades del cálculo están informados.',
@@ -1163,7 +1231,7 @@ export function responderAsistente(
           : ['Necesito que termine el cálculo de compra para comparar la previsión completa.'],
       accion: { etiqueta: 'Revisar Compra', destino: 'compra' },
       tono:
-        diferencia >= 0 && !hayImportesPendientes
+        diferencia >= 0 && !hayCalculoIncompleto
           ? 'positivo'
           : 'atencion',
     };
@@ -1268,23 +1336,31 @@ export function responderAsistente(
   if (/precio|sin precio|dato|asociacion|producto.*elegir/.test(consulta)) {
     const sinProducto = compra?.productosSinSeleccionar.length ?? 0;
     const sinPrecio = compra?.productosSinPrecio.length ?? 0;
+    const noDisponibles = compra?.ingredientesNoDisponibles ?? [];
+    const ingredienteResolver = compra?.productosSinSeleccionar[0]
+      ?? noDisponibles[0]?.ingrediente;
     return {
       titulo: 'Calidad de los datos',
       resumen:
-        sinProducto + sinPrecio === 0
-          ? 'La compra semanal no tiene avisos de producto o precio.'
+        sinProducto + sinPrecio + noDisponibles.length === 0
+          ? 'La compra semanal no tiene avisos de producto, precio o disponibilidad.'
           : 'Hay datos pendientes que pueden afectar a la precisión de la compra.',
       puntos: [
         `${cantidadTexto(sinProducto, 'ingrediente')} sin producto seleccionado.`,
         `${cantidadTexto(sinPrecio, 'producto')} sin precio.`,
+        `${cantidadTexto(noDisponibles.length, 'ingrediente')} fuera de compra y presupuesto por disponibilidad.`,
         'Resolver estos avisos mejora tanto el presupuesto como las recomendaciones del asistente.',
       ],
       accion: {
-        etiqueta: sinProducto > 0 ? 'Asociar ingrediente' : 'Abrir Compra',
-        destino: sinProducto > 0 ? 'recetas' : 'compra',
-        ingrediente: sinProducto > 0 ? compra?.productosSinSeleccionar[0] : undefined,
+        etiqueta: sinProducto > 0
+          ? 'Asociar ingrediente'
+          : noDisponibles.length > 0
+            ? 'Revisar disponibilidad'
+            : 'Abrir Compra',
+        destino: ingredienteResolver ? 'recetas' : 'compra',
+        ingrediente: ingredienteResolver,
       },
-      tono: sinProducto + sinPrecio > 0 ? 'atencion' : 'positivo',
+      tono: sinProducto + sinPrecio + noDisponibles.length > 0 ? 'atencion' : 'positivo',
     };
   }
 

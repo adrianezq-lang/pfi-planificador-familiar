@@ -3,6 +3,7 @@ import {
   calcularEnvasesParaNecesidades,
   generarCompraMercadona,
   type ExplicacionCantidadCompra,
+  type IngredienteNoDisponibleCompra,
   type LineaCompra,
   type OrigenCoberturaCompra,
   type ResultadoCompra,
@@ -138,10 +139,29 @@ export function esProductoSemanal(linea: LineaCompra): boolean {
   return correspondeACompraSemanal(obtenerSeccionCompra(linea), texto);
 }
 
+function esIngredienteNoDisponibleSemanal(
+  estado: IngredienteNoDisponibleCompra,
+): boolean {
+  const seccionNormalizada = normalizarTexto(estado.seccion);
+  const seccion = /fruta|verdura|hortaliza/.test(seccionNormalizada)
+    ? 'Fruta y Verdura'
+    : /carne|carnicer|pollo|pavo|cerdo|ternera/.test(seccionNormalizada)
+      ? 'Carnicería'
+      : /pescado|pescader|marisco/.test(seccionNormalizada)
+        ? 'Pescadería'
+        : estado.seccion;
+  return correspondeACompraSemanal(
+    seccion,
+    `${estado.ingrediente} ${estado.seccion}`,
+  );
+}
+
 function rehacerResultado(
   base: ResultadoCompra,
   lineas: LineaCompra[],
   lineasCubiertas: LineaCompra[] = [],
+  ingredientesNoDisponibles: IngredienteNoDisponibleCompra[] =
+    base.ingredientesNoDisponibles ?? [],
 ): ResultadoCompra {
   const lineasSemanales = lineas.filter((linea) => linea.tipoCompra === 'semanal');
   const lineasDespensa = lineas.filter((linea) => linea.tipoCompra === 'despensa');
@@ -166,6 +186,7 @@ function rehacerResultado(
       .filter((linea) => linea.calculoEstimado)
       .map((linea) => linea.ingrediente.nombre),
     lineasCubiertas,
+    ingredientesNoDisponibles,
   };
 }
 
@@ -340,6 +361,10 @@ export async function generarCompraMensual(
     explicarLineasMensuales(
       aplicarNecesidadesMensuales(lineasNoFrescas),
     ),
+    [],
+    (resultado.ingredientesNoDisponibles ?? []).filter(
+      (estado) => !esIngredienteNoDisponibleSemanal(estado),
+    ),
   );
 }
 
@@ -422,5 +447,12 @@ export async function generarCompraSemanalProyectada(
     .filter((linea) => esProductoSemanal(linea) && !linea.producto)
     .forEach((linea) => comprasActivas.push(linea));
 
-  return rehacerResultado(base, comprasActivas, cubiertasActivas);
+  return rehacerResultado(
+    base,
+    comprasActivas,
+    cubiertasActivas,
+    (base.ingredientesNoDisponibles ?? []).filter(
+      (estado) => esIngredienteNoDisponibleSemanal(estado),
+    ),
+  );
 }

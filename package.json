@@ -1,7 +1,7 @@
 {
   "name": "pfi-planificador-familiar",
   "private": true,
-  "version": "0.9.55",
+  "version": "0.9.56",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -47,7 +47,8 @@
     "test:v0944": "node --experimental-strip-types scripts/probar-asistente-v0944.mjs",
     "test:v0945": "node --experimental-strip-types scripts/probar-asistente-acciones-v0945.mjs",
     "test:v0954": "node --experimental-strip-types scripts/probar-coherencia-copiloto-v0954.mjs",
-    "test:v0955": "node --experimental-strip-types scripts/probar-horarios-catalogo-v0955.mjs"
+    "test:v0955": "node --experimental-strip-types scripts/probar-horarios-catalogo-v0955.mjs",
+    "test:v0956": "node --experimental-strip-types scripts/probar-disponibilidad-v0956.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.115.0",

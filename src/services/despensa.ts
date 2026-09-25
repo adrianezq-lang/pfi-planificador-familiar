@@ -355,11 +355,17 @@ function datosProductoDespensaDesdeCatalogo(
     tipo: esPerecedero
       ? 'perecedero'
       : 'despensa',
-    ultimaCompraTiendaId: null,
-    ultimaCompraTienda: null,
-    ultimoProductoComprado: null,
-    ultimoPrecioCompra: null,
-    ultimaCompraEn: null,
+    ultimaCompraTiendaId: producto.origenPrecio === 'manual'
+      ? `manual:${normalizarSeccionCatalogo(producto.tiendaPrecio ?? 'otra-tienda').replace(/\s+/g, '-')}`
+      : null,
+    ultimaCompraTienda: producto.origenPrecio === 'manual'
+      ? producto.tiendaPrecio ?? 'Otra tienda'
+      : null,
+    ultimoProductoComprado: producto.origenPrecio === 'manual' ? producto.nombre : null,
+    ultimoPrecioCompra: producto.origenPrecio === 'manual' ? producto.precio : null,
+    ultimaCompraEn: producto.origenPrecio === 'manual'
+      ? producto.actualizadoPrecioEn ?? new Date().toISOString()
+      : null,
   };
 }
 
@@ -389,6 +395,21 @@ export function crearProductoDespensaDesdeCatalogo(
   producto: ProductoMercadonaCatalogo,
 ): ProductoDespensa[] {
   permitirProductoAutomatico(producto.productoId);
+  const existente = cargarDespensa().find(
+    (item) => item.productoId === producto.productoId,
+  );
+  if (existente && producto.origenPrecio === 'manual') {
+    return actualizarProductoDespensa(existente.id, {
+      nombre: producto.nombre,
+      formato: producto.formato,
+      precio: producto.precio,
+      ultimaCompraTiendaId: `manual:${normalizarSeccionCatalogo(producto.tiendaPrecio ?? 'otra-tienda').replace(/\s+/g, '-')}`,
+      ultimaCompraTienda: producto.tiendaPrecio ?? 'Otra tienda',
+      ultimoProductoComprado: producto.nombre,
+      ultimoPrecioCompra: producto.precio,
+      ultimaCompraEn: producto.actualizadoPrecioEn ?? new Date().toISOString(),
+    });
+  }
   return crearProductosDespensaDesdeCatalogo([producto]);
 }
 

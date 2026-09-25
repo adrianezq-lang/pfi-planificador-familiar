@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { DiaMenu, MomentoPostre, PostreMenu } from '../data/Menusemanal';
 import AppIcon from '../components/AppIcon';
 import type { SemanaMenu } from '../data/MenuMensual';
@@ -34,6 +34,11 @@ import { esPostreDeTemporada } from '../services/postres';
 import { compartirTexto } from '../services/compartir';
 import { cargarNotaSemana, guardarNotaSemana } from '../services/notasSemana';
 import { fechaLocalISO, indiceDiaParaFecha } from '../services/fechaSemana';
+import {
+  cargarIngredientesNoDisponibles,
+  EVENTO_DISPONIBILIDAD_INGREDIENTES,
+  type EstadoDisponibilidadIngrediente,
+} from '../services/disponibilidadIngredientes';
 
 type MenuProps = {
   menu: DiaMenu[];
@@ -256,6 +261,8 @@ export default function MenuModern({
   const [errorEditor, setErrorEditor] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [notaSemana, setNotaSemana] = useState(() => cargarNotaSemana(mesActivo, semanaActiva));
+  const [ingredientesNoDisponibles, setIngredientesNoDisponibles] =
+    useState<EstadoDisponibilidadIngrediente[]>(cargarIngredientesNoDisponibles);
 
   const indiceSemanaSeguro = planMensual.length === 0
     ? 0
@@ -307,6 +314,35 @@ export default function MenuModern({
     ],
     [recetas],
   );
+  const ingredientesNoDisponiblesPorReceta = useMemo(() => {
+    const claves = new Set(
+      ingredientesNoDisponibles.map((estado) => normalizar(estado.ingrediente)),
+    );
+    return new Map(
+      recetas.map((receta) => [
+        normalizar(receta.nombre),
+        receta.ingredientes
+          .filter((ingrediente) => claves.has(normalizar(ingrediente.nombre)))
+          .map((ingrediente) => ingrediente.nombre),
+      ]),
+    );
+  }, [ingredientesNoDisponibles, recetas]);
+  const ingredientesPausadosEn = useCallback(
+    (platos: string[]): string[] => Array.from(
+      new Set(
+        platos.flatMap(
+          (plato) => ingredientesNoDisponiblesPorReceta.get(normalizar(plato)) ?? [],
+        ),
+      ),
+    ),
+    [ingredientesNoDisponiblesPorReceta],
+  );
+  const noDisponiblesComida = dia
+    ? ingredientesPausadosEn([...dia.comida, formatearPostreMenu(dia, 'comida')])
+    : [];
+  const noDisponiblesCena = dia
+    ? ingredientesPausadosEn([...dia.cena, formatearPostreMenu(dia, 'cena')])
+    : [];
   const platosDisponibles = useMemo(
     () => Array.from(new Set([...recetasPlato, ...obtenerOpcionesEspeciales()])),
     [recetasPlato],
@@ -325,11 +361,12 @@ export default function MenuModern({
             dia.dia,
             editorMomento,
             editorMomento === 'comida' ? dia.comida : dia.cena,
-            3,
-          )
+            6,
+          ).filter((sugerencia) => ingredientesPausadosEn(sugerencia.platos).length === 0)
+            .slice(0, 3)
         : [];
     },
-    [dia, editorMomento, revisionAprendizaje],
+    [dia, editorMomento, ingredientesPausadosEn, revisionAprendizaje],
   );
   const complementos = useMemo(() => {
     void revisionAprendizaje;
@@ -339,14 +376,21 @@ export default function MenuModern({
       editorMomento,
       seleccionEditor,
       recetasPlato,
-      3,
-    );
-  }, [editorMomento, recetasPlato, revisionAprendizaje, seleccionEditor]);
+      6,
+    ).filter((sugerencia) => ingredientesPausadosEn([sugerencia.plato]).length === 0)
+      .slice(0, 3);
+  }, [editorMomento, ingredientesPausadosEn, recetasPlato, revisionAprendizaje, seleccionEditor]);
 
   useEffect(() => {
     const actualizar = () => setRevisionExcepciones((valor) => valor + 1);
     window.addEventListener(EVENTO_EXCEPCIONES, actualizar);
     return () => window.removeEventListener(EVENTO_EXCEPCIONES, actualizar);
+  }, []);
+
+  useEffect(() => {
+    const actualizar = () => setIngredientesNoDisponibles(cargarIngredientesNoDisponibles());
+    window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
+    return () => window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
   }, []);
 
   useEffect(() => {
@@ -734,6 +778,12 @@ export default function MenuModern({
                           {postres.map((postre) => <option key={postre} value={postre}>{iconoRecetaPostre(postre)} {postre}{esPostreDeTemporada(postre, mesActivo) ? '' : ' · fuera de temporada habitual'}</option>)}
                         </select>
                       </label>
+                      {noDisponiblesComida.length > 0 && (
+                        <p className="modern-meal-availability" role="status">
+                          <strong>Ingrediente no disponible:</strong>{' '}
+                          {noDisponiblesComida.join(', ')}. Cambia el menú o reactívalo en Recetas.
+                        </p>
+                      )}
                       <ValoracionPlegable
                         dia={dia.dia}
                         momento="comida"
@@ -772,6 +822,12 @@ export default function MenuModern({
                           {postres.map((postre) => <option key={postre} value={postre}>{iconoRecetaPostre(postre)} {postre}{esPostreDeTemporada(postre, mesActivo) ? '' : ' · fuera de temporada habitual'}</option>)}
                         </select>
                       </label>
+                      {noDisponiblesCena.length > 0 && (
+                        <p className="modern-meal-availability" role="status">
+                          <strong>Ingrediente no disponible:</strong>{' '}
+                          {noDisponiblesCena.join(', ')}. Cambia el menú o reactívalo en Recetas.
+                        </p>
+                      )}
                       <ValoracionPlegable
                         dia={dia.dia}
                         momento="cena"
@@ -925,6 +981,7 @@ export default function MenuModern({
             <div className="modern-recipe-picker">
               {resultadosBusqueda.map((plato) => {
                 const seleccionado = seleccionEditor.includes(plato);
+                const noDisponibles = ingredientesPausadosEn([plato]);
                 return (
                   <button
                     type="button"
@@ -933,7 +990,12 @@ export default function MenuModern({
                     onClick={() => alternarPlato(plato)}
                   >
                     <span>{seleccionado ? '✓' : '＋'}</span>
-                    <strong>{plato}</strong>
+                    <strong>
+                      {plato}
+                      {noDisponibles.length > 0 && (
+                        <small>Ingrediente no disponible: {noDisponibles.join(', ')}</small>
+                      )}
+                    </strong>
                   </button>
                 );
               })}
