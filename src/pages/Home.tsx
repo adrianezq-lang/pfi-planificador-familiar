@@ -187,31 +187,48 @@ function Home({
     const excluidas = presupuesto.prevision.partidasExcluidasDisponibilidad;
     const estimadas = presupuesto.prevision.cantidadesEstimadas;
     const precision = detallePrecision(presupuesto.prevision);
-    if (limiteMensual <= 0 || presupuesto.previsionMes <= 0) return precision;
+    const conFiabilidad = (texto: string) =>
+      `${texto}${texto ? ' · ' : ''}Fiabilidad ${presupuesto.prevision.fiabilidadPorcentaje}%`;
+
+    if (limiteMensual <= 0 || presupuesto.previsionMes <= 0) {
+      return conFiabilidad(precision);
+    }
+
     const diferencia = limiteMensual - presupuesto.previsionMes;
     const importe = Math.abs(diferencia).toLocaleString('es-ES', {
       style: 'currency',
       currency: 'EUR',
     });
+
     if (pendientes > 0 || excluidas > 0) {
       const causas = detalleCausasPendientes(presupuesto.prevision);
       if (excluidas === 0) {
-        return diferencia >= 0
-          ? `Margen máximo ${importe} · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`
-          : `Al menos ${importe} por encima · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`;
+        return conFiabilidad(
+          diferencia >= 0
+            ? `Margen máximo ${importe} · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`
+            : `Al menos ${importe} por encima · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`,
+        );
       }
-      return diferencia >= 0
-        ? `Diferencia máxima ${importe}${causas ? ` · ${causas}` : ''} · no es ahorro real`
-        : `Al menos ${importe} por encima${causas ? ` · ${causas}` : ''}`;
+      return conFiabilidad(
+        diferencia >= 0
+          ? `Diferencia máxima ${importe}${causas ? ` · ${causas}` : ''} · no es ahorro real`
+          : `Al menos ${importe} por encima${causas ? ` · ${causas}` : ''}`,
+      );
     }
+
     if (estimadas > 0) {
-      return diferencia >= 0
-        ? `Margen estimado ${importe} · ${estimadas} cantidad${estimadas === 1 ? '' : 'es'} estimada${estimadas === 1 ? '' : 's'}`
-        : `${importe} por encima (estimado) · ${estimadas} cantidad${estimadas === 1 ? '' : 'es'} por confirmar`;
+      return conFiabilidad(
+        diferencia >= 0
+          ? `Margen estimado ${importe} · ${estimadas} cantidad${estimadas === 1 ? '' : 'es'} estimada${estimadas === 1 ? '' : 's'}`
+          : `${importe} por encima (estimado) · ${estimadas} cantidad${estimadas === 1 ? '' : 'es'} por confirmar`,
+      );
     }
-    return diferencia >= 0
-      ? `Te quedan ${importe} de tu objetivo mensual`
-      : `${importe} por encima de tu objetivo mensual`;
+
+    return conFiabilidad(
+      diferencia >= 0
+        ? `Te quedan ${importe} de tu objetivo mensual`
+        : `${importe} por encima de tu objetivo mensual`,
+    );
   }, [limiteMensual, presupuesto]);
 
   return (
@@ -346,7 +363,16 @@ function Home({
 }
 
 function detallePrecision(desglose: DesgloseEconomico): string {
-  const partes: string[] = [];
+  const euros = (valor: number) =>
+    valor.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+  const partes: string[] = [
+    `${euros(desglose.importeConfirmado)} confirmado`,
+  ];
+
+  if (desglose.importeEstimado > 0 || desglose.cantidadesEstimadas > 0) {
+    partes.push(`${euros(desglose.importeEstimado)} estimado`);
+  }
+
   if (desglose.partidasSinImporte > 0) {
     partes.push(
       `${desglose.partidasSinImporte} partida${desglose.partidasSinImporte === 1 ? '' : 's'} sin importe`,
@@ -354,24 +380,31 @@ function detallePrecision(desglose: DesgloseEconomico): string {
     const causas = detalleCausasPendientes(desglose, false);
     if (causas) partes.push(causas);
   }
-  if (desglose.cantidadesEstimadas > 0) {
-    const productos = desglose.productosEstimados.length;
+
+  if (desglose.estimadasPesoVariable > 0) {
     partes.push(
-      `${desglose.cantidadesEstimadas} cálculo${desglose.cantidadesEstimadas === 1 ? '' : 's'} aproximado${desglose.cantidadesEstimadas === 1 ? '' : 's'}${productos > 0 ? ` en ${productos} producto${productos === 1 ? '' : 's'}` : ''}`,
+      `${desglose.estimadasPesoVariable} por peso variable real`,
     );
   }
+  if (desglose.estimadasConversion > 0) {
+    partes.push(
+      `${desglose.estimadasConversion} por conversión aproximada`,
+    );
+  }
+  if (desglose.formatosIncompletos > 0) {
+    partes.push(
+      `${desglose.formatosIncompletos} con formato incompleto`,
+    );
+  }
+
   if (desglose.partidasExcluidasDisponibilidad > 0) {
     partes.push(
-      `${desglose.partidasExcluidasDisponibilidad} partida${desglose.partidasExcluidasDisponibilidad === 1 ? '' : 's'} fuera del cálculo por disponibilidad (${desglose.ingredientesNoDisponibles.join(', ')})`,
+      `${desglose.partidasExcluidasDisponibilidad} excluida${desglose.partidasExcluidasDisponibilidad === 1 ? '' : 's'} por disponibilidad (${desglose.ingredientesNoDisponibles.join(', ')})`,
     );
   }
-  if (partes.length === 0) return '';
-  const etiqueta = desglose.partidasExcluidasDisponibilidad > 0
-    ? 'Subtotal conocido'
-    : desglose.partidasSinImporte > 0
-      ? 'Subtotal mínimo'
-      : 'Total estimado';
-  return `${etiqueta} · ${partes.join(' · ')}`;
+
+  partes.push(`Fiabilidad ${desglose.fiabilidadPorcentaje}%`);
+  return partes.join(' · ');
 }
 
 function detalleCausasPendientes(
