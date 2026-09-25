@@ -29,6 +29,9 @@ const mocks = {
   '../services/listaCompra': {
     generarListaCompra: () => [],
   },
+  '../services/disponibilidadIngredientes': {
+    obtenerEstadoDisponibilidadIngrediente: () => null,
+  },
 };
 
 vm.runInNewContext(output, {

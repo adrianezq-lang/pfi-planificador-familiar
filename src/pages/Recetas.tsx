@@ -38,6 +38,17 @@ import {
   obtenerSugerenciaIngrediente,
 } from '../services/porciones';
 import { compartirTexto } from '../services/compartir';
+import {
+  cargarIngredientesNoDisponibles,
+  ETIQUETAS_NO_DISPONIBILIDAD,
+  EVENTO_DISPONIBILIDAD_INGREDIENTES,
+  renombrarDisponibilidadIngrediente,
+  type EstadoDisponibilidadIngrediente,
+} from '../services/disponibilidadIngredientes';
+import {
+  EVENTO_PRECIOS_MANUALES_INGREDIENTES,
+  renombrarPrecioManualIngrediente,
+} from '../services/preciosManualesIngredientes';
 
 type ProductosPorIngrediente = Record<
   string,
@@ -167,12 +178,18 @@ function formatearMoneda(valor: number): string {
 function calcularResumenCosteReceta(
   receta: Receta,
   productos: ProductosPorIngrediente,
-): { total: number; completos: number; estimado: boolean } {
+  noDisponibles: Set<string>,
+): { total: number; completos: number; pausados: number; estimado: boolean } {
   let total = 0;
   let completos = 0;
+  let pausados = 0;
   let estimado = false;
 
   receta.ingredientes.forEach((ingrediente) => {
+    if (noDisponibles.has(textoNormalizado(ingrediente.nombre))) {
+      pausados += 1;
+      return;
+    }
     const producto = productos[ingrediente.nombre];
     if (!producto) return;
     const calculo = calcularCosteProporcionalIngrediente(ingrediente, producto);
@@ -182,7 +199,7 @@ function calcularResumenCosteReceta(
     estimado ||= calculo.estimado;
   });
 
-  return { total, completos, estimado };
+  return { total, completos, pausados, estimado };
 }
 
 function textoNormalizado(texto: string): string {
@@ -222,6 +239,8 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
   const [soloSinHorno, setSoloSinHorno] = useState(false);
   const [soloFavoritas, setSoloFavoritas] = useState(false);
   const [favoritas, setFavoritas] = useState<string[]>(cargarRecetasFavoritas);
+  const [ingredientesNoDisponibles, setIngredientesNoDisponibles] =
+    useState<EstadoDisponibilidadIngrediente[]>(cargarIngredientesNoDisponibles);
   const [recetasAbiertas, setRecetasAbiertas] = useState<Set<string>>(
     () => new Set(),
   );
@@ -275,6 +294,21 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
     );
   }, [recetas]);
 
+  const noDisponiblesPorNombre = useMemo(
+    () => new Map(
+      ingredientesNoDisponibles.map((estado) => [
+        textoNormalizado(estado.ingrediente),
+        estado,
+      ]),
+    ),
+    [ingredientesNoDisponibles],
+  );
+
+  const clavesNoDisponibles = useMemo(
+    () => new Set(noDisponiblesPorNombre.keys()),
+    [noDisponiblesPorNombre],
+  );
+
   const relacionarProductos = useCallback(async () => {
     try {
       setCargandoProductos(true);
@@ -312,10 +346,18 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
     };
 
     window.addEventListener(EVENTO_ASOCIACIONES, actualizar);
+    window.addEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, actualizar);
     return () => {
       window.removeEventListener(EVENTO_ASOCIACIONES, actualizar);
+      window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, actualizar);
     };
   }, [relacionarProductos]);
+
+  useEffect(() => {
+    const actualizar = () => setIngredientesNoDisponibles(cargarIngredientesNoDisponibles());
+    window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
+    return () => window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
+  }, []);
 
   useEffect(() => {
     const actualizarPerfil = () => setPerfil(cargarPerfil());
@@ -326,9 +368,18 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
   const ingredientesPendientes = useMemo(
     () =>
       nombresIngredientes.filter(
-        (nombre) => !productosPorIngrediente[nombre],
+        (nombre) =>
+          !productosPorIngrediente[nombre] &&
+          !clavesNoDisponibles.has(textoNormalizado(nombre)),
       ),
-    [nombresIngredientes, productosPorIngrediente],
+    [clavesNoDisponibles, nombresIngredientes, productosPorIngrediente],
+  );
+
+  const ingredientesPausadosRecetario = useMemo(
+    () => nombresIngredientes.filter((nombre) =>
+      clavesNoDisponibles.has(textoNormalizado(nombre)),
+    ),
+    [clavesNoDisponibles, nombresIngredientes],
   );
 
   useEffect(() => {
@@ -376,7 +427,14 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
     };
 
     setProductosPorIngrediente(productosActualizados);
-    setMensaje(`${ingrediente} asociado a ${producto.nombre}.`);
+    setMensaje(
+      producto.origenPrecio === 'manual'
+        ? `Precio real guardado para ${ingrediente}: ${(producto.precio ?? 0).toLocaleString('es-ES', {
+            style: 'currency',
+            currency: 'EUR',
+          })} en ${producto.tiendaPrecio ?? 'otra tienda'}.`
+        : `${ingrediente} asociado a ${producto.nombre}.`,
+    );
 
     if (!modoPendientes) {
       cerrarSelector();
@@ -394,6 +452,19 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
       cerrarSelector();
       setMensaje('Todos los ingredientes están asociados.');
     }
+  };
+
+  const manejarDisponibilidadCambiada = (
+    ingrediente: string,
+    estado: EstadoDisponibilidadIngrediente | null,
+  ) => {
+    setIngredientesNoDisponibles(cargarIngredientesNoDisponibles());
+    setMensaje(
+      estado
+        ? `${ingrediente} pausado: no entrará en compra, presupuesto ni ahorro.`
+        : `${ingrediente} vuelve a estar disponible.`,
+    );
+    cerrarSelector();
   };
 
   const abrirEditor = (receta: Receta) => {
@@ -770,6 +841,8 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
       if (productoAnterior && !productoNuevo) {
         asociarProductoAIngrediente(nombreNuevo, productoAnterior);
       }
+      renombrarDisponibilidadIngrediente(nombreAnterior, nombreNuevo);
+      renombrarPrecioManualIngrediente(nombreAnterior, nombreNuevo);
     });
 
     const nuevasRecetas = editor.nombreOriginal
@@ -897,6 +970,16 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
           </button>
         )}
 
+        {ingredientesPausadosRecetario.length > 0 && (
+          <button
+            type="button"
+            onClick={() => abrirSelector(ingredientesPausadosRecetario[0])}
+            style={estiloBotonSecundario}
+          >
+            Pausados ({ingredientesPausadosRecetario.length})
+          </button>
+        )}
+
         {!esModoPostres && (
           <button
             type="button"
@@ -984,6 +1067,7 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
           const costeReceta = calcularResumenCosteReceta(
             receta,
             productosPorIngrediente,
+            clavesNoDisponibles,
           );
           const abierta = recetasAbiertas.has(receta.nombre);
 
@@ -1004,12 +1088,14 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
                 <span style={estiloCategoria}>{receta.categoria}</span>
                 <span style={estiloCosteReceta}>
                   {costeReceta.completos === 0
-                    ? 'Coste pendiente de asociaciones'
+                    ? costeReceta.pausados > 0
+                      ? `Coste no calculado · ${costeReceta.pausados} ingrediente${costeReceta.pausados === 1 ? '' : 's'} pausado${costeReceta.pausados === 1 ? '' : 's'}`
+                      : 'Coste pendiente de asociaciones'
                     : `${costeReceta.estimado ? '≈ ' : ''}${formatearMoneda(costeReceta.total)} usados${
-                        costeReceta.completos < receta.ingredientes.length
-                          ? ` · faltan ${receta.ingredientes.length - costeReceta.completos} asociaciones/precios`
+                        costeReceta.completos + costeReceta.pausados < receta.ingredientes.length
+                          ? ` · faltan ${receta.ingredientes.length - costeReceta.completos - costeReceta.pausados} asociaciones/precios`
                           : ' en la receta'
-                      }`}
+                      }${costeReceta.pausados > 0 ? ` · ${costeReceta.pausados} pausado${costeReceta.pausados === 1 ? '' : 's'} fuera del cálculo` : ''}`}
                 </span>
               </div>
 
@@ -1079,7 +1165,10 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
               {receta.ingredientes.map((ingrediente, indice) => {
                 const producto =
                   productosPorIngrediente[ingrediente.nombre];
-                const costeProporcional = producto
+                const estadoDisponibilidad = noDisponiblesPorNombre.get(
+                  textoNormalizado(ingrediente.nombre),
+                );
+                const costeProporcional = producto && !estadoDisponibilidad
                   ? calcularCosteProporcionalIngrediente(ingrediente, producto)
                   : null;
 
@@ -1109,20 +1198,33 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
                         type="button"
                         onClick={() => abrirSelector(ingrediente.nombre)}
                         style={
-                          producto
+                          producto || estadoDisponibilidad
                             ? estiloBotonCambiar
                             : estiloBotonAsociar
                         }
                       >
-                        {producto ? 'Cambiar' : 'Asociar'}
+                        {estadoDisponibilidad ? 'Gestionar' : producto ? 'Cambiar' : 'Asociar'}
                       </button>
                     </div>
 
-                    {producto ? (
+                    {estadoDisponibilidad ? (
+                      <div style={estiloProductoPausado}>
+                        <span>⏸️</span>
+                        <span>
+                          <strong>{ETIQUETAS_NO_DISPONIBILIDAD[estadoDisponibilidad.motivo]}</strong>
+                          <small>
+                            Fuera de compra y presupuesto; no cuenta como ahorro.
+                            {producto ? ' La asociación se conserva para cuando lo reactives.' : ''}
+                          </small>
+                        </span>
+                      </div>
+                    ) : producto ? (
                       <div style={estiloProducto}>
                         <button
                           type="button"
-                          onClick={() => setProductoAbierto(producto)}
+                          onClick={() => producto.origenPrecio === 'manual'
+                            ? abrirSelector(ingrediente.nombre)
+                            : setProductoAbierto(producto)}
                           style={estiloBotonFotoProducto}
                           aria-label={`Editar ${producto.nombre}`}
                         >
@@ -1144,6 +1246,13 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
                           <span style={estiloDetalle}>
                             {producto.formato}
                           </span>
+                          {producto.origenPrecio === 'manual' && (
+                            <small style={estiloPrecioEnvase}>
+                              Precio manual · {producto.tiendaPrecio} · actualizado {new Date(
+                                producto.actualizadoPrecioEn ?? Date.now(),
+                              ).toLocaleDateString('es-ES')}
+                            </small>
+                          )}
                           <strong style={estiloPrecio}>
                             {costeProporcional?.coste === null ||
                             costeProporcional === null
@@ -1200,6 +1309,7 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
         añadirADespensaAlSeleccionar
         onCerrar={cerrarSelector}
         onAsociado={manejarAsociado}
+        onDisponibilidadCambiada={manejarDisponibilidadCambiada}
       />
 
       <SelectorProductoIngrediente
@@ -1726,6 +1836,16 @@ const estiloProductoPendiente = {
   padding: '10px 12px',
   background: '#fff8e7',
   color: '#806718',
+  fontSize: '13px',
+};
+
+const estiloProductoPausado = {
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '8px',
+  padding: '11px 12px',
+  background: '#fff4df',
+  color: '#684d1f',
   fontSize: '13px',
 };
 

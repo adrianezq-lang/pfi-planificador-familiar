@@ -31,6 +31,11 @@ import {
   type UnidadProductoManual,
 } from '../services/productosManualesCompra';
 import { compartirTexto } from '../services/compartir';
+import {
+  ETIQUETAS_NO_DISPONIBILIDAD,
+  EVENTO_DISPONIBILIDAD_INGREDIENTES,
+} from '../services/disponibilidadIngredientes';
+import { EVENTO_PRECIOS_MANUALES_INGREDIENTES } from '../services/preciosManualesIngredientes';
 
 type Props = {
   menu: DiaMenu[];
@@ -81,6 +86,7 @@ export default function CompraModern({
   const [marcados, setMarcados] = useState<string[]>([]);
   const [registrados, setRegistrados] = useState<string[]>([]);
   const [ocultarCompletados, setOcultarCompletados] = useState(false);
+  const [revisionIngredientes, setRevisionIngredientes] = useState(0);
 
   const compraMensualDisponible = semanaActiva === 0;
   const menuObjetivo = periodo === 'semana' ? menu : menuMes;
@@ -135,7 +141,17 @@ export default function CompraModern({
     return () => {
       activo = false;
     };
-  }, [menuMes, menusSemanas, periodo, semanaActiva]);
+  }, [menuMes, menusSemanas, periodo, revisionIngredientes, semanaActiva]);
+
+  useEffect(() => {
+    const recalcular = () => setRevisionIngredientes((revision) => revision + 1);
+    window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcular);
+    window.addEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcular);
+    return () => {
+      window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcular);
+      window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcular);
+    };
+  }, []);
 
   const lineas = resultado?.lineas ?? SIN_LINEAS;
   const marcadosSet = useMemo(() => new Set(marcados), [marcados]);
@@ -250,7 +266,9 @@ export default function CompraModern({
     .map((producto) => producto.nombre);
   const sinPrecioTotal = sinPrecioAutomatico + sinPrecioManual;
   const calculosEstimados = resultado?.productosEstimados.length ?? 0;
+  const ingredientesPausados = resultado?.ingredientesNoDisponibles ?? [];
   const datosCompletos = sinProductoExacto === 0 && sinPrecioTotal === 0;
+  const planCompleto = datosCompletos && ingredientesPausados.length === 0;
   const mesTexto = new Intl.DateTimeFormat('es-ES', {
     month: 'long',
     year: 'numeric',
@@ -284,7 +302,10 @@ export default function CompraModern({
     const avisoPrecio = hayPreciosPendientes
       ? '\n\n* Hay productos sin precio; el importe es parcial.'
       : '';
-    return `${titulo}\n\n${grupos.join('\n\n')}\n\nPendiente conocido: ${euros(pendiente)}${avisoPrecio}`;
+    const avisoDisponibilidad = ingredientesPausados.length > 0
+      ? `\n* ${ingredientesPausados.map((estado) => estado.ingrediente).join(', ')} fuera de la lista por disponibilidad; revisa el menú o reactívalo.`
+      : '';
+    return `${titulo}\n\n${grupos.join('\n\n')}\n\nPendiente conocido: ${euros(pendiente)}${avisoPrecio}${avisoDisponibilidad}`;
   };
 
   const compartirCompra = async () => {
@@ -516,23 +537,26 @@ export default function CompraModern({
             </button>
           </section>
 
-          <section className={datosCompletos ? 'shopping-data-health is-ok' : 'shopping-data-health is-warning'} aria-label="Calidad de los datos de compra">
+          <section className={planCompleto ? 'shopping-data-health is-ok' : 'shopping-data-health is-warning'} aria-label="Calidad de los datos de compra">
             <span className="shopping-data-health__icon" aria-hidden="true">
-              <AppIcon name={datosCompletos ? 'check' : 'alert'} size={18} />
+              <AppIcon name={planCompleto ? 'check' : 'alert'} size={18} />
             </span>
             <div>
-              <strong>{datosCompletos ? 'Importes completos' : 'Hay datos pendientes de completar'}</strong>
+              <strong>{planCompleto ? 'Compra completa' : 'Hay decisiones pendientes'}</strong>
               <small>
-                {datosCompletos
+                {planCompleto
                   ? calculosEstimados > 0
                     ? `${calculosEstimados} cálculo${calculosEstimados === 1 ? '' : 's'} aproximado${calculosEstimados === 1 ? '' : 's'} por formato comercial.`
                     : 'Todos los productos tienen referencia y precio.'
                   : [
                       sinProductoExacto > 0 ? `${sinProductoExacto} sin producto exacto` : '',
                       sinPrecioTotal > 0 ? `${sinPrecioTotal} sin precio` : '',
+                      ingredientesPausados.length > 0
+                        ? `${ingredientesPausados.length} fuera de la compra por disponibilidad`
+                        : '',
                     ].filter(Boolean).join(' · ')}
               </small>
-              {!datosCompletos && (
+              {!planCompleto && (
                 <details className="shopping-data-health__details">
                   <summary>Ver causas y resolver</summary>
                   <div>
@@ -553,6 +577,22 @@ export default function CompraModern({
                         <strong>Compra manual sin precio:</strong>{' '}
                         {manualesSinPrecio.join(', ')}
                       </p>
+                    )}
+                    {ingredientesPausados.length > 0 && (
+                      <div>
+                        <p>
+                          <strong>Fuera de compra y presupuesto:</strong>{' '}
+                          {ingredientesPausados.map((estado) =>
+                            `${estado.ingrediente} (${ETIQUETAS_NO_DISPONIBILIDAD[estado.motivo]})`,
+                          ).join(', ')}. No cuentan como ahorro.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => resolverIngrediente(ingredientesPausados[0].ingrediente)}
+                        >
+                          Revisar disponibilidad de {ingredientesPausados[0].ingrediente}
+                        </button>
+                      </div>
                     )}
                     {resultado.productosSinSeleccionar[0] && (
                       <button
@@ -832,6 +872,13 @@ function LineaProducto({
         {linea.producto ? (
           <>
             <span className="modern-format-pill">{linea.producto.formato}</span>
+            {linea.producto.origenPrecio === 'manual' && (
+              <small className="modern-leftover">
+                Precio real indicado · {linea.producto.tiendaPrecio} · {new Date(
+                  linea.producto.actualizadoPrecioEn ?? Date.now(),
+                ).toLocaleDateString('es-ES')}
+              </small>
+            )}
             <b>{resumenEnvases(linea, linea.envases)}</b>
             {sobrante > UMBRAL_CERO && <small className="modern-leftover">Quedará {resumenEnvasesConContenido(linea, sobrante)}</small>}
             <ExplicacionCantidad linea={linea} />

@@ -1,6 +1,8 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.55.
+Versión 0.9.56.
+
+La v0.9.56 permite pausar temporalmente un ingrediente que no está disponible —por temporada, zona u otro motivo— sin perder su asociación exacta. El ingrediente queda fuera de compra y presupuesto con una causa visible, pero nunca se presenta como ahorro. Si aparece en otra tienda, se puede registrar un precio real por envase con formato, tienda y fecha; ese importe entra en la previsión y conserva su trazabilidad hasta la despensa.
 
 La v0.9.55 permite configurar las horas habituales de comida y cena para que el plan móvil de 48 horas use el horario real de la familia. Compra explica cuántas partidas carecen de importe y qué causas únicas las originan, permite completar en línea el precio de una compra manual, ofrece una acción directa para elegir el producto exacto y filtra el catálogo por la sección del ingrediente para no proponer falsos positivos. Si un producto estacional no está disponible, permanece pendiente sin inventar una asociación ni un precio.
 

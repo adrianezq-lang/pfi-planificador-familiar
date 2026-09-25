@@ -8,6 +8,10 @@ import {
   type ProductoDespensa,
 } from '../services/despensa';
 import { generarListaCompra } from '../services/listaCompra';
+import {
+  obtenerEstadoDisponibilidadIngrediente,
+  type EstadoDisponibilidadIngrediente,
+} from '../services/disponibilidadIngredientes';
 
 export type TipoCompra = 'semanal' | 'despensa';
 export type OrigenLineaCompra = 'menu' | 'reposicion';
@@ -47,6 +51,10 @@ export type LineaCompra = {
   origenCobertura?: OrigenCoberturaCompra;
 };
 
+export type IngredienteNoDisponibleCompra = EstadoDisponibilidadIngrediente & {
+  seccion: string;
+};
+
 export type ResultadoCompra = {
   lineas: LineaCompra[];
   lineasSemanales: LineaCompra[];
@@ -58,6 +66,7 @@ export type ResultadoCompra = {
   productosSinPrecio: string[];
   productosEstimados: string[];
   lineasCubiertas?: LineaCompra[];
+  ingredientesNoDisponibles?: IngredienteNoDisponibleCompra[];
 };
 
 type CantidadBase = {
@@ -766,7 +775,19 @@ export async function generarCompraMercadona(
 ): Promise<ResultadoCompra> {
   const aplicarStock = opciones.aplicarStock ?? true;
   const incluirReposicion = opciones.incluirReposicion ?? true;
-  const ingredientes = generarListaCompra(menu);
+  const ingredientesGenerados = generarListaCompra(menu);
+  const ingredientesNoDisponibles = ingredientesGenerados
+    .map((ingrediente) => {
+      const estado = obtenerEstadoDisponibilidadIngrediente(ingrediente.nombre);
+      return estado ? { ...estado, seccion: ingrediente.seccion } : null;
+    })
+    .filter((estado): estado is IngredienteNoDisponibleCompra => estado !== null);
+  const clavesNoDisponibles = new Set(
+    ingredientesNoDisponibles.map((estado) => normalizarTexto(estado.ingrediente)),
+  );
+  const ingredientes = ingredientesGenerados.filter(
+    (ingrediente) => !clavesNoDisponibles.has(normalizarTexto(ingrediente.nombre)),
+  );
   const despensa = cargarDespensa();
   const despensaPorProducto = new Map(
     despensa.map((producto) => [producto.productoId, producto]),
@@ -850,5 +871,6 @@ export async function generarCompraMercadona(
     productosSinSeleccionar,
     productosSinPrecio,
     productosEstimados,
+    ingredientesNoDisponibles,
   };
 }

@@ -619,6 +619,15 @@ function ProductoCabecera({
               : ''}
           </span>
         )}
+        {producto.precioObservadoTienda && (
+          <span className="pantry-last-purchase">
+            Precio real indicado: {producto.precioObservadoTienda}
+            {producto.precioObservadoEn
+              ? ` · ${new Date(producto.precioObservadoEn).toLocaleDateString('es-ES')}`
+              : ''}
+            {' · '}no registra una compra
+          </span>
+        )}
         <button type="button" className="pantry-edit-link" onClick={onAbrir}>
           Editar producto
         </button>

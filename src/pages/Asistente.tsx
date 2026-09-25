@@ -55,6 +55,9 @@ import {
   indiceDiaSemana,
 } from '../services/excepcionesCalendario';
 import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
+import { EVENTO_ASOCIACIONES } from '../services/asociacionesIngredientes';
+import { EVENTO_DISPONIBILIDAD_INGREDIENTES } from '../services/disponibilidadIngredientes';
+import { EVENTO_PRECIOS_MANUALES_INGREDIENTES } from '../services/preciosManualesIngredientes';
 
 type Props = {
   menu: DiaMenu[];
@@ -260,17 +263,24 @@ export default function Asistente({
     const actualizarPerfil = () => setPerfil(cargarPerfil());
     const actualizarAprendizaje = () =>
       setAprendizaje(obtenerResumenAprendizaje());
+    const recalcularCompra = () => setRevisionAcciones((valor) => valor + 1);
 
     window.addEventListener(EVENTO_DESPENSA, actualizarDespensa);
     window.addEventListener(EVENTO_RECETAS, actualizarRecetas);
     window.addEventListener(EVENTO_PERFIL, actualizarPerfil);
     window.addEventListener(EVENTO_APRENDIZAJE, actualizarAprendizaje);
+    window.addEventListener(EVENTO_ASOCIACIONES, recalcularCompra);
+    window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcularCompra);
+    window.addEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcularCompra);
 
     return () => {
       window.removeEventListener(EVENTO_DESPENSA, actualizarDespensa);
       window.removeEventListener(EVENTO_RECETAS, actualizarRecetas);
       window.removeEventListener(EVENTO_PERFIL, actualizarPerfil);
       window.removeEventListener(EVENTO_APRENDIZAJE, actualizarAprendizaje);
+      window.removeEventListener(EVENTO_ASOCIACIONES, recalcularCompra);
+      window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcularCompra);
+      window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcularCompra);
     };
   }, []);
 

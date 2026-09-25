@@ -34,6 +34,8 @@ export type ProductoDespensa = {
   unidad: string;
   frecuencia: FrecuenciaDespensa;
   tipo: TipoProductoDespensa;
+  precioObservadoTienda: string | null;
+  precioObservadoEn: string | null;
   ultimaCompraTiendaId: string | null;
   ultimaCompraTienda: string | null;
   ultimoProductoComprado: string | null;
@@ -157,6 +159,14 @@ function normalizarProductoGuardado(
       producto.tipo === 'perecedero'
         ? 'perecedero'
         : 'despensa',
+    precioObservadoTienda:
+      typeof producto.precioObservadoTienda === 'string'
+        ? producto.precioObservadoTienda
+        : null,
+    precioObservadoEn:
+      typeof producto.precioObservadoEn === 'string'
+        ? producto.precioObservadoEn
+        : null,
     ultimaCompraTiendaId:
       typeof producto.ultimaCompraTiendaId === 'string'
         ? producto.ultimaCompraTiendaId
@@ -355,6 +365,12 @@ function datosProductoDespensaDesdeCatalogo(
     tipo: esPerecedero
       ? 'perecedero'
       : 'despensa',
+    precioObservadoTienda: producto.origenPrecio === 'manual'
+      ? producto.tiendaPrecio ?? 'Otra tienda'
+      : null,
+    precioObservadoEn: producto.origenPrecio === 'manual'
+      ? producto.actualizadoPrecioEn ?? new Date().toISOString()
+      : null,
     ultimaCompraTiendaId: null,
     ultimaCompraTienda: null,
     ultimoProductoComprado: null,
@@ -389,6 +405,18 @@ export function crearProductoDespensaDesdeCatalogo(
   producto: ProductoMercadonaCatalogo,
 ): ProductoDespensa[] {
   permitirProductoAutomatico(producto.productoId);
+  const existente = cargarDespensa().find(
+    (item) => item.productoId === producto.productoId,
+  );
+  if (existente && producto.origenPrecio === 'manual') {
+    return actualizarProductoDespensa(existente.id, {
+      nombre: producto.nombre,
+      formato: producto.formato,
+      precio: producto.precio,
+      precioObservadoTienda: producto.tiendaPrecio ?? 'Otra tienda',
+      precioObservadoEn: producto.actualizadoPrecioEn ?? new Date().toISOString(),
+    });
+  }
   return crearProductosDespensaDesdeCatalogo([producto]);
 }
 
@@ -520,6 +548,26 @@ export function eliminarProductoDespensa(
 
   guardarDespensa(nuevosProductos);
   return nuevosProductos;
+}
+
+export function retirarReferenciaPrecioManualDespensa(
+  productoId: string,
+): ProductoDespensa[] {
+  const productos = cargarDespensa();
+  const producto = productos.find((item) => item.productoId === productoId);
+  if (!producto) return productos;
+
+  if (producto.stockActual <= 0 && producto.ultimaCompraEn === null) {
+    const restantes = productos.filter((item) => item.id !== producto.id);
+    guardarDespensa(restantes);
+    return restantes;
+  }
+
+  return actualizarProductoDespensa(producto.id, {
+    precioObservadoTienda: null,
+    precioObservadoEn: null,
+    precio: producto.ultimoPrecioCompra ?? producto.precio,
+  });
 }
 
 export function buscarProductoDespensa(

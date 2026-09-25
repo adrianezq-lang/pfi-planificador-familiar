@@ -129,6 +129,13 @@ export function registrarMarcadosEnInventario(
         productoNombre: opcion.productoNombre,
         precio: opcion.precioEnvase,
       });
+    } else if (linea.producto?.origenPrecio === 'manual') {
+      registrarUltimaCompraDespensa(productoId, {
+        tiendaId: `manual:${normalizarClave(linea.producto.tiendaPrecio ?? 'otra-tienda')}`,
+        tiendaNombre: linea.producto.tiendaPrecio ?? 'Otra tienda',
+        productoNombre: linea.producto.nombre,
+        precio: linea.producto.precio ?? 0,
+      });
     }
     clavesRegistradas.add(linea.clave);
     lineasRegistradas += 1;

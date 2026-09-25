@@ -56,10 +56,10 @@ assert.match(css, /\.assistant-confirm/);
 assert.match(css, /\.assistant-action-result/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.55');
-assert.match(app, /v0\.9\.55/);
-assert.match(sw, /pfi-v0\.9\.55-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.55'/);
+assert.equal(packageJson.version, '0.9.56');
+assert.match(app, /v0\.9\.56/);
+assert.match(sw, /pfi-v0\.9\.56-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.56'/);
 
 const vite = await createServer({
   configFile: false,
@@ -438,4 +438,4 @@ console.log('✓ entiende órdenes con origen primero, destino primero y cruces 
 console.log('✓ añadir compra, fin de semana sin niños y comidas fuera requieren confirmación');
 console.log('✓ valida fechas de la semana activa y pregunta cuando el sentido es ambiguo');
 console.log('✓ las órdenes incompletas piden aclaración en lugar de adivinar');
-console.log('✓ versión, caché y copias están alineadas en v0.9.55');
+console.log('✓ versión, caché y copias están alineadas en v0.9.56');

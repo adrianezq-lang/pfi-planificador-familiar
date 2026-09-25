@@ -1,3 +1,13 @@
+# v0.9.56 — Disponibilidad estacional y precios trazables
+
+- Cada ingrediente puede pausarse por estar fuera de temporada, no encontrarse en la zona o no estar disponible temporalmente; reactivarlo conserva la asociación exacta anterior.
+- Los ingredientes pausados se excluyen de la compra semanal o mensual que corresponda y se muestran como una causa pendiente separada. No generan un falso ahorro ni convierten el saldo en definitivo.
+- El selector permite usar un precio real de otra tienda indicando importe, capacidad, unidad y fuente. PFI calcula los envases con ese formato y registra tienda y fecha sin presentarlo como una compra ya realizada ni crear stock físico.
+- Recetas distingue asociaciones pendientes, ingredientes pausados y precios manuales; el coste proporcional omite expresamente lo no disponible.
+- Menú avisa si un plato o postre usa un ingrediente pausado y deja de proponer esas recetas entre sus sugerencias automáticas.
+- Compra, Inicio y Asistente comparten la misma trazabilidad, priorizan cambiar el menú o reactivar el ingrediente y llevan la acción al ingrediente exacto.
+- Los nuevos estados y precios forman parte de las copias completas del PFI; el origen manual también llega a Despensa al registrar la compra.
+
 # v0.9.55 — Horarios y datos pendientes explicables
 
 - El perfil permite configurar las horas habituales de comida y cena; el plan móvil de 48 horas usa esas horas y minutos para excluir servicios ya pasados y cerrar la ventana con precisión.
