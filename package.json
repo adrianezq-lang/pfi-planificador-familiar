@@ -48,7 +48,8 @@
     "test:v0945": "node --experimental-strip-types scripts/probar-asistente-acciones-v0945.mjs",
     "test:v0954": "node --experimental-strip-types scripts/probar-coherencia-copiloto-v0954.mjs",
     "test:v0955": "node --experimental-strip-types scripts/probar-horarios-catalogo-v0955.mjs",
-    "test:v0956": "node --experimental-strip-types scripts/probar-disponibilidad-v0956.mjs"
+    "test:v0956": "node --experimental-strip-types scripts/probar-disponibilidad-v0956.mjs",
+    "test:v0957": "node --experimental-strip-types scripts/probar-fiabilidad-inventario-v0957.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.115.0",
