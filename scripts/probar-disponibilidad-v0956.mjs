@@ -52,7 +52,13 @@ const {
   guardarPrecioManualIngrediente,
   obtenerPrecioManualIngrediente,
   quitarPrecioManualIngrediente,
+  convertirPrecioManualAProducto,
 } = await vite.ssrLoadModule('/src/services/preciosManualesIngredientes.ts');
+const {
+  buscarProductoDespensa,
+  crearProductoDespensaDesdeCatalogo,
+  retirarReferenciaPrecioManualDespensa,
+} = await vite.ssrLoadModule('/src/services/despensa.ts');
 const { generarCompraMercadona } = await vite.ssrLoadModule('/src/motor/compra.ts');
 const { generarCompraMensual, generarCompraSemanalProyectada } =
   await vite.ssrLoadModule('/src/services/planificacionCompra.ts');
@@ -193,7 +199,7 @@ assert.equal(respuestaCompra.accion?.destino, 'recetas');
 const calidad = responderAsistente('Revisa la calidad de los datos', contexto);
 assert.equal(calidad.accion?.ingrediente, 'Media sandía');
 
-guardarPrecioManualIngrediente({
+const precioGuardado = guardarPrecioManualIngrediente({
   ingrediente: 'Media sandía',
   precioEnvase: 4.5,
   cantidadEnvase: 1,
@@ -204,6 +210,13 @@ guardarPrecioManualIngrediente({
 reactivarIngrediente('Media sandía');
 assert.equal(obtenerPrecioManualIngrediente('Media sandía')?.tienda, 'Frutería local');
 assert.ok(eventos.includes(EVENTO_PRECIOS_MANUALES_INGREDIENTES));
+const productoManual = convertirPrecioManualAProducto(precioGuardado);
+crearProductoDespensaDesdeCatalogo(productoManual);
+const referenciaEnDespensa = buscarProductoDespensa(productoManual.productoId);
+assert.equal(referenciaEnDespensa?.stockActual, 0);
+assert.equal(referenciaEnDespensa?.precioObservadoTienda, 'Frutería local');
+assert.equal(referenciaEnDespensa?.ultimaCompraTienda, null);
+assert.equal(referenciaEnDespensa?.ultimaCompraEn, null);
 
 const conPrecioManual = await generarCompraSemanalProyectada([menu], 0);
 assert.equal(conPrecioManual.productosSinSeleccionar.length, 0);
@@ -218,19 +231,22 @@ const copia = recopilarDatosPFI();
 assert.ok(copia['pfi-precios-manuales-ingredientes-v1']);
 assert.ok(copia['pfi-ingredientes-no-disponibles-v1']);
 
+retirarReferenciaPrecioManualDespensa(productoManual.productoId);
 quitarPrecioManualIngrediente('Media sandía');
+assert.equal(buscarProductoDespensa(productoManual.productoId), undefined);
 const otraVezPendiente = await generarCompraMercadona(menu, {
   aplicarStock: false,
   incluirReposicion: false,
 });
 assert.deepEqual(otraVezPendiente.productosSinSeleccionar, ['Media sandía']);
 
-const [selectorUi, recetasUi, compraUi, menuUi, asistenteUi] = await Promise.all([
+const [selectorUi, recetasUi, compraUi, menuUi, asistenteUi, despensaUi] = await Promise.all([
   readFile(new URL('../src/components/SelectorProductoIngrediente.tsx', import.meta.url), 'utf8'),
   readFile(new URL('../src/pages/Recetas.tsx', import.meta.url), 'utf8'),
   readFile(new URL('../src/pages/CompraModern.tsx', import.meta.url), 'utf8'),
   readFile(new URL('../src/pages/MenuModern.tsx', import.meta.url), 'utf8'),
   readFile(new URL('../src/services/asistentePFI.ts', import.meta.url), 'utf8'),
+  readFile(new URL('../src/pages/Despensa.tsx', import.meta.url), 'utf8'),
 ]);
 assert.match(selectorUi, /Pausar ingrediente/);
 assert.match(selectorUi, /Usar este precio/);
@@ -241,11 +257,13 @@ assert.match(compraUi, /Revisar disponibilidad de/);
 assert.match(menuUi, /Cambia el menú o reactívalo en Recetas/);
 assert.match(menuUi, /filter\(\(sugerencia\) => ingredientesPausadosEn/);
 assert.match(asistenteUi, /Cambia el menú o reactívalo/);
+assert.match(despensaUi, /Precio real indicado/);
+assert.match(despensaUi, /no registra una compra/);
 
 await vite.close();
 
 console.log('✓ pausar un ingrediente lo excluye de la compra correcta sin crear un falso ahorro');
 console.log('✓ presupuesto y asistente conservan la exclusión como causa trazable y prioritaria');
-console.log('✓ un precio manual real cierra envases e importe con tienda y fecha de origen');
+console.log('✓ un precio real indicado cierra envases e importe sin fingir una compra');
 console.log('✓ reactivar o retirar el precio devuelve el ingrediente al flujo exacto esperado');
 console.log('✓ disponibilidad y precios manuales quedan incluidos en la copia completa del PFI');

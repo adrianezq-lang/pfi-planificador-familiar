@@ -279,6 +279,8 @@ function datosDespensa(
     unidad: producto.unidad,
     frecuencia: 'manual',
     tipo: 'despensa',
+    precioObservadoTienda: null,
+    precioObservadoEn: null,
     ultimaCompraTiendaId: tiendaId,
     ultimaCompraTienda: producto.tienda,
     ultimoProductoComprado: producto.nombre,

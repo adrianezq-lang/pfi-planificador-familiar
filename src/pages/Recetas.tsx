@@ -427,7 +427,14 @@ function Recetas({ modo = 'platos', ingredientePendiente, onAsociacionAbierta }:
     };
 
     setProductosPorIngrediente(productosActualizados);
-    setMensaje(`${ingrediente} asociado a ${producto.nombre}.`);
+    setMensaje(
+      producto.origenPrecio === 'manual'
+        ? `Precio real guardado para ${ingrediente}: ${(producto.precio ?? 0).toLocaleString('es-ES', {
+            style: 'currency',
+            currency: 'EUR',
+          })} en ${producto.tiendaPrecio ?? 'otra tienda'}.`
+        : `${ingrediente} asociado a ${producto.nombre}.`,
+    );
 
     if (!modoPendientes) {
       cerrarSelector();

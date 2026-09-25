@@ -874,7 +874,7 @@ function LineaProducto({
             <span className="modern-format-pill">{linea.producto.formato}</span>
             {linea.producto.origenPrecio === 'manual' && (
               <small className="modern-leftover">
-                Precio manual · {linea.producto.tiendaPrecio} · {new Date(
+                Precio real indicado · {linea.producto.tiendaPrecio} · {new Date(
                   linea.producto.actualizadoPrecioEn ?? Date.now(),
                 ).toLocaleDateString('es-ES')}
               </small>

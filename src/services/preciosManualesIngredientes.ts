@@ -132,7 +132,7 @@ export function convertirPrecioManualAProducto(
     formatoUnidad: precio.unidadEnvase,
     pesoAproximado: false,
     seccion: precio.seccion,
-    subcategoria: 'Precio manual',
+    subcategoria: 'Precio real indicado',
     imagen: null,
     url: '',
     disponible: true,
@@ -150,4 +150,3 @@ export function obtenerProductosConPrecioManual(): Record<string, ProductoMercad
     ]),
   );
 }
-

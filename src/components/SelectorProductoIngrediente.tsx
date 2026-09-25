@@ -13,6 +13,7 @@ import {
 import {
   cargarDespensa,
   crearProductoDespensaDesdeCatalogo,
+  retirarReferenciaPrecioManualDespensa,
 } from '../services/despensa';
 import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 import {
@@ -170,13 +171,23 @@ function SelectorProductoIngrediente({
     }
   };
 
+  const retirarPrecioManualActual = () => {
+    const manual = obtenerPrecioManualIngrediente(ingrediente);
+    if (manual) {
+      retirarReferenciaPrecioManualDespensa(
+        convertirPrecioManualAProducto(manual).productoId,
+      );
+    }
+    quitarPrecioManualIngrediente(ingrediente);
+    setManualGuardado(false);
+  };
+
   const seleccionar = (producto: ProductoMercadonaCatalogo) => {
     crearCopiaAutomaticaSiNecesaria(`antes de asociar ${ingrediente}`);
     añadirProductoADespensa(producto);
 
     if (asociarAutomaticamente && ingrediente.trim()) {
-      quitarPrecioManualIngrediente(ingrediente);
-      setManualGuardado(false);
+      retirarPrecioManualActual();
       reactivarIngrediente(ingrediente);
       asociarProductoAIngrediente(ingrediente, producto.productoId);
     }
@@ -241,8 +252,7 @@ function SelectorProductoIngrediente({
 
   const quitarPrecioManual = () => {
     crearCopiaAutomaticaSiNecesaria(`antes de retirar el precio de ${ingrediente}`);
-    quitarPrecioManualIngrediente(ingrediente);
-    setManualGuardado(false);
+    retirarPrecioManualActual();
     onCerrar();
   };
 
