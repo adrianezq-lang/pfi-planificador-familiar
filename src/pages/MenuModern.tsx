@@ -47,6 +47,14 @@ import {
   resumenConfirmacionConsumo,
   type MomentoConsumoMenu,
 } from '../services/consumoMenu';
+import {
+  cargarZonaTemporada,
+  EVENTO_ZONA_TEMPORADA,
+  ingredientesFueraDeTemporada,
+  sugerirSustitucionesRecetaTemporada,
+  type SustitucionRecetaTemporada,
+  type ZonaTemporada,
+} from '../services/temporadaIngredientes';
 
 type MenuProps = {
   menu: DiaMenu[];
@@ -272,6 +280,18 @@ export default function MenuModern({
   const [ingredientesNoDisponibles, setIngredientesNoDisponibles] =
     useState<EstadoDisponibilidadIngrediente[]>(cargarIngredientesNoDisponibles);
   const [revisionConsumo, setRevisionConsumo] = useState(0);
+  const [zonaTemporada, setZonaTemporada] =
+    useState<ZonaTemporada>(cargarZonaTemporada);
+  const [sustitucionComida, setSustitucionComida] =
+    useState<SustitucionRecetaTemporada | null>(null);
+  const [sustitucionCena, setSustitucionCena] =
+    useState<SustitucionRecetaTemporada | null>(null);
+  const [ultimaSustitucion, setUltimaSustitucion] = useState<{
+    indiceMenu: number;
+    momento: MomentoMenu;
+    anterior: string;
+    nuevo: string;
+  } | null>(null);
 
   const indiceSemanaSeguro = planMensual.length === 0
     ? 0
@@ -362,6 +382,33 @@ export default function MenuModern({
   const puedeConfirmarConsumo = Boolean(
     fechaActiva && fechaActiva <= fechaLocalISO(),
   );
+  const alertasTemporada = useCallback(
+    (platos: string[]) => {
+      const porNombre = new Map(
+        recetas.map((receta) => [normalizar(receta.nombre), receta]),
+      );
+      return platos.flatMap((plato) => {
+        const receta = porNombre.get(normalizar(plato));
+        if (!receta) return [];
+        return ingredientesFueraDeTemporada(
+          receta,
+          fechaActiva || mesActivo,
+          zonaTemporada,
+        ).map((evaluacion) => ({
+          receta: receta.nombre,
+          ingrediente: evaluacion.ingrediente,
+        }));
+      });
+    },
+    [fechaActiva, mesActivo, recetas, zonaTemporada],
+  );
+  const temporadaComida = dia
+    ? alertasTemporada([...dia.comida, formatearPostreMenu(dia, 'comida')])
+    : [];
+  const temporadaCena = dia
+    ? alertasTemporada([...dia.cena, formatearPostreMenu(dia, 'cena')])
+    : [];
+
   const platosDisponibles = useMemo(
     () => Array.from(new Set([...recetasPlato, ...obtenerOpcionesEspeciales()])),
     [recetasPlato],
@@ -417,6 +464,62 @@ export default function MenuModern({
     window.addEventListener(EVENTO_CONSUMOS_MENU, actualizar);
     return () => window.removeEventListener(EVENTO_CONSUMOS_MENU, actualizar);
   }, []);
+
+  useEffect(() => {
+    const actualizar = () => setZonaTemporada(cargarZonaTemporada());
+    window.addEventListener(EVENTO_ZONA_TEMPORADA, actualizar);
+    return () => window.removeEventListener(EVENTO_ZONA_TEMPORADA, actualizar);
+  }, []);
+
+  useEffect(() => {
+    let activo = true;
+
+    const buscar = async (
+      platos: string[],
+      guardarSugerencia: (valor: SustitucionRecetaTemporada | null) => void,
+    ) => {
+      const porNombre = new Map(
+        recetas.map((receta) => [normalizar(receta.nombre), receta]),
+      );
+      const recetaFuera = platos
+        .map((plato) => porNombre.get(normalizar(plato)))
+        .find((receta) =>
+          receta
+            ? ingredientesFueraDeTemporada(
+                receta,
+                fechaActiva || mesActivo,
+                zonaTemporada,
+              ).length > 0
+            : false,
+        );
+
+      if (!recetaFuera) {
+        if (activo) guardarSugerencia(null);
+        return;
+      }
+
+      const sugerencias = await sugerirSustitucionesRecetaTemporada(
+        recetaFuera,
+        recetas,
+        fechaActiva || mesActivo,
+        zonaTemporada,
+        1,
+      );
+      if (activo) guardarSugerencia(sugerencias[0] ?? null);
+    };
+
+    if (dia) {
+      void buscar(dia.comida, setSustitucionComida);
+      void buscar(dia.cena, setSustitucionCena);
+    } else {
+      setSustitucionComida(null);
+      setSustitucionCena(null);
+    }
+
+    return () => {
+      activo = false;
+    };
+  }, [dia, fechaActiva, mesActivo, recetas, zonaTemporada]);
 
   useEffect(() => {
     if (diaActivo >= fechas.length && fechas.length > 0) setDiaActivo(0);
@@ -567,6 +670,75 @@ export default function MenuModern({
     setMensaje('Consumo deshecho · stock restaurado.');
   };
 
+  const aplicarSustitucionTemporada = (
+    momento: MomentoMenu,
+    sustitucion: SustitucionRecetaTemporada,
+  ) => {
+    if (!dia) return;
+    crearCopiaAutomaticaSiNecesaria('antes de aplicar una sustitución de temporada');
+    const platosActuales = momento === 'comida' ? dia.comida : dia.cena;
+    const siguientes = platosActuales.map((plato) =>
+      plato === sustitucion.recetaActual ? sustitucion.recetaSugerida : plato,
+    );
+
+    guardar(
+      menu.map((elemento, indice) =>
+        indice === indiceMenu
+          ? { ...elemento, [momento]: siguientes }
+          : elemento,
+      ),
+    );
+    registrarEleccionMenu(dia.dia, momento, siguientes);
+    setUltimaSustitucion({
+      indiceMenu,
+      momento,
+      anterior: sustitucion.recetaActual,
+      nuevo: sustitucion.recetaSugerida,
+    });
+    setMensaje('Sustitución aplicada · menú, compra y presupuesto recalculados.');
+  };
+
+  const deshacerSustitucionTemporada = () => {
+    if (!ultimaSustitucion) return;
+    crearCopiaAutomaticaSiNecesaria('antes de deshacer una sustitución de temporada');
+    guardar(
+      menu.map((elemento, indice) => {
+        if (indice !== ultimaSustitucion.indiceMenu) return elemento;
+        const platos = ultimaSustitucion.momento === 'comida'
+          ? elemento.comida
+          : elemento.cena;
+        return {
+          ...elemento,
+          [ultimaSustitucion.momento]: platos.map((plato) =>
+            plato === ultimaSustitucion.nuevo
+              ? ultimaSustitucion.anterior
+              : plato,
+          ),
+        };
+      }),
+    );
+    setUltimaSustitucion(null);
+    setMensaje('Sustitución deshecha · planificación restaurada.');
+  };
+
+  const textoImpactoTemporada = (
+    sustitucion: SustitucionRecetaTemporada,
+  ): string => {
+    if (sustitucion.diferencia === null) {
+      return 'Presupuesto: impacto pendiente de precio exacto.';
+    }
+    const importe = Math.abs(sustitucion.diferencia).toLocaleString('es-ES', {
+      style: 'currency',
+      currency: 'EUR',
+    });
+    if (Math.abs(sustitucion.diferencia) < 0.005) {
+      return 'Presupuesto: coste equivalente con los datos actuales.';
+    }
+    return sustitucion.diferencia < 0
+      ? `Presupuesto: ${importe} menos en las cantidades de referencia.`
+      : `Presupuesto: ${importe} más en las cantidades de referencia.`;
+  };
+
   const textoCompartirSemana = () => {
     const titulo = `PFI · ${mesBonito} · Semana ${indiceSemanaSeguro + 1}`;
     const lineas = fechas.map((fecha) => {
@@ -635,7 +807,18 @@ export default function MenuModern({
           <h2>Menú</h2>
           <p>Tu semana de un vistazo. Toca cualquier comida para cambiarla.</p>
         </div>
-        {mensaje && <span className="modern-status" role="status">✓ {mensaje}</span>}
+        <div className="modern-status-stack">
+          {mensaje && <span className="modern-status" role="status">✓ {mensaje}</span>}
+          {ultimaSustitucion && (
+            <button
+              type="button"
+              className="modern-status-undo"
+              onClick={deshacerSustitucionTemporada}
+            >
+              Deshacer último cambio
+            </button>
+          )}
+        </div>
       </section>
 
       <section className="modern-month-card" aria-label="Navegación mensual">
@@ -836,6 +1019,29 @@ export default function MenuModern({
                           {noDisponiblesComida.join(', ')}. Cambia el menú o reactívalo en Recetas.
                         </p>
                       )}
+                      {temporadaComida.length > 0 && (
+                        <div className="modern-season-alert" role="status">
+                          <strong>Temporada habitual:</strong>{' '}
+                          ${temporadaComida.map((item) => item.ingrediente).filter((valor, indice, lista) => lista.indexOf(valor) === indice).join(', ')} fuera de su ventana habitual para la zona configurada. No se bloquea la receta.
+                          {sustitucionComida && (
+                            <div className="modern-season-suggestion">
+                              <span>
+                                <strong>Alternativa:</strong>{' '}
+                                {sustitucionComida.recetaActual} → {sustitucionComida.recetaSugerida}
+                              </span>
+                              <small>
+                                Menú: cambia solo este plato · Compra: se recalcula · Despensa: conserva el stock real · {textoImpactoTemporada(sustitucionComida)}
+                              </small>
+                              <button
+                                type="button"
+                                onClick={() => aplicarSustitucionTemporada('comida', sustitucionComida)}
+                              >
+                                Aplicar sustitución
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      )}
                       <div className="meal-consumption">
                         {confirmacionComida ? (
                           <>
@@ -902,6 +1108,29 @@ export default function MenuModern({
                           <strong>Ingrediente no disponible:</strong>{' '}
                           {noDisponiblesCena.join(', ')}. Cambia el menú o reactívalo en Recetas.
                         </p>
+                      )}
+                      {temporadaCena.length > 0 && (
+                        <div className="modern-season-alert" role="status">
+                          <strong>Temporada habitual:</strong>{' '}
+                          ${temporadaCena.map((item) => item.ingrediente).filter((valor, indice, lista) => lista.indexOf(valor) === indice).join(', ')} fuera de su ventana habitual para la zona configurada. No se bloquea la receta.
+                          {sustitucionCena && (
+                            <div className="modern-season-suggestion">
+                              <span>
+                                <strong>Alternativa:</strong>{' '}
+                                {sustitucionCena.recetaActual} → {sustitucionCena.recetaSugerida}
+                              </span>
+                              <small>
+                                Menú: cambia solo este plato · Compra: se recalcula · Despensa: conserva el stock real · {textoImpactoTemporada(sustitucionCena)}
+                              </small>
+                              <button
+                                type="button"
+                                onClick={() => aplicarSustitucionTemporada('cena', sustitucionCena)}
+                              >
+                                Aplicar sustitución
+                              </button>
+                            </div>
+                          )}
+                        </div>
                       )}
                       <div className="meal-consumption">
                         {confirmacionCena ? (
