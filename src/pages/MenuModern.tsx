@@ -39,6 +39,14 @@ import {
   EVENTO_DISPONIBILIDAD_INGREDIENTES,
   type EstadoDisponibilidadIngrediente,
 } from '../services/disponibilidadIngredientes';
+import {
+  confirmarConsumoMenu,
+  deshacerConfirmacionConsumoMenu,
+  EVENTO_CONSUMOS_MENU,
+  obtenerConfirmacionConsumoMenu,
+  resumenConfirmacionConsumo,
+  type MomentoConsumoMenu,
+} from '../services/consumoMenu';
 
 type MenuProps = {
   menu: DiaMenu[];
@@ -263,6 +271,7 @@ export default function MenuModern({
   const [notaSemana, setNotaSemana] = useState(() => cargarNotaSemana(mesActivo, semanaActiva));
   const [ingredientesNoDisponibles, setIngredientesNoDisponibles] =
     useState<EstadoDisponibilidadIngrediente[]>(cargarIngredientesNoDisponibles);
+  const [, setRevisionConsumo] = useState(0);
 
   const indiceSemanaSeguro = planMensual.length === 0
     ? 0
@@ -343,6 +352,16 @@ export default function MenuModern({
   const noDisponiblesCena = dia
     ? ingredientesPausadosEn([...dia.cena, formatearPostreMenu(dia, 'cena')])
     : [];
+  void revisionConsumo;
+  const confirmacionComida = fechaActiva
+    ? obtenerConfirmacionConsumoMenu(fechaActiva, 'comida')
+    : null;
+  const confirmacionCena = fechaActiva
+    ? obtenerConfirmacionConsumoMenu(fechaActiva, 'cena')
+    : null;
+  const puedeConfirmarConsumo = Boolean(
+    fechaActiva && fechaActiva <= fechaLocalISO(),
+  );
   const platosDisponibles = useMemo(
     () => Array.from(new Set([...recetasPlato, ...obtenerOpcionesEspeciales()])),
     [recetasPlato],
@@ -391,6 +410,12 @@ export default function MenuModern({
     const actualizar = () => setIngredientesNoDisponibles(cargarIngredientesNoDisponibles());
     window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
     return () => window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
+  }, []);
+
+  useEffect(() => {
+    const actualizar = () => setRevisionConsumo((valor) => valor + 1);
+    window.addEventListener(EVENTO_CONSUMOS_MENU, actualizar);
+    return () => window.removeEventListener(EVENTO_CONSUMOS_MENU, actualizar);
   }, []);
 
   useEffect(() => {
@@ -513,6 +538,33 @@ export default function MenuModern({
     registrarResultadoComida(dia.dia, momento, platos, resultado);
     setRevisionAprendizaje((valor) => valor + 1);
     setMensaje('Valoración guardada.');
+  };
+
+  const confirmarConsumo = async (momento: MomentoConsumoMenu) => {
+    if (!dia || !fechaActiva) return;
+    const platos = momento === 'comida' ? dia.comida : dia.cena;
+    const postre = formatearPostreMenu(dia, momento);
+    const confirmacion = await confirmarConsumoMenu({
+      fecha: fechaActiva,
+      momento,
+      platos,
+      postre,
+      recetas,
+    });
+    const resumen = resumenConfirmacionConsumo(confirmacion);
+    setRevisionConsumo((valor) => valor + 1);
+    setMensaje(
+      resumen.incidencias > 0
+        ? `Consumo confirmado · ${resumen.incidencias} incidencia${resumen.incidencias === 1 ? '' : 's'} de stock por revisar.`
+        : 'Consumo confirmado · despensa actualizada.',
+    );
+  };
+
+  const deshacerConsumo = (momento: MomentoConsumoMenu) => {
+    if (!fechaActiva) return;
+    if (!deshacerConfirmacionConsumoMenu(fechaActiva, momento)) return;
+    setRevisionConsumo((valor) => valor + 1);
+    setMensaje('Consumo deshecho · stock restaurado.');
   };
 
   const textoCompartirSemana = () => {
@@ -784,6 +836,29 @@ export default function MenuModern({
                           {noDisponiblesComida.join(', ')}. Cambia el menú o reactívalo en Recetas.
                         </p>
                       )}
+                      <div className="meal-consumption">
+                        {confirmacionComida ? (
+                          <>
+                            <span className="meal-consumption__status">✓ Consumo confirmado</span>
+                            <button
+                              type="button"
+                              className="meal-consumption__undo"
+                              onClick={() => deshacerConsumo('comida')}
+                            >
+                              Deshacer
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            type="button"
+                            className="meal-consumption__confirm"
+                            onClick={() => void confirmarConsumo('comida')}
+                            disabled={!puedeConfirmarConsumo}
+                          >
+                            ${puedeConfirmarConsumo ? '✓ Confirmar que hemos comido esto' : 'Se confirmará cuando llegue el día'}
+                          </button>
+                        )}
+                      </div>
                       <ValoracionPlegable
                         dia={dia.dia}
                         momento="comida"
@@ -828,6 +903,29 @@ export default function MenuModern({
                           {noDisponiblesCena.join(', ')}. Cambia el menú o reactívalo en Recetas.
                         </p>
                       )}
+                      <div className="meal-consumption">
+                        {confirmacionCena ? (
+                          <>
+                            <span className="meal-consumption__status">✓ Consumo confirmado</span>
+                            <button
+                              type="button"
+                              className="meal-consumption__undo"
+                              onClick={() => deshacerConsumo('cena')}
+                            >
+                              Deshacer
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            type="button"
+                            className="meal-consumption__confirm"
+                            onClick={() => void confirmarConsumo('cena')}
+                            disabled={!puedeConfirmarConsumo}
+                          >
+                            ${puedeConfirmarConsumo ? '✓ Confirmar que hemos comido esto' : 'Se confirmará cuando llegue el día'}
+                          </button>
+                        )}
+                      </div>
                       <ValoracionPlegable
                         dia={dia.dia}
                         momento="cena"
