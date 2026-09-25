@@ -227,7 +227,7 @@ function desgloseManuales(
     productosEstimados: [],
     partidasExcluidasDisponibilidad: 0,
     ingredientesNoDisponibles: [],
-  };
+  });
 }
 
 export function contarCausasImportePendiente(
