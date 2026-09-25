@@ -855,7 +855,7 @@ export default function MenuModern({
                             onClick={() => void confirmarConsumo('comida')}
                             disabled={!puedeConfirmarConsumo}
                           >
-                            ${puedeConfirmarConsumo ? '✓ Confirmar que hemos comido esto' : 'Se confirmará cuando llegue el día'}
+                            {puedeConfirmarConsumo ? '✓ Confirmar que hemos comido esto' : 'Se confirmará cuando llegue el día'}
                           </button>
                         )}
                       </div>
@@ -922,7 +922,7 @@ export default function MenuModern({
                             onClick={() => void confirmarConsumo('cena')}
                             disabled={!puedeConfirmarConsumo}
                           >
-                            ${puedeConfirmarConsumo ? '✓ Confirmar que hemos comido esto' : 'Se confirmará cuando llegue el día'}
+                            {puedeConfirmarConsumo ? '✓ Confirmar que hemos comido esto' : 'Se confirmará cuando llegue el día'}
                           </button>
                         )}
                       </div>
