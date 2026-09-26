@@ -30,16 +30,14 @@ import {
 } from '../services/asistentePFI';
 import {
   ajustarPropuestaPendiente,
+  advertenciaPropuestaPasada,
   crearPropuestaDeshacerMenu,
   crearPropuestaRepetirUltimaAccion,
   detectarAccionAsistente,
   detectarIntencionPropuestaPendiente,
   type PropuestaAccionAsistente,
 } from '../services/accionesAsistente';
-import {
-  generarCompraMercadona,
-  type ResultadoCompra,
-} from '../motor/compra';
+import { type ResultadoCompra } from '../motor/compra';
 import {
   cargarClavesGuardadas,
   crearClavesEstadoCompra,
@@ -457,28 +455,47 @@ export default function Asistente({
     let activo = true;
     setCalculandoImpacto(true);
     setImpactoPropuesta([]);
+    const menusSimulados = menusSemanas.map((menuSemana, indice) =>
+      indice === semanaActiva ? menuSimulado : menuSemana,
+    );
+    const periodoManual = crearPeriodoIdCompraManual(
+      'semana',
+      mesActivo,
+      semanaActiva,
+    );
+    const manuales = cargarProductosManualesCompra().filter(
+      (producto) => producto.periodoId === periodoManual,
+    );
+    const subtotalManuales = manuales.reduce(
+      (suma, producto) => suma + (producto.precioTotal ?? 0),
+      0,
+    );
+    const manualesSinImporte = manuales.filter(
+      (producto) => producto.precioTotal === null,
+    ).length;
+
     Promise.all([
-      generarCompraMercadona(menuEditable, {
-        aplicarStock: false,
-        incluirReposicion: false,
-      }),
-      generarCompraMercadona(menuSimulado, {
-        aplicarStock: false,
-        incluirReposicion: false,
-      }),
+      generarCompraSemanalProyectada(menusSemanas, semanaActiva),
+      generarCompraSemanalProyectada(menusSimulados, semanaActiva),
     ])
       .then(([antes, despues]) => {
         if (!activo) return;
-        const diferencia = Math.round((despues.total - antes.total) * 100) / 100;
+        const totalAntes = antes.total + subtotalManuales;
+        const totalDespues = despues.total + subtotalManuales;
+        const diferencia = Math.round((totalDespues - totalAntes) * 100) / 100;
         const pendientes =
-          despues.productosSinSeleccionar.length + despues.productosSinPrecio.length;
-        const diferenciaLineas = despues.lineas.length - antes.lineas.length;
+          despues.productosSinSeleccionar.length +
+          despues.productosSinPrecio.length +
+          manualesSinImporte;
+        const lineasAntes = antes.lineas.length + manuales.length;
+        const lineasDespues = despues.lineas.length + manuales.length;
+        const diferenciaLineas = lineasDespues - lineasAntes;
         setImpactoPropuesta([
           diferencia === 0
-            ? `Coste conocido de esta semana sin cambio: ${eurosImporte(despues.total)}.`
-            : `Cambio en coste conocido de esta semana: ${eurosConSigno(diferencia)} (de ${eurosImporte(antes.total)} a ${eurosImporte(despues.total)}).`,
+            ? `Subtotal conocido de la semana activa sin cambio: ${eurosImporte(totalDespues)}.`
+            : `Cambio en el subtotal conocido de la semana activa: ${eurosConSigno(diferencia)} (de ${eurosImporte(totalAntes)} a ${eurosImporte(totalDespues)}).`,
           diferenciaLineas === 0
-            ? `Mismo número de líneas de compra: ${despues.lineas.length}.`
+            ? `Mismo número de líneas de compra: ${lineasDespues}.`
             : `${Math.abs(diferenciaLineas)} línea${Math.abs(diferenciaLineas) === 1 ? '' : 's'} de compra ${diferenciaLineas > 0 ? 'más' : 'menos'}.`,
           pendientes > 0
             ? `${pendientes} partida${pendientes === 1 ? '' : 's'} sin producto o precio; el impacto económico es parcial.`
@@ -499,7 +516,14 @@ export default function Asistente({
     return () => {
       activo = false;
     };
-  }, [menuEditable, propuestaPendiente, revisionAcciones]);
+  }, [
+    menuEditable,
+    menusSemanas,
+    mesActivo,
+    propuestaPendiente,
+    revisionAcciones,
+    semanaActiva,
+  ]);
 
   const estadoCompra = useMemo(() => {
     void revisionAcciones;
@@ -776,6 +800,23 @@ export default function Asistente({
       );
 
       if (repeticion?.propuesta) {
+        const advertencia = advertenciaPropuestaPasada(
+          repeticion.propuesta,
+          planMensual[semanaActiva],
+          limpio,
+          new Date(),
+          perfil.horarios,
+        );
+        if (advertencia) {
+          agregarConversacion(limpio, {
+            titulo: 'Necesito una fecha futura o explícita',
+            resumen: advertencia,
+            puntos: ['No he modificado nada.'],
+            tono: 'atencion',
+          });
+          setConsulta('');
+          return;
+        }
         setPropuestaPendiente(repeticion.propuesta);
         agregarConversacion(limpio, {
           titulo: 'He preparado la repetición',
@@ -808,6 +849,25 @@ export default function Asistente({
       );
 
       if (ajuste?.propuesta) {
+        const advertencia = advertenciaPropuestaPasada(
+          ajuste.propuesta,
+          planMensual[semanaActiva],
+          limpio,
+          new Date(),
+          perfil.horarios,
+        );
+        if (advertencia) {
+          agregarConversacion(limpio, {
+            titulo: 'Necesito una fecha futura o explícita',
+            resumen: advertencia,
+            puntos: [
+              'La propuesta anterior sigue pendiente y no he aplicado nada.',
+            ],
+            tono: 'atencion',
+          });
+          setConsulta('');
+          return;
+        }
         setPropuestaPendiente(ajuste.propuesta);
         agregarConversacion(limpio, {
           titulo: 'He ajustado la propuesta',
@@ -841,6 +901,24 @@ export default function Asistente({
     );
 
     if (deteccion?.propuesta) {
+      const advertencia = advertenciaPropuestaPasada(
+        deteccion.propuesta,
+        planMensual[semanaActiva],
+        limpio,
+        new Date(),
+        perfil.horarios,
+      );
+      if (advertencia) {
+        setPropuestaPendiente(null);
+        agregarConversacion(limpio, {
+          titulo: 'Necesito una fecha futura o explícita',
+          resumen: advertencia,
+          puntos: ['No he modificado nada.'],
+          tono: 'atencion',
+        });
+        setConsulta('');
+        return;
+      }
       setPropuestaPendiente(deteccion.propuesta);
       agregarConversacion(limpio, {
         titulo: 'He preparado el cambio',

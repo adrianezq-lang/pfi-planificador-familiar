@@ -68,6 +68,7 @@ const vite = await createServer({
 });
 const {
   ajustarPropuestaPendiente,
+  advertenciaPropuestaPasada,
   crearPropuestaDeshacerMenu,
   crearPropuestaRepetirUltimaAccion,
   detectarAccionAsistente,
@@ -393,6 +394,54 @@ const ponSabado = detectarAccionAsistente(
 assert.equal(ponSabado?.propuesta?.accion.tipo, 'cambiar-menu');
 assert.equal(ponSabado?.propuesta?.accion.momento, 'comida');
 assert.equal(ponSabado?.propuesta?.accion.dia, 'Sábado');
+
+const propuestaPasada = detectarAccionAsistente(
+  'Cambia la comida del lunes por la del martes',
+  menu,
+  recetas,
+  semanaActiva,
+  '2026-09-26T22:30:00',
+);
+assert.ok(propuestaPasada?.propuesta);
+assert.match(
+  advertenciaPropuestaPasada(
+    propuestaPasada.propuesta,
+    semanaActiva,
+    'Cambia la comida del lunes por la del martes',
+    '2026-09-26T22:30:00',
+  ) ?? '',
+  /lunes 21.*ya pasó/i,
+);
+
+assert.equal(
+  advertenciaPropuestaPasada(
+    propuestaPasada.propuesta,
+    semanaActiva,
+    'Cambia la comida del lunes 21 por la del martes 22',
+    '2026-09-26T22:30:00',
+  ),
+  null,
+);
+
+assert.match(
+  advertenciaPropuestaPasada(
+    propuestaPasada.propuesta,
+    semanaActiva,
+    'Cambia la comida del lunes por la del martes 22',
+    '2026-09-26T22:30:00',
+  ) ?? '',
+  /lunes 21.*ya pasó/i,
+);
+
+assert.match(
+  advertenciaPropuestaPasada(
+    ponSabado.propuesta,
+    semanaActiva,
+    'Pon salmón el sábado',
+    '2026-09-26T22:30:00',
+  ) ?? '',
+  /comida del sábado 26.*14:00/i,
+);
 
 const compra = detectarAccionAsistente(
   'Añade 2 litros de leche a la compra',
