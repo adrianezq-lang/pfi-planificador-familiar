@@ -902,3 +902,18 @@
   border-radius: 11px;
   background: rgba(255, 255, 255, 0.86);
 }
+
+
+.modern-covered-card__avoided {
+  margin: 0;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(79, 111, 82, 0.1);
+  background: rgba(79, 111, 82, 0.055);
+  color: #5f6b61;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.modern-covered-card__avoided strong {
+  color: #3f5e43;
+}
