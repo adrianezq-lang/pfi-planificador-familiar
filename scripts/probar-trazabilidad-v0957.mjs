@@ -46,6 +46,8 @@ const vite = await createServer({
 
 const temporada = await vite.ssrLoadModule('/src/services/temporadaIngredientes.ts');
 const excepciones = await vite.ssrLoadModule('/src/services/excepcionesCalendario.ts');
+const programacionComensales =
+  await vite.ssrLoadModule('/src/services/programacionComensales.ts');
 const { generarListaCompra } = await vite.ssrLoadModule('/src/services/listaCompra.ts');
 const inventario = await vite.ssrLoadModule('/src/services/inventario.ts');
 const ahorro = await vite.ssrLoadModule('/src/services/ahorroReal.ts');
@@ -274,8 +276,70 @@ const registroCompra = registrarMarcadosEnInventario(
 assert.equal(registroCompra.ahorrosRegistrados, 1);
 assert.equal(ahorro.resumirAhorroRealMes('2026-09').comprasComparadas, 2);
 
+const perfilProgramacion = {
+  ...perfil,
+  comensales: {
+    ...perfil.comensales,
+    comidaLaborable: { adultos: 2, ninos: [true, false], bebes: 0 },
+  },
+};
+localStorage.setItem('pfi-perfil', JSON.stringify(perfilProgramacion));
+programacionComensales.programarCambioComensales({
+  desde: '2026-12-01',
+  etiqueta: 'Todos comen en casa desde diciembre',
+  comensales: {
+    ...perfilProgramacion.comensales,
+    comidaLaborable: { adultos: 2, ninos: [true, true], bebes: 0 },
+  },
+}, perfilProgramacion);
+
+const semanaDiciembre = {
+  id: 'semana-diciembre',
+  nombre: 'Semana diciembre',
+  inicio: '2026-12-07',
+  fin: '2026-12-13',
+  menu: [
+    {
+      dia: 'Lunes',
+      comida: ['Arroz de prueba'],
+      cena: [],
+      postreComida: 'Sin postre',
+      postreCena: 'Sin postre',
+      preparar: '',
+    },
+    ...['Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].map((dia) => ({
+      dia,
+      comida: [],
+      cena: [],
+      postreComida: 'Sin postre',
+      postreCena: 'Sin postre',
+      preparar: '',
+    })),
+  ],
+};
+const diciembreProgramado = excepciones.menuEfectivoSemana(semanaDiciembre, {});
+assert.deepEqual(diciembreProgramado[0].comensalesComida, {
+  adultos: 2,
+  ninos: [true, true],
+  bebes: 0,
+});
+
+excepciones.guardarExcepcion('2026-12-07', {
+  comensalesComida: { adultos: 2, ninos: [true, false], bebes: 0 },
+});
+const diciembreConExcepcion = excepciones.menuEfectivoSemana(
+  semanaDiciembre,
+  excepciones.cargarExcepciones(),
+);
+assert.deepEqual(diciembreConExcepcion[0].comensalesComida, {
+  adultos: 2,
+  ninos: [true, false],
+  bebes: 0,
+});
+
 await vite.close();
 
+console.log('✓ comensales futuros se activan por fecha y la excepción puntual prevalece');
 console.log('✓ temporada por zona y fecha con alternativas orientativas');
 console.log('✓ comensales por servicio recalculan cantidades y persisten por fecha');
 console.log('✓ inventario separa consumo, merma y ajuste');
