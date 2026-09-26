@@ -14,6 +14,8 @@ import {
 import {
   generarCompraMensual,
   generarCompraSemanalProyectada,
+  preverAgotamientosAntesFinMes,
+  type AlertaAgotamientoMes,
 } from '../services/planificacionCompra';
 import {
   cargarClavesGuardadas,
@@ -41,6 +43,8 @@ import {
   EVENTO_DISPONIBILIDAD_INGREDIENTES,
 } from '../services/disponibilidadIngredientes';
 import { EVENTO_PRECIOS_MANUALES_INGREDIENTES } from '../services/preciosManualesIngredientes';
+import { EVENTO_DESPENSA } from '../services/despensa';
+import { EVENTO_INVENTARIO } from '../services/inventario';
 
 type Props = {
   menu: DiaMenu[];
@@ -93,6 +97,8 @@ export default function CompraModern({
   const [ocultarCompletados, setOcultarCompletados] = useState(false);
   const [revisionIngredientes, setRevisionIngredientes] = useState(0);
   const [planComparador, setPlanComparador] = useState<PlanCompraComparada | null>(null);
+  const [alertasAgotamiento, setAlertasAgotamiento] =
+    useState<AlertaAgotamientoMes[]>([]);
 
   const compraMensualDisponible = semanaActiva === 0;
   const menuObjetivo = periodo === 'semana' ? menu : menuMes;
@@ -150,12 +156,30 @@ export default function CompraModern({
   }, [menuMes, menusSemanas, periodo, revisionIngredientes, semanaActiva]);
 
   useEffect(() => {
+    let activo = true;
+    preverAgotamientosAntesFinMes(menusSemanas, semanaActiva)
+      .then((alertas) => {
+        if (activo) setAlertasAgotamiento(alertas);
+      })
+      .catch(() => {
+        if (activo) setAlertasAgotamiento([]);
+      });
+    return () => {
+      activo = false;
+    };
+  }, [menusSemanas, revisionIngredientes, semanaActiva]);
+
+  useEffect(() => {
     const recalcular = () => setRevisionIngredientes((revision) => revision + 1);
     window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcular);
     window.addEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcular);
+    window.addEventListener(EVENTO_DESPENSA, recalcular);
+    window.addEventListener(EVENTO_INVENTARIO, recalcular);
     return () => {
       window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcular);
       window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcular);
+      window.removeEventListener(EVENTO_DESPENSA, recalcular);
+      window.removeEventListener(EVENTO_INVENTARIO, recalcular);
     };
   }, []);
 
@@ -634,6 +658,30 @@ export default function CompraModern({
               )}
             </div>
           </section>
+
+          {alertasAgotamiento.length > 0 && (
+            <section className="shopping-stock-alerts" aria-label="Previsión de agotamiento">
+              <div>
+                <strong>Stock que puede agotarse antes de fin de mes</strong>
+                <small>
+                  Calculado con el stock físico actual y el menú restante; no cuenta compras futuras como si ya estuvieran en casa.
+                </small>
+              </div>
+              <div className="shopping-stock-alerts__list">
+                {alertasAgotamiento.slice(0, 6).map((alerta) => (
+                  <article key={alerta.productoId}>
+                    <strong>{alerta.nombre}</strong>
+                    <span>
+                      Semana {alerta.semanaAgotamiento} · stock actual {formatear(alerta.stockActualEnvases)} envase{Math.abs(alerta.stockActualEnvases - 1) < UMBRAL_CERO ? '' : 's'}
+                    </span>
+                    <small>
+                      Necesidad restante {formatear(alerta.necesidadRestanteEnvases)} · faltarán aprox. {formatear(alerta.deficitEnvases)} envase{Math.abs(alerta.deficitEnvases - 1) < UMBRAL_CERO ? '' : 's'} si no repones.
+                    </small>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
 
           <section className="shopping-view-controls" aria-label="Vista de compra">
             <div>
