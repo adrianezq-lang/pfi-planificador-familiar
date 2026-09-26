@@ -6,7 +6,7 @@ import {
 } from './perfil.ts';
 import {
   obtenerConfiguracionComensalesProgramada,
-} from './programacionComensales';
+} from './programacionComensales.ts';
 
 const KEY = 'pfi-excepciones-calendario-v1';
 export const EVENTO_EXCEPCIONES = 'pfi-calendario-actualizado';
