@@ -4,7 +4,7 @@ import {
   type MomentoComida,
   type PerfilFamiliar,
   type PlanComensales,
-} from './perfil';
+} from './perfil.ts';
 
 export type CambioComensalesProgramado = {
   id: string;
