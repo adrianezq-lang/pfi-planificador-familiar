@@ -790,6 +790,16 @@ function respuestaChequeoIntegral(
     compra?.lineasCubiertas?.filter(
       (linea) => linea.origenCobertura !== 'stock-real',
     ).length ?? 0;
+  const gastoEvitadoStockFisico =
+    compra?.lineasCubiertas
+      ?.filter((linea) => linea.origenCobertura === 'stock-real')
+      .reduce(
+        (total, linea) =>
+          total +
+          (linea.producto?.precio ?? 0) *
+            Math.max(0, linea.envasesExactos ?? 0),
+        0,
+      ) ?? 0;
   const textoCobertura = cubiertasReales > 0 && cubiertasProyectadas > 0
     ? `${cantidadTexto(cubiertasReales, 'línea')} ${segunCantidad(cubiertasReales, 'está cubierta', 'están cubiertas')} por stock físico y ${cantidadTexto(cubiertasProyectadas, 'línea')} ${segunCantidad(cubiertasProyectadas, 'depende', 'dependen')} de sobrantes proyectados de compras anteriores.`
     : cubiertasReales > 0
@@ -918,6 +928,11 @@ function respuestaAhorroInteligente(
     puntos.push(
       `${cantidadTexto(cubiertasReales, 'línea')} ${segunCantidad(cubiertasReales, 'está cubierta', 'están cubiertas')} por existencias físicas registradas; esta cobertura sí es verificable en Despensa.`,
     );
+    if (gastoEvitadoStockFisico > 0) {
+      puntos.push(
+        `Gasto de referencia evitado usando stock físico: ${euros(gastoEvitadoStockFisico)}. Lo separo del ahorro realizado: no se suma al ahorro real y tampoco convierte sobrantes proyectados en existencias.`,
+      );
+    }
   }
 
   if (cubiertasProyectadas > 0) {
