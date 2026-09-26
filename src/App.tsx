@@ -159,7 +159,7 @@ function App() {
             <h1>PFI</h1>
             <p>Planificador familiar</p>
           </div>
-          <span className="app-version">v0.9.56</span>
+          <span className="app-version">v0.9.57</span>
         </div>
       </header>
 
@@ -222,6 +222,7 @@ function App() {
             excluirSemana={excluirSemana}
             generarNuevoMes={generarNuevoMes}
             reiniciarMes={reiniciarMes}
+            resolverIngrediente={resolverIngrediente}
           />
         )}
         {pantalla === 'compra' && (

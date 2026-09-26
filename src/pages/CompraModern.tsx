@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import type { DiaMenu } from '../data/Menusemanal';
 import AppIcon from '../components/AppIcon';
+import ComparadorCompra from '../components/ComparadorCompra';
 import type { LineaCompra, ResultadoCompra } from '../motor/compra';
+import {
+  claveProductoComparador,
+  type PlanCompraComparada,
+} from '../services/comparadorPrecios';
 import {
   ORDEN_SECCIONES_COMPRA,
   obtenerSeccionCompra,
@@ -87,6 +92,7 @@ export default function CompraModern({
   const [registrados, setRegistrados] = useState<string[]>([]);
   const [ocultarCompletados, setOcultarCompletados] = useState(false);
   const [revisionIngredientes, setRevisionIngredientes] = useState(0);
+  const [planComparador, setPlanComparador] = useState<PlanCompraComparada | null>(null);
 
   const compraMensualDisponible = semanaActiva === 0;
   const menuObjetivo = periodo === 'semana' ? menu : menuMes;
@@ -363,11 +369,24 @@ export default function CompraModern({
     const observaciones = periodo === 'mes'
       ? `Compra mensual · ${mesTexto}`
       : `Compra semanal ${semanaActiva + 1} · ${mesTexto}`;
+    const clavesPendientes = new Set(
+      pendientesInventario.map((linea) => claveProductoComparador(linea)),
+    );
+    const asignacionesPendientes = (planComparador?.asignaciones ?? []).filter(
+      (asignacion) => clavesPendientes.has(asignacion.clave),
+    );
+    const registrarComparacion = asignacionesPendientes.length > 0
+      ? window.confirm(
+          `Hay ${asignacionesPendientes.length} precio${asignacionesPendientes.length === 1 ? '' : 's'} del comparador para esta compra.\n\nAceptar: confirma esos importes como pagados y registra el ahorro o sobrecoste real.\nCancelar: guarda el stock sin registrar importes.`,
+        )
+      : false;
     const registro = registrarMarcadosEnInventario(
       lineas,
       marcados,
       registrados,
       observaciones,
+      registrarComparacion ? asignacionesPendientes : [],
+      `${periodo}:${mesActivo}:${semanaActiva + 1}`,
     );
     setRegistrados(registro.clavesRegistradas);
     guardarClavesCompra(clavesEstado.registrados, registro.clavesRegistradas);
@@ -379,10 +398,13 @@ export default function CompraModern({
     const base = totalRegistrados === 1
       ? '1 producto añadido a la despensa.'
       : `${totalRegistrados} productos añadidos a la despensa.`;
+    const ahorro = registro.ahorrosRegistrados > 0
+      ? ` ${registro.ahorrosRegistrados} importe${registro.ahorrosRegistrados === 1 ? '' : 's'} real${registro.ahorrosRegistrados === 1 ? '' : 'es'} registrado${registro.ahorrosRegistrados === 1 ? '' : 's'}.`
+      : '';
     setMensajeInventario(
       registro.lineasSinInventario > 0
-        ? `${base} ${registro.lineasSinInventario} queda pendiente de asociación.`
-        : base,
+        ? `${base}${ahorro} ${registro.lineasSinInventario} queda pendiente de asociación.`
+        : `${base}${ahorro}`,
     );
   };
 
@@ -734,6 +756,13 @@ export default function CompraModern({
                 ))}
               </div>
             </section>
+          )}
+
+          {lineas.length > 0 && (
+            <ComparadorCompra
+              lineas={lineas}
+              onPlanChange={setPlanComparador}
+            />
           )}
 
           {ocultarCompletados &&

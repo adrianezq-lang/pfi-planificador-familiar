@@ -21,9 +21,16 @@ import {
   EVENTO_INVENTARIO,
   registrarCompra,
   registrarConsumo,
+  registrarDesperdicio,
   type MovimientoInventario,
 } from '../services/inventario';
 import '../styles/pantry-decimal.css';
+import {
+  cargarAhorroReal,
+  eliminarRegistroAhorroReal,
+  EVENTO_AHORRO_REAL,
+  type RegistroAhorroReal,
+} from '../services/ahorroReal';
 
 type VistaDespensa = 'inventario' | 'reposicion' | 'historial';
 type FiltroInventario = 'todos' | 'reposicion' | 'menu-manual';
@@ -34,6 +41,7 @@ function Despensa() {
   const [filtro, setFiltro] = useState<FiltroInventario>('todos');
   const [productos, setProductos] = useState<ProductoDespensa[]>([]);
   const [movimientos, setMovimientos] = useState<MovimientoInventario[]>([]);
+  const [ahorros, setAhorros] = useState<RegistroAhorroReal[]>([]);
   const [productoAbierto, setProductoAbierto] = useState<string | null>(null);
   const [mensaje, setMensaje] = useState('');
   const [consulta, setConsulta] = useState('');
@@ -42,16 +50,19 @@ function Despensa() {
   const recargar = useCallback(() => {
     setProductos(cargarDespensa());
     setMovimientos(cargarMovimientos());
+    setAhorros(cargarAhorroReal());
   }, []);
 
   useEffect(() => {
     recargar();
     window.addEventListener(EVENTO_DESPENSA, recargar);
     window.addEventListener(EVENTO_INVENTARIO, recargar);
+    window.addEventListener(EVENTO_AHORRO_REAL, recargar);
 
     return () => {
       window.removeEventListener(EVENTO_DESPENSA, recargar);
       window.removeEventListener(EVENTO_INVENTARIO, recargar);
+      window.removeEventListener(EVENTO_AHORRO_REAL, recargar);
     };
   }, [recargar]);
 
@@ -168,6 +179,33 @@ function Despensa() {
       'Consumo manual desde despensa',
     );
     setMensaje(`Consumido ${formatearCantidad(cantidad)} ${producto.unidad}.`);
+  };
+
+  const registrarMerma = (producto: ProductoDespensa) => {
+    if (producto.stockActual <= 0) return;
+    const entrada = window.prompt(
+      `Cantidad de ${producto.nombre} desperdiciada (${producto.unidad})`,
+      String(Math.min(1, producto.stockActual)).replace('.', ','),
+    );
+    if (entrada === null) return;
+    const cantidad = parsearCantidad(entrada);
+    if (cantidad === null || cantidad <= 0 || cantidad > producto.stockActual) {
+      setMensaje(`Indica una cantidad entre 0 y ${formatearCantidad(producto.stockActual)} ${producto.unidad}.`);
+      return;
+    }
+    const motivo = window.prompt(
+      'Motivo opcional (caducidad, sobrante, mal estado…)',
+      '',
+    );
+    if (motivo === null) return;
+    registrarDesperdicio(
+      producto.productoId,
+      cantidad,
+      motivo.trim() || 'Merma registrada desde despensa',
+    );
+    setMensaje(
+      `Merma registrada: ${formatearCantidad(cantidad)} ${producto.unidad} de ${producto.nombre}.`,
+    );
   };
 
   const guardarStock = (producto: ProductoDespensa, stockActual: number) => {
@@ -390,6 +428,15 @@ function Despensa() {
                   )}
 
                 <p className="pantry-state">{estadoProducto(producto)}</p>
+                {producto.stockActual > 0 && (
+                  <button
+                    type="button"
+                    className="pantry-waste-button"
+                    onClick={() => registrarMerma(producto)}
+                  >
+                    Registrar merma
+                  </button>
+                )}
               </Card>
             ))}
           </div>
@@ -469,6 +516,8 @@ function Despensa() {
                     ? '➕'
                     : movimiento.tipo === 'consumo'
                       ? '➖'
+                      : movimiento.tipo === 'desperdicio'
+                        ? '🗑️'
                       : '✏️'}
                 </span>
                 <span>
@@ -499,6 +548,46 @@ function Despensa() {
           {movimientos.length === 0 && (
             <p className="pantry-empty">Todavía no hay movimientos.</p>
           )}
+
+          <section className="pantry-savings-history" aria-label="Ahorro real confirmado">
+            <Title style={{ color: '#4f6f52', fontSize: '18px' }}>
+              Ahorro real confirmado
+            </Title>
+            <p>
+              Solo aparecen importes confirmados al guardar una compra comparada; las previsiones y el stock proyectado no entran aquí.
+            </p>
+            {ahorros.slice(0, 100).map((registro) => (
+              <div key={registro.id} className="pantry-saving-row">
+                <span>
+                  <strong>{registro.productoNombre}</strong>
+                  <small>
+                    {registro.tiendaNombre} · pagado {registro.costePagado.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })} · referencia {registro.costeReferencia.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                  </small>
+                  <small>
+                    {new Date(registro.fecha).toLocaleString('es-ES')} · {registro.observaciones}
+                  </small>
+                </span>
+                <strong className={registro.ahorro >= 0 ? 'is-saving' : 'is-overcost'}>
+                  {registro.ahorro >= 0 ? 'Ahorro ' : 'Sobrecoste '}
+                  {Math.abs(registro.ahorro).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                </strong>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!window.confirm(`¿Eliminar la comparación de «${registro.productoNombre}»? El movimiento de stock se conservará.`)) return;
+                    crearCopiaAutomaticaSiNecesaria('antes de eliminar un registro de ahorro real');
+                    setAhorros(eliminarRegistroAhorroReal(registro.id));
+                    setMensaje('Comparación eliminada; el stock no se ha modificado.');
+                  }}
+                >
+                  Eliminar
+                </button>
+              </div>
+            ))}
+            {ahorros.length === 0 && (
+              <p className="pantry-empty">Todavía no hay compras comparadas confirmadas.</p>
+            )}
+          </section>
         </Card>
       )}
 
@@ -712,10 +801,13 @@ function estadoProducto(producto: ProductoDespensa): string {
 }
 
 function etiquetaMovimiento(movimiento: MovimientoInventario): string {
-  const signo = movimiento.tipo === 'consumo' ? '−' : movimiento.cantidad >= 0 ? '+' : '−';
+  const signo = movimiento.tipo === 'consumo' || movimiento.tipo === 'desperdicio'
+    ? '−'
+    : movimiento.cantidad >= 0 ? '+' : '−';
   const cantidad = formatearCantidad(Math.abs(movimiento.cantidad));
   if (movimiento.tipo === 'compra') return `${signo}${cantidad} compra`;
   if (movimiento.tipo === 'consumo') return `${signo}${cantidad} consumo`;
+  if (movimiento.tipo === 'desperdicio') return `${signo}${cantidad} merma`;
   return `${signo}${cantidad} ajuste`;
 }
 

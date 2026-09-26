@@ -505,3 +505,217 @@
     width: 100%;
   }
 }
+
+.meal-consumption {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 12px;
+  align-items: center;
+  padding: 11px 12px;
+  border: 1px solid #d8e1d4;
+  border-radius: 13px;
+  background: #f7faf5;
+}
+
+.meal-consumption--done {
+  border-color: #aec6ad;
+  background: #eef6eb;
+}
+
+.meal-consumption > div {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.meal-consumption strong,
+.meal-consumption small {
+  display: block;
+}
+
+.meal-consumption small,
+.meal-consumption details {
+  color: #647168;
+  font-size: 11px;
+}
+
+.meal-consumption > button {
+  min-height: 34px;
+  border: 1px solid #8eaa8d;
+  border-radius: 10px;
+  padding: 0 10px;
+  background: #fff;
+  color: #36573d;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.meal-consumption > details {
+  grid-column: 1 / -1;
+}
+
+.meal-consumption > details p {
+  margin: 6px 0 0;
+}
+
+@media (max-width: 520px) {
+  .meal-consumption {
+    grid-template-columns: 1fr;
+  }
+
+  .meal-consumption > button {
+    width: 100%;
+  }
+}
+
+.meal-diners {
+  margin-top: 12px;
+  border: 1px solid #e0e5dc;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .72);
+}
+
+.meal-diners > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  color: #3f5e46;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.meal-diners > summary small {
+  color: #738078;
+  font-size: 10px;
+  text-align: right;
+}
+
+.meal-diners__body {
+  display: grid;
+  gap: 10px;
+  padding: 0 12px 12px;
+}
+
+.meal-diners__counter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px 24px 32px;
+  gap: 6px;
+  align-items: center;
+}
+
+.meal-diners__counter > button,
+.meal-diners__people > button,
+.meal-diners__reset {
+  min-height: 32px;
+  border: 1px solid #ced9ca;
+  border-radius: 9px;
+  background: #fff;
+  color: #36573d;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.meal-diners__counter > button:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
+.meal-diners__counter > strong {
+  text-align: center;
+}
+
+.meal-diners__people {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.meal-diners__people > span {
+  margin-right: auto;
+}
+
+.meal-diners__people > button {
+  padding: 0 9px;
+}
+
+.meal-diners__people > button[aria-pressed='true'] {
+  border-color: #739174;
+  background: #e8f1e5;
+}
+
+.meal-diners__reset {
+  width: 100%;
+  border-style: dashed;
+}
+
+.meal-season-warning {
+  margin-top: 12px;
+  display: grid;
+  gap: 7px;
+  padding: 11px 12px;
+  border: 1px solid #dfc98e;
+  border-radius: 13px;
+  background: #fff9e9;
+  color: #665328;
+}
+
+.meal-season-warning > strong,
+.meal-season-warning > small,
+.meal-season-warning b,
+.meal-season-warning span > small {
+  display: block;
+}
+
+.meal-season-warning > small,
+.meal-season-warning span > small {
+  color: #81714d;
+  font-size: 10px;
+}
+
+.meal-season-warning > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(171, 142, 74, .2);
+}
+
+.meal-season-warning__actions {
+  display: flex;
+  gap: 5px;
+  flex: 0 0 auto;
+}
+
+.meal-season-warning__actions button {
+  min-height: 30px;
+  border: 1px solid #cfb66f;
+  border-radius: 9px;
+  padding: 0 8px;
+  background: #fff;
+  color: #625027;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .meal-season-warning > div {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .meal-season-warning__actions button {
+    flex: 1;
+  }
+}

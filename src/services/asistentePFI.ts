@@ -8,10 +8,12 @@ import {
   obtenerHorarioServicio,
   type PerfilFamiliar,
 } from './perfil';
-import type {
-  DesgloseEconomico,
-  ResumenEconomicoMensual,
+import {
+  calcularConfianzaPresupuesto,
+  type DesgloseEconomico,
+  type ResumenEconomicoMensual,
 } from './resumenEconomico';
+import type { ResumenAhorroReal } from './ahorroReal';
 import { fechaLocalISO } from './fechaSemana';
 import { cargarAsociacionesIngredientes } from './asociacionesIngredientes';
 import { esRecetaPostre } from './recetas';
@@ -60,6 +62,7 @@ export type ContextoAsistentePFI = {
   recetas: Receta[];
   aprendizaje: ResumenAprendizaje;
   perfil: PerfilFamiliar;
+  ahorroReal?: ResumenAhorroReal;
 };
 
 export type ResumenProactivoAsistente = {
@@ -79,6 +82,21 @@ const DIAS = [
   'Viernes',
   'Sábado',
 ] as const;
+
+const SIN_AHORRO_REAL: ResumenAhorroReal = {
+  mes: '',
+  comprasComparadas: 0,
+  costeReferencia: 0,
+  costePagado: 0,
+  ahorroNeto: 0,
+  ahorroPositivo: 0,
+  sobrecoste: 0,
+  registros: [],
+};
+
+function ahorroRealContexto(contexto: ContextoAsistentePFI): ResumenAhorroReal {
+  return contexto.ahorroReal ?? SIN_AHORRO_REAL;
+}
 
 function normalizar(texto: string): string {
   return texto
@@ -841,6 +859,15 @@ function respuestaAhorroInteligente(
       (linea) => linea.origenCobertura !== 'stock-real',
     ).length ?? 0;
   const puntos: string[] = [];
+  const ahorroReal = ahorroRealContexto(contexto);
+
+  if (ahorroReal.comprasComparadas > 0) {
+    puntos.push(
+      ahorroReal.ahorroNeto >= 0
+        ? `Ahorro ya realizado este mes: ${euros(ahorroReal.ahorroNeto)} en ${cantidadTexto(ahorroReal.comprasComparadas, 'importe confirmado', 'importes confirmados')} (${euros(ahorroReal.costePagado)} pagados frente a ${euros(ahorroReal.costeReferencia)} de referencia).`
+        : `Sobrecoste real este mes: ${euros(Math.abs(ahorroReal.ahorroNeto))} en ${cantidadTexto(ahorroReal.comprasComparadas, 'importe confirmado', 'importes confirmados')}; está separado de la previsión.`,
+    );
+  }
 
   if (presupuesto > 0 && prevision > 0) {
     if (previsionIncompleta(precision)) {
@@ -875,6 +902,17 @@ function respuestaAhorroInteligente(
       );
     }
   }
+
+  if (ahorroReal.comprasComparadas === 0) {
+    puntos.push(
+      'Todavía no hay compras comparadas confirmadas: cualquier diferencia del presupuesto sigue siendo previsión, no ahorro realizado.',
+    );
+  }
+
+  const confianza = calcularConfianzaPresupuesto(precision);
+  puntos.push(
+    `Fiabilidad de la previsión: ${confianza}% (${precision.partidasConfirmadas} de ${precision.partidasTotales} partidas exactas; formatos variables y aproximados pesan menos).`,
+  );
 
   if (cubiertasReales > 0) {
     puntos.push(
@@ -932,11 +970,13 @@ function respuestaAhorroInteligente(
 
   return {
     titulo: 'Ahorro inteligente',
-    resumen: previsionIncompleta(precision)
-      ? 'No puedo afirmar un ahorro neto todavía: separo el subtotal conocido, los importes pendientes, los ingredientes excluidos y el stock meramente proyectado.'
-      : precision.cantidadesEstimadas > 0
-        ? 'El margen es una estimación trazable, no un ahorro cerrado, porque aún hay cantidades aproximadas.'
-        : 'He cruzado importes completos y stock físico para mostrar un margen trazable, sin convertir proyecciones en ahorro.',
+    resumen: ahorroReal.comprasComparadas > 0
+      ? 'Separo el ahorro realizado con compras confirmadas del margen que todavía depende de previsiones.'
+      : previsionIncompleta(precision)
+        ? 'No puedo afirmar un ahorro neto todavía: separo el subtotal conocido, los importes pendientes, los ingredientes excluidos y el stock meramente proyectado.'
+        : precision.cantidadesEstimadas > 0
+          ? 'El margen es una estimación trazable, no un ahorro cerrado, porque aún hay cantidades aproximadas.'
+          : 'He cruzado importes completos y stock físico para mostrar un margen trazable, sin convertir proyecciones en ahorro.',
     puntos: puntos.slice(0, 6),
     accion: { etiqueta: 'Revisar Compra', destino: 'compra' },
     tono:
@@ -961,6 +1001,10 @@ export function obtenerResumenProactivo(
   );
   const alertas = prioridades.slice(0, 4).map((prioridad) => prioridad.texto);
   const excluidosSemana = compra?.ingredientesNoDisponibles?.length ?? 0;
+  const ahorroReal = ahorroRealContexto(contexto);
+  const ahorroConfirmado = ahorroReal.comprasComparadas > 0
+    ? ` · ${ahorroReal.ahorroNeto >= 0 ? 'ahorro' : 'sobrecoste'} real ${euros(Math.abs(ahorroReal.ahorroNeto))}`
+    : '';
 
   return {
     hoy: hoy
@@ -975,7 +1019,7 @@ export function obtenerResumenProactivo(
       reposicion.length === 0
         ? 'No hay avisos de stock mínimo.'
         : `${cantidadTexto(reposicion.length, 'producto')} ${segunCantidad(reposicion.length, 'necesita', 'necesitan')} reposición.`,
-    presupuesto:
+    presupuesto: (
       prevision > 0 || previsionIncompleta(precision)
         ? previsionIncompleta(precision)
           ? `${euros(prevision)} subtotal conocido${precision.partidasSinImporte > 0 ? ` · ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precision) ? ` · ${causasImportePendiente(precision)}` : ''}` : ''}${precision.partidasExcluidasDisponibilidad > 0 ? ` · ${causaDisponibilidad(precision)}` : ''} · objetivo ${euros(
@@ -984,7 +1028,8 @@ export function obtenerResumenProactivo(
           : `${euros(prevision)} ${precision.cantidadesEstimadas > 0 ? 'estimados' : 'previstos'} este mes · objetivo ${euros(
               contexto.perfil.presupuesto,
             )}`
-        : `Objetivo mensual: ${euros(contexto.perfil.presupuesto)}`,
+        : `Objetivo mensual: ${euros(contexto.perfil.presupuesto)}`
+    ) + ahorroConfirmado,
     alertas,
   };
 }
@@ -1197,6 +1242,8 @@ export function responderAsistente(
     const hayExclusiones = precisionMes.partidasExcluidasDisponibilidad > 0;
     const hayCalculoIncompleto = hayImportesPendientes || hayExclusiones;
     const hayEstimaciones = precisionMes.cantidadesEstimadas > 0;
+    const confianza = calcularConfianzaPresupuesto(precisionMes);
+    const ahorroReal = ahorroRealContexto(contexto);
     return {
       titulo: 'Previsión de gasto',
       resumen:
@@ -1214,6 +1261,9 @@ export function responderAsistente(
       puntos:
         presupuestoPrevisto > 0 || hayCalculoIncompleto
           ? [
+              ahorroReal.comprasComparadas > 0
+                ? `${ahorroReal.ahorroNeto >= 0 ? 'Ahorro' : 'Sobrecoste'} real confirmado este mes: ${euros(Math.abs(ahorroReal.ahorroNeto))} sobre ${cantidadTexto(ahorroReal.comprasComparadas, 'importe', 'importes')}.`
+                : 'Aún no hay compras comparadas confirmadas; el margen previsto no cuenta como ahorro real.',
               hayCalculoIncompleto
                 ? diferencia >= 0
                   ? `El margen máximo provisional es ${euros(diferencia)}; no es un saldo disponible todavía.`
@@ -1222,6 +1272,7 @@ export function responderAsistente(
                   ? `${hayEstimaciones ? 'El margen estimado es' : 'Te quedan'} ${euros(diferencia)} frente al objetivo.`
                   : `${hayEstimaciones ? 'La estimación' : 'La previsión'} supera el objetivo en ${euros(Math.abs(diferencia))}.`,
               'La previsión combina la compra mensual, las semanas y los productos añadidos manualmente.',
+              `Fiabilidad del cálculo: ${confianza}% (${precisionMes.partidasConfirmadas}/${precisionMes.partidasTotales} partidas exactas; las demás se ponderan según su precisión).`,
               hayCalculoIncompleto
                 ? 'Completa los importes pendientes y revisa los ingredientes excluidos antes de interpretar esa diferencia como ahorro.'
                 : hayEstimaciones

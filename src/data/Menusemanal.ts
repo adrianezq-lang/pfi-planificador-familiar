@@ -1,3 +1,5 @@
+import type { ConfiguracionComensales } from '../services/perfil';
+
 export type PostreMenu = 'Fruta' | 'Yogur' | 'Sin postre';
 
 export type MomentoPostre = 'comida' | 'cena';
@@ -8,6 +10,9 @@ export type DiaMenu = {
   cena: string[];
   /** Metadato efímero aplicado por las excepciones del calendario. */
   sinNinos?: boolean;
+  /** Ajuste puntual para una fecha concreta, aplicado por el calendario. */
+  comensalesComida?: ConfiguracionComensales;
+  comensalesCena?: ConfiguracionComensales;
   postreComida: PostreMenu;
   postreCena: PostreMenu;
   postreComidaReceta?: string;

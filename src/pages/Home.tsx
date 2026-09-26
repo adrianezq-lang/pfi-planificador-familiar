@@ -33,13 +33,19 @@ import {
   EVENTO_PRODUCTOS_MANUALES_COMPRA,
 } from '../services/productosManualesCompra';
 import {
+  calcularConfianzaPresupuesto,
   calcularResumenEconomicoMensual,
+  etiquetaConfianzaPresupuesto,
   type DesgloseEconomico,
   type ResumenEconomicoMensual,
 } from '../services/resumenEconomico';
 import { EVENTO_ASOCIACIONES } from '../services/asociacionesIngredientes';
 import { EVENTO_DISPONIBILIDAD_INGREDIENTES } from '../services/disponibilidadIngredientes';
 import { EVENTO_PRECIOS_MANUALES_INGREDIENTES } from '../services/preciosManualesIngredientes';
+import {
+  EVENTO_AHORRO_REAL,
+  resumirAhorroRealMes,
+} from '../services/ahorroReal';
 
 type DestinoInicio = 'menu' | 'asistente' | 'compra' | 'despensa';
 
@@ -140,6 +146,7 @@ function Home({
     window.addEventListener(EVENTO_ASOCIACIONES, actualizar);
     window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
     window.addEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, actualizar);
+    window.addEventListener(EVENTO_AHORRO_REAL, actualizar);
     window.addEventListener(EVENTO_PERFIL, actualizarPerfil);
     return () => {
       window.removeEventListener(EVENTO_DESPENSA, actualizar);
@@ -148,6 +155,7 @@ function Home({
       window.removeEventListener(EVENTO_ASOCIACIONES, actualizar);
       window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
       window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, actualizar);
+      window.removeEventListener(EVENTO_AHORRO_REAL, actualizar);
       window.removeEventListener(EVENTO_PERFIL, actualizarPerfil);
     };
   }, []);
@@ -173,6 +181,11 @@ function Home({
         .sort((a, b) => calcularReposicion(b) - calcularReposicion(a)),
     [despensa],
   );
+  const ahorroReal = useMemo(() => {
+    // `version` cambia al registrar o eliminar compras y fuerza el recálculo.
+    void version;
+    return resumirAhorroRealMes(mesActivo);
+  }, [mesActivo, version]);
 
   const postreComida = menuHoy
     ? `${iconoRecetaPostre(obtenerRecetaPostre(menuHoy, 'comida'))} ${formatearPostreMenu(menuHoy, 'comida')}`
@@ -333,6 +346,17 @@ function Home({
           detalle={detallePresupuesto}
           total
         />
+        <BudgetCard
+          etiqueta={ahorroReal.ahorroNeto >= 0
+            ? 'Ahorro real del mes'
+            : 'Sobrecoste real del mes'}
+          icono="euro"
+          valor={Math.abs(ahorroReal.ahorroNeto)}
+          navegar={navegar}
+          detalle={ahorroReal.comprasComparadas > 0
+            ? `${ahorroReal.comprasComparadas} importe${ahorroReal.comprasComparadas === 1 ? '' : 's'} confirmado${ahorroReal.comprasComparadas === 1 ? '' : 's'} · pagado ${ahorroReal.costePagado.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })} frente a ${ahorroReal.costeReferencia.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}`
+            : 'Sin compras comparadas confirmadas · las proyecciones no cuentan como ahorro'}
+        />
       </section> : <section className="budget-grid" aria-live="polite">
         <p role={errorPresupuesto ? 'alert' : 'status'}>
           {errorPresupuesto ? 'No se pudo calcular el presupuesto del mes.' : 'Calculando presupuesto del mes…'}
@@ -354,10 +378,19 @@ function detallePrecision(desglose: DesgloseEconomico): string {
     const causas = detalleCausasPendientes(desglose, false);
     if (causas) partes.push(causas);
   }
-  if (desglose.cantidadesEstimadas > 0) {
-    const productos = desglose.productosEstimados.length;
+  if (desglose.partidasPesoVariable > 0) {
     partes.push(
-      `${desglose.cantidadesEstimadas} cálculo${desglose.cantidadesEstimadas === 1 ? '' : 's'} aproximado${desglose.cantidadesEstimadas === 1 ? '' : 's'}${productos > 0 ? ` en ${productos} producto${productos === 1 ? '' : 's'}` : ''}`,
+      `${desglose.partidasPesoVariable} fresco${desglose.partidasPesoVariable === 1 ? '' : 's'} con peso final variable`,
+    );
+  }
+  if (desglose.partidasConversionEstimada > 0) {
+    partes.push(
+      `${desglose.partidasConversionEstimada} conversión${desglose.partidasConversionEstimada === 1 ? '' : 'es'} aproximada${desglose.partidasConversionEstimada === 1 ? '' : 's'}`,
+    );
+  }
+  if (desglose.partidasFormatoPendiente > 0) {
+    partes.push(
+      `${desglose.partidasFormatoPendiente} formato${desglose.partidasFormatoPendiente === 1 ? '' : 's'} comercial${desglose.partidasFormatoPendiente === 1 ? '' : 'es'} por confirmar`,
     );
   }
   if (desglose.partidasExcluidasDisponibilidad > 0) {
@@ -365,12 +398,17 @@ function detallePrecision(desglose: DesgloseEconomico): string {
       `${desglose.partidasExcluidasDisponibilidad} partida${desglose.partidasExcluidasDisponibilidad === 1 ? '' : 's'} fuera del cálculo por disponibilidad (${desglose.ingredientesNoDisponibles.join(', ')})`,
     );
   }
-  if (partes.length === 0) return '';
+  const confianza = calcularConfianzaPresupuesto(desglose);
+  partes.unshift(
+    `Fiabilidad ${confianza}% (${etiquetaConfianzaPresupuesto(confianza)})`,
+  );
   const etiqueta = desglose.partidasExcluidasDisponibilidad > 0
     ? 'Subtotal conocido'
     : desglose.partidasSinImporte > 0
       ? 'Subtotal mínimo'
-      : 'Total estimado';
+      : desglose.cantidadesEstimadas > 0
+        ? 'Total orientativo'
+        : 'Total confirmado';
   return `${etiqueta} · ${partes.join(' · ')}`;
 }
 

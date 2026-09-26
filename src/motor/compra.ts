@@ -20,6 +20,12 @@ export type OrigenCoberturaCompra =
   | 'sobrante-proyectado'
   | 'mixta';
 
+export type PrecisionCantidadCompra =
+  | 'exacta'
+  | 'peso-variable'
+  | 'conversion-aproximada'
+  | 'formato-incompleto';
+
 export type ExplicacionCantidadCompra = {
   periodo: 'semana' | 'mes';
   semana?: number;
@@ -45,6 +51,7 @@ export type LineaCompra = {
   envasesExactos: number | null;
   subtotal: number | null;
   calculoEstimado: boolean;
+  precisionCantidad: PrecisionCantidadCompra;
   tipoCompra: TipoCompra;
   origen: OrigenLineaCompra;
   explicacionCantidad?: ExplicacionCantidadCompra;
@@ -65,6 +72,9 @@ export type ResultadoCompra = {
   productosSinSeleccionar: string[];
   productosSinPrecio: string[];
   productosEstimados: string[];
+  productosPesoVariable: string[];
+  productosConversionEstimada: string[];
+  productosFormatoPendiente: string[];
   lineasCubiertas?: LineaCompra[];
   ingredientesNoDisponibles?: IngredienteNoDisponibleCompra[];
 };
@@ -529,6 +539,7 @@ export type CosteProporcionalIngrediente = {
   coste: number | null;
   envasesExactos: number | null;
   estimado: boolean;
+  precision: PrecisionCantidadCompra;
 };
 
 export function calcularCosteProporcionalIngrediente(
@@ -536,7 +547,12 @@ export function calcularCosteProporcionalIngrediente(
   producto: ProductoMercadonaCatalogo,
 ): CosteProporcionalIngrediente {
   if (producto.precio === null) {
-    return { coste: null, envasesExactos: null, estimado: false };
+    return {
+      coste: null,
+      envasesExactos: null,
+      estimado: false,
+      precision: 'exacta',
+    };
   }
 
   const capacidades = capacidadesProducto(producto);
@@ -555,6 +571,7 @@ export function calcularCosteProporcionalIngrediente(
       coste: null,
       envasesExactos: null,
       estimado: true,
+      precision: 'formato-incompleto',
     };
   }
 
@@ -563,13 +580,23 @@ export function calcularCosteProporcionalIngrediente(
     coste: producto.precio * envasesExactos,
     envasesExactos,
     estimado: necesidad.aproximada || tienePrecioVariable(producto),
+    precision: necesidad.aproximada
+      ? 'conversion-aproximada'
+      : tienePrecioVariable(producto)
+        ? 'peso-variable'
+        : 'exacta',
   };
 }
 
 export function calcularEnvasesParaNecesidades(
   necesidades: Ingrediente[],
   producto: ProductoMercadonaCatalogo,
-): { envases: number; envasesExactos: number; estimado: boolean } {
+): {
+  envases: number;
+  envasesExactos: number;
+  estimado: boolean;
+  precision: PrecisionCantidadCompra;
+} {
   const capacidades = capacidadesProducto(producto);
   const capacidadPorUnidad = new Map(
     capacidades.map((capacidad) => [capacidad.unidad, capacidad.cantidad]),
@@ -602,14 +629,19 @@ export function calcularEnvasesParaNecesidades(
     }
   });
 
+  const precision: PrecisionCantidadCompra = conversionIncompleta || capacidades.length === 0
+    ? 'formato-incompleto'
+    : conversionAproximada
+      ? 'conversion-aproximada'
+      : tienePrecioVariable(producto)
+        ? 'peso-variable'
+        : 'exacta';
+
   return {
     envases: Math.max(1, Math.ceil(equivalentesEnvase)),
     envasesExactos: Math.max(0, equivalentesEnvase),
-    estimado:
-      tienePrecioVariable(producto) ||
-      conversionAproximada ||
-      conversionIncompleta ||
-      capacidades.length === 0,
+    estimado: precision !== 'exacta',
+    precision,
   };
 }
 
@@ -652,6 +684,7 @@ function crearLineaSinProducto(
     envasesExactos: null,
     subtotal: null,
     calculoEstimado: false,
+    precisionCantidad: 'formato-incompleto',
     tipoCompra: 'semanal',
     origen: 'menu',
   };
@@ -708,6 +741,7 @@ function combinarLineasProducto(
         ? null
         : envases * producto.precio,
     calculoEstimado: calculo.estimado,
+    precisionCantidad: calculo.precision,
     tipoCompra: esDespensaAutomatica ? 'despensa' : 'semanal',
     origen: 'menu',
   };
@@ -757,6 +791,7 @@ function crearLineaReposicion(
         ? null
         : envases * productoDespensa.precio,
     calculoEstimado: false,
+    precisionCantidad: 'exacta',
     tipoCompra: 'despensa',
     origen: 'reposicion',
   };
@@ -857,6 +892,15 @@ export async function generarCompraMercadona(
   const productosEstimados = lineas
     .filter((linea) => linea.calculoEstimado)
     .map((linea) => linea.ingrediente.nombre);
+  const productosPesoVariable = lineas
+    .filter((linea) => linea.precisionCantidad === 'peso-variable')
+    .map((linea) => linea.ingrediente.nombre);
+  const productosConversionEstimada = lineas
+    .filter((linea) => linea.precisionCantidad === 'conversion-aproximada')
+    .map((linea) => linea.ingrediente.nombre);
+  const productosFormatoPendiente = lineas
+    .filter((linea) => linea.producto && linea.precisionCantidad === 'formato-incompleto')
+    .map((linea) => linea.ingrediente.nombre);
 
   const totalSemanal = sumarSubtotal(lineasSemanales);
   const totalDespensa = sumarSubtotal(lineasDespensa);
@@ -871,6 +915,9 @@ export async function generarCompraMercadona(
     productosSinSeleccionar,
     productosSinPrecio,
     productosEstimados,
+    productosPesoVariable,
+    productosConversionEstimada,
+    productosFormatoPendiente,
     ingredientesNoDisponibles,
   };
 }

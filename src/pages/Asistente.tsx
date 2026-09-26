@@ -36,7 +36,10 @@ import {
   detectarIntencionPropuestaPendiente,
   type PropuestaAccionAsistente,
 } from '../services/accionesAsistente';
-import type { ResultadoCompra } from '../motor/compra';
+import {
+  generarCompraMercadona,
+  type ResultadoCompra,
+} from '../motor/compra';
 import {
   cargarClavesGuardadas,
   crearClavesEstadoCompra,
@@ -58,6 +61,10 @@ import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 import { EVENTO_ASOCIACIONES } from '../services/asociacionesIngredientes';
 import { EVENTO_DISPONIBILIDAD_INGREDIENTES } from '../services/disponibilidadIngredientes';
 import { EVENTO_PRECIOS_MANUALES_INGREDIENTES } from '../services/preciosManualesIngredientes';
+import {
+  EVENTO_AHORRO_REAL,
+  resumirAhorroRealMes,
+} from '../services/ahorroReal';
 
 type Props = {
   menu: DiaMenu[];
@@ -216,6 +223,104 @@ function destinoAccion(propuesta: PropuestaAccionAsistente): DestinoAsistente {
   }
 }
 
+function simularMenuPropuesta(
+  menu: DiaMenu[],
+  propuesta: PropuestaAccionAsistente,
+): DiaMenu[] | null {
+  const accion = propuesta.accion;
+  if (accion.tipo === 'anadir-compra') return null;
+  if (accion.tipo === 'restaurar-menu') return clonarMenu(accion.menuAntes);
+  if (accion.tipo === 'fin-semana-sin-ninos') {
+    return menu.map((dia) =>
+      /^(sabado|domingo)$/.test(normalizar(dia.dia))
+        ? { ...dia, sinNinos: accion.sinNinos }
+        : dia,
+    );
+  }
+  if (accion.tipo === 'excepcion-dia') {
+    if (!accion.activa) return null;
+    return menu.map((dia) => {
+      if (normalizar(dia.dia) !== normalizar(accion.dia)) return dia;
+      if (accion.excepcion === 'sinComida') {
+        return { ...dia, comida: [], postreComida: 'Sin postre' };
+      }
+      if (accion.excepcion === 'sinCena') {
+        return { ...dia, cena: [], postreCena: 'Sin postre' };
+      }
+      return {
+        ...dia,
+        comida: [],
+        cena: [],
+        postreComida: 'Sin postre',
+        postreCena: 'Sin postre',
+      };
+    });
+  }
+  if (accion.tipo === 'cambiar-menu') {
+    return menu.map((dia) =>
+      normalizar(dia.dia) === normalizar(accion.dia)
+        ? conMomento(dia, accion.momento, [accion.platoNuevo])
+        : dia,
+    );
+  }
+  if (accion.tipo === 'copiar-menu') {
+    return menu.map((dia) =>
+      normalizar(dia.dia) === normalizar(accion.diaDestino)
+        ? conMomento(dia, accion.momentoDestino, accion.platosNuevos)
+        : dia,
+    );
+  }
+  if (accion.tipo === 'mover-menu') {
+    return menu.map((dia) => {
+      let actualizado = dia;
+      if (normalizar(dia.dia) === normalizar(accion.diaDestino)) {
+        actualizado = conMomento(
+          actualizado,
+          accion.momentoDestino,
+          accion.platosOrigenAntes,
+        );
+      }
+      if (normalizar(dia.dia) === normalizar(accion.diaOrigen)) {
+        actualizado = conMomento(actualizado, accion.momentoOrigen, []);
+      }
+      return actualizado;
+    });
+  }
+  return menu.map((dia) => {
+    let actualizado = dia;
+    if (normalizar(dia.dia) === normalizar(accion.diaDestino)) {
+      actualizado = conMomento(
+        actualizado,
+        accion.momentoDestino,
+        accion.platosOrigenAntes,
+      );
+    }
+    if (normalizar(dia.dia) === normalizar(accion.diaOrigen)) {
+      actualizado = conMomento(
+        actualizado,
+        accion.momentoOrigen,
+        accion.platosDestinoAntes,
+      );
+    }
+    return actualizado;
+  });
+}
+
+function eurosConSigno(valor: number): string {
+  const signo = valor > 0 ? '+' : valor < 0 ? '−' : '';
+  return `${signo}${Math.abs(valor).toLocaleString('es-ES', {
+    style: 'currency',
+    currency: 'EUR',
+  })}`;
+}
+
+function eurosImporte(valor: number): string {
+  return valor.toLocaleString('es-ES', {
+    style: 'currency',
+    currency: 'EUR',
+  });
+}
+
 export default function Asistente({
   menu,
   menuEditable,
@@ -244,6 +349,8 @@ export default function Asistente({
     useState<CambioMenuReversible | null>(null);
   const [ultimaPropuestaAplicada, setUltimaPropuestaAplicada] =
     useState<PropuestaAccionAsistente | null>(null);
+  const [impactoPropuesta, setImpactoPropuesta] = useState<string[]>([]);
+  const [calculandoImpacto, setCalculandoImpacto] = useState(false);
   const finalRef = useRef<HTMLDivElement | null>(null);
   const calculoVigente = calculoCompra?.menuMes === menuMes &&
     calculoCompra.menusSemanas === menusSemanas &&
@@ -272,6 +379,7 @@ export default function Asistente({
     window.addEventListener(EVENTO_ASOCIACIONES, recalcularCompra);
     window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcularCompra);
     window.addEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcularCompra);
+    window.addEventListener(EVENTO_AHORRO_REAL, recalcularCompra);
 
     return () => {
       window.removeEventListener(EVENTO_DESPENSA, actualizarDespensa);
@@ -281,6 +389,7 @@ export default function Asistente({
       window.removeEventListener(EVENTO_ASOCIACIONES, recalcularCompra);
       window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcularCompra);
       window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcularCompra);
+      window.removeEventListener(EVENTO_AHORRO_REAL, recalcularCompra);
     };
   }, []);
 
@@ -315,6 +424,82 @@ export default function Asistente({
       activo = false;
     };
   }, [menuMes, menusSemanas, semanaActiva, revisionAcciones]);
+
+  useEffect(() => {
+    // Los eventos de precios, asociaciones y disponibilidad deben refrescar
+    // también una vista previa que ya estuviera abierta.
+    void revisionAcciones;
+    const propuesta = propuestaPendiente;
+    if (!propuesta) {
+      setImpactoPropuesta([]);
+      setCalculandoImpacto(false);
+      return;
+    }
+    if (propuesta.accion.tipo === 'anadir-compra') {
+      setImpactoPropuesta([
+        'Añadirá una partida manual a la semana actual.',
+        'Quedará sin importe hasta registrar su precio; mientras tanto el total seguirá siendo un mínimo conocido.',
+      ]);
+      setCalculandoImpacto(false);
+      return;
+    }
+
+    const menuSimulado = simularMenuPropuesta(menuEditable, propuesta);
+    if (!menuSimulado) {
+      setImpactoPropuesta([
+        'Compra y presupuesto se recalcularán después de confirmar.',
+        'No se modifica ningún dato en esta vista previa.',
+      ]);
+      setCalculandoImpacto(false);
+      return;
+    }
+
+    let activo = true;
+    setCalculandoImpacto(true);
+    setImpactoPropuesta([]);
+    Promise.all([
+      generarCompraMercadona(menuEditable, {
+        aplicarStock: false,
+        incluirReposicion: false,
+      }),
+      generarCompraMercadona(menuSimulado, {
+        aplicarStock: false,
+        incluirReposicion: false,
+      }),
+    ])
+      .then(([antes, despues]) => {
+        if (!activo) return;
+        const diferencia = Math.round((despues.total - antes.total) * 100) / 100;
+        const pendientes =
+          despues.productosSinSeleccionar.length + despues.productosSinPrecio.length;
+        const diferenciaLineas = despues.lineas.length - antes.lineas.length;
+        setImpactoPropuesta([
+          diferencia === 0
+            ? `Coste conocido de esta semana sin cambio: ${eurosImporte(despues.total)}.`
+            : `Cambio en coste conocido de esta semana: ${eurosConSigno(diferencia)} (de ${eurosImporte(antes.total)} a ${eurosImporte(despues.total)}).`,
+          diferenciaLineas === 0
+            ? `Mismo número de líneas de compra: ${despues.lineas.length}.`
+            : `${Math.abs(diferenciaLineas)} línea${Math.abs(diferenciaLineas) === 1 ? '' : 's'} de compra ${diferenciaLineas > 0 ? 'más' : 'menos'}.`,
+          pendientes > 0
+            ? `${pendientes} partida${pendientes === 1 ? '' : 's'} sin producto o precio; el impacto económico es parcial.`
+            : 'Impacto calculado con todos los productos y precios disponibles.',
+        ]);
+      })
+      .catch(() => {
+        if (activo) {
+          setImpactoPropuesta([
+            'No se ha podido calcular el impacto económico previo; el cambio sigue sin aplicarse.',
+          ]);
+        }
+      })
+      .finally(() => {
+        if (activo) setCalculandoImpacto(false);
+      });
+
+    return () => {
+      activo = false;
+    };
+  }, [menuEditable, propuestaPendiente, revisionAcciones]);
 
   const estadoCompra = useMemo(() => {
     void revisionAcciones;
@@ -381,6 +566,10 @@ export default function Asistente({
       semanaActiva,
     });
   }, [compraMes, comprasSemanas, mesActivo, revisionAcciones, semanaActiva]);
+  const ahorroReal = useMemo(() => {
+    void revisionAcciones;
+    return resumirAhorroRealMes(mesActivo);
+  }, [mesActivo, revisionAcciones]);
 
   const contexto = useMemo(
     () => ({
@@ -403,9 +592,11 @@ export default function Asistente({
       recetas,
       aprendizaje,
       perfil,
+      ahorroReal,
     }),
     [
       aprendizaje,
+      ahorroReal,
       compraMes,
       compraSemana,
       comprasSemanas,
@@ -1168,6 +1359,14 @@ export default function Asistente({
             <div className="assistant-confirm__changes">
               {propuestaPendiente.cambios.map((cambio) => (
                 <span key={cambio}>{cambio}</span>
+              ))}
+            </div>
+            <div className="assistant-confirm__impact" aria-live="polite">
+              <strong>Impacto previsto</strong>
+              {calculandoImpacto ? (
+                <span>Calculando compra y presupuesto…</span>
+              ) : impactoPropuesta.map((impacto) => (
+                <span key={impacto}>{impacto}</span>
               ))}
             </div>
             <div className="assistant-confirm__actions">

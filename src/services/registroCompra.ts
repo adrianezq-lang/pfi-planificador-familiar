@@ -5,6 +5,7 @@ import {
   registrarUltimaCompraDespensa,
 } from './despensa.ts';
 import { registrarCompra } from './inventario.ts';
+import { registrarAhorroReal } from './ahorroReal.ts';
 
 export type PeriodoCompra = 'semana' | 'mes';
 
@@ -17,6 +18,7 @@ export type ResultadoRegistroCompra = {
   clavesRegistradas: string[];
   lineasRegistradas: number;
   lineasSinInventario: number;
+  ahorrosRegistrados: number;
 };
 
 function normalizarClave(texto: string): string {
@@ -92,6 +94,7 @@ export function registrarMarcadosEnInventario(
   registrados: string[],
   observaciones: string,
   asignaciones: AsignacionComparador[] = [],
+  referenciaRegistro = observaciones,
 ): ResultadoRegistroCompra {
   const pendientes = obtenerLineasPendientesDeInventario(
     lineas,
@@ -104,6 +107,7 @@ export function registrarMarcadosEnInventario(
     asignaciones.map((asignacion) => [asignacion.clave, asignacion]),
   );
   let lineasRegistradas = 0;
+  let ahorrosRegistrados = 0;
 
   pendientes.forEach((linea) => {
     if (!linea.productoDespensa && linea.producto) {
@@ -129,6 +133,24 @@ export function registrarMarcadosEnInventario(
         productoNombre: opcion.productoNombre,
         precio: opcion.precioEnvase,
       });
+      if (asignacion?.ahorroFrenteMercadona !== null && asignacion?.ahorroFrenteMercadona !== undefined) {
+        registrarAhorroReal({
+          referencia: `${referenciaRegistro}|${linea.clave}`,
+          productoId,
+          productoNombre: opcion.productoNombre,
+          tiendaId: opcion.tiendaId,
+          tiendaNombre: opcion.tiendaNombre,
+          costeReferencia: opcion.coste + asignacion.ahorroFrenteMercadona,
+          costePagado: opcion.coste,
+          origenImporte: opcion.tiendaId === 'mercadona'
+            ? 'mercadona'
+            : opcion.automatica
+              ? 'catalogo'
+              : 'precio-registrado',
+          observaciones,
+        });
+        ahorrosRegistrados += 1;
+      }
     } else if (linea.producto?.origenPrecio === 'manual') {
       registrarUltimaCompraDespensa(productoId, {
         tiendaId: `manual:${normalizarClave(linea.producto.tiendaPrecio ?? 'otra-tienda')}`,
@@ -153,5 +175,6 @@ export function registrarMarcadosEnInventario(
     clavesRegistradas: Array.from(clavesRegistradas),
     lineasRegistradas,
     lineasSinInventario,
+    ahorrosRegistrados,
   };
 }

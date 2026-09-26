@@ -121,12 +121,14 @@ export function ajustarFormatoComercialEspecial(
     : null;
   const envasesExactos = exactosEspeciales + (calculoResto?.envasesExactos ?? 0);
   const envases = Math.max(1, Math.ceil(envasesExactos - 0.000001));
+  const precisionCantidad = calculoResto?.precision ?? 'exacta';
 
   return {
     ...linea,
     envasesExactos,
     envases,
-    calculoEstimado: linea.calculoEstimado || Boolean(calculoResto?.estimado),
+    calculoEstimado: precisionCantidad !== 'exacta',
+    precisionCantidad,
     subtotal:
       producto.precio === null
         ? null
@@ -184,6 +186,15 @@ function rehacerResultado(
       .map((linea) => linea.ingrediente.nombre),
     productosEstimados: lineas
       .filter((linea) => linea.calculoEstimado)
+      .map((linea) => linea.ingrediente.nombre),
+    productosPesoVariable: lineas
+      .filter((linea) => linea.precisionCantidad === 'peso-variable')
+      .map((linea) => linea.ingrediente.nombre),
+    productosConversionEstimada: lineas
+      .filter((linea) => linea.precisionCantidad === 'conversion-aproximada')
+      .map((linea) => linea.ingrediente.nombre),
+    productosFormatoPendiente: lineas
+      .filter((linea) => linea.producto && linea.precisionCantidad === 'formato-incompleto')
       .map((linea) => linea.ingrediente.nombre),
     lineasCubiertas,
     ingredientesNoDisponibles,
@@ -283,6 +294,7 @@ function crearLineaMensualDespensa(
         ? null
         : envases * productoDespensa.precio,
     calculoEstimado: false,
+    precisionCantidad: 'exacta',
     tipoCompra: 'despensa',
     origen: 'reposicion',
   };

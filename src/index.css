@@ -2491,6 +2491,87 @@ textarea:focus-visible {
   line-height: 1.4;
 }
 
+.pantry-waste-button {
+  width: 100%;
+  margin-top: 8px;
+  border: 1px solid #d7ddd5;
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: #fff;
+  color: #6f5546;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.pantry-waste-button:hover {
+  border-color: #b89378;
+  background: #fbf7f3;
+}
+
+.pantry-savings-history {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e1e6df;
+}
+
+.pantry-savings-history > p {
+  color: #6d786f;
+  font-size: 12px;
+}
+
+.pantry-saving-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 11px 0;
+  border-top: 1px solid #edf0eb;
+}
+
+.pantry-saving-row > span,
+.pantry-saving-row > span strong,
+.pantry-saving-row > span small {
+  display: block;
+}
+
+.pantry-saving-row > span small {
+  margin-top: 2px;
+  color: #718078;
+  font-size: 11px;
+}
+
+.pantry-saving-row > .is-saving {
+  color: #356340;
+}
+
+.pantry-saving-row > .is-overcost {
+  color: #9a4f43;
+}
+
+.pantry-saving-row > button {
+  border: 1px solid #d8dfd5;
+  border-radius: 9px;
+  padding: 7px 9px;
+  background: #fff;
+  color: #6f5546;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+@media (max-width: 620px) {
+  .pantry-saving-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .pantry-saving-row > span {
+    grid-column: 1 / -1;
+  }
+}
+
 .pantry-restock-note {
   border-left: 5px solid #9aa39b !important;
   background: #f3f1eb !important;

@@ -344,8 +344,19 @@ export function crearPerfilParaMomento(
   perfil: PerfilFamiliar,
   momento: MomentoComida,
   dia: string,
+  configuracionPersonalizada?: ConfiguracionComensales,
 ): PerfilFamiliar {
-  const configuracion = obtenerConfiguracionComensales(perfil, momento, dia);
+  const predeterminada = obtenerConfiguracionComensales(perfil, momento, dia);
+  const configuracion = configuracionPersonalizada
+    ? normalizarConfiguracionComensales(
+        configuracionPersonalizada,
+        predeterminada,
+        perfil.adultos,
+        perfil.ninos,
+        perfil.bebes,
+        perfil.bebesComenMenu,
+      )
+    : predeterminada;
   const edadesNinos = perfil.edadesNinos.filter(
     (_, indice) => configuracion.ninos[indice] === true,
   );

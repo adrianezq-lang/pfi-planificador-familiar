@@ -15,7 +15,7 @@ import {
   type PerfilFamiliar,
 } from './perfil';
 import { obtenerSugerenciaIngrediente } from './porciones';
-import { esLegumbreDeOlla, listarPlatosParaCompra } from './reglasMenuMensual';
+import { esLegumbreDeOlla } from './reglasMenuMensual';
 
 const PRODUCTO_JAMONCITOS_POLLO = '2778';
 const PRODUCTO_TORTILLAS_TRIGO = '80859';
@@ -262,64 +262,74 @@ function ingredientePostreSinReceta(
   ];
 }
 
-function esFinDeSemana(dia: string): boolean {
-  const normalizado = dia
-    .toLocaleLowerCase('es')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .trim();
-
-  return normalizado === 'sabado' || normalizado === 'domingo';
-}
-
-function crearMenuDeServicio(
-  menu: DiaMenu[],
-  servicio: 'comidaLaborable' | 'comidaFinSemana' | 'cena',
-  sinNinos: boolean,
-): DiaMenu[] {
-  return menu.map((dia) => {
-    const finDeSemana = esFinDeSemana(dia.dia);
-    const correspondeExcepcion = (dia.sinNinos === true) === sinNinos;
-    return {
-      ...dia,
-      comida:
-        !correspondeExcepcion
-          ? []
-          : servicio === 'comidaLaborable'
-          ? finDeSemana ? [] : dia.comida
-          : servicio === 'comidaFinSemana' && finDeSemana
-            ? dia.comida
-            : [],
-      cena: correspondeExcepcion && servicio === 'cena' ? dia.cena : [],
-    };
-  });
-}
-
-function obtenerPostresDeServicio(
-  menu: DiaMenu[],
-  servicio: 'comidaLaborable' | 'comidaFinSemana' | 'cena',
-  sinNinos: boolean,
-): string[] {
-  return menu.flatMap((dia) => {
-    if ((dia.sinNinos === true) !== sinNinos) return [];
-    if (servicio === 'cena') {
-      return [obtenerRecetaPostre(dia, 'cena')];
-    }
-
-    const finDeSemana = esFinDeSemana(dia.dia);
-    const corresponde = servicio === 'comidaFinSemana'
-      ? finDeSemana
-      : !finDeSemana;
-    return corresponde ? [obtenerRecetaPostre(dia, 'comida')] : [];
-  });
-}
-
 function crearPerfilSinNinos(perfil: PerfilFamiliar): PerfilFamiliar {
   return {
     ...perfil,
     ninos: 0,
     edadesNinos: [],
   };
+}
+
+type ServicioCompra = {
+  semana: number;
+  orden: number;
+  momento: 'comida' | 'cena';
+  perfil: PerfilFamiliar;
+  platos: string[];
+  postre: string;
+};
+
+type PlatoCompra = {
+  nombre: string;
+  perfil: PerfilFamiliar;
+  orden: number;
+};
+
+function firmaPerfil(perfil: PerfilFamiliar): string {
+  return [
+    perfil.adultos,
+    perfil.edadesNinos.join(','),
+    perfil.bebes,
+    Number(perfil.bebesComenMenu),
+  ].join('|');
+}
+
+function crearServiciosCompra(
+  menu: DiaMenu[],
+  perfil: PerfilFamiliar,
+): ServicioCompra[] {
+  let semana = 0;
+  let orden = 0;
+  return menu.flatMap((dia, indice) => {
+    if (indice > 0 && normalizarTexto(dia.dia) === 'lunes') semana += 1;
+    return (['comida', 'cena'] as const).flatMap((momento) => {
+      const platos = momento === 'comida' ? dia.comida : dia.cena;
+      const postre = obtenerRecetaPostre(dia, momento);
+      if (platos.length === 0 && (!postre || postre === 'Sin postre')) return [];
+      const personalizada = momento === 'comida'
+        ? dia.comensalesComida
+        : dia.comensalesCena;
+      let perfilServicio = crearPerfilParaMomento(
+        perfil,
+        momento,
+        dia.dia,
+        personalizada,
+      );
+      if (dia.sinNinos === true) {
+        perfilServicio = crearPerfilSinNinos(perfilServicio);
+      }
+      const servicio: ServicioCompra = {
+        semana,
+        orden,
+        momento,
+        perfil: perfilServicio,
+        platos,
+        postre,
+      };
+      orden += 1;
+      return [servicio];
+    });
+  });
 }
 
 export function generarListaCompra(
@@ -329,71 +339,72 @@ export function generarListaCompra(
 
   const perfil = cargarPerfil();
   const recetasBase = cargarRecetas();
-  const serviciosBase = [
-    {
-      clave: 'comidaLaborable' as const,
-      perfil: crearPerfilParaMomento(perfil, 'comida', 'Lunes'),
-    },
-    {
-      clave: 'comidaFinSemana' as const,
-      perfil: crearPerfilParaMomento(perfil, 'comida', 'Sábado'),
-    },
-    {
-      clave: 'cena' as const,
-      perfil: crearPerfilParaMomento(perfil, 'cena', 'Lunes'),
-    },
-  ];
-  const servicios = serviciosBase.flatMap((servicio) => [
-    { ...servicio, sinNinos: false },
-    {
-      ...servicio,
-      sinNinos: true,
-      perfil: crearPerfilSinNinos(servicio.perfil),
-    },
-  ]);
+  const servicios = crearServiciosCompra(menu, perfil).filter(
+    (servicio) => calcularComensales(servicio.perfil) > 0,
+  );
+  const platos: PlatoCompra[] = [];
+  const ollasPorSemana = new Map<string, PlatoCompra>();
 
-  const ingredientes = servicios.flatMap((servicio) => {
-    if (calcularComensales(servicio.perfil) === 0) return [];
+  servicios.forEach((servicio) => {
+    servicio.platos.forEach((nombre) => {
+      if (!esLegumbreDeOlla(nombre)) {
+        platos.push({ nombre, perfil: servicio.perfil, orden: servicio.orden });
+        return;
+      }
+      const clave = `${servicio.semana}|${normalizarTexto(nombre)}`;
+      const existente = ollasPorSemana.get(clave);
+      if (!existente) {
+        const plato = { nombre, perfil: servicio.perfil, orden: servicio.orden };
+        ollasPorSemana.set(clave, plato);
+        platos.push(plato);
+        return;
+      }
+      if (
+        calcularRacionesEquivalentes(servicio.perfil) >
+        calcularRacionesEquivalentes(existente.perfil)
+      ) {
+        existente.perfil = servicio.perfil;
+      }
+    });
+  });
 
-    const recetas = ajustarRecetasAComensalesServicio(
+  const recetasPorPerfil = new Map<string, Receta[]>();
+  const recetasParaPerfil = (perfilServicio: PerfilFamiliar): Receta[] => {
+    const firma = firmaPerfil(perfilServicio);
+    const existentes = recetasPorPerfil.get(firma);
+    if (existentes) return existentes;
+    const ajustadas = ajustarRecetasAComensalesServicio(
       recetasBase,
       perfil,
-      servicio.perfil,
+      perfilServicio,
     );
-    const buscarReceta = (nombre: string) =>
-      recetas.find((receta) => receta.nombre === nombre);
-    const ingredientesPlato = (nombre: string): Ingrediente[] => {
-      const receta = buscarReceta(nombre);
-      return receta?.ingredientes.map((ingrediente) =>
-        normalizarCortePolloParaCompra(receta, ingrediente),
-      ) ?? [];
-    };
-    const menuServicio = crearMenuDeServicio(
-      menu,
-      servicio.clave,
-      servicio.sinNinos,
+    recetasPorPerfil.set(firma, ajustadas);
+    return ajustadas;
+  };
+  const ingredientesPlato = (plato: PlatoCompra): Ingrediente[] => {
+    const receta = recetasParaPerfil(plato.perfil).find(
+      (candidata) => candidata.nombre === plato.nombre,
     );
-    const platos = listarPlatosParaCompra(
-      menuServicio,
-      esLegumbreDeOlla,
-    );
-    const postres = obtenerPostresDeServicio(
-      menu,
-      servicio.clave,
-      servicio.sinNinos,
-    );
+    return receta?.ingredientes.map((ingrediente) =>
+      normalizarCortePolloParaCompra(receta, ingrediente),
+    ) ?? [];
+  };
 
-    return [
-      ...platos.flatMap(ingredientesPlato),
-      ...postres.flatMap((nombre) => {
-        const receta = buscarReceta(nombre);
-        return receta?.ingredientes ?? ingredientePostreSinReceta(
-          nombre,
-          servicio.perfil,
-        );
-      }),
-    ];
-  });
+  const ingredientes = [
+    ...platos
+      .sort((a, b) => a.orden - b.orden)
+      .flatMap(ingredientesPlato),
+    ...servicios.flatMap((servicio) => {
+      if (!servicio.postre || servicio.postre === 'Sin postre') return [];
+      const receta = recetasParaPerfil(servicio.perfil).find(
+        (candidata) => candidata.nombre === servicio.postre,
+      );
+      return receta?.ingredientes ?? ingredientePostreSinReceta(
+        servicio.postre,
+        servicio.perfil,
+      );
+    }),
+  ];
 
   return unirIngredientes(ingredientes);
 }

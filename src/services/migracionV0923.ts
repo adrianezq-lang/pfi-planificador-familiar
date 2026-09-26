@@ -21,6 +21,14 @@ function normalizar(texto: string): string {
   return texto.trim().toLocaleLowerCase('es');
 }
 
+const ESPECIAS_KEBAB_REALES = [
+  { nombre: 'Comino molido', cantidad: 4, unidad: 'g', seccion: 'Despensa' },
+  { nombre: 'Curry', cantidad: 4, unidad: 'g', seccion: 'Despensa' },
+  { nombre: 'Pimentón dulce', cantidad: 4, unidad: 'g', seccion: 'Despensa' },
+  { nombre: 'Orégano', cantidad: 2, unidad: 'g', seccion: 'Despensa' },
+  { nombre: 'Ajo en polvo', cantidad: 3, unidad: 'g', seccion: 'Despensa' },
+] as const;
+
 /** Mantiene las recetas modernas y corrige el kebab histórico. */
 export function aplicarMigracionV0923(): void {
   if (aplicando) return;
@@ -34,10 +42,19 @@ export function aplicarMigracionV0923(): void {
       if (normalizar(receta.nombre) !== 'kebab') return receta;
 
       let recetaCambiada = false;
-      const ingredientes = receta.ingredientes.map((ingrediente) => {
-        if (normalizar(ingrediente.nombre) !== 'tortillas de trigo') return ingrediente;
-        recetaCambiada = true;
-        return { ...ingrediente, nombre: 'Pan de pita', seccion: 'Panadería' };
+      const ingredientes = receta.ingredientes.flatMap((ingrediente) => {
+        if (normalizar(ingrediente.nombre) === 'tortillas de trigo') {
+          recetaCambiada = true;
+          return [{ ...ingrediente, nombre: 'Pan de pita', seccion: 'Panadería' }];
+        }
+        if (
+          normalizar(ingrediente.nombre) === 'especias kebab' &&
+          normalizar(ingrediente.unidad) === 'revisar'
+        ) {
+          recetaCambiada = true;
+          return ESPECIAS_KEBAB_REALES.map((especia) => ({ ...especia }));
+        }
+        return [ingrediente];
       });
 
       if (!recetaCambiada) return receta;
@@ -75,6 +92,18 @@ export function aplicarMigracionV0923(): void {
     if (!obtenerProductoIdAsociado('Menestra de verduras')) {
       asociarProductoAIngrediente('Menestra de verduras', '52534');
     }
+    const especias: Record<string, string> = {
+      'Comino molido': '34120',
+      Curry: '34125',
+      'Pimentón dulce': '60573',
+      Orégano: '5598',
+      'Ajo en polvo': '86656',
+    };
+    Object.entries(especias).forEach(([ingrediente, productoId]) => {
+      if (!obtenerProductoIdAsociado(ingrediente)) {
+        asociarProductoAIngrediente(ingrediente, productoId);
+      }
+    });
   } finally {
     aplicando = false;
   }
