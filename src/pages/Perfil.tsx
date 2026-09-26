@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import Card from '../components/ui/Card';
 import AppIcon from '../components/AppIcon';
 import CentroDatosCopias from '../components/CentroDatosCopias';
+import ProgramacionComensalesPanel from '../components/ProgramacionComensalesPanel';
 import CuentaSincronizacion from '../components/CuentaSincronizacion';
 import Title from '../components/ui/Title';
 import {
@@ -608,6 +609,8 @@ function Perfil() {
           <strong>Cantidades familiares configuradas</strong>
           <span>{describirFamilia(perfil)} · PFI adapta automáticamente cada receta según quién come en casa.</span>
         </div>
+
+        <ProgramacionComensalesPanel perfil={perfil} />
 
         <button type="button" onClick={guardar} style={estiloBotonGuardar}>
           Guardar perfil y actualizar cantidades
