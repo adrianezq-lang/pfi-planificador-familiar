@@ -350,6 +350,7 @@ export default function Asistente({
     useState<PropuestaAccionAsistente | null>(null);
   const [impactoPropuesta, setImpactoPropuesta] = useState<string[]>([]);
   const [calculandoImpacto, setCalculandoImpacto] = useState(false);
+  const [relojPrioridades, setRelojPrioridades] = useState(() => Date.now());
   const finalRef = useRef<HTMLDivElement | null>(null);
   const calculoVigente = calculoCompra?.menuMes === menuMes &&
     calculoCompra.menusSemanas === menusSemanas &&
@@ -389,6 +390,19 @@ export default function Asistente({
       window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcularCompra);
       window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcularCompra);
       window.removeEventListener(EVENTO_AHORRO_REAL, recalcularCompra);
+    };
+  }, []);
+
+  useEffect(() => {
+    const actualizarReloj = () => setRelojPrioridades(Date.now());
+    const intervalo = window.setInterval(actualizarReloj, 60_000);
+    const alVolver = () => {
+      if (document.visibilityState === 'visible') actualizarReloj();
+    };
+    document.addEventListener('visibilitychange', alVolver);
+    return () => {
+      window.clearInterval(intervalo);
+      document.removeEventListener('visibilitychange', alVolver);
     };
   }, []);
 
@@ -658,8 +672,8 @@ export default function Asistente({
   );
 
   const resumen = useMemo(
-    () => obtenerResumenProactivo(contexto),
-    [contexto],
+    () => obtenerResumenProactivo(contexto, new Date(relojPrioridades)),
+    [contexto, relojPrioridades],
   );
 
   const agregarConversacion = (
