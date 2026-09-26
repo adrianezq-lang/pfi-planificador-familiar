@@ -24,6 +24,7 @@ import { EVENTO_ASOCIACIONES, repararAsociacionesIngredientes } from './services
 import { cargarDespensa, sincronizarProductosRecetasConDespensa } from './services/despensa';
 import { cargarRecetas, EVENTO_RECETAS, seccionRecetarioParaIngrediente } from './services/recetas';
 import { cargarExcepciones, EVENTO_EXCEPCIONES, menuEfectivoMes, menuEfectivoSemana } from './services/excepcionesCalendario';
+import { EVENTO_PROGRAMACION_COMENSALES } from './services/programacionComensales';
 import { preservarCopiasAsociacionesExistentes } from './services/rescateAsociaciones';
 import { crearCopiaAutomaticaSiNecesaria } from './services/copiasSeguridad';
 
@@ -86,7 +87,11 @@ function App() {
   useEffect(() => {
     const actualizar = () => setExcepciones(cargarExcepciones());
     window.addEventListener(EVENTO_EXCEPCIONES, actualizar);
-    return () => window.removeEventListener(EVENTO_EXCEPCIONES, actualizar);
+    window.addEventListener(EVENTO_PROGRAMACION_COMENSALES, actualizar);
+    return () => {
+      window.removeEventListener(EVENTO_EXCEPCIONES, actualizar);
+      window.removeEventListener(EVENTO_PROGRAMACION_COMENSALES, actualizar);
+    };
   }, []);
 
   useEffect(() => {
