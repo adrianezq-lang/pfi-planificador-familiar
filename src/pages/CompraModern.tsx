@@ -272,6 +272,15 @@ export default function CompraModern({
     0,
   );
   const total = totalAutomatico + totalManual;
+  const gastoEvitadoStockFisico = (resultado?.lineasCubiertas ?? [])
+    .filter((linea) => linea.origenCobertura === 'stock-real')
+    .reduce(
+      (suma, linea) =>
+        suma +
+        (linea.producto?.precio ?? 0) *
+          Math.max(0, linea.envasesExactos ?? 0),
+      0,
+    );
   const hayPreciosPendientes =
     lineas.some((linea) => linea.subtotal === null) ||
     manualesPeriodo.some((producto) => producto.precioTotal === null);
@@ -832,6 +841,12 @@ export default function CompraModern({
                 <span>✅ No hace falta comprarlo esta semana</span>
                 <small>{resumenOrigenCobertura(resultado.lineasCubiertas)}</small>
               </summary>
+              {gastoEvitadoStockFisico > UMBRAL_CERO && (
+                <p className="modern-covered-card__avoided">
+                  Gasto evitado por usar stock físico: <strong>{euros(gastoEvitadoStockFisico)}</strong>.
+                  Es una referencia de compra evitada, no se suma al ahorro real ni al remanente proyectado.
+                </p>
+              )}
               <div>
                 {resultado.lineasCubiertas.map((linea) => <LineaCubierta key={linea.clave} linea={linea} />)}
               </div>
