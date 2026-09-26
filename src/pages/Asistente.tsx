@@ -54,6 +54,7 @@ import {
   guardarExcepcion,
   guardarFinDeSemanaSinNinos,
   indiceDiaSemana,
+  menuEfectivoSemana,
 } from '../services/excepcionesCalendario';
 import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
 import { EVENTO_ASOCIACIONES } from '../services/asociacionesIngredientes';
@@ -442,8 +443,17 @@ export default function Asistente({
       return;
     }
 
-    const menuSimulado = simularMenuPropuesta(menuEditable, propuesta);
-    if (!menuSimulado) {
+    const esAccionCalendario =
+      propuesta.accion.tipo === 'fin-semana-sin-ninos' ||
+      propuesta.accion.tipo === 'excepcion-dia';
+    const menuBaseSimulacion = esAccionCalendario
+      ? (menusSemanas[semanaActiva] ?? menuEditable)
+      : menuEditable;
+    const menuSimuladoBase = simularMenuPropuesta(
+      menuBaseSimulacion,
+      propuesta,
+    );
+    if (!menuSimuladoBase) {
       setImpactoPropuesta([
         'Compra y presupuesto se recalcularán después de confirmar.',
         'No se modifica ningún dato en esta vista previa.',
@@ -451,6 +461,14 @@ export default function Asistente({
       setCalculandoImpacto(false);
       return;
     }
+    const semanaSimulada = planMensual[semanaActiva];
+    const menuSimulado =
+      !esAccionCalendario && semanaSimulada
+        ? menuEfectivoSemana(
+            { ...semanaSimulada, menu: menuSimuladoBase },
+            cargarExcepciones(),
+          )
+        : menuSimuladoBase;
 
     let activo = true;
     setCalculandoImpacto(true);
@@ -520,6 +538,7 @@ export default function Asistente({
     menuEditable,
     menusSemanas,
     mesActivo,
+    planMensual,
     propuestaPendiente,
     revisionAcciones,
     semanaActiva,
