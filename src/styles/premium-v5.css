@@ -719,3 +719,149 @@
     flex: 1;
   }
 }
+
+
+/* v0.9.57 · programación futura de comensales */
+.profile-scheduled-diners {
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid rgba(79, 111, 82, 0.16);
+  border-radius: 16px;
+  background: rgba(248, 246, 242, 0.72);
+}
+
+.profile-scheduled-diners__copy {
+  margin: 8px 0 16px;
+  color: #667067;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.profile-scheduled-diners__dates,
+.profile-scheduled-diners__services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.profile-scheduled-diners__dates label,
+.profile-scheduled-diners__services article > label {
+  display: grid;
+  gap: 6px;
+  color: #4f6f52;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.profile-scheduled-diners__dates input,
+.profile-scheduled-diners__services input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d7dfd4;
+  border-radius: 11px;
+  padding: 10px;
+  background: #fff;
+  color: #263229;
+  font: inherit;
+}
+
+.profile-scheduled-diners__services {
+  margin-top: 14px;
+}
+
+.profile-scheduled-diners__services article {
+  display: grid;
+  gap: 10px;
+  padding: 13px;
+  border-radius: 13px;
+  background: #fff;
+  border: 1px solid rgba(79, 111, 82, 0.12);
+}
+
+.profile-scheduled-diners__services header {
+  display: grid;
+  gap: 3px;
+}
+
+.profile-scheduled-diners__services header small {
+  color: #778078;
+}
+
+.profile-scheduled-diners__check {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  color: #4f5d50 !important;
+  font-weight: 600 !important;
+}
+
+.profile-scheduled-diners__save {
+  margin-top: 14px;
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 16px;
+  background: #4f6f52;
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.profile-scheduled-diners__save:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.profile-scheduled-diners__message {
+  margin: 10px 0 0;
+  color: #4f6f52;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.profile-scheduled-diners__list {
+  display: grid;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.profile-scheduled-diners__list > article {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(79, 111, 82, 0.1);
+}
+
+.profile-scheduled-diners__list article > div {
+  display: grid;
+  gap: 3px;
+}
+
+.profile-scheduled-diners__list span,
+.profile-scheduled-diners__list small {
+  color: #667067;
+}
+
+.profile-scheduled-diners__list button {
+  border: 0;
+  background: transparent;
+  color: #8a655f;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 620px) {
+  .profile-scheduled-diners {
+    padding: 14px;
+  }
+
+  .profile-scheduled-diners__list > article {
+    flex-direction: column;
+  }
+}
