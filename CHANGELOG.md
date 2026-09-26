@@ -1,11 +1,12 @@
 # v0.9.57 — Plan familiar auditable
 
 - La compra se calcula con los comensales reales de cada comida y cena, incluidas excepciones por servicio. Los guisos reutilizados conservan una sola preparación y se dimensionan para el servicio con más raciones.
+- Perfil permite programar cambios de comensales desde una fecha (y opcionalmente hasta otra); se aplican automáticamente al menú, compra y presupuesto, mientras una excepción puntual del calendario siempre prevalece.
 - Menú permite confirmar una comida o cena ya servida: solo entonces descuenta existencias físicas, registra faltantes y permite deshacer exactamente el movimiento. Despensa incorpora mermas con cantidad y motivo.
 - El presupuesto separa importes confirmados, orientativos, conversiones aproximadas y formatos incompletos; el total y el saldo dejan claro cuándo son solo mínimos conocidos.
 - El ahorro real exige una compra confirmada y guarda precio de referencia, precio pagado, tienda, fuente y fecha. El stock proyectado y las compras futuras no cuentan como ahorro.
 - Los ingredientes reciben avisos de temporada por fecha y zona, alternativas compatibles y una desactivación manual reversible que mantiene la asociación exacta.
-- El Copiloto calcula el impacto estimado de cada propuesta antes de confirmarla y conserva la confirmación y el deshacer seguros.
+- El Copiloto calcula el impacto estimado de cada propuesta antes de confirmarla, conserva la confirmación y el deshacer seguros y refresca prioridades durante el día sin necesidad de recargar.
 - Las especias del kebab se desglosan en ingredientes concretos para evitar asociaciones y precios ambiguos.
 
 # v0.9.56 — Disponibilidad estacional y precios trazables
