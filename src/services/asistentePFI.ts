@@ -790,16 +790,6 @@ function respuestaChequeoIntegral(
     compra?.lineasCubiertas?.filter(
       (linea) => linea.origenCobertura !== 'stock-real',
     ).length ?? 0;
-  const gastoEvitadoStockFisico =
-    compra?.lineasCubiertas
-      ?.filter((linea) => linea.origenCobertura === 'stock-real')
-      .reduce(
-        (total, linea) =>
-          total +
-          (linea.producto?.precio ?? 0) *
-            Math.max(0, linea.envasesExactos ?? 0),
-        0,
-      ) ?? 0;
   const textoCobertura = cubiertasReales > 0 && cubiertasProyectadas > 0
     ? `${cantidadTexto(cubiertasReales, 'línea')} ${segunCantidad(cubiertasReales, 'está cubierta', 'están cubiertas')} por stock físico y ${cantidadTexto(cubiertasProyectadas, 'línea')} ${segunCantidad(cubiertasProyectadas, 'depende', 'dependen')} de sobrantes proyectados de compras anteriores.`
     : cubiertasReales > 0
@@ -868,6 +858,16 @@ function respuestaAhorroInteligente(
     compra?.lineasCubiertas?.filter(
       (linea) => linea.origenCobertura !== 'stock-real',
     ).length ?? 0;
+  const gastoEvitadoStockFisico =
+    compra?.lineasCubiertas
+      ?.filter((linea) => linea.origenCobertura === 'stock-real')
+      .reduce(
+        (total, linea) =>
+          total +
+          (linea.producto?.precio ?? 0) *
+            Math.max(0, linea.envasesExactos ?? 0),
+        0,
+      ) ?? 0;
   const puntos: string[] = [];
   const ahorroReal = ahorroRealContexto(contexto);
 
