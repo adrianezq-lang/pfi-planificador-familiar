@@ -55,6 +55,8 @@ const consumoMenu = await vite.ssrLoadModule('/src/services/consumoMenu.ts');
 const { buscarEnCatalogoMercadona } = await vite.ssrLoadModule('/src/services/catalogoMercadona.ts');
 const { crearProductoDespensaDesdeCatalogo } = await vite.ssrLoadModule('/src/services/despensa.ts');
 const { calcularConfianzaPresupuesto } = await vite.ssrLoadModule('/src/services/resumenEconomico.ts');
+const { preverAgotamientosAntesFinMes } =
+  await vite.ssrLoadModule('/src/services/planificacionCompra.ts');
 const { registrarMarcadosEnInventario } = await vite.ssrLoadModule('/src/services/registroCompra.ts');
 
 const configuracionTemporada = temporada.guardarConfiguracionTemporada({
@@ -235,6 +237,20 @@ assert.ok(Math.abs(inventario.obtenerStockActual('5044') - (2 - cantidadConsumid
 consumoMenu.deshacerServicioConsumido(servicio.id);
 assert.equal(inventario.obtenerStockActual('5044'), 2);
 
+const menusAgotamiento = [0, 1, 2].map(() => [
+  crearDia({ adultos: 2, ninos: [true, true], bebes: 0 }),
+]);
+const alertasAgotamiento = await preverAgotamientosAntesFinMes(
+  menusAgotamiento,
+  0,
+);
+const alertaArroz = alertasAgotamiento.find(
+  (alerta) => alerta.productoId === '5044',
+);
+assert.ok(alertaArroz);
+assert.ok(alertaArroz.deficitEnvases > 0);
+assert.ok(alertaArroz.semanaAgotamiento >= 2);
+
 const ingrediente = {
   nombre: 'Arroz', cantidad: 1_000, unidad: 'g', seccion: 'Despensa',
 };
@@ -345,4 +361,5 @@ console.log('✓ comensales por servicio recalculan cantidades y persisten por f
 console.log('✓ inventario separa consumo, merma y ajuste');
 console.log('✓ ahorro real es idempotente, mensual y trazable');
 console.log('✓ consumo del menú descuenta stock una vez y puede deshacerse');
+console.log('✓ PFI avisa si el stock físico actual no alcanza hasta fin de mes');
 console.log('✓ compra comparada confirmada registra ahorro sin usar proyecciones');
