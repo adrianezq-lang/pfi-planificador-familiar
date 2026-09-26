@@ -74,13 +74,22 @@ function normalizarConfiguracion(
 }
 
 function normalizarPlan(
-  plan: PlanComensales,
+  plan: Partial<PlanComensales>,
   perfil: PerfilFamiliar,
 ): PlanComensales {
   return {
-    comidaLaborable: normalizarConfiguracion(plan.comidaLaborable, perfil),
-    comidaFinSemana: normalizarConfiguracion(plan.comidaFinSemana, perfil),
-    cena: normalizarConfiguracion(plan.cena, perfil),
+    comidaLaborable: normalizarConfiguracion(
+      plan.comidaLaborable ?? perfil.comensales.comidaLaborable,
+      perfil,
+    ),
+    comidaFinSemana: normalizarConfiguracion(
+      plan.comidaFinSemana ?? perfil.comensales.comidaFinSemana,
+      perfil,
+    ),
+    cena: normalizarConfiguracion(
+      plan.cena ?? perfil.comensales.cena,
+      perfil,
+    ),
   };
 }
 
@@ -112,7 +121,7 @@ function sanearCambio(
       typeof item.etiqueta === 'string' && item.etiqueta.trim()
         ? item.etiqueta.trim()
         : 'Cambio de comensales',
-    comensales: normalizarPlan(item.comensales as PlanComensales, perfil),
+    comensales: normalizarPlan(item.comensales as Partial<PlanComensales>, perfil),
     creadoEn:
       typeof item.creadoEn === 'string' && item.creadoEn
         ? item.creadoEn
