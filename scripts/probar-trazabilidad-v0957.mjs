@@ -241,7 +241,9 @@ consumoMenu.deshacerServicioConsumido(servicio.id);
 assert.equal(inventario.obtenerStockActual('5044'), 2);
 
 actualizarStockProductoDespensa('5044', 0.3);
-assert.equal(inventario.obtenerStockActual('5044'), 0.3);
+assert.ok(
+  Math.abs(inventario.obtenerStockActual('5044') - 0.3) < 0.000001,
+);
 const menusAgotamiento = [0, 1, 2].map(() => [
   crearDia({ adultos: 2, ninos: [true, true], bebes: 0 }),
 ]);
