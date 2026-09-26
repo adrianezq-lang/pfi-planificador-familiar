@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-25T10:13:12.614Z",
+  "actualizado": "2026-09-26T09:53:21.510Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4277,
+  "totalProductos": 4283,
   "productos": [
     {
       "productoId": "40339",
@@ -4256,7 +4256,7 @@
       "pesoAproximado": true,
       "sección": "Pizzas y platos preparados",
       "subcategoria": "Arroz",
-      "imagen": "https://prod-mercadona.imgix.net/images/b523da0904fd1204cc76e6cc709ffab1.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9d1b44c510d51537b8e76a263b898456.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60621/arroz-verduras-hacendado-bandeja",
       "disponible": true
     },
@@ -4978,6 +4978,22 @@
       "subcategoria": "Bacón",
       "imagen": "https://prod-mercadona.imgix.net/images/bd977d11a572cea8180647f16adfffdf.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/53500/bacon-oscar-mayer-lonchas-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "17995",
+      "nombre": "Baguette ajo y finas hierbas Hacendado ultracongeladas",
+      "precio": 2,
+      "precioReferencia": 5.715,
+      "formato": "Paquete",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 0.35,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Congelados",
+      "subcategoria": "Pizzas",
+      "imagen": "https://prod-mercadona.imgix.net/images/518ebbdeba08209b6ba9cc4983d82548.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17995/baguette-ajo-finas-hierbas-hacendado-ultracongeladas-paquete",
       "disponible": true
     },
     {
@@ -7776,7 +7792,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche Infantil",
-      "imagen": "https://prod-mercadona.imgix.net/images/63a31f1eab7450bc05d98750db05312d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/1f3abae813e1284233f53bea9f20d6c7.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10723/bebida-lactea-crecimiento-desarrollo-puleva-max-3-anos-brick",
       "disponible": true
     },
@@ -10165,6 +10181,22 @@
       "disponible": true
     },
     {
+      "productoId": "8320",
+      "nombre": "Bronceador facial fluido Bronzer luminoso Deliplus 01 terracota",
+      "precio": 4.75,
+      "precioReferencia": 4.75,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.012,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Colorete",
+      "imagen": "https://prod-mercadona.imgix.net/images/e57e7162ca2b46e897e86f979c807e54.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/8320/bronceador-facial-fluido-bronzer-luminoso-deliplus-01",
+      "disponible": true
+    },
+    {
       "productoId": "17571",
       "nombre": "Bruma facial bifásica multifuncional Make Up Fixer Deliplus",
       "precio": 5.5,
@@ -10626,6 +10658,22 @@
       "subcategoria": "Chocolate a la taza",
       "imagen": "https://prod-mercadona.imgix.net/images/9ea94cd14bee28b1e71d5391c9c69013.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11609/cacao-polvo-taza-hacendado-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "12017",
+      "nombre": "Cacao en polvo a la taza Valor",
+      "precio": 3.95,
+      "precioReferencia": 7.9,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Cacao, café e infusiones",
+      "subcategoria": "Chocolate a la taza",
+      "imagen": "https://prod-mercadona.imgix.net/images/a0392e5bf2054011a51b3fb0853aea93.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/12017/cacao-polvo-taza-valor-paquete",
       "disponible": true
     },
     {
@@ -12034,6 +12082,22 @@
       "subcategoria": "Caldo en pastillas",
       "imagen": "https://prod-mercadona.imgix.net/images/7655d0341839cc875249fc04810d7e4a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/7867/caldo-pollo-hacendado-pastillas-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "18480",
+      "nombre": "Caldo de verduras casero Gallina blanca",
+      "precio": 1.8,
+      "precioReferencia": 1.8,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Caldo líquido",
+      "imagen": "https://prod-mercadona.imgix.net/images/b283b11cc154409be6e4f6e21bc191b1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18480/caldo-verduras-casero-gallina-blanca-brik",
       "disponible": true
     },
     {
@@ -17152,7 +17216,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Fruta desecada",
-      "imagen": "https://prod-mercadona.imgix.net/images/3b376050844f84d1800214627597bea5.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/1a0c81b2bccbbb9f7f58468c29e263b9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/20020/ciruelas-desecadas-sin-hueso-fundo-sofruco-paquete",
       "disponible": true
     },
@@ -22389,6 +22453,22 @@
       "disponible": true
     },
     {
+      "productoId": "80264",
+      "nombre": "Delineador de ojos Deliplus negro",
+      "precio": 3.75,
+      "precioReferencia": 3.75,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Perfilador de ojos",
+      "imagen": "https://prod-mercadona.imgix.net/images/a492ad5ba70672af6e26729a6efb7cc8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/80264/delineador-ojos-deliplus-negro",
+      "disponible": true
+    },
+    {
       "productoId": "17800",
       "nombre": "Delineador dúo para ojos y pecas Caramel Kiss Deliplus marrón",
       "precio": 4,
@@ -22848,7 +22928,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Desodorante Spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/97e333e12d272d404c1da27203e59a4f.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/97e333e12d272d404c1da27203e59a4f.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35362/desodorante-aloe-deliplus-antitranspirante-0-alcohol-spray",
       "disponible": true
     },
@@ -22880,7 +22960,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Desodorante Spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/17c5cab114c5c9daa669b2cb0490340b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/17c5cab114c5c9daa669b2cb0490340b.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23515/desodorante-aqua-deliplus-antimanchas-spray",
       "disponible": true
     },
@@ -23008,7 +23088,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Desodorante Spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/3f831754b2fe8ff65566aa851f04c52f.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/47da0d6e4e7e3ef595efec2278692e63.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12902/desodorante-dark-deliplus-antimanchas-spray",
       "disponible": true
     },
@@ -23104,7 +23184,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Desodorante Spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/709c21744732f8dd4ee22fface75de92.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/709c21744732f8dd4ee22fface75de92.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/46415/desodorante-invisible-men-deliplus-antitranspirante-antimanchas-0-alcohol-spray",
       "disponible": true
     },
@@ -23184,7 +23264,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Desodorante Spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/80dc804f101955ababa650b24459f4bb.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9a4a7bb890fd1d40a79ba5a767be6288.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/46434/desodorante-perfume-afrutado-deliplus-antitranspirante-0-alcohol-spray",
       "disponible": true
     },
@@ -24816,7 +24896,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/532a494f57c8aa07f9c0a6feaf0bfbe2.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/532a494f57c8aa07f9c0a6feaf0bfbe2.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/24063/eau-parfum-mujer-rubis-my-soul-frasco",
       "disponible": true
     },
@@ -31285,6 +31365,22 @@
       "disponible": true
     },
     {
+      "productoId": "17806",
+      "nombre": "Golosinas calaveras Halloween super ácidas Hacendado",
+      "precio": 1,
+      "precioReferencia": 10,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Golosinas",
+      "imagen": "https://prod-mercadona.imgix.net/images/234d06931063efdeb77b4f24df281756.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17806/golosinas-calaveras-halloween-super-acidas-hacendado-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "67736",
       "nombre": "Golosinas Fresi Pink Mix Hacendado",
       "precio": 1.6,
@@ -33728,7 +33824,7 @@
       "pesoAproximado": true,
       "sección": "Cacao, café e infusiones",
       "subcategoria": "Infusiones",
-      "imagen": "https://prod-mercadona.imgix.net/images/208093ce5f165589d7019dfd2f8b9033.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a3b7b6e62a78745e39a0458e915b8d19.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11430/infusion-manzanilla-con-anis-hacendado-caja",
       "disponible": true
     },
@@ -33760,7 +33856,7 @@
       "pesoAproximado": true,
       "sección": "Cacao, café e infusiones",
       "subcategoria": "Infusiones",
-      "imagen": "https://prod-mercadona.imgix.net/images/7b7f93c9e2318336d4ccaa99fa901558.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e3f24defc559d29673464712b8f8d252.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11454/infusion-manzanilla-sabor-miel-hacendado-con-edulcorante-caja",
       "disponible": true
     },
@@ -43957,6 +44053,22 @@
       "disponible": true
     },
     {
+      "productoId": "16387",
+      "nombre": "Nachos Padrísimos Hacendado sabor guacamole",
+      "precio": 0.95,
+      "precioReferencia": 6.334,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.15,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Aperitivos",
+      "subcategoria": "Snacks",
+      "imagen": "https://prod-mercadona.imgix.net/images/b8ef2dc650a5f2dd7f83fd1ba50493ec.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/16387/nachos-padrisimos-hacendado-sabor-guacamole-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "33641",
       "nombre": "Nachos tex-mex sabor queso Hacendado",
       "precio": 0.95,
@@ -44786,22 +44898,6 @@
       "subcategoria": "Jamón serrano",
       "imagen": "https://prod-mercadona.imgix.net/images/628b9e1d730c365bac4ae7ee0a911770.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/58712/paleta-cerdo-curada-incarlopsa-pieza",
-      "disponible": true
-    },
-    {
-      "productoId": "17799",
-      "nombre": "Paleta sombras de ojos Caramel Kiss Deliplus",
-      "precio": 5,
-      "precioReferencia": 5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.007,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Sombra de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/d096d6568dbcdefa1727c18d459edbe7.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17799/paleta-sombras-ojos-caramel-kiss-deliplus-contiene-3-tonos-mates-4-perlados",
       "disponible": true
     },
     {
@@ -49333,6 +49429,22 @@
       "disponible": true
     },
     {
+      "productoId": "67888",
+      "nombre": "Perfilador de labios Deliplus 07 cereza",
+      "precio": 2.5,
+      "precioReferencia": 2.5,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Perfilador labios",
+      "imagen": "https://prod-mercadona.imgix.net/images/a441c7ae50e28ac0f58c3edaf5c2af93.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/67888/perfilador-labios-deliplus-07-cereza",
+      "disponible": true
+    },
+    {
       "productoId": "35407",
       "nombre": "Perfilador de labios Deliplus 08 rojo",
       "precio": 2.5,
@@ -50597,22 +50709,6 @@
       "disponible": true
     },
     {
-      "productoId": "8294",
-      "nombre": "Pintalabios Creamy Deliplus 215 malva suave",
-      "precio": 4.65,
-      "precioReferencia": 4.65,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios cremoso y brillos",
-      "imagen": "https://prod-mercadona.imgix.net/images/0bc73f3e38bdf5cb1bc5f0757f8bebe1.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8294/pintalabios-creamy-deliplus-215-malva-suave",
-      "disponible": true
-    },
-    {
       "productoId": "8299",
       "nombre": "Pintalabios Creamy Deliplus 218 granate suave",
       "precio": 4.65,
@@ -50626,22 +50722,6 @@
       "subcategoria": "Pintalabios cremoso y brillos",
       "imagen": "https://prod-mercadona.imgix.net/images/07e57bf01dc2836b675c637103ddb04c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8299/pintalabios-creamy-deliplus-218-granate-suave",
-      "disponible": true
-    },
-    {
-      "productoId": "8300",
-      "nombre": "Pintalabios Creamy Deliplus 219 marrón chocolate",
-      "precio": 4.65,
-      "precioReferencia": 4.65,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios cremoso y brillos",
-      "imagen": "https://prod-mercadona.imgix.net/images/00eb9b30e894450a47a9bc53eb4c2871.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8300/pintalabios-creamy-deliplus-219-marron-chocolate",
       "disponible": true
     },
     {
@@ -53062,7 +53142,7 @@
     },
     {
       "productoId": "52776",
-      "nombre": "Preparado de carne picada vacuno Hacendado",
+      "nombre": "Preparado de carne picada vacuno",
       "precio": 5.4,
       "precioReferencia": 13.5,
       "formato": "Paquete",
@@ -60416,7 +60496,7 @@
       "pesoAproximado": true,
       "sección": "Aceite, especias y salsas",
       "subcategoria": "Sazonadores",
-      "imagen": "https://prod-mercadona.imgix.net/images/b20a3a1c3971641d5aa0d0014fa03c05.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b20a3a1c3971641d5aa0d0014fa03c05.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23353/sazonador-fajitas-hacendado-sabor-tex-mex",
       "disponible": true
     },
@@ -61365,19 +61445,19 @@
       "disponible": true
     },
     {
-      "productoId": "50933",
+      "productoId": "18440",
       "nombre": "Snack de queso madurado de vaca Hacendado",
-      "precio": 3,
+      "precio": 2.4,
       "precioReferencia": 15,
       "formato": "Paquete",
-      "unidadesTotales": 10,
-      "tamañoUnidad": 0.2,
+      "unidadesTotales": 8,
+      "tamañoUnidad": 0.16,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso tierno",
-      "imagen": "https://prod-mercadona.imgix.net/images/42015f68de5e9b209cad653bc79f3275.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/50933/snack-queso-madurado-vaca-hacendado-paquete",
+      "imagen": "https://prod-mercadona.imgix.net/images/ec36a5940e8d66756ef40258781861d1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18440/snack-queso-madurado-vaca-hacendado-paquete",
       "disponible": true
     },
     {
@@ -63186,6 +63266,22 @@
       "subcategoria": "Tartas",
       "imagen": "https://prod-mercadona.imgix.net/images/fa6aa84e8f11dc1fa80fe774455e30c3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/87599/tarta-tres-chocolates-hacendado-congelada-sin-gluten",
+      "disponible": true
+    },
+    {
+      "productoId": "18316",
+      "nombre": "Tarta tres leches con dulce de leche Hacendado congelada",
+      "precio": 9,
+      "precioReferencia": 8.572,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.05,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Tartas",
+      "imagen": "https://prod-mercadona.imgix.net/images/8fc03846b63954857f351e1ca73eb4b0.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18316/tarta-tres-leches-con-dulce-leche-hacendado-congelada-bizcocho-con-base-liquida-bandeja",
       "disponible": true
     },
     {
@@ -67319,8 +67415,8 @@
     {
       "productoId": "28662",
       "nombre": "Whisky escocés James Webb",
-      "precio": 6,
-      "precioReferencia": 8.572,
+      "precio": 6.1,
+      "precioReferencia": 8.715,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,
