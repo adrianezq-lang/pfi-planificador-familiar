@@ -865,3 +865,40 @@
     flex-direction: column;
   }
 }
+
+
+/* v0.9.57 · previsión de agotamiento de despensa */
+.shopping-stock-alerts {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(183, 126, 64, 0.24);
+  background: rgba(249, 242, 232, 0.72);
+}
+
+.shopping-stock-alerts > div:first-child {
+  display: grid;
+  gap: 4px;
+}
+
+.shopping-stock-alerts > div:first-child small,
+.shopping-stock-alerts__list span,
+.shopping-stock-alerts__list small {
+  color: #6d716b;
+}
+
+.shopping-stock-alerts__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 9px;
+}
+
+.shopping-stock-alerts__list article {
+  display: grid;
+  gap: 3px;
+  padding: 10px 11px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.86);
+}
