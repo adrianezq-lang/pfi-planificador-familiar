@@ -2,6 +2,7 @@ import type { DiaMenu } from '../data/Menusemanal';
 import type { SemanaMenu } from '../data/MenuMensual';
 import type { Receta } from '../data/Recetas';
 import { fechasSemana, indiceDiaSemana } from './excepcionesCalendario';
+import { fechaLocalISO } from './fechaSemana';
 import type { UnidadProductoManual } from './productosManualesCompra';
 import {
   resolverReferenciasTemporales,
@@ -83,6 +84,16 @@ export type PropuestaAccionAsistente = {
   confirmar: string;
 };
 
+type HorariosAccionMenu = {
+  comida: string;
+  cena: string;
+};
+
+type ServicioModificado = {
+  dia: string;
+  momento?: MomentoAccionMenu;
+};
+
 export type ResultadoDeteccionAccion = {
   propuesta?: PropuestaAccionAsistente;
   aclaracion?: string;
@@ -138,6 +149,113 @@ function fechaDeDiaEnSemana(
     fechasSemana(semana).find((fecha) => indiceDiaSemana(fecha) === objetivo) ??
     null
   );
+}
+
+function fechaReferenciaValida(fechaReferencia: Date | string): Date {
+  if (fechaReferencia instanceof Date) return new Date(fechaReferencia);
+  const valor = /^\d{4}-\d{2}-\d{2}$/.test(fechaReferencia)
+    ? `${fechaReferencia}T12:00:00`
+    : fechaReferencia;
+  const fecha = new Date(valor);
+  return Number.isNaN(fecha.getTime()) ? new Date() : fecha;
+}
+
+function serviciosModificados(
+  propuesta: PropuestaAccionAsistente,
+): ServicioModificado[] {
+  const accion = propuesta.accion;
+  switch (accion.tipo) {
+    case 'cambiar-menu':
+      return [{ dia: accion.dia, momento: accion.momento }];
+    case 'copiar-menu':
+      return [{ dia: accion.diaDestino, momento: accion.momentoDestino }];
+    case 'mover-menu':
+    case 'intercambiar-menu':
+      return [
+        { dia: accion.diaDestino, momento: accion.momentoDestino },
+        { dia: accion.diaOrigen, momento: accion.momentoOrigen },
+      ];
+    case 'excepcion-dia':
+      if (accion.excepcion === 'sinComida') {
+        return [{ dia: accion.dia, momento: 'comida' }];
+      }
+      if (accion.excepcion === 'sinCena') {
+        return [{ dia: accion.dia, momento: 'cena' }];
+      }
+      return [
+        { dia: accion.dia, momento: 'comida' },
+        { dia: accion.dia, momento: 'cena' },
+      ];
+    default:
+      return [];
+  }
+}
+
+function referenciaTemporalExplicita(pregunta: string, dia: string): boolean {
+  const consulta = normalizar(pregunta);
+  if (/\b(?:hoy|ayer|anteayer|manana|pasado manana)\b/.test(consulta)) {
+    return true;
+  }
+  const diaNormalizado = normalizar(dia);
+  if (new RegExp(`\\b${diaNormalizado}\\s+\\d{1,2}\\b`).test(consulta)) {
+    return true;
+  }
+  const contieneDiaNombrado = new RegExp(`\\b(?:${DIAS.join('|')})\\b`).test(
+    consulta,
+  );
+  return (
+    !contieneDiaNombrado &&
+    /\b(?:el|dia)\s+\d{1,2}\b/.test(consulta)
+  );
+}
+
+function minutosHorario(horario: string): number | null {
+  const coincidencia = /^(\d{1,2}):(\d{2})$/.exec(horario);
+  if (!coincidencia) return null;
+  const horas = Number(coincidencia[1]);
+  const minutos = Number(coincidencia[2]);
+  if (horas > 23 || minutos > 59) return null;
+  return horas * 60 + minutos;
+}
+
+/**
+ * Evita que una orden ambigua como "pon salmón el sábado" cambie sin querer
+ * un servicio ya realizado. Una fecha o referencia relativa explícita permite
+ * corregir el histórico de forma deliberada.
+ */
+export function advertenciaPropuestaPasada(
+  propuesta: PropuestaAccionAsistente,
+  semana: SemanaMenu | undefined,
+  pregunta: string,
+  fechaReferencia: Date | string = new Date(),
+  horarios: HorariosAccionMenu = { comida: '14:00', cena: '21:00' },
+): string | null {
+  if (!semana) return null;
+  const ahora = fechaReferenciaValida(fechaReferencia);
+  const hoy = fechaLocalISO(ahora);
+  const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
+
+  for (const servicio of serviciosModificados(propuesta)) {
+    if (referenciaTemporalExplicita(pregunta, servicio.dia)) continue;
+    const fecha = fechaDeDiaEnSemana(semana, servicio.dia);
+    if (!fecha || fecha > hoy) continue;
+    const numero = Number(fecha.slice(-2));
+    const etiqueta = `${servicio.dia.toLocaleLowerCase('es')} ${numero}`;
+
+    if (fecha < hoy) {
+      return `El ${etiqueta} de la semana activa ya pasó. Si quieres corregirlo, escribe “${etiqueta}”; si te refieres al próximo ${servicio.dia.toLocaleLowerCase('es')}, cambia primero a su semana. No he preparado ningún cambio.`;
+    }
+
+    if (servicio.momento) {
+      const horario = horarios[servicio.momento];
+      const limite = minutosHorario(horario);
+      if (limite !== null && minutosAhora >= limite) {
+        return `La ${servicio.momento} del ${etiqueta} ya pasó según tu horario (${horario}). Si quieres corregir el histórico, escribe “${etiqueta}”; si no, elige un servicio futuro. No he preparado ningún cambio.`;
+      }
+    }
+  }
+
+  return null;
 }
 
 function etiquetaDia(

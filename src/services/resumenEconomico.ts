@@ -6,8 +6,15 @@ import {
 
 export type DesgloseEconomico = {
   subtotalConocido: number;
+  subtotalConfirmado: number;
+  subtotalEstimado: number;
+  partidasTotales: number;
+  partidasConfirmadas: number;
   partidasSinImporte: number;
   cantidadesEstimadas: number;
+  partidasPesoVariable: number;
+  partidasConversionEstimada: number;
+  partidasFormatoPendiente: number;
   ingredientesSinProducto: string[];
   productosSinPrecio: string[];
   comprasManualesSinPrecio: string[];
@@ -30,8 +37,15 @@ export type ResumenEconomicoMensual = {
 function vacio(): DesgloseEconomico {
   return {
     subtotalConocido: 0,
+    subtotalConfirmado: 0,
+    subtotalEstimado: 0,
+    partidasTotales: 0,
+    partidasConfirmadas: 0,
     partidasSinImporte: 0,
     cantidadesEstimadas: 0,
+    partidasPesoVariable: 0,
+    partidasConversionEstimada: 0,
+    partidasFormatoPendiente: 0,
     ingredientesSinProducto: [],
     productosSinPrecio: [],
     comprasManualesSinPrecio: [],
@@ -58,10 +72,22 @@ function sumarDesgloses(
   return desgloses.reduce<DesgloseEconomico>(
     (total, desglose) => ({
       subtotalConocido: total.subtotalConocido + desglose.subtotalConocido,
+      subtotalConfirmado:
+        total.subtotalConfirmado + desglose.subtotalConfirmado,
+      subtotalEstimado: total.subtotalEstimado + desglose.subtotalEstimado,
+      partidasTotales: total.partidasTotales + desglose.partidasTotales,
+      partidasConfirmadas:
+        total.partidasConfirmadas + desglose.partidasConfirmadas,
       partidasSinImporte:
         total.partidasSinImporte + desglose.partidasSinImporte,
       cantidadesEstimadas:
         total.cantidadesEstimadas + desglose.cantidadesEstimadas,
+      partidasPesoVariable:
+        total.partidasPesoVariable + desglose.partidasPesoVariable,
+      partidasConversionEstimada:
+        total.partidasConversionEstimada + desglose.partidasConversionEstimada,
+      partidasFormatoPendiente:
+        total.partidasFormatoPendiente + desglose.partidasFormatoPendiente,
       ingredientesSinProducto: unirNombres(
         total.ingredientesSinProducto,
         desglose.ingredientesSinProducto,
@@ -95,11 +121,36 @@ function desgloseCompra(
 ): DesgloseEconomico {
   if (!compra) return vacio();
 
+  const lineasConImporte = compra.lineas.filter(
+    (linea) => linea.subtotal !== null,
+  );
+  const lineasConfirmadas = lineasConImporte.filter(
+    (linea) => linea.precisionCantidad === 'exacta',
+  );
+  const subtotalConfirmado = lineasConfirmadas.reduce(
+    (total, linea) => total + (linea.subtotal ?? 0),
+    0,
+  );
+
   return {
     subtotalConocido: compra.total,
+    subtotalConfirmado,
+    subtotalEstimado: Math.max(0, compra.total - subtotalConfirmado),
+    partidasTotales:
+      compra.lineas.length + (compra.ingredientesNoDisponibles?.length ?? 0),
+    partidasConfirmadas: lineasConfirmadas.length,
     partidasSinImporte:
       compra.productosSinSeleccionar.length + compra.productosSinPrecio.length,
     cantidadesEstimadas: compra.productosEstimados.length,
+    partidasPesoVariable: lineasConImporte.filter(
+      (linea) => linea.precisionCantidad === 'peso-variable',
+    ).length,
+    partidasConversionEstimada: lineasConImporte.filter(
+      (linea) => linea.precisionCantidad === 'conversion-aproximada',
+    ).length,
+    partidasFormatoPendiente: lineasConImporte.filter(
+      (linea) => linea.precisionCantidad === 'formato-incompleto',
+    ).length,
     ingredientesSinProducto: unirNombres(compra.productosSinSeleccionar),
     productosSinPrecio: unirNombres(compra.productosSinPrecio),
     comprasManualesSinPrecio: [],
@@ -114,15 +165,24 @@ function desgloseCompra(
 function desgloseManuales(
   productos: readonly ProductoManualCompra[],
 ): DesgloseEconomico {
+  const conPrecio = productos.filter((producto) => producto.precioTotal !== null);
+  const subtotalConfirmado = conPrecio.reduce(
+    (total, producto) => total + (producto.precioTotal ?? 0),
+    0,
+  );
   return {
-    subtotalConocido: productos.reduce(
-      (total, producto) => total + (producto.precioTotal ?? 0),
-      0,
-    ),
+    subtotalConocido: subtotalConfirmado,
+    subtotalConfirmado,
+    subtotalEstimado: 0,
+    partidasTotales: productos.length,
+    partidasConfirmadas: conPrecio.length,
     partidasSinImporte: productos.filter(
       (producto) => producto.precioTotal === null,
     ).length,
     cantidadesEstimadas: 0,
+    partidasPesoVariable: 0,
+    partidasConversionEstimada: 0,
+    partidasFormatoPendiente: 0,
     ingredientesSinProducto: [],
     productosSinPrecio: [],
     comprasManualesSinPrecio: unirNombres(
@@ -144,6 +204,28 @@ export function contarCausasImportePendiente(
     desglose.productosSinPrecio.length +
     desglose.comprasManualesSinPrecio.length
   );
+}
+
+export function calcularConfianzaPresupuesto(
+  desglose: DesgloseEconomico,
+): number {
+  if (desglose.partidasTotales <= 0) return 100;
+  const puntos =
+    desglose.partidasConfirmadas +
+    desglose.partidasPesoVariable * 0.85 +
+    desglose.partidasConversionEstimada * 0.65 +
+    desglose.partidasFormatoPendiente * 0.35;
+  return Math.max(
+    0,
+    Math.min(100, Math.round((puntos / desglose.partidasTotales) * 100)),
+  );
+}
+
+export function etiquetaConfianzaPresupuesto(confianza: number): string {
+  if (confianza >= 95) return 'muy alta';
+  if (confianza >= 80) return 'alta';
+  if (confianza >= 60) return 'media';
+  return 'baja';
 }
 
 export function calcularResumenEconomicoMensual({

@@ -56,10 +56,10 @@ assert.match(css, /\.assistant-confirm/);
 assert.match(css, /\.assistant-action-result/);
 
 const packageJson = JSON.parse(pkg);
-assert.equal(packageJson.version, '0.9.56');
-assert.match(app, /v0\.9\.56/);
-assert.match(sw, /pfi-v0\.9\.56-1/);
-assert.match(copias, /VERSION_APP = '0\.9\.56'/);
+assert.equal(packageJson.version, '0.9.57');
+assert.match(app, /v0\.9\.57/);
+assert.match(sw, /pfi-v0\.9\.57-1/);
+assert.match(copias, /VERSION_APP = '0\.9\.57'/);
 
 const vite = await createServer({
   configFile: false,
@@ -68,6 +68,7 @@ const vite = await createServer({
 });
 const {
   ajustarPropuestaPendiente,
+  advertenciaPropuestaPasada,
   crearPropuestaDeshacerMenu,
   crearPropuestaRepetirUltimaAccion,
   detectarAccionAsistente,
@@ -394,6 +395,54 @@ assert.equal(ponSabado?.propuesta?.accion.tipo, 'cambiar-menu');
 assert.equal(ponSabado?.propuesta?.accion.momento, 'comida');
 assert.equal(ponSabado?.propuesta?.accion.dia, 'Sábado');
 
+const propuestaPasada = detectarAccionAsistente(
+  'Cambia la comida del lunes por la del martes',
+  menu,
+  recetas,
+  semanaActiva,
+  '2026-09-26T22:30:00',
+);
+assert.ok(propuestaPasada?.propuesta);
+assert.match(
+  advertenciaPropuestaPasada(
+    propuestaPasada.propuesta,
+    semanaActiva,
+    'Cambia la comida del lunes por la del martes',
+    '2026-09-26T22:30:00',
+  ) ?? '',
+  /lunes 21.*ya pasó/i,
+);
+
+assert.equal(
+  advertenciaPropuestaPasada(
+    propuestaPasada.propuesta,
+    semanaActiva,
+    'Cambia la comida del lunes 21 por la del martes 22',
+    '2026-09-26T22:30:00',
+  ),
+  null,
+);
+
+assert.match(
+  advertenciaPropuestaPasada(
+    propuestaPasada.propuesta,
+    semanaActiva,
+    'Cambia la comida del lunes por la del martes 22',
+    '2026-09-26T22:30:00',
+  ) ?? '',
+  /lunes 21.*ya pasó/i,
+);
+
+assert.match(
+  advertenciaPropuestaPasada(
+    ponSabado.propuesta,
+    semanaActiva,
+    'Pon salmón el sábado',
+    '2026-09-26T22:30:00',
+  ) ?? '',
+  /comida del sábado 26.*14:00/i,
+);
+
 const compra = detectarAccionAsistente(
   'Añade 2 litros de leche a la compra',
   menu,
@@ -438,4 +487,4 @@ console.log('✓ entiende órdenes con origen primero, destino primero y cruces 
 console.log('✓ añadir compra, fin de semana sin niños y comidas fuera requieren confirmación');
 console.log('✓ valida fechas de la semana activa y pregunta cuando el sentido es ambiguo');
 console.log('✓ las órdenes incompletas piden aclaración en lugar de adivinar');
-console.log('✓ versión, caché y copias están alineadas en v0.9.56');
+console.log('✓ versión, caché y copias están alineadas en v0.9.57');

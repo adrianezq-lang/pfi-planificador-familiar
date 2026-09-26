@@ -31,6 +31,11 @@ import {
   quitarPrecioManualIngrediente,
   type UnidadEnvaseManual,
 } from '../services/preciosManualesIngredientes';
+import {
+  cargarConfiguracionTemporada,
+  describirMesesTemporada,
+  evaluarTemporadaIngrediente,
+} from '../services/temporadaIngredientes';
 
 type SelectorProductoIngredienteProps = {
   ingrediente: string | null;
@@ -158,6 +163,13 @@ function SelectorProductoIngrediente({
   const resultadosCatalogo = resultados;
 
   if (ingrediente === null) return null;
+
+  const configuracionTemporada = cargarConfiguracionTemporada();
+  const temporada = evaluarTemporadaIngrediente(
+    ingrediente,
+    new Date(),
+    configuracionTemporada,
+  );
 
   const añadirProductoADespensa = (producto: ProductoMercadonaCatalogo) => {
     if (
@@ -340,6 +352,28 @@ function SelectorProductoIngrediente({
           <div style={estiloActual}>
             <span>Producto actual</span>
             <strong>{productoActual.nombre}</strong>
+          </div>
+        )}
+
+        {configuracionTemporada.avisarAutomaticamente && temporada.tieneCalendario && (
+          <div
+            style={temporada.enTemporada === false ? estiloTemporadaFuera : estiloTemporadaDentro}
+            role="status"
+          >
+            <strong>
+              {temporada.enTemporada === false
+                ? 'Fuera de temporada habitual'
+                : 'En temporada habitual'}
+            </strong>
+            <span>
+              Referencia para {temporada.zonaEtiqueta}: {describirMesesTemporada(temporada.mesesHabituales)}.
+              {' '}Es orientativa y nunca bloquea tu elección manual.
+            </span>
+            {temporada.enTemporada === false && temporada.alternativas.length > 0 && (
+              <small>
+                Alternativas de temporada: {temporada.alternativas.map((alternativa) => alternativa.ingrediente).join(', ')}.
+              </small>
+            )}
           </div>
         )}
 
@@ -605,6 +639,23 @@ const estiloActual = {
   background: '#eef5ed',
   color: '#4f6f52',
   fontSize: '13px',
+};
+
+const estiloTemporadaDentro = {
+  display: 'grid',
+  gap: '3px',
+  margin: '0 20px 12px',
+  padding: '10px 12px',
+  borderRadius: '12px',
+  background: '#eef5ed',
+  color: '#3f6844',
+  fontSize: '13px',
+};
+
+const estiloTemporadaFuera = {
+  ...estiloTemporadaDentro,
+  background: '#fff5e8',
+  color: '#7b5425',
 };
 
 const estiloBuscador = {

@@ -1,6 +1,7 @@
 export type TipoMovimiento =
   | 'compra'
   | 'consumo'
+  | 'desperdicio'
   | 'ajuste';
 
 export type OrigenMovimiento =
@@ -16,6 +17,14 @@ export type MovimientoInventario = {
   cantidad: number;
   fecha: string;
   observaciones?: string;
+};
+
+export type ResumenMovimientosProducto = {
+  comprado: number;
+  consumido: number;
+  desperdiciado: number;
+  ajustes: number;
+  stock: number;
 };
 
 const CLAVE_MOVIMIENTOS =
@@ -35,6 +44,7 @@ function esTipoMovimiento(
   return (
     valor === 'compra' ||
     valor === 'consumo' ||
+    valor === 'desperdicio' ||
     valor === 'ajuste'
   );
 }
@@ -189,6 +199,20 @@ export function registrarConsumo(
   });
 }
 
+export function registrarDesperdicio(
+  productoId: string,
+  cantidad: number,
+  observaciones = '',
+): MovimientoInventario[] {
+  return registrarMovimiento({
+    productoId,
+    tipo: 'desperdicio',
+    origen: 'manual',
+    cantidad: Math.abs(cantidad),
+    observaciones,
+  });
+}
+
 export function registrarAjuste(
   productoId: string,
   cantidad: number,
@@ -217,7 +241,10 @@ export function obtenerStockActual(
 ): number {
   return movimientosProducto(productoId).reduce(
     (stock, movimiento) => {
-      if (movimiento.tipo === 'consumo') {
+      if (
+        movimiento.tipo === 'consumo' ||
+        movimiento.tipo === 'desperdicio'
+      ) {
         return stock - movimiento.cantidad;
       }
 
@@ -225,6 +252,34 @@ export function obtenerStockActual(
     },
     0,
   );
+}
+
+export function resumirMovimientosProducto(
+  productoId: string,
+): ResumenMovimientosProducto {
+  const resumen = movimientosProducto(productoId).reduce<ResumenMovimientosProducto>(
+    (acumulado, movimiento) => {
+      if (movimiento.tipo === 'compra') acumulado.comprado += movimiento.cantidad;
+      if (movimiento.tipo === 'consumo') acumulado.consumido += movimiento.cantidad;
+      if (movimiento.tipo === 'desperdicio') acumulado.desperdiciado += movimiento.cantidad;
+      if (movimiento.tipo === 'ajuste') acumulado.ajustes += movimiento.cantidad;
+      return acumulado;
+    },
+    {
+      comprado: 0,
+      consumido: 0,
+      desperdiciado: 0,
+      ajustes: 0,
+      stock: 0,
+    },
+  );
+
+  resumen.stock =
+    resumen.comprado -
+    resumen.consumido -
+    resumen.desperdiciado +
+    resumen.ajustes;
+  return resumen;
 }
 
 export function registrarAjusteStock(

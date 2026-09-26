@@ -821,6 +821,28 @@
   font-size: 16px;
 }
 
+.assistant-confirm__impact {
+  display: grid;
+  gap: 5px;
+  padding: 10px 11px;
+  border: 1px solid rgba(70, 105, 76, .18);
+  border-radius: 12px;
+  background: rgba(239, 247, 236, .75);
+  color: #42604a;
+}
+
+.assistant-confirm__impact > strong {
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.assistant-confirm__impact > span {
+  font-size: 10px;
+  line-height: 1.4;
+}
+
 .assistant-confirm__actions {
   display: grid;
   grid-template-columns: minmax(0,1fr) minmax(0,1.35fr);

@@ -1,5 +1,12 @@
 import type { DiaMenu } from '../data/Menusemanal';
 import type { SemanaMenu } from '../data/MenuMensual';
+import {
+  cargarPerfil,
+  type ConfiguracionComensales,
+} from './perfil.ts';
+import {
+  obtenerConfiguracionComensalesProgramada,
+} from './programacionComensales.ts';
 
 const KEY = 'pfi-excepciones-calendario-v1';
 export const EVENTO_EXCEPCIONES = 'pfi-calendario-actualizado';
@@ -9,19 +16,46 @@ export type ExcepcionCalendario = {
   sinComida?: boolean;
   sinCena?: boolean;
   sinNinos?: boolean;
+  comensalesComida?: ConfiguracionComensales;
+  comensalesCena?: ConfiguracionComensales;
 };
 export type ExcepcionesCalendario = Record<string, ExcepcionCalendario>;
 
 function normalizarExcepcion(valor: unknown): ExcepcionCalendario | null {
   if (typeof valor !== 'object' || valor === null) return null;
   const entrada = valor as ExcepcionCalendario;
+  const perfil = cargarPerfil();
+  const normalizarComensales = (
+    configuracion: ConfiguracionComensales | undefined,
+  ): ConfiguracionComensales | undefined => {
+    if (!configuracion || typeof configuracion !== 'object') return undefined;
+    return {
+      adultos: Math.min(
+        perfil.adultos,
+        Math.max(0, Math.round(Number(configuracion.adultos) || 0)),
+      ),
+      ninos: perfil.edadesNinos.map(
+        (_, indice) => configuracion.ninos?.[indice] === true,
+      ),
+      bebes: perfil.bebesComenMenu
+        ? Math.min(
+            perfil.bebes,
+            Math.max(0, Math.round(Number(configuracion.bebes) || 0)),
+          )
+        : 0,
+    } satisfies ConfiguracionComensales;
+  };
+  const comensalesComida = normalizarComensales(entrada.comensalesComida);
+  const comensalesCena = normalizarComensales(entrada.comensalesCena);
   const excepcion = {
     noEnCasa: entrada.noEnCasa === true,
     sinComida: entrada.sinComida === true,
     sinCena: entrada.sinCena === true,
     sinNinos: entrada.sinNinos === true,
+    comensalesComida,
+    comensalesCena,
   };
-  return excepcion.noEnCasa || excepcion.sinComida || excepcion.sinCena || excepcion.sinNinos
+  return excepcion.noEnCasa || excepcion.sinComida || excepcion.sinCena || excepcion.sinNinos || comensalesComida || comensalesCena
     ? excepcion
     : null;
 }
@@ -143,6 +177,8 @@ export function aplicarExcepcionDia(
   return {
     ...dia,
     sinNinos: excepcion?.sinNinos === true,
+    comensalesComida: excepcion?.comensalesComida,
+    comensalesCena: excepcion?.comensalesCena,
     comida: excepcion?.sinComida ? [] : [...dia.comida],
     cena: excepcion?.sinCena ? [] : [...dia.cena],
     postreComida: excepcion?.sinComida ? 'Sin postre' : dia.postreComida,
@@ -159,10 +195,30 @@ export function menuEfectivoSemana(
   if (!semana || semana.excluida) return [];
   const fechas = fechasSemana(semana);
   if (!fechas.length) return semana.menu.map((dia) => ({ ...dia }));
+  const perfil = cargarPerfil();
   return fechas.flatMap((fecha) => {
     const dia = semana.menu[indiceDiaSemana(fecha)];
     if (!dia) return [];
-    const efectivo = aplicarExcepcionDia(dia, excepciones[fecha]);
+    const excepcion = excepciones[fecha];
+    const programadaComida = obtenerConfiguracionComensalesProgramada(
+      fecha,
+      'comida',
+      dia.dia,
+      perfil,
+    );
+    const programadaCena = obtenerConfiguracionComensalesProgramada(
+      fecha,
+      'cena',
+      dia.dia,
+      perfil,
+    );
+    const efectivo = aplicarExcepcionDia(dia, {
+      ...excepcion,
+      comensalesComida:
+        excepcion?.comensalesComida ?? programadaComida ?? undefined,
+      comensalesCena:
+        excepcion?.comensalesCena ?? programadaCena ?? undefined,
+    });
     return efectivo ? [efectivo] : [];
   });
 }

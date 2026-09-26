@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import type { DiaMenu } from '../data/Menusemanal';
 import AppIcon from '../components/AppIcon';
+import ComparadorCompra from '../components/ComparadorCompra';
 import type { LineaCompra, ResultadoCompra } from '../motor/compra';
+import {
+  claveProductoComparador,
+  type PlanCompraComparada,
+} from '../services/comparadorPrecios';
 import {
   ORDEN_SECCIONES_COMPRA,
   obtenerSeccionCompra,
@@ -9,6 +14,8 @@ import {
 import {
   generarCompraMensual,
   generarCompraSemanalProyectada,
+  preverAgotamientosAntesFinMes,
+  type AlertaAgotamientoMes,
 } from '../services/planificacionCompra';
 import {
   cargarClavesGuardadas,
@@ -36,6 +43,8 @@ import {
   EVENTO_DISPONIBILIDAD_INGREDIENTES,
 } from '../services/disponibilidadIngredientes';
 import { EVENTO_PRECIOS_MANUALES_INGREDIENTES } from '../services/preciosManualesIngredientes';
+import { EVENTO_DESPENSA } from '../services/despensa';
+import { EVENTO_INVENTARIO } from '../services/inventario';
 
 type Props = {
   menu: DiaMenu[];
@@ -87,6 +96,9 @@ export default function CompraModern({
   const [registrados, setRegistrados] = useState<string[]>([]);
   const [ocultarCompletados, setOcultarCompletados] = useState(false);
   const [revisionIngredientes, setRevisionIngredientes] = useState(0);
+  const [planComparador, setPlanComparador] = useState<PlanCompraComparada | null>(null);
+  const [alertasAgotamiento, setAlertasAgotamiento] =
+    useState<AlertaAgotamientoMes[]>([]);
 
   const compraMensualDisponible = semanaActiva === 0;
   const menuObjetivo = periodo === 'semana' ? menu : menuMes;
@@ -144,12 +156,30 @@ export default function CompraModern({
   }, [menuMes, menusSemanas, periodo, revisionIngredientes, semanaActiva]);
 
   useEffect(() => {
+    let activo = true;
+    preverAgotamientosAntesFinMes(menusSemanas, semanaActiva)
+      .then((alertas) => {
+        if (activo) setAlertasAgotamiento(alertas);
+      })
+      .catch(() => {
+        if (activo) setAlertasAgotamiento([]);
+      });
+    return () => {
+      activo = false;
+    };
+  }, [menusSemanas, revisionIngredientes, semanaActiva]);
+
+  useEffect(() => {
     const recalcular = () => setRevisionIngredientes((revision) => revision + 1);
     window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcular);
     window.addEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcular);
+    window.addEventListener(EVENTO_DESPENSA, recalcular);
+    window.addEventListener(EVENTO_INVENTARIO, recalcular);
     return () => {
       window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcular);
       window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcular);
+      window.removeEventListener(EVENTO_DESPENSA, recalcular);
+      window.removeEventListener(EVENTO_INVENTARIO, recalcular);
     };
   }, []);
 
@@ -242,6 +272,15 @@ export default function CompraModern({
     0,
   );
   const total = totalAutomatico + totalManual;
+  const gastoEvitadoStockFisico = (resultado?.lineasCubiertas ?? [])
+    .filter((linea) => linea.origenCobertura === 'stock-real')
+    .reduce(
+      (suma, linea) =>
+        suma +
+        (linea.producto?.precio ?? 0) *
+          Math.max(0, linea.envasesExactos ?? 0),
+      0,
+    );
   const hayPreciosPendientes =
     lineas.some((linea) => linea.subtotal === null) ||
     manualesPeriodo.some((producto) => producto.precioTotal === null);
@@ -363,11 +402,24 @@ export default function CompraModern({
     const observaciones = periodo === 'mes'
       ? `Compra mensual · ${mesTexto}`
       : `Compra semanal ${semanaActiva + 1} · ${mesTexto}`;
+    const clavesPendientes = new Set(
+      pendientesInventario.map((linea) => claveProductoComparador(linea)),
+    );
+    const asignacionesPendientes = (planComparador?.asignaciones ?? []).filter(
+      (asignacion) => clavesPendientes.has(asignacion.clave),
+    );
+    const registrarComparacion = asignacionesPendientes.length > 0
+      ? window.confirm(
+          `Hay ${asignacionesPendientes.length} precio${asignacionesPendientes.length === 1 ? '' : 's'} del comparador para esta compra.\n\nAceptar: confirma esos importes como pagados y registra el ahorro o sobrecoste real.\nCancelar: guarda el stock sin registrar importes.`,
+        )
+      : false;
     const registro = registrarMarcadosEnInventario(
       lineas,
       marcados,
       registrados,
       observaciones,
+      registrarComparacion ? asignacionesPendientes : [],
+      `${periodo}:${mesActivo}:${semanaActiva + 1}`,
     );
     setRegistrados(registro.clavesRegistradas);
     guardarClavesCompra(clavesEstado.registrados, registro.clavesRegistradas);
@@ -379,10 +431,13 @@ export default function CompraModern({
     const base = totalRegistrados === 1
       ? '1 producto añadido a la despensa.'
       : `${totalRegistrados} productos añadidos a la despensa.`;
+    const ahorro = registro.ahorrosRegistrados > 0
+      ? ` ${registro.ahorrosRegistrados} importe${registro.ahorrosRegistrados === 1 ? '' : 's'} real${registro.ahorrosRegistrados === 1 ? '' : 'es'} registrado${registro.ahorrosRegistrados === 1 ? '' : 's'}.`
+      : '';
     setMensajeInventario(
       registro.lineasSinInventario > 0
-        ? `${base} ${registro.lineasSinInventario} queda pendiente de asociación.`
-        : base,
+        ? `${base}${ahorro} ${registro.lineasSinInventario} queda pendiente de asociación.`
+        : `${base}${ahorro}`,
     );
   };
 
@@ -613,6 +668,30 @@ export default function CompraModern({
             </div>
           </section>
 
+          {alertasAgotamiento.length > 0 && (
+            <section className="shopping-stock-alerts" aria-label="Previsión de agotamiento">
+              <div>
+                <strong>Stock que puede agotarse antes de fin de mes</strong>
+                <small>
+                  Calculado con el stock físico actual y el menú restante; no cuenta compras futuras como si ya estuvieran en casa.
+                </small>
+              </div>
+              <div className="shopping-stock-alerts__list">
+                {alertasAgotamiento.slice(0, 6).map((alerta) => (
+                  <article key={alerta.productoId}>
+                    <strong>{alerta.nombre}</strong>
+                    <span>
+                      Semana {alerta.semanaAgotamiento} · stock actual {formatear(alerta.stockActualEnvases)} envase{Math.abs(alerta.stockActualEnvases - 1) < UMBRAL_CERO ? '' : 's'}
+                    </span>
+                    <small>
+                      Necesidad restante {formatear(alerta.necesidadRestanteEnvases)} · faltarán aprox. {formatear(alerta.deficitEnvases)} envase{Math.abs(alerta.deficitEnvases - 1) < UMBRAL_CERO ? '' : 's'} si no repones.
+                    </small>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
           <section className="shopping-view-controls" aria-label="Vista de compra">
             <div>
               <strong>Modo tienda</strong>
@@ -736,6 +815,13 @@ export default function CompraModern({
             </section>
           )}
 
+          {lineas.length > 0 && (
+            <ComparadorCompra
+              lineas={lineas}
+              onPlanChange={setPlanComparador}
+            />
+          )}
+
           {ocultarCompletados &&
             totalProductos > 0 &&
             lineasPorSeccionVisibles.length === 0 &&
@@ -755,6 +841,12 @@ export default function CompraModern({
                 <span>✅ No hace falta comprarlo esta semana</span>
                 <small>{resumenOrigenCobertura(resultado.lineasCubiertas)}</small>
               </summary>
+              {gastoEvitadoStockFisico > UMBRAL_CERO && (
+                <p className="modern-covered-card__avoided">
+                  Gasto evitado por usar stock físico: <strong>{euros(gastoEvitadoStockFisico)}</strong>.
+                  Es una referencia de compra evitada, no se suma al ahorro real ni al remanente proyectado.
+                </p>
+              )}
               <div>
                 {resultado.lineasCubiertas.map((linea) => <LineaCubierta key={linea.clave} linea={linea} />)}
               </div>

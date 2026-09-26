@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import Card from '../components/ui/Card';
 import AppIcon from '../components/AppIcon';
 import CentroDatosCopias from '../components/CentroDatosCopias';
+import ProgramacionComensalesPanel from '../components/ProgramacionComensalesPanel';
 import CuentaSincronizacion from '../components/CuentaSincronizacion';
 import Title from '../components/ui/Title';
 import {
@@ -19,6 +20,12 @@ import {
   reiniciarAprendizaje,
 } from '../services/aprendizaje';
 import { crearCopiaAutomaticaSiNecesaria } from '../services/copiasSeguridad';
+import {
+  cargarConfiguracionTemporada,
+  ETIQUETAS_ZONA_TEMPORADA,
+  guardarConfiguracionTemporada,
+  type ZonaTemporada,
+} from '../services/temporadaIngredientes';
 
 const SERVICIOS_COMENSALES: Array<{
   clave: keyof PlanComensales;
@@ -69,6 +76,9 @@ function Perfil() {
     obtenerResumenAprendizaje,
   );
   const [mensajeAprendizaje, setMensajeAprendizaje] = useState('');
+  const [configuracionTemporada, setConfiguracionTemporada] = useState(
+    cargarConfiguracionTemporada,
+  );
 
   const resumenServicios = useMemo(
     () => SERVICIOS_COMENSALES.map((servicio) => ({
@@ -229,6 +239,7 @@ function Perfil() {
 
   const guardar = () => {
     const normalizado = guardarPerfil(perfil);
+    guardarConfiguracionTemporada(configuracionTemporada);
     setPerfil(normalizado);
     recalcularRecetasParaPerfil(normalizado);
     crearCopiaAutomaticaSiNecesaria('perfil familiar actualizado');
@@ -421,6 +432,49 @@ function Perfil() {
           exactamente las próximas 48 horas. Se aplican al guardar el perfil.
         </p>
 
+        <div style={estiloBloqueTemporada}>
+          <div>
+            <strong style={estiloTituloComensales}>Temporada de ingredientes</strong>
+            <span style={estiloResumenServicio}>
+              Avisos orientativos; nunca bloquean una elección manual
+            </span>
+          </div>
+          <label style={estiloEtiqueta}>
+            Zona de referencia
+            <select
+              value={configuracionTemporada.zona}
+              onChange={(evento) => {
+                setConfiguracionTemporada((actual) => ({
+                  ...actual,
+                  zona: evento.target.value as ZonaTemporada,
+                }));
+                setCambiosPendientes(true);
+                setGuardado(false);
+              }}
+              style={estiloInput}
+            >
+              {Object.entries(ETIQUETAS_ZONA_TEMPORADA).map(([valor, etiqueta]) => (
+                <option key={valor} value={valor}>{etiqueta}</option>
+              ))}
+            </select>
+          </label>
+          <label style={estiloInterruptorCompacto}>
+            <input
+              type="checkbox"
+              checked={configuracionTemporada.avisarAutomaticamente}
+              onChange={(evento) => {
+                setConfiguracionTemporada((actual) => ({
+                  ...actual,
+                  avisarAutomaticamente: evento.target.checked,
+                }));
+                setCambiosPendientes(true);
+                setGuardado(false);
+              }}
+            />
+            Avisarme cuando un ingrediente no esté en su temporada habitual
+          </label>
+        </div>
+
         {perfil.ninos > 0 && (
           <div style={estiloBloqueEdades}>
             <strong style={{ color: '#4f6f52' }}>
@@ -555,6 +609,8 @@ function Perfil() {
           <strong>Cantidades familiares configuradas</strong>
           <span>{describirFamilia(perfil)} · PFI adapta automáticamente cada receta según quién come en casa.</span>
         </div>
+
+        <ProgramacionComensalesPanel perfil={perfil} />
 
         <button type="button" onClick={guardar} style={estiloBotonGuardar}>
           Guardar perfil y actualizar cantidades
@@ -704,6 +760,23 @@ const estiloInterruptor = {
   marginTop: '18px',
   color: '#4f6f52',
   fontWeight: 700,
+};
+
+const estiloInterruptorCompacto = {
+  ...estiloInterruptor,
+  marginTop: 0,
+};
+
+const estiloBloqueTemporada = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+  gap: '14px',
+  alignItems: 'end',
+  marginTop: '18px',
+  padding: '16px',
+  border: '1px solid #d7dfd4',
+  borderRadius: '16px',
+  background: '#f8f6f2',
 };
 
 const estiloBloqueComensales = {

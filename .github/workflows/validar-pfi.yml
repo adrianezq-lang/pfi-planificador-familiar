@@ -91,3 +91,11 @@ jobs:
         run: npm run test:v0944
       - name: Probar acciones Asistente PFI v0.9.45
         run: npm run test:v0945
+      - name: Probar coherencia del Copiloto v0.9.54
+        run: npm run test:v0954
+      - name: Probar horarios y catálogo trazable v0.9.55
+        run: npm run test:v0955
+      - name: Probar disponibilidad y precios reales v0.9.56
+        run: npm run test:v0956
+      - name: Probar trazabilidad integral v0.9.57
+        run: npm run test:v0957

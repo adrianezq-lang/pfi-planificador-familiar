@@ -18,6 +18,15 @@ import { correspondeACompraSemanal, proyectarComprasEnvases } from './proyeccion
 
 const COBERTURA_FRESCO_PESO_VARIABLE = 1.1;
 
+export type AlertaAgotamientoMes = {
+  productoId: string;
+  nombre: string;
+  semanaAgotamiento: number;
+  stockActualEnvases: number;
+  necesidadRestanteEnvases: number;
+  deficitEnvases: number;
+};
+
 type ReglaFormatoComercial = {
   ingredientes: string[];
   unidadesPorEnvase: number;
@@ -121,12 +130,14 @@ export function ajustarFormatoComercialEspecial(
     : null;
   const envasesExactos = exactosEspeciales + (calculoResto?.envasesExactos ?? 0);
   const envases = Math.max(1, Math.ceil(envasesExactos - 0.000001));
+  const precisionCantidad = calculoResto?.precision ?? 'exacta';
 
   return {
     ...linea,
     envasesExactos,
     envases,
-    calculoEstimado: linea.calculoEstimado || Boolean(calculoResto?.estimado),
+    calculoEstimado: precisionCantidad !== 'exacta',
+    precisionCantidad,
     subtotal:
       producto.precio === null
         ? null
@@ -184,6 +195,15 @@ function rehacerResultado(
       .map((linea) => linea.ingrediente.nombre),
     productosEstimados: lineas
       .filter((linea) => linea.calculoEstimado)
+      .map((linea) => linea.ingrediente.nombre),
+    productosPesoVariable: lineas
+      .filter((linea) => linea.precisionCantidad === 'peso-variable')
+      .map((linea) => linea.ingrediente.nombre),
+    productosConversionEstimada: lineas
+      .filter((linea) => linea.precisionCantidad === 'conversion-aproximada')
+      .map((linea) => linea.ingrediente.nombre),
+    productosFormatoPendiente: lineas
+      .filter((linea) => linea.producto && linea.precisionCantidad === 'formato-incompleto')
       .map((linea) => linea.ingrediente.nombre),
     lineasCubiertas,
     ingredientesNoDisponibles,
@@ -283,6 +303,7 @@ function crearLineaMensualDespensa(
         ? null
         : envases * productoDespensa.precio,
     calculoEstimado: false,
+    precisionCantidad: 'exacta',
     tipoCompra: 'despensa',
     origen: 'reposicion',
   };
@@ -365,6 +386,93 @@ export async function generarCompraMensual(
     (resultado.ingredientesNoDisponibles ?? []).filter(
       (estado) => !esIngredienteNoDisponibleSemanal(estado),
     ),
+  );
+}
+
+export async function preverAgotamientosAntesFinMes(
+  menusSemanas: DiaMenu[][],
+  semanaActiva: number,
+): Promise<AlertaAgotamientoMes[]> {
+  const inicio = Math.max(0, semanaActiva);
+  const resultados = await Promise.all(
+    menusSemanas.slice(inicio).map((menu) =>
+      generarCompraMercadona(menu, {
+        aplicarStock: false,
+        incluirReposicion: false,
+      }),
+    ),
+  );
+  const despensa = new Map(
+    cargarDespensa().map((producto) => [producto.productoId, producto]),
+  );
+  const necesidades = new Map<
+    string,
+    {
+      nombre: string;
+      stock: number;
+      porSemana: number[];
+    }
+  >();
+
+  resultados.forEach((resultado, indiceRelativo) => {
+    resultado.lineas
+      .filter((linea) => linea.producto && !esProductoSemanal(linea))
+      .forEach((linea) => {
+        const productoId = linea.producto!.productoId;
+        const productoDespensa =
+          linea.productoDespensa ?? despensa.get(productoId) ?? null;
+        if (!productoDespensa || productoDespensa.tipo !== 'despensa') return;
+        const existente = necesidades.get(productoId) ?? {
+          nombre: productoDespensa.nombre || linea.producto!.nombre,
+          stock: Math.max(0, productoDespensa.stockActual),
+          porSemana: Array(resultados.length).fill(0),
+        };
+        existente.porSemana[indiceRelativo] += Math.max(
+          0,
+          linea.envasesExactos ?? linea.envases,
+        );
+        necesidades.set(productoId, existente);
+      });
+  });
+
+  const alertas: AlertaAgotamientoMes[] = [];
+  necesidades.forEach((dato, productoId) => {
+    let stock = dato.stock;
+    let semanaAgotamiento = -1;
+    dato.porSemana.forEach((necesidad, indice) => {
+      if (semanaAgotamiento >= 0 || necesidad <= 0) {
+        stock = Math.max(0, stock - necesidad);
+        return;
+      }
+      if (stock + 0.000001 < necesidad) {
+        semanaAgotamiento = inicio + indice;
+      }
+      stock = Math.max(0, stock - necesidad);
+    });
+    if (semanaAgotamiento < 0) return;
+
+    const necesidadRestanteEnvases = dato.porSemana.reduce(
+      (total, cantidad) => total + cantidad,
+      0,
+    );
+    alertas.push({
+      productoId,
+      nombre: dato.nombre,
+      semanaAgotamiento: semanaAgotamiento + 1,
+      stockActualEnvases: dato.stock,
+      necesidadRestanteEnvases,
+      deficitEnvases: Math.max(
+        0,
+        necesidadRestanteEnvases - dato.stock,
+      ),
+    });
+  });
+
+  return alertas.sort(
+    (a, b) =>
+      a.semanaAgotamiento - b.semanaAgotamiento ||
+      b.deficitEnvases - a.deficitEnvases ||
+      a.nombre.localeCompare(b.nombre, 'es'),
   );
 }
 

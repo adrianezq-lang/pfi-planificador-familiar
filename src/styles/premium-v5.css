@@ -505,3 +505,415 @@
     width: 100%;
   }
 }
+
+.meal-consumption {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 12px;
+  align-items: center;
+  padding: 11px 12px;
+  border: 1px solid #d8e1d4;
+  border-radius: 13px;
+  background: #f7faf5;
+}
+
+.meal-consumption--done {
+  border-color: #aec6ad;
+  background: #eef6eb;
+}
+
+.meal-consumption > div {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.meal-consumption strong,
+.meal-consumption small {
+  display: block;
+}
+
+.meal-consumption small,
+.meal-consumption details {
+  color: #647168;
+  font-size: 11px;
+}
+
+.meal-consumption > button {
+  min-height: 34px;
+  border: 1px solid #8eaa8d;
+  border-radius: 10px;
+  padding: 0 10px;
+  background: #fff;
+  color: #36573d;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.meal-consumption > details {
+  grid-column: 1 / -1;
+}
+
+.meal-consumption > details p {
+  margin: 6px 0 0;
+}
+
+@media (max-width: 520px) {
+  .meal-consumption {
+    grid-template-columns: 1fr;
+  }
+
+  .meal-consumption > button {
+    width: 100%;
+  }
+}
+
+.meal-diners {
+  margin-top: 12px;
+  border: 1px solid #e0e5dc;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .72);
+}
+
+.meal-diners > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  color: #3f5e46;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.meal-diners > summary small {
+  color: #738078;
+  font-size: 10px;
+  text-align: right;
+}
+
+.meal-diners__body {
+  display: grid;
+  gap: 10px;
+  padding: 0 12px 12px;
+}
+
+.meal-diners__counter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px 24px 32px;
+  gap: 6px;
+  align-items: center;
+}
+
+.meal-diners__counter > button,
+.meal-diners__people > button,
+.meal-diners__reset {
+  min-height: 32px;
+  border: 1px solid #ced9ca;
+  border-radius: 9px;
+  background: #fff;
+  color: #36573d;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.meal-diners__counter > button:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
+.meal-diners__counter > strong {
+  text-align: center;
+}
+
+.meal-diners__people {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.meal-diners__people > span {
+  margin-right: auto;
+}
+
+.meal-diners__people > button {
+  padding: 0 9px;
+}
+
+.meal-diners__people > button[aria-pressed='true'] {
+  border-color: #739174;
+  background: #e8f1e5;
+}
+
+.meal-diners__reset {
+  width: 100%;
+  border-style: dashed;
+}
+
+.meal-season-warning {
+  margin-top: 12px;
+  display: grid;
+  gap: 7px;
+  padding: 11px 12px;
+  border: 1px solid #dfc98e;
+  border-radius: 13px;
+  background: #fff9e9;
+  color: #665328;
+}
+
+.meal-season-warning > strong,
+.meal-season-warning > small,
+.meal-season-warning b,
+.meal-season-warning span > small {
+  display: block;
+}
+
+.meal-season-warning > small,
+.meal-season-warning span > small {
+  color: #81714d;
+  font-size: 10px;
+}
+
+.meal-season-warning > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(171, 142, 74, .2);
+}
+
+.meal-season-warning__actions {
+  display: flex;
+  gap: 5px;
+  flex: 0 0 auto;
+}
+
+.meal-season-warning__actions button {
+  min-height: 30px;
+  border: 1px solid #cfb66f;
+  border-radius: 9px;
+  padding: 0 8px;
+  background: #fff;
+  color: #625027;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .meal-season-warning > div {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .meal-season-warning__actions button {
+    flex: 1;
+  }
+}
+
+
+/* v0.9.57 · programación futura de comensales */
+.profile-scheduled-diners {
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid rgba(79, 111, 82, 0.16);
+  border-radius: 16px;
+  background: rgba(248, 246, 242, 0.72);
+}
+
+.profile-scheduled-diners__copy {
+  margin: 8px 0 16px;
+  color: #667067;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.profile-scheduled-diners__dates,
+.profile-scheduled-diners__services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.profile-scheduled-diners__dates label,
+.profile-scheduled-diners__services article > label {
+  display: grid;
+  gap: 6px;
+  color: #4f6f52;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.profile-scheduled-diners__dates input,
+.profile-scheduled-diners__services input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d7dfd4;
+  border-radius: 11px;
+  padding: 10px;
+  background: #fff;
+  color: #263229;
+  font: inherit;
+}
+
+.profile-scheduled-diners__services {
+  margin-top: 14px;
+}
+
+.profile-scheduled-diners__services article {
+  display: grid;
+  gap: 10px;
+  padding: 13px;
+  border-radius: 13px;
+  background: #fff;
+  border: 1px solid rgba(79, 111, 82, 0.12);
+}
+
+.profile-scheduled-diners__services header {
+  display: grid;
+  gap: 3px;
+}
+
+.profile-scheduled-diners__services header small {
+  color: #778078;
+}
+
+.profile-scheduled-diners__check {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  color: #4f5d50 !important;
+  font-weight: 600 !important;
+}
+
+.profile-scheduled-diners__save {
+  margin-top: 14px;
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 16px;
+  background: #4f6f52;
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.profile-scheduled-diners__save:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.profile-scheduled-diners__message {
+  margin: 10px 0 0;
+  color: #4f6f52;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.profile-scheduled-diners__list {
+  display: grid;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.profile-scheduled-diners__list > article {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(79, 111, 82, 0.1);
+}
+
+.profile-scheduled-diners__list article > div {
+  display: grid;
+  gap: 3px;
+}
+
+.profile-scheduled-diners__list span,
+.profile-scheduled-diners__list small {
+  color: #667067;
+}
+
+.profile-scheduled-diners__list button {
+  border: 0;
+  background: transparent;
+  color: #8a655f;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 620px) {
+  .profile-scheduled-diners {
+    padding: 14px;
+  }
+
+  .profile-scheduled-diners__list > article {
+    flex-direction: column;
+  }
+}
+
+
+/* v0.9.57 · previsión de agotamiento de despensa */
+.shopping-stock-alerts {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(183, 126, 64, 0.24);
+  background: rgba(249, 242, 232, 0.72);
+}
+
+.shopping-stock-alerts > div:first-child {
+  display: grid;
+  gap: 4px;
+}
+
+.shopping-stock-alerts > div:first-child small,
+.shopping-stock-alerts__list span,
+.shopping-stock-alerts__list small {
+  color: #6d716b;
+}
+
+.shopping-stock-alerts__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 9px;
+}
+
+.shopping-stock-alerts__list article {
+  display: grid;
+  gap: 3px;
+  padding: 10px 11px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+
+.modern-covered-card__avoided {
+  margin: 0;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(79, 111, 82, 0.1);
+  background: rgba(79, 111, 82, 0.055);
+  color: #5f6b61;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.modern-covered-card__avoided strong {
+  color: #3f5e43;
+}

@@ -37,8 +37,30 @@ import { fechaLocalISO, indiceDiaParaFecha } from '../services/fechaSemana';
 import {
   cargarIngredientesNoDisponibles,
   EVENTO_DISPONIBILIDAD_INGREDIENTES,
+  marcarIngredienteNoDisponible,
   type EstadoDisponibilidadIngrediente,
 } from '../services/disponibilidadIngredientes';
+import {
+  cargarServiciosConsumidos,
+  deshacerServicioConsumido,
+  EVENTO_CONSUMO_MENU,
+  obtenerServicioConsumido,
+  registrarServicioConsumido,
+  type MomentoServicioConsumido,
+  type RegistroServicioConsumido,
+} from '../services/consumoMenu';
+import {
+  cargarPerfil,
+  obtenerConfiguracionComensales,
+  obtenerHorarioServicio,
+  type ConfiguracionComensales,
+} from '../services/perfil';
+import {
+  cargarConfiguracionTemporada,
+  evaluarTemporadaIngrediente,
+  EVENTO_CONFIGURACION_TEMPORADA,
+  type EvaluacionTemporadaIngrediente,
+} from '../services/temporadaIngredientes';
 
 type MenuProps = {
   menu: DiaMenu[];
@@ -51,6 +73,7 @@ type MenuProps = {
   excluirSemana: (indice: number, excluida?: boolean) => void;
   generarNuevoMes: () => void;
   reiniciarMes: () => void;
+  resolverIngrediente: (ingrediente: string) => void;
 };
 
 const RESULTADOS: Array<{
@@ -103,6 +126,7 @@ function etiquetaExcepcion(
     excepcion.sinComida ? 'Sin comida' : '',
     excepcion.sinCena ? 'Sin cena' : '',
     excepcion.sinNinos ? 'Solo adultos' : '',
+    excepcion.comensalesComida || excepcion.comensalesCena ? 'Comensales ajustados' : '',
   ]
     .filter(Boolean)
     .join(' · ');
@@ -161,6 +185,200 @@ function ValoracionPlegable({
         ))}
       </div>
     </details>
+  );
+}
+
+function ControlConsumoServicio({
+  momento,
+  registro,
+  procesando,
+  onAccion,
+}: {
+  momento: MomentoServicioConsumido;
+  registro: RegistroServicioConsumido | null;
+  procesando: boolean;
+  onAccion: () => void;
+}) {
+  const avisos = registro
+    ? registro.faltasStock.length +
+      registro.sinAsociacion.length +
+      registro.ingredientesNoDisponibles.length
+    : 0;
+  return (
+    <div className={`meal-consumption${registro ? ' meal-consumption--done' : ''}`}>
+      <div>
+        <strong>{registro ? '✓ Consumo registrado' : '¿Servicio ya realizado?'}</strong>
+        <small>
+          {registro
+            ? `${registro.consumos.length} producto${registro.consumos.length === 1 ? '' : 's'} descontado${registro.consumos.length === 1 ? '' : 's'}${avisos > 0 ? ` · ${avisos} aviso${avisos === 1 ? '' : 's'}` : ''}`
+            : `Confirma la ${momento} para descontar solo stock físico.`}
+        </small>
+      </div>
+      <button type="button" onClick={onAccion} disabled={procesando}>
+        {procesando
+          ? 'Calculando…'
+          : registro
+            ? 'Deshacer'
+            : 'Registrar consumo'}
+      </button>
+      {registro && avisos > 0 && (
+        <details>
+          <summary>Ver datos por revisar</summary>
+          {registro.faltasStock.length > 0 && (
+            <p>
+              Stock insuficiente: {registro.faltasStock.map((falta) => falta.productoNombre).join(', ')}.
+            </p>
+          )}
+          {registro.sinAsociacion.length > 0 && (
+            <p>Sin producto de despensa: {registro.sinAsociacion.join(', ')}.</p>
+          )}
+          {registro.ingredientesNoDisponibles.length > 0 && (
+            <p>
+              Excluidos por disponibilidad: {registro.ingredientesNoDisponibles.join(', ')}.
+            </p>
+          )}
+        </details>
+      )}
+    </div>
+  );
+}
+
+function EditorComensalesServicio({
+  configuracion,
+  edadesNinos,
+  maxAdultos,
+  maxBebes,
+  bebesComenMenu,
+  personalizada,
+  onCambiar,
+  onRestaurar,
+}: {
+  configuracion: ConfiguracionComensales;
+  edadesNinos: number[];
+  maxAdultos: number;
+  maxBebes: number;
+  bebesComenMenu: boolean;
+  personalizada: boolean;
+  onCambiar: (configuracion: ConfiguracionComensales) => void;
+  onRestaurar: () => void;
+}) {
+  const partes = [
+    `${configuracion.adultos} adulto${configuracion.adultos === 1 ? '' : 's'}`,
+    ...edadesNinos.flatMap((edad, indice) =>
+      configuracion.ninos[indice] ? [`niño ${edad}`] : [],
+    ),
+    ...(configuracion.bebes > 0
+      ? [`${configuracion.bebes} bebé${configuracion.bebes === 1 ? '' : 's'}`]
+      : []),
+  ];
+  return (
+    <details className="meal-diners">
+      <summary>
+        <span>Comensales</span>
+        <small>{partes.join(' · ')}</small>
+      </summary>
+      <div className="meal-diners__body">
+        <div className="meal-diners__counter">
+          <span>Adultos</span>
+          <button
+            type="button"
+            onClick={() => onCambiar({ ...configuracion, adultos: Math.max(0, configuracion.adultos - 1) })}
+            disabled={configuracion.adultos <= 0}
+            aria-label="Quitar un adulto"
+          >−</button>
+          <strong>{configuracion.adultos}</strong>
+          <button
+            type="button"
+            onClick={() => onCambiar({ ...configuracion, adultos: Math.min(maxAdultos, configuracion.adultos + 1) })}
+            disabled={configuracion.adultos >= maxAdultos}
+            aria-label="Añadir un adulto"
+          >＋</button>
+        </div>
+        {edadesNinos.length > 0 && (
+          <div className="meal-diners__people">
+            <span>Niños</span>
+            {edadesNinos.map((edad, indice) => (
+              <button
+                type="button"
+                key={`${edad}-${indice}`}
+                aria-pressed={configuracion.ninos[indice] === true}
+                onClick={() => onCambiar({
+                  ...configuracion,
+                  ninos: configuracion.ninos.map((incluido, posicion) =>
+                    posicion === indice ? !incluido : incluido,
+                  ),
+                })}
+              >
+                {configuracion.ninos[indice] ? '✓ ' : ''}{edad} años
+              </button>
+            ))}
+          </div>
+        )}
+        {bebesComenMenu && maxBebes > 0 && (
+          <div className="meal-diners__counter">
+            <span>Bebés</span>
+            <button
+              type="button"
+              onClick={() => onCambiar({ ...configuracion, bebes: Math.max(0, configuracion.bebes - 1) })}
+              disabled={configuracion.bebes <= 0}
+              aria-label="Quitar un bebé"
+            >−</button>
+            <strong>{configuracion.bebes}</strong>
+            <button
+              type="button"
+              onClick={() => onCambiar({ ...configuracion, bebes: Math.min(maxBebes, configuracion.bebes + 1) })}
+              disabled={configuracion.bebes >= maxBebes}
+              aria-label="Añadir un bebé"
+            >＋</button>
+          </div>
+        )}
+        {personalizada && (
+          <button type="button" className="meal-diners__reset" onClick={onRestaurar}>
+            Usar asistencia habitual
+          </button>
+        )}
+      </div>
+    </details>
+  );
+}
+
+function AvisoTemporadaServicio({
+  avisos,
+  onPausar,
+  onRevisar,
+}: {
+  avisos: EvaluacionTemporadaIngrediente[];
+  onPausar: (aviso: EvaluacionTemporadaIngrediente) => void;
+  onRevisar: (ingrediente: string) => void;
+}) {
+  if (avisos.length === 0) return null;
+  return (
+    <aside className="meal-season-warning" role="status">
+      <strong>Fuera de temporada habitual</strong>
+      <small>
+        Aviso orientativo para {avisos[0].zonaEtiqueta}; no bloquea el menú por sí solo.
+      </small>
+      {avisos.map((aviso) => (
+        <div key={aviso.ingrediente}>
+          <span>
+            <b>{aviso.ingrediente}</b>
+            {aviso.alternativas.length > 0 && (
+              <small>
+                Alternativas de temporada: {aviso.alternativas.map((alternativa) => alternativa.ingrediente).join(', ')}.
+              </small>
+            )}
+          </span>
+          <span className="meal-season-warning__actions">
+            <button type="button" onClick={() => onRevisar(aviso.ingrediente)}>
+              Revisar
+            </button>
+            <button type="button" onClick={() => onPausar(aviso)}>
+              Desactivar
+            </button>
+          </span>
+        </div>
+      ))}
+    </aside>
   );
 }
 
@@ -248,6 +466,7 @@ export default function MenuModern({
   excluirSemana,
   generarNuevoMes,
   reiniciarMes,
+  resolverIngrediente,
 }: MenuProps) {
   const { recetas } = useRecetas();
   const [diaActivo, setDiaActivo] = useState(() =>
@@ -263,6 +482,9 @@ export default function MenuModern({
   const [notaSemana, setNotaSemana] = useState(() => cargarNotaSemana(mesActivo, semanaActiva));
   const [ingredientesNoDisponibles, setIngredientesNoDisponibles] =
     useState<EstadoDisponibilidadIngrediente[]>(cargarIngredientesNoDisponibles);
+  const [revisionConsumo, setRevisionConsumo] = useState(0);
+  const [servicioProcesando, setServicioProcesando] = useState<MomentoServicioConsumido | null>(null);
+  const [revisionTemporada, setRevisionTemporada] = useState(0);
 
   const indiceSemanaSeguro = planMensual.length === 0
     ? 0
@@ -278,6 +500,33 @@ export default function MenuModern({
   const tieneFinDeSemana = Boolean(semana && fechasFinDeSemana(semana).length);
   const ninosFueraElFinDeSemana = finDeSemanaSinNinos(semana, excepciones);
   const diaEsFinDeSemana = Boolean(fechaActiva && indiceDiaSemana(fechaActiva) >= 5);
+  const perfilFamiliar = cargarPerfil();
+  const configuracionComidaBase = dia
+    ? obtenerConfiguracionComensales(perfilFamiliar, 'comida', dia.dia)
+    : perfilFamiliar.comensales.comidaLaborable;
+  const configuracionCenaBase = dia
+    ? obtenerConfiguracionComensales(perfilFamiliar, 'cena', dia.dia)
+    : perfilFamiliar.comensales.cena;
+  const aplicarSoloAdultos = (configuracion: ConfiguracionComensales) =>
+    excepcion?.sinNinos
+      ? { ...configuracion, ninos: configuracion.ninos.map(() => false) }
+      : configuracion;
+  const configuracionComida = aplicarSoloAdultos(
+    excepcion?.comensalesComida ?? configuracionComidaBase,
+  );
+  const configuracionCena = aplicarSoloAdultos(
+    excepcion?.comensalesCena ?? configuracionCenaBase,
+  );
+  const serviciosConsumidos = useMemo(() => {
+    void revisionConsumo;
+    return cargarServiciosConsumidos();
+  }, [revisionConsumo]);
+  const consumoComida = fechaActiva
+    ? obtenerServicioConsumido(fechaActiva, 'comida', serviciosConsumidos)
+    : null;
+  const consumoCena = fechaActiva
+    ? obtenerServicioConsumido(fechaActiva, 'cena', serviciosConsumidos)
+    : null;
   const preparacionesSemana = fechas.flatMap((fecha) => {
     const diaSemana = menu[indiceDiaSemana(fecha)];
     const excepcionFecha = excepciones[fecha];
@@ -337,11 +586,50 @@ export default function MenuModern({
     ),
     [ingredientesNoDisponiblesPorReceta],
   );
+  const temporadaPorReceta = useMemo(() => {
+    void revisionTemporada;
+    const configuracion = cargarConfiguracionTemporada();
+    if (!configuracion.avisarAutomaticamente || !fechaActiva) {
+      return new Map<string, EvaluacionTemporadaIngrediente[]>();
+    }
+    return new Map(
+      recetas.map((receta) => [
+        normalizar(receta.nombre),
+        receta.ingredientes
+          .map((ingrediente) =>
+            evaluarTemporadaIngrediente(
+              ingrediente.nombre,
+              fechaActiva,
+              configuracion,
+            ),
+          )
+          .filter((evaluacion) => evaluacion.enTemporada === false),
+      ]),
+    );
+  }, [fechaActiva, recetas, revisionTemporada]);
+  const avisosTemporadaEn = useCallback(
+    (platos: string[]): EvaluacionTemporadaIngrediente[] => {
+      const porIngrediente = new Map<string, EvaluacionTemporadaIngrediente>();
+      platos.forEach((plato) => {
+        (temporadaPorReceta.get(normalizar(plato)) ?? []).forEach((evaluacion) => {
+          porIngrediente.set(normalizar(evaluacion.ingrediente), evaluacion);
+        });
+      });
+      return Array.from(porIngrediente.values());
+    },
+    [temporadaPorReceta],
+  );
   const noDisponiblesComida = dia
     ? ingredientesPausadosEn([...dia.comida, formatearPostreMenu(dia, 'comida')])
     : [];
   const noDisponiblesCena = dia
     ? ingredientesPausadosEn([...dia.cena, formatearPostreMenu(dia, 'cena')])
+    : [];
+  const temporadaComida = dia
+    ? avisosTemporadaEn([...dia.comida, formatearPostreMenu(dia, 'comida')])
+    : [];
+  const temporadaCena = dia
+    ? avisosTemporadaEn([...dia.cena, formatearPostreMenu(dia, 'cena')])
     : [];
   const platosDisponibles = useMemo(
     () => Array.from(new Set([...recetasPlato, ...obtenerOpcionesEspeciales()])),
@@ -363,10 +651,13 @@ export default function MenuModern({
             editorMomento === 'comida' ? dia.comida : dia.cena,
             6,
           ).filter((sugerencia) => ingredientesPausadosEn(sugerencia.platos).length === 0)
+            .sort((a, b) =>
+              avisosTemporadaEn(a.platos).length - avisosTemporadaEn(b.platos).length,
+            )
             .slice(0, 3)
         : [];
     },
-    [dia, editorMomento, ingredientesPausadosEn, revisionAprendizaje],
+    [avisosTemporadaEn, dia, editorMomento, ingredientesPausadosEn, revisionAprendizaje],
   );
   const complementos = useMemo(() => {
     void revisionAprendizaje;
@@ -378,8 +669,11 @@ export default function MenuModern({
       recetasPlato,
       6,
     ).filter((sugerencia) => ingredientesPausadosEn([sugerencia.plato]).length === 0)
+      .sort((a, b) =>
+        avisosTemporadaEn([a.plato]).length - avisosTemporadaEn([b.plato]).length,
+      )
       .slice(0, 3);
-  }, [editorMomento, ingredientesPausadosEn, recetasPlato, revisionAprendizaje, seleccionEditor]);
+  }, [avisosTemporadaEn, editorMomento, ingredientesPausadosEn, recetasPlato, revisionAprendizaje, seleccionEditor]);
 
   useEffect(() => {
     const actualizar = () => setRevisionExcepciones((valor) => valor + 1);
@@ -388,9 +682,21 @@ export default function MenuModern({
   }, []);
 
   useEffect(() => {
+    const actualizar = () => setRevisionTemporada((valor) => valor + 1);
+    window.addEventListener(EVENTO_CONFIGURACION_TEMPORADA, actualizar);
+    return () => window.removeEventListener(EVENTO_CONFIGURACION_TEMPORADA, actualizar);
+  }, []);
+
+  useEffect(() => {
     const actualizar = () => setIngredientesNoDisponibles(cargarIngredientesNoDisponibles());
     window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
     return () => window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
+  }, []);
+
+  useEffect(() => {
+    const actualizar = () => setRevisionConsumo((valor) => valor + 1);
+    window.addEventListener(EVENTO_CONSUMO_MENU, actualizar);
+    return () => window.removeEventListener(EVENTO_CONSUMO_MENU, actualizar);
   }, []);
 
   useEffect(() => {
@@ -413,7 +719,10 @@ export default function MenuModern({
     if (tipo === 'noEnCasa') {
       guardarExcepcion(
         fechaActiva,
-        excepcion?.noEnCasa ? null : { noEnCasa: true },
+        {
+          ...excepcion,
+          noEnCasa: !excepcion?.noEnCasa,
+        },
       );
       return;
     }
@@ -513,6 +822,92 @@ export default function MenuModern({
     registrarResultadoComida(dia.dia, momento, platos, resultado);
     setRevisionAprendizaje((valor) => valor + 1);
     setMensaje('Valoración guardada.');
+  };
+
+  const servicioYaHaPasado = (momento: MomentoServicioConsumido): boolean => {
+    if (!fechaActiva) return false;
+    const hoy = fechaLocalISO();
+    if (fechaActiva < hoy) return true;
+    if (fechaActiva > hoy) return false;
+    const horario = obtenerHorarioServicio(cargarPerfil(), momento);
+    const ahora = new Date();
+    return ahora.getHours() * 60 + ahora.getMinutes() >= horario.hora * 60 + horario.minutos;
+  };
+
+  const gestionarConsumoServicio = async (momento: MomentoServicioConsumido) => {
+    if (!fechaActiva || !dia || servicioProcesando) return;
+    const existente = obtenerServicioConsumido(fechaActiva, momento, serviciosConsumidos);
+    if (existente) {
+      if (!window.confirm(
+        `¿Deshacer el consumo registrado de la ${momento}? Se restaurarán ${existente.consumos.length} movimiento${existente.consumos.length === 1 ? '' : 's'} de despensa.`,
+      )) return;
+      crearCopiaAutomaticaSiNecesaria('antes de deshacer un consumo del menú');
+      deshacerServicioConsumido(existente.id);
+      setMensaje(`Consumo de la ${momento} deshecho · el stock se ha restaurado.`);
+      return;
+    }
+
+    if (!window.confirm(
+      `¿Registrar la ${momento} como realizada? PFI descontará de la despensa las cantidades calculadas para este servicio. Podrás deshacerlo.`,
+    )) return;
+    crearCopiaAutomaticaSiNecesaria('antes de registrar un consumo del menú');
+    setServicioProcesando(momento);
+    try {
+      const registro = await registrarServicioConsumido(fechaActiva, momento, dia);
+      const avisos = registro.faltasStock.length +
+        registro.sinAsociacion.length +
+        registro.ingredientesNoDisponibles.length;
+      setMensaje(
+        `${momento === 'comida' ? 'Comida' : 'Cena'} registrada · ${registro.consumos.length} producto${registro.consumos.length === 1 ? '' : 's'} descontado${registro.consumos.length === 1 ? '' : 's'}${avisos > 0 ? ` · ${avisos} dato${avisos === 1 ? '' : 's'} por revisar` : ''}.`,
+      );
+    } catch {
+      setMensaje(`No se ha podido registrar el consumo de la ${momento}.`);
+    } finally {
+      setServicioProcesando(null);
+    }
+  };
+
+  const actualizarComensalesServicio = (
+    momento: MomentoServicioConsumido,
+    siguiente: ConfiguracionComensales | null,
+  ) => {
+    if (!fechaActiva) return;
+    if (
+      siguiente &&
+      siguiente.adultos + siguiente.ninos.filter(Boolean).length + siguiente.bebes <= 0
+    ) {
+      setMensaje(`Debe quedar al menos un comensal o marcar que no se ${momento === 'comida' ? 'come' : 'cena'} en casa.`);
+      return;
+    }
+    crearCopiaAutomaticaSiNecesaria('antes de ajustar comensales de un servicio');
+    guardarExcepcion(fechaActiva, {
+      ...excepcion,
+      noEnCasa: false,
+      sinNinos: false,
+      [momento === 'comida' ? 'comensalesComida' : 'comensalesCena']:
+        siguiente ?? undefined,
+    });
+    setMensaje(
+      siguiente
+        ? `Comensales de la ${momento} actualizados · compra y presupuesto recalculados.`
+        : `La ${momento} vuelve a usar la asistencia habitual.`,
+    );
+  };
+
+  const pausarPorTemporada = (evaluacion: EvaluacionTemporadaIngrediente) => {
+    if (!window.confirm(
+      `${evaluacion.ingrediente} está fuera de su temporada habitual en ${evaluacion.zonaEtiqueta}. ¿Desactivarlo temporalmente de compra y presupuesto?`,
+    )) return;
+    crearCopiaAutomaticaSiNecesaria(`antes de pausar ${evaluacion.ingrediente} por temporada`);
+    marcarIngredienteNoDisponible(
+      evaluacion.ingrediente,
+      'temporada',
+      `Aviso automático para ${fechaActiva ?? mesActivo}`,
+    );
+    setIngredientesNoDisponibles(cargarIngredientesNoDisponibles());
+    setMensaje(
+      `${evaluacion.ingrediente} desactivado temporalmente · revisa el menú o elige una alternativa.`,
+    );
   };
 
   const textoCompartirSemana = () => {
@@ -768,6 +1163,16 @@ export default function MenuModern({
                       <div className="modern-dish-list">
                         {dia.comida.map((plato) => <strong key={plato}>{plato}</strong>)}
                       </div>
+                      <EditorComensalesServicio
+                        configuracion={configuracionComida}
+                        edadesNinos={perfilFamiliar.edadesNinos}
+                        maxAdultos={perfilFamiliar.adultos}
+                        maxBebes={perfilFamiliar.bebes}
+                        bebesComenMenu={perfilFamiliar.bebesComenMenu}
+                        personalizada={Boolean(excepcion?.comensalesComida)}
+                        onCambiar={(siguiente) => actualizarComensalesServicio('comida', siguiente)}
+                        onRestaurar={() => actualizarComensalesServicio('comida', null)}
+                      />
                       <label className="modern-dessert-select">
                         <span>Postre</span>
                         <select
@@ -783,6 +1188,19 @@ export default function MenuModern({
                           <strong>Ingrediente no disponible:</strong>{' '}
                           {noDisponiblesComida.join(', ')}. Cambia el menú o reactívalo en Recetas.
                         </p>
+                      )}
+                      <AvisoTemporadaServicio
+                        avisos={temporadaComida}
+                        onPausar={pausarPorTemporada}
+                        onRevisar={resolverIngrediente}
+                      />
+                      {(consumoComida || servicioYaHaPasado('comida')) && (
+                        <ControlConsumoServicio
+                          momento="comida"
+                          registro={consumoComida}
+                          procesando={servicioProcesando === 'comida'}
+                          onAccion={() => void gestionarConsumoServicio('comida')}
+                        />
                       )}
                       <ValoracionPlegable
                         dia={dia.dia}
@@ -812,6 +1230,16 @@ export default function MenuModern({
                       <div className="modern-dish-list">
                         {dia.cena.map((plato) => <strong key={plato}>{plato}</strong>)}
                       </div>
+                      <EditorComensalesServicio
+                        configuracion={configuracionCena}
+                        edadesNinos={perfilFamiliar.edadesNinos}
+                        maxAdultos={perfilFamiliar.adultos}
+                        maxBebes={perfilFamiliar.bebes}
+                        bebesComenMenu={perfilFamiliar.bebesComenMenu}
+                        personalizada={Boolean(excepcion?.comensalesCena)}
+                        onCambiar={(siguiente) => actualizarComensalesServicio('cena', siguiente)}
+                        onRestaurar={() => actualizarComensalesServicio('cena', null)}
+                      />
                       <label className="modern-dessert-select">
                         <span>Postre</span>
                         <select
@@ -827,6 +1255,19 @@ export default function MenuModern({
                           <strong>Ingrediente no disponible:</strong>{' '}
                           {noDisponiblesCena.join(', ')}. Cambia el menú o reactívalo en Recetas.
                         </p>
+                      )}
+                      <AvisoTemporadaServicio
+                        avisos={temporadaCena}
+                        onPausar={pausarPorTemporada}
+                        onRevisar={resolverIngrediente}
+                      />
+                      {(consumoCena || servicioYaHaPasado('cena')) && (
+                        <ControlConsumoServicio
+                          momento="cena"
+                          registro={consumoCena}
+                          procesando={servicioProcesando === 'cena'}
+                          onAccion={() => void gestionarConsumoServicio('cena')}
+                        />
                       )}
                       <ValoracionPlegable
                         dia={dia.dia}
@@ -982,6 +1423,7 @@ export default function MenuModern({
               {resultadosBusqueda.map((plato) => {
                 const seleccionado = seleccionEditor.includes(plato);
                 const noDisponibles = ingredientesPausadosEn([plato]);
+                const fueraTemporada = avisosTemporadaEn([plato]);
                 return (
                   <button
                     type="button"
@@ -994,6 +1436,11 @@ export default function MenuModern({
                       {plato}
                       {noDisponibles.length > 0 && (
                         <small>Ingrediente no disponible: {noDisponibles.join(', ')}</small>
+                      )}
+                      {fueraTemporada.length > 0 && (
+                        <small>
+                          Fuera de temporada habitual: {fueraTemporada.map((aviso) => aviso.ingrediente).join(', ')}
+                        </small>
                       )}
                     </strong>
                   </button>

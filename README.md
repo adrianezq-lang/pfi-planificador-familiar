@@ -1,6 +1,8 @@
 # PFI — Planificador Familiar Inteligente
 
-Versión 0.9.56.
+Versión 0.9.57.
+
+La v0.9.57 hace auditables el plan familiar y su impacto económico. Ajusta la compra por comensales de cada servicio, permite programar cambios de comensales desde una fecha futura y mantiene las excepciones puntuales como prioridad. Descuenta del stock únicamente comidas o cenas ya servidas y confirmadas, registra mermas y separa el ahorro realizado de cualquier proyección. Los presupuestos distinguen importes confirmados, orientativos y mínimos conocidos. Menú avisa de ingredientes fuera de temporada según fecha y zona, propone alternativas compatibles y permite desactivarlos sin borrar su asociación. El Copiloto muestra el impacto previsto antes de confirmar un cambio y refresca sus prioridades durante el día sin recargar la app.
 
 La v0.9.56 permite pausar temporalmente un ingrediente que no está disponible —por temporada, zona u otro motivo— sin perder su asociación exacta. El ingrediente queda fuera de compra y presupuesto con una causa visible, pero nunca se presenta como ahorro. Si aparece en otra tienda, se puede registrar un precio real por envase con formato, tienda y fecha; ese importe entra en la previsión y conserva su trazabilidad hasta la despensa.
 
