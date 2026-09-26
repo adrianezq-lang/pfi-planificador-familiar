@@ -53,7 +53,10 @@ const inventario = await vite.ssrLoadModule('/src/services/inventario.ts');
 const ahorro = await vite.ssrLoadModule('/src/services/ahorroReal.ts');
 const consumoMenu = await vite.ssrLoadModule('/src/services/consumoMenu.ts');
 const { buscarEnCatalogoMercadona } = await vite.ssrLoadModule('/src/services/catalogoMercadona.ts');
-const { crearProductoDespensaDesdeCatalogo } = await vite.ssrLoadModule('/src/services/despensa.ts');
+const { crearProductoDespensaDesdeCatalogo, cargarDespensa } =
+  await vite.ssrLoadModule('/src/services/despensa.ts');
+const { generarCompraMercadona } =
+  await vite.ssrLoadModule('/src/motor/compra.ts');
 const { calcularConfianzaPresupuesto } = await vite.ssrLoadModule('/src/services/resumenEconomico.ts');
 const { preverAgotamientosAntesFinMes } =
   await vite.ssrLoadModule('/src/services/planificacionCompra.ts');
@@ -247,6 +250,30 @@ const alertasAgotamiento = await preverAgotamientosAntesFinMes(
 const alertaArroz = alertasAgotamiento.find(
   (alerta) => alerta.productoId === '5044',
 );
+if (!alertaArroz) {
+  const compraDiagnostico = await generarCompraMercadona(
+    menusAgotamiento[0],
+    { aplicarStock: false, incluirReposicion: false },
+  );
+  console.error('Diagnóstico agotamiento arroz:', JSON.stringify({
+    despensa: cargarDespensa().filter((item) => item.productoId === '5044'),
+    lineas: compraDiagnostico.lineas.map((linea) => ({
+      productoId: linea.producto?.productoId,
+      nombre: linea.ingrediente.nombre,
+      tipoCompra: linea.tipoCompra,
+      envases: linea.envases,
+      envasesExactos: linea.envasesExactos,
+      productoDespensa: linea.productoDespensa
+        ? {
+            tipo: linea.productoDespensa.tipo,
+            frecuencia: linea.productoDespensa.frecuencia,
+            stockActual: linea.productoDespensa.stockActual,
+          }
+        : null,
+    })),
+    alertasAgotamiento,
+  }, null, 2));
+}
 assert.ok(alertaArroz);
 assert.ok(alertaArroz.deficitEnvases > 0);
 assert.ok(alertaArroz.semanaAgotamiento >= 2);
