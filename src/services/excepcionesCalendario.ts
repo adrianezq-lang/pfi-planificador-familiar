@@ -4,6 +4,9 @@ import {
   cargarPerfil,
   type ConfiguracionComensales,
 } from './perfil.ts';
+import {
+  obtenerConfiguracionComensalesProgramada,
+} from './programacionComensales';
 
 const KEY = 'pfi-excepciones-calendario-v1';
 export const EVENTO_EXCEPCIONES = 'pfi-calendario-actualizado';
@@ -192,10 +195,30 @@ export function menuEfectivoSemana(
   if (!semana || semana.excluida) return [];
   const fechas = fechasSemana(semana);
   if (!fechas.length) return semana.menu.map((dia) => ({ ...dia }));
+  const perfil = cargarPerfil();
   return fechas.flatMap((fecha) => {
     const dia = semana.menu[indiceDiaSemana(fecha)];
     if (!dia) return [];
-    const efectivo = aplicarExcepcionDia(dia, excepciones[fecha]);
+    const excepcion = excepciones[fecha];
+    const programadaComida = obtenerConfiguracionComensalesProgramada(
+      fecha,
+      'comida',
+      dia.dia,
+      perfil,
+    );
+    const programadaCena = obtenerConfiguracionComensalesProgramada(
+      fecha,
+      'cena',
+      dia.dia,
+      perfil,
+    );
+    const efectivo = aplicarExcepcionDia(dia, {
+      ...excepcion,
+      comensalesComida:
+        excepcion?.comensalesComida ?? programadaComida ?? undefined,
+      comensalesCena:
+        excepcion?.comensalesCena ?? programadaCena ?? undefined,
+    });
     return efectivo ? [efectivo] : [];
   });
 }
