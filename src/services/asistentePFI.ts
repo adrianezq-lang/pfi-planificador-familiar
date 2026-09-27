@@ -184,7 +184,18 @@ function causaDisponibilidad(desglose: DesgloseEconomico): string {
 }
 
 function previsionIncompleta(desglose: DesgloseEconomico): boolean {
-  return desglose.partidasSinImporte > 0 || desglose.partidasExcluidasDisponibilidad > 0;
+  return (
+    desglose.partidasSinImporte > 0 ||
+    desglose.partidasExcluidasDisponibilidad > 0 ||
+    desglose.importesRealesPendientes > 0
+  );
+}
+
+function causaImporteRealPendiente(desglose: DesgloseEconomico): string {
+  const cantidad = desglose.importesRealesPendientes ?? 0;
+  return cantidad > 0
+    ? `${cantidadTexto(cantidad, 'compra hecha', 'compras hechas')} con el importe real pendiente (se mantiene el coste planificado)`
+    : '';
 }
 
 function buscarDiaMenu(menu: DiaMenu[], nombre: string): DiaMenu | undefined {
@@ -602,9 +613,9 @@ function prioridadesFamiliares(
       impacto: 5,
       urgencia: 2,
       orden: orden++,
-      texto: `${calculoIncompleto ? 'El subtotal conocido' : 'La previsión mensual'} supera el objetivo en ${euros(
+      texto: `${calculoIncompleto ? 'La previsión provisional' : 'La previsión mensual'} supera el objetivo en ${euros(
         prevision - presupuesto,
-      )}${precision.partidasSinImporte > 0 ? ` y aún faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}` : ''}${causaExcluida ? `${precision.partidasSinImporte > 0 ? '; además hay' : ' y hay'} ${causaExcluida}` : ''}.`,
+      )}${precision.partidasSinImporte > 0 ? ` y aún faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}` : ''}${causaExcluida ? `${precision.partidasSinImporte > 0 ? '; además hay' : ' y hay'} ${causaExcluida}` : ''}${precision.importesRealesPendientes > 0 ? `; además hay ${causaImporteRealPendiente(precision)}` : ''}.`,
       destino: 'compra',
     });
   } else if (calculoIncompleto) {
@@ -619,6 +630,7 @@ function prioridadesFamiliares(
           ? `faltan ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}`
           : '',
         causaExcluida,
+        causaImporteRealPendiente(precision),
       ].filter(Boolean).join(' y ')}, así que el saldo aún no es real.`,
       destino: 'compra',
     });
@@ -875,7 +887,7 @@ function respuestaAhorroInteligente(
     puntos.push(
       ahorroReal.ahorroNeto >= 0
         ? `Ahorro ya realizado este mes: ${euros(ahorroReal.ahorroNeto)} en ${cantidadTexto(ahorroReal.comprasComparadas, 'importe confirmado', 'importes confirmados')} (${euros(ahorroReal.costePagado)} pagados frente a ${euros(ahorroReal.costeReferencia)} de referencia).`
-        : `Sobrecoste real este mes: ${euros(Math.abs(ahorroReal.ahorroNeto))} en ${cantidadTexto(ahorroReal.comprasComparadas, 'importe confirmado', 'importes confirmados')}; está separado de la previsión.`,
+        : `Sobrecoste real este mes: ${euros(Math.abs(ahorroReal.ahorroNeto))} en ${cantidadTexto(ahorroReal.comprasComparadas, 'importe confirmado', 'importes confirmados')}; ya está incorporado a la previsión.`,
     );
   }
 
@@ -888,6 +900,7 @@ function respuestaAhorroInteligente(
           ? `${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasPendientes ? ` por ${causasPendientes}` : ''}`
           : '',
         causaExcluida,
+        causaImporteRealPendiente(precision),
       ].filter(Boolean).join(' y ');
       puntos.push(
         precision.partidasExcluidasDisponibilidad > 0
@@ -1037,7 +1050,7 @@ export function obtenerResumenProactivo(
     presupuesto: (
       prevision > 0 || previsionIncompleta(precision)
         ? previsionIncompleta(precision)
-          ? `${euros(prevision)} subtotal conocido${precision.partidasSinImporte > 0 ? ` · ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precision) ? ` · ${causasImportePendiente(precision)}` : ''}` : ''}${precision.partidasExcluidasDisponibilidad > 0 ? ` · ${causaDisponibilidad(precision)}` : ''} · objetivo ${euros(
+          ? `${euros(prevision)} previsión provisional${precision.partidasSinImporte > 0 ? ` · ${cantidadTexto(precision.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precision) ? ` · ${causasImportePendiente(precision)}` : ''}` : ''}${precision.partidasExcluidasDisponibilidad > 0 ? ` · ${causaDisponibilidad(precision)}` : ''}${precision.importesRealesPendientes > 0 ? ` · ${causaImporteRealPendiente(precision)}` : ''} · objetivo ${euros(
             contexto.perfil.presupuesto,
           )}`
           : `${euros(prevision)} ${precision.cantidadesEstimadas > 0 ? 'estimados' : 'previstos'} este mes · objetivo ${euros(
@@ -1255,7 +1268,9 @@ export function responderAsistente(
     const diferencia = contexto.perfil.presupuesto - presupuestoPrevisto;
     const hayImportesPendientes = precisionMes.partidasSinImporte > 0;
     const hayExclusiones = precisionMes.partidasExcluidasDisponibilidad > 0;
-    const hayCalculoIncompleto = hayImportesPendientes || hayExclusiones;
+    const hayImportesRealesPendientes = precisionMes.importesRealesPendientes > 0;
+    const hayCalculoIncompleto =
+      hayImportesPendientes || hayExclusiones || hayImportesRealesPendientes;
     const hayEstimaciones = precisionMes.cantidadesEstimadas > 0;
     const confianza = calcularConfianzaPresupuesto(precisionMes);
     const ahorroReal = ahorroRealContexto(contexto);
@@ -1264,9 +1279,9 @@ export function responderAsistente(
       resumen:
         presupuestoPrevisto > 0 || hayCalculoIncompleto
           ? hayCalculoIncompleto
-            ? `PFI conoce ${hayExclusiones ? 'un subtotal' : 'un mínimo'} de ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
+            ? `PFI ${hayImportesRealesPendientes ? 'calcula una previsión provisional de' : `conoce ${hayExclusiones ? 'un subtotal' : 'un mínimo'} de`} ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
                 contexto.perfil.presupuesto,
-              )}${hayImportesPendientes ? `; faltan ${cantidadTexto(precisionMes.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precisionMes) ? ` por ${causasImportePendiente(precisionMes)}` : ''}` : ''}${hayExclusiones ? `${hayImportesPendientes ? ' y hay' : '; hay'} ${causaDisponibilidad(precisionMes)}` : ''}.`
+              )}${hayImportesPendientes ? `; faltan ${cantidadTexto(precisionMes.partidasSinImporte, 'partida')} sin importe${causasImportePendiente(precisionMes) ? ` por ${causasImportePendiente(precisionMes)}` : ''}` : ''}${hayExclusiones ? `${hayImportesPendientes ? ' y hay' : '; hay'} ${causaDisponibilidad(precisionMes)}` : ''}${hayImportesRealesPendientes ? `; además hay ${causaImporteRealPendiente(precisionMes)}` : ''}.`
             : `PFI ${hayEstimaciones ? 'estima' : 'calcula'} ${euros(presupuestoPrevisto)} para el mes frente a un objetivo de ${euros(
                 contexto.perfil.presupuesto,
               )}.`
@@ -1287,6 +1302,9 @@ export function responderAsistente(
                   ? `${hayEstimaciones ? 'El margen estimado es' : 'Te quedan'} ${euros(diferencia)} frente al objetivo.`
                   : `${hayEstimaciones ? 'La estimación' : 'La previsión'} supera el objetivo en ${euros(Math.abs(diferencia))}.`,
               'La previsión combina la compra mensual, las semanas y los productos añadidos manualmente.',
+              contexto.resumenEconomico.comprasRealesConfirmadas > 0
+                ? `Incluye ${euros(contexto.resumenEconomico.gastoRealConfirmado)} realmente pagados en ${cantidadTexto(contexto.resumenEconomico.comprasRealesConfirmadas, 'compra confirmada', 'compras confirmadas')}; esos importes sustituyen al coste planificado.`
+                : 'Todavía no hay gasto pagado confirmado que sustituya importes planificados.',
               `Fiabilidad del cálculo: ${confianza}% (${precisionMes.partidasConfirmadas}/${precisionMes.partidasTotales} partidas exactas; las demás se ponderan según su precisión).`,
               hayCalculoIncompleto
                 ? 'Completa los importes pendientes y revisa los ingredientes excluidos antes de interpretar esa diferencia como ahorro.'

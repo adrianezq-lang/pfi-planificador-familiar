@@ -434,10 +434,13 @@ export default function CompraModern({
     const ahorro = registro.ahorrosRegistrados > 0
       ? ` ${registro.ahorrosRegistrados} importe${registro.ahorrosRegistrados === 1 ? '' : 's'} real${registro.ahorrosRegistrados === 1 ? '' : 'es'} registrado${registro.ahorrosRegistrados === 1 ? '' : 's'}.`
       : '';
+    const pendientesImporte = registro.importesPendientes > 0
+      ? ` ${registro.importesPendientes} importe${registro.importesPendientes === 1 ? '' : 's'} pagado${registro.importesPendientes === 1 ? '' : 's'} queda${registro.importesPendientes === 1 ? '' : 'n'} por confirmar; la previsión conserva el coste planificado.`
+      : '';
     setMensajeInventario(
       registro.lineasSinInventario > 0
-        ? `${base}${ahorro} ${registro.lineasSinInventario} queda pendiente de asociación.`
-        : `${base}${ahorro}`,
+        ? `${base}${ahorro}${pendientesImporte} ${registro.lineasSinInventario} queda pendiente de asociación.`
+        : `${base}${ahorro}${pendientesImporte}`,
     );
   };
 

@@ -6,6 +6,7 @@ import {
 } from './despensa.ts';
 import { registrarCompra } from './inventario.ts';
 import { registrarAhorroReal } from './ahorroReal.ts';
+import { registrarCompraReal } from './comprasReales.ts';
 
 export type PeriodoCompra = 'semana' | 'mes';
 
@@ -19,7 +20,26 @@ export type ResultadoRegistroCompra = {
   lineasRegistradas: number;
   lineasSinInventario: number;
   ahorrosRegistrados: number;
+  importesConfirmados: number;
+  importesPendientes: number;
 };
+
+function contextoReferencia(referencia: string): {
+  periodo: PeriodoCompra;
+  mes: string;
+  semana: number | null;
+} | null {
+  const coincidencia = /^(semana|mes):(\d{4}-\d{2})(?::(\d+))?/.exec(referencia);
+  if (!coincidencia) return null;
+  return {
+    periodo: coincidencia[1] as PeriodoCompra,
+    mes: coincidencia[2],
+    semana:
+      coincidencia[1] === 'semana' && coincidencia[3]
+        ? Number(coincidencia[3])
+        : null,
+  };
+}
 
 function normalizarClave(texto: string): string {
   return texto
@@ -108,6 +128,9 @@ export function registrarMarcadosEnInventario(
   );
   let lineasRegistradas = 0;
   let ahorrosRegistrados = 0;
+  let importesConfirmados = 0;
+  let importesPendientes = 0;
+  const contexto = contextoReferencia(referenciaRegistro);
 
   pendientes.forEach((linea) => {
     if (!linea.productoDespensa && linea.producto) {
@@ -126,6 +149,23 @@ export function registrarMarcadosEnInventario(
       cantidadInventario,
       detalleCompra,
     );
+    if (contexto) {
+      registrarCompraReal({
+        referencia: `${referenciaRegistro}|${linea.clave}`,
+        mes: contexto.mes,
+        periodo: contexto.periodo,
+        semana: contexto.semana,
+        productoId,
+        productoNombre: opcion?.productoNombre ?? linea.producto?.nombre ?? linea.ingrediente.nombre,
+        tiendaNombre: opcion?.tiendaNombre ?? linea.producto?.tiendaPrecio ?? null,
+        costePrevisto: linea.subtotal,
+        costePagado: opcion?.coste ?? null,
+        origen: 'lista-automatica',
+        observaciones,
+      });
+      if (opcion) importesConfirmados += 1;
+      else importesPendientes += 1;
+    }
     if (opcion) {
       registrarUltimaCompraDespensa(productoId, {
         tiendaId: opcion.tiendaId,
@@ -176,5 +216,7 @@ export function registrarMarcadosEnInventario(
     lineasRegistradas,
     lineasSinInventario,
     ahorrosRegistrados,
+    importesConfirmados,
+    importesPendientes,
   };
 }

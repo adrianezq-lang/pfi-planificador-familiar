@@ -51,13 +51,16 @@ const programacionComensales =
 const { generarListaCompra } = await vite.ssrLoadModule('/src/services/listaCompra.ts');
 const inventario = await vite.ssrLoadModule('/src/services/inventario.ts');
 const ahorro = await vite.ssrLoadModule('/src/services/ahorroReal.ts');
+const comprasReales = await vite.ssrLoadModule('/src/services/comprasReales.ts');
+const stockApertura = await vite.ssrLoadModule('/src/services/stockAperturaMes.ts');
 const consumoMenu = await vite.ssrLoadModule('/src/services/consumoMenu.ts');
 const { buscarEnCatalogoMercadona } = await vite.ssrLoadModule('/src/services/catalogoMercadona.ts');
 const {
   crearProductoDespensaDesdeCatalogo,
   actualizarStockProductoDespensa,
 } = await vite.ssrLoadModule('/src/services/despensa.ts');
-const { calcularConfianzaPresupuesto } = await vite.ssrLoadModule('/src/services/resumenEconomico.ts');
+const { calcularConfianzaPresupuesto, calcularResumenEconomicoMensual } =
+  await vite.ssrLoadModule('/src/services/resumenEconomico.ts');
 const { preverAgotamientosAntesFinMes } =
   await vite.ssrLoadModule('/src/services/planificacionCompra.ts');
 const { registrarMarcadosEnInventario } = await vite.ssrLoadModule('/src/services/registroCompra.ts');
@@ -221,6 +224,11 @@ const [productoArroz] = await buscarEnCatalogoMercadona('Arroz redondo Hacendado
 assert.equal(productoArroz.productoId, '5044');
 crearProductoDespensaDesdeCatalogo(productoArroz);
 inventario.registrarCompra('5044', 2, 'Stock para consumo de menú');
+const aperturaSeptiembre = stockApertura.obtenerDespensaAperturaMes('2026-09');
+assert.equal(
+  aperturaSeptiembre.find((producto) => producto.productoId === '5044')?.stockActual,
+  2,
+);
 const servicio = await consumoMenu.registrarServicioConsumido(
   '2026-09-21',
   'comida',
@@ -295,10 +303,74 @@ const registroCompra = registrarMarcadosEnInventario(
     },
     ahorroFrenteMercadona: 0.15,
   }],
-  'semana:2026-09:4-integracion',
+  'semana:2026-09:1-integracion',
 );
 assert.equal(registroCompra.ahorrosRegistrados, 1);
+assert.equal(registroCompra.importesConfirmados, 1);
+assert.equal(registroCompra.importesPendientes, 0);
 assert.equal(ahorro.resumirAhorroRealMes('2026-09').comprasComparadas, 2);
+const resumenCompras = comprasReales.resumirComprasRealesMes('2026-09');
+assert.equal(resumenCompras.comprasRegistradas, 1);
+assert.equal(resumenCompras.importesConfirmados, 1);
+assert.equal(resumenCompras.costePagado, 1);
+assert.equal(
+  stockApertura
+    .obtenerDespensaAperturaMes('2026-09')
+    .find((producto) => producto.productoId === '5044')?.stockActual,
+  2,
+);
+
+const compraBase = {
+  lineas: [linea],
+  lineasSemanales: [linea],
+  lineasDespensa: [],
+  total: linea.subtotal,
+  totalSemanal: linea.subtotal,
+  totalDespensa: 0,
+  productosSinSeleccionar: [],
+  productosSinPrecio: [],
+  productosEstimados: [],
+  productosPesoVariable: [],
+  productosConversionEstimada: [],
+  productosFormatoPendiente: [],
+};
+const presupuestoConCompraReal = calcularResumenEconomicoMensual({
+  compraMes: null,
+  comprasSemanas: [compraBase],
+  productosManuales: [],
+  mesActivo: '2026-09',
+  semanaActiva: 0,
+  comprasReales: resumenCompras,
+});
+assert.equal(presupuestoConCompraReal.previsionMes, 1);
+assert.equal(presupuestoConCompraReal.gastoRealConfirmado, 1);
+assert.equal(presupuestoConCompraReal.comprasRealesSinImporte, 0);
+
+comprasReales.registrarCompraReal({
+  referencia: 'semana:2026-09:1|importe-pendiente',
+  mes: '2026-09',
+  periodo: 'semana',
+  semana: 1,
+  productoId: 'pendiente',
+  productoNombre: 'Compra sin ticket',
+  tiendaNombre: null,
+  costePrevisto: 2,
+  costePagado: null,
+  origen: 'lista-automatica',
+  observaciones: 'Conservar la referencia hasta confirmar el pago',
+});
+const resumenPendiente = comprasReales.resumirComprasRealesMes('2026-09');
+assert.equal(resumenPendiente.importesPendientes, 1);
+const presupuestoPendiente = calcularResumenEconomicoMensual({
+  compraMes: null,
+  comprasSemanas: [compraBase],
+  productosManuales: [],
+  mesActivo: '2026-09',
+  semanaActiva: 0,
+  comprasReales: resumenPendiente,
+});
+assert.equal(presupuestoPendiente.previsionMes, 1);
+assert.equal(presupuestoPendiente.prevision.importesRealesPendientes, 1);
 
 const perfilProgramacion = {
   ...perfil,
@@ -371,3 +443,4 @@ console.log('✓ ahorro real es idempotente, mensual y trazable');
 console.log('✓ consumo del menú descuenta stock una vez y puede deshacerse');
 console.log('✓ PFI avisa si el stock físico actual no alcanza hasta fin de mes');
 console.log('✓ compra comparada confirmada registra ahorro sin usar proyecciones');
+console.log('✓ el gasto pagado sustituye al previsto sin desaparecer al entrar en stock');

@@ -29,8 +29,15 @@ import {
   cargarAhorroReal,
   eliminarRegistroAhorroReal,
   EVENTO_AHORRO_REAL,
+  registrarAhorroReal,
   type RegistroAhorroReal,
 } from '../services/ahorroReal';
+import {
+  cargarComprasReales,
+  confirmarImporteCompraReal,
+  EVENTO_COMPRAS_REALES,
+  type RegistroCompraReal,
+} from '../services/comprasReales';
 
 type VistaDespensa = 'inventario' | 'reposicion' | 'historial';
 type FiltroInventario = 'todos' | 'reposicion' | 'menu-manual';
@@ -42,6 +49,7 @@ function Despensa() {
   const [productos, setProductos] = useState<ProductoDespensa[]>([]);
   const [movimientos, setMovimientos] = useState<MovimientoInventario[]>([]);
   const [ahorros, setAhorros] = useState<RegistroAhorroReal[]>([]);
+  const [comprasReales, setComprasReales] = useState<RegistroCompraReal[]>([]);
   const [productoAbierto, setProductoAbierto] = useState<string | null>(null);
   const [mensaje, setMensaje] = useState('');
   const [consulta, setConsulta] = useState('');
@@ -51,6 +59,7 @@ function Despensa() {
     setProductos(cargarDespensa());
     setMovimientos(cargarMovimientos());
     setAhorros(cargarAhorroReal());
+    setComprasReales(cargarComprasReales());
   }, []);
 
   useEffect(() => {
@@ -58,11 +67,13 @@ function Despensa() {
     window.addEventListener(EVENTO_DESPENSA, recargar);
     window.addEventListener(EVENTO_INVENTARIO, recargar);
     window.addEventListener(EVENTO_AHORRO_REAL, recargar);
+    window.addEventListener(EVENTO_COMPRAS_REALES, recargar);
 
     return () => {
       window.removeEventListener(EVENTO_DESPENSA, recargar);
       window.removeEventListener(EVENTO_INVENTARIO, recargar);
       window.removeEventListener(EVENTO_AHORRO_REAL, recargar);
+      window.removeEventListener(EVENTO_COMPRAS_REALES, recargar);
     };
   }, [recargar]);
 
@@ -548,6 +559,75 @@ function Despensa() {
           {movimientos.length === 0 && (
             <p className="pantry-empty">Todavía no hay movimientos.</p>
           )}
+
+          <section className="pantry-savings-history" aria-label="Compras contabilizadas">
+            <Title style={{ color: '#4f6f52', fontSize: '18px' }}>
+              Compras contabilizadas
+            </Title>
+            <p>
+              El importe pagado sustituye al planificado en el presupuesto. Si no se confirmó el precio, PFI conserva la referencia y lo señala como pendiente.
+            </p>
+            {comprasReales.slice(0, 100).map((registro) => (
+              <div key={registro.id} className="pantry-saving-row">
+                <span>
+                  <strong>{registro.productoNombre}</strong>
+                  <small>
+                    {registro.costePagado === null
+                      ? `Importe real pendiente · referencia ${registro.costePrevisto?.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) ?? 'sin valorar'}`
+                      : `Pagado ${registro.costePagado.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })} · previsto ${registro.costePrevisto?.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) ?? 'sin valorar'}`}
+                  </small>
+                  <small>
+                    {registro.periodo === 'semana' ? `Semana ${registro.semana}` : 'Compra mensual'} · {new Date(registro.fecha).toLocaleString('es-ES')} · {registro.observaciones}
+                  </small>
+                </span>
+                <strong className={registro.costePagado === null ? 'is-overcost' : 'is-saving'}>
+                  {registro.costePagado === null ? 'Pendiente' : 'Incluido'}
+                </strong>
+                {registro.costePagado === null && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const entrada = window.prompt(
+                        `Importe realmente pagado por «${registro.productoNombre}»`,
+                        registro.costePrevisto === null
+                          ? ''
+                          : String(registro.costePrevisto).replace('.', ','),
+                      );
+                      if (entrada === null) return;
+                      const pagado = Number(entrada.trim().replace(',', '.'));
+                      if (!Number.isFinite(pagado) || pagado < 0) {
+                        setMensaje('Indica un importe válido igual o mayor que 0.');
+                        return;
+                      }
+                      crearCopiaAutomaticaSiNecesaria('antes de confirmar un importe real');
+                      setComprasReales(
+                        confirmarImporteCompraReal(registro.referencia, pagado),
+                      );
+                      if (registro.costePrevisto !== null) {
+                        setAhorros(registrarAhorroReal({
+                          referencia: registro.referencia,
+                          productoId: registro.productoId,
+                          productoNombre: registro.productoNombre,
+                          tiendaId: `manual:${(registro.tiendaNombre ?? 'sin-tienda').toLocaleLowerCase('es').replace(/[^a-z0-9]+/g, '-')}`,
+                          tiendaNombre: registro.tiendaNombre ?? 'Tienda no indicada',
+                          costeReferencia: registro.costePrevisto,
+                          costePagado: pagado,
+                          origenImporte: 'precio-registrado',
+                          observaciones: registro.observaciones,
+                        }));
+                      }
+                      setMensaje('Importe real confirmado e incluido en el presupuesto.');
+                    }}
+                  >
+                    Registrar importe
+                  </button>
+                )}
+              </div>
+            ))}
+            {comprasReales.length === 0 && (
+              <p className="pantry-empty">Todavía no hay compras guardadas desde la lista.</p>
+            )}
+          </section>
 
           <section className="pantry-savings-history" aria-label="Ahorro real confirmado">
             <Title style={{ color: '#4f6f52', fontSize: '18px' }}>

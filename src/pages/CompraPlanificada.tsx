@@ -264,6 +264,8 @@ export default function CompraPlanificada({
       marcados,
       registrados,
       observaciones,
+      [],
+      `${periodo}:${mesActivo}:${semanaActiva + 1}`,
     );
     setRegistrados(registro.clavesRegistradas);
     guardarClavesCompra(clavesEstado.registrados, registro.clavesRegistradas);
@@ -280,8 +282,8 @@ export default function CompraPlanificada({
       : `${totalRegistrados} productos añadidos a la despensa.`;
     setMensajeInventario(
       registro.lineasSinInventario > 0
-        ? `${mensajeBase} ${registro.lineasSinInventario} no se ha podido guardar porque todavía no tiene un producto asociado.`
-        : mensajeBase,
+        ? `${mensajeBase} ${registro.importesPendientes} importe${registro.importesPendientes === 1 ? '' : 's'} real${registro.importesPendientes === 1 ? '' : 'es'} queda${registro.importesPendientes === 1 ? '' : 'n'} por confirmar. ${registro.lineasSinInventario} no se ha podido guardar porque todavía no tiene un producto asociado.`
+        : `${mensajeBase}${registro.importesPendientes > 0 ? ` ${registro.importesPendientes} importe${registro.importesPendientes === 1 ? '' : 's'} real${registro.importesPendientes === 1 ? '' : 'es'} queda${registro.importesPendientes === 1 ? '' : 'n'} por confirmar; la previsión conserva el coste planificado.` : ''}`,
     );
   };
 

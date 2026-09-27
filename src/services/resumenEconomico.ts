@@ -3,6 +3,10 @@ import {
   crearPeriodoIdCompraManual,
   type ProductoManualCompra,
 } from './productosManualesCompra';
+import type {
+  RegistroCompraReal,
+  ResumenComprasReales,
+} from './comprasReales.ts';
 
 export type DesgloseEconomico = {
   subtotalConocido: number;
@@ -11,6 +15,7 @@ export type DesgloseEconomico = {
   partidasTotales: number;
   partidasConfirmadas: number;
   partidasSinImporte: number;
+  importesRealesPendientes: number;
   cantidadesEstimadas: number;
   partidasPesoVariable: number;
   partidasConversionEstimada: number;
@@ -32,6 +37,12 @@ export type ResumenEconomicoMensual = {
   semana: DesgloseEconomico;
   compraMensual: DesgloseEconomico;
   prevision: DesgloseEconomico;
+  comprasRealesRegistradas: number;
+  comprasRealesConfirmadas: number;
+  comprasRealesSinImporte: number;
+  gastoRealConfirmado: number;
+  costePrevistoSustituido: number;
+  ajusteComprasReales: number;
 };
 
 function vacio(): DesgloseEconomico {
@@ -42,6 +53,7 @@ function vacio(): DesgloseEconomico {
     partidasTotales: 0,
     partidasConfirmadas: 0,
     partidasSinImporte: 0,
+    importesRealesPendientes: 0,
     cantidadesEstimadas: 0,
     partidasPesoVariable: 0,
     partidasConversionEstimada: 0,
@@ -80,6 +92,8 @@ function sumarDesgloses(
         total.partidasConfirmadas + desglose.partidasConfirmadas,
       partidasSinImporte:
         total.partidasSinImporte + desglose.partidasSinImporte,
+      importesRealesPendientes:
+        total.importesRealesPendientes + desglose.importesRealesPendientes,
       cantidadesEstimadas:
         total.cantidadesEstimadas + desglose.cantidadesEstimadas,
       partidasPesoVariable:
@@ -141,6 +155,7 @@ function desgloseCompra(
     partidasConfirmadas: lineasConfirmadas.length,
     partidasSinImporte:
       compra.productosSinSeleccionar.length + compra.productosSinPrecio.length,
+    importesRealesPendientes: 0,
     cantidadesEstimadas: compra.productosEstimados.length,
     partidasPesoVariable: lineasConImporte.filter(
       (linea) => linea.precisionCantidad === 'peso-variable',
@@ -179,6 +194,7 @@ function desgloseManuales(
     partidasSinImporte: productos.filter(
       (producto) => producto.precioTotal === null,
     ).length,
+    importesRealesPendientes: 0,
     cantidadesEstimadas: 0,
     partidasPesoVariable: 0,
     partidasConversionEstimada: 0,
@@ -206,15 +222,42 @@ export function contarCausasImportePendiente(
   );
 }
 
+function ajusteRegistros(registros: readonly RegistroCompraReal[]): number {
+  return registros.reduce(
+    (total, registro) =>
+      registro.costePagado === null
+        ? total
+        : total + registro.costePagado - (registro.costePrevisto ?? 0),
+    0,
+  );
+}
+
+function aplicarComprasReales(
+  desglose: DesgloseEconomico,
+  registros: readonly RegistroCompraReal[],
+): DesgloseEconomico {
+  const ajuste = ajusteRegistros(registros);
+  return {
+    ...desglose,
+    subtotalConocido: desglose.subtotalConocido + ajuste,
+    subtotalConfirmado: Math.max(0, desglose.subtotalConfirmado + ajuste),
+    importesRealesPendientes: registros.filter(
+      (registro) => registro.costePagado === null,
+    ).length,
+  };
+}
+
 export function calcularConfianzaPresupuesto(
   desglose: DesgloseEconomico,
 ): number {
   if (desglose.partidasTotales <= 0) return 100;
-  const puntos =
+  const puntos = Math.max(0,
     desglose.partidasConfirmadas +
     desglose.partidasPesoVariable * 0.85 +
     desglose.partidasConversionEstimada * 0.65 +
-    desglose.partidasFormatoPendiente * 0.35;
+    desglose.partidasFormatoPendiente * 0.35 -
+    (desglose.importesRealesPendientes ?? 0),
+  );
   return Math.max(
     0,
     Math.min(100, Math.round((puntos / desglose.partidasTotales) * 100)),
@@ -234,12 +277,14 @@ export function calcularResumenEconomicoMensual({
   productosManuales,
   mesActivo,
   semanaActiva,
+  comprasReales,
 }: {
   compraMes: ResultadoCompra | null | undefined;
   comprasSemanas: readonly ResultadoCompra[];
   productosManuales: readonly ProductoManualCompra[];
   mesActivo: string;
   semanaActiva: number;
+  comprasReales?: ResumenComprasReales;
 }): ResumenEconomicoMensual {
   const indiceSeguro = comprasSemanas.length === 0
     ? 0
@@ -249,17 +294,27 @@ export function calcularResumenEconomicoMensual({
       producto.periodoId ===
       crearPeriodoIdCompraManual('mes', mesActivo, indiceSeguro),
   );
+  const registrosReales = comprasReales?.registros ?? [];
   const desglosesSemanas = comprasSemanas.map((compra, indice) => {
     const periodo = crearPeriodoIdCompraManual('semana', mesActivo, indice);
     const manuales = productosManuales.filter(
       (producto) => producto.periodoId === periodo,
     );
-    return sumarDesgloses([desgloseCompra(compra), desgloseManuales(manuales)]);
+    const registrosSemana = registrosReales.filter(
+      (registro) => registro.periodo === 'semana' && registro.semana === indice + 1,
+    );
+    return aplicarComprasReales(
+      sumarDesgloses([desgloseCompra(compra), desgloseManuales(manuales)]),
+      registrosSemana,
+    );
   });
-  const compraMensual = sumarDesgloses([
-    desgloseCompra(compraMes),
-    desgloseManuales(manualesMes),
-  ]);
+  const compraMensual = aplicarComprasReales(
+    sumarDesgloses([
+      desgloseCompra(compraMes),
+      desgloseManuales(manualesMes),
+    ]),
+    registrosReales.filter((registro) => registro.periodo === 'mes'),
+  );
   const semana = desglosesSemanas[indiceSeguro] ?? vacio();
   const prevision = sumarDesgloses([compraMensual, ...desglosesSemanas]);
   const acumulado = sumarDesgloses([
@@ -276,5 +331,11 @@ export function calcularResumenEconomicoMensual({
     semana,
     compraMensual,
     prevision,
+    comprasRealesRegistradas: comprasReales?.comprasRegistradas ?? 0,
+    comprasRealesConfirmadas: comprasReales?.importesConfirmados ?? 0,
+    comprasRealesSinImporte: comprasReales?.importesPendientes ?? 0,
+    gastoRealConfirmado: comprasReales?.costePagado ?? 0,
+    costePrevistoSustituido: comprasReales?.costePrevistoSustituido ?? 0,
+    ajusteComprasReales: comprasReales?.ajustePrevision ?? 0,
   };
 }
