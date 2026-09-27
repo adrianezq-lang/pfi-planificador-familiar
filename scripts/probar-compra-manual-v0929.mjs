@@ -31,6 +31,7 @@ const compraManual = await import('../src/services/productosManualesCompra.ts');
 const despensa = await import('../src/services/despensa.ts');
 const inventario = await import('../src/services/inventario.ts');
 const copias = await import('../src/services/copiasSeguridad.ts');
+const comprasReales = await import('../src/services/comprasReales.ts');
 
 const semana = compraManual.crearPeriodoIdCompraManual('semana', '2026-09', 1);
 const mes = compraManual.crearPeriodoIdCompraManual('mes', '2026-09', 1);
@@ -76,6 +77,7 @@ const primerRegistro = compraManual.registrarProductosManualesEnDespensa(
 );
 assert.equal(primerRegistro.registrados, 1);
 assert.equal(primerRegistro.productos[0].guardadoEnDespensa, true);
+assert.equal(comprasReales.resumirComprasRealesMes('2026-09').costePagado, 5.8);
 
 const productoDespensa = despensa
   .cargarDespensa()
@@ -108,6 +110,7 @@ const registroSinPrecio = compraManual.registrarProductosManualesEnDespensa(
   'Compra sin precio inicial',
 );
 assert.equal(registroSinPrecio.registrados, 1);
+assert.equal(comprasReales.resumirComprasRealesMes('2026-09').importesPendientes, 1);
 productos = compraManual.actualizarPrecioProductoManualCompra(panManual.id, 3.6);
 assert.equal(productos.find((producto) => producto.id === panManual.id)?.precioTotal, 3.6);
 const panDespensa = despensa
@@ -115,6 +118,8 @@ const panDespensa = despensa
   .find((producto) => producto.nombre === 'Pan de barrio');
 assert.equal(panDespensa?.precio, 1.8);
 assert.equal(panDespensa?.ultimoPrecioCompra, 1.8);
+assert.equal(comprasReales.resumirComprasRealesMes('2026-09').importesPendientes, 0);
+assert.equal(comprasReales.resumirComprasRealesMes('2026-09').costePagado, 9.4);
 
 const datos = copias.recopilarDatosPFI();
 assert.ok(datos['pfi-compra-manual-v1']);

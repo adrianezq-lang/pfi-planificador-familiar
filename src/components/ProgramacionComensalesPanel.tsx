@@ -55,13 +55,7 @@ export default function ProgramacionComensalesPanel({ perfil }: Props) {
   useEffect(() => {
     setCambios(cargarProgramacionComensales(perfil));
     setPlan(clonarPlanComensales(perfil.comensales));
-  }, [
-    perfil.adultos,
-    perfil.ninos,
-    perfil.bebes,
-    perfil.bebesComenMenu,
-    perfil.comensales,
-  ]);
+  }, [perfil]);
 
   const totalProgramados = useMemo(() => cambios.length, [cambios]);
 

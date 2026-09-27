@@ -311,9 +311,10 @@ function crearLineaMensualDespensa(
 
 export function aplicarNecesidadesMensuales(
   lineasBase: LineaCompra[],
+  despensa: readonly ProductoDespensa[] = cargarDespensa(),
 ): LineaCompra[] {
   const lineas = [...lineasBase];
-  const despensaMensual = cargarDespensa().filter(
+  const despensaMensual = despensa.filter(
     (producto) =>
       producto.tipo === 'despensa' &&
       producto.frecuencia === 'mensual',
@@ -370,8 +371,9 @@ export function aplicarNecesidadesMensuales(
 
 export async function generarCompraMensual(
   menuMes: DiaMenu[],
+  opciones: { despensa?: readonly ProductoDespensa[] } = {},
 ): Promise<ResultadoCompra> {
-  const resultado = await generarCompraMercadona(menuMes);
+  const resultado = await generarCompraMercadona(menuMes, opciones);
   const lineasCorregidas = resultado.lineas.map(ajustarFormatoComercialEspecial);
   const lineasNoFrescas = lineasCorregidas.filter(
     (linea) => !esProductoSemanal(linea),
@@ -380,7 +382,7 @@ export async function generarCompraMensual(
   return rehacerResultado(
     resultado,
     explicarLineasMensuales(
-      aplicarNecesidadesMensuales(lineasNoFrescas),
+      aplicarNecesidadesMensuales(lineasNoFrescas, opciones.despensa),
     ),
     [],
     (resultado.ingredientesNoDisponibles ?? []).filter(
@@ -479,6 +481,7 @@ export async function preverAgotamientosAntesFinMes(
 export async function generarCompraSemanalProyectada(
   menusSemanas: DiaMenu[][],
   semanaActiva: number,
+  opciones: { despensa?: readonly ProductoDespensa[] } = {},
 ): Promise<ResultadoCompra> {
   const resultados = await Promise.all(
     menusSemanas
@@ -487,15 +490,20 @@ export async function generarCompraSemanalProyectada(
         generarCompraMercadona(menu, {
           aplicarStock: false,
           incluirReposicion: false,
+          despensa: opciones.despensa,
         }),
       ),
   );
   const base = resultados[semanaActiva] ?? (await generarCompraMercadona([], {
     aplicarStock: false,
     incluirReposicion: false,
+    despensa: opciones.despensa,
   }));
   const stockInicial = new Map(
-    cargarDespensa().map((producto) => [producto.productoId, producto.stockActual]),
+    (opciones.despensa ?? cargarDespensa()).map((producto) => [
+      producto.productoId,
+      producto.stockActual,
+    ]),
   );
   const comprasActivas: LineaCompra[] = [];
   const cubiertasActivas: LineaCompra[] = [];

@@ -46,6 +46,11 @@ import {
   EVENTO_AHORRO_REAL,
   resumirAhorroRealMes,
 } from '../services/ahorroReal';
+import {
+  EVENTO_COMPRAS_REALES,
+  resumirComprasRealesMes,
+} from '../services/comprasReales';
+import { obtenerDespensaAperturaMes } from '../services/stockAperturaMes';
 
 type DestinoInicio = 'menu' | 'asistente' | 'compra' | 'despensa';
 
@@ -90,10 +95,13 @@ function Home({
     setDespensa(cargarDespensa());
 
     try {
+      const despensaApertura = obtenerDespensaAperturaMes(mesActivo);
       const [mensual, ...semanales] = await Promise.all([
-        generarCompraMensual(menuMes),
+        generarCompraMensual(menuMes, { despensa: despensaApertura }),
         ...menusSemanas.map((_, indice) =>
-          generarCompraSemanalProyectada(menusSemanas, indice),
+          generarCompraSemanalProyectada(menusSemanas, indice, {
+            despensa: despensaApertura,
+          }),
         ),
       ]);
       if (solicitud !== solicitudPresupuesto.current) return;
@@ -104,6 +112,7 @@ function Home({
           productosManuales: cargarProductosManualesCompra(),
           mesActivo,
           semanaActiva,
+          comprasReales: resumirComprasRealesMes(mesActivo),
         }),
       );
     } catch {
@@ -147,6 +156,7 @@ function Home({
     window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
     window.addEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, actualizar);
     window.addEventListener(EVENTO_AHORRO_REAL, actualizar);
+    window.addEventListener(EVENTO_COMPRAS_REALES, actualizar);
     window.addEventListener(EVENTO_PERFIL, actualizarPerfil);
     return () => {
       window.removeEventListener(EVENTO_DESPENSA, actualizar);
@@ -156,6 +166,7 @@ function Home({
       window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, actualizar);
       window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, actualizar);
       window.removeEventListener(EVENTO_AHORRO_REAL, actualizar);
+      window.removeEventListener(EVENTO_COMPRAS_REALES, actualizar);
       window.removeEventListener(EVENTO_PERFIL, actualizarPerfil);
     };
   }, []);
@@ -197,34 +208,54 @@ function Home({
   const detallePresupuesto = useMemo(() => {
     if (!presupuesto) return '';
     const pendientes = presupuesto.prevision.partidasSinImporte;
+    const importesRealesPendientes = presupuesto.comprasRealesSinImporte;
     const excluidas = presupuesto.prevision.partidasExcluidasDisponibilidad;
     const estimadas = presupuesto.prevision.cantidadesEstimadas;
     const precision = detallePrecision(presupuesto.prevision);
-    if (limiteMensual <= 0 || presupuesto.previsionMes <= 0) return precision;
+    const trazabilidad = [
+      presupuesto.comprasRealesConfirmadas > 0
+        ? `${presupuesto.comprasRealesConfirmadas} importe${presupuesto.comprasRealesConfirmadas === 1 ? '' : 's'} real${presupuesto.comprasRealesConfirmadas === 1 ? '' : 'es'} incluido${presupuesto.comprasRealesConfirmadas === 1 ? '' : 's'}: ${presupuesto.gastoRealConfirmado.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })} pagados`
+        : '',
+      importesRealesPendientes > 0
+        ? `${importesRealesPendientes} compra${importesRealesPendientes === 1 ? '' : 's'} hecha${importesRealesPendientes === 1 ? '' : 's'} con importe real pendiente; se conserva la referencia planificada`
+        : '',
+    ].filter(Boolean).join(' · ');
+    const completar = (texto: string) =>
+      [texto, trazabilidad].filter(Boolean).join(' · ');
+    if (limiteMensual <= 0 || presupuesto.previsionMes <= 0) {
+      return completar(precision);
+    }
     const diferencia = limiteMensual - presupuesto.previsionMes;
     const importe = Math.abs(diferencia).toLocaleString('es-ES', {
       style: 'currency',
       currency: 'EUR',
     });
-    if (pendientes > 0 || excluidas > 0) {
+    if (pendientes > 0 || excluidas > 0 || importesRealesPendientes > 0) {
       const causas = detalleCausasPendientes(presupuesto.prevision);
-      if (excluidas === 0) {
-        return diferencia >= 0
-          ? `Margen máximo ${importe} · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`
-          : `Al menos ${importe} por encima · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`;
+      if (importesRealesPendientes > 0 && pendientes === 0 && excluidas === 0) {
+        return completar(
+          diferencia >= 0
+            ? `Margen provisional ${importe}`
+            : `${importe} por encima (provisional)`,
+        );
       }
-      return diferencia >= 0
+      if (excluidas === 0) {
+        return completar(diferencia >= 0
+          ? `Margen máximo ${importe} · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`
+          : `Al menos ${importe} por encima · faltan ${pendientes} partida${pendientes === 1 ? '' : 's'}${causas ? ` · ${causas}` : ''}`);
+      }
+      return completar(diferencia >= 0
         ? `Diferencia máxima ${importe}${causas ? ` · ${causas}` : ''} · no es ahorro real`
-        : `Al menos ${importe} por encima${causas ? ` · ${causas}` : ''}`;
+        : `Al menos ${importe} por encima${causas ? ` · ${causas}` : ''}`);
     }
     if (estimadas > 0) {
-      return diferencia >= 0
+      return completar(diferencia >= 0
         ? `Margen estimado ${importe} · ${estimadas} cantidad${estimadas === 1 ? '' : 'es'} estimada${estimadas === 1 ? '' : 's'}`
-        : `${importe} por encima (estimado) · ${estimadas} cantidad${estimadas === 1 ? '' : 'es'} por confirmar`;
+        : `${importe} por encima (estimado) · ${estimadas} cantidad${estimadas === 1 ? '' : 'es'} por confirmar`);
     }
-    return diferencia >= 0
+    return completar(diferencia >= 0
       ? `Te quedan ${importe} de tu objetivo mensual`
-      : `${importe} por encima de tu objetivo mensual`;
+      : `${importe} por encima de tu objetivo mensual`);
   }, [limiteMensual, presupuesto]);
 
   return (
@@ -377,6 +408,11 @@ function detallePrecision(desglose: DesgloseEconomico): string {
     );
     const causas = detalleCausasPendientes(desglose, false);
     if (causas) partes.push(causas);
+  }
+  if (desglose.importesRealesPendientes > 0) {
+    partes.push(
+      `${desglose.importesRealesPendientes} importe${desglose.importesRealesPendientes === 1 ? '' : 's'} real${desglose.importesRealesPendientes === 1 ? '' : 'es'} pendiente${desglose.importesRealesPendientes === 1 ? '' : 's'}`,
+    );
   }
   if (desglose.partidasPesoVariable > 0) {
     partes.push(

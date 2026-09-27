@@ -6,6 +6,10 @@ import {
 } from './despensa.ts';
 import { registrarCompra } from './inventario.ts';
 import type { PeriodoCompra } from './registroCompra.ts';
+import {
+  confirmarImporteCompraReal,
+  registrarCompraReal,
+} from './comprasReales.ts';
 
 export type UnidadProductoManual =
   | 'ud'
@@ -224,6 +228,13 @@ export function actualizarPrecioProductoManualCompra(
         ultimaCompraEn: new Date().toISOString(),
       });
     }
+    if (actualizado.precioTotal !== null) {
+      confirmarImporteCompraReal(
+        `manual:${actualizado.periodoId}|${actualizado.id}`,
+        actualizado.precioTotal,
+        actualizado.precioTotal,
+      );
+    }
   }
 
   return guardados;
@@ -309,6 +320,25 @@ export function registrarProductosManualesEnDespensa(
       producto.cantidad,
       `${observaciones} · ${producto.tienda}`,
     );
+    const coincidencia = /^(\d{4}-\d{2})-(semana-(\d+)|mes)$/.exec(
+      producto.periodoId,
+    );
+    if (coincidencia) {
+      const periodo = coincidencia[2] === 'mes' ? 'mes' : 'semana';
+      registrarCompraReal({
+        referencia: `manual:${producto.periodoId}|${producto.id}`,
+        mes: coincidencia[1],
+        periodo,
+        semana: periodo === 'semana' ? Number(coincidencia[3]) : null,
+        productoId: datos.productoId,
+        productoNombre: producto.nombre,
+        tiendaNombre: producto.tienda,
+        costePrevisto: producto.precioTotal,
+        costePagado: producto.precioTotal,
+        origen: 'lista-manual',
+        observaciones,
+      });
+    }
   });
 
   const idsRegistrados = new Set(pendientes.map((producto) => producto.id));

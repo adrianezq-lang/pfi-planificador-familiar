@@ -94,6 +94,7 @@ type LineaMenuTemporal = {
 export type OpcionesCompra = {
   aplicarStock?: boolean;
   incluirReposicion?: boolean;
+  despensa?: readonly ProductoDespensa[];
 };
 
 function crearClave(
@@ -823,7 +824,7 @@ export async function generarCompraMercadona(
   const ingredientes = ingredientesGenerados.filter(
     (ingrediente) => !clavesNoDisponibles.has(normalizarTexto(ingrediente.nombre)),
   );
-  const despensa = cargarDespensa();
+  const despensa = opciones.despensa ?? cargarDespensa();
   const despensaPorProducto = new Map(
     despensa.map((producto) => [producto.productoId, producto]),
   );

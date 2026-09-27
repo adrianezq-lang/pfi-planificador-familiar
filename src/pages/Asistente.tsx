@@ -64,6 +64,11 @@ import {
   EVENTO_AHORRO_REAL,
   resumirAhorroRealMes,
 } from '../services/ahorroReal';
+import {
+  EVENTO_COMPRAS_REALES,
+  resumirComprasRealesMes,
+} from '../services/comprasReales';
+import { obtenerDespensaAperturaMes } from '../services/stockAperturaMes';
 
 type Props = {
   menu: DiaMenu[];
@@ -380,6 +385,7 @@ export default function Asistente({
     window.addEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcularCompra);
     window.addEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcularCompra);
     window.addEventListener(EVENTO_AHORRO_REAL, recalcularCompra);
+    window.addEventListener(EVENTO_COMPRAS_REALES, recalcularCompra);
 
     return () => {
       window.removeEventListener(EVENTO_DESPENSA, actualizarDespensa);
@@ -390,6 +396,7 @@ export default function Asistente({
       window.removeEventListener(EVENTO_DISPONIBILIDAD_INGREDIENTES, recalcularCompra);
       window.removeEventListener(EVENTO_PRECIOS_MANUALES_INGREDIENTES, recalcularCompra);
       window.removeEventListener(EVENTO_AHORRO_REAL, recalcularCompra);
+      window.removeEventListener(EVENTO_COMPRAS_REALES, recalcularCompra);
     };
   }, []);
 
@@ -408,13 +415,16 @@ export default function Asistente({
 
   useEffect(() => {
     let activo = true;
+    const despensaApertura = obtenerDespensaAperturaMes(mesActivo);
 
     Promise.all([
       generarCompraSemanalProyectada(menusSemanas, semanaActiva),
-      generarCompraMensual(menuMes),
+      generarCompraMensual(menuMes, { despensa: despensaApertura }),
       Promise.all(
         menusSemanas.map((_, indice) =>
-          generarCompraSemanalProyectada(menusSemanas, indice),
+          generarCompraSemanalProyectada(menusSemanas, indice, {
+            despensa: despensaApertura,
+          }),
         ),
       ),
     ])
@@ -436,7 +446,7 @@ export default function Asistente({
     return () => {
       activo = false;
     };
-  }, [menuMes, menusSemanas, semanaActiva, revisionAcciones]);
+  }, [menuMes, menusSemanas, mesActivo, semanaActiva, revisionAcciones]);
 
   useEffect(() => {
     // Los eventos de precios, asociaciones y disponibilidad deben refrescar
@@ -621,6 +631,7 @@ export default function Asistente({
       productosManuales: cargarProductosManualesCompra(),
       mesActivo,
       semanaActiva,
+      comprasReales: resumirComprasRealesMes(mesActivo),
     });
   }, [compraMes, comprasSemanas, mesActivo, revisionAcciones, semanaActiva]);
   const ahorroReal = useMemo(() => {
