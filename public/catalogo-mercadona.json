@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-09-26T09:53:21.510Z",
+  "actualizado": "2026-09-27T10:34:41.609Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4283,
+  "totalProductos": 4281,
   "productos": [
     {
       "productoId": "40339",
@@ -9456,7 +9456,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Papel y bolsas de conservación",
-      "imagen": "https://prod-mercadona.imgix.net/images/951f4b2bfca3deebd7957ee3fe81bea7.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/951f4b2bfca3deebd7957ee3fe81bea7.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14456/bolsas-congelacion-grandes-bosque-verde-30-x-45-cm-caja",
       "disponible": true
     },
@@ -19141,22 +19141,6 @@
       "disponible": true
     },
     {
-      "productoId": "17801",
-      "nombre": "Colorete cremoso Blush mate Caramel Kiss Deliplus marrón chocolate",
-      "precio": 5,
-      "precioReferencia": 5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.0045,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Colorete",
-      "imagen": "https://prod-mercadona.imgix.net/images/0dfeeaadde299175696eb41904d24e03.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17801/colorete-compacto-blush-mate-caramel-kiss-deliplus-marron-chocolate",
-      "disponible": true
-    },
-    {
       "productoId": "8317",
       "nombre": "Colorete fluido Blush luminoso Deliplus 01",
       "precio": 4.75,
@@ -22640,7 +22624,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Pasta de dientes",
-      "imagen": "https://prod-mercadona.imgix.net/images/37271c09e44e5fe1727206eef2c455df.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/760ea6bc0e7ca3a846d168068f778119.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8996/dentifrico-herbal-deliplus-jengibre-arbol-te-eucalipto-menta-camomila-tubo",
       "disponible": true
     },
@@ -28688,7 +28672,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Friegasuelos",
-      "imagen": "https://prod-mercadona.imgix.net/images/3cbb9d39e8c0d5bce5734249ee0b43bd.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/864be1cc14260487e7ac1813aab9a7fb.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/7963/friegasuelos-floral-bosque-verde-liquido-botella",
       "disponible": true
     },
@@ -28709,22 +28693,6 @@
       "disponible": true
     },
     {
-      "productoId": "44301",
-      "nombre": "Friegasuelos Pétalos Bosque Verde concentrado",
-      "precio": 1.7,
-      "precioReferencia": 1.7,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Friegasuelos",
-      "imagen": "https://prod-mercadona.imgix.net/images/cec5d5dd8a001a15bd4a166df4f6696a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/44301/friegasuelos-petalos-bosque-verde-concentrado-perfume-intenso-duradero-botella",
-      "disponible": true
-    },
-    {
       "productoId": "43347",
       "nombre": "Friegasuelos Pino Bosque Verde líquido",
       "precio": 0.95,
@@ -28736,7 +28704,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Friegasuelos",
-      "imagen": "https://prod-mercadona.imgix.net/images/ecbacb1a7fbbe9854e091dbd90addc27.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b946935fc274cc46ed201a950d600fbb.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43347/friegasuelos-pino-bosque-verde-liquido-botella",
       "disponible": true
     },
@@ -37888,7 +37856,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Limpieza cocina",
-      "imagen": "https://prod-mercadona.imgix.net/images/eb12e866b8644b2ca933b8883d400231.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/42293eab86a10cf7a6f468e4a2f4b6ec.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/44210/limpiador-hornos-bosque-verde-spray",
       "disponible": true
     },
@@ -43936,7 +43904,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Multiusos y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/d41d4613ade2dde055147ce6a8efe206.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a3df3b15fcd47a116031410206f35b6f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/44019/multiusos-desinfectante-antibacterias-bosque-verde-sin-lejia-con-pistola-botella",
       "disponible": true
     },
@@ -66576,7 +66544,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Rioja y otras denominaciones",
-      "imagen": "https://prod-mercadona.imgix.net/images/b4056760a91fcf7a1a21afb8cbbe6150.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2b39ebe8b1e9b89b95d05552433d9520.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52926/vino-blanco-do-ribeiro-treixadura-da-feira-botella",
       "disponible": true
     },
