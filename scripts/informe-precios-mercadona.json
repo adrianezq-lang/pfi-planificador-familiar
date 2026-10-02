@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-01T11:39:39.990Z",
+  "actualizado": "2026-10-02T11:09:21.583Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 61,
@@ -317,7 +317,7 @@
     {
       "ingrediente": "Morcillo",
       "productoId": "13741",
-      "nombreComercial": "Zancarrón de vacuno",
+      "nombreComercial": "Jarrete Morcillo de vacuno",
       "precio": 8.53,
       "puntuacion": 10000
     },
