@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-03T10:25:48.796Z",
+  "actualizado": "2026-10-04T11:08:16.459Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4295,
+  "totalProductos": 4293,
   "productos": [
     {
       "productoId": "40339",
@@ -9330,22 +9330,6 @@
       "subcategoria": "Alimentación húmeda",
       "imagen": "https://prod-mercadona.imgix.net/images/8177b80f978aa45728d829285b8067b5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9832/bocaditos-salsa-perro-adulto-special-dog-excellence-con-ternera-higado-verduras-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "78694",
-      "nombre": "Body spray citronela Deliplus",
-      "precio": 1.25,
-      "precioReferencia": 0.834,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.15,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/8be8d1ca3375e983da4d48251195d2a3.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/78694/body-spray-citronela-deliplus-bote",
       "disponible": true
     },
     {
@@ -33541,22 +33525,6 @@
       "disponible": true
     },
     {
-      "productoId": "12420",
-      "nombre": "Huevo sorpresa disquitos con crema de avellana",
-      "precio": 1,
-      "precioReferencia": 4,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.025,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Chocolatinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/66202068e96347c3f4ea49aa280a6dc9.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/12420/huevo-crema-cacao-con-disquitos-sorpresa",
-      "disponible": true
-    },
-    {
       "productoId": "30167",
       "nombre": "Huevos",
       "precio": 5.25,
@@ -52048,7 +52016,7 @@
       "pesoAproximado": true,
       "sección": "Arroz, legumbres y pasta",
       "subcategoria": "Lasaña y canelones",
-      "imagen": "https://prod-mercadona.imgix.net/images/96cc14f684c1d79e23f394f2ce293c7a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/96cc14f684c1d79e23f394f2ce293c7a.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/6856/placas-lasana-precocidas-pavo-caja",
       "disponible": true
     },
