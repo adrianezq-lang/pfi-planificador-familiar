@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-04T11:08:16.459Z",
+  "actualizado": "2026-10-05T12:18:03.092Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4293,
+  "totalProductos": 4299,
   "productos": [
     {
       "productoId": "40339",
@@ -3653,22 +3653,6 @@
       "disponible": true
     },
     {
-      "productoId": "63163",
-      "nombre": "Anillas de pota a la romana Hacendado ultracongeladas",
-      "precio": 5.25,
-      "precioReferencia": 10.5,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Marisco y pescado",
-      "subcategoria": "Pescado rebozado congelado",
-      "imagen": "https://prod-mercadona.imgix.net/images/dc1663f10c444bbf164e13763c9b1a14.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/63163/anillas-pota-romana-hacendado-ultracongeladas-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "24249",
       "nombre": "Anillas de pota Argentina Hacendado congeladas",
       "precio": 5.75,
@@ -3938,6 +3922,22 @@
       "subcategoria": "Aseo y cuidado",
       "imagen": "https://prod-mercadona.imgix.net/images/835c249bc054d7ae1c7f4cf171544c08.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/90947/arena-gato-perlas-silice-single-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "18468",
+      "nombre": "Aritos a la romana Hacendado ultracongelados",
+      "precio": 2.9,
+      "precioReferencia": 5.8,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Congelados",
+      "subcategoria": "Pescado rebozado",
+      "imagen": "https://prod-mercadona.imgix.net/images/6ed973d048e3215a721974feab9e509e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18468/aritos-romana-hacendado-ultracongelados-paquete",
       "disponible": true
     },
     {
@@ -5175,8 +5175,8 @@
     {
       "productoId": "3824",
       "nombre": "Banana",
-      "precio": 0.29,
-      "precioReferencia": 1.55,
+      "precio": 0.23,
+      "precioReferencia": 1.25,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.184,
@@ -5671,8 +5671,8 @@
     {
       "productoId": "9445",
       "nombre": "Barritas con proteínas sabor coco y chocolate Enervit Sport",
-      "precio": 2.95,
-      "precioReferencia": 24.584,
+      "precio": 3.6,
+      "precioReferencia": 30,
       "formato": "Caja",
       "unidadesTotales": 3,
       "tamañoUnidad": 0.12,
@@ -5719,8 +5719,8 @@
     {
       "productoId": "14713",
       "nombre": "Barritas de avena y chocolate negro Crunchy Nature Valley",
-      "precio": 1.95,
-      "precioReferencia": 9.286,
+      "precio": 2.6,
+      "precioReferencia": 12.381,
       "formato": "Caja",
       "unidadesTotales": 5,
       "tamañoUnidad": 0.21,
@@ -8789,22 +8789,6 @@
       "disponible": true
     },
     {
-      "productoId": "21377",
-      "nombre": "Bífidus cremoso natural edulcorado probióticos Hacendado 0% MG 0% azúcares añadidos",
-      "precio": 1.4,
-      "precioReferencia": 1.867,
-      "formato": "ud.",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 0.75,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Postres y yogures",
-      "subcategoria": "Bífidus naturales",
-      "imagen": "https://prod-mercadona.imgix.net/images/30e149a48a183c632ac9390f399561af.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21377/bifidus-cremoso-desnatado-natural-edulcorado-hacendado-0-mg-0-sin-azucares-anadidos-pack-6",
-      "disponible": true
-    },
-    {
       "productoId": "20859",
       "nombre": "Bífidus natural azucarado probióticos Hacendado con cereales y fresas deshidratadas",
       "precio": 1.25,
@@ -8818,6 +8802,22 @@
       "subcategoria": "Bífidus naturales",
       "imagen": "https://prod-mercadona.imgix.net/images/2134863eb2c99085bc6760c6a8e7a421.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/20859/bifidus-natural-probiotico-azucarado-hacendado-con-cereales-fresas-deshidratadas-tarrina",
+      "disponible": true
+    },
+    {
+      "productoId": "21377",
+      "nombre": "Bífidus natural cremoso edulcorado probióticos Hacendado 0% MG 0% azúcares añadidos",
+      "precio": 1.4,
+      "precioReferencia": 1.867,
+      "formato": "ud.",
+      "unidadesTotales": 6,
+      "tamañoUnidad": 0.75,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Postres y yogures",
+      "subcategoria": "Bífidus naturales",
+      "imagen": "https://prod-mercadona.imgix.net/images/30e149a48a183c632ac9390f399561af.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21377/bifidus-cremoso-desnatado-natural-edulcorado-hacendado-0-mg-0-sin-azucares-anadidos-pack-6",
       "disponible": true
     },
     {
@@ -10725,6 +10725,22 @@
       "disponible": true
     },
     {
+      "productoId": "13006",
+      "nombre": "Cacao soluble cero ColaCao",
+      "precio": 5.4,
+      "precioReferencia": 16.616,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.325,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Cacao, café e infusiones",
+      "subcategoria": "Cacao soluble",
+      "imagen": "https://prod-mercadona.imgix.net/images/5e9a93aaa2478a04653a66a1900e6d49.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/13006/cacao-soluble-0-azucares-anadidos-colacao-bote",
+      "disponible": true
+    },
+    {
       "productoId": "19846",
       "nombre": "Cacao soluble ColaCao original",
       "precio": 15.5,
@@ -12021,6 +12037,22 @@
       "disponible": true
     },
     {
+      "productoId": "7325",
+      "nombre": "Caldo de pescado Hacendado",
+      "precio": 0.95,
+      "precioReferencia": 0.95,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Caldo líquido",
+      "imagen": "https://prod-mercadona.imgix.net/images/449bcde120352282518671422bce0c82.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/7325/caldo-pescado-hacendado-brick",
+      "disponible": true
+    },
+    {
       "productoId": "7305",
       "nombre": "Caldo de pescado Hacendado en pastillas",
       "precio": 0.85,
@@ -12082,6 +12114,22 @@
       "subcategoria": "Caldo líquido",
       "imagen": "https://prod-mercadona.imgix.net/images/3e2c70ef189f6a929a7fa045cfc22485.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/7313/caldo-pollo-hacendado-brick",
+      "disponible": true
+    },
+    {
+      "productoId": "7031",
+      "nombre": "Caldo de pollo Hacendado bajo en sal",
+      "precio": 1.2,
+      "precioReferencia": 1.2,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Caldo líquido",
+      "imagen": "https://prod-mercadona.imgix.net/images/42add0a8d4db36dfc601f6150309664c.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/7031/caldo-pollo-hacendado-bajo-sal-brick",
       "disponible": true
     },
     {
@@ -13376,7 +13424,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Cepillo de dientes",
-      "imagen": "https://prod-mercadona.imgix.net/images/d750af8fc16e8fc9e2dc713d2e12913a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/de0f3b2b81c943777eb8b3bfbe623734.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52472/cepillo-dental-sensitive-deliplus-encias-dientes-sensibles-paquete",
       "disponible": true
     },
@@ -14519,8 +14567,8 @@
     {
       "productoId": "9826",
       "nombre": "Cerveza especial Mahou",
-      "precio": 6.7,
-      "precioReferencia": 2.031,
+      "precio": 8.4,
+      "precioReferencia": 2.546,
       "formato": "latas",
       "unidadesTotales": 10,
       "tamañoUnidad": 3.3,
@@ -14615,8 +14663,8 @@
     {
       "productoId": "66345",
       "nombre": "Cerveza especial San Miguel",
-      "precio": 4.8,
-      "precioReferencia": 1.6,
+      "precio": 6.84,
+      "precioReferencia": 2.28,
       "formato": "Pack-12",
       "unidadesTotales": 12,
       "tamañoUnidad": 3,
@@ -15943,8 +15991,8 @@
     {
       "productoId": "2864",
       "nombre": "Chistorra",
-      "precio": 1.4,
-      "precioReferencia": 6.364,
+      "precio": 1.35,
+      "precioReferencia": 6.137,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.22,
@@ -21381,6 +21429,22 @@
       "disponible": true
     },
     {
+      "productoId": "8448",
+      "nombre": "Crema de pollo Hacendado con verduras",
+      "precio": 1,
+      "precioReferencia": 2,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Cremas y puré",
+      "imagen": "https://prod-mercadona.imgix.net/images/e7dd64a7791cb538c4d48e8a333cdbc8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/8448/crema-pollo-hacendado-con-verduras-brick",
+      "disponible": true
+    },
+    {
       "productoId": "51181",
       "nombre": "Crema de queso camembert Hacendado",
       "precio": 1.8,
@@ -24421,6 +24485,22 @@
       "disponible": true
     },
     {
+      "productoId": "60669",
+      "nombre": "Eau de parfum hombre Rebel Como Tú",
+      "precio": 8,
+      "precioReferencia": 8,
+      "formato": "Frasco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Perfume y colonia hombre",
+      "imagen": "https://prod-mercadona.imgix.net/images/25148eb678fe57748a3f2b037240c6ae.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/60669/eau-parfum-hombre-rebel-frasco",
+      "disponible": true
+    },
+    {
       "productoId": "52567",
       "nombre": "Eau de parfum hombre Soirée My Soul",
       "precio": 9.5,
@@ -25527,8 +25607,8 @@
     {
       "productoId": "23249",
       "nombre": "Empanados vegetales con proteína de soja Tivall",
-      "precio": 2.8,
-      "precioReferencia": 15.556,
+      "precio": 2.4,
+      "precioReferencia": 13.334,
       "formato": "Bandeja",
       "unidadesTotales": 2,
       "tamañoUnidad": 0.18,
@@ -26007,8 +26087,8 @@
     {
       "productoId": "69744",
       "nombre": "Ensalada mezcla gourmet lavada",
-      "precio": 1.2,
-      "precioReferencia": 6.858,
+      "precio": 1.3,
+      "precioReferencia": 7.429,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.175,
@@ -26039,8 +26119,8 @@
     {
       "productoId": "69840",
       "nombre": "Ensalada mezcla tierna lavada",
-      "precio": 1.4,
-      "precioReferencia": 9.334,
+      "precio": 1.45,
+      "precioReferencia": 9.667,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.15,
@@ -26946,22 +27026,6 @@
       "subcategoria": "Espuma de afeitar",
       "imagen": "https://prod-mercadona.imgix.net/images/75ec8ba19f4b81fd470dfb084ddbed17.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52770/espuma-afeitar-sensitive-deliplus-manteca-cacao-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "71344",
-      "nombre": "Estropajo acero inoxidable Bosque Verde limpieza muy fuerte",
-      "precio": 0.75,
-      "precioReferencia": 0.25,
-      "formato": "Paquete",
-      "unidadesTotales": 3,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Estropajo",
-      "imagen": "https://prod-mercadona.imgix.net/images/d377aa7b798e88d677c5a368dd831d68.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/71344/estropajo-acero-inoxidable-bosque-verde-paquete",
       "disponible": true
     },
     {
@@ -29047,9 +29111,9 @@
     {
       "productoId": "10362",
       "nombre": "Fruta + leche tropical Bifrutas",
-      "precio": 2.19,
-      "precioReferencia": 2.213,
-      "formato": "Pack-3",
+      "precio": 2,
+      "precioReferencia": 2.021,
+      "formato": "mini briks",
       "unidadesTotales": 3,
       "tamañoUnidad": 0.99,
       "formatoUnidad": "l",
@@ -30231,8 +30295,8 @@
     {
       "productoId": "27733",
       "nombre": "Gaseosa grande La Casera",
-      "precio": 1.92,
-      "precioReferencia": 0.64,
+      "precio": 2.5,
+      "precioReferencia": 0.834,
       "formato": "botellas",
       "unidadesTotales": 2,
       "tamañoUnidad": 3,
@@ -30247,8 +30311,8 @@
     {
       "productoId": "27735",
       "nombre": "Gaseosa grande La Casera",
-      "precio": 1,
-      "precioReferencia": 0.667,
+      "precio": 1.29,
+      "precioReferencia": 0.86,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -34887,8 +34951,8 @@
     {
       "productoId": "13741",
       "nombre": "Jarrete Morcillo de vacuno",
-      "precio": 8.53,
-      "precioReferencia": 15.5,
+      "precio": 8.14,
+      "precioReferencia": 14.8,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.55,
@@ -34896,7 +34960,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Vacuno",
-      "imagen": "https://prod-mercadona.imgix.net/images/bb3bdb2ea7986b57bb537b7c57983d38.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2339d16700c50c1041754aa567c2526d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13741/zancarron-vacuno-bandeja",
       "disponible": true
     },
@@ -35911,8 +35975,8 @@
     {
       "productoId": "86653",
       "nombre": "Lavavajillas Power Essential limón Finish en pastillas",
-      "precio": 3.75,
-      "precioReferencia": 0.145,
+      "precio": 3.25,
+      "precioReferencia": 0.125,
       "formato": "Caja",
       "unidadesTotales": 26,
       "tamañoUnidad": 0.338,
@@ -36231,8 +36295,8 @@
     {
       "productoId": "10516",
       "nombre": "Leche desnatada Asturiana",
-      "precio": 10.38,
-      "precioReferencia": 1.154,
+      "precio": 9.72,
+      "precioReferencia": 1.08,
       "formato": "Pack-6",
       "unidadesTotales": 6,
       "tamañoUnidad": 9,
@@ -36247,8 +36311,8 @@
     {
       "productoId": "10599",
       "nombre": "Leche desnatada Asturiana",
-      "precio": 1.73,
-      "precioReferencia": 1.154,
+      "precio": 1.62,
+      "precioReferencia": 1.08,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -36439,8 +36503,8 @@
     {
       "productoId": "10504",
       "nombre": "Leche entera Asturiana",
-      "precio": 11.82,
-      "precioReferencia": 1.314,
+      "precio": 11.34,
+      "precioReferencia": 1.26,
       "formato": "Pack-6",
       "unidadesTotales": 6,
       "tamañoUnidad": 9,
@@ -36455,8 +36519,8 @@
     {
       "productoId": "10506",
       "nombre": "Leche entera Asturiana",
-      "precio": 1.97,
-      "precioReferencia": 1.314,
+      "precio": 1.89,
+      "precioReferencia": 1.26,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -36695,8 +36759,8 @@
     {
       "productoId": "10505",
       "nombre": "Leche semidesnatada Asturiana",
-      "precio": 10.74,
-      "precioReferencia": 1.194,
+      "precio": 10.02,
+      "precioReferencia": 1.114,
       "formato": "Pack-6",
       "unidadesTotales": 6,
       "tamañoUnidad": 9,
@@ -36711,8 +36775,8 @@
     {
       "productoId": "10502",
       "nombre": "Leche semidesnatada Asturiana",
-      "precio": 1.79,
-      "precioReferencia": 1.194,
+      "precio": 1.67,
+      "precioReferencia": 1.114,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -37591,8 +37655,8 @@
     {
       "productoId": "3210",
       "nombre": "Limón",
-      "precio": 0.48,
-      "precioReferencia": 2.85,
+      "precio": 0.44,
+      "precioReferencia": 2.6,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.17,
@@ -37671,8 +37735,8 @@
     {
       "productoId": "3236",
       "nombre": "Limones",
-      "precio": 2.65,
-      "precioReferencia": 2.65,
+      "precio": 2.3,
+      "precioReferencia": 2.3,
       "formato": "Malla",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -37680,7 +37744,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Cítricos",
-      "imagen": "https://prod-mercadona.imgix.net/images/2bd703ebaf30dd463ab3df1f299b8cf8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/59dc25c62380544e9aeda9a320d44a2e.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3236/limones-malla",
       "disponible": true
     },
@@ -38438,7 +38502,7 @@
     },
     {
       "productoId": "11507",
-      "nombre": "Lomo asado La Carloteña lonchas",
+      "nombre": "Lomo cerdo 96% asado al horno La Carloteña con finas hierbas lonchas",
       "precio": 2.5,
       "precioReferencia": 20,
       "formato": "Paquete",
@@ -38759,8 +38823,8 @@
     {
       "productoId": "6043",
       "nombre": "Longaniza fresca sin tripa",
-      "precio": 3.15,
-      "precioReferencia": 5.625,
+      "precio": 3,
+      "precioReferencia": 5.358,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.56,
@@ -38919,8 +38983,8 @@
     {
       "productoId": "12918",
       "nombre": "Lote infantil Minecraft",
-      "precio": 10,
-      "precioReferencia": 10,
+      "precio": 6.5,
+      "precioReferencia": 6.5,
       "formato": "Caja",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -39879,8 +39943,8 @@
     {
       "productoId": "8175",
       "nombre": "Manzana roja acidulce",
-      "precio": 0.64,
-      "precioReferencia": 2.9,
+      "precio": 0.53,
+      "precioReferencia": 2.4,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.22,
@@ -39927,8 +39991,8 @@
     {
       "productoId": "8268",
       "nombre": "Manzanas rojas acidulces",
-      "precio": 4.13,
-      "precioReferencia": 2.6,
+      "precio": 3.34,
+      "precioReferencia": 2.1,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.59,
@@ -39936,7 +40000,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Manzana y pera",
-      "imagen": "https://prod-mercadona.imgix.net/images/e65f4165ef836b54f4cb49b719b269bd.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e65f4165ef836b54f4cb49b719b269bd.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8268/manzanas-rojas-acidulces-bolsa",
       "disponible": true
     },
@@ -41271,8 +41335,8 @@
     {
       "productoId": "21567",
       "nombre": "Mascarilla facial stick Facial Clean detox & iluminador",
-      "precio": 3.5,
-      "precioReferencia": 8.75,
+      "precio": 3,
+      "precioReferencia": 7.5,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.04,
@@ -41861,6 +41925,22 @@
       "disponible": true
     },
     {
+      "productoId": "3515",
+      "nombre": "Medio melón piel de sapo",
+      "precio": 3.06,
+      "precioReferencia": 1.8,
+      "formato": "1/2 Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.7,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Melón y sandía",
+      "imagen": "https://prod-mercadona.imgix.net/images/2d034c1b80642d033f7b5aecd3fb8269.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/3515/medio-melon-piel-sapo-12-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "2779",
       "nombre": "Medio pollo troceado",
       "precio": 3.6,
@@ -42146,6 +42226,22 @@
       "subcategoria": "Conservas fruta",
       "imagen": "https://prod-mercadona.imgix.net/images/37415e2642afa1f3e831be235f60d388.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15260/melocoton-light-hacendado-sin-azucares-anadidos-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "3506",
+      "nombre": "Melón piel de sapo",
+      "precio": 4.73,
+      "precioReferencia": 1.35,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 3.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Melón y sandía",
+      "imagen": "https://prod-mercadona.imgix.net/images/bd4459355f58bc265a2c6720b688e3c3.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/3506/melon-piel-sapo-pieza",
       "disponible": true
     },
     {
@@ -44853,6 +44949,22 @@
       "disponible": true
     },
     {
+      "productoId": "4428",
+      "nombre": "Paleta de cerdo entera para asar",
+      "precio": 27,
+      "precioReferencia": 4.5,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 6,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Carne",
+      "subcategoria": "Cerdo",
+      "imagen": "https://prod-mercadona.imgix.net/images/500e4dc1b6cd2543d7c45981dc8018c5.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/4428/paleta-cerdo-entera-asar-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "12087",
       "nombre": "Paleta sombras de ojos Deliplus 07 marrones",
       "precio": 4,
@@ -45047,8 +45159,8 @@
     {
       "productoId": "69877",
       "nombre": "Palitos de zanahoria",
-      "precio": 2.1,
-      "precioReferencia": 11.667,
+      "precio": 2.25,
+      "precioReferencia": 12.5,
       "formato": "Tarrina",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.18,
@@ -45056,7 +45168,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Pepino y zanahoria",
-      "imagen": "https://prod-mercadona.imgix.net/images/96e23b094630af760552da5ae8217c72.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/96e23b094630af760552da5ae8217c72.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69877/palitos-zanahoria-tarrina",
       "disponible": true
     },
@@ -46608,7 +46720,7 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Pañal talla de 4 a XL",
-      "imagen": "https://prod-mercadona.imgix.net/images/8a345fe834b45ecedea2b897a5551b11.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b9522928a517986615af0140cc8d8ef9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17791/panales-bebe-talla-4-deliplus-10-15-kg",
       "disponible": true
     },
@@ -46999,8 +47111,8 @@
     {
       "productoId": "35602",
       "nombre": "Papilla 8 cereales con galleta María Nestlé +6 meses",
-      "precio": 4.95,
-      "precioReferencia": 6.828,
+      "precio": 5.75,
+      "precioReferencia": 7.932,
       "formato": "Caja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.725,
@@ -47015,8 +47127,8 @@
     {
       "productoId": "35601",
       "nombre": "Papilla 8 cereales con miel Nestlé +6 meses",
-      "precio": 4.95,
-      "precioReferencia": 6.828,
+      "precio": 5.75,
+      "precioReferencia": 7.932,
       "formato": "Caja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.725,
@@ -48983,8 +49095,8 @@
     {
       "productoId": "30006",
       "nombre": "Pechugas de pollo enteras congeladas",
-      "precio": 6.96,
-      "precioReferencia": 5.8,
+      "precio": 7.32,
+      "precioReferencia": 6.1,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.2,
@@ -49239,8 +49351,8 @@
     {
       "productoId": "3119",
       "nombre": "Pera Conferencia",
-      "precio": 0.46,
-      "precioReferencia": 2.75,
+      "precio": 0.42,
+      "precioReferencia": 2.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.166,
@@ -49287,8 +49399,8 @@
     {
       "productoId": "14470",
       "nombre": "Peras Conferencia",
-      "precio": 2.8,
-      "precioReferencia": 2.5,
+      "precio": 2.58,
+      "precioReferencia": 2.3,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.12,
@@ -53223,8 +53335,8 @@
     {
       "productoId": "62048",
       "nombre": "Preparado de paella y sopa Hacendado ultracongelado",
-      "precio": 4.25,
-      "precioReferencia": 6.205,
+      "precio": 4.5,
+      "precioReferencia": 6.57,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0,
@@ -61493,6 +61605,22 @@
       "disponible": true
     },
     {
+      "productoId": "21970",
+      "nombre": "Snack gato aperitivo líquido Compy",
+      "precio": 2.1,
+      "precioReferencia": 11.667,
+      "formato": "Caja",
+      "unidadesTotales": 12,
+      "tamañoUnidad": 0.18,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Snacks",
+      "imagen": "https://prod-mercadona.imgix.net/images/91e9ccafdbfb2636d2c1d497bd290eb4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21970/snack-gato-aperitivo-liquido-compy-contine-6-con-pollo-higado-6-con-salmon-caja",
+      "disponible": true
+    },
+    {
       "productoId": "52135",
       "nombre": "Snack palitos con pollo y ternera perro adulto Compy",
       "precio": 1.1,
@@ -63205,22 +63333,6 @@
       "disponible": true
     },
     {
-      "productoId": "17627",
-      "nombre": "Tarta infantil cantantes Hacendado congelada",
-      "precio": 13.8,
-      "precioReferencia": 9.2,
-      "formato": "Bandeja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.5,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Tartas infantiles",
-      "imagen": "https://prod-mercadona.imgix.net/images/9375c7272e2daebd710ae0823f32760a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17627/tarta-infantil-cantantes-hacendado-congelada-bandeja",
-      "disponible": true
-    },
-    {
       "productoId": "17626",
       "nombre": "Tarta infantil deportes Hacendado congelada",
       "precio": 13.8,
@@ -63234,22 +63346,6 @@
       "subcategoria": "Tartas infantiles",
       "imagen": "https://prod-mercadona.imgix.net/images/ba6ee0e908cc96bf1ad8c6bbb4659bc3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17626/tarta-infantil-deportes-hacendado-congelada-bandeja",
-      "disponible": true
-    },
-    {
-      "productoId": "17628",
-      "nombre": "Tarta infantil Paw Patrol Hacendado congelada",
-      "precio": 13.8,
-      "precioReferencia": 9.2,
-      "formato": "Bandeja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.5,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Tartas infantiles",
-      "imagen": "https://prod-mercadona.imgix.net/images/119c0029a397218b2d475455e5ecfc6c.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17628/tarta-infantil-paw-patrol-hacendado-congelada-bandeja",
       "disponible": true
     },
     {
@@ -63623,8 +63719,8 @@
     {
       "productoId": "67818",
       "nombre": "Tinto de verano limón Casón Histórico",
-      "precio": 0.95,
-      "precioReferencia": 0.634,
+      "precio": 1.15,
+      "precioReferencia": 0.767,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -63671,8 +63767,8 @@
     {
       "productoId": "60748",
       "nombre": "Tinto de verano zero limón Casón Histórico",
-      "precio": 0.95,
-      "precioReferencia": 0.634,
+      "precio": 1.15,
+      "precioReferencia": 0.767,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -65815,8 +65911,8 @@
     {
       "productoId": "3313",
       "nombre": "Uva blanca sin semillas",
-      "precio": 1.65,
-      "precioReferencia": 2.75,
+      "precio": 1.95,
+      "precioReferencia": 3.25,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.6,
@@ -67648,7 +67744,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Ensalada preparada",
-      "imagen": "https://prod-mercadona.imgix.net/images/1fbf2aaf3d75ab188246cd222e76a419.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d747bc2c944a90e99d30412ae659f963.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69850/wraps-texas-compuesto-hortalizas-frescas-pollo-queso-salsa-tortillas-trigo-incluye-tenedor-bol",
       "disponible": true
     },

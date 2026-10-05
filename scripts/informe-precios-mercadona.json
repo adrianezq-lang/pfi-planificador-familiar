@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-04T11:09:45.813Z",
+  "actualizado": "2026-10-05T12:19:21.664Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 61,
@@ -318,7 +318,7 @@
       "ingrediente": "Morcillo",
       "productoId": "13741",
       "nombreComercial": "Jarrete Morcillo de vacuno",
-      "precio": 8.53,
+      "precio": 8.14,
       "puntuacion": 10000
     },
     {
@@ -416,7 +416,7 @@
       "ingrediente": "Limón",
       "productoId": "3210",
       "nombreComercial": "Limón",
-      "precio": 0.48,
+      "precio": 0.44,
       "puntuacion": 10000
     },
     {
