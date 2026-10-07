@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-06T12:03:01.637Z",
+  "actualizado": "2026-10-07T11:48:31.436Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4301,
+  "totalProductos": 4303,
   "productos": [
     {
       "productoId": "40339",
@@ -400,7 +400,7 @@
       "pesoAproximado": true,
       "sección": "Fitoterapia y parafarmacia",
       "subcategoria": "Fitoterapia",
-      "imagen": "https://prod-mercadona.imgix.net/images/532cc6cd619ada2e87a793350a793022.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e7326462e1c7e1a0c92a5993c88682e9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23017/aceite-arbol-te-100-puro-deliplus-con-pipeta-dosificadora-bote",
       "disponible": true
     },
@@ -3600,7 +3600,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Sérum y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/bd432167b57144afcca6e855bbbf070b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/bd432167b57144afcca6e855bbbf070b.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35614/ampollas-tratamiento-intensivo-repara-protege-pantene-cabello-danado-caja",
       "disponible": true
     },
@@ -3861,6 +3861,22 @@
       "disponible": true
     },
     {
+      "productoId": "40583",
+      "nombre": "Arcos dentales para higiene interdental Deliplus",
+      "precio": 1.8,
+      "precioReferencia": 0.03,
+      "formato": "Caja",
+      "unidadesTotales": 60,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Colutorio e hilo dental",
+      "imagen": "https://prod-mercadona.imgix.net/images/d23e6e0366dfd84e32166e2505fc5a16.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/40583/arcos-dentales-higiene-interdental-deliplus-caja",
+      "disponible": true
+    },
+    {
       "productoId": "13658",
       "nombre": "Arena para gato aglomerante Nuske perfumada",
       "precio": 3.7,
@@ -3925,22 +3941,6 @@
       "disponible": true
     },
     {
-      "productoId": "63238",
-      "nombre": "Aritos de surimi a la romana Hacendado ultracongelados",
-      "precio": 3.3,
-      "precioReferencia": 5.5,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.6,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Marisco y pescado",
-      "subcategoria": "Pescado rebozado congelado",
-      "imagen": "https://prod-mercadona.imgix.net/images/86e727c2c5327ac01ebaf9e752d3ccca.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/63238/aritos-surimi-romana-ultracongelados-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "15195",
       "nombre": "Aritos perro adulto y sénior Compy",
       "precio": 5.5,
@@ -3990,7 +3990,7 @@
     },
     {
       "productoId": "87786",
-      "nombre": "Arreglo de marisco pelado",
+      "nombre": "Arreglo de marisco pelado para arroz",
       "precio": 9.45,
       "precioReferencia": 21,
       "formato": "Bandeja",
@@ -4000,7 +4000,7 @@
       "pesoAproximado": true,
       "sección": "Marisco y pescado",
       "subcategoria": "Marisco",
-      "imagen": "https://prod-mercadona.imgix.net/images/872c79b037188297ba00e68bccae5820.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/872c79b037188297ba00e68bccae5820.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/87786/arreglo-marisco-pelado-bandeja",
       "disponible": true
     },
@@ -7136,7 +7136,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Energético",
-      "imagen": "https://prod-mercadona.imgix.net/images/6adbeccdbf1e4287e8061920d5231f4c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/61ac9fc2ea71f02a79178352e9737f1e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13815/bebida-energetica-mango-loco-monster-pack-4",
       "disponible": true
     },
@@ -7223,8 +7223,8 @@
     {
       "productoId": "24547",
       "nombre": "Bebida energética Red Bull",
-      "precio": 7.99,
-      "precioReferencia": 3.995,
+      "precio": 9.99,
+      "precioReferencia": 4.995,
       "formato": "latas",
       "unidadesTotales": 8,
       "tamañoUnidad": 2,
@@ -9381,6 +9381,22 @@
       "disponible": true
     },
     {
+      "productoId": "18158",
+      "nombre": "Bollo bañado de chocolate y huevo con disquitos",
+      "precio": 2.25,
+      "precioReferencia": 14.063,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.16,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Bollería dulce",
+      "imagen": "https://prod-mercadona.imgix.net/images/30c633fb0366095acda3eb8c4bfd55f1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18158/bollo-con-cobertura-cacao-huevo-sorpresa-con-disquitos-bandeja",
+      "disponible": true
+    },
+    {
       "productoId": "82609",
       "nombre": "Bollo con pepitas de chocolate Hacendado Choco Buns",
       "precio": 1.5,
@@ -10567,8 +10583,8 @@
     {
       "productoId": "34031",
       "nombre": "Cacahuete tostado Hacendado 0% sal añadida",
-      "precio": 1.55,
-      "precioReferencia": 3.875,
+      "precio": 1.45,
+      "precioReferencia": 3.625,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.4,
@@ -11973,6 +11989,22 @@
       "disponible": true
     },
     {
+      "productoId": "13998",
+      "nombre": "Caldo de carne con sofrito Hacendado",
+      "precio": 1.8,
+      "precioReferencia": 1.8,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Caldo líquido",
+      "imagen": "https://prod-mercadona.imgix.net/images/4a02eea762459978bc3a5439935a732e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/13998/caldo-carne-con-sofrito-hacendado-brick",
+      "disponible": true
+    },
+    {
       "productoId": "22860",
       "nombre": "Caldo de carne Hacendado en pastillas",
       "precio": 0.85,
@@ -12912,24 +12944,8 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Empanados y elaborados",
-      "imagen": "https://prod-mercadona.imgix.net/images/81ac7031db17094fffed98dd003be86f.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a253662ae5bbd2c203b5302f61b43551.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21554/carrilladas-cerdo-vino-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "5940",
-      "nombre": "Castañas",
-      "precio": 3.75,
-      "precioReferencia": 7.5,
-      "formato": "Malla",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Otras verduras y hortalizas",
-      "imagen": "https://prod-mercadona.imgix.net/images/8bd8814de5f099ca01d1f7faa18ae912.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/5940/castanas-malla",
       "disponible": true
     },
     {
@@ -17120,7 +17136,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Vacuno",
-      "imagen": "https://prod-mercadona.imgix.net/images/ca671a930747bd720275ab34ee0ecfc3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/ca671a930747bd720275ab34ee0ecfc3.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14485/churrasquito-vacuno-anojo-bandeja",
       "disponible": true
     },
@@ -17328,15 +17344,15 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Cocktails",
-      "imagen": "https://prod-mercadona.imgix.net/images/2bce0f92fcb67ae2b3ab643df01cfe7c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/3cd750b2d96e3909a37ad21e0201982e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/34924/cocktail-fruta-deshidratada-hacendado-paquete",
       "disponible": true
     },
     {
       "productoId": "34047",
       "nombre": "Cocktail frutos secos Crunchy Hacendado sabores a barbacoa, Tex-Mex, miel y sal",
-      "precio": 1.6,
-      "precioReferencia": 8,
+      "precio": 1.75,
+      "precioReferencia": 8.75,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -17351,8 +17367,8 @@
     {
       "productoId": "34231",
       "nombre": "Cocktail frutos secos mezcla Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 5.334,
+      "precio": 1.75,
+      "precioReferencia": 5.834,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.3,
@@ -17383,8 +17399,8 @@
     {
       "productoId": "11513",
       "nombre": "Cocktail frutos secos Rodeo Hacendado",
-      "precio": 1.7,
-      "precioReferencia": 5.667,
+      "precio": 1.85,
+      "precioReferencia": 6.167,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.3,
@@ -17399,8 +17415,8 @@
     {
       "productoId": "80450",
       "nombre": "Cocktail frutos secos Rumba Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 5.334,
+      "precio": 1.75,
+      "precioReferencia": 5.834,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.3,
@@ -17431,8 +17447,8 @@
     {
       "productoId": "21928",
       "nombre": "Cocktail frutos secos tostados con sal Hacendado",
-      "precio": 2.65,
-      "precioReferencia": 13.25,
+      "precio": 2.8,
+      "precioReferencia": 14,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -21221,6 +21237,22 @@
       "disponible": true
     },
     {
+      "productoId": "13499",
+      "nombre": "Crema de calabaza Hacendado",
+      "precio": 1,
+      "precioReferencia": 2,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Cremas y puré",
+      "imagen": "https://prod-mercadona.imgix.net/images/bac2668c48c9709038fd8723a17488c9.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/13499/crema-calabaza-hacendado-brick",
+      "disponible": true
+    },
+    {
       "productoId": "23225",
       "nombre": "Crema de calabaza y zanahoria Hacendado",
       "precio": 1.7,
@@ -21350,7 +21382,7 @@
     },
     {
       "productoId": "18299",
-      "nombre": "Crema de manos nutritiva Murumuru Deliplus FPS 20",
+      "nombre": "Crema de manos nutritiva Murumuru Deliplus SPF 20",
       "precio": 1.3,
       "precioReferencia": 1.734,
       "formato": "Bote",
@@ -21670,7 +21702,7 @@
     },
     {
       "productoId": "12830",
-      "nombre": "Crema facial gel revitalizante e iluminador Anti Ox con FPS 50 y Vitamina C",
+      "nombre": "Crema facial gel revitalizante e iluminador Anti Ox con SPF 50 y Vitamina C",
       "precio": 5.5,
       "precioReferencia": 11,
       "formato": "Tarro",
@@ -21750,7 +21782,7 @@
     },
     {
       "productoId": "50124",
-      "nombre": "Crema facial regeneradora Anti Ox Dragon's Blood FPS 12",
+      "nombre": "Crema facial regeneradora Anti Ox Dragon's Blood SPF 12",
       "precio": 5,
       "precioReferencia": 10,
       "formato": "Tarro",
@@ -22423,8 +22455,8 @@
     {
       "productoId": "22974",
       "nombre": "Dátiles Medjoul con hueso Hacendado",
-      "precio": 4.1,
-      "precioReferencia": 19.07,
+      "precio": 4.2,
+      "precioReferencia": 19.535,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.215,
@@ -23618,22 +23650,6 @@
       "subcategoria": "Desodorante roll on y stick",
       "imagen": "https://prod-mercadona.imgix.net/images/d895a2f4e312e8412763c338e395d443.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17747/desodorante-stick-cobalt-dry-rexona-antitranspirante",
-      "disponible": true
-    },
-    {
-      "productoId": "52515",
-      "nombre": "Desodorante stick Deo Bambú Deliplus antimanchas",
-      "precio": 1.9,
-      "precioReferencia": 3.8,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.05,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Desodorante roll on y stick",
-      "imagen": "https://prod-mercadona.imgix.net/images/97ee826a4ac32b7b76cccc5700bb2560.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/52515/desodorante-stick-deo-bambu-deliplus-antimanchas-0-aluminio-alcohol",
       "disponible": true
     },
     {
@@ -27045,6 +27061,22 @@
       "disponible": true
     },
     {
+      "productoId": "71344",
+      "nombre": "Estropajo acero inoxidable Bosque Verde limpieza muy fuerte",
+      "precio": 0.75,
+      "precioReferencia": 0.25,
+      "formato": "Paquete",
+      "unidadesTotales": 3,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Limpieza y hogar",
+      "subcategoria": "Estropajo",
+      "imagen": "https://prod-mercadona.imgix.net/images/d377aa7b798e88d677c5a368dd831d68.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/71344/estropajo-acero-inoxidable-bosque-verde-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "9778",
       "nombre": "Estropajo almohadilla Bosque Verde limpieza delicada",
       "precio": 0.95,
@@ -28850,22 +28882,6 @@
       "subcategoria": "Friegasuelos",
       "imagen": "https://prod-mercadona.imgix.net/images/b946935fc274cc46ed201a950d600fbb.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43347/friegasuelos-pino-bosque-verde-liquido-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "20960",
-      "nombre": "Friegasuelos Poetic Bosque Verde concentrado",
-      "precio": 1.7,
-      "precioReferencia": 1.7,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Friegasuelos",
-      "imagen": "https://prod-mercadona.imgix.net/images/bc76034b1dc90e397d6b00fa57fab545.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/20960/friegasuelos-poetic-bosque-verde-concentrado-botella",
       "disponible": true
     },
     {
@@ -30966,7 +30982,7 @@
     },
     {
       "productoId": "52532",
-      "nombre": "Gel facial sebo-regulador Deliplus Matifica",
+      "nombre": "Gel facial Matifica Oil Free sebo-regulador",
       "precio": 6,
       "precioReferencia": 12,
       "formato": "Bote",
@@ -31728,7 +31744,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/b71bbd76c00dbb489eed6f802ffe853d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b71bbd76c00dbb489eed6f802ffe853d.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/67968/golosinas-rega-red-mix-hacendado-sabor-fresa-nata-tutti-frutti-paquete",
       "disponible": true
     },
@@ -33072,7 +33088,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Tarrinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/108f33e7169c01fbab53d574f93580f3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/108f33e7169c01fbab53d574f93580f3.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52561/helado-sabor-huevo-chocolate-hacendado-tarrina",
       "disponible": true
     },
@@ -33206,7 +33222,7 @@
     },
     {
       "productoId": "50764",
-      "nombre": "Hidratante facial BB cream Deliplus 02 medio FPS 20",
+      "nombre": "Hidratante facial BB cream Deliplus 02 medio SPF 20",
       "precio": 4.5,
       "precioReferencia": 9,
       "formato": "Bote",
@@ -36032,7 +36048,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Limpiavajilla a máquina",
-      "imagen": "https://prod-mercadona.imgix.net/images/a16d1bd70b91f533925dd3b3cc2e0303.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/6b3845ba8d85e258c837c5179df9f7f9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12076/lavavajillas-1-fairy-pastillas-lavado-maquina-paquete",
       "disponible": true
     },
@@ -36656,7 +36672,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche entera",
-      "imagen": "https://prod-mercadona.imgix.net/images/d985ec1b5f0e21f2fe5e32857e5200af.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d985ec1b5f0e21f2fe5e32857e5200af.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10933/leche-entera-fresca-hacendado-botella",
       "disponible": true
     },
@@ -36976,7 +36992,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche semidesnatada",
-      "imagen": "https://prod-mercadona.imgix.net/images/7f509c7db41e5763626998702f5cb755.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7f509c7db41e5763626998702f5cb755.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10922/leche-semidesnatada-fresca-hacendado-botella",
       "disponible": true
     },
@@ -37632,7 +37648,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Cuidado de uñas y complementos",
-      "imagen": "https://prod-mercadona.imgix.net/images/d4547b94d73408d0abcd240124dc912e.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f74a2425900f943854fcbd5211b7bffe.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/78031/lima-fibra-vidrio-deliplus-paquete",
       "disponible": true
     },
@@ -44663,8 +44679,8 @@
     {
       "productoId": "34024",
       "nombre": "Nuez natural Hacendado pelada",
-      "precio": 2.5,
-      "precioReferencia": 12.5,
+      "precio": 2.4,
+      "precioReferencia": 12,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -44695,8 +44711,8 @@
     {
       "productoId": "52667",
       "nombre": "Nuez troceada pelada Hacendado",
-      "precio": 1.8,
-      "precioReferencia": 12,
+      "precio": 1.7,
+      "precioReferencia": 11.334,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.15,
@@ -44823,8 +44839,8 @@
     {
       "productoId": "13877",
       "nombre": "Orejones albaricoque Hacendado",
-      "precio": 3.2,
-      "precioReferencia": 16,
+      "precio": 3.05,
+      "precioReferencia": 15.25,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -47479,8 +47495,8 @@
     {
       "productoId": "23010",
       "nombre": "Pasas sultanas sin semillas Hacendado",
-      "precio": 1.8,
-      "precioReferencia": 7.2,
+      "precio": 1.65,
+      "precioReferencia": 6.6,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -51520,7 +51536,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Verdura",
-      "imagen": "https://prod-mercadona.imgix.net/images/e417f79b0e10e4ac6bbdf8dcf7f0fb92.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2c2f3102ed949ed7981f2d0cb4c6fcf3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35653/pisto-verduras-hacendado-ultracongelado-paquete",
       "disponible": true
     },
@@ -53013,22 +53029,6 @@
       "disponible": true
     },
     {
-      "productoId": "14438",
-      "nombre": "Postre lácteo Lemon Cake Hacendado",
-      "precio": 1.7,
-      "precioReferencia": 10.625,
-      "formato": "ud.",
-      "unidadesTotales": 2,
-      "tamañoUnidad": 1.6,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Postres y yogures",
-      "subcategoria": "Otros postres",
-      "imagen": "https://prod-mercadona.imgix.net/images/b07634948b3fc3d818cd0a0e4a3cb219.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/14438/postre-lacteo-lemon-cake-hacendado",
-      "disponible": true
-    },
-    {
       "productoId": "21256",
       "nombre": "Postre lácteo natural +Proteínas 10 g 0% MG",
       "precio": 1.4,
@@ -54197,6 +54197,22 @@
       "disponible": true
     },
     {
+      "productoId": "50619",
+      "nombre": "Queso brie marcillat de vaca Plaisir de Roy",
+      "precio": 1.65,
+      "precioReferencia": 8.25,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Queso especialidades",
+      "imagen": "https://prod-mercadona.imgix.net/images/c2446828dd55519f7d18b21249e5e38c.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/50619/queso-brie-marcillat-vaca-plaisir-roy-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "51621",
       "nombre": "Queso camembert de vaca Marcillat",
       "precio": 2,
@@ -54448,7 +54464,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso en porciones",
-      "imagen": "https://prod-mercadona.imgix.net/images/860d756d2962ad4e593a3c2b98e253dc.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0268b22955184deb0c53b6b022b45608.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/51504/queso-porciones-mini-babybel-malla",
       "disponible": true
     },
@@ -55362,6 +55378,22 @@
       "subcategoria": "Queso tierno",
       "imagen": "https://prod-mercadona.imgix.net/images/82bed1f7916ed6b6cefbd53fd44cd326.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/50915/queso-tierno-bajo-sal-mezcla-hacendado-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "50935",
+      "nombre": "Queso tierno de vaca Hacendado",
+      "precio": 6,
+      "precioReferencia": 5.715,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.05,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Queso tierno",
+      "imagen": "https://prod-mercadona.imgix.net/images/6321f051781cee8452a9a4437ddef8df.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/50935/queso-tierno-vaca-hacendado-pieza",
       "disponible": true
     },
     {
@@ -59877,22 +59909,6 @@
       "disponible": true
     },
     {
-      "productoId": "7972",
-      "nombre": "Salsa fresca Setas Hacendado",
-      "precio": 1.45,
-      "precioReferencia": 7.25,
-      "formato": "Tarrina",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Aceite, especias y salsas",
-      "subcategoria": "Salsas para pasta",
-      "imagen": "https://prod-mercadona.imgix.net/images/eac4ecea33015d0a73fb2a177ca6531b.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/7972/salsa-fresca-setas-hacendado-bol",
-      "disponible": true
-    },
-    {
       "productoId": "20889",
       "nombre": "Salsa fresca Trufa Hacendado",
       "precio": 1.45,
@@ -60391,8 +60407,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.99,
+      "precioReferencia": 4.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60914,22 +60930,6 @@
       "subcategoria": "Sérum y ampollas",
       "imagen": "https://prod-mercadona.imgix.net/images/d3e2b82b06ece352d3118549a04cedb2.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/46873/serum-facial-retinol-deliplus-regen-skin-evitar-piel-sensible-frasco",
-      "disponible": true
-    },
-    {
-      "productoId": "18125",
-      "nombre": "Sérum facial tensor inmediato Gold Flash Deliplus con láminas de oro",
-      "precio": 2.75,
-      "precioReferencia": 68.75,
-      "formato": "Caja",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.004,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Sérum y ampollas",
-      "imagen": "https://prod-mercadona.imgix.net/images/4b543bb5cec900db9f050b6da6389fca.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18125/serum-facial-tensor-inmediato-gold-flash-deliplus-con-laminas-oro-tipo-pieles-caja",
       "disponible": true
     },
     {
@@ -62320,7 +62320,7 @@
       "pesoAproximado": true,
       "sección": "Fitoterapia y parafarmacia",
       "subcategoria": "Fitoterapia",
-      "imagen": "https://prod-mercadona.imgix.net/images/7b7a1b899876dc2ab66a488f0298037e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7b7a1b899876dc2ab66a488f0298037e.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22233/spray-oral-propolis-deliplus-contiene-equinacea-eucalipto-elaborado-base-especies-vegetales-liquen-islandia-spray",
       "disponible": true
     },
@@ -62704,7 +62704,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/af8b61db448e12d39da077fe0c99124f.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/cb29aea4cbde781673040b3c4b47f4e2.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14934/surtido-caramelos-diver-xuxes-hacendado-envueltos-individualmente-paquete",
       "disponible": true
     },
@@ -63346,6 +63346,22 @@
       "subcategoria": "Tartas infantiles",
       "imagen": "https://prod-mercadona.imgix.net/images/ba6ee0e908cc96bf1ad8c6bbb4659bc3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17626/tarta-infantil-deportes-hacendado-congelada-bandeja",
+      "disponible": true
+    },
+    {
+      "productoId": "18417",
+      "nombre": "Tarta infantil K-Pop Kandy Stars Hacendado congelada",
+      "precio": 13.8,
+      "precioReferencia": 8.79,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.57,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Tartas infantiles",
+      "imagen": "https://prod-mercadona.imgix.net/images/44186a53c35614042c9eb39906766d8b.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18417/tarta-infantil-k-pop-kandy-stars-hacendado-congelada-bandeja",
       "disponible": true
     },
     {
@@ -64994,6 +65010,22 @@
       "subcategoria": "Limpieza de cara",
       "imagen": "https://prod-mercadona.imgix.net/images/f3f8a21d3732945d66b29a553581aee8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35935/tonico-facial-arbol-te-prebioticos-deliplus-facial-clean-piel-normal-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "18398",
+      "nombre": "Tónico facial glicólico + 6 ácidos 4% Facial Clean renovador e hidratante",
+      "precio": 3.2,
+      "precioReferencia": 1.255,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.255,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Limpieza de cara",
+      "imagen": "https://prod-mercadona.imgix.net/images/c3074c735fdd5edc681ae1c690177696.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18398/tonico-facial-glicolico-6-acidos-4-facial-clean-renovador-hidratante-tipo-piel-deliplus-bote",
       "disponible": true
     },
     {
