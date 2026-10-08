@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-07T11:48:31.436Z",
+  "actualizado": "2026-10-08T12:03:10.400Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4303,
+  "totalProductos": 4299,
   "productos": [
     {
       "productoId": "40339",
@@ -5909,22 +5909,6 @@
       "disponible": true
     },
     {
-      "productoId": "17702",
-      "nombre": "Barritas de chocolate con leche Hacendado rellenas de leche",
-      "precio": 2.2,
-      "precioReferencia": 11,
-      "formato": "Paquete",
-      "unidadesTotales": 16,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Chocolatinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/80ed20278bfdf737f42b6c581d92bc8a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17702/barritas-chocolate-con-leche-hacendado-rellenas-leche-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "38111",
       "nombre": "Barritas de fruta y miel para canarios Natura",
       "precio": 2.3,
@@ -7250,22 +7234,6 @@
       "subcategoria": "Energético",
       "imagen": "https://prod-mercadona.imgix.net/images/60e815dbd52c2fa73cbd543b5440f19b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/27905/bebida-energetica-red-bull-lata",
-      "disponible": true
-    },
-    {
-      "productoId": "16440",
-      "nombre": "Bebida energética Strawberry Dreams Monster Energy Ultra zero azúcar",
-      "precio": 1.45,
-      "precioReferencia": 2.9,
-      "formato": "Lata",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Agua y refrescos",
-      "subcategoria": "Energético",
-      "imagen": "https://prod-mercadona.imgix.net/images/006ee50e1872ac3c9c15c89da4151095.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/16440/bebida-energetica-energy-ultra-zero-strawberry-monster-lata",
       "disponible": true
     },
     {
@@ -9959,8 +9927,8 @@
     {
       "productoId": "81661.2",
       "nombre": "Boquerón limpio sin cabeza",
-      "precio": 0.99,
-      "precioReferencia": 4.95,
+      "precio": 0.79,
+      "precioReferencia": 3.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -9975,8 +9943,8 @@
     {
       "productoId": "81661.1",
       "nombre": "Boquerón sin limpiar",
-      "precio": 0.99,
-      "precioReferencia": 4.95,
+      "precio": 0.79,
+      "precioReferencia": 3.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -10098,54 +10066,6 @@
       "subcategoria": "Pintalabios cremoso y brillos",
       "imagen": "https://prod-mercadona.imgix.net/images/11568c09b981ee6d31f84e126f8b86cd.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35377/brillo-labios-volumizer-gloss-deliplus-01-transparente",
-      "disponible": true
-    },
-    {
-      "productoId": "35379",
-      "nombre": "Brillo de labios Volumizer gloss Deliplus 03 nude rosa",
-      "precio": 5,
-      "precioReferencia": 5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.004,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios cremoso y brillos",
-      "imagen": "https://prod-mercadona.imgix.net/images/df28fa6757443aaeebd5359540663669.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35379/brillo-labios-volumizer-gloss-deliplus-03-pink-nude",
-      "disponible": true
-    },
-    {
-      "productoId": "35382",
-      "nombre": "Brillo de labios Volumizer gloss Deliplus 06 morado",
-      "precio": 5,
-      "precioReferencia": 5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.004,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios cremoso y brillos",
-      "imagen": "https://prod-mercadona.imgix.net/images/2cc96f79697a439e552c2dfd06ca5f0d.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35382/brillo-labios-volumizer-gloss-deliplus-06-morado",
-      "disponible": true
-    },
-    {
-      "productoId": "35383",
-      "nombre": "Brillo de labios Volumizer gloss Deliplus 07 transparente con destellos",
-      "precio": 5,
-      "precioReferencia": 5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.004,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios cremoso y brillos",
-      "imagen": "https://prod-mercadona.imgix.net/images/2628cf59fa48491fac86b9674b5296e5.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35383/brillo-labios-volumizer-gloss-deliplus-07-transparente-con-destellos",
       "disponible": true
     },
     {
@@ -10805,22 +10725,6 @@
       "disponible": true
     },
     {
-      "productoId": "18235",
-      "nombre": "Cacao soluble instantáneo",
-      "precio": 5.95,
-      "precioReferencia": 6.612,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.9,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cacao, café e infusiones",
-      "subcategoria": "Cacao soluble",
-      "imagen": "https://prod-mercadona.imgix.net/images/8b58b1ee0f9206ff3b983e5024625c61.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18235/cacao-soluble-instantaneo-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "20919",
       "nombre": "Cacao soluble instantáneo Hacendado",
       "precio": 3.75,
@@ -10882,6 +10786,22 @@
       "subcategoria": "Cacao soluble",
       "imagen": "https://prod-mercadona.imgix.net/images/127cd056ef2bb352ddd64a213dd3cc2b.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21985/cacao-soluble-instantaneo-nesquik-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "18235",
+      "nombre": "Cacao soluble instantáneo Nesquik",
+      "precio": 5.95,
+      "precioReferencia": 6.612,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.9,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Cacao, café e infusiones",
+      "subcategoria": "Cacao soluble",
+      "imagen": "https://prod-mercadona.imgix.net/images/8b58b1ee0f9206ff3b983e5024625c61.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18235/cacao-soluble-instantaneo-paquete",
       "disponible": true
     },
     {
@@ -14647,8 +14567,8 @@
     {
       "productoId": "27103",
       "nombre": "Cerveza especial San Miguel",
-      "precio": 0.74,
-      "precioReferencia": 2.243,
+      "precio": 0.5,
+      "precioReferencia": 1.516,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -18928,7 +18848,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Coloración rubio",
-      "imagen": "https://prod-mercadona.imgix.net/images/c1e4a8b4f9b5c757e5211ab1b6dea490.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/c1e4a8b4f9b5c757e5211ab1b6dea490.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/75306/coloracion-permanente-loreal-8-rubio-claro-excellence-creme-caja",
       "disponible": true
     },
@@ -22128,7 +22048,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pollo",
-      "imagen": "https://prod-mercadona.imgix.net/images/2c00c0299aa3d258c844e2b1305a8361.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2c00c0299aa3d258c844e2b1305a8361.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/2783/cuartos-traseros-pollo-certificado-alimentado-con-50-maiz-bandeja",
       "disponible": true
     },
@@ -22823,8 +22743,8 @@
     {
       "productoId": "13913",
       "nombre": "Dentífrico Pro-Expert Oral-B sabor menta especiada",
-      "precio": 2.85,
-      "precioReferencia": 3.8,
+      "precio": 2.5,
+      "precioReferencia": 3.334,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.075,
@@ -22855,8 +22775,8 @@
     {
       "productoId": "13869",
       "nombre": "Dentífrico Repair & Protect Sensodyne",
-      "precio": 3.95,
-      "precioReferencia": 5.267,
+      "precio": 4.95,
+      "precioReferencia": 6.6,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.075,
@@ -24018,22 +23938,6 @@
       "subcategoria": "Ambientador eléctrico",
       "imagen": "https://prod-mercadona.imgix.net/images/472d86fdf508a119040a9671ed28b493.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52759/difusor-multifragancia-electrico-bosque-verde-con-regulador-intensidad-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "17770",
-      "nombre": "Discos ácido salicílico Facial Clean purificantes y seborreguladores",
-      "precio": 4,
-      "precioReferencia": 0.08,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 50,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Limpieza de cara",
-      "imagen": "https://prod-mercadona.imgix.net/images/02cbbb2a36d255cdd6c1627b797042cd.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17770/discos-acido-salicilico-deliplus-facial-clean-purificantes-seborreguladores-piel-grasa-acneica-bote",
       "disponible": true
     },
     {
@@ -28231,8 +28135,8 @@
     {
       "productoId": "2787",
       "nombre": "Filetes pechuga de pollo",
-      "precio": 4.31,
-      "precioReferencia": 7.3,
+      "precio": 4.54,
+      "precioReferencia": 7.7,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.59,
@@ -28263,8 +28167,8 @@
     {
       "productoId": "3400",
       "nombre": "Filetes pechuga de pollo corte fino",
-      "precio": 4.39,
-      "precioReferencia": 7.7,
+      "precio": 4.67,
+      "precioReferencia": 8.2,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.57,
@@ -28279,8 +28183,8 @@
     {
       "productoId": "3653",
       "nombre": "Filetes pechuga de pollo extra tiernos",
-      "precio": 4.09,
-      "precioReferencia": 7.3,
+      "precio": 4.31,
+      "precioReferencia": 7.7,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.56,
@@ -31589,19 +31493,19 @@
       "disponible": true
     },
     {
-      "productoId": "16362",
+      "productoId": "17807",
       "nombre": "Golosinas llaves super ácidas Hacendado",
       "precio": 1,
-      "precioReferencia": 12.5,
+      "precioReferencia": 10,
       "formato": "Paquete",
       "unidadesTotales": 0,
-      "tamañoUnidad": 0.08,
+      "tamañoUnidad": 0.1,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/081786023c9123e6a4eab60102e68ea7.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/16362/golosinas-llaves-super-acidas-hacendado-paquete",
+      "imagen": "https://prod-mercadona.imgix.net/images/53dff18edb0e7a48c82c17134b748917.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17807/golosinas-llaves-super-acidas-hacendado-paquete",
       "disponible": true
     },
     {
@@ -33266,22 +33170,6 @@
       "subcategoria": "Hielo",
       "imagen": "https://prod-mercadona.imgix.net/images/58a58d2dac231f62b518bdb84368e9fd.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/64139/hielo-cocktail-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "68037",
-      "nombre": "Hierbabuena",
-      "precio": 1.35,
-      "precioReferencia": 3.375,
-      "formato": "Manojo",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.04,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Hierbas aromáticas",
-      "imagen": "https://prod-mercadona.imgix.net/images/fd5374ed7e477b77515aefb01391a088.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/68037/hierbabuena-paquete",
       "disponible": true
     },
     {
@@ -35815,8 +35703,8 @@
     {
       "productoId": "4488",
       "nombre": "Lasaña boloñesa familiar Hacendado",
-      "precio": 4.8,
-      "precioReferencia": 6.858,
+      "precio": 4.7,
+      "precioReferencia": 6.715,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,
@@ -39703,8 +39591,8 @@
     {
       "productoId": "3050",
       "nombre": "Mango",
-      "precio": 1.34,
-      "precioReferencia": 2.7,
+      "precio": 1.44,
+      "precioReferencia": 2.9,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.497,
@@ -46688,7 +46576,7 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Pañal talla de 0 a 3",
-      "imagen": "https://prod-mercadona.imgix.net/images/1a9b686285c95bc20666da0111b4de8b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a74de3c3d49704fbe42271e1da08cd5f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/47287/panales-bebe-talla-2-4-8-kg-dodot-sensitive-paquete",
       "disponible": true
     },
@@ -46736,7 +46624,7 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Pañal talla de 0 a 3",
-      "imagen": "https://prod-mercadona.imgix.net/images/34c76a981cf73cd5f76ce557ecd542b2.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e535ff49155a6f7137291ead2c3e6ab0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52879/panales-bebe-talla-3-6-10-kg-dodot-sensitive-paquete",
       "disponible": true
     },
@@ -46775,8 +46663,8 @@
     {
       "productoId": "35390",
       "nombre": "Pañales bebé talla 4 Dodot de 9-14 kg",
-      "precio": 18.95,
-      "precioReferencia": 0.327,
+      "precio": 16.75,
+      "precioReferencia": 0.289,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 58,
@@ -46823,8 +46711,8 @@
     {
       "productoId": "35391",
       "nombre": "Pañales bebé talla 5 Dodot de 11-16 kg",
-      "precio": 18.95,
-      "precioReferencia": 0.351,
+      "precio": 16.75,
+      "precioReferencia": 0.311,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 54,
@@ -46855,8 +46743,8 @@
     {
       "productoId": "11556",
       "nombre": "Pañales bebé talla 6 Dodot de 13-18 kg",
-      "precio": 18.95,
-      "precioReferencia": 0.395,
+      "precio": 16.75,
+      "precioReferencia": 0.349,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 48,
@@ -51317,6 +51205,22 @@
       "disponible": true
     },
     {
+      "productoId": "18259",
+      "nombre": "Pipas de calabaza natural Hacendado peladas",
+      "precio": 2.2,
+      "precioReferencia": 11,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Aperitivos",
+      "subcategoria": "Frutos secos",
+      "imagen": "https://prod-mercadona.imgix.net/images/00f270d0c243fcedc9a94026e0f85840.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18259/pipas-calabaza-natural-hacendado-peladas-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "34145",
       "nombre": "Pipas de girasol fritas Hacendado peladas",
       "precio": 1.1,
@@ -54069,6 +53973,22 @@
       "disponible": true
     },
     {
+      "productoId": "82850",
+      "nombre": "Pulpo cocido",
+      "precio": 10.8,
+      "precioReferencia": 36,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Sepia, pulpo y calamar",
+      "imagen": "https://prod-mercadona.imgix.net/images/d2a36c315f1961f0da0d42b75cf3bd25.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/82850/pulpo-cocido-bandeja",
+      "disponible": true
+    },
+    {
       "productoId": "24401",
       "nombre": "Pulpo crudo grande Hacendado congelado",
       "precio": 65.04,
@@ -56336,7 +56256,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Recambios maquinilla de afeitar",
-      "imagen": "https://prod-mercadona.imgix.net/images/0310745e0bf8b008554c837192fee598.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/6ea532ef3fe296bc87ec3e5e34f29f0d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52648/recambios-maquinilla-afeitar-gillette-mach-sport-3-hojas-caja",
       "disponible": true
     },
@@ -57323,7 +57243,7 @@
       "precioReferencia": 1.24,
       "formato": "Botella",
       "unidadesTotales": 0,
-      "tamañoUnidad": 1.5,
+      "tamañoUnidad": 1.25,
       "formatoUnidad": "l",
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
@@ -58658,6 +58578,22 @@
       "subcategoria": "Con chocolate y rellenas",
       "imagen": "https://prod-mercadona.imgix.net/images/b5cc245fcd571b06777d72c09c1493f8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13656/rosquillas-chocolate-con-leche-coco-hacendado-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "18145",
+      "nombre": "Rosquillas de mantequilla Hacendado",
+      "precio": 2.05,
+      "precioReferencia": 6.834,
+      "formato": "Caja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Cereales y galletas",
+      "subcategoria": "Galletas desayuno",
+      "imagen": "https://prod-mercadona.imgix.net/images/f73177df7cc426cde2eac92c4fed38a5.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18145/rosquillas-mantequilla-hacendado-caja",
       "disponible": true
     },
     {
@@ -60582,7 +60518,7 @@
     },
     {
       "productoId": "34702",
-      "nombre": "Sazonador para paella con azafrán Hacendado",
+      "nombre": "Sazonador para paella Hacendado",
       "precio": 1.55,
       "precioReferencia": 7.75,
       "formato": "Caja",
@@ -60914,6 +60850,22 @@
       "subcategoria": "Sérum y ampollas",
       "imagen": "https://prod-mercadona.imgix.net/images/e278a92f6e64eab7a8b420e75b49ca48.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/50198/serum-facial-potenciador-12-silicio-deliplus-sisbela-reafirm-tipo-piel-frasco",
+      "disponible": true
+    },
+    {
+      "productoId": "52820",
+      "nombre": "Sérum facial reparador Micro Cápsulas Deliplus",
+      "precio": 9,
+      "precioReferencia": 30,
+      "formato": "Frasco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.03,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Sérum y ampollas",
+      "imagen": "https://prod-mercadona.imgix.net/images/9222babbb042cc665d2805c6a3254b91.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/52820/serum-facial-reparador-micro-capsulas-deliplus-tipo-pieles-frasco",
       "disponible": true
     },
     {
@@ -62631,8 +62583,8 @@
     {
       "productoId": "8920",
       "nombre": "Surtido bombones Caja Roja Nestlé",
-      "precio": 6.95,
-      "precioReferencia": 35.102,
+      "precio": 5.25,
+      "precioReferencia": 26.516,
       "formato": "Caja",
       "unidadesTotales": 21,
       "tamañoUnidad": 0.198,
@@ -63191,8 +63143,8 @@
     {
       "productoId": "17564",
       "nombre": "Taquitos de pollo",
-      "precio": 2.63,
-      "precioReferencia": 7.3,
+      "precio": 2.7,
+      "precioReferencia": 7.5,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.36,
@@ -63730,22 +63682,6 @@
       "subcategoria": "Coloración hombre",
       "imagen": "https://prod-mercadona.imgix.net/images/ab5922489a0a9e760fb7afdcf51e7d1d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/73319/tinte-cabello-hombre-5-castano-natural-deliplus-0-amoniaco-colorcor-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "11564",
-      "nombre": "Tinto de verano Casón Histórico",
-      "precio": 1.3,
-      "precioReferencia": 0.867,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Tinto de verano y sangría",
-      "imagen": "https://prod-mercadona.imgix.net/images/1d74972cf19ce0e3c49a714506c360db.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/11564/tinto-verano-cason-historico-botella",
       "disponible": true
     },
     {
@@ -68096,7 +68032,7 @@
       "pesoAproximado": true,
       "sección": "Postres y yogures",
       "subcategoria": "Yogures líquidos",
-      "imagen": "https://prod-mercadona.imgix.net/images/5246df6b92d37bf788da3733179e8d3a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5246df6b92d37bf788da3733179e8d3a.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86331/yogur-liquido-fresa-hacendado-pack-12",
       "disponible": true
     },
