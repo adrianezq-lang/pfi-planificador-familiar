@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-08T12:03:10.400Z",
+  "actualizado": "2026-10-09T11:55:14.534Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4299,
+  "totalProductos": 4303,
   "productos": [
     {
       "productoId": "40339",
@@ -3735,8 +3735,8 @@
     {
       "productoId": "33556",
       "nombre": "Aperitivo de patata sabor crema agria y cebolla Pringles",
-      "precio": 2.65,
-      "precioReferencia": 16.061,
+      "precio": 1.9,
+      "precioReferencia": 11.516,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.165,
@@ -3751,8 +3751,8 @@
     {
       "productoId": "33555",
       "nombre": "Aperitivo de patata sabor original Pringles",
-      "precio": 2.65,
-      "precioReferencia": 16.061,
+      "precio": 1.9,
+      "precioReferencia": 11.516,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.165,
@@ -4727,8 +4727,8 @@
     {
       "productoId": "81204.1",
       "nombre": "Bacalao a rodajas",
-      "precio": 23.65,
-      "precioReferencia": 10.95,
+      "precio": 29.7,
+      "precioReferencia": 13.75,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 2.16,
@@ -4743,8 +4743,8 @@
     {
       "productoId": "81204.2",
       "nombre": "Bacalao abierto en libro sin cabeza y sin espina",
-      "precio": 23.65,
-      "precioReferencia": 10.95,
+      "precio": 29.7,
+      "precioReferencia": 13.75,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 2.16,
@@ -4791,8 +4791,8 @@
     {
       "productoId": "81204.3",
       "nombre": "Bacalao media pieza a rodajas",
-      "precio": 11.83,
-      "precioReferencia": 10.95,
+      "precio": 14.85,
+      "precioReferencia": 13.75,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.08,
@@ -4807,8 +4807,8 @@
     {
       "productoId": "81204.4",
       "nombre": "Bacalao media pieza abierto en libro sin cabeza y sin espina",
-      "precio": 11.83,
-      "precioReferencia": 10.95,
+      "precio": 14.85,
+      "precioReferencia": 13.75,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.08,
@@ -9927,8 +9927,8 @@
     {
       "productoId": "81661.2",
       "nombre": "Boquerón limpio sin cabeza",
-      "precio": 0.79,
-      "precioReferencia": 3.95,
+      "precio": 1.19,
+      "precioReferencia": 5.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -9943,8 +9943,8 @@
     {
       "productoId": "81661.1",
       "nombre": "Boquerón sin limpiar",
-      "precio": 0.79,
-      "precioReferencia": 3.95,
+      "precio": 1.19,
+      "precioReferencia": 5.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -12869,6 +12869,22 @@
       "disponible": true
     },
     {
+      "productoId": "5940",
+      "nombre": "Castañas",
+      "precio": 3.75,
+      "precioReferencia": 7.5,
+      "formato": "Malla",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Otras verduras y hortalizas",
+      "imagen": "https://prod-mercadona.imgix.net/images/8bd8814de5f099ca01d1f7faa18ae912.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/5940/castanas-malla",
+      "disponible": true
+    },
+    {
       "productoId": "34194",
       "nombre": "Castañas cocidas y peladas Hacendado",
       "precio": 1.3,
@@ -14551,8 +14567,8 @@
     {
       "productoId": "66026",
       "nombre": "Cerveza especial San Miguel",
-      "precio": 6.96,
-      "precioReferencia": 1.758,
+      "precio": 5.4,
+      "precioReferencia": 1.364,
       "formato": "Pack-12",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -21602,6 +21618,22 @@
       "subcategoria": "Crema de cara",
       "imagen": "https://prod-mercadona.imgix.net/images/10a90d584aa42772550b7dfd650f7d69.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/16332/crema-facial-fotocorrector-unificador-anti-manchas-deliplus-fps-50-tipo-piel-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "18627",
+      "nombre": "Crema facial gel Hidrata & Ilumina K-Skin con cápsulas de niacinamida y colágeno",
+      "precio": 6.5,
+      "precioReferencia": 13,
+      "formato": "Tarro",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.05,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Crema de cara",
+      "imagen": "https://prod-mercadona.imgix.net/images/895407dfb43aebf728f8811afc8c8a8b.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18627/crema-gel-facial-hidrata-ilumina-k-skin-deliplus-con-capsulas-niacinamida-colageno-tipo-piel-tarro",
       "disponible": true
     },
     {
@@ -28786,6 +28818,22 @@
       "subcategoria": "Friegasuelos",
       "imagen": "https://prod-mercadona.imgix.net/images/b946935fc274cc46ed201a950d600fbb.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/43347/friegasuelos-pino-bosque-verde-liquido-botella",
+      "disponible": true
+    },
+    {
+      "productoId": "20960",
+      "nombre": "Friegasuelos Poetic Bosque Verde concentrado",
+      "precio": 1.7,
+      "precioReferencia": 1.7,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Limpieza y hogar",
+      "subcategoria": "Friegasuelos",
+      "imagen": "https://prod-mercadona.imgix.net/images/bc76034b1dc90e397d6b00fa57fab545.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/20960/friegasuelos-poetic-bosque-verde-concentrado-botella",
       "disponible": true
     },
     {
@@ -38421,6 +38469,22 @@
       "disponible": true
     },
     {
+      "productoId": "22428",
+      "nombre": "Lomo cerdo 98% Florencia La Carloteña asado al horno lonchas",
+      "precio": 2.5,
+      "precioReferencia": 20,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.125,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Pavo y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/16c7553bbc44af9bd8f3d9072a813528.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/22428/lomo-cerdo-98-florencia-carlotena-asado-horno-lonchas-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "62050",
       "nombre": "Lomo de bacalao MareDeus ultracongelado",
       "precio": 9.22,
@@ -46007,8 +46071,8 @@
     {
       "productoId": "17572",
       "nombre": "Pan tostado fino con sésamo y sal marina Delicate Crisp Wasa",
-      "precio": 1.8,
-      "precioReferencia": 9.474,
+      "precio": 1.4,
+      "precioReferencia": 7.369,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.19,
@@ -46535,8 +46599,8 @@
     {
       "productoId": "11553",
       "nombre": "Pañales bebé talla 1 Dodot Sensitive de 2-5 kg",
-      "precio": 16.95,
-      "precioReferencia": 0.293,
+      "precio": 20.95,
+      "precioReferencia": 0.362,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 58,
@@ -46567,8 +46631,8 @@
     {
       "productoId": "47287",
       "nombre": "Pañales bebé talla 2 Dodot Sensitive de 4-8 kg",
-      "precio": 16.95,
-      "precioReferencia": 0.293,
+      "precio": 20.95,
+      "precioReferencia": 0.362,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 58,
@@ -46615,8 +46679,8 @@
     {
       "productoId": "52879",
       "nombre": "Pañales bebé talla 3 Dodot Sensitive de 6-10 kg",
-      "precio": 16.95,
-      "precioReferencia": 0.303,
+      "precio": 21.95,
+      "precioReferencia": 0.392,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 56,
@@ -48402,22 +48466,6 @@
       "subcategoria": "Patatas",
       "imagen": "https://prod-mercadona.imgix.net/images/03cc22cb0e1921e0e5463c6252ca3dde.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/61416/patatas-prefritas-gajo-hacendado-ultracongeladas-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "15286",
-      "nombre": "Patatas prefritas Waffle con piel Hacendado ultracongeladas",
-      "precio": 2.1,
-      "precioReferencia": 3.5,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.6,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Patatas",
-      "imagen": "https://prod-mercadona.imgix.net/images/72cf2bc9606c032bf0666e60ab79f591.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/15286/patatas-prefritas-waffle-con-piel-hacendado-ultracongeladas-paquete",
       "disponible": true
     },
     {
@@ -51159,8 +51207,8 @@
     {
       "productoId": "60869",
       "nombre": "Piñones Hacendado",
-      "precio": 3.25,
-      "precioReferencia": 46.429,
+      "precio": 3.55,
+      "precioReferencia": 50.715,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.07,
@@ -52674,6 +52722,22 @@
       "subcategoria": "Bayeta",
       "imagen": "https://prod-mercadona.imgix.net/images/0f3253e85e3474cd05865be14950d74b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/71055/posavajillas-bosque-verde-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "18382",
+      "nombre": "Postre Caramel Cake Hacendado con queso y caramelo salado",
+      "precio": 1.7,
+      "precioReferencia": 10.625,
+      "formato": "ud.",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 1.6,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Postres y yogures",
+      "subcategoria": "Otros postres",
+      "imagen": "https://prod-mercadona.imgix.net/images/94c4895dc2f1f577cb249a116890a103.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18382/postre-caramel-cake-hacendado-con-queso-caramelo-salado",
       "disponible": true
     },
     {
@@ -55799,8 +55863,8 @@
     {
       "productoId": "69487",
       "nombre": "Rama de Tomates",
-      "precio": 2.01,
-      "precioReferencia": 2.4,
+      "precio": 2.26,
+      "precioReferencia": 2.7,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.838,
@@ -57175,8 +57239,8 @@
     {
       "productoId": "8779",
       "nombre": "Refresco Fanta limón zero azúcares añadidos",
-      "precio": 6.16,
-      "precioReferencia": 2.334,
+      "precio": 4.24,
+      "precioReferencia": 1.607,
       "formato": "latas",
       "unidadesTotales": 8,
       "tamañoUnidad": 2.64,
@@ -57191,8 +57255,8 @@
     {
       "productoId": "27608",
       "nombre": "Refresco Fanta limón zero azúcares añadidos",
-      "precio": 0.8,
-      "precioReferencia": 2.425,
+      "precio": 0.69,
+      "precioReferencia": 2.091,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -57239,8 +57303,8 @@
     {
       "productoId": "18234",
       "nombre": "Refresco Fanta naranja",
-      "precio": 1.55,
-      "precioReferencia": 1.24,
+      "precio": 1,
+      "precioReferencia": 0.8,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.25,
@@ -57255,8 +57319,8 @@
     {
       "productoId": "27571",
       "nombre": "Refresco Fanta naranja",
-      "precio": 6.93,
-      "precioReferencia": 2.334,
+      "precio": 5.94,
+      "precioReferencia": 2,
       "formato": "Pack-9",
       "unidadesTotales": 9,
       "tamañoUnidad": 2.97,
@@ -57271,8 +57335,8 @@
     {
       "productoId": "27502",
       "nombre": "Refresco Fanta naranja",
-      "precio": 0.8,
-      "precioReferencia": 2.425,
+      "precio": 0.75,
+      "precioReferencia": 2.273,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -57287,8 +57351,8 @@
     {
       "productoId": "27545",
       "nombre": "Refresco Fanta naranja zero azúcares añadidos",
-      "precio": 1.85,
-      "precioReferencia": 0.925,
+      "precio": 1.59,
+      "precioReferencia": 0.795,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 2,
@@ -57303,8 +57367,8 @@
     {
       "productoId": "8778",
       "nombre": "Refresco Fanta naranja zero azúcares añadidos",
-      "precio": 6.16,
-      "precioReferencia": 2.334,
+      "precio": 4.24,
+      "precioReferencia": 1.607,
       "formato": "latas",
       "unidadesTotales": 8,
       "tamañoUnidad": 2.64,
@@ -57319,8 +57383,8 @@
     {
       "productoId": "27510",
       "nombre": "Refresco Fanta naranja zero azúcares añadidos",
-      "precio": 0.8,
-      "precioReferencia": 2.425,
+      "precio": 0.69,
+      "precioReferencia": 2.091,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -58935,8 +58999,8 @@
     {
       "productoId": "17578",
       "nombre": "Salchichas cocidas cocktail Hacendado de cerdo",
-      "precio": 1.9,
-      "precioReferencia": 9.5,
+      "precio": 1.7,
+      "precioReferencia": 8.5,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60085,22 +60149,6 @@
       "disponible": true
     },
     {
-      "productoId": "61053",
-      "nombre": "Salteado de patata y salchicha Hacendado ultracongelado",
-      "precio": 2,
-      "precioReferencia": 4.445,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.45,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Verdura",
-      "imagen": "https://prod-mercadona.imgix.net/images/82cdfb335e535eff0ca1457385954aed.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/61053/salteado-patata-salchicha-hacendado-ultracongelado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "69423",
       "nombre": "Salteado de pimientos y cebolla cortado y lavado",
       "precio": 2.5,
@@ -60343,8 +60391,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 0.99,
-      "precioReferencia": 4.95,
+      "precio": 1.19,
+      "precioReferencia": 5.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60834,6 +60882,22 @@
       "subcategoria": "Sérum y ampollas",
       "imagen": "https://prod-mercadona.imgix.net/images/0ca856da265a5ce8ad51e7dc0fa7eeb9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21599/serum-facial-iluminador-deliplus-con-15-vitamina-c-anti-ox-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "18657",
+      "nombre": "Sérum facial PDRN & Colágeno K-Skin efecto lifting",
+      "precio": 7,
+      "precioReferencia": 20,
+      "formato": "Caja",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.035,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Sérum y ampollas",
+      "imagen": "https://prod-mercadona.imgix.net/images/612915ab782c09d2a2c678348d8cb416.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18657/serum-facial-k-skin-efecto-lifting-deliplus-con-pdrn-colageno-caja",
       "disponible": true
     },
     {
@@ -64391,8 +64455,8 @@
     {
       "productoId": "69937",
       "nombre": "Tomate ensalada",
-      "precio": 0.6,
-      "precioReferencia": 2.2,
+      "precio": 0.68,
+      "precioReferencia": 2.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.273,
