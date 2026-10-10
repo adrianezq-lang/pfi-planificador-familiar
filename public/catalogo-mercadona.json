@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-09T11:55:14.534Z",
+  "actualizado": "2026-10-10T11:12:11.201Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalProductos": 4303,
@@ -3429,22 +3429,6 @@
       "disponible": true
     },
     {
-      "productoId": "67997",
-      "nombre": "Ambientador spray Sweet Blossom Bosque Verde",
-      "precio": 1.2,
-      "precioReferencia": 4,
-      "formato": "Spray",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Ambientador spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/6c1d5671c980e0727f00719e909ab069.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/67997/ambientador-spray-sweet-blossom-bosque-verde-spray",
-      "disponible": true
-    },
-    {
       "productoId": "13295",
       "nombre": "Ambientador Talco armarios y cajones Bosque Verde",
       "precio": 1.75,
@@ -5157,6 +5141,22 @@
       "disponible": true
     },
     {
+      "productoId": "18418",
+      "nombre": "Bálsamo reparador SOS nariz & labios Deliplus",
+      "precio": 2.6,
+      "precioReferencia": 18.572,
+      "formato": "Tarro",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.014,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Cuidado",
+      "imagen": "https://prod-mercadona.imgix.net/images/95a69a845c18227811fb334fad37a3f2.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18418/balsamo-reparador-sos-nariz-labios-deliplus-tarro",
+      "disponible": true
+    },
+    {
       "productoId": "3824",
       "nombre": "Banana",
       "precio": 0.23,
@@ -5906,6 +5906,22 @@
       "subcategoria": "Barritas de cereales",
       "imagen": "https://prod-mercadona.imgix.net/images/55ba625ed8baee3f6cf50363a463fe9f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52493/barritas-cereales-con-frutos-secos-hacendado-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "17702",
+      "nombre": "Barritas de chocolate con leche Hacendado rellenas de leche",
+      "precio": 2.2,
+      "precioReferencia": 11,
+      "formato": "Paquete",
+      "unidadesTotales": 16,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Chocolatinas",
+      "imagen": "https://prod-mercadona.imgix.net/images/80ed20278bfdf737f42b6c581d92bc8a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17702/barritas-chocolate-con-leche-hacendado-rellenas-leche-paquete",
       "disponible": true
     },
     {
@@ -9927,8 +9943,8 @@
     {
       "productoId": "81661.2",
       "nombre": "Boquerón limpio sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.99,
+      "precioReferencia": 4.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -9943,8 +9959,8 @@
     {
       "productoId": "81661.1",
       "nombre": "Boquerón sin limpiar",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.99,
+      "precioReferencia": 4.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -12880,7 +12896,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Otras verduras y hortalizas",
-      "imagen": "https://prod-mercadona.imgix.net/images/8bd8814de5f099ca01d1f7faa18ae912.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8bd8814de5f099ca01d1f7faa18ae912.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/5940/castanas-malla",
       "disponible": true
     },
@@ -22485,22 +22501,6 @@
       "disponible": true
     },
     {
-      "productoId": "80264",
-      "nombre": "Delineador de ojos Deliplus negro",
-      "precio": 3.75,
-      "precioReferencia": 3.75,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Perfilador de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/a492ad5ba70672af6e26729a6efb7cc8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/80264/delineador-ojos-deliplus-negro",
-      "disponible": true
-    },
-    {
       "productoId": "16455",
       "nombre": "Delineador de ojos Eyeliner Precision Deliplus negro",
       "precio": 3.75,
@@ -26581,22 +26581,6 @@
       "disponible": true
     },
     {
-      "productoId": "69643",
-      "nombre": "Espárragos verdes gruesos",
-      "precio": 4.1,
-      "precioReferencia": 13.667,
-      "formato": "Manojo",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Otras verduras y hortalizas",
-      "imagen": "https://prod-mercadona.imgix.net/images/de69bc03e85de9479421cbe7dfca1708.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/69643/esparrago-verde-grueso-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "61279",
       "nombre": "Espinaca en porciones Hacendado ultracongelada",
       "precio": 0.9,
@@ -27559,8 +27543,8 @@
     {
       "productoId": "24350",
       "nombre": "Filete de salmón rosado salvaje con piel Hacendado ultracongelado",
-      "precio": 4.99,
-      "precioReferencia": 13.5,
+      "precio": 6.1,
+      "precioReferencia": 16.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0,
@@ -31271,8 +31255,8 @@
     {
       "productoId": "28032",
       "nombre": "Ginebra Dry Gin Seagram's",
-      "precio": 16.5,
-      "precioReferencia": 23.572,
+      "precio": 15.45,
+      "precioReferencia": 22.072,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,
@@ -33218,6 +33202,22 @@
       "subcategoria": "Hielo",
       "imagen": "https://prod-mercadona.imgix.net/images/58a58d2dac231f62b518bdb84368e9fd.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/64139/hielo-cocktail-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "68037",
+      "nombre": "Hierbabuena",
+      "precio": 1.35,
+      "precioReferencia": 3.375,
+      "formato": "Manojo",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.04,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Hierbas aromáticas",
+      "imagen": "https://prod-mercadona.imgix.net/images/fd5374ed7e477b77515aefb01391a088.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/68037/hierbabuena-paquete",
       "disponible": true
     },
     {
@@ -35922,22 +35922,6 @@
       "subcategoria": "Limpiavajilla a mano",
       "imagen": "https://prod-mercadona.imgix.net/images/dce742b2fe096e56a7c7a6273d248032.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21553/lavavajillas-poder-3-1-fairy-liquido-lavado-mano-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "86653",
-      "nombre": "Lavavajillas Power Essential limón Finish en pastillas",
-      "precio": 3.25,
-      "precioReferencia": 0.125,
-      "formato": "Caja",
-      "unidadesTotales": 26,
-      "tamañoUnidad": 0.338,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Limpiavajilla a máquina",
-      "imagen": "https://prod-mercadona.imgix.net/images/667b3a38b2f8367477e9b16c3b619810.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/86653/lavavajillas-power-essential-limon-finish-pastillas-lavado-maquina-caja",
       "disponible": true
     },
     {
@@ -40439,8 +40423,8 @@
     {
       "productoId": "52645",
       "nombre": "Maquinilla de afeitar recargable Gillette Fusion Sport 5 hojas",
-      "precio": 9.6,
-      "precioReferencia": 9.6,
+      "precio": 9,
+      "precioReferencia": 9,
       "formato": "Caja",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -40615,8 +40599,8 @@
     {
       "productoId": "73002",
       "nombre": "Maquinillas de afeitar desechables Gillette Sensor Comfort 3 hojas",
-      "precio": 5.75,
-      "precioReferencia": 1.15,
+      "precio": 5.6,
+      "precioReferencia": 1.12,
       "formato": "Paquete",
       "unidadesTotales": 5,
       "tamañoUnidad": 1,
@@ -43106,6 +43090,22 @@
       "subcategoria": "Salchichón",
       "imagen": "https://prod-mercadona.imgix.net/images/903ab8d040b24e8e6418557225ab8196.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/58248/mini-salchichon-iberico-extra-hacienda-iberico-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "24545",
+      "nombre": "Mini sándwich de pavo y huevo revuelto Mini & Go Hacendado",
+      "precio": 1,
+      "precioReferencia": 14.286,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.07,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Pizzas y platos preparados",
+      "subcategoria": "Sándwich",
+      "imagen": "https://prod-mercadona.imgix.net/images/5e1406717219c7edab6450825ed0eb3f.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/24545/mini-sandwich-pavo-huevo-revuelto-mini-go-hacendado-paquete",
       "disponible": true
     },
     {
@@ -48469,6 +48469,22 @@
       "disponible": true
     },
     {
+      "productoId": "17587",
+      "nombre": "Patatas prefritas Pepper Sticks Hacendado rebozadas con sal y pimienta",
+      "precio": 2.1,
+      "precioReferencia": 2.8,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.75,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Congelados",
+      "subcategoria": "Patatas",
+      "imagen": "https://prod-mercadona.imgix.net/images/9e93573d817493f311676854a46ec7a6.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17587/patatas-prefritas-pepper-sticks-hacendado-rebozadas-con-sal-pimienta-ultracongeladas-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "69098",
       "nombre": "Patatas rojas",
       "precio": 3.8,
@@ -50754,38 +50770,6 @@
       "subcategoria": "Empanados y elaborados",
       "imagen": "https://prod-mercadona.imgix.net/images/18faa0d5d1fb660eeb970c0958d22bb5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3456/pinchos-pollo-sin-varilla-adobados-bandeja",
-      "disponible": true
-    },
-    {
-      "productoId": "40055",
-      "nombre": "Pintalabios Creamy Deliplus 213 marsala",
-      "precio": 4.65,
-      "precioReferencia": 4.65,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios cremoso y brillos",
-      "imagen": "https://prod-mercadona.imgix.net/images/39271fcca019113dcbbc5849c9765abe.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/40055/pintalabios-creamy-deliplus-213-marsala",
-      "disponible": true
-    },
-    {
-      "productoId": "8299",
-      "nombre": "Pintalabios Creamy Deliplus 218 granate suave",
-      "precio": 4.65,
-      "precioReferencia": 4.65,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios cremoso y brillos",
-      "imagen": "https://prod-mercadona.imgix.net/images/07e57bf01dc2836b675c637103ddb04c.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8299/pintalabios-creamy-deliplus-218-granate-suave",
       "disponible": true
     },
     {
@@ -56279,8 +56263,8 @@
     {
       "productoId": "52646",
       "nombre": "Recambios maquinilla de afeitar Gillette Fusion Sport 5 hojas",
-      "precio": 13.7,
-      "precioReferencia": 3.425,
+      "precio": 13.45,
+      "precioReferencia": 3.363,
       "formato": "Caja",
       "unidadesTotales": 4,
       "tamañoUnidad": 1,
@@ -56343,8 +56327,8 @@
     {
       "productoId": "35785",
       "nombre": "Recambios maquinilla depilación Gillette Venus 3 hojas Comfortglide",
-      "precio": 10.8,
-      "precioReferencia": 2.7,
+      "precio": 10.6,
+      "precioReferencia": 2.65,
       "formato": "Caja",
       "unidadesTotales": 4,
       "tamañoUnidad": 1,
@@ -60149,6 +60133,22 @@
       "disponible": true
     },
     {
+      "productoId": "21538",
+      "nombre": "Salteado de patata y salchicha frankfurt Hacendado ultracongelado",
+      "precio": 2.1,
+      "precioReferencia": 4.667,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.45,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Congelados",
+      "subcategoria": "Verdura",
+      "imagen": "https://prod-mercadona.imgix.net/images/d3d0bf103b0cf118ba56abc98148db48.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21538/salteado-patata-salchicha-frankfurt-hacendado-ultracongelado-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "69423",
       "nombre": "Salteado de pimientos y cebolla cortado y lavado",
       "precio": 2.5,
@@ -62663,8 +62663,8 @@
     {
       "productoId": "14484",
       "nombre": "Surtido bombones Senzza de chocolate",
-      "precio": 4.2,
-      "precioReferencia": 12.728,
+      "precio": 3.5,
+      "precioReferencia": 10.607,
       "formato": "Paquete",
       "unidadesTotales": 28,
       "tamañoUnidad": 0.33,
@@ -67687,8 +67687,8 @@
     {
       "productoId": "28604",
       "nombre": "Whisky escocés Ballantine's",
-      "precio": 13.95,
-      "precioReferencia": 19.929,
+      "precio": 13.25,
+      "precioReferencia": 18.929,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,
