@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-10T11:12:11.201Z",
+  "actualizado": "2026-10-11T11:25:37.024Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4303,
+  "totalProductos": 4305,
   "productos": [
     {
       "productoId": "40339",
@@ -3426,6 +3426,22 @@
       "subcategoria": "Ambientador spray",
       "imagen": "https://prod-mercadona.imgix.net/images/64f336ebe7a7c26113aabc7a3446bfa0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/72537/ambientador-spray-ropa-limpia-bosque-verde-spray",
+      "disponible": true
+    },
+    {
+      "productoId": "67997",
+      "nombre": "Ambientador spray Sweet Blossom Bosque Verde",
+      "precio": 1.2,
+      "precioReferencia": 4,
+      "formato": "Spray",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Limpieza y hogar",
+      "subcategoria": "Ambientador spray",
+      "imagen": "https://prod-mercadona.imgix.net/images/6c1d5671c980e0727f00719e909ab069.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/67997/ambientador-spray-sweet-blossom-bosque-verde-spray",
       "disponible": true
     },
     {
@@ -21490,6 +21506,22 @@
       "subcategoria": "Cremas y puré",
       "imagen": "https://prod-mercadona.imgix.net/images/84004f26c61b916e664619ebaa88a44f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8722/crema-verduras-hacendado-bol",
+      "disponible": true
+    },
+    {
+      "productoId": "60308",
+      "nombre": "Crema de verduras Hacendado",
+      "precio": 1,
+      "precioReferencia": 2,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Cremas y puré",
+      "imagen": "https://prod-mercadona.imgix.net/images/2ae243e8f790af2975eacc75f302b24d.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/60308/crema-verduras-hacendado-brick",
       "disponible": true
     },
     {
