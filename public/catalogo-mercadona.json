@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-11T11:25:37.024Z",
+  "actualizado": "2026-10-12T13:11:49.809Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4305,
+  "totalProductos": 4304,
   "productos": [
     {
       "productoId": "40339",
@@ -3426,22 +3426,6 @@
       "subcategoria": "Ambientador spray",
       "imagen": "https://prod-mercadona.imgix.net/images/64f336ebe7a7c26113aabc7a3446bfa0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/72537/ambientador-spray-ropa-limpia-bosque-verde-spray",
-      "disponible": true
-    },
-    {
-      "productoId": "67997",
-      "nombre": "Ambientador spray Sweet Blossom Bosque Verde",
-      "precio": 1.2,
-      "precioReferencia": 4,
-      "formato": "Spray",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Ambientador spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/6c1d5671c980e0727f00719e909ab069.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/67997/ambientador-spray-sweet-blossom-bosque-verde-spray",
       "disponible": true
     },
     {
@@ -38640,7 +38624,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Vacuno",
-      "imagen": "https://prod-mercadona.imgix.net/images/7d534c725ee434cc5c63c346fefb446d.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e08035b08346a5a94a59cf423e7becd7.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8934/lomo-vacuno-anojo-paquete",
       "disponible": true
     },
