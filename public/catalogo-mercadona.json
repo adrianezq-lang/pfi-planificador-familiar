@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-15T09:56:02.851Z",
+  "actualizado": "2026-10-16T09:51:11.360Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4299,
+  "totalProductos": 4296,
   "productos": [
     {
       "productoId": "40339",
@@ -3333,6 +3333,22 @@
       "disponible": true
     },
     {
+      "productoId": "17812",
+      "nombre": "Ambientador spray Blossom Bosque Verde",
+      "precio": 1.2,
+      "precioReferencia": 4,
+      "formato": "Spray",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Limpieza y hogar",
+      "subcategoria": "Ambientador spray",
+      "imagen": "https://prod-mercadona.imgix.net/images/1cf2891fd7334c500d9f3491f4d6300f.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17812/ambientador-spray-blossom-bosque-verde-spray",
+      "disponible": true
+    },
+    {
       "productoId": "21551",
       "nombre": "Ambientador spray de tejidos Bosque Verde",
       "precio": 2.6,
@@ -3426,22 +3442,6 @@
       "subcategoria": "Ambientador spray",
       "imagen": "https://prod-mercadona.imgix.net/images/64f336ebe7a7c26113aabc7a3446bfa0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/72537/ambientador-spray-ropa-limpia-bosque-verde-spray",
-      "disponible": true
-    },
-    {
-      "productoId": "67997",
-      "nombre": "Ambientador spray Sweet Blossom Bosque Verde",
-      "precio": 1.2,
-      "precioReferencia": 4,
-      "formato": "Spray",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Ambientador spray",
-      "imagen": "https://prod-mercadona.imgix.net/images/6c1d5671c980e0727f00719e909ab069.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/67997/ambientador-spray-sweet-blossom-bosque-verde-spray",
       "disponible": true
     },
     {
@@ -9911,8 +9911,8 @@
     {
       "productoId": "12471",
       "nombre": "Bombones delicias de avellana Delizze Hacendado",
-      "precio": 4.2,
-      "precioReferencia": 19.445,
+      "precio": 3.7,
+      "precioReferencia": 17.13,
       "formato": "Caja",
       "unidadesTotales": 16,
       "tamañoUnidad": 0.216,
@@ -10450,6 +10450,22 @@
       "subcategoria": "Pavo y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/6301271ead526408834d91b05e58ae68.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/59364/cabeza-cerdo-finas-lonchas-hacendado-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "13738",
+      "nombre": "Cacahuete en polvo desgrasado +Proteínas 14 g 70% reducido en grasa",
+      "precio": 2.75,
+      "precioReferencia": 13.75,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Decoración",
+      "imagen": "https://prod-mercadona.imgix.net/images/d7d92dd4c1eaf7f4cacb42fcf24d0019.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/13738/cacahuete-proteinas-polvo-desgrasado-hacendado-14-g-proteinas-70-reducido-grasa-paquete",
       "disponible": true
     },
     {
@@ -14471,8 +14487,8 @@
     {
       "productoId": "66587",
       "nombre": "Cerveza especial Estrella Galicia",
-      "precio": 8.16,
-      "precioReferencia": 2.72,
+      "precio": 7.32,
+      "precioReferencia": 2.44,
       "formato": "Pack-12",
       "unidadesTotales": 12,
       "tamañoUnidad": 3,
@@ -14535,8 +14551,8 @@
     {
       "productoId": "9826",
       "nombre": "Cerveza especial Mahou",
-      "precio": 8.4,
-      "precioReferencia": 2.546,
+      "precio": 6.7,
+      "precioReferencia": 2.031,
       "formato": "latas",
       "unidadesTotales": 10,
       "tamañoUnidad": 3.3,
@@ -14631,8 +14647,8 @@
     {
       "productoId": "66345",
       "nombre": "Cerveza especial San Miguel",
-      "precio": 6.84,
-      "precioReferencia": 2.28,
+      "precio": 4.8,
+      "precioReferencia": 1.6,
       "formato": "Pack-12",
       "unidadesTotales": 12,
       "tamañoUnidad": 3,
@@ -14759,8 +14775,8 @@
     {
       "productoId": "21497",
       "nombre": "Cerveza extra 1906 reserva especial",
-      "precio": 4.6,
-      "precioReferencia": 3.485,
+      "precio": 5,
+      "precioReferencia": 3.788,
       "formato": "botellines",
       "unidadesTotales": 4,
       "tamañoUnidad": 1.32,
@@ -15079,8 +15095,8 @@
     {
       "productoId": "23991",
       "nombre": "Cerveza triple zero Ambar tostada",
-      "precio": 4.92,
-      "precioReferencia": 2.485,
+      "precio": 5.82,
+      "precioReferencia": 2.94,
       "formato": "latas",
       "unidadesTotales": 6,
       "tamañoUnidad": 1.98,
@@ -15095,8 +15111,8 @@
     {
       "productoId": "23992",
       "nombre": "Cerveza triple zero Ambar tostada",
-      "precio": 0.82,
-      "precioReferencia": 2.485,
+      "precio": 1,
+      "precioReferencia": 3.031,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -21173,6 +21189,22 @@
       "disponible": true
     },
     {
+      "productoId": "14930",
+      "nombre": "Crema de calabacín Hacendado",
+      "precio": 1,
+      "precioReferencia": 2,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Cremas y puré",
+      "imagen": "https://prod-mercadona.imgix.net/images/21e1acdab6e7f290087759fa1f7eef1d.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/14930/crema-calabacin-hacendado-brick",
+      "disponible": true
+    },
+    {
       "productoId": "35870",
       "nombre": "Crema de calabacín Hacendado",
       "precio": 1.7,
@@ -23671,8 +23703,8 @@
     {
       "productoId": "16830",
       "nombre": "Detergente ropa Ariel líquido",
-      "precio": 5.95,
-      "precioReferencia": 0.199,
+      "precio": 7.95,
+      "precioReferencia": 0.265,
       "formato": "Botella",
       "unidadesTotales": 30,
       "tamañoUnidad": 1.35,
@@ -28446,8 +28478,8 @@
       "tamañoUnidad": 0.28,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
-      "sección": "Carne",
-      "subcategoria": "Empanados y elaborados",
+      "sección": "Pizzas y platos preparados",
+      "subcategoria": "Otros",
       "imagen": "https://prod-mercadona.imgix.net/images/efd938ceb30081a8b1c076c1d4a08bd9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/2169/flautas-bacon-queso-bandeja",
       "disponible": true
@@ -28462,8 +28494,8 @@
       "tamañoUnidad": 0.28,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
-      "sección": "Carne",
-      "subcategoria": "Empanados y elaborados",
+      "sección": "Pizzas y platos preparados",
+      "subcategoria": "Otros",
       "imagen": "https://prod-mercadona.imgix.net/images/0ae8e36ead1e2d24d6f95c6abffe5e14.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/2137/flautas-pollo-queso-bandeja",
       "disponible": true
@@ -32549,22 +32581,6 @@
       "disponible": true
     },
     {
-      "productoId": "21604",
-      "nombre": "Helado bombón pistacho Hacendado sabor almendra con salsa de pistacho",
-      "precio": 4.6,
-      "precioReferencia": 8.519,
-      "formato": "Caja",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 0.54,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Bombones",
-      "imagen": "https://prod-mercadona.imgix.net/images/d93c19c2465958d0ae9debbbdbd0c29f.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21604/helado-bombon-pistacho-hacendado-con-cobertura-salsa-granillo-pistacho-caja",
-      "disponible": true
-    },
-    {
       "productoId": "52563",
       "nombre": "Helado capuccino Hacendado con sirope de café",
       "precio": 3.25,
@@ -35893,6 +35909,22 @@
       "disponible": true
     },
     {
+      "productoId": "42385",
+      "nombre": "Lavavajillas Todo en 1 Bosque Verde en cápsulas",
+      "precio": 2.95,
+      "precioReferencia": 0.099,
+      "formato": "Paquete",
+      "unidadesTotales": 30,
+      "tamañoUnidad": 0.39,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Limpieza y hogar",
+      "subcategoria": "Limpiavajilla a máquina",
+      "imagen": "https://prod-mercadona.imgix.net/images/44394e4e72f1e5ea21478c01ca30f9f7.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/42385/lavavajillas-classic-bosque-verde-pastillas-lavado-maquina-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "42384",
       "nombre": "Lavavajillas Todo en 1 Bosque Verde en pastillas",
       "precio": 2.95,
@@ -35909,24 +35941,8 @@
       "disponible": true
     },
     {
-      "productoId": "42385",
-      "nombre": "Lavavajillas Todo en 1 Bosque Verde en pastillas",
-      "precio": 2.95,
-      "precioReferencia": 0.099,
-      "formato": "Paquete",
-      "unidadesTotales": 30,
-      "tamañoUnidad": 0.39,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Limpiavajilla a máquina",
-      "imagen": "https://prod-mercadona.imgix.net/images/44394e4e72f1e5ea21478c01ca30f9f7.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/42385/lavavajillas-classic-bosque-verde-pastillas-lavado-maquina-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "12076",
-      "nombre": "Lavavajillas Todo en 1 Fairy en pastillas",
+      "nombre": "Lavavajillas Todo en 1 Fairy en cápsulas",
       "precio": 5.85,
       "precioReferencia": 0.168,
       "formato": "Paquete",
@@ -36006,7 +36022,7 @@
     },
     {
       "productoId": "17815",
-      "nombre": "Lavavajillas Ultra Plus naranja Fairy en pastillas",
+      "nombre": "Lavavajillas Ultra Plus naranja Fairy en cápsulas",
       "precio": 5,
       "precioReferencia": 0.2,
       "formato": "Paquete",
@@ -44534,7 +44550,7 @@
     },
     {
       "productoId": "9861",
-      "nombre": "Noodles Ramen",
+      "nombre": "Noodles Ramen Hacendado",
       "precio": 0.85,
       "precioReferencia": 4.25,
       "formato": "Paquete",
@@ -46517,22 +46533,6 @@
       "disponible": true
     },
     {
-      "productoId": "47039",
-      "nombre": "Pañal bebé braguita talla XL Pants Deliplus de 16-28 kg",
-      "precio": 6.9,
-      "precioReferencia": 0.314,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 22,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Bebé",
-      "subcategoria": "Braguita y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/fc15c9b3e552296bd754dc4daefd7aae.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/47039/panal-bebe-braguita-talla-xl-16-28-kg-deliplus-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "47366",
       "nombre": "Pañal junior braguita noche Deliplus de 17-30 kg",
       "precio": 10.65,
@@ -47074,22 +47074,6 @@
       "subcategoria": "Papel y bolsas de conservación",
       "imagen": "https://prod-mercadona.imgix.net/images/605886a19237ab9712a3c8572caa375b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23608/papel-vegetal-bosque-verde-38-x-42-cm-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "35602",
-      "nombre": "Papilla 8 cereales con galleta María Nestlé +6 meses",
-      "precio": 5.75,
-      "precioReferencia": 7.932,
-      "formato": "Caja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.725,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Bebé",
-      "subcategoria": "Papillas",
-      "imagen": "https://prod-mercadona.imgix.net/images/b2a20eb9d74a1a026e1c828bf105a189.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35602/papilla-8-cereales-con-galleta-maria-nestle-6-meses-0-azucares-anadidos-caja",
       "disponible": true
     },
     {
@@ -50672,7 +50656,7 @@
       "pesoAproximado": true,
       "sección": "Pizzas y platos preparados",
       "subcategoria": "Tortilla",
-      "imagen": "https://prod-mercadona.imgix.net/images/54363265f36c1510663cc27763e5981d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/54363265f36c1510663cc27763e5981d.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60095/pincho-tortilla-patata-con-calabacin-listo-comer",
       "disponible": true
     },
@@ -50688,7 +50672,7 @@
       "pesoAproximado": true,
       "sección": "Pizzas y platos preparados",
       "subcategoria": "Tortilla",
-      "imagen": "https://prod-mercadona.imgix.net/images/20d4960edd12efb27ebed2e3048590fc.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/20d4960edd12efb27ebed2e3048590fc.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60093/pincho-tortilla-patata-con-cebolla-listo-comer",
       "disponible": true
     },
@@ -54354,6 +54338,22 @@
       "subcategoria": "Queso en porciones",
       "imagen": "https://prod-mercadona.imgix.net/images/66ba7ab8e03fba0930d149762ec484a7.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/51232/queso-porciones-light-hacendado-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "51504",
+      "nombre": "Queso en porciones mini Babybel",
+      "precio": 3.9,
+      "precioReferencia": 24.375,
+      "formato": "Malla",
+      "unidadesTotales": 8,
+      "tamañoUnidad": 0.16,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Queso en porciones",
+      "imagen": "https://prod-mercadona.imgix.net/images/0268b22955184deb0c53b6b022b45608.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/51504/queso-porciones-mini-babybel-malla",
       "disponible": true
     },
     {
@@ -60560,7 +60560,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Cerdo",
-      "imagen": "https://prod-mercadona.imgix.net/images/3736924e8b6a3e6dd24a596cc3a0ece5.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/cadfc90c8d57dc156e5312dad5a5efb8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13046/secreto-cerdo-paquete",
       "disponible": true
     },
@@ -60594,22 +60594,6 @@
       "subcategoria": "Otros",
       "imagen": "https://prod-mercadona.imgix.net/images/185b47edd62bc3d6937825500929a5b0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/19974/seitan-hacendado-lonchas-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "5464",
-      "nombre": "Semillas de chía Hacendado",
-      "precio": 1.45,
-      "precioReferencia": 9.667,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.15,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Aperitivos",
-      "subcategoria": "Frutos secos",
-      "imagen": "https://prod-mercadona.imgix.net/images/64ad122635e33b2109174eccd023d722.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/5464/semillas-chia-hacendado-paquete",
       "disponible": true
     },
     {
@@ -63282,22 +63266,6 @@
       "subcategoria": "Barras de helado y barquillos",
       "imagen": "https://prod-mercadona.imgix.net/images/abf468ed311c33b400a723c9b4d7813f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/70711/tarta-helada-nata-chocolate-hacendado-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "17626",
-      "nombre": "Tarta infantil deportes Hacendado congelada",
-      "precio": 13.8,
-      "precioReferencia": 9.2,
-      "formato": "Bandeja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.5,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Tartas infantiles",
-      "imagen": "https://prod-mercadona.imgix.net/images/ba6ee0e908cc96bf1ad8c6bbb4659bc3.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17626/tarta-infantil-deportes-hacendado-congelada-bandeja",
       "disponible": true
     },
     {
@@ -66274,22 +66242,6 @@
       "subcategoria": "Ambientador decorativo y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/bc437b1520289b5e29b7dcdd889bea41.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14717/vela-perfumada-chai-bosque-verde-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "35457",
-      "nombre": "Vela perfumada Fruta Tropical Bosque Verde",
-      "precio": 1.85,
-      "precioReferencia": 0.103,
-      "formato": "Caja",
-      "unidadesTotales": 18,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Ambientador decorativo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/12a961bfa9dd95bec78627e0ff42cd93.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35457/vela-perfumada-fruta-tropical-bosque-verde-pequena-caja",
       "disponible": true
     },
     {
