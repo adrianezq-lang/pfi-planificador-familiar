@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-16T09:51:11.360Z",
+  "actualizado": "2026-10-17T09:22:43.038Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4296,
+  "totalProductos": 4300,
   "productos": [
     {
       "productoId": "40339",
@@ -2697,7 +2697,7 @@
       "nombre": "Aliño de aceite con perejil y ajo Hacendado",
       "precio": 1.8,
       "precioReferencia": 12,
-      "formato": "Tarrina",
+      "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.15,
       "formatoUnidad": "l",
@@ -4626,22 +4626,6 @@
       "subcategoria": "Colorante y pimentón",
       "imagen": "https://prod-mercadona.imgix.net/images/9b1e3bf3f850bb972810225a35e2d27e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/34116/azafran-molido-hacendado-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "19837",
-      "nombre": "Azúcar blanco en sobres Hacendado",
-      "precio": 1.55,
-      "precioReferencia": 4.429,
-      "formato": "Caja",
-      "unidadesTotales": 50,
-      "tamañoUnidad": 0.35,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Azúcar",
-      "imagen": "https://prod-mercadona.imgix.net/images/86a786bc3c1d1538701f5d2397255508.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/19837/azucar-blanco-sobres-hacendado-caja",
       "disponible": true
     },
     {
@@ -12149,22 +12133,6 @@
       "disponible": true
     },
     {
-      "productoId": "17942",
-      "nombre": "Calendario Adviento 24 Makeup  Glam Secrets Deliplus",
-      "precio": 25,
-      "precioReferencia": 25,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Sombra de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/9c71037bc269e753781a749089edefcb.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17942/calendario-adviento-24-makeup-glam-secrets-deliplus",
-      "disponible": true
-    },
-    {
       "productoId": "67786",
       "nombre": "Callos a la madrileña Hacendado",
       "precio": 2.45,
@@ -14007,8 +13975,8 @@
     {
       "productoId": "21746",
       "nombre": "Cerveza 0,0% sin alcohol Falke",
-      "precio": 3.48,
-      "precioReferencia": 0.879,
+      "precio": 3.6,
+      "precioReferencia": 0.91,
       "formato": "latas",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -14023,8 +13991,8 @@
     {
       "productoId": "21747",
       "nombre": "Cerveza 0,0% sin alcohol Falke",
-      "precio": 0.29,
-      "precioReferencia": 0.879,
+      "precio": 0.3,
+      "precioReferencia": 0.91,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -14935,8 +14903,8 @@
     {
       "productoId": "21742",
       "nombre": "Cerveza Radler Steinburg con zumo natural de limón",
-      "precio": 3.69,
-      "precioReferencia": 1.243,
+      "precio": 3.87,
+      "precioReferencia": 1.304,
       "formato": "latas",
       "unidadesTotales": 9,
       "tamañoUnidad": 2.97,
@@ -14951,8 +14919,8 @@
     {
       "productoId": "21743",
       "nombre": "Cerveza Radler Steinburg con zumo natural de limón",
-      "precio": 0.41,
-      "precioReferencia": 1.243,
+      "precio": 0.43,
+      "precioReferencia": 1.304,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -17490,6 +17458,22 @@
       "subcategoria": "Decoración",
       "imagen": "https://prod-mercadona.imgix.net/images/0da63556166bbaf4d1fc9df82ab654b4.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/34035/coco-rallado-hacendado-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "62051",
+      "nombre": "Cocochas de bacalao MareDeus ultracongeladas",
+      "precio": 8.45,
+      "precioReferencia": 28.167,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Pescado congelado",
+      "imagen": "https://prod-mercadona.imgix.net/images/4f93feb979f455f2eb48336b23054cdb.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/62051/cocochas-bacalao-maredeus-ultracongeladas-paquete",
       "disponible": true
     },
     {
@@ -21429,6 +21413,22 @@
       "disponible": true
     },
     {
+      "productoId": "8447",
+      "nombre": "Crema de marisco Hacendado",
+      "precio": 2,
+      "precioReferencia": 4,
+      "formato": "Brik",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Conservas, caldos y cremas",
+      "subcategoria": "Cremas y puré",
+      "imagen": "https://prod-mercadona.imgix.net/images/0d8342773ae2a6bae230564c9ea13e55.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/8447/crema-marisco-hacendado-brick",
+      "disponible": true
+    },
+    {
       "productoId": "8448",
       "nombre": "Crema de pollo Hacendado con verduras",
       "precio": 1,
@@ -22546,6 +22546,22 @@
       "subcategoria": "Perfilador de ojos",
       "imagen": "https://prod-mercadona.imgix.net/images/d37932bb7bb25a34aa40bbb3d8e48020.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52504/delineador-ojos-deliplus-02-marron",
+      "disponible": true
+    },
+    {
+      "productoId": "80264",
+      "nombre": "Delineador de ojos Deliplus negro",
+      "precio": 3.75,
+      "precioReferencia": 3.75,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Perfilador de ojos",
+      "imagen": "https://prod-mercadona.imgix.net/images/a492ad5ba70672af6e26729a6efb7cc8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/80264/delineador-ojos-deliplus-negro",
       "disponible": true
     },
     {
@@ -27472,7 +27488,7 @@
       "pesoAproximado": true,
       "sección": "Pizzas y platos preparados",
       "subcategoria": "Fideos orientales",
-      "imagen": "https://prod-mercadona.imgix.net/images/492728f67a5f03dadbb0d479129bfaae.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7b16a9e40a1acc0213f397e27b6201a4.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8645/fideos-orientales-yatekomo-sabor-pollo-gallina-blanca-pack-3",
       "disponible": true
     },
@@ -28898,22 +28914,6 @@
       "subcategoria": "Vino lambrusco y espumoso",
       "imagen": "https://prod-mercadona.imgix.net/images/1c22d39e6430a588dd9eae64e8a19d89.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/66332/vino-blanco-espumoso-verdejo-dulzze-frizzante-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "23972",
-      "nombre": "Frizzante blanco verdejo DulZ.Ze",
-      "precio": 0.75,
-      "precioReferencia": 2.273,
-      "formato": "Lata",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.33,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Vino lambrusco y espumoso",
-      "imagen": "https://prod-mercadona.imgix.net/images/6b43199caa46c2a61fb03a37a6ee020d.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23972/frizzante-blanco-verdejo-dulzze-lata",
       "disponible": true
     },
     {
@@ -32546,22 +32546,6 @@
       "subcategoria": "Bombones",
       "imagen": "https://prod-mercadona.imgix.net/images/6ea65186f39fd06211ef6f8074924a4f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/64000/helado-almendrado-hacendado-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "60690",
-      "nombre": "Helado bombón mango blanco Hacendado con salsa de mango",
-      "precio": 3.9,
-      "precioReferencia": 7.223,
-      "formato": "Caja",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 0.54,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Bombones",
-      "imagen": "https://prod-mercadona.imgix.net/images/bd554354787aa20cfa7bccd0d9549e3d.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60690/helado-bombon-mango-blanco-hacendado-con-salsa-mango-cobertura-chocolate-blanco-con-trozos-coco-crujientes-caja",
       "disponible": true
     },
     {
@@ -37461,22 +37445,6 @@
       "disponible": true
     },
     {
-      "productoId": "21887",
-      "nombre": "Licor de maracuyá Royal Swan",
-      "precio": 6.35,
-      "precioReferencia": 9.072,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.7,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Otros licores",
-      "imagen": "https://prod-mercadona.imgix.net/images/1e84a0bd97d845635e604a8966333289.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21887/licor-maracuya-royal-swan-botella",
-      "disponible": true
-    },
-    {
       "productoId": "28432",
       "nombre": "Licor dulce Amaretto Del Patriarca",
       "precio": 4.8,
@@ -41623,8 +41591,8 @@
     {
       "productoId": "23816",
       "nombre": "Mayonesa en sobres individuales Hacendado",
-      "precio": 1.4,
-      "precioReferencia": 5.834,
+      "precio": 1.5,
+      "precioReferencia": 6.25,
       "formato": "Caja",
       "unidadesTotales": 12,
       "tamañoUnidad": 0.24,
@@ -41655,8 +41623,8 @@
     {
       "productoId": "52728",
       "nombre": "Mayonesa Hacendado",
-      "precio": 1,
-      "precioReferencia": 4.167,
+      "precio": 1.05,
+      "precioReferencia": 4.375,
       "formato": "Tarro",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.24,
@@ -41671,8 +41639,8 @@
     {
       "productoId": "11550",
       "nombre": "Mayonesa Hacendado",
-      "precio": 1.4,
-      "precioReferencia": 2.858,
+      "precio": 1.45,
+      "precioReferencia": 2.96,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.49,
@@ -41680,7 +41648,7 @@
       "pesoAproximado": true,
       "sección": "Aceite, especias y salsas",
       "subcategoria": "Mayonesa",
-      "imagen": "https://prod-mercadona.imgix.net/images/5345e532a16f3b8770720312778ffe32.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5345e532a16f3b8770720312778ffe32.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11550/mayonesa-hacendado-bote",
       "disponible": true
     },
@@ -42229,6 +42197,38 @@
       "disponible": true
     },
     {
+      "productoId": "81790.1",
+      "nombre": "Merluza a rodajas",
+      "precio": 17.25,
+      "precioReferencia": 11.5,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Merluza",
+      "imagen": "https://prod-mercadona.imgix.net/images/f9915fd0e276f93caa4eb284fbbcbc34.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81790.1/merluza-rodajas-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "81790.2",
+      "nombre": "Merluza abierta en libro sin cabeza y sin espina",
+      "precio": 17.25,
+      "precioReferencia": 11.5,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Merluza",
+      "imagen": "https://prod-mercadona.imgix.net/images/fe5ec3ad3d32e4fd6fe05e88aa16af0e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81790.2/merluza-abierta-libro-sin-cabeza-sin-espina-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "24324",
       "nombre": "Merluza del Cabo sin cabeza Hacendado ultracongelada",
       "precio": 5.77,
@@ -42261,6 +42261,54 @@
       "disponible": true
     },
     {
+      "productoId": "81790.4",
+      "nombre": "Merluza media pieza a rodajas",
+      "precio": 8.63,
+      "precioReferencia": 11.5,
+      "formato": "1/2 Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.75,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Merluza",
+      "imagen": "https://prod-mercadona.imgix.net/images/858d44842974db4c1c20552c4215b8ff.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81790.4/merluza-media-pieza-rodajas-12-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "81790.5",
+      "nombre": "Merluza media pieza abierta en libro sin cabeza y sin espina",
+      "precio": 8.63,
+      "precioReferencia": 11.5,
+      "formato": "1/2 Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.75,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Merluza",
+      "imagen": "https://prod-mercadona.imgix.net/images/4d5edf4542c58f534844c301ef6256b8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81790.5/merluza-media-pieza-abierta-libro-sin-cabeza-sin-espina-12-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "81790.6",
+      "nombre": "Merluza media pieza sin aletas y sin escamas",
+      "precio": 8.63,
+      "precioReferencia": 11.5,
+      "formato": "1/2 Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.75,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Merluza",
+      "imagen": "https://prod-mercadona.imgix.net/images/d44677353db7798a3331ef65e09ced5e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81790.6/merluza-media-pieza-sin-aletas-sin-escamas-12-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "87734",
       "nombre": "Merluza rebozada",
       "precio": 3.9,
@@ -42274,6 +42322,22 @@
       "subcategoria": "Otros",
       "imagen": "https://prod-mercadona.imgix.net/images/d11ed050df1dbe4ec63a53b236f93d04.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/87734/merluza-rebozada-bandeja",
+      "disponible": true
+    },
+    {
+      "productoId": "81790.3",
+      "nombre": "Merluza sin aletas y sin escamas",
+      "precio": 17.25,
+      "precioReferencia": 11.5,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Merluza",
+      "imagen": "https://prod-mercadona.imgix.net/images/fe6762be2b524bd5bcd015202b222dc4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81790.3/merluza-sin-aletas-sin-escamas-pieza",
       "disponible": true
     },
     {
@@ -44581,22 +44645,6 @@
       "disponible": true
     },
     {
-      "productoId": "34236",
-      "nombre": "Nuez de Brasil natural Hacendado",
-      "precio": 3.5,
-      "precioReferencia": 17.5,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Aperitivos",
-      "subcategoria": "Frutos secos",
-      "imagen": "https://prod-mercadona.imgix.net/images/f73efc85361a05e42008a997e5d62881.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/34236/nuez-brasil-natural-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "34838",
       "nombre": "Nuez macadamia Hacendado tostada con sal",
       "precio": 2.9,
@@ -45346,38 +45394,6 @@
       "subcategoria": "Otros panes",
       "imagen": "https://prod-mercadona.imgix.net/images/093aa5fd71175cc58f2cdecd129572cf.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22899/pan-brioche-hacendado-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "83671.1",
-      "nombre": "Pan Broa de maíz 24%",
-      "precio": 1.45,
-      "precioReferencia": 2.9,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Barra de pan",
-      "imagen": "https://prod-mercadona.imgix.net/images/4b448103c44e6148e6adbf82fd525655.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/83671.1/pan-broa-maiz-24",
-      "disponible": true
-    },
-    {
-      "productoId": "83671.2",
-      "nombre": "Pan Broa de maíz 24% rebanado",
-      "precio": 1.45,
-      "precioReferencia": 2.9,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Pan rebanado",
-      "imagen": "https://prod-mercadona.imgix.net/images/9839e1c00194d7a9bb2c5128918da171.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/83671.2/pan-broa-maiz-24-rebanado",
       "disponible": true
     },
     {
@@ -46533,6 +46549,22 @@
       "disponible": true
     },
     {
+      "productoId": "17974",
+      "nombre": "Pañal bebé braguita talla XL Deliplus de 16-28 kg",
+      "precio": 6.9,
+      "precioReferencia": 0.288,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 24,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Bebé",
+      "subcategoria": "Braguita y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/f47a16617af179893d9f54b7a2612062.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17974/panal-bebe-braguita-talla-xl-deliplus-16-28-kg-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "47366",
       "nombre": "Pañal junior braguita noche Deliplus de 17-30 kg",
       "precio": 10.65,
@@ -47074,6 +47106,22 @@
       "subcategoria": "Papel y bolsas de conservación",
       "imagen": "https://prod-mercadona.imgix.net/images/605886a19237ab9712a3c8572caa375b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23608/papel-vegetal-bosque-verde-38-x-42-cm-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "18497",
+      "nombre": "Papilla 8 cereales con galleta María Nestlé +6 meses",
+      "precio": 5.25,
+      "precioReferencia": 10.938,
+      "formato": "Caja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.48,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Bebé",
+      "subcategoria": "Papillas",
+      "imagen": "https://prod-mercadona.imgix.net/images/68dbaf9adef1405052bd0dd38bef140c.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18497/papilla-8-cereales-con-galleta-maria-nestle-6-meses-0-azucares-anadidos-producidos-caja",
       "disponible": true
     },
     {
@@ -49600,7 +49648,7 @@
       "pesoAproximado": true,
       "sección": "Maquillaje",
       "subcategoria": "Perfilador labios",
-      "imagen": "https://prod-mercadona.imgix.net/images/4d2038c3ed40a2cb854aaee39617cb42.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4d2038c3ed40a2cb854aaee39617cb42.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35873/perfilador-labios-long-lasting-deliplus-08-granate",
       "disponible": true
     },
@@ -50210,22 +50258,6 @@
       "subcategoria": "Picos",
       "imagen": "https://prod-mercadona.imgix.net/images/9d816a56d6740fc8bfe7a3050dad10b9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13450/picos-sin-gluten-hacendado-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "35593",
-      "nombre": "Piedra pómez Deliplus",
-      "precio": 2.9,
-      "precioReferencia": 2.9,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Cuidado de uñas y complementos",
-      "imagen": "https://prod-mercadona.imgix.net/images/33f76c0eac2ee0e49bfef7188f37f7e7.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35593/piedra-pomez-deliplus-paquete",
       "disponible": true
     },
     {
@@ -63669,6 +63701,22 @@
       "disponible": true
     },
     {
+      "productoId": "18698",
+      "nombre": "Tinto de verano limón Don Simón",
+      "precio": 2.5,
+      "precioReferencia": 0.834,
+      "formato": "botellas",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 3,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Bodega",
+      "subcategoria": "Tinto de verano y sangría",
+      "imagen": "https://prod-mercadona.imgix.net/images/c5b2eed9caa8d7eef5b33a0aaf9f8698.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18698/tinto-verano-limon-don-simon",
+      "disponible": true
+    },
+    {
       "productoId": "66747",
       "nombre": "Tinto de verano limón Don Simón",
       "precio": 1.5,
@@ -63682,6 +63730,22 @@
       "subcategoria": "Tinto de verano y sangría",
       "imagen": "https://prod-mercadona.imgix.net/images/97ad8a1e3a0f8286a6ba44d90006aeb8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/66747/tinto-verano-limon-don-simon-botella",
+      "disponible": true
+    },
+    {
+      "productoId": "18699",
+      "nombre": "Tinto de verano sin alcohol limón Don Simón",
+      "precio": 2.5,
+      "precioReferencia": 0.834,
+      "formato": "botellas",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 3,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Bodega",
+      "subcategoria": "Tinto de verano y sangría",
+      "imagen": "https://prod-mercadona.imgix.net/images/4158b67ecaf01c389afdeb8617824b22.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18699/tinto-verano-sin-alcohol-limon-don-simon",
       "disponible": true
     },
     {
