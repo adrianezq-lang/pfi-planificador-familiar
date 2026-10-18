@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-17T09:22:43.038Z",
+  "actualizado": "2026-10-18T09:39:09.729Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4300,
+  "totalProductos": 4297,
   "productos": [
     {
       "productoId": "40339",
@@ -4626,6 +4626,22 @@
       "subcategoria": "Colorante y pimentón",
       "imagen": "https://prod-mercadona.imgix.net/images/9b1e3bf3f850bb972810225a35e2d27e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/34116/azafran-molido-hacendado-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "19837",
+      "nombre": "Azúcar blanco en sobres Hacendado",
+      "precio": 1.55,
+      "precioReferencia": 4.429,
+      "formato": "Caja",
+      "unidadesTotales": 50,
+      "tamañoUnidad": 0.35,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Azúcar",
+      "imagen": "https://prod-mercadona.imgix.net/images/86a786bc3c1d1538701f5d2397255508.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/19837/azucar-blanco-sobres-hacendado-caja",
       "disponible": true
     },
     {
@@ -11218,22 +11234,6 @@
       "subcategoria": "Cápsulas compatibles Nespresso",
       "imagen": "https://prod-mercadona.imgix.net/images/0a0ea79857445a9b519a84579e3c1a05.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17674/cafe-capsula-peru-hacendado-compatibles-maquinas-nespresso-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "17730",
-      "nombre": "Café en cápsula ristretto ardenza Dolce Gusto",
-      "precio": 6.25,
-      "precioReferencia": 0.209,
-      "formato": "Caja",
-      "unidadesTotales": 30,
-      "tamañoUnidad": 0.195,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cacao, café e infusiones",
-      "subcategoria": "Cápsulas compatibles Dolce gusto",
-      "imagen": "https://prod-mercadona.imgix.net/images/90d22816c8e20d16a46419bf7bee29ac.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17730/cafe-capsula-ristretto-ardenza-dolce-gusto-caja",
       "disponible": true
     },
     {
@@ -21152,7 +21152,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Cremas de untar",
-      "imagen": "https://prod-mercadona.imgix.net/images/525cfde47a18dc5dea4799338a9ba8d0.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/525cfde47a18dc5dea4799338a9ba8d0.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11630/crema-avellanas-cacao-hacendado-bote",
       "disponible": true
     },
@@ -21234,22 +21234,6 @@
       "subcategoria": "Cremas y puré",
       "imagen": "https://prod-mercadona.imgix.net/images/c4f8572501d428cdb9583b35db56e690.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23225/crema-calabaza-zanahoria-hacendado-bol",
-      "disponible": true
-    },
-    {
-      "productoId": "70028",
-      "nombre": "Crema de calzado marrón autobrillante Bosque Verde con aplicador",
-      "precio": 0.95,
-      "precioReferencia": 19,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.05,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Limpieza de calzado",
-      "imagen": "https://prod-mercadona.imgix.net/images/adba95ecb6c80aee005fdca82d55c313.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/70028/crema-calzado-marron-autobrillante-bosque-verde-con-aplicador-bote",
       "disponible": true
     },
     {
@@ -46624,7 +46608,7 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Pañal talla de 0 a 3",
-      "imagen": "https://prod-mercadona.imgix.net/images/b1713884986ec3fdf02b9d4ab72de256.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0b304c31930415d822bc69f8a33a445b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11553/panales-bebe-talla-1-2-5-kg-dodot-sensitive-paquete",
       "disponible": true
     },
@@ -46658,22 +46642,6 @@
       "subcategoria": "Pañal talla de 0 a 3",
       "imagen": "https://prod-mercadona.imgix.net/images/a74de3c3d49704fbe42271e1da08cd5f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/47287/panales-bebe-talla-2-4-8-kg-dodot-sensitive-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "13297",
-      "nombre": "Pañales bebé talla 3 Deliplus de 5-10 kg",
-      "precio": 6.95,
-      "precioReferencia": 0.155,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 45,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Bebé",
-      "subcategoria": "Pañal talla de 0 a 3",
-      "imagen": "https://prod-mercadona.imgix.net/images/91bfd8c09d1b59ee9493991a18748000.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13297/panales-bebe-talla-3-4-10-kg-deliplus-paquete",
       "disponible": true
     },
     {
@@ -67202,22 +67170,6 @@
       "subcategoria": "Castilla la Mancha",
       "imagen": "https://prod-mercadona.imgix.net/images/eaf5ff2987c92a1541843c7831e1d45c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/37164/vino-tinto-do-mancha-fidencio-crianza-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "37001",
-      "nombre": "Vino tinto crianza Hypatia DO Navarra",
-      "precio": 2.1,
-      "precioReferencia": 2.8,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.75,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Otros vinos tintos",
-      "imagen": "https://prod-mercadona.imgix.net/images/58452681be6707b309ad93e632459321.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/37001/vino-tinto-do-navarra-hypatia-crianza-botella",
       "disponible": true
     },
     {
