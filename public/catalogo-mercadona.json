@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-20T10:06:17.052Z",
+  "actualizado": "2026-10-21T10:09:36.906Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4300,
+  "totalProductos": 4301,
   "productos": [
     {
       "productoId": "40339",
@@ -246,7 +246,7 @@
     },
     {
       "productoId": "83292",
-      "nombre": "6 Panes pulguitas sin aditivos",
+      "nombre": "6 Panes pulguitas",
       "precio": 1.05,
       "precioReferencia": 4.375,
       "formato": "Bolsa",
@@ -256,7 +256,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Pan de bocadillo",
-      "imagen": "https://prod-mercadona.imgix.net/images/95cb736d41facafa9094ab7232126eef.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/38fef33e878636abeda72b238c49a142.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/83292/6-panes-pulguitas-sin-aditivos-pack-6",
       "disponible": true
     },
@@ -1378,22 +1378,6 @@
       "subcategoria": "Perfume y colonia mujer",
       "imagen": "https://prod-mercadona.imgix.net/images/277976d30d026ba16097803fdb3012f1.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14390/agua-colonia-deliplus-floral-infusion-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "8949",
-      "nombre": "Agua de colonia fresca infantil Deliplus con notas cítricas",
-      "precio": 1.9,
-      "precioReferencia": 0.317,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.6,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bebé",
-      "subcategoria": "Colonia",
-      "imagen": "https://prod-mercadona.imgix.net/images/1e830ecd99cb165865cdddd85666969e.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8949/agua-colonia-fresca-infantil-deliplus-con-notas-citricas-bote",
       "disponible": true
     },
     {
@@ -3074,22 +3058,6 @@
       "subcategoria": "Alubias",
       "imagen": "https://prod-mercadona.imgix.net/images/231e70f1833a97babe9b0ecab3bfee2c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/26000/alubia-cocida-roja-hacendado-tarro",
-      "disponible": true
-    },
-    {
-      "productoId": "60547",
-      "nombre": "Alubia cocida roja Hacendado",
-      "precio": 0.95,
-      "precioReferencia": 4.524,
-      "formato": "Tarro",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.295,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Arroz, legumbres y pasta",
-      "subcategoria": "Alubias",
-      "imagen": "https://prod-mercadona.imgix.net/images/8edfabbbe4eb2cb5b568d1663ebf7980.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60547/alubia-cocida-roja-hacendado-tarro",
       "disponible": true
     },
     {
@@ -6128,7 +6096,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Patatas",
-      "imagen": "https://prod-mercadona.imgix.net/images/2940a324e8d344a73d0990cc8dc1eae9.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2940a324e8d344a73d0990cc8dc1eae9.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15287/bastones-batata-hacendado-ultracongelada-paquete",
       "disponible": true
     },
@@ -6370,22 +6338,6 @@
       "subcategoria": "Batidos",
       "imagen": "https://prod-mercadona.imgix.net/images/fc6008c7edf9fe7a4600ecb22491812c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23052/batido-sabor-vainilla-hacendado-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "22825",
-      "nombre": "Bayeta cristales y espejos Bosque Verde microfibra",
-      "precio": 0.85,
-      "precioReferencia": 0.85,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Bayeta",
-      "imagen": "https://prod-mercadona.imgix.net/images/244c95c61079dea6b43a90f70852eb76.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/22825/bayeta-cristales-espejos-bosque-verde-microfibra-paquete",
       "disponible": true
     },
     {
@@ -16807,8 +16759,8 @@
     {
       "productoId": "6048",
       "nombre": "Chorizo oreado",
-      "precio": 2.57,
-      "precioReferencia": 7.15,
+      "precio": 2.48,
+      "precioReferencia": 6.9,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.36,
@@ -17602,6 +17554,22 @@
       "subcategoria": "Lechuga",
       "imagen": "https://prod-mercadona.imgix.net/images/45f7e9b4705a782026f2b7365a72216b.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69581/cogollos-lechuga-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "24340",
+      "nombre": "Cola de rape del Cabo sin piel Hacendado ultracongelada",
+      "precio": 9.25,
+      "precioReferencia": 18.5,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Pescado congelado",
+      "imagen": "https://prod-mercadona.imgix.net/images/c6a90e97cfdc0b074089fa6fcc67c6cd.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/24340/cola-rape-cabo-hacendado-ultracongelada-pieza",
       "disponible": true
     },
     {
@@ -19280,7 +19248,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Snacks",
-      "imagen": "https://prod-mercadona.imgix.net/images/15085483edf1219ada969fb9f7f0a73e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/15085483edf1219ada969fb9f7f0a73e.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22177/combinado-aperitivos-hacendado-paquete",
       "disponible": true
     },
@@ -34981,6 +34949,22 @@
       "disponible": true
     },
     {
+      "productoId": "3914",
+      "nombre": "Kaki",
+      "precio": 0.83,
+      "precioReferencia": 3,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.278,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Otras frutas",
+      "imagen": "https://prod-mercadona.imgix.net/images/e12057d015e6ec4642d24bffe1009fe3.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/3914/caqui-persimon-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "3928",
       "nombre": "Kakis",
       "precio": 2.7,
@@ -38848,7 +38832,7 @@
       "pesoAproximado": true,
       "sección": "Maquillaje",
       "subcategoria": "Máscara de pestañas",
-      "imagen": "https://prod-mercadona.imgix.net/images/02b6276b31edb4f81687c561f3997156.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/130eb2038dfd48c367a917f28014d9c8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17943/lote-face-beauty-deliplus",
       "disponible": true
     },
@@ -43733,6 +43717,22 @@
       "disponible": true
     },
     {
+      "productoId": "18319",
+      "nombre": "Mousse de carne y pescado Gourmet Gold gato adulto Purina",
+      "precio": 3.35,
+      "precioReferencia": 9.853,
+      "formato": "Tarrina",
+      "unidadesTotales": 4,
+      "tamañoUnidad": 0.34,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/72ed759f16fbee97b12aab4eb6651510.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18319/mousse-carne-pescado-gourmet-gold-gato-adulto-purina-contiene-2-unidades-pollo-2-salmon-tarrina",
+      "disponible": true
+    },
+    {
       "productoId": "18336",
       "nombre": "Mousse de chocolate Hacendado",
       "precio": 1.15,
@@ -44258,6 +44258,22 @@
       "subcategoria": "Bollería dulce",
       "imagen": "https://prod-mercadona.imgix.net/images/7da701df38538d298789a53175b055bc.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21540/napolitana-crema-31-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "18297",
+      "nombre": "Napolitana mixta",
+      "precio": 0.9,
+      "precioReferencia": 6.123,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.147,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Bollería salada",
+      "imagen": "https://prod-mercadona.imgix.net/images/dbdc17f1b1fd14beffcd299a1b2ad997.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18297/napolitana-mixta-pieza",
       "disponible": true
     },
     {
@@ -51029,22 +51045,6 @@
       "disponible": true
     },
     {
-      "productoId": "23541",
-      "nombre": "Pintalabios Mate Deliplus 102 caramelo",
-      "precio": 4.5,
-      "precioReferencia": 4.5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.004,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios mate",
-      "imagen": "https://prod-mercadona.imgix.net/images/e589b8b6c92bf9fd5339938c39147b6b.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23541/pintalabios-mate-deliplus-102-caramelo",
-      "disponible": true
-    },
-    {
       "productoId": "60933",
       "nombre": "Pintalabios Mate Deliplus 111 marrón",
       "precio": 4.5,
@@ -52464,7 +52464,7 @@
       "pesoAproximado": true,
       "sección": "Maquillaje",
       "subcategoria": "Polvos",
-      "imagen": "https://prod-mercadona.imgix.net/images/254a88720560de60425ec85a3545689d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/af9d94c7610426ee75f8964bd6337638.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17783/polvo-compacto-sol-deliplus-claro",
       "disponible": true
     },
@@ -54224,7 +54224,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso curado",
-      "imagen": "https://prod-mercadona.imgix.net/images/5dcb63aa7a68a41d622ae894a50eaeac.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/aec7e403585022651fd39700ec03b015.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11682/queso-curado-mezcla-afrutado-hacendado-cortado-cunitas-pieza",
       "disponible": true
     },
@@ -66370,6 +66370,22 @@
       "subcategoria": "Ambientador decorativo y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/89d358bd08e0aefe15e090322639ae1a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12984/vela-perfumada-peonia-bosque-verde-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "18455",
+      "nombre": "Vela perfumada Red Elixir Bosque Verde",
+      "precio": 1.9,
+      "precioReferencia": 1.9,
+      "formato": "Caja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Limpieza y hogar",
+      "subcategoria": "Ambientador decorativo y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/6217b13a8a8680de2d42440787d9b6bc.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18455/vela-perfumada-red-elixir-bosque-verde-caja",
       "disponible": true
     },
     {
