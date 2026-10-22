@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-21T10:09:36.906Z",
+  "actualizado": "2026-10-22T10:12:13.798Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4301,
+  "totalProductos": 4305,
   "productos": [
     {
       "productoId": "40339",
@@ -5445,6 +5445,22 @@
       "disponible": true
     },
     {
+      "productoId": "17914.1",
+      "nombre": "Barra de pan espiga",
+      "precio": 0.78,
+      "precioReferencia": 2.6,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Barra de pan",
+      "imagen": "https://prod-mercadona.imgix.net/images/3bc8582bf4cfd906fb98d1848a5b304a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17914.1/barra-pan-espiga",
+      "disponible": true
+    },
+    {
       "productoId": "86610.2",
       "nombre": "Barra de pan espiga rebanado",
       "precio": 1.05,
@@ -5458,6 +5474,22 @@
       "subcategoria": "Pan rebanado",
       "imagen": "https://prod-mercadona.imgix.net/images/206048f5888d401fc1680a7b676be85b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86610.2/barra-pan-espiga-rebanado",
+      "disponible": true
+    },
+    {
+      "productoId": "17914.2",
+      "nombre": "Barra de pan espiga rebanado",
+      "precio": 0.78,
+      "precioReferencia": 2.6,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Pan rebanado",
+      "imagen": "https://prod-mercadona.imgix.net/images/c5a9f71eb3908a5b65abe3d9ec5c65b8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17914.2/barra-pan-espiga-rebanado",
       "disponible": true
     },
     {
@@ -6354,6 +6386,22 @@
       "subcategoria": "Bayeta",
       "imagen": "https://prod-mercadona.imgix.net/images/6a9739006e032106505b8346f57f8df2.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/71033/bayeta-grande-bosque-verde-microfibra-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "21852",
+      "nombre": "Bayeta multiusos Bosque Verde microfibra",
+      "precio": 0.95,
+      "precioReferencia": 0.95,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Limpieza y hogar",
+      "subcategoria": "Bayeta",
+      "imagen": "https://prod-mercadona.imgix.net/images/2c0130c4a1886b92bc96d351657d6c92.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21852/bayeta-multiusos-bosque-verde-microfibra-paquete",
       "disponible": true
     },
     {
@@ -19239,8 +19287,8 @@
     {
       "productoId": "22177",
       "nombre": "Combinado de aperitivos Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 8,
+      "precio": 1.65,
+      "precioReferencia": 8.25,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -19632,7 +19680,7 @@
       "pesoAproximado": true,
       "sección": "Mascotas",
       "subcategoria": "Alimentación seca",
-      "imagen": "https://prod-mercadona.imgix.net/images/764a33a1b6853219cb817ad773e5c3b0.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9a3f8dd5f9eac8073a2168dd7793e665.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15982/comida-gato-adulto-compy-con-salmon-atun-frutas-verduras-paquete",
       "disponible": true
     },
@@ -22791,8 +22839,8 @@
     {
       "productoId": "73999",
       "nombre": "Dentífrico Max Fresh Colgate sabor menta fresca",
-      "precio": 2.4,
-      "precioReferencia": 2.4,
+      "precio": 2.85,
+      "precioReferencia": 2.85,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.1,
@@ -22919,8 +22967,8 @@
     {
       "productoId": "79593",
       "nombre": "Dentífrico Total original Colgate",
-      "precio": 2.9,
-      "precioReferencia": 3.867,
+      "precio": 2.45,
+      "precioReferencia": 3.267,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.075,
@@ -23127,8 +23175,8 @@
     {
       "productoId": "46107",
       "nombre": "Desodorante dermo extra control Sanex antitranspirante",
-      "precio": 2.35,
-      "precioReferencia": 1.175,
+      "precio": 2.85,
+      "precioReferencia": 1.425,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -23191,8 +23239,8 @@
     {
       "productoId": "22125",
       "nombre": "Desodorante invisible Black & White Nivea",
-      "precio": 2.5,
-      "precioReferencia": 1.25,
+      "precio": 2.9,
+      "precioReferencia": 1.45,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -23207,8 +23255,8 @@
     {
       "productoId": "22124",
       "nombre": "Desodorante invisible Black & White Nivea Men antitranspirante",
-      "precio": 2.5,
-      "precioReferencia": 1.25,
+      "precio": 2.9,
+      "precioReferencia": 1.45,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -23303,8 +23351,8 @@
     {
       "productoId": "35964",
       "nombre": "Desodorante original Dove antitranspirante",
-      "precio": 3.75,
-      "precioReferencia": 1.875,
+      "precio": 3.15,
+      "precioReferencia": 1.575,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -23399,8 +23447,8 @@
     {
       "productoId": "45078",
       "nombre": "Desodorante roll-on Active control Sanex men antitranspirante",
-      "precio": 1.9,
-      "precioReferencia": 3.8,
+      "precio": 2.3,
+      "precioReferencia": 4.6,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -23447,8 +23495,8 @@
     {
       "productoId": "46028",
       "nombre": "Desodorante roll-on Dermo extra control Sanex antitranspirante",
-      "precio": 1.9,
-      "precioReferencia": 3.8,
+      "precio": 2.3,
+      "precioReferencia": 4.6,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -23479,8 +23527,8 @@
     {
       "productoId": "46016",
       "nombre": "Desodorante roll-on Dry impact Nivea Men antitranspirante",
-      "precio": 2.5,
-      "precioReferencia": 5,
+      "precio": 2.1,
+      "precioReferencia": 4.2,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -23511,8 +23559,8 @@
     {
       "productoId": "46029",
       "nombre": "Desodorante roll-on Invisible Black & White Nivea antitranspirante",
-      "precio": 2.5,
-      "precioReferencia": 5,
+      "precio": 2.1,
+      "precioReferencia": 4.2,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -23527,8 +23575,8 @@
     {
       "productoId": "46030",
       "nombre": "Desodorante roll-on Invisible Black & White Nivea Men antitranspirante",
-      "precio": 2.5,
-      "precioReferencia": 5,
+      "precio": 2.1,
+      "precioReferencia": 4.2,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -24018,6 +24066,22 @@
       "subcategoria": "Ambientador eléctrico",
       "imagen": "https://prod-mercadona.imgix.net/images/472d86fdf508a119040a9671ed28b493.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52759/difusor-multifragancia-electrico-bosque-verde-con-regulador-intensidad-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "17770",
+      "nombre": "Discos ácido salicílico Facial Clean purificantes y seborreguladores",
+      "precio": 4,
+      "precioReferencia": 0.08,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 50,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Limpieza de cara",
+      "imagen": "https://prod-mercadona.imgix.net/images/02cbbb2a36d255cdd6c1627b797042cd.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17770/discos-acido-salicilico-deliplus-facial-clean-purificantes-seborreguladores-piel-grasa-acneica-bote",
       "disponible": true
     },
     {
@@ -27280,7 +27344,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Empanados y elaborados",
-      "imagen": "https://prod-mercadona.imgix.net/images/0cda20526aa4182a2fc1ffb4662c41dc.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0cda20526aa4182a2fc1ffb4662c41dc.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23307/fiambre-magreta-cerdo-adobada-bandeja",
       "disponible": true
     },
@@ -29008,7 +29072,7 @@
       "pesoAproximado": true,
       "sección": "Zumos",
       "subcategoria": "Fruta + leche",
-      "imagen": "https://prod-mercadona.imgix.net/images/bd1eecec0f58252b804a2a445e96dae4.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/08c01ad70e44f2c84e8a46996bbfb87f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86390/fruta-leche-mediterraneo-hacendado-sin-azucares-anadidos",
       "disponible": true
     },
@@ -31639,8 +31703,8 @@
     {
       "productoId": "17805",
       "nombre": "Golosinas ojos rellenos Halloween Trolli Spooky Balls",
-      "precio": 1.35,
-      "precioReferencia": 18,
+      "precio": 1,
+      "precioReferencia": 13.334,
       "formato": "Paquete",
       "unidadesTotales": 4,
       "tamañoUnidad": 0.075,
@@ -33333,6 +33397,22 @@
       "disponible": true
     },
     {
+      "productoId": "85795",
+      "nombre": "Hojaldre cabello de Ángel Hacendado",
+      "precio": 0.58,
+      "precioReferencia": 5.75,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Pastelitos surtidos",
+      "imagen": "https://prod-mercadona.imgix.net/images/fd91fdd116428e9b2bb5172452ee24b7.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/85795/hojaldre-cabello-angel-hacendado",
+      "disponible": true
+    },
+    {
       "productoId": "85605",
       "nombre": "Hojaldre de Astorga Dulma",
       "precio": 0.23,
@@ -34695,8 +34775,8 @@
     {
       "productoId": "15628",
       "nombre": "Jamón serrano gran reserva Hacendado sin aditivos lonchas",
-      "precio": 2.3,
-      "precioReferencia": 25.556,
+      "precio": 2.4,
+      "precioReferencia": 26.667,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.09,
@@ -41696,7 +41776,7 @@
       "pesoAproximado": true,
       "sección": "Aceite, especias y salsas",
       "subcategoria": "Mayonesa",
-      "imagen": "https://prod-mercadona.imgix.net/images/fce99222f25808e2d3209fb9a85c2922.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/fce99222f25808e2d3209fb9a85c2922.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17038/mayonesa-ybarra-bote",
       "disponible": true
     },
@@ -43351,8 +43431,8 @@
     {
       "productoId": "21491",
       "nombre": "Mix mini barritas de chocolate Hacendado",
-      "precio": 2.75,
-      "precioReferencia": 13.481,
+      "precio": 2.5,
+      "precioReferencia": 12.255,
       "formato": "Caja",
       "unidadesTotales": 22,
       "tamañoUnidad": 0.2044,
@@ -51061,22 +51141,6 @@
       "disponible": true
     },
     {
-      "productoId": "8301",
-      "nombre": "Pintalabios Mate Deliplus 116 rojo intenso",
-      "precio": 4.5,
-      "precioReferencia": 4.5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.004,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios mate",
-      "imagen": "https://prod-mercadona.imgix.net/images/6740cdb12121b09e0e66fe021c4c2ed9.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8301/pintalabios-mate-deliplus-116-rojo-intenso",
-      "disponible": true
-    },
-    {
       "productoId": "78071",
       "nombre": "Pinza de cejas Deliplus oblicua",
       "precio": 2,
@@ -56576,7 +56640,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Cola clásica",
-      "imagen": "https://prod-mercadona.imgix.net/images/ace4ca633877449fae67a3f3badf865b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/ace4ca633877449fae67a3f3badf865b.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/29360/refresco-coca-cola-botella",
       "disponible": true
     },
@@ -59653,22 +59717,6 @@
       "disponible": true
     },
     {
-      "productoId": "12847",
-      "nombre": "Salsa Chimichurri Hacendado",
-      "precio": 1.45,
-      "precioReferencia": 4.678,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.31,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Aceite, especias y salsas",
-      "subcategoria": "Salsas para carnes",
-      "imagen": "https://prod-mercadona.imgix.net/images/50d27ac6571a8cfd3edb173b52ad87a7.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/12847/salsa-brasa-sabor-hacendado-bote",
-      "disponible": true
-    },
-    {
       "productoId": "11552",
       "nombre": "Salsa Cocktail Hacendado",
       "precio": 1.5,
@@ -60400,7 +60448,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Sardinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/a1e41e90d8bd21c183b579fa8b142160.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a1e41e90d8bd21c183b579fa8b142160.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18211/sardinillas-escabeche-hacendado-6-10-ud-pack-2",
       "disponible": true
     },
@@ -62695,8 +62743,8 @@
     {
       "productoId": "14934",
       "nombre": "Surtido de caramelos Diver Xuxes Hacendado",
-      "precio": 2.8,
-      "precioReferencia": 7.467,
+      "precio": 2.6,
+      "precioReferencia": 6.934,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.375,
@@ -62711,8 +62759,8 @@
     {
       "productoId": "8820",
       "nombre": "Surtido de caramelos Mix El Conde Drácula y Zombie Lokopop Cerdán",
-      "precio": 1.35,
-      "precioReferencia": 9,
+      "precio": 1,
+      "precioReferencia": 6.667,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.15,
@@ -63458,6 +63506,22 @@
       "subcategoria": "Tartas",
       "imagen": "https://prod-mercadona.imgix.net/images/fa6aa84e8f11dc1fa80fe774455e30c3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/87599/tarta-tres-chocolates-hacendado-congelada-sin-gluten",
+      "disponible": true
+    },
+    {
+      "productoId": "18316",
+      "nombre": "Tarta tres leches con dulce de leche Hacendado congelada",
+      "precio": 9,
+      "precioReferencia": 8.572,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.05,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Tartas",
+      "imagen": "https://prod-mercadona.imgix.net/images/8fc03846b63954857f351e1ca73eb4b0.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18316/tarta-tres-leches-con-dulce-leche-hacendado-congelada-bizcocho-con-base-liquida-bandeja",
       "disponible": true
     },
     {
