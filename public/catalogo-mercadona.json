@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-22T10:12:13.798Z",
+  "actualizado": "2026-10-23T10:04:43.272Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4305,
+  "totalProductos": 4302,
   "productos": [
     {
       "productoId": "40339",
@@ -5632,7 +5632,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Barra de pan",
-      "imagen": "https://prod-mercadona.imgix.net/images/668bc5de88ff6ea24633608fd7422173.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4cbe2ccc1e2acb355ee8fbed927d4ca8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21596.1/barra-pan-integral-espelta-100",
       "disponible": true
     },
@@ -5687,8 +5687,8 @@
     {
       "productoId": "9445",
       "nombre": "Barritas con proteínas sabor coco y chocolate Enervit Sport",
-      "precio": 3.6,
-      "precioReferencia": 30,
+      "precio": 2.95,
+      "precioReferencia": 24.584,
       "formato": "Caja",
       "unidadesTotales": 3,
       "tamañoUnidad": 0.12,
@@ -7733,22 +7733,6 @@
       "disponible": true
     },
     {
-      "productoId": "15664",
-      "nombre": "Bebida Kéfir de coco Hacendado",
-      "precio": 1.1,
-      "precioReferencia": 4.4,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.25,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Postres y yogures",
-      "subcategoria": "Colesterol y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/9ce6b7cf5fec6c14b1c25c6f142a3d07.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/15664/bebida-kefir-coco-hacendado-botella",
-      "disponible": true
-    },
-    {
       "productoId": "52750",
       "nombre": "Bebida Kéfir de fresa y plátano Hacendado",
       "precio": 0.9,
@@ -9255,8 +9239,8 @@
     {
       "productoId": "18165",
       "nombre": "Bocaditos de carne y pescado en salsa gato adulto Delikuit",
-      "precio": 6.65,
-      "precioReferencia": 3.26,
+      "precio": 5.75,
+      "precioReferencia": 2.819,
       "formato": "Paquete",
       "unidadesTotales": 24,
       "tamañoUnidad": 2.04,
@@ -10098,22 +10082,6 @@
       "subcategoria": "Brandy",
       "imagen": "https://prod-mercadona.imgix.net/images/d2d640eae5ddb20710cbd569d4af3560.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/28525/brandy-jerez-solera-reserva-convidado-baco-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "35377",
-      "nombre": "Brillo de labios Volumizer gloss Deliplus 01 transparente",
-      "precio": 5,
-      "precioReferencia": 5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.004,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Pintalabios cremoso y brillos",
-      "imagen": "https://prod-mercadona.imgix.net/images/11568c09b981ee6d31f84e126f8b86cd.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35377/brillo-labios-volumizer-gloss-deliplus-01-transparente",
       "disponible": true
     },
     {
@@ -13952,7 +13920,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Cerveza botella y botellín",
-      "imagen": "https://prod-mercadona.imgix.net/images/20d840369720979cd6a6e68e4c747d5c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/823913a81628141e77c72df7d7ac94e0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/26999/cerveza-00-sin-alcohol-estrella-galicia",
       "disponible": true
     },
@@ -17218,22 +17186,6 @@
       "subcategoria": "Colutorio e hilo dental",
       "imagen": "https://prod-mercadona.imgix.net/images/340b061eb17d8cadf21d6328b89f4f06.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/73128/cinta-dental-con-cera-sabor-menta-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "3649",
-      "nombre": "Ciruela amarilla",
-      "precio": 0.46,
-      "precioReferencia": 3.8,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.122,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Otras frutas",
-      "imagen": "https://prod-mercadona.imgix.net/images/8fad8d907b05cc7e8589a6b1867d67e4.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/3649/ciruela-amarilla-pieza",
       "disponible": true
     },
     {
@@ -23621,6 +23573,22 @@
       "disponible": true
     },
     {
+      "productoId": "35965",
+      "nombre": "Desodorante roll-on original Dove antitranspirante",
+      "precio": 2.15,
+      "precioReferencia": 4.3,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.05,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Desodorante roll on y stick",
+      "imagen": "https://prod-mercadona.imgix.net/images/6b993846ea636b568ad2fbbdc9d266c1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/35965/desodorante-roll-on-original-dove-antitranspirante-0-alcohol",
+      "disponible": true
+    },
+    {
       "productoId": "46025",
       "nombre": "Desodorante roll-on Sensitive Byly",
       "precio": 1.85,
@@ -27330,22 +27298,6 @@
       "subcategoria": "Platos de cuchara",
       "imagen": "https://prod-mercadona.imgix.net/images/3e9eeb30a69996709040eafb30c0fd38.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/26108/fabada-hacendado-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "23307",
-      "nombre": "Fiambre de magreta de cerdo adobada",
-      "precio": 2.7,
-      "precioReferencia": 7.715,
-      "formato": "Bandeja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.35,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Carne",
-      "subcategoria": "Empanados y elaborados",
-      "imagen": "https://prod-mercadona.imgix.net/images/0cda20526aa4182a2fc1ffb4662c41dc.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23307/fiambre-magreta-cerdo-adobada-bandeja",
       "disponible": true
     },
     {
@@ -32965,22 +32917,6 @@
       "disponible": true
     },
     {
-      "productoId": "64464",
-      "nombre": "Helado menta choco Hacendado con trocitos sabor chocolate",
-      "precio": 3,
-      "precioReferencia": 6,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Tarrinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/69038aac18599b8a2cebd685dec2484b.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64464/helado-menta-choco-con-trocitos-sabor-chocolate-hacendado-bote",
-      "disponible": true
-    },
-    {
       "productoId": "64491",
       "nombre": "Helado Mochi coco Hacendado",
       "precio": 2.9,
@@ -33814,7 +33750,7 @@
     },
     {
       "productoId": "11438",
-      "nombre": "Infusión Cúrcuma Hacendado con manzana y canela",
+      "nombre": "Infusión Cúrcuma Hacendado",
       "precio": 1.35,
       "precioReferencia": 3.971,
       "formato": "Caja",
@@ -36880,7 +36816,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche semidesnatada",
-      "imagen": "https://prod-mercadona.imgix.net/images/b9613b9354f8b0705f998b2201ffe443.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/c15010ddd0e6fc881e5ef94446d43bef.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10381/leche-semidesnatada-hacendado-pack-6",
       "disponible": true
     },
@@ -41061,6 +40997,22 @@
       "disponible": true
     },
     {
+      "productoId": "21930",
+      "nombre": "Máscara de cejas Fixing Gel Deliplus transparente",
+      "precio": 4.25,
+      "precioReferencia": 4.25,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.005,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Cejas",
+      "imagen": "https://prod-mercadona.imgix.net/images/8f9820cce8273766542fa0382a5b47d0.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21930/mascara-cejas-fixing-gel-deliplus-transparente",
+      "disponible": true
+    },
+    {
       "productoId": "16368",
       "nombre": "Máscara de pestañas Blue Xtrem efecto longitud infinita Deliplus azul",
       "precio": 4.5,
@@ -42240,7 +42192,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Conservas fruta",
-      "imagen": "https://prod-mercadona.imgix.net/images/9d7e5f364360bf0b850a4f9d273c0d15.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9d7e5f364360bf0b850a4f9d273c0d15.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15206/melocoton-almibar-hacendado-pack-3",
       "disponible": true
     },
@@ -50416,7 +50368,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/87f0b79255b638658bad75dce3139871.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/35717a955c21c85a542e620751272e5b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/4073/pierna-lechal-entera-congelada-pieza",
       "disponible": true
     },
@@ -67559,8 +67511,8 @@
     {
       "productoId": "24529",
       "nombre": "Vino tinto roble Pata Negra DO Ribera del Duero",
-      "precio": 3.25,
-      "precioReferencia": 4.334,
+      "precio": 2.95,
+      "precioReferencia": 3.934,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.75,
