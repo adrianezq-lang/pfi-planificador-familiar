@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-23T10:04:43.272Z",
+  "actualizado": "2026-10-24T09:33:11.730Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4302,
+  "totalProductos": 4305,
   "productos": [
     {
       "productoId": "40339",
@@ -626,6 +626,22 @@
       "subcategoria": "Aceite de oliva",
       "imagen": "https://prod-mercadona.imgix.net/images/efb4b2c1a0e2cb8d9d522a815c295fa0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/4718/aceite-oliva-virgen-extra-hacendado-spray",
+      "disponible": true
+    },
+    {
+      "productoId": "14727",
+      "nombre": "Aceite de oliva virgen extra Hacendado",
+      "precio": 18.85,
+      "precioReferencia": 3.77,
+      "formato": "Garrafa",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Aceite, especias y salsas",
+      "subcategoria": "Aceite de oliva",
+      "imagen": "https://prod-mercadona.imgix.net/images/50bf05160abdd828fa4a6f9db898b50a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/14727/aceite-oliva-virgen-extra-hacendado-garrafa",
       "disponible": true
     },
     {
@@ -5445,22 +5461,6 @@
       "disponible": true
     },
     {
-      "productoId": "17914.1",
-      "nombre": "Barra de pan espiga",
-      "precio": 0.78,
-      "precioReferencia": 2.6,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Barra de pan",
-      "imagen": "https://prod-mercadona.imgix.net/images/3bc8582bf4cfd906fb98d1848a5b304a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17914.1/barra-pan-espiga",
-      "disponible": true
-    },
-    {
       "productoId": "86610.2",
       "nombre": "Barra de pan espiga rebanado",
       "precio": 1.05,
@@ -5474,22 +5474,6 @@
       "subcategoria": "Pan rebanado",
       "imagen": "https://prod-mercadona.imgix.net/images/206048f5888d401fc1680a7b676be85b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86610.2/barra-pan-espiga-rebanado",
-      "disponible": true
-    },
-    {
-      "productoId": "17914.2",
-      "nombre": "Barra de pan espiga rebanado",
-      "precio": 0.78,
-      "precioReferencia": 2.6,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Pan rebanado",
-      "imagen": "https://prod-mercadona.imgix.net/images/c5a9f71eb3908a5b65abe3d9ec5c65b8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17914.2/barra-pan-espiga-rebanado",
       "disponible": true
     },
     {
@@ -7397,6 +7381,22 @@
       "disponible": true
     },
     {
+      "productoId": "18291",
+      "nombre": "Bebida energética Zero Nefara Energy drink Hacendado",
+      "precio": 1,
+      "precioReferencia": 2,
+      "formato": "Lata",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Agua y refrescos",
+      "subcategoria": "Energético",
+      "imagen": "https://prod-mercadona.imgix.net/images/288a8aff7258c49a8b8e7aef353794b0.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18291/bebida-energetica-zero-nefara-energy-drink-hacendado-lata",
+      "disponible": true
+    },
+    {
       "productoId": "28246",
       "nombre": "Bebida espirituosa centenario Terry",
       "precio": 8.75,
@@ -7746,6 +7746,22 @@
       "subcategoria": "Colesterol y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/dd289147f3d6ee7437c4a9b701adf6ec.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52750/bebida-kefir-fresa-platano-hacendado-botella",
+      "disponible": true
+    },
+    {
+      "productoId": "17927",
+      "nombre": "Bebida Kéfir de lima y limón suave Hacendado 0% MG",
+      "precio": 0.9,
+      "precioReferencia": 3.6,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.25,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Postres y yogures",
+      "subcategoria": "Colesterol y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/c24965d9800e7289d8328d8c034e6273.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17927/bebida-kefir-lima-limon-suave-hacendado-0-mg-botella",
       "disponible": true
     },
     {
@@ -9061,22 +9077,6 @@
       "disponible": true
     },
     {
-      "productoId": "24549",
-      "nombre": "Bizcocho relleno de caramelo salado",
-      "precio": 3.6,
-      "precioReferencia": 7.423,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.485,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Bollería dulce",
-      "imagen": "https://prod-mercadona.imgix.net/images/60b9ba91ae5270cd5e9c8b3ce6d4116a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/24549/bizcocho-relleno-caramelo-salado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "23372",
       "nombre": "Bizcochos de huevo Hacendado",
       "precio": 1.8,
@@ -9378,22 +9378,6 @@
       "subcategoria": "Carne",
       "imagen": "https://prod-mercadona.imgix.net/images/04c83fd193d2218bdc2d61a652ea1c2b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/19852/bolitas-pollo-hacendado-congeladas-bolsa",
-      "disponible": true
-    },
-    {
-      "productoId": "18158",
-      "nombre": "Bollo bañado de chocolate y huevo con disquitos",
-      "precio": 2.25,
-      "precioReferencia": 14.063,
-      "formato": "Bandeja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.16,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Bollería dulce",
-      "imagen": "https://prod-mercadona.imgix.net/images/30c633fb0366095acda3eb8c4bfd55f1.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18158/bollo-con-cobertura-cacao-huevo-sorpresa-con-disquitos-bandeja",
       "disponible": true
     },
     {
@@ -20405,22 +20389,6 @@
       "disponible": true
     },
     {
-      "productoId": "15193",
-      "nombre": "Coquito",
-      "precio": 0.19,
-      "precioReferencia": 5.75,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.033,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Pastelitos surtidos",
-      "imagen": "https://prod-mercadona.imgix.net/images/1fa5c5b8d08c45284f4c525bee190304.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/15193/coquito",
-      "disponible": true
-    },
-    {
       "productoId": "16040",
       "nombre": "Corazones de alcachofa Hacendado",
       "precio": 1.8,
@@ -27968,7 +27936,7 @@
       "pesoAproximado": true,
       "sección": "Marisco y pescado",
       "subcategoria": "Trucha",
-      "imagen": "https://prod-mercadona.imgix.net/images/8378fa17c4433262d3d7b105ca561c17.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8378fa17c4433262d3d7b105ca561c17.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/87342/filetes-trucha-arco-iris-bandeja",
       "disponible": true
     },
@@ -33088,7 +33056,7 @@
       "pesoAproximado": true,
       "sección": "Arroz, legumbres y pasta",
       "subcategoria": "Macarrones, pajaritas y hélices",
-      "imagen": "https://prod-mercadona.imgix.net/images/f7dbfba2c9e49e650e691a683dddab0e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f7dbfba2c9e49e650e691a683dddab0e.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/6344/helices-con-vegetales-hacendado-paquete",
       "disponible": true
     },
@@ -33760,7 +33728,7 @@
       "pesoAproximado": true,
       "sección": "Cacao, café e infusiones",
       "subcategoria": "Infusiones",
-      "imagen": "https://prod-mercadona.imgix.net/images/16b727aaeaaf1e700148fae8e4ff86c3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/bb98e2a4ac3f7d1867925679f8e8056d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11438/infusion-curcuma-hacendado-caja",
       "disponible": true
     },
@@ -34480,7 +34448,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Jamón cocido",
-      "imagen": "https://prod-mercadona.imgix.net/images/0f16e8abbab2f0b541b78637ef537886.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/53c4e49fa2862e79fdb3d941ac7c1ef9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/16395/jamon-cocido-hacendado-finas-lonchas",
       "disponible": true
     },
@@ -36496,7 +36464,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche entera",
-      "imagen": "https://prod-mercadona.imgix.net/images/4b1fd692f8032ec9e1ff419f27a856a4.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e471e628a91aef1a7d6473da2cb904c6.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10379/leche-entera-hacendado-pack-6",
       "disponible": true
     },
@@ -39669,6 +39637,22 @@
       "disponible": true
     },
     {
+      "productoId": "34209",
+      "nombre": "Mango deshidratado Hacendado",
+      "precio": 1.45,
+      "precioReferencia": 24.167,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.06,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Aperitivos",
+      "subcategoria": "Fruta desecada",
+      "imagen": "https://prod-mercadona.imgix.net/images/1876e7d23c0b823d8ee3bff91f75577c.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/34209/mango-deshidratado-hacendado-sin-azucar-anadido-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "2851",
       "nombre": "Manos de cerdo",
       "precio": 3.9,
@@ -40994,22 +40978,6 @@
       "subcategoria": "Cejas",
       "imagen": "https://prod-mercadona.imgix.net/images/b7913f0cc16962e7b279e0a2e802d7bc.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21932/mascara-cejas-deliplus-02-marron-medio",
-      "disponible": true
-    },
-    {
-      "productoId": "21930",
-      "nombre": "Máscara de cejas Fixing Gel Deliplus transparente",
-      "precio": 4.25,
-      "precioReferencia": 4.25,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.005,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Cejas",
-      "imagen": "https://prod-mercadona.imgix.net/images/8f9820cce8273766542fa0382a5b47d0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21930/mascara-cejas-fixing-gel-deliplus-transparente",
       "disponible": true
     },
     {
@@ -44213,22 +44181,6 @@
       "disponible": true
     },
     {
-      "productoId": "33640",
-      "nombre": "Nachos Hacendado",
-      "precio": 0.9,
-      "precioReferencia": 6,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.15,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Aperitivos",
-      "subcategoria": "Snacks",
-      "imagen": "https://prod-mercadona.imgix.net/images/5ea6209ff18125614b1c278484587d91.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/33640/nachos-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "16387",
       "nombre": "Nachos Padrísimos Hacendado sabor guacamole",
       "precio": 0.95,
@@ -46850,22 +46802,6 @@
       "subcategoria": "Pañal talla de 4 a XL",
       "imagen": "https://prod-mercadona.imgix.net/images/61cbc65857c58d92b522811dfb493dd7.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35390/panales-bebe-talla-4-9-14-kg-dodot-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "13321",
-      "nombre": "Pañales bebé talla 5 Deliplus de 14-18 kg",
-      "precio": 17.5,
-      "precioReferencia": 0.195,
-      "formato": "paquetes",
-      "unidadesTotales": 3,
-      "tamañoUnidad": 90,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Bebé",
-      "subcategoria": "Pañal talla de 4 a XL",
-      "imagen": "https://prod-mercadona.imgix.net/images/e35ea39e3bc97927e37d82ef64fbcdd3.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13321/panales-bebe-talla-5-13-18-kg-deliplus",
       "disponible": true
     },
     {
@@ -50149,22 +50085,6 @@
       "disponible": true
     },
     {
-      "productoId": "20536",
-      "nombre": "Petit sabores Hacendado",
-      "precio": 1.7,
-      "precioReferencia": 2.362,
-      "formato": "ud.",
-      "unidadesTotales": 12,
-      "tamañoUnidad": 0.72,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Postres y yogures",
-      "subcategoria": "Yogures y postres infantiles",
-      "imagen": "https://prod-mercadona.imgix.net/images/db331b2e61d371272cea030ea49101f3.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/20536/petit-sabores-hacendado-6-fresa-6-fresa-platano",
-      "disponible": true
-    },
-    {
       "productoId": "21448",
       "nombre": "Piadina Hacendado",
       "precio": 2.2,
@@ -50837,6 +50757,134 @@
       "disponible": true
     },
     {
+      "productoId": "18136",
+      "nombre": "Pintalabios Creamy Deliplus 201 nude",
+      "precio": 4.65,
+      "precioReferencia": 4.65,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios cremoso y brillos",
+      "imagen": "https://prod-mercadona.imgix.net/images/76678bc91383271c2c0c3ca6fe2c2b0a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18136/pintalabios-creamy-deliplus-201-nude",
+      "disponible": true
+    },
+    {
+      "productoId": "18137",
+      "nombre": "Pintalabios Creamy Deliplus 202 rosa cálido",
+      "precio": 4.65,
+      "precioReferencia": 4.65,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios cremoso y brillos",
+      "imagen": "https://prod-mercadona.imgix.net/images/3196bf1fff7ea28cd4d26c1e0fcf3e21.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18137/pintalabios-creamy-deliplus-202-rosa-calido",
+      "disponible": true
+    },
+    {
+      "productoId": "18138",
+      "nombre": "Pintalabios Creamy Deliplus 203 nude rosado",
+      "precio": 4.65,
+      "precioReferencia": 4.65,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios cremoso y brillos",
+      "imagen": "https://prod-mercadona.imgix.net/images/23c55d600558e722f8fa952da01dacad.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18138/pintalabios-creamy-deliplus-203-nude-rosado",
+      "disponible": true
+    },
+    {
+      "productoId": "18139",
+      "nombre": "Pintalabios Creamy Deliplus 204 rosa pétalo",
+      "precio": 4.65,
+      "precioReferencia": 4.65,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios cremoso y brillos",
+      "imagen": "https://prod-mercadona.imgix.net/images/a6736451badb04ea8e5aa63221af6bb1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18139/pintalabios-creamy-deliplus-204-rosa-petalo",
+      "disponible": true
+    },
+    {
+      "productoId": "18140",
+      "nombre": "Pintalabios Creamy Deliplus 205 marrón crema",
+      "precio": 4.65,
+      "precioReferencia": 4.65,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios cremoso y brillos",
+      "imagen": "https://prod-mercadona.imgix.net/images/6afcf6cd972b011980be55538f165bd9.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18140/pintalabios-creamy-deliplus-205-marron-crema",
+      "disponible": true
+    },
+    {
+      "productoId": "18141",
+      "nombre": "Pintalabios Creamy Deliplus 206 ciruela",
+      "precio": 4.65,
+      "precioReferencia": 4.65,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios cremoso y brillos",
+      "imagen": "https://prod-mercadona.imgix.net/images/2576a7f9cf3637d9ea8078be79f1d017.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18141/pintalabios-creamy-deliplus-206-ciruela",
+      "disponible": true
+    },
+    {
+      "productoId": "18142",
+      "nombre": "Pintalabios Creamy Deliplus 207 rojo suave",
+      "precio": 4.65,
+      "precioReferencia": 4.65,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios cremoso y brillos",
+      "imagen": "https://prod-mercadona.imgix.net/images/b962c7bd215625b188e1347e2695540b.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18142/pintalabios-creamy-deliplus-207-rojo-suave",
+      "disponible": true
+    },
+    {
+      "productoId": "18143",
+      "nombre": "Pintalabios Creamy Deliplus 208 marsala",
+      "precio": 4.65,
+      "precioReferencia": 4.65,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Pintalabios cremoso y brillos",
+      "imagen": "https://prod-mercadona.imgix.net/images/8f537d5de0937520da6ca0059b6a2602.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18143/pintalabios-creamy-deliplus-208-marsala",
+      "disponible": true
+    },
+    {
       "productoId": "22621",
       "nombre": "Pintalabios Fluido Mate Deliplus 01 nude beige",
       "precio": 4.5,
@@ -51216,7 +51264,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Fruta tropical",
-      "imagen": "https://prod-mercadona.imgix.net/images/447329070430fee9d487dd3124975cb8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/447329070430fee9d487dd3124975cb8.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3024/pina-natural-rodajas-bote",
       "disponible": true
     },
@@ -66496,7 +66544,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Atún",
-      "imagen": "https://prod-mercadona.imgix.net/images/5610e6403d50026b3d4ded454fc74dd7.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5610e6403d50026b3d4ded454fc74dd7.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18011/ventresca-atun-claro-aceite-oliva-hacendado-lata",
       "disponible": true
     },
