@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-24T09:33:11.730Z",
+  "actualizado": "2026-10-25T09:50:00.419Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4305,
+  "totalProductos": 4301,
   "productos": [
     {
       "productoId": "40339",
@@ -24453,22 +24453,6 @@
       "disponible": true
     },
     {
-      "productoId": "40384",
-      "nombre": "Eau de parfum hombre My Soul",
-      "precio": 9.5,
-      "precioReferencia": 9.5,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/b39768b9865da3982a5f097faf9246d6.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/40384/eau-parfum-hombre-my-soul-for-him-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "18257",
       "nombre": "Eau de parfum hombre Noite My Soul",
       "precio": 13,
@@ -25734,7 +25718,7 @@
     },
     {
       "productoId": "23067",
-      "nombre": "Enjuague bucal dientes y encías Listerine menta",
+      "nombre": "Enjuague bucal dientes y encías Listerine menta intensa",
       "precio": 3.95,
       "precioReferencia": 0.79,
       "formato": "Botella",
@@ -31429,22 +31413,6 @@
       "disponible": true
     },
     {
-      "productoId": "17806",
-      "nombre": "Golosinas calaveras Halloween super ácidas Hacendado",
-      "precio": 1,
-      "precioReferencia": 10,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/234d06931063efdeb77b4f24df281756.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17806/golosinas-calaveras-halloween-super-acidas-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "23528",
       "nombre": "Golosinas Dentaduras Hacendado",
       "precio": 1,
@@ -32770,22 +32738,6 @@
       "subcategoria": "Tarrinas",
       "imagen": "https://prod-mercadona.imgix.net/images/54787370e1d65c65fae869057aaa8b5f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12821/helado-duo-brownie-hacendado-crema-sabor-vainilla-cacao-con-trozos-bizcocho-cacao-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "21578",
-      "nombre": "Helado golden pecan Hacendado sabor vainilla con trozos de nueces de pecán, salsa dulce de arce y caramelo",
-      "precio": 3.25,
-      "precioReferencia": 6.5,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Tarrinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/bd1e68fcb5b8e30f9bd8d7092126c6d2.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21578/helado-golden-pecan-hacendado-vainilla-con-trozos-nueces-pecan-caramelizadas-dulce-arce-salsa-caramelo-bote",
       "disponible": true
     },
     {
@@ -63858,22 +63810,6 @@
       "subcategoria": "Tinto de verano y sangría",
       "imagen": "https://prod-mercadona.imgix.net/images/3a87cbc85e13a3bd2126ea70ba6c80b4.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/66746/tinto-verano-00-sin-alcohol-limon-don-simon-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "60748",
-      "nombre": "Tinto de verano zero limón Casón Histórico",
-      "precio": 1.15,
-      "precioReferencia": 0.767,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Tinto de verano y sangría",
-      "imagen": "https://prod-mercadona.imgix.net/images/a571de6e80d31ec10a8d56a6873064d8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/60748/tinto-verano-zero-limon-cason-historico-0-alcohol-0-azucar-botella",
       "disponible": true
     },
     {
