@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-27T10:35:46.350Z",
+  "actualizado": "2026-10-28T11:21:57.852Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4339,
+  "totalProductos": 4351,
   "productos": [
     {
       "productoId": "40339",
@@ -853,22 +853,6 @@
       "disponible": true
     },
     {
-      "productoId": "33120",
-      "nombre": "Aceitunas verdes con hueso Hacendado",
-      "precio": 2.95,
-      "precioReferencia": 5.567,
-      "formato": "Tarro",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.935,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Aperitivos",
-      "subcategoria": "Aceitunas verdes",
-      "imagen": "https://prod-mercadona.imgix.net/images/0863e9008db82471b207db659c4c69a6.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/33120/aceitunas-manzanilla-sabor-anchoa-hacendado-con-hueso-calibre-grande-tarro",
-      "disponible": true
-    },
-    {
       "productoId": "33205",
       "nombre": "Aceitunas verdes con hueso Hacendado",
       "precio": 1.4,
@@ -917,6 +901,22 @@
       "disponible": true
     },
     {
+      "productoId": "52783",
+      "nombre": "Aceitunas verdes Hacendado con hueso",
+      "precio": 2.85,
+      "precioReferencia": 5.378,
+      "formato": "Tarro",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.935,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Aperitivos",
+      "subcategoria": "Aceitunas verdes",
+      "imagen": "https://prod-mercadona.imgix.net/images/22637e82eac1811ee52024f145920efc.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/52783/aceitunas-manzanilla-sabor-anchoa-hacendado-con-hueso-calibre-grande-tarro",
+      "disponible": true
+    },
+    {
       "productoId": "52622",
       "nombre": "Aceitunas verdes Picadedos sin hueso Hacendado aliñadas",
       "precio": 3.7,
@@ -960,7 +960,7 @@
       "pesoAproximado": true,
       "sección": "Aperitivos",
       "subcategoria": "Aceitunas verdes",
-      "imagen": "https://prod-mercadona.imgix.net/images/9ff546f08e82e3e38f2b7917fd94d635.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/6e52471bf17d428d03899310597fa47a.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23217/aceitunas-manzanilla-rellenas-anchoa-hacendado-pack-3",
       "disponible": true
     },
@@ -2994,6 +2994,22 @@
       "subcategoria": "Frutos secos",
       "imagen": "https://prod-mercadona.imgix.net/images/43d5b21b2cbc97b548532678e85163c1.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11960/almendra-tostada-salada-hacendado-con-piel-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "36421",
+      "nombre": "Almendras rellenas de turrón Hacendado",
+      "precio": 2.75,
+      "precioReferencia": 18.334,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.15,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Polvorones y mazapanes",
+      "imagen": "https://prod-mercadona.imgix.net/images/ecd9510e0fa0546e98f3ee1ec1f52b5e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/36421/almendras-rellenas-turron-hacendado-paquete",
       "disponible": true
     },
     {
@@ -5362,6 +5378,22 @@
       "subcategoria": "Con chocolate y rellenas",
       "imagen": "https://prod-mercadona.imgix.net/images/aacbfaecb42b7a1062ff1aca14d5d5f4.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/36204/barquillos-rellenos-chocolate-hacendado-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "36203",
+      "nombre": "Barquillos rellenos de crema turrón Hacendado",
+      "precio": 2.25,
+      "precioReferencia": 11.25,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Cereales y galletas",
+      "subcategoria": "Con chocolate y rellenas",
+      "imagen": "https://prod-mercadona.imgix.net/images/48b622b301a1bb04840c8dd0b460244a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/36203/barquillos-rellenos-turron-hacendado-bote",
       "disponible": true
     },
     {
@@ -8597,24 +8629,8 @@
       "disponible": true
     },
     {
-      "productoId": "79715",
-      "nombre": "Biberón 150 ml tetina silicona flujo lento Deliplus +0 meses",
-      "precio": 3.3,
-      "precioReferencia": 3.3,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Bebé",
-      "subcategoria": "Biberón",
-      "imagen": "https://prod-mercadona.imgix.net/images/c0efe2f357bd88b60884787a35e09efe.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/79715/biberon-150-ml-tetina-silicona-flujo-lento-0-meses-deliplus",
-      "disponible": true
-    },
-    {
-      "productoId": "79470",
-      "nombre": "Biberón 360 ml tetina silicona tres posiciones Deliplus +1 mes",
+      "productoId": "18593",
+      "nombre": "Biberón 150 ml tetina silicona flujo lento anticólicos Deliplus +0 meses",
       "precio": 3.8,
       "precioReferencia": 3.8,
       "formato": "Envase",
@@ -8624,8 +8640,24 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Biberón",
-      "imagen": "https://prod-mercadona.imgix.net/images/3c5963b175ab2441b5bc8bfa8390a9b6.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/79470/biberon-360-ml-tetina-silicona-tres-posiciones-1-mes-deliplus",
+      "imagen": "https://prod-mercadona.imgix.net/images/37b146a064f7e2ac762615bd134ba26e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18593/biberon-150-ml-tetina-silicona-flujo-lento-anticolicos-deliplus-0-meses",
+      "disponible": true
+    },
+    {
+      "productoId": "18592",
+      "nombre": "Biberón 360 ml tetina silicona tres posiciones Deliplus +1 mes",
+      "precio": 4.4,
+      "precioReferencia": 4.4,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Bebé",
+      "subcategoria": "Biberón",
+      "imagen": "https://prod-mercadona.imgix.net/images/7cb7b7e89782cd373d564630b6603baf.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18592/biberon-360-ml-tetina-silicona-tres-posiciones-deliplus-1-mes",
       "disponible": true
     },
     {
@@ -12800,7 +12832,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pollo",
-      "imagen": "https://prod-mercadona.imgix.net/images/920aeb3aac92a8b5e628abe0557654fa.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/27d4b51410c547cf639c9b143269c449.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/2855/carcasa-pollo-certificado-alimentado-con-50-maiz-bandeja",
       "disponible": true
     },
@@ -16853,22 +16885,6 @@
       "disponible": true
     },
     {
-      "productoId": "20147",
-      "nombre": "Chorizo extra pimienta Hacendado finas lonchas",
-      "precio": 1.85,
-      "precioReferencia": 18.5,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Chorizo",
-      "imagen": "https://prod-mercadona.imgix.net/images/90006dac90f2d59ca42c3730a2662429.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/20147/chorizo-extra-pimienta-hacendado-finas-lonchas-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "60699",
       "nombre": "Chorizo ibérico extra La Hacienda del ibérico lonchas",
       "precio": 2.3,
@@ -19024,7 +19040,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado del cabello",
       "subcategoria": "Coloración rubio",
-      "imagen": "https://prod-mercadona.imgix.net/images/fd22186ed887cfbda65478f3a728950b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/28f9e32fea324e90ffe8434c643d10f3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/73176/coloracion-permanente-83-rubio-claro-dorado-deliplus-colorcor-caja",
       "disponible": true
     },
@@ -20448,7 +20464,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pollo",
-      "imagen": "https://prod-mercadona.imgix.net/images/cfbf64fff74811411092773ad191a501.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/cfbf64fff74811411092773ad191a501.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/25258/contramuslos-deshuesados-sin-piel-pollo-certificado-alimentado-con-50-maiz-bandeja",
       "disponible": true
     },
@@ -21376,7 +21392,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Cremas de untar",
-      "imagen": "https://prod-mercadona.imgix.net/images/bdb213c2a0db07f82d025206fac5f7fe.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/55420c90e459fca270328179f39508b3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18787/crema-galleta-caramelizada-lotus-biscoff-tarro",
       "disponible": true
     },
@@ -23856,7 +23872,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Detergente líquido y gel",
-      "imagen": "https://prod-mercadona.imgix.net/images/0903e7cc7f3b7b746b5423037fad8865.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8f6b39034dbd905b7d32f54886cf1e16.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/16830/detergente-ropa-total-ariel-liquido-botella",
       "disponible": true
     },
@@ -25888,7 +25904,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Colutorio e hilo dental",
-      "imagen": "https://prod-mercadona.imgix.net/images/20c227a22e77fc5a49ce9e0f6da2645d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/debc5d7b20664a54ff83560093bfbb6d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23067/enjuague-bucal-proteccion-dientes-encias-listerine-menta-botella",
       "disponible": true
     },
@@ -27653,6 +27669,22 @@
       "disponible": true
     },
     {
+      "productoId": "15860",
+      "nombre": "Figuritas de mazapán Hacendado",
+      "precio": 2.3,
+      "precioReferencia": 11.5,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Polvorones y mazapanes",
+      "imagen": "https://prod-mercadona.imgix.net/images/16a992b9a5d4c8dc905f326fdfeb1afd.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/15860/figuritas-mazapan-hacendado-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "63159",
       "nombre": "Figuritas de merluza empanadas Hacendado ultracongeladas",
       "precio": 3.75,
@@ -28704,7 +28736,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pavo y otras aves",
-      "imagen": "https://prod-mercadona.imgix.net/images/f9ef6c77e6789d3dc4cb51e155900f80.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7c3480458a93d5975e3d4d2f63cff33e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23990/foie-gras-pato-fresco-paquete",
       "disponible": true
     },
@@ -31728,7 +31760,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/4ad0745ed342d38512e75011499510a4.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4ad0745ed342d38512e75011499510a4.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/65077/golosinas-moras-hacendado-paquete",
       "disponible": true
     },
@@ -37621,22 +37653,6 @@
       "disponible": true
     },
     {
-      "productoId": "28333",
-      "nombre": "Licor dulce Anís del mono",
-      "precio": 8.45,
-      "precioReferencia": 12.072,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.7,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Anís",
-      "imagen": "https://prod-mercadona.imgix.net/images/0fb4cf808caf4e862826d48f5959329a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/28333/licor-dulce-anis-mono-botella",
-      "disponible": true
-    },
-    {
       "productoId": "13610",
       "nombre": "Licor mora sin alcohol Pi.omka",
       "precio": 3,
@@ -39058,22 +39074,6 @@
       "subcategoria": "Lotes hombre",
       "imagen": "https://prod-mercadona.imgix.net/images/3292860fa9568b9c3e5aaaf01548e2d1.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60902/lote-hombre-gesto-contiene-eau-toilette-100-ml-gel-bano-100-ml-after-shave-100-ml-champu-100-ml-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "17991",
-      "nombre": "Lote infantil maquillaje Glam Studio Color Up",
-      "precio": 7.5,
-      "precioReferencia": 7.5,
-      "formato": "Caja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Colonia infantil",
-      "imagen": "https://prod-mercadona.imgix.net/images/0e356f1a59c391028667026547526267.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17991/lote-infantil-maquillaje-color-up-glam-studio-contiene-1-brillo-labios-1-balsamo-labial-1-paleta-sombras-con-6-tonos-aplicador-2-esmaltes-unas-2-sets-pegatinas-1-separador-1-pinza-pelo-1-anillo-caja",
       "disponible": true
     },
     {
@@ -41970,6 +41970,22 @@
       "subcategoria": "Mayonesa",
       "imagen": "https://prod-mercadona.imgix.net/images/fce99222f25808e2d3209fb9a85c2922.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17038/mayonesa-ybarra-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "15861",
+      "nombre": "Mazapán de Soto Hacendado",
+      "precio": 3.35,
+      "precioReferencia": 16.75,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Polvorones y mazapanes",
+      "imagen": "https://prod-mercadona.imgix.net/images/b797d34e718b8cf071661c6685b38b97.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/15861/mazapan-soto-hacendado-paquete",
       "disponible": true
     },
     {
@@ -45797,6 +45813,22 @@
       "disponible": true
     },
     {
+      "productoId": "36013",
+      "nombre": "Pan de Cádiz Hacendado",
+      "precio": 3.05,
+      "precioReferencia": 12.2,
+      "formato": "Caja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.25,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Polvorones y mazapanes",
+      "imagen": "https://prod-mercadona.imgix.net/images/e4955160b556268aa2899a91acf1cd4f.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/36013/pan-cadiz-hacendado-caja",
+      "disponible": true
+    },
+    {
       "productoId": "82655",
       "nombre": "Pan de fibra y sésamo Hacendado",
       "precio": 1.15,
@@ -45810,6 +45842,22 @@
       "subcategoria": "Crakers y tartaletas",
       "imagen": "https://prod-mercadona.imgix.net/images/a3392f9e5392dfbc6be285a4864bb40a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/82655/pan-fibra-sesamo-hacendado-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "11547",
+      "nombre": "Pan de higo con almendras Villacruz",
+      "precio": 2.35,
+      "precioReferencia": 11.75,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Aperitivos",
+      "subcategoria": "Fruta desecada",
+      "imagen": "https://prod-mercadona.imgix.net/images/2b06bffa943a443f2132f9963177f726.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/11547/pan-higo-con-almendras-villacruz",
       "disponible": true
     },
     {
@@ -50373,6 +50421,38 @@
       "disponible": true
     },
     {
+      "productoId": "19847",
+      "nombre": "Petit sabor fresa Hacendado",
+      "precio": 0.85,
+      "precioReferencia": 2.362,
+      "formato": "ud.",
+      "unidadesTotales": 6,
+      "tamañoUnidad": 0.36,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Postres y yogures",
+      "subcategoria": "Yogures y postres infantiles",
+      "imagen": "https://prod-mercadona.imgix.net/images/82b727c30072c19b930584cbc850fcee.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/19847/petit-sabor-fresa-hacendado",
+      "disponible": true
+    },
+    {
+      "productoId": "19848",
+      "nombre": "Petit sabor fresa y plátano Hacendado",
+      "precio": 0.85,
+      "precioReferencia": 2.362,
+      "formato": "ud.",
+      "unidadesTotales": 6,
+      "tamañoUnidad": 0.36,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Postres y yogures",
+      "subcategoria": "Yogures y postres infantiles",
+      "imagen": "https://prod-mercadona.imgix.net/images/3d6cc7e982299854c495c3ddcdc1e7cd.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/19848/petit-sabor-fresa-platano-hacendado",
+      "disponible": true
+    },
+    {
       "productoId": "21448",
       "nombre": "Piadina Hacendado",
       "precio": 2.2,
@@ -52624,7 +52704,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pollo",
-      "imagen": "https://prod-mercadona.imgix.net/images/701cf7beeb6a4fc56478723e61d5f7ab.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4ef0fdba9074b1b821ab2f1db0e7db78.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/2782/pollo-certificado-entero-alimentado-con-50-maiz-bandeja",
       "disponible": true
     },
@@ -55221,22 +55301,6 @@
       "disponible": true
     },
     {
-      "productoId": "51198",
-      "nombre": "Queso lonchas fundido burger mezcla Hacendado",
-      "precio": 1.9,
-      "precioReferencia": 6.334,
-      "formato": "Paquete",
-      "unidadesTotales": 14,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Queso lonchas",
-      "imagen": "https://prod-mercadona.imgix.net/images/7bd7b58ec4f47a62db26456bdf66ba1a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/51198/queso-lonchas-fundido-burger-mezcla-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "50371",
       "nombre": "Queso lonchas fundido sándwich mezcla Hacendado",
       "precio": 1.1,
@@ -56887,8 +56951,8 @@
     {
       "productoId": "27348",
       "nombre": "Refresco Coca-Cola",
-      "precio": 4.5,
-      "precioReferencia": 1.125,
+      "precio": 4.18,
+      "precioReferencia": 1.045,
       "formato": "Pack-2",
       "unidadesTotales": 2,
       "tamañoUnidad": 4,
@@ -56903,8 +56967,8 @@
     {
       "productoId": "27342",
       "nombre": "Refresco Coca-Cola",
-      "precio": 2.35,
-      "precioReferencia": 1.175,
+      "precio": 2.19,
+      "precioReferencia": 1.095,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 2,
@@ -57079,8 +57143,8 @@
     {
       "productoId": "27449",
       "nombre": "Refresco Coca-Cola zero azúcar",
-      "precio": 4.5,
-      "precioReferencia": 1.125,
+      "precio": 4.18,
+      "precioReferencia": 1.045,
       "formato": "botellas",
       "unidadesTotales": 2,
       "tamañoUnidad": 4,
@@ -57095,8 +57159,8 @@
     {
       "productoId": "27445",
       "nombre": "Refresco Coca-Cola zero azúcar",
-      "precio": 2.35,
-      "precioReferencia": 1.175,
+      "precio": 2.19,
+      "precioReferencia": 1.095,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 2,
@@ -57207,8 +57271,8 @@
     {
       "productoId": "28180",
       "nombre": "Refresco Coca-Cola zero azúcar zero cafeína",
-      "precio": 4.5,
-      "precioReferencia": 1.125,
+      "precio": 4.18,
+      "precioReferencia": 1.045,
       "formato": "botellas",
       "unidadesTotales": 2,
       "tamañoUnidad": 4,
@@ -57223,8 +57287,8 @@
     {
       "productoId": "27462",
       "nombre": "Refresco Coca-Cola zero azúcar zero cafeína",
-      "precio": 2.35,
-      "precioReferencia": 1.175,
+      "precio": 2.19,
+      "precioReferencia": 1.095,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 2,
@@ -58050,22 +58114,6 @@
       "subcategoria": "Otros refrescos sin gas",
       "imagen": "https://prod-mercadona.imgix.net/images/4e0e2d7c2b0bf10ff15d0347156bc792.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13944/refresco-naranja-hacendado-sin-gas-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "27842",
-      "nombre": "Refresco sin gas de naranja Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 1.213,
-      "formato": "botellas",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 1.32,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Agua y refrescos",
-      "subcategoria": "Otros refrescos sin gas",
-      "imagen": "https://prod-mercadona.imgix.net/images/72d5f9d4748fe87b735248668376ae29.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/27842/refresco-naranja-gold-spring-sin-gas-pack-4",
       "disponible": true
     },
     {
@@ -60759,8 +60807,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.9,
+      "precioReferencia": 4.5,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60770,6 +60818,22 @@
       "subcategoria": "Sardina",
       "imagen": "https://prod-mercadona.imgix.net/images/2b65dea09c00f7ea0a265455ce20ff1a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/81100.2/sardina-limpia-sin-cabeza-sin-tripa-granel",
+      "disponible": true
+    },
+    {
+      "productoId": "81100.1",
+      "nombre": "Sardina sin limpiar",
+      "precio": 0.9,
+      "precioReferencia": 4.5,
+      "formato": "Granel",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Sardina",
+      "imagen": "https://prod-mercadona.imgix.net/images/5b92b803a7932c1cd2ece3e80d11a853.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81100.1/sardina-sin-limpiar-granel",
       "disponible": true
     },
     {
@@ -66325,6 +66389,38 @@
       "disponible": true
     },
     {
+      "productoId": "15847",
+      "nombre": "Turrón blando de almendras Hacendado 0% azúcares añadidos",
+      "precio": 3,
+      "precioReferencia": 15,
+      "formato": "Tableta",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Turrones",
+      "imagen": "https://prod-mercadona.imgix.net/images/c3e0bf34b72223d02de3e9cfd4ce2d4c.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/15847/turron-blando-crema-almendras-hacendado-0-sin-azucares-anadidos-tableta",
+      "disponible": true
+    },
+    {
+      "productoId": "36020",
+      "nombre": "Turrón blando de Jijona Antiu Xixona",
+      "precio": 4.35,
+      "precioReferencia": 17.4,
+      "formato": "Tableta",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.25,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Turrones",
+      "imagen": "https://prod-mercadona.imgix.net/images/0f3c00580d021ecd6ecb267b8ecb9880.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/36020/turron-blando-jijona-antiu-xixona-tableta",
+      "disponible": true
+    },
+    {
       "productoId": "17701",
       "nombre": "Turrón chocolate blanco Cookies & Cream Hacendado relleno de crema de galletas y cacao",
       "precio": 2,
@@ -66338,6 +66434,22 @@
       "subcategoria": "Turrones",
       "imagen": "https://prod-mercadona.imgix.net/images/fe3b50d36c4d53eb157bf0e2b552614c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17701/turron-chocolate-blanco-cookies-cream-hacendado-relleno-crema-galletas-cacao-tableta",
+      "disponible": true
+    },
+    {
+      "productoId": "14249",
+      "nombre": "Turrón crema de cacahuete Hacendado",
+      "precio": 1.5,
+      "precioReferencia": 7.5,
+      "formato": "Tableta",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Turrones",
+      "imagen": "https://prod-mercadona.imgix.net/images/e23141dfc47a327bdbdaeb9ca702bf9c.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/14249/turron-crema-cacahuete-hacendado-tableta",
       "disponible": true
     },
     {
@@ -66485,6 +66597,38 @@
       "disponible": true
     },
     {
+      "productoId": "36334",
+      "nombre": "Turrón de fruta Hacendado",
+      "precio": 2.75,
+      "precioReferencia": 11,
+      "formato": "Tableta",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.25,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Turrones",
+      "imagen": "https://prod-mercadona.imgix.net/images/eb4a4d7f6fa8af00200f78781dde6080.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/36334/turron-fruta-hacendado-tableta",
+      "disponible": true
+    },
+    {
+      "productoId": "36029",
+      "nombre": "Turrón de guirlache Hacendado",
+      "precio": 2.5,
+      "precioReferencia": 16.667,
+      "formato": "Tableta",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.15,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Turrones",
+      "imagen": "https://prod-mercadona.imgix.net/images/22582cea1d9c81e60d8bf12c0a180e35.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/36029/turron-guirlache-hacendado-tableta",
+      "disponible": true
+    },
+    {
       "productoId": "36143",
       "nombre": "Turrón de pistacho Hacendado",
       "precio": 2.9,
@@ -66530,6 +66674,38 @@
       "subcategoria": "Turrones",
       "imagen": "https://prod-mercadona.imgix.net/images/2736f1e2eb1dba368f6bf19170614776.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/36017/turron-duro-hacendado-tableta",
+      "disponible": true
+    },
+    {
+      "productoId": "15848",
+      "nombre": "Turrón duro de almendras Hacendado 0% azúcares añadidos",
+      "precio": 3,
+      "precioReferencia": 15,
+      "formato": "Tableta",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Turrones",
+      "imagen": "https://prod-mercadona.imgix.net/images/dd837f7b598b51a24ef8e6f15883ef86.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/15848/turron-imperial-con-almendras-hacendado-0-sin-azucares-anadidos-tableta",
+      "disponible": true
+    },
+    {
+      "productoId": "14248",
+      "nombre": "Turrón imperial de cacahuete Hacendado",
+      "precio": 1.5,
+      "precioReferencia": 7.5,
+      "formato": "Tableta",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Turrones",
+      "imagen": "https://prod-mercadona.imgix.net/images/c6974c0c837382d848dc7fd8466facb4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/14248/turron-imperial-cacahuete-hacendado-tableta",
       "disponible": true
     },
     {
@@ -67106,6 +67282,22 @@
       "subcategoria": "Pescado congelado",
       "imagen": "https://prod-mercadona.imgix.net/images/6481cb791a81e7b93a2ccab3a96d631f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/26991/ventrescas-merluza-cabo-vento-ultracongeladas-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "24562",
+      "nombre": "Verduras & salsa Hacendado ultracongelada",
+      "precio": 1.5,
+      "precioReferencia": 4.286,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.35,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Congelados",
+      "subcategoria": "Verdura",
+      "imagen": "https://prod-mercadona.imgix.net/images/62580e5c0398cfb4753e54de75f86b3a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/24562/verduras-salsa-hacendado-ultracongelada-paquete",
       "disponible": true
     },
     {
