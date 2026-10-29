@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-28T11:21:57.852Z",
+  "actualizado": "2026-10-29T11:32:09.083Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4351,
+  "totalProductos": 4353,
   "productos": [
     {
       "productoId": "40339",
@@ -519,8 +519,8 @@
     {
       "productoId": "4241",
       "nombre": "Aceite de oliva 0,4º Hacendado",
-      "precio": 17.25,
-      "precioReferencia": 3.45,
+      "precio": 16.75,
+      "precioReferencia": 3.35,
       "formato": "Garrafa",
       "unidadesTotales": 0,
       "tamañoUnidad": 5,
@@ -535,8 +535,8 @@
     {
       "productoId": "4240",
       "nombre": "Aceite de oliva 0,4º Hacendado",
-      "precio": 3.7,
-      "precioReferencia": 3.7,
+      "precio": 3.6,
+      "precioReferencia": 3.6,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -551,8 +551,8 @@
     {
       "productoId": "4641",
       "nombre": "Aceite de oliva 1º Hacendado",
-      "precio": 17.25,
-      "precioReferencia": 3.45,
+      "precio": 16.75,
+      "precioReferencia": 3.35,
       "formato": "Garrafa",
       "unidadesTotales": 0,
       "tamañoUnidad": 5,
@@ -567,8 +567,8 @@
     {
       "productoId": "4640",
       "nombre": "Aceite de oliva 1º Hacendado",
-      "precio": 3.9,
-      "precioReferencia": 3.9,
+      "precio": 3.8,
+      "precioReferencia": 3.8,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -16213,19 +16213,19 @@
       "disponible": true
     },
     {
-      "productoId": "17917",
-      "nombre": "Chocolate con leche Fussion Hacendado relleno de caramelo con leche aireado",
-      "precio": 1.35,
-      "precioReferencia": 14.211,
-      "formato": "Paquete",
+      "productoId": "18273",
+      "nombre": "Chocolate con leche Fussion Hacendado relleno cremoso y conos sabor bacon y queso",
+      "precio": 1.75,
+      "precioReferencia": 12.963,
+      "formato": "Tableta",
       "unidadesTotales": 0,
-      "tamañoUnidad": 0.095,
+      "tamañoUnidad": 0.135,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Chocolate con leche",
-      "imagen": "https://prod-mercadona.imgix.net/images/266a1f3f3b3405912d0433a78abb1f9a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17917/chocolate-con-leche-fussion-hacendado-relleno-caramelo-con-leche-aireado-paquete",
+      "imagen": "https://prod-mercadona.imgix.net/images/4042e9b354cf586b1375664453bc0f0a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18273/chocolate-con-leche-fussion-hacendado-relleno-cremoso-conos-sabor-bacon-queso-tableta",
       "disponible": true
     },
     {
@@ -17685,6 +17685,22 @@
       "disponible": true
     },
     {
+      "productoId": "69251",
+      "nombre": "Col lombarda",
+      "precio": 2.2,
+      "precioReferencia": 2,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.098,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Repollo y col",
+      "imagen": "https://prod-mercadona.imgix.net/images/7798d5fc27ec9df3b3336c68302e5972.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/69251/col-lombarda-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "24340",
       "nombre": "Cola de rape del Cabo sin piel Hacendado ultracongelada",
       "precio": 9.25,
@@ -17746,6 +17762,22 @@
       "subcategoria": "Pescado congelado",
       "imagen": "https://prod-mercadona.imgix.net/images/c2c68a6c531b245f2f21be9a2cc9a510.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/24386/colas-rape-cabo-pequenas-hacendado-ultracongeladas-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "69379",
+      "nombre": "Coles de bruselas",
+      "precio": 2.5,
+      "precioReferencia": 5,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Repollo y col",
+      "imagen": "https://prod-mercadona.imgix.net/images/a5f1e8a052d117199299685c86765e15.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/69379/coles-bruselas-paquete",
       "disponible": true
     },
     {
@@ -24501,22 +24533,6 @@
       "disponible": true
     },
     {
-      "productoId": "35216",
-      "nombre": "Eau de parfum hombre Enchanted My Soul",
-      "precio": 9.5,
-      "precioReferencia": 9.5,
-      "formato": "Frasco",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/0c8ec4cc224bdc1de13dacafa0600f46.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35216/eau-parfum-hombre-my-soul-enchanted-for-him-frasco",
-      "disponible": true
-    },
-    {
       "productoId": "60664",
       "nombre": "Eau de parfum hombre Enciende Como Tú",
       "precio": 7,
@@ -26375,8 +26391,8 @@
     {
       "productoId": "80782",
       "nombre": "Ensaladilla Delicias del mar Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 6.4,
+      "precio": 1.7,
+      "precioReferencia": 6.8,
       "formato": "Tarrina",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -26407,8 +26423,8 @@
     {
       "productoId": "80795",
       "nombre": "Ensaladilla rusa Hacendado",
-      "precio": 2.8,
-      "precioReferencia": 5.6,
+      "precio": 2.9,
+      "precioReferencia": 5.8,
       "formato": "Tarrina",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.5,
@@ -26416,15 +26432,15 @@
       "pesoAproximado": true,
       "sección": "Pizzas y platos preparados",
       "subcategoria": "Ensaladilla",
-      "imagen": "https://prod-mercadona.imgix.net/images/8a73d41f9830335429b49a5a88fb4944.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8a73d41f9830335429b49a5a88fb4944.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/80795/ensaladilla-rusa-hacendado-tarrina",
       "disponible": true
     },
     {
       "productoId": "80784",
       "nombre": "Ensaladilla rusa Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 6.4,
+      "precio": 1.7,
+      "precioReferencia": 6.8,
       "formato": "Tarrina",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -27440,7 +27456,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Empanados y elaborados",
-      "imagen": "https://prod-mercadona.imgix.net/images/35d3a3b57c5ee4d74e778939d27be3d8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0285c0ab19282426a3e7eacf61a2e85f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23308/fiambre-magro-cerdo-adobado-paquete",
       "disponible": true
     },
@@ -31216,7 +31232,7 @@
       "pesoAproximado": true,
       "sección": "Fitoterapia y parafarmacia",
       "subcategoria": "Botiquín",
-      "imagen": "https://prod-mercadona.imgix.net/images/5bd2b51017b919e0a2aeb0e24527a2ac.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/90d848316e5d0f5ff07a9e46c92245c8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/77466/gel-hidroalcoholico-80-alcohol-deliplus-antiseptico-sin-aclarado-bote",
       "disponible": true
     },
@@ -32423,8 +32439,8 @@
     {
       "productoId": "8839",
       "nombre": "Hamburguesa de cordero al romero",
-      "precio": 3.5,
-      "precioReferencia": 14.584,
+      "precio": 3.8,
+      "precioReferencia": 15.834,
       "formato": "Paquete",
       "unidadesTotales": 2,
       "tamañoUnidad": 0.24,
@@ -32978,22 +32994,6 @@
       "subcategoria": "Granizados y helados de hielo",
       "imagen": "https://prod-mercadona.imgix.net/images/2cb6b58ee83eeeda7665a055af5e168b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/64179/helado-horchata-hacendado-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "64522",
-      "nombre": "Helado hielo sorbete con lima limón Hacendado",
-      "precio": 2.3,
-      "precioReferencia": 3.485,
-      "formato": "Caja",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 0.66,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Granizados y helados de hielo",
-      "imagen": "https://prod-mercadona.imgix.net/images/cc500944fe571311cc2b35839a375925.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64522/helado-lima-limon-hacendado-caja",
       "disponible": true
     },
     {
@@ -36119,8 +36119,8 @@
     {
       "productoId": "86379",
       "nombre": "Lavavajillas Total Somat en gel 5 en 1",
-      "precio": 4.95,
-      "precioReferencia": 0.155,
+      "precio": 3.95,
+      "precioReferencia": 0.124,
       "formato": "Botella",
       "unidadesTotales": 32,
       "tamañoUnidad": 0.576,
@@ -36560,7 +36560,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche desnatada",
-      "imagen": "https://prod-mercadona.imgix.net/images/c8961220049de314a30e9f194e743e26.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5771905e65bb704fa1f501f0622090db.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10731/leche-desnatada-sin-lactosa-hacendado-brick",
       "disponible": true
     },
@@ -36768,7 +36768,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche entera",
-      "imagen": "https://prod-mercadona.imgix.net/images/0806acbc42778d7d0f63b6df45beec43.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b21902da8626c142ebf46790004e0a94.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10699/leche-entera-sin-lactosa-hacendado-brick",
       "disponible": true
     },
@@ -37088,7 +37088,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche semidesnatada",
-      "imagen": "https://prod-mercadona.imgix.net/images/4c383f76349faee5a3c079c48d3dcb44.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0a223f379a6d628804b8043f48320fc6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10722/leche-semidesnatada-sin-lactosa-hacendado-brick",
       "disponible": true
     },
@@ -42194,6 +42194,22 @@
       "subcategoria": "Pollo",
       "imagen": "https://prod-mercadona.imgix.net/images/78c6373538c9cae1793f4d41024c024c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/2779/medio-pollo-troceado-bandeja",
+      "disponible": true
+    },
+    {
+      "productoId": "68463",
+      "nombre": "Medio repollo rizado",
+      "precio": 1.83,
+      "precioReferencia": 2.15,
+      "formato": "1/2 Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.85,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Repollo y col",
+      "imagen": "https://prod-mercadona.imgix.net/images/c63ea2034ed897845fd3ae75c5007ee1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/68463/medio-repollo-rizado-12-pieza",
       "disponible": true
     },
     {
@@ -47590,7 +47606,7 @@
     },
     {
       "productoId": "9298",
-      "nombre": "Papilla lentejas con verduritas Hero Solo recetas caseras +8 meses",
+      "nombre": "Papilla lentejas con verduritas y jamón Hero Solo recetas caseras +8 meses",
       "precio": 2.95,
       "precioReferencia": 7.764,
       "formato": "tarritos",
@@ -49890,6 +49906,22 @@
       "subcategoria": "Cejas",
       "imagen": "https://prod-mercadona.imgix.net/images/5fe7beb9c84e09f307e5bbaa30f4bf26.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/67721/perfilador-cejas-micro-deliplus-01-claro-con-cepillo",
+      "disponible": true
+    },
+    {
+      "productoId": "67722",
+      "nombre": "Perfilador de cejas micro Deliplus 02 oscuro",
+      "precio": 3.5,
+      "precioReferencia": 3.5,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Cejas",
+      "imagen": "https://prod-mercadona.imgix.net/images/af08ad008dac77fe571d7901bd9253a9.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/67722/perfilador-cejas-micro-deliplus-02-oscuro-con-cepillo",
       "disponible": true
     },
     {
@@ -53189,6 +53221,22 @@
       "disponible": true
     },
     {
+      "productoId": "15912",
+      "nombre": "Postre crema de turrón Hacendado",
+      "precio": 2.1,
+      "precioReferencia": 4.2,
+      "formato": "Pack-4",
+      "unidadesTotales": 4,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Postres y yogures",
+      "subcategoria": "Otros postres",
+      "imagen": "https://prod-mercadona.imgix.net/images/3833e64c8aeded46b3b8faf2871e9131.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/15912/postre-crema-turron-hacendado-pack-4",
+      "disponible": true
+    },
+    {
       "productoId": "22981",
       "nombre": "Postre de coco natural Alpro sin azúcares añadidos",
       "precio": 2.6,
@@ -55573,22 +55621,6 @@
       "disponible": true
     },
     {
-      "productoId": "18344",
-      "nombre": "Queso rallado mozzarella y gouda Hacendado",
-      "precio": 2.4,
-      "precioReferencia": 6,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.4,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Queso rallado",
-      "imagen": "https://prod-mercadona.imgix.net/images/de08f6f483ea86b0bcdde2b8ea1665d1.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18344/queso-rallado-mozzarella-gouda-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "51236",
       "nombre": "Queso rallado sin lactosa de vaca Hacendado",
       "precio": 1.8,
@@ -57040,7 +57072,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Cola clásica",
-      "imagen": "https://prod-mercadona.imgix.net/images/ace4ca633877449fae67a3f3badf865b.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e2025d360cc9e8404971738b0cced9b6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/29360/refresco-coca-cola-botella",
       "disponible": true
     },
@@ -57232,7 +57264,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Cola zero",
-      "imagen": "https://prod-mercadona.imgix.net/images/a5cb3351baaa58fe1f7db214c8aaeda5.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/3e77e4b4af6dd7555485364f79e0c382.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/29361/refresco-coca-cola-zero-azucar-botella",
       "disponible": true
     },
@@ -58114,22 +58146,6 @@
       "subcategoria": "Otros refrescos sin gas",
       "imagen": "https://prod-mercadona.imgix.net/images/4e0e2d7c2b0bf10ff15d0347156bc792.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13944/refresco-naranja-hacendado-sin-gas-botella",
-      "disponible": true
-    },
-    {
-      "productoId": "14313",
-      "nombre": "Refresco sin gas de naranja Hacendado",
-      "precio": 0.4,
-      "precioReferencia": 1.213,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.33,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Agua y refrescos",
-      "subcategoria": "Otros refrescos sin gas",
-      "imagen": "https://prod-mercadona.imgix.net/images/7476880a2845582f9656b00a60aca2a8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/14313/refresco-naranja-hacendado-sin-gas-botella",
       "disponible": true
     },
     {
@@ -60807,8 +60823,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 0.9,
-      "precioReferencia": 4.5,
+      "precio": 0.79,
+      "precioReferencia": 3.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60823,8 +60839,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 0.9,
-      "precioReferencia": 4.5,
+      "precio": 0.79,
+      "precioReferencia": 3.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -64327,8 +64343,8 @@
     {
       "productoId": "21808",
       "nombre": "Tinto de verano zero limón Casón Histórico",
-      "precio": 1,
-      "precioReferencia": 0.667,
+      "precio": 1.15,
+      "precioReferencia": 0.767,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -66258,6 +66274,22 @@
       "subcategoria": "Alimentación húmeda",
       "imagen": "https://prod-mercadona.imgix.net/images/1f830a7a6b4f85ab3a1ed0c7662d1d88.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60552/trozos-salsa-perros-adultos-quartett-con-pollo-verduras-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "70735",
+      "nombre": "Trozos de salmón y verduras en salsa perro adulto Delikuit",
+      "precio": 0.95,
+      "precioReferencia": 3.167,
+      "formato": "Tarrina",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/327619998acebafc86875f36c7c289e3.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/70735/trozos-salsa-perro-adulto-delikuit-con-salmon-verduras-tarrina",
       "disponible": true
     },
     {
@@ -68439,8 +68471,8 @@
     {
       "productoId": "69383",
       "nombre": "Wakame ensalada de alga marina Hacendado congelada",
-      "precio": 1.5,
-      "precioReferencia": 12,
+      "precio": 1.6,
+      "precioReferencia": 12.8,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.125,
