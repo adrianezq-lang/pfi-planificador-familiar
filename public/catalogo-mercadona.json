@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-10-31T10:56:33.207Z",
+  "actualizado": "2026-11-01T11:51:22.320Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4350,
+  "totalProductos": 4345,
   "productos": [
     {
       "productoId": "40339",
@@ -4274,22 +4274,6 @@
       "subcategoria": "Arroz",
       "imagen": "https://prod-mercadona.imgix.net/images/2ebc5f0970400df4a806f0be6f9710fc.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12782/arroz-marinera-hacendado-ultracongelado-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "35541",
-      "nombre": "Arroz negro Hacendado ultracongelado",
-      "precio": 3.1,
-      "precioReferencia": 5.167,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.6,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Arroz",
-      "imagen": "https://prod-mercadona.imgix.net/images/d2da7fb2337140feb1f91337e2d6ec41.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35541/arroz-negro-hacendado-ultracongelado-paquete",
       "disponible": true
     },
     {
@@ -15271,7 +15255,7 @@
     {
       "productoId": "69664",
       "nombre": "Champiñones Portobello",
-      "precio": 2.21,
+      "precio": 2.2,
       "precioReferencia": 7.35,
       "formato": "Bandeja",
       "unidadesTotales": 0,
@@ -34181,22 +34165,6 @@
       "disponible": true
     },
     {
-      "productoId": "72034",
-      "nombre": "Insecticida antimosquitos eléctrico recambio pastillas",
-      "precio": 1.55,
-      "precioReferencia": 0.052,
-      "formato": "Caja",
-      "unidadesTotales": 30,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Insecticida eléctrico y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/8bf6ec5ebd372d919fd9e6330ef2808e.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/72034/insecticida-antimosquitos-electrico-recambio-pastillas-bosque-verde-caja",
-      "disponible": true
-    },
-    {
       "productoId": "72056",
       "nombre": "Insecticida avispas Bosque Verde",
       "precio": 3.5,
@@ -41170,22 +41138,6 @@
       "subcategoria": "Cejas",
       "imagen": "https://prod-mercadona.imgix.net/images/b7913f0cc16962e7b279e0a2e802d7bc.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21932/mascara-cejas-deliplus-02-marron-medio",
-      "disponible": true
-    },
-    {
-      "productoId": "21930",
-      "nombre": "Máscara de cejas Fixing Gel Deliplus transparente",
-      "precio": 4.25,
-      "precioReferencia": 4.25,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.005,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Cejas",
-      "imagen": "https://prod-mercadona.imgix.net/images/8f9820cce8273766542fa0382a5b47d0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21930/mascara-cejas-fixing-gel-deliplus-transparente",
       "disponible": true
     },
     {
@@ -63157,22 +63109,6 @@
       "disponible": true
     },
     {
-      "productoId": "8820",
-      "nombre": "Surtido de caramelos Mix El Conde Drácula y Zombie Lokopop Cerdán",
-      "precio": 1,
-      "precioReferencia": 6.667,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.15,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Caramelos",
-      "imagen": "https://prod-mercadona.imgix.net/images/1757985234bb275acbfc9c9fde9a1d6e.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8820/caramelos-conde-dracula-sabor-cereza-cerdan-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "14711",
       "nombre": "Surtido de galletas y barquillos Hacendado",
       "precio": 2.2,
@@ -63922,22 +63858,6 @@
       "subcategoria": "Tartas",
       "imagen": "https://prod-mercadona.imgix.net/images/fa6aa84e8f11dc1fa80fe774455e30c3.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/87599/tarta-tres-chocolates-hacendado-congelada-sin-gluten",
-      "disponible": true
-    },
-    {
-      "productoId": "18316",
-      "nombre": "Tarta tres leches con dulce de leche Hacendado congelada",
-      "precio": 9,
-      "precioReferencia": 8.572,
-      "formato": "Bandeja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.05,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Tartas",
-      "imagen": "https://prod-mercadona.imgix.net/images/8fc03846b63954857f351e1ca73eb4b0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18316/tarta-tres-leches-con-dulce-leche-hacendado-congelada-bizcocho-con-base-liquida-bandeja",
       "disponible": true
     },
     {
