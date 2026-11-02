@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-11-01T11:52:38.203Z",
+  "actualizado": "2026-11-02T13:32:29.211Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 61,
@@ -94,7 +94,7 @@
       "ingrediente": "Zanahorias",
       "productoId": "69586",
       "nombreComercial": "Zanahorias",
-      "precio": 1,
+      "precio": 1.2,
       "puntuacion": 10000
     },
     {
