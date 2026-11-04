@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-03T12:48:42.851Z",
+  "actualizado": "2026-11-04T13:00:35.388Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4375,
+  "totalProductos": 4377,
   "productos": [
     {
       "productoId": "40339",
@@ -640,7 +640,7 @@
       "pesoAproximado": true,
       "sección": "Aceite, especias y salsas",
       "subcategoria": "Aceite de oliva",
-      "imagen": "https://prod-mercadona.imgix.net/images/50bf05160abdd828fa4a6f9db898b50a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/87b9a9f905ba0b8816243cf02f5f58af.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14727/aceite-oliva-virgen-extra-hacendado-garrafa",
       "disponible": true
     },
@@ -2567,8 +2567,8 @@
     {
       "productoId": "77248",
       "nombre": "Alcohol 96º Deliplus antiséptico",
-      "precio": 0.8,
-      "precioReferencia": 0.32,
+      "precio": 0.85,
+      "precioReferencia": 0.34,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -8192,7 +8192,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche desnatada",
-      "imagen": "https://prod-mercadona.imgix.net/images/7c9553aed202938385ddf8f174e0c805.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/90e0985b96374e7a6435ab3fd203e436.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10146/bebida-lactea-omega-3-puleva-con-leche-desnatada-pack-6",
       "disponible": true
     },
@@ -9456,7 +9456,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/04c83fd193d2218bdc2d61a652ea1c2b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a8c031338fafc80f53569df00df45231.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/19852/bolitas-pollo-hacendado-congeladas-bolsa",
       "disponible": true
     },
@@ -12432,7 +12432,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Lomo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/e489a2e1c279f520a311d134ebad2399.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7a62611bc2ae77f2f46c2275d9294735.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/58166/cana-lomo-cebo-iberico-hacienda-iberico-pieza",
       "disponible": true
     },
@@ -14816,7 +14816,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Cerveza botella y botellín",
-      "imagen": "https://prod-mercadona.imgix.net/images/ad4dda19aa47e3244e45beac185629c8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0d171e9429d27f98a0b8d10730a661ce.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52652/cerveza-especial-steinburg-pack-12",
       "disponible": true
     },
@@ -17063,8 +17063,8 @@
     {
       "productoId": "21810",
       "nombre": "Chuletas de cordero paletilla",
-      "precio": 7.68,
-      "precioReferencia": 26.5,
+      "precio": 8.26,
+      "precioReferencia": 28.5,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.29,
@@ -17079,8 +17079,8 @@
     {
       "productoId": "21807",
       "nombre": "Chuletas de cordero palo y riñonada",
-      "precio": 9.57,
-      "precioReferencia": 33,
+      "precio": 10.15,
+      "precioReferencia": 35,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.29,
@@ -19680,7 +19680,7 @@
       "pesoAproximado": true,
       "sección": "Mascotas",
       "subcategoria": "Alimentación seca",
-      "imagen": "https://prod-mercadona.imgix.net/images/f247f1e0ab8e3ecd4824247a50426cda.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f0f9954659b0d22dd32fd31455902037.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23204/comida-perro-junior-compy-con-pollo-arroz-frutas-verduras-razas-medianas-grandes-paquete",
       "disponible": true
     },
@@ -20951,8 +20951,8 @@
     {
       "productoId": "82938",
       "nombre": "Coulant de chocolate Hacendado",
-      "precio": 2.2,
-      "precioReferencia": 12.223,
+      "precio": 2,
+      "precioReferencia": 11.112,
       "formato": "Caja",
       "unidadesTotales": 2,
       "tamañoUnidad": 0.18,
@@ -23960,7 +23960,7 @@
       "productoId": "21534",
       "nombre": "Detergente ropa de Color y Oscura Bosque Verde líquido",
       "precio": 4.9,
-      "precioReferencia": 0.107,
+      "precioReferencia": 0.098,
       "formato": "Botella",
       "unidadesTotales": 50,
       "tamañoUnidad": 3,
@@ -26743,8 +26743,8 @@
     {
       "productoId": "69656",
       "nombre": "Espárragos verdes finos",
-      "precio": 2.95,
-      "precioReferencia": 11.8,
+      "precio": 4,
+      "precioReferencia": 16,
       "formato": "Manojo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -28519,8 +28519,8 @@
     {
       "productoId": "68204",
       "nombre": "Flan de huevo Hacendado",
-      "precio": 3.6,
-      "precioReferencia": 4,
+      "precio": 3.5,
+      "precioReferencia": 3.889,
       "formato": "Pack-9",
       "unidadesTotales": 9,
       "tamañoUnidad": 0.9,
@@ -28535,8 +28535,8 @@
     {
       "productoId": "68149",
       "nombre": "Flan de huevo Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 4,
+      "precio": 1.55,
+      "precioReferencia": 3.875,
       "formato": "Pack-4",
       "unidadesTotales": 4,
       "tamañoUnidad": 0.4,
@@ -28567,8 +28567,8 @@
     {
       "productoId": "68116",
       "nombre": "Flan de queso Hacendado",
-      "precio": 2.15,
-      "precioReferencia": 5.375,
+      "precio": 2.05,
+      "precioReferencia": 5.125,
       "formato": "ud.",
       "unidadesTotales": 4,
       "tamañoUnidad": 0.4,
@@ -30773,6 +30773,22 @@
       "disponible": true
     },
     {
+      "productoId": "18285",
+      "nombre": "Gel de baño exfoliante Vanilla Noir Deliplus piel normal",
+      "precio": 2.6,
+      "precioReferencia": 0.52,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Gel",
+      "imagen": "https://prod-mercadona.imgix.net/images/67b5f8f0261e3aabd6f3fae9f9948a27.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18285/gel-bano-exfoliante-vanilla-noir-deliplus-piel-normal-botella",
+      "disponible": true
+    },
+    {
       "productoId": "46567",
       "nombre": "Gel de baño frescor azul Deliplus piel normal",
       "precio": 0.95,
@@ -31730,22 +31746,6 @@
       "subcategoria": "Golosinas",
       "imagen": "https://prod-mercadona.imgix.net/images/c963a0f7a2db4226b1dd7ef0b49caf51.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/65088/golosinas-nubi-mallow-hacendado-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "17805",
-      "nombre": "Golosinas ojos rellenos Halloween Trolli Spooky Balls",
-      "precio": 1,
-      "precioReferencia": 13.334,
-      "formato": "Paquete",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 0.075,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/c2d77f4037d261171e10e8887e81135f.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17805/golosinas-ojos-rellenos-halloween-trolli-spooky-balls-paquete",
       "disponible": true
     },
     {
@@ -33136,7 +33136,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Tarrinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/51e6c06b12d2c3246703c4f30cbe0521.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/51e6c06b12d2c3246703c4f30cbe0521.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52562/helado-stracciatella-hacendado-tarrina",
       "disponible": true
     },
@@ -33568,7 +33568,7 @@
       "pesoAproximado": true,
       "sección": "Mascotas",
       "subcategoria": "Aseo y cuidado",
-      "imagen": "https://prod-mercadona.imgix.net/images/f29862bc2c2f87459f3d760d0abfa29c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f29862bc2c2f87459f3d760d0abfa29c.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13494/huesos-cuero-con-pollo-zanahoria-compy-perro-adulto-razas-medianas-grandes-paquete",
       "disponible": true
     },
@@ -34199,8 +34199,8 @@
     {
       "productoId": "72090",
       "nombre": "Insecticida cucarachas y hormigas Bosque Verde",
-      "precio": 2.7,
-      "precioReferencia": 6.75,
+      "precio": 2.85,
+      "precioReferencia": 7.125,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.4,
@@ -34231,8 +34231,8 @@
     {
       "productoId": "86480",
       "nombre": "Insecticida moscas y mosquitos Bosque Verde perfumado",
-      "precio": 2.35,
-      "precioReferencia": 3.134,
+      "precio": 2.5,
+      "precioReferencia": 3.334,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.75,
@@ -34247,8 +34247,8 @@
     {
       "productoId": "35530",
       "nombre": "Insecticida moscas y mosquitos Bosque Verde sin perfume",
-      "precio": 2.35,
-      "precioReferencia": 3.134,
+      "precio": 2.5,
+      "precioReferencia": 3.334,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.75,
@@ -34405,6 +34405,22 @@
       "disponible": true
     },
     {
+      "productoId": "18284",
+      "nombre": "Jabón de manos Vanilla Noir Deliplus",
+      "precio": 2.5,
+      "precioReferencia": 0.834,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Jabón de manos",
+      "imagen": "https://prod-mercadona.imgix.net/images/b9784d1da820e6a6e571aac8e4b7ba27.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18284/jabon-manos-vanilla-noir-deliplus-bote",
+      "disponible": true
+    },
+    {
       "productoId": "13607",
       "nombre": "Jabón Natural con glicerina Bosque Verde",
       "precio": 1.85,
@@ -34496,7 +34512,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Jamón cocido",
-      "imagen": "https://prod-mercadona.imgix.net/images/d070e4c58948dba0b36098e312bb401b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/028392023e0300976254787f5c80c9b5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60329/jamon-cocido-extra-hacendado-finas-lonchas-paquete",
       "disponible": true
     },
@@ -34560,7 +34576,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Jamón cocido",
-      "imagen": "https://prod-mercadona.imgix.net/images/f4ff00b9b6f04e0fda606dd4c1e22e55.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/973fb20b791a8951db36c7513a22ed40.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/59256/jamon-cocido-hacendado-lonchas-paquete",
       "disponible": true
     },
@@ -34912,7 +34928,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/bebaada78c49c64b7dda4cf6b5726cf0.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/bebaada78c49c64b7dda4cf6b5726cf0.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/25183/jamoncitos-pollo-congelados-paquete",
       "disponible": true
     },
@@ -38272,7 +38288,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Limpiahogar",
-      "imagen": "https://prod-mercadona.imgix.net/images/90823c573de2b2c2e1b921a61deaf759.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0a6cafc1cbcfa676294eccda6a5b5556.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/42204/limpiahogar-multiusos-pino-bosque-verde-liquido-con-alcohol-botella",
       "disponible": true
     },
@@ -38416,7 +38432,7 @@
       "pesoAproximado": true,
       "sección": "Bebé",
       "subcategoria": "Aceite y crema",
-      "imagen": "https://prod-mercadona.imgix.net/images/7d2f81edf7d83e72154e5df9c21a027d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/a7c88bae4e2c75ed9813f6e2f2062add.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13066/locion-corporal-infantil-hidratante-deliplus-bote",
       "disponible": true
     },
@@ -40101,22 +40117,6 @@
       "disponible": true
     },
     {
-      "productoId": "85705",
-      "nombre": "Mantecado de coco La Muralla",
-      "precio": 0.27,
-      "precioReferencia": 5.9,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.045,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Polvorones y mazapanes",
-      "imagen": "https://prod-mercadona.imgix.net/images/51569ea8096df3f2f7d3858a26bc3295.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/85705/mantecado-coco-muralla",
-      "disponible": true
-    },
-    {
       "productoId": "85725",
       "nombre": "Mantecado de limón La Muralla",
       "precio": 0.27,
@@ -41216,7 +41216,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Masas",
-      "imagen": "https://prod-mercadona.imgix.net/images/ea237d03af34736621e3320dc8b15e7a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/ea237d03af34736621e3320dc8b15e7a.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/63657/masa-hojaldre-sin-gluten-hacendado-paquete",
       "disponible": true
     },
@@ -41248,7 +41248,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Masas",
-      "imagen": "https://prod-mercadona.imgix.net/images/e29924c98e17a9f0e389943426bc4451.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/85d7440c78d80528896a5163630cb841.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/63476/masa-fresca-empanada-hacendado-pack-2",
       "disponible": true
     },
@@ -43872,7 +43872,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Herméticos y moldes",
-      "imagen": "https://prod-mercadona.imgix.net/images/1d36bcb8564314b2eab2b9c1dcf4b108.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/179eb41ae05bae2a5c72e79923527467.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/11681/molde-papel-pulpa-madera-silicona-bosque-verde-freidora-aire-20-cm-paquete",
       "disponible": true
     },
@@ -43943,8 +43943,8 @@
     {
       "productoId": "14379",
       "nombre": "Moras",
-      "precio": 2.88,
-      "precioReferencia": 16.95,
+      "precio": 3.06,
+      "precioReferencia": 18,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.17,
@@ -44791,8 +44791,8 @@
     {
       "productoId": "3235",
       "nombre": "Naranja de mesa",
-      "precio": 0.71,
-      "precioReferencia": 2.5,
+      "precio": 0.61,
+      "precioReferencia": 2.15,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.285,
@@ -44855,8 +44855,8 @@
     {
       "productoId": "3277",
       "nombre": "Naranjas",
-      "precio": 5.85,
-      "precioReferencia": 1.95,
+      "precio": 4.65,
+      "precioReferencia": 1.55,
       "formato": "Malla",
       "unidadesTotales": 0,
       "tamañoUnidad": 3,
@@ -44864,8 +44864,24 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Cítricos",
-      "imagen": "https://prod-mercadona.imgix.net/images/57b7fbaaf28231102addf8f7eb4f14b8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/65de2b874bcb22a134507ce6fce15cc7.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3277/naranjas-malla",
+      "disponible": true
+    },
+    {
+      "productoId": "3485",
+      "nombre": "Naranjas",
+      "precio": 5.75,
+      "precioReferencia": 1.15,
+      "formato": "Malla",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Cítricos",
+      "imagen": "https://prod-mercadona.imgix.net/images/77c6cfe5e86c514637493c47c429101d.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/3485/naranjas-malla",
       "disponible": true
     },
     {
@@ -45154,6 +45170,22 @@
       "subcategoria": "Spaghetti y tallarines",
       "imagen": "https://prod-mercadona.imgix.net/images/d1fcf8864631d627cdb7218ad91744d1.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35981/noodles-arroz-hacendado-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "24528",
+      "nombre": "Noodles orientales Hacendado",
+      "precio": 1.7,
+      "precioReferencia": 7.728,
+      "formato": "paquetes",
+      "unidadesTotales": 4,
+      "tamañoUnidad": 0.22,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Arroz, legumbres y pasta",
+      "subcategoria": "Fideos orientales",
+      "imagen": "https://prod-mercadona.imgix.net/images/2b23e615db55b083f3bcb8ef1faa9837.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/24528/noodles-orientales-hacendado",
       "disponible": true
     },
     {
@@ -45472,7 +45504,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Cubiertos, vajilla y mantel",
-      "imagen": "https://prod-mercadona.imgix.net/images/719ef2ae4c03cb91edcea0b9700515de.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/aec602d174a2ff1971309f11a3847238.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23516/pajitas-rectas-reutilizables-paquete",
       "disponible": true
     },
@@ -49506,22 +49538,6 @@
       "subcategoria": "Paté",
       "imagen": "https://prod-mercadona.imgix.net/images/91214b6fc7bf43e1ab576f6f73316c2a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23596/pate-pollo-asado-hacendado-tarro",
-      "disponible": true
-    },
-    {
-      "productoId": "16554",
-      "nombre": "Paté de pollo perro adulto Delikuit",
-      "precio": 2.1,
-      "precioReferencia": 1.75,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Alimentación húmeda",
-      "imagen": "https://prod-mercadona.imgix.net/images/9f75b65c6b0f073a8f72545f451dc708.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/16554/pate-perro-adulto-delikuit-con-pollo-bote",
       "disponible": true
     },
     {
@@ -54101,6 +54117,22 @@
       "disponible": true
     },
     {
+      "productoId": "17818",
+      "nombre": "Preparado de verdura Tradicional cortado y lavado",
+      "precio": 2.4,
+      "precioReferencia": 6,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.4,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Otras verduras y hortalizas",
+      "imagen": "https://prod-mercadona.imgix.net/images/a06cb24e5d3ff35372edb04f8643135e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17818/preparado-verdura-tradicional-cortado-lavado-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "69433",
       "nombre": "Preparado de verduras para sofreír cortado y lavado",
       "precio": 2.4,
@@ -55813,22 +55845,6 @@
       "disponible": true
     },
     {
-      "productoId": "50939",
-      "nombre": "Queso mezcla semicurado Hacendado",
-      "precio": 18,
-      "precioReferencia": 6,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 3,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Queso semicurado",
-      "imagen": "https://prod-mercadona.imgix.net/images/85642f18cb9630aeaa314514a4a7bf09.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/50939/queso-mezcla-semicurado-hacendado-pieza",
-      "disponible": true
-    },
-    {
       "productoId": "4929",
       "nombre": "Queso precortado de cabra Hacendado",
       "precio": 2.8,
@@ -56482,6 +56498,22 @@
       "subcategoria": "Arroz",
       "imagen": "https://prod-mercadona.imgix.net/images/cccf4ae8ce7152534fba1cd7c2689433.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22278/quinoa-cocida-blanca-roja-sabroz-brillante-pack-2",
+      "disponible": true
+    },
+    {
+      "productoId": "9430",
+      "nombre": "Quinoa Hacendado",
+      "precio": 2.65,
+      "precioReferencia": 5.3,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Arroz, legumbres y pasta",
+      "subcategoria": "Arroz",
+      "imagen": "https://prod-mercadona.imgix.net/images/5f96e6f16b3a5d30f2fd7135e3d1f74e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/9430/quinoa-hacendado-paquete",
       "disponible": true
     },
     {
@@ -57600,7 +57632,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Cola sin cafeína",
-      "imagen": "https://prod-mercadona.imgix.net/images/2783a070295342c2bdd1fe648f59d3b5.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4f979bc6aee6fd6dac519a5ea4abbc15.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/26997/refresco-coca-cola-zero-zero-pack-12",
       "disponible": true
     },
@@ -57664,7 +57696,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Cola sin cafeína",
-      "imagen": "https://prod-mercadona.imgix.net/images/e61b5e1752030d0a06c36dde82202a3d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/acce2f330a565886afbf7916ba137364.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17707/refresco-coca-cola-zero-azucar-zero-cafeina-botella",
       "disponible": true
     },
@@ -58007,8 +58039,8 @@
     {
       "productoId": "8779",
       "nombre": "Refresco Fanta limón zero azúcares añadidos",
-      "precio": 6.16,
-      "precioReferencia": 2.334,
+      "precio": 6.56,
+      "precioReferencia": 2.485,
       "formato": "latas",
       "unidadesTotales": 8,
       "tamañoUnidad": 2.64,
@@ -58023,8 +58055,8 @@
     {
       "productoId": "27608",
       "nombre": "Refresco Fanta limón zero azúcares añadidos",
-      "precio": 0.8,
-      "precioReferencia": 2.425,
+      "precio": 0.85,
+      "precioReferencia": 2.576,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -58087,8 +58119,8 @@
     {
       "productoId": "27571",
       "nombre": "Refresco Fanta naranja",
-      "precio": 6.93,
-      "precioReferencia": 2.334,
+      "precio": 7.38,
+      "precioReferencia": 2.485,
       "formato": "Pack-9",
       "unidadesTotales": 9,
       "tamañoUnidad": 2.97,
@@ -58103,8 +58135,8 @@
     {
       "productoId": "27502",
       "nombre": "Refresco Fanta naranja",
-      "precio": 0.8,
-      "precioReferencia": 2.425,
+      "precio": 0.85,
+      "precioReferencia": 2.576,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -58135,8 +58167,8 @@
     {
       "productoId": "8778",
       "nombre": "Refresco Fanta naranja zero azúcares añadidos",
-      "precio": 6.16,
-      "precioReferencia": 2.334,
+      "precio": 6.56,
+      "precioReferencia": 2.485,
       "formato": "latas",
       "unidadesTotales": 8,
       "tamañoUnidad": 2.64,
@@ -58151,8 +58183,8 @@
     {
       "productoId": "27510",
       "nombre": "Refresco Fanta naranja zero azúcares añadidos",
-      "precio": 0.8,
-      "precioReferencia": 2.425,
+      "precio": 0.85,
+      "precioReferencia": 2.576,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -59296,7 +59328,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Pastelería",
-      "imagen": "https://prod-mercadona.imgix.net/images/d905bfef6cb7b654b46c7261bd4c06d8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/1732bfab3b666d8141e40914aaef9f98.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18692/roscon-reyes-relleno-crema-preparado-base-nata-banado-cacao-hacendado-congelado-caja",
       "disponible": true
     },
@@ -61175,8 +61207,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.79,
+      "precioReferencia": 3.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -61191,8 +61223,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.79,
+      "precioReferencia": 3.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -62368,7 +62400,7 @@
       "pesoAproximado": true,
       "sección": "Mascotas",
       "subcategoria": "Snacks",
-      "imagen": "https://prod-mercadona.imgix.net/images/54988ca540b37197c2bee8b9d850c99e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e9097bc953736610fd63ebd9f7efed97.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/70763/snack-galletas-perro-adulto-con-pollo-ternera-compy-razas-medianas-grandes-paquete",
       "disponible": true
     },
@@ -64119,8 +64151,8 @@
     {
       "productoId": "21366",
       "nombre": "Tarta de queso Hacendado",
-      "precio": 1.9,
-      "precioReferencia": 10.556,
+      "precio": 1.8,
+      "precioReferencia": 10,
       "formato": "Tarrina",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.18,
@@ -66375,8 +66407,8 @@
     {
       "productoId": "12836",
       "nombre": "Trampa con cebo contra hormigas Bosque Verde",
-      "precio": 3.3,
-      "precioReferencia": 1.1,
+      "precio": 3.5,
+      "precioReferencia": 1.167,
       "formato": "Caja",
       "unidadesTotales": 3,
       "tamañoUnidad": 1,
@@ -66599,8 +66631,8 @@
     {
       "productoId": "21814",
       "nombre": "Trozos de cordero para guisar",
-      "precio": 6.75,
-      "precioReferencia": 13.5,
+      "precio": 7.75,
+      "precioReferencia": 15.5,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.5,
