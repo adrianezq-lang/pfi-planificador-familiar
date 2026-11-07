@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-06T12:58:18.383Z",
+  "actualizado": "2026-11-07T11:44:50.943Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4368,
+  "totalProductos": 4362,
   "productos": [
     {
       "productoId": "40339",
@@ -3509,22 +3509,6 @@
       "disponible": true
     },
     {
-      "productoId": "13789",
-      "nombre": "Ambientador varitas Frambuesa Bosque Verde",
-      "precio": 2.1,
-      "precioReferencia": 5.25,
-      "formato": "Caja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.04,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Ambientador decorativo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/db9fed1227d5436ed69f746d1f282c83.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13789/ambientador-varitas-frambuesa-bosque-verde-caja",
-      "disponible": true
-    },
-    {
       "productoId": "13780",
       "nombre": "Ambientador varitas Fruta Tropical Bosque Verde",
       "precio": 2.1,
@@ -3541,7 +3525,7 @@
       "disponible": true
     },
     {
-      "productoId": "13055",
+      "productoId": "17823",
       "nombre": "Ambientador varitas Magnolia Bosque Verde",
       "precio": 2.1,
       "precioReferencia": 5.25,
@@ -3552,8 +3536,8 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Ambientador decorativo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/316f728b79898bde8c256148c65121be.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13055/ambientador-varitas-magnolia-bosque-verde-caja",
+      "imagen": "https://prod-mercadona.imgix.net/images/af85faf63e39ff31ba89a2050ca77418.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17823/ambientador-varitas-magnolia-bosque-verde-caja",
       "disponible": true
     },
     {
@@ -3959,8 +3943,8 @@
     {
       "productoId": "15195",
       "nombre": "Aritos perro adulto y sénior Compy",
-      "precio": 5.5,
-      "precioReferencia": 2.2,
+      "precio": 5.75,
+      "precioReferencia": 2.3,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 2.5,
@@ -7911,8 +7895,8 @@
     {
       "productoId": "20941",
       "nombre": "Bebida láctea de fresa Danacol 0% azúcares añadidos 0% MG",
-      "precio": 5.9,
-      "precioReferencia": 5.9,
+      "precio": 5.45,
+      "precioReferencia": 5.45,
       "formato": "mini botellas",
       "unidadesTotales": 10,
       "tamañoUnidad": 1,
@@ -10087,8 +10071,8 @@
     {
       "productoId": "81661.2",
       "nombre": "Boquerón limpio sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.99,
+      "precioReferencia": 4.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -10103,8 +10087,8 @@
     {
       "productoId": "81661.1",
       "nombre": "Boquerón sin limpiar",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.99,
+      "precioReferencia": 4.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -14503,8 +14487,8 @@
     {
       "productoId": "27357",
       "nombre": "Cerveza especial Estrella Galicia",
-      "precio": 0.9,
-      "precioReferencia": 2.728,
+      "precio": 0.79,
+      "precioReferencia": 2.394,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -29445,22 +29429,6 @@
       "disponible": true
     },
     {
-      "productoId": "17922",
-      "nombre": "Galletas con avena sabor Choco Orange con relleno de crema de chocolate Hacendado",
-      "precio": 1.25,
-      "precioReferencia": 5.953,
-      "formato": "Caja",
-      "unidadesTotales": 5,
-      "tamañoUnidad": 0.21,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cereales y galletas",
-      "subcategoria": "Con chocolate y rellenas",
-      "imagen": "https://prod-mercadona.imgix.net/images/e05e749aa872d0245d650f39666e30d8.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17922/galletas-con-avena-sabor-choco-orange-con-relleno-crema-chocolate-hacendado-caja",
-      "disponible": true
-    },
-    {
       "productoId": "14151",
       "nombre": "Galletas con chocolate blanco Hacendado",
       "precio": 1.3,
@@ -30709,22 +30677,6 @@
       "disponible": true
     },
     {
-      "productoId": "35304",
-      "nombre": "Gel de baño exfoliante Té Chai Deliplus piel normal",
-      "precio": 2.6,
-      "precioReferencia": 0.52,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Gel",
-      "imagen": "https://prod-mercadona.imgix.net/images/148a662fb4dd8e30c0de410d30d77ab3.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35304/gel-bano-exfoliante-te-chai-deliplus-piel-normal-botella",
-      "disponible": true
-    },
-    {
       "productoId": "18285",
       "nombre": "Gel de baño exfoliante Vanilla Noir Deliplus piel normal",
       "precio": 2.6,
@@ -31557,22 +31509,6 @@
       "disponible": true
     },
     {
-      "productoId": "8819",
-      "nombre": "Golosinas Halloween BOO! Mix Hacendado",
-      "precio": 1.6,
-      "precioReferencia": 5.334,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/77d1f6397590eac8cf607d6ff474812c.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/8819/golosinas-halloween-boo-mix-hacendado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "17719",
       "nombre": "Golosinas Jelly Beans ácidas Hacendado",
       "precio": 0.9,
@@ -31698,22 +31634,6 @@
       "subcategoria": "Golosinas",
       "imagen": "https://prod-mercadona.imgix.net/images/c963a0f7a2db4226b1dd7ef0b49caf51.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/65088/golosinas-nubi-mallow-hacendado-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "17805",
-      "nombre": "Golosinas ojos rellenos Halloween Trolli Spooky Balls",
-      "precio": 1,
-      "precioReferencia": 13.334,
-      "formato": "Paquete",
-      "unidadesTotales": 4,
-      "tamañoUnidad": 0.075,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Azúcar, caramelos y chocolate",
-      "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/c2d77f4037d261171e10e8887e81135f.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17805/golosinas-ojos-rellenos-halloween-trolli-spooky-balls-paquete",
       "disponible": true
     },
     {
@@ -32565,22 +32485,6 @@
       "disponible": true
     },
     {
-      "productoId": "64459",
-      "nombre": "Helado 3 sabores Hacendado vainilla, chocolate y fresa",
-      "precio": 2.3,
-      "precioReferencia": 2.3,
-      "formato": "Tarrina",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Tarrinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/fa76fa064d50f20332712d63ce7c01f7.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64459/helado-3-sabores-hacendado-chocolate-vainilla-fresa-tarrina",
-      "disponible": true
-    },
-    {
       "productoId": "23280",
       "nombre": "Helado barrita sabor cacahuete Hacendado con salsa de caramelo salado",
       "precio": 3.3,
@@ -32674,22 +32578,6 @@
       "subcategoria": "Tarrinas",
       "imagen": "https://prod-mercadona.imgix.net/images/0b89324f51d3e6db4539311d0a4f37a0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60684/helado-cookie-dough-hacendado-crema-vainilla-con-trozos-galletas-con-pepitas-chocolate-salsa-caramelo-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "64230",
-      "nombre": "Helado crocan choc vainilla Hacendado con lengua sabor chocolate",
-      "precio": 3,
-      "precioReferencia": 6.667,
-      "formato": "Caja",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 0.45,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Bombones",
-      "imagen": "https://prod-mercadona.imgix.net/images/533b09fbe65e413a57198c025f5ce318.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64230/helado-crocan-choc-vainilla-hacendado-con-lengua-sabor-chocolate-caja",
       "disponible": true
     },
     {
@@ -32834,22 +32722,6 @@
       "subcategoria": "Tarrinas",
       "imagen": "https://prod-mercadona.imgix.net/images/c6493ad34b4ed3d0cb2502a726f2c1e9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/8966/helado-vainilla-hacendado-tarrina",
-      "disponible": true
-    },
-    {
-      "productoId": "35955",
-      "nombre": "Helado Dochi cheesecake Hacendado con salsa de frambuesa",
-      "precio": 3,
-      "precioReferencia": 13.889,
-      "formato": "Caja",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 0.216,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Otros Helados",
-      "imagen": "https://prod-mercadona.imgix.net/images/cd157f552887c0a38f35e59b59f01d50.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35955/helado-dochi-cheesecake-hacendado-queso-masa-galleta-con-salsa-frambuesa-galleta-triturada-caja",
       "disponible": true
     },
     {
@@ -34712,10 +34584,10 @@
       "productoId": "18763",
       "nombre": "Jamón serrano Artysan",
       "precio": 58,
-      "precioReferencia": 8.53,
+      "precioReferencia": 9.063,
       "formato": "Pieza",
       "unidadesTotales": 0,
-      "tamañoUnidad": 6.8,
+      "tamañoUnidad": 6.4,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
@@ -34728,10 +34600,10 @@
       "productoId": "14374",
       "nombre": "Jamón serrano Artysan",
       "precio": 65,
-      "precioReferencia": 9.559,
+      "precioReferencia": 10.157,
       "formato": "Pieza",
       "unidadesTotales": 0,
-      "tamañoUnidad": 7.5,
+      "tamañoUnidad": 6.4,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
@@ -40050,6 +39922,22 @@
       "subcategoria": "Polvorones y mazapanes",
       "imagen": "https://prod-mercadona.imgix.net/images/ba2b8c7f775d87bbfa96a8085ba743db.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/85845/mantecado-cacao-sin-gluten-muralla",
+      "disponible": true
+    },
+    {
+      "productoId": "85705",
+      "nombre": "Mantecado de coco La Muralla",
+      "precio": 0.27,
+      "precioReferencia": 5.9,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.045,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Polvorones y mazapanes",
+      "imagen": "https://prod-mercadona.imgix.net/images/51569ea8096df3f2f7d3858a26bc3295.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/85705/mantecado-coco-muralla",
       "disponible": true
     },
     {
@@ -62613,6 +62501,22 @@
       "disponible": true
     },
     {
+      "productoId": "11636",
+      "nombre": "Sombra de ojos Long Lasting Deliplus Multi-Stick 01 iluminador",
+      "precio": 4,
+      "precioReferencia": 4,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Maquillaje",
+      "subcategoria": "Sombra de ojos",
+      "imagen": "https://prod-mercadona.imgix.net/images/632cd4d3445205708c1df8780325ba90.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/11636/sombra-ojos-long-lasting-deliplus-multi-stick-01-iluminador-puede-utilizar-delineador-iluminador-sombra-ojos",
+      "disponible": true
+    },
+    {
       "productoId": "11638",
       "nombre": "Sombra de ojos Long Lasting Deliplus Multi-Stick 03 rose oscuro",
       "precio": 4,
@@ -67024,7 +66928,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Plátano y uva",
-      "imagen": "https://prod-mercadona.imgix.net/images/386783ad8510e061d8ad0277b460a5f1.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/bcc58a883ebd7b2472aa194456229e78.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3313/uva-blanca-sin-semillas-bandeja",
       "disponible": true
     },
