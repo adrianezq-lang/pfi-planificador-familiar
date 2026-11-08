@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-07T11:44:50.943Z",
+  "actualizado": "2026-11-08T11:57:06.168Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4362,
+  "totalProductos": 4358,
   "productos": [
     {
       "productoId": "40339",
@@ -3506,22 +3506,6 @@
       "subcategoria": "Ambientador decorativo y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/62f05bc83ac6e1e33d1c2e548d4065d5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17819/ambientador-varitas-bambu-bosque-verde-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "13780",
-      "nombre": "Ambientador varitas Fruta Tropical Bosque Verde",
-      "precio": 2.1,
-      "precioReferencia": 5.25,
-      "formato": "Caja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.04,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Ambientador decorativo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/9d4c7364f1daf445d675387171d568e3.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13780/ambientador-varitas-fruta-tropical-bosque-verde-caja",
       "disponible": true
     },
     {
@@ -21349,22 +21333,6 @@
       "disponible": true
     },
     {
-      "productoId": "10449",
-      "nombre": "Crema de leche para café Campina",
-      "precio": 1.4,
-      "precioReferencia": 7,
-      "formato": "Paquete",
-      "unidadesTotales": 20,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Huevos, leche y mantequilla",
-      "subcategoria": "Leche condensada y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/d60fe3bcdd22baf485111a85653587d3.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/10449/crema-leche-cafe-campina-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "11628",
       "nombre": "Crema de lentejas Hacendado",
       "precio": 1.7,
@@ -26880,7 +26848,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Esponjas",
-      "imagen": "https://prod-mercadona.imgix.net/images/027f39d9e5972970f3a802539248a0f4.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/46d8582bdfa236f7be1014dafc6c4448.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13654/esponja-bano-flor-deliplus-exfoliacion-suave-paquete",
       "disponible": true
     },
@@ -32930,22 +32898,6 @@
       "subcategoria": "Sándwiches",
       "imagen": "https://prod-mercadona.imgix.net/images/265ffdc3fa0121e56f210bec1069c79d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/64146/helado-sandwich-nata-hacendado-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "64147",
-      "nombre": "Helado sándwich sabor nata Hacendado sin azúcares añadidos",
-      "precio": 3,
-      "precioReferencia": 3.75,
-      "formato": "Caja",
-      "unidadesTotales": 8,
-      "tamañoUnidad": 0.8,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Sándwiches",
-      "imagen": "https://prod-mercadona.imgix.net/images/c73fbf8e380ec53b95e16395a4380d55.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64147/helado-sandwich-nata-hacendado-sin-azucares-anadidos-caja",
       "disponible": true
     },
     {
@@ -43221,22 +43173,6 @@
       "disponible": true
     },
     {
-      "productoId": "64087",
-      "nombre": "Mini helados hielo sorbetes Hacendado",
-      "precio": 1.8,
-      "precioReferencia": 6.667,
-      "formato": "Caja",
-      "unidadesTotales": 3,
-      "tamañoUnidad": 0.27,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Granizados y helados de hielo",
-      "imagen": "https://prod-mercadona.imgix.net/images/c1083f786c229ac8bc5c05a525f41023.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64087/mini-helados-hacendado-caja",
-      "disponible": true
-    },
-    {
       "productoId": "35941",
       "nombre": "Mini magdalenas con pepitas de chocolate con leche Hacendado",
       "precio": 1.9,
@@ -45584,7 +45520,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Fregonas, escobas y mopas",
-      "imagen": "https://prod-mercadona.imgix.net/images/2a8a666edaaee73702b610fde16cc072.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/3b22ecdd7decf2186e2bec109c5ac4da.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86611/palo-antideslizante-bosque-verde-140-cm",
       "disponible": true
     },
