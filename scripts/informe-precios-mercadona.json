@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-11-08T11:58:21.381Z",
+  "actualizado": "2026-11-09T13:56:42.466Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 61,
@@ -80,7 +80,7 @@
       "ingrediente": "Patatas",
       "productoId": "69099",
       "nombreComercial": "Patatas",
-      "precio": 5,
+      "precio": 5.3,
       "puntuacion": 10000
     },
     {
@@ -416,7 +416,7 @@
       "ingrediente": "Limón",
       "productoId": "3210",
       "nombreComercial": "Limón",
-      "precio": 0.44,
+      "precio": 0.43,
       "puntuacion": 10000
     },
     {
