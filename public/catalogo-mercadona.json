@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-09T13:55:25.968Z",
+  "actualizado": "2026-11-10T13:29:34.485Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4375,
+  "totalProductos": 4367,
   "productos": [
     {
       "productoId": "40339",
@@ -192,7 +192,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Pan de bocadillo",
-      "imagen": "https://prod-mercadona.imgix.net/images/145fcd2de95532d134a4a0078da2af2d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/145fcd2de95532d134a4a0078da2af2d.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/83452/5-barras-pan-51-integral-pack-5",
       "disponible": true
     },
@@ -3573,22 +3573,6 @@
       "disponible": true
     },
     {
-      "productoId": "13056",
-      "nombre": "Ambientador varitas Pistacho Bosque Verde",
-      "precio": 2.1,
-      "precioReferencia": 5.25,
-      "formato": "Caja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.04,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Ambientador decorativo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/bed8b35f93148b4bff7a229c79e63d14.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13056/ambientador-varitas-pistacho-bosque-verde-caja",
-      "disponible": true
-    },
-    {
       "productoId": "43802",
       "nombre": "Amoníaco con detergente Bosque Verde",
       "precio": 1,
@@ -5456,7 +5440,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Barra de pan",
-      "imagen": "https://prod-mercadona.imgix.net/images/b0382f15d4c53669852e014255bdc714.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b0382f15d4c53669852e014255bdc714.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/83202.1/barra-pan",
       "disponible": true
     },
@@ -5552,7 +5536,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Pan rebanado",
-      "imagen": "https://prod-mercadona.imgix.net/images/7474dd2f93517278a47d86c77c7ab673.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7474dd2f93517278a47d86c77c7ab673.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/83202.2/barra-pan-rebanada",
       "disponible": true
     },
@@ -7936,7 +7920,7 @@
       "pesoAproximado": true,
       "sección": "Postres y yogures",
       "subcategoria": "Colesterol y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/03f5fb476185c58c325dd979d1e09e49.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f5e5c8602c599b8f2765edeabf268e6d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/20941/bebida-lactea-fresa-danacol-0-azucares-anadidos-danone-pack-10",
       "disponible": true
     },
@@ -8597,22 +8581,6 @@
       "disponible": true
     },
     {
-      "productoId": "17713",
-      "nombre": "Berlina con cobertura blanca y trozos de galleta rellena de crema de galleta",
-      "precio": 1.25,
-      "precioReferencia": 12.5,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Bollería dulce",
-      "imagen": "https://prod-mercadona.imgix.net/images/e8a0fcb0fe647d05c3f298f81c8bf4d6.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17713/berlina-con-cobertura-blanca-trozos-galleta-rellena-crema-con-galleta-pieza",
-      "disponible": true
-    },
-    {
       "productoId": "84710",
       "nombre": "Berlina glacé",
       "precio": 1.25,
@@ -8626,6 +8594,22 @@
       "subcategoria": "Bollería dulce",
       "imagen": "https://prod-mercadona.imgix.net/images/fe1f277a10ee34a021457159b63a1d70.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/84710/berlina-glace-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "17713",
+      "nombre": "Berlina rellena de crema de galleta con cobertura blanca y trozos de galleta",
+      "precio": 1.25,
+      "precioReferencia": 12.5,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Bollería dulce",
+      "imagen": "https://prod-mercadona.imgix.net/images/e8a0fcb0fe647d05c3f298f81c8bf4d6.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17713/berlina-con-cobertura-blanca-trozos-galleta-rellena-crema-con-galleta-pieza",
       "disponible": true
     },
     {
@@ -10098,38 +10082,6 @@
       "subcategoria": "Bonito",
       "imagen": "https://prod-mercadona.imgix.net/images/10b3b536abf3bacd07e04a6b3ddd9724.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18108/bonito-norte-escabeche-hacendado-lata",
-      "disponible": true
-    },
-    {
-      "productoId": "81661.2",
-      "nombre": "Boquerón limpio sin cabeza",
-      "precio": 0.99,
-      "precioReferencia": 4.95,
-      "formato": "Granel",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Marisco y pescado",
-      "subcategoria": "Boquerón",
-      "imagen": "https://prod-mercadona.imgix.net/images/b55f89c3aefe2502e390182d9f47657a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/81661.2/boqueron-limpio-sin-cabeza-sin-tripa-granel",
-      "disponible": true
-    },
-    {
-      "productoId": "81661.1",
-      "nombre": "Boquerón sin limpiar",
-      "precio": 0.99,
-      "precioReferencia": 4.95,
-      "formato": "Granel",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Marisco y pescado",
-      "subcategoria": "Boquerón",
-      "imagen": "https://prod-mercadona.imgix.net/images/1d2cb161f810c273ec84e45691b07e6d.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/81661.1/boqueron-sin-limpiar-granel",
       "disponible": true
     },
     {
@@ -12274,6 +12226,22 @@
       "subcategoria": "Caldo en pastillas",
       "imagen": "https://prod-mercadona.imgix.net/images/c2dad675fcad5572a3b39c12a2246eab.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15592/caldo-verduras-hacendado-pastillas-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "14352",
+      "nombre": "Calendario de Adviento Navidad Hacendado con chocolatinas de chocolate con leche",
+      "precio": 1.75,
+      "precioReferencia": 26.924,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.065,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Chocolatinas",
+      "imagen": "https://prod-mercadona.imgix.net/images/1d11cea3f5933a295ced68b283e70895.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/14352/calendario-adviento-navidad-hacendado-con-chocolatinas-chocolate-con-leche",
       "disponible": true
     },
     {
@@ -14583,8 +14551,8 @@
     {
       "productoId": "28078",
       "nombre": "Cerveza especial Keler",
-      "precio": 7.8,
-      "precioReferencia": 1.97,
+      "precio": 9.6,
+      "precioReferencia": 2.425,
       "formato": "latas",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -14599,8 +14567,8 @@
     {
       "productoId": "27981",
       "nombre": "Cerveza especial Keler",
-      "precio": 0.68,
-      "precioReferencia": 2.061,
+      "precio": 0.84,
+      "precioReferencia": 2.546,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -14871,8 +14839,8 @@
     {
       "productoId": "27679",
       "nombre": "Cerveza Heineken",
-      "precio": 5.12,
-      "precioReferencia": 1.94,
+      "precio": 6.96,
+      "precioReferencia": 2.637,
       "formato": "Pack-8",
       "unidadesTotales": 8,
       "tamañoUnidad": 2.64,
@@ -14887,8 +14855,8 @@
     {
       "productoId": "27100",
       "nombre": "Cerveza Heineken",
-      "precio": 0.68,
-      "precioReferencia": 2.061,
+      "precio": 0.88,
+      "precioReferencia": 2.667,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -20928,7 +20896,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Cerdo",
-      "imagen": "https://prod-mercadona.imgix.net/images/2a9034fed753ec9f2947d36f73bebbf3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2a9034fed753ec9f2947d36f73bebbf3.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/2811/costillas-cerdo-carnosas-tacos-bandeja",
       "disponible": true
     },
@@ -24146,22 +24114,6 @@
       "subcategoria": "Ambientador eléctrico",
       "imagen": "https://prod-mercadona.imgix.net/images/472d86fdf508a119040a9671ed28b493.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52759/difusor-multifragancia-electrico-bosque-verde-con-regulador-intensidad-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "17770",
-      "nombre": "Discos ácido salicílico Facial Clean purificantes y seborreguladores",
-      "precio": 4,
-      "precioReferencia": 0.08,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 50,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Limpieza de cara",
-      "imagen": "https://prod-mercadona.imgix.net/images/02cbbb2a36d255cdd6c1627b797042cd.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17770/discos-acido-salicilico-deliplus-facial-clean-purificantes-seborreguladores-piel-grasa-acneica-bote",
       "disponible": true
     },
     {
@@ -28816,7 +28768,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Otras frutas",
-      "imagen": "https://prod-mercadona.imgix.net/images/6745b8dda0a443232ff2b6f70ad1b88e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/6745b8dda0a443232ff2b6f70ad1b88e.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/5500/frambuesa-bandeja",
       "disponible": true
     },
@@ -32802,22 +32754,6 @@
       "subcategoria": "Granizados y helados de hielo",
       "imagen": "https://prod-mercadona.imgix.net/images/950edb07bf805dee7fa6f520cfea3eb7.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/64013/helado-limon-hacendado-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "64419",
-      "nombre": "Helado hielo sorbete con fresa Hacendado",
-      "precio": 2.3,
-      "precioReferencia": 3.067,
-      "formato": "Caja",
-      "unidadesTotales": 10,
-      "tamañoUnidad": 0.75,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Granizados y helados de hielo",
-      "imagen": "https://prod-mercadona.imgix.net/images/7644c42b7019d54bc500ada4864780c5.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64419/helado-fresa-hacendado-caja",
       "disponible": true
     },
     {
@@ -38757,22 +38693,6 @@
       "disponible": true
     },
     {
-      "productoId": "18179",
-      "nombre": "Lote corporal mujer Dolce Latto Deliplus",
-      "precio": 9,
-      "precioReferencia": 9,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Lotes mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/941614a76df2fc87f5e01608116935a1.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18179/lote-corporal-mujer-dolce-latto-deliplus",
-      "disponible": true
-    },
-    {
       "productoId": "35129",
       "nombre": "Lote corporal mujer Dove",
       "precio": 10.95,
@@ -39573,22 +39493,6 @@
       "disponible": true
     },
     {
-      "productoId": "17556",
-      "nombre": "Magret de pato",
-      "precio": 3.84,
-      "precioReferencia": 24,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.16,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Carne",
-      "subcategoria": "Pavo y otras aves",
-      "imagen": "https://prod-mercadona.imgix.net/images/79f45fcebafcf8cfd8fe07777196f0fe.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17556/magret-pato-pieza",
-      "disponible": true
-    },
-    {
       "productoId": "52051",
       "nombre": "Magro de cerdo cocido Coren",
       "precio": 2.69,
@@ -40144,7 +40048,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Mantequilla",
-      "imagen": "https://prod-mercadona.imgix.net/images/8c11c0b183629fa23a4860057686e794.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/8c11c0b183629fa23a4860057686e794.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60622/mantequilla-sin-sal-anadida-hacendado-tarrina",
       "disponible": true
     },
@@ -40768,7 +40672,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Maquinillas de afeitar",
-      "imagen": "https://prod-mercadona.imgix.net/images/79a48e0fcbf2e35bd695d7955ff875c5.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/3f1c592d24cee1dff4f7bdbeb0c72e2b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52647/maquinilla-afeitar-recargable-gillette-mach-sport-3-hojas-incluye-tres-recambios-caja",
       "disponible": true
     },
@@ -40802,22 +40706,6 @@
       "subcategoria": "Cuchilla",
       "imagen": "https://prod-mercadona.imgix.net/images/5b77a67d1cc49b67c50e6b9acbde69e1.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15565/maquinilla-depilacion-recargable-gillette-venus-comfortglide-breeze-3-hojas-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "21987",
-      "nombre": "Maquinilla depilación recargable Gillette Venus 3 hojas ComfortGlide",
-      "precio": 9.95,
-      "precioReferencia": 9.95,
-      "formato": "Caja",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Cuchilla",
-      "imagen": "https://prod-mercadona.imgix.net/images/a948b9d3c77a18b4b308dee04b32bea9.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21987/maquinilla-depilacion-recargable-gillette-venus-3-hojas-comfortglide-contiene-recambio-soporte-ducha-caja",
       "disponible": true
     },
     {
@@ -42210,6 +42098,22 @@
       "subcategoria": "Conejo",
       "imagen": "https://prod-mercadona.imgix.net/images/f1dd2afe2729b8a5a95104788147cd27.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/25972/medio-conejo-troceado-bandeja",
+      "disponible": true
+    },
+    {
+      "productoId": "17556",
+      "nombre": "Medio magret de pato",
+      "precio": 3.84,
+      "precioReferencia": 24,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.16,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Carne",
+      "subcategoria": "Pavo y otras aves",
+      "imagen": "https://prod-mercadona.imgix.net/images/79f45fcebafcf8cfd8fe07777196f0fe.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17556/magret-pato-pieza",
       "disponible": true
     },
     {
@@ -44160,7 +44064,7 @@
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso fresco",
-      "imagen": "https://prod-mercadona.imgix.net/images/414bf4e87775a2c715a1f2cb1182402f.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/6ecf2e0559dd22d873991510dc437f61.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/51201/mozzarella-fresca-di-bufala-campana-hacendado-tarrina",
       "disponible": true
     },
@@ -46976,7 +46880,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Bollería envasada",
-      "imagen": "https://prod-mercadona.imgix.net/images/707042fcc0f6c13a986420ee6fa97486.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/09d181bf5b36183cd33a0875232dfca2.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/67821/panettone-con-pepitas-chocolate-giuseppe-caja",
       "disponible": true
     },
@@ -59191,8 +59095,8 @@
     {
       "productoId": "28757",
       "nombre": "Ron dominicano añejo Ron Barceló",
-      "precio": 15.15,
-      "precioReferencia": 21.643,
+      "precio": 15.75,
+      "precioReferencia": 22.5,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,
@@ -61127,8 +61031,8 @@
     {
       "productoId": "66944",
       "nombre": "Sangría Don Simón",
-      "precio": 1.95,
-      "precioReferencia": 1.3,
+      "precio": 1.85,
+      "precioReferencia": 1.234,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.5,
@@ -61154,38 +61058,6 @@
       "subcategoria": "Insecticida eléctrico y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/ff94badd7959f672946c3c482eba8e9b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52468/bolsitas-antipolillas-ropa-limpia-bosque-verde-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "81100.2",
-      "nombre": "Sardina limpia sin cabeza",
-      "precio": 0.79,
-      "precioReferencia": 3.95,
-      "formato": "Granel",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Marisco y pescado",
-      "subcategoria": "Sardina",
-      "imagen": "https://prod-mercadona.imgix.net/images/2b65dea09c00f7ea0a265455ce20ff1a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/81100.2/sardina-limpia-sin-cabeza-sin-tripa-granel",
-      "disponible": true
-    },
-    {
-      "productoId": "81100.1",
-      "nombre": "Sardina sin limpiar",
-      "precio": 0.79,
-      "precioReferencia": 3.95,
-      "formato": "Granel",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.2,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Marisco y pescado",
-      "subcategoria": "Sardina",
-      "imagen": "https://prod-mercadona.imgix.net/images/5b92b803a7932c1cd2ece3e80d11a853.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/81100.1/sardina-sin-limpiar-granel",
       "disponible": true
     },
     {
