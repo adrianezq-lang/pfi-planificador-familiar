@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-10T13:29:34.485Z",
+  "actualizado": "2026-11-11T12:44:17.271Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4367,
+  "totalProductos": 4365,
   "productos": [
     {
       "productoId": "40339",
@@ -21477,6 +21477,22 @@
       "disponible": true
     },
     {
+      "productoId": "18340",
+      "nombre": "Crema de manos Velvet Deliplus con karité & vitamina E",
+      "precio": 2.8,
+      "precioReferencia": 0.934,
+      "formato": "Tarro",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Crema manos",
+      "imagen": "https://prod-mercadona.imgix.net/images/afb1c3c2645207a17deb6ee4b4c65e19.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18340/crema-manos-velvet-deliplus-con-karite-vitamina-tarro",
+      "disponible": true
+    },
+    {
       "productoId": "74102",
       "nombre": "Crema de manos, cara y cuerpo Nivea Soft hidratante intensiva",
       "precio": 1.95,
@@ -21568,7 +21584,7 @@
       "pesoAproximado": true,
       "sección": "Conservas, caldos y cremas",
       "subcategoria": "Cremas y puré",
-      "imagen": "https://prod-mercadona.imgix.net/images/d61df99aaace37a242ffdef145f78d7c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d61df99aaace37a242ffdef145f78d7c.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35662/crema-setas-starlux-con-champinones-knorr-brick",
       "disponible": true
     },
@@ -27376,7 +27392,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Empanados y elaborados",
-      "imagen": "https://prod-mercadona.imgix.net/images/0c394c4ef89ad72fa0123d9ea75a008b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/0c394c4ef89ad72fa0123d9ea75a008b.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23306/fiambre-pechuga-pavo-adobada-bandeja",
       "disponible": true
     },
@@ -32770,22 +32786,6 @@
       "subcategoria": "Granizados y helados de hielo",
       "imagen": "https://prod-mercadona.imgix.net/images/2cb6b58ee83eeeda7665a055af5e168b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/64179/helado-horchata-hacendado-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "64220",
-      "nombre": "Helado hielo sorbete con mango Hacendado",
-      "precio": 2.3,
-      "precioReferencia": 3.067,
-      "formato": "Caja",
-      "unidadesTotales": 10,
-      "tamañoUnidad": 0.75,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Granizados y helados de hielo",
-      "imagen": "https://prod-mercadona.imgix.net/images/b721082a0adb95471999014c1c348be2.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64220/helado-sorbete-mango-hacendado-caja",
       "disponible": true
     },
     {
@@ -41221,22 +41221,6 @@
       "disponible": true
     },
     {
-      "productoId": "18004",
-      "nombre": "Máscara de pestañas Burgundy Xtrem efecto longitud infinita Deliplus borgoña",
-      "precio": 4.5,
-      "precioReferencia": 4.5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.0085,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Máscara de pestañas",
-      "imagen": "https://prod-mercadona.imgix.net/images/cdf351477d829860442bbc238130aace.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18004/mascara-pestanas-burgundy-xtrem-efecto-longitud-infinita-deliplus-borgona",
-      "disponible": true
-    },
-    {
       "productoId": "21507",
       "nombre": "Máscara de pestañas Curve XL efecto lifting Deliplus negro",
       "precio": 4.5,
@@ -48162,22 +48146,6 @@
       "subcategoria": "Pasta rellena",
       "imagen": "https://prod-mercadona.imgix.net/images/c963d4353c28eec3b4653867138e7bda.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/6142/pasta-fresca-tortellini-carne-hacendado-bandeja",
-      "disponible": true
-    },
-    {
-      "productoId": "6106",
-      "nombre": "Pasta fusilli 100% lentejas rojas Felicia",
-      "precio": 1.65,
-      "precioReferencia": 6.6,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.25,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Arroz, legumbres y pasta",
-      "subcategoria": "Macarrones, pajaritas y hélices",
-      "imagen": "https://prod-mercadona.imgix.net/images/b82394e08ac387522c2286fb9c234b5f.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/6106/pasta-fusilli-100-lentejas-rojas-felicia-paquete",
       "disponible": true
     },
     {
@@ -57927,8 +57895,8 @@
     {
       "productoId": "17542",
       "nombre": "Refresco Fanta naranja",
-      "precio": 3.6,
-      "precioReferencia": 0.9,
+      "precio": 3.9,
+      "precioReferencia": 0.975,
       "formato": "botellas",
       "unidadesTotales": 2,
       "tamañoUnidad": 4,
@@ -57943,8 +57911,8 @@
     {
       "productoId": "27508",
       "nombre": "Refresco Fanta naranja",
-      "precio": 1.85,
-      "precioReferencia": 0.925,
+      "precio": 1.99,
+      "precioReferencia": 0.995,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 2,
@@ -57959,8 +57927,8 @@
     {
       "productoId": "18234",
       "nombre": "Refresco Fanta naranja",
-      "precio": 1.55,
-      "precioReferencia": 1.24,
+      "precio": 1.59,
+      "precioReferencia": 1.272,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.25,
@@ -58007,8 +57975,8 @@
     {
       "productoId": "27545",
       "nombre": "Refresco Fanta naranja zero azúcares añadidos",
-      "precio": 1.85,
-      "precioReferencia": 0.925,
+      "precio": 1.99,
+      "precioReferencia": 0.995,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 2,
@@ -68263,8 +68231,8 @@
     {
       "productoId": "66320",
       "nombre": "Vino tinto crianza El Coto DO Rioja",
-      "precio": 6.55,
-      "precioReferencia": 8.734,
+      "precio": 5.95,
+      "precioReferencia": 7.934,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.75,
