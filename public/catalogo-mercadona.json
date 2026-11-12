@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-11T12:44:17.271Z",
+  "actualizado": "2026-11-12T13:46:55.758Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4365,
+  "totalProductos": 4369,
   "productos": [
     {
       "productoId": "40339",
@@ -1904,7 +1904,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Agua sin gas",
-      "imagen": "https://prod-mercadona.imgix.net/images/da8277237500fa130439951065afa7a7.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/dd7295e0b55d27af2284a87f6acb955e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/27076/agua-mineral-pequena-cortes-mineralizacion-debil-pack-6",
       "disponible": true
     },
@@ -8192,7 +8192,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche desnatada",
-      "imagen": "https://prod-mercadona.imgix.net/images/af6b32b8e306c397ff7748e5e33e2b48.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/af6b32b8e306c397ff7748e5e33e2b48.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10884/bebida-lactea-omega-3-puleva-con-leche-desnatada-brick",
       "disponible": true
     },
@@ -8610,6 +8610,22 @@
       "subcategoria": "Bollería dulce",
       "imagen": "https://prod-mercadona.imgix.net/images/e8a0fcb0fe647d05c3f298f81c8bf4d6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17713/berlina-con-cobertura-blanca-trozos-galleta-rellena-crema-con-galleta-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "18744",
+      "nombre": "Berlina rellena de crema de turrón con cobertura glaseada y trozos de almendra",
+      "precio": 1.25,
+      "precioReferencia": 13.158,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.095,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Bollería dulce",
+      "imagen": "https://prod-mercadona.imgix.net/images/df72657e309700c8aab89cf8917424ab.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18744/berlina-con-cobertura-glaseada-trozos-almendra-rellena-crema-turron-pieza",
       "disponible": true
     },
     {
@@ -10085,6 +10101,38 @@
       "disponible": true
     },
     {
+      "productoId": "81661.2",
+      "nombre": "Boquerón limpio sin cabeza",
+      "precio": 1.39,
+      "precioReferencia": 6.95,
+      "formato": "Granel",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Boquerón",
+      "imagen": "https://prod-mercadona.imgix.net/images/b55f89c3aefe2502e390182d9f47657a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81661.2/boqueron-limpio-sin-cabeza-sin-tripa-granel",
+      "disponible": true
+    },
+    {
+      "productoId": "81661.1",
+      "nombre": "Boquerón sin limpiar",
+      "precio": 1.39,
+      "precioReferencia": 6.95,
+      "formato": "Granel",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Boquerón",
+      "imagen": "https://prod-mercadona.imgix.net/images/1d2cb161f810c273ec84e45691b07e6d.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81661.1/boqueron-sin-limpiar-granel",
+      "disponible": true
+    },
+    {
       "productoId": "23122",
       "nombre": "Boquerones al vinagre Hacendado en aceite de girasol",
       "precio": 5.5,
@@ -11520,7 +11568,7 @@
       "pesoAproximado": true,
       "sección": "Cacao, café e infusiones",
       "subcategoria": "Café molido",
-      "imagen": "https://prod-mercadona.imgix.net/images/cd28fdbaf0215b0189a06883c7e5262f.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/cd28fdbaf0215b0189a06883c7e5262f.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/13700/cafe-molido-natural-fuerte-hacendado-paquete",
       "disponible": true
     },
@@ -12370,6 +12418,22 @@
       "subcategoria": "Lechuga",
       "imagen": "https://prod-mercadona.imgix.net/images/f0e683ae77cdd6372eaafd6420cc0171.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/69719/canonigos-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "18762",
+      "nombre": "Caña de lomo cebo ibérico Félix de Múrtiga La Hacienda",
+      "precio": 32,
+      "precioReferencia": 57.143,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.8,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Lomo y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/7693a9f7c5af1388b7d1bb8b06e6107b.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18762/cana-lomo-cebo-iberico-felix-murtiga-hacienda-pieza",
       "disponible": true
     },
     {
@@ -16064,7 +16128,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Chocolate blanco",
-      "imagen": "https://prod-mercadona.imgix.net/images/a3b584abbb04dd2dc580b48317794ecd.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/1009840a302f1d756a1d511129f76cc5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9891/chocolate-blanco-fussion-hacendado-relleno-crema-galleta-cacao-tableta",
       "disponible": true
     },
@@ -17655,8 +17719,8 @@
     {
       "productoId": "35588",
       "nombre": "Colágeno soluble sabor limón Colagen",
-      "precio": 5.3,
-      "precioReferencia": 2.12,
+      "precio": 4.9,
+      "precioReferencia": 1.96,
       "formato": "Bote",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -21442,22 +21506,6 @@
       "subcategoria": "Crema manos",
       "imagen": "https://prod-mercadona.imgix.net/images/d0079c63e2a8a2489ed9a375e439f049.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18299/crema-manos-nutritiva-murumuru-deliplus-fps-20-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "19868",
-      "nombre": "Crema de manos Oriental Woods Deliplus",
-      "precio": 2.7,
-      "precioReferencia": 0.932,
-      "formato": "Tarro",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.29,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Crema manos",
-      "imagen": "https://prod-mercadona.imgix.net/images/ca031227f43c2022e402901138e694b4.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/19868/crema-manos-oriental-woods-deliplus-tarro",
       "disponible": true
     },
     {
@@ -35189,22 +35237,6 @@
       "disponible": true
     },
     {
-      "productoId": "17583",
-      "nombre": "Laca de uñas alto brillo Deliplus 155 burdeos",
-      "precio": 2.5,
-      "precioReferencia": 2.5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.011,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Laca de uñas",
-      "imagen": "https://prod-mercadona.imgix.net/images/a7ff162bde2066acbe554849a5dae0a6.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17583/laca-unas-alto-brillo-deliplus-155-chocolate-intenso",
-      "disponible": true
-    },
-    {
       "productoId": "17584",
       "nombre": "Laca de uñas alto brillo Deliplus 156 chocolate medio",
       "precio": 2.5,
@@ -38693,6 +38725,22 @@
       "disponible": true
     },
     {
+      "productoId": "18179",
+      "nombre": "Lote corporal mujer Dolce Latto Deliplus",
+      "precio": 9,
+      "precioReferencia": 9,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Lotes mujer",
+      "imagen": "https://prod-mercadona.imgix.net/images/941614a76df2fc87f5e01608116935a1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18179/lote-corporal-mujer-dolce-latto-deliplus",
+      "disponible": true
+    },
+    {
       "productoId": "35129",
       "nombre": "Lote corporal mujer Dove",
       "precio": 10.95,
@@ -39058,22 +39106,6 @@
       "subcategoria": "Lotes mujer",
       "imagen": "https://prod-mercadona.imgix.net/images/76c23488c83e2db30eee200d0c6e4c0c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17625/lote-mujer-eleccion-contiene-eau-parfum-100-ml-crema-manos-30-ml-leche-corporal-75-ml",
-      "disponible": true
-    },
-    {
-      "productoId": "18181",
-      "nombre": "Lote mujer Ella My Soul",
-      "precio": 15,
-      "precioReferencia": 15,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Lotes mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/dcc9025f91f1320ee979baebe8ac74ce.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18181/lote-mujer-my-soul",
       "disponible": true
     },
     {
@@ -39845,22 +39877,6 @@
       "disponible": true
     },
     {
-      "productoId": "85709",
-      "nombre": "Mantecado de cacao La Muralla",
-      "precio": 0.27,
-      "precioReferencia": 5.9,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.045,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Polvorones y mazapanes",
-      "imagen": "https://prod-mercadona.imgix.net/images/a4b5f82672876fc27f70494b55455885.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/85709/mantecado-cacao-muralla",
-      "disponible": true
-    },
-    {
       "productoId": "85845",
       "nombre": "Mantecado de cacao sin gluten La Muralla",
       "precio": 0.24,
@@ -39874,22 +39890,6 @@
       "subcategoria": "Polvorones y mazapanes",
       "imagen": "https://prod-mercadona.imgix.net/images/ba2b8c7f775d87bbfa96a8085ba743db.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/85845/mantecado-cacao-sin-gluten-muralla",
-      "disponible": true
-    },
-    {
-      "productoId": "85705",
-      "nombre": "Mantecado de coco La Muralla",
-      "precio": 0.27,
-      "precioReferencia": 5.9,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.045,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Polvorones y mazapanes",
-      "imagen": "https://prod-mercadona.imgix.net/images/51569ea8096df3f2f7d3858a26bc3295.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/85705/mantecado-coco-muralla",
       "disponible": true
     },
     {
@@ -42976,7 +42976,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Perfume y colonia hombre",
-      "imagen": "https://prod-mercadona.imgix.net/images/87e27cd13ca574c0ef0f2c7afe5eaefb.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/ddaf9c7aa2f10f64fbddae1638733c85.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18199/mini-eau-parfum-hombre-zymerai-flor-mayo-frasco",
       "disponible": true
     },
@@ -43008,7 +43008,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Perfume y colonia mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/f93fe380cbfd527590719f0305eb0524.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2debe9b57917bcd2fd0ce1f23fe8f4a8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18197/mini-eau-parfum-mujer-red-velvet-flor-mayo-frasco",
       "disponible": true
     },
@@ -54192,7 +54192,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Leche Infantil",
-      "imagen": "https://prod-mercadona.imgix.net/images/f3cc514aaf94b626490339c53a0f8426.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/466bb295e74675044a0a1b4d67f9526e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9049/preparado-lacteo-crecimiento-peques-3-puleva-12-36-meses-pack-6",
       "disponible": true
     },
@@ -55554,6 +55554,22 @@
       "subcategoria": "Queso lonchas",
       "imagen": "https://prod-mercadona.imgix.net/images/d6d49f98b5ad0ebd7d7604ab48e47a8c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/51182/queso-lonchas-fundido-suave-mezcla-hacendado-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "86338",
+      "nombre": "Queso lonchas gouda de vaca Hacendado",
+      "precio": 2.7,
+      "precioReferencia": 5.4,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Queso lonchas",
+      "imagen": "https://prod-mercadona.imgix.net/images/9502ee15e4311bb4f9a590661aeaa788.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/86338/queso-lonchas-gouda-vaca-hacendado-paquete",
       "disponible": true
     },
     {
@@ -61026,6 +61042,38 @@
       "subcategoria": "Insecticida eléctrico y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/ff94badd7959f672946c3c482eba8e9b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52468/bolsitas-antipolillas-ropa-limpia-bosque-verde-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "81100.2",
+      "nombre": "Sardina limpia sin cabeza",
+      "precio": 1.19,
+      "precioReferencia": 5.95,
+      "formato": "Granel",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Sardina",
+      "imagen": "https://prod-mercadona.imgix.net/images/2b65dea09c00f7ea0a265455ce20ff1a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81100.2/sardina-limpia-sin-cabeza-sin-tripa-granel",
+      "disponible": true
+    },
+    {
+      "productoId": "81100.1",
+      "nombre": "Sardina sin limpiar",
+      "precio": 1.19,
+      "precioReferencia": 5.95,
+      "formato": "Granel",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Sardina",
+      "imagen": "https://prod-mercadona.imgix.net/images/5b92b803a7932c1cd2ece3e80d11a853.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81100.1/sardina-sin-limpiar-granel",
       "disponible": true
     },
     {
@@ -68274,6 +68322,22 @@
       "subcategoria": "Rioja",
       "imagen": "https://prod-mercadona.imgix.net/images/a893801156cbd7718cf0ef9ea58dcf89.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/19849/vino-tinto-do-rioja-pieza-rey-crianza-botella",
+      "disponible": true
+    },
+    {
+      "productoId": "18869",
+      "nombre": "Vino tinto crianza Semiluna DO Navarra",
+      "precio": 2.25,
+      "precioReferencia": 3,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.75,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Bodega",
+      "subcategoria": "Otros vinos tintos",
+      "imagen": "https://prod-mercadona.imgix.net/images/8bf509d2ca32c09087a246f433054b1b.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18869/vino-tinto-crianza-semiluna-do-navarra-botella",
       "disponible": true
     },
     {
