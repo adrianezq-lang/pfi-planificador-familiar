@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-12T13:46:55.758Z",
+  "actualizado": "2026-11-13T13:08:01.330Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4369,
+  "totalProductos": 4366,
   "productos": [
     {
       "productoId": "40339",
@@ -1296,7 +1296,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Activador y antical lavadora",
-      "imagen": "https://prod-mercadona.imgix.net/images/4c11a64bd16993123277b547c3cbf2cf.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/798ccd91e149a2f3ee414871b3178c9e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/40233/activador-lavado-ropa-color-oxi-active-bosque-verde-gel-con-oxigeno-activo-botella",
       "disponible": true
     },
@@ -2320,7 +2320,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/08246c7166e5409f632528a1e900a3b6.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/f622fbd7b1d5ae70f04e401fa992e749.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52426/alas-pollo-barbacoa-congeladas-paquete",
       "disponible": true
     },
@@ -5493,22 +5493,6 @@
       "disponible": true
     },
     {
-      "productoId": "86610.1",
-      "nombre": "Barra de pan espiga",
-      "precio": 1.05,
-      "precioReferencia": 2.625,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.4,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Barra de pan",
-      "imagen": "https://prod-mercadona.imgix.net/images/284599e6e5bf62e1b0a9a834b385fbdd.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/86610.1/barra-pan-espiga",
-      "disponible": true
-    },
-    {
       "productoId": "86610.2",
       "nombre": "Barra de pan espiga rebanado",
       "precio": 1.05,
@@ -7447,8 +7431,8 @@
     {
       "productoId": "28246",
       "nombre": "Bebida espirituosa centenario Terry",
-      "precio": 8.75,
-      "precioReferencia": 8.75,
+      "precio": 9.75,
+      "precioReferencia": 9.75,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -9536,7 +9520,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Papel y bolsas de conservación",
-      "imagen": "https://prod-mercadona.imgix.net/images/2fb84bae8a06b513d5fe8918ec3e4fdc.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/2fb84bae8a06b513d5fe8918ec3e4fdc.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/2439/bolsa-rafia",
       "disponible": true
     },
@@ -10103,8 +10087,8 @@
     {
       "productoId": "81661.2",
       "nombre": "Boquerón limpio sin cabeza",
-      "precio": 1.39,
-      "precioReferencia": 6.95,
+      "precio": 1.59,
+      "precioReferencia": 7.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -10119,8 +10103,8 @@
     {
       "productoId": "81661.1",
       "nombre": "Boquerón sin limpiar",
-      "precio": 1.39,
-      "precioReferencia": 6.95,
+      "precio": 1.59,
+      "precioReferencia": 7.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -11088,7 +11072,7 @@
       "pesoAproximado": true,
       "sección": "Cacao, café e infusiones",
       "subcategoria": "Bebidas frías",
-      "imagen": "https://prod-mercadona.imgix.net/images/fbace2711111518e9ab7a3c54ad58656.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/13c1c8bebc6a70bf04b8f9d174b1004d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/10644/cafe-con-leche-espresso-hacendado-vaso",
       "disponible": true
     },
@@ -12423,11 +12407,11 @@
     {
       "productoId": "18762",
       "nombre": "Caña de lomo cebo ibérico Félix de Múrtiga La Hacienda",
-      "precio": 32,
+      "precio": 28,
       "precioReferencia": 57.143,
       "formato": "Pieza",
       "unidadesTotales": 0,
-      "tamañoUnidad": 0.8,
+      "tamañoUnidad": 0.7,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
@@ -12576,7 +12560,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Contorno de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/eb254ee96ab89ff21992f2896631d78c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/49859532183559e4b0a949c998a02158.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/7914/capsulas-ojos-regen-skin-deliplus-tipo-piel-caja",
       "disponible": true
     },
@@ -14583,8 +14567,8 @@
     {
       "productoId": "66587",
       "nombre": "Cerveza especial Estrella Galicia",
-      "precio": 8.16,
-      "precioReferencia": 2.72,
+      "precio": 7.32,
+      "precioReferencia": 2.44,
       "formato": "Pack-12",
       "unidadesTotales": 12,
       "tamañoUnidad": 3,
@@ -14743,8 +14727,8 @@
     {
       "productoId": "66345",
       "nombre": "Cerveza especial San Miguel",
-      "precio": 6.84,
-      "precioReferencia": 2.28,
+      "precio": 4.8,
+      "precioReferencia": 1.6,
       "formato": "Pack-12",
       "unidadesTotales": 12,
       "tamañoUnidad": 3,
@@ -24181,6 +24165,22 @@
       "disponible": true
     },
     {
+      "productoId": "17770",
+      "nombre": "Discos ácido salicílico Facial Clean purificantes y seborreguladores",
+      "precio": 4,
+      "precioReferencia": 0.08,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 50,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Limpieza de cara",
+      "imagen": "https://prod-mercadona.imgix.net/images/02cbbb2a36d255cdd6c1627b797042cd.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17770/discos-acido-salicilico-deliplus-facial-clean-purificantes-seborreguladores-piel-grasa-acneica-bote",
+      "disponible": true
+    },
+    {
       "productoId": "79408",
       "nombre": "Discos desmaquillantes Deliplus ovalados algodón 100%",
       "precio": 1.4,
@@ -31415,8 +31415,8 @@
     {
       "productoId": "28715",
       "nombre": "Ginebra London Dry Gin Larios",
-      "precio": 11.95,
-      "precioReferencia": 11.95,
+      "precio": 10.95,
+      "precioReferencia": 10.95,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -32837,22 +32837,6 @@
       "disponible": true
     },
     {
-      "productoId": "64012",
-      "nombre": "Helado hielo sorbete con naranja Hacendado",
-      "precio": 2.1,
-      "precioReferencia": 2.8,
-      "formato": "Caja",
-      "unidadesTotales": 10,
-      "tamañoUnidad": 0.75,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Granizados y helados de hielo",
-      "imagen": "https://prod-mercadona.imgix.net/images/8584e60dd48a5a309c2e716bf806a78a.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64012/helado-naranja-hacendado-caja",
-      "disponible": true
-    },
-    {
       "productoId": "64491",
       "nombre": "Helado Mochi coco Hacendado",
       "precio": 2.9,
@@ -32978,22 +32962,6 @@
       "subcategoria": "Tarrinas",
       "imagen": "https://prod-mercadona.imgix.net/images/63e1d780e3c7a051acb25f3e70b2d0a8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/64509/sorbete-con-limon-hacendado-tarrina",
-      "disponible": true
-    },
-    {
-      "productoId": "52562",
-      "nombre": "Helado stracciatella Hacendado con sirope de chocolate",
-      "precio": 3.25,
-      "precioReferencia": 3.422,
-      "formato": "Tarrina",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.95,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Tarrinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/51e6c06b12d2c3246703c4f30cbe0521.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/52562/helado-stracciatella-hacendado-tarrina",
       "disponible": true
     },
     {
@@ -35394,22 +35362,6 @@
       "subcategoria": "Laca de uñas",
       "imagen": "https://prod-mercadona.imgix.net/images/e4bef77ca0538c0911394538b5635034.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18391/laca-unas-felin-deliplus-160-burdeos",
-      "disponible": true
-    },
-    {
-      "productoId": "41692",
-      "nombre": "Laca de uñas manicura francesa Deliplus 01 blanco punta",
-      "precio": 2.75,
-      "precioReferencia": 27.5,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.011,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Laca de uñas",
-      "imagen": "https://prod-mercadona.imgix.net/images/436fbaa351fe2e256d96bad1c35c7cc4.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/41692/laca-unas-manicura-francesa-deliplus-01-blanco-punta",
       "disponible": true
     },
     {
@@ -38167,8 +38119,8 @@
     {
       "productoId": "42371",
       "nombre": "Limpiamáquinas lavavajillas Finish líquido",
-      "precio": 3.25,
-      "precioReferencia": 13,
+      "precio": 3.75,
+      "precioReferencia": 15,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -38725,22 +38677,6 @@
       "disponible": true
     },
     {
-      "productoId": "18179",
-      "nombre": "Lote corporal mujer Dolce Latto Deliplus",
-      "precio": 9,
-      "precioReferencia": 9,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Lotes mujer",
-      "imagen": "https://prod-mercadona.imgix.net/images/941614a76df2fc87f5e01608116935a1.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18179/lote-corporal-mujer-dolce-latto-deliplus",
-      "disponible": true
-    },
-    {
       "productoId": "35129",
       "nombre": "Lote corporal mujer Dove",
       "precio": 10.95,
@@ -39074,6 +39010,22 @@
       "subcategoria": "Colonia infantil",
       "imagen": "https://prod-mercadona.imgix.net/images/7271bf4e49764f005a35bdea377ec60f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17985/lote-infantil-smile-vibes-contiene-eau-toilette-120-ml-taza-pegatinas-caja",
+      "disponible": true
+    },
+    {
+      "productoId": "18180",
+      "nombre": "Lote mujer Cerise Como tú",
+      "precio": 13,
+      "precioReferencia": 13,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Lotes mujer",
+      "imagen": "https://prod-mercadona.imgix.net/images/a6e9bebfe1716b61621bd1b7e284df86.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18180/lote-mujer-cerise",
       "disponible": true
     },
     {
@@ -39877,6 +39829,22 @@
       "disponible": true
     },
     {
+      "productoId": "85709",
+      "nombre": "Mantecado de cacao La Muralla",
+      "precio": 0.27,
+      "precioReferencia": 5.9,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.045,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Polvorones y mazapanes",
+      "imagen": "https://prod-mercadona.imgix.net/images/a4b5f82672876fc27f70494b55455885.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/85709/mantecado-cacao-muralla",
+      "disponible": true
+    },
+    {
       "productoId": "85845",
       "nombre": "Mantecado de cacao sin gluten La Muralla",
       "precio": 0.24,
@@ -40048,7 +40016,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Mantequilla",
-      "imagen": "https://prod-mercadona.imgix.net/images/8c11c0b183629fa23a4860057686e794.jpeg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/179f181b55787d757ca513ff756f092d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/60622/mantequilla-sin-sal-anadida-hacendado-tarrina",
       "disponible": true
     },
@@ -40640,7 +40608,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Maquinillas de afeitar",
-      "imagen": "https://prod-mercadona.imgix.net/images/8fc6e28a5426fbb6cc32cd288aeba506.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/598223689762d2f1105bfb5458e9af00.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52645/maquinilla-afeitar-recargable-gillette-fusion-sport-5-hojas-caja",
       "disponible": true
     },
@@ -46917,22 +46885,6 @@
       "disponible": true
     },
     {
-      "productoId": "35245",
-      "nombre": "Pañal adulto talla L Deliplus",
-      "precio": 14.8,
-      "precioReferencia": 0.74,
-      "formato": "Paquete",
-      "unidadesTotales": 20,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "ud",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Pañales para adulto",
-      "imagen": "https://prod-mercadona.imgix.net/images/fb6fb4ab46cead3ad95576cdcc5017e6.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/35245/panal-adulto-talla-l-deliplus-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "35243",
       "nombre": "Pañal adulto talla M Deliplus",
       "precio": 13.55,
@@ -47509,19 +47461,19 @@
       "disponible": true
     },
     {
-      "productoId": "23608",
+      "productoId": "21961",
       "nombre": "Papel vegetal Bosque Verde",
-      "precio": 1.7,
-      "precioReferencia": 0.057,
+      "precio": 2,
+      "precioReferencia": 0.056,
       "formato": "Caja",
-      "unidadesTotales": 30,
+      "unidadesTotales": 36,
       "tamañoUnidad": 1,
       "formatoUnidad": "ud",
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Papel y bolsas de conservación",
-      "imagen": "https://prod-mercadona.imgix.net/images/605886a19237ab9712a3c8572caa375b.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23608/papel-vegetal-bosque-verde-38-x-42-cm-caja",
+      "imagen": "https://prod-mercadona.imgix.net/images/19374e8df56aed60327a8ffecb9c3b98.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21961/papel-vegetal-bosque-verde-38-x-42-cm-caja",
       "disponible": true
     },
     {
@@ -48146,6 +48098,22 @@
       "subcategoria": "Pasta rellena",
       "imagen": "https://prod-mercadona.imgix.net/images/c963d4353c28eec3b4653867138e7bda.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/6142/pasta-fresca-tortellini-carne-hacendado-bandeja",
+      "disponible": true
+    },
+    {
+      "productoId": "21395",
+      "nombre": "Pasta fusilli 100% lentejas rojas Hacendado",
+      "precio": 2.2,
+      "precioReferencia": 5.5,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.4,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Arroz, legumbres y pasta",
+      "subcategoria": "Macarrones, pajaritas y hélices",
+      "imagen": "https://prod-mercadona.imgix.net/images/756efc25414e66ddedf7b0b403198d4c.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21395/pasta-fusilli-100-lentejas-rojas-hacendado-paquete",
       "disponible": true
     },
     {
@@ -60537,7 +60505,7 @@
       "nombre": "Salsa fresca Queso Hacendado",
       "precio": 1.45,
       "precioReferencia": 8.056,
-      "formato": "Paquete",
+      "formato": "Tarrina",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.18,
       "formatoUnidad": "kg",
@@ -61047,8 +61015,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.79,
+      "precioReferencia": 3.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -61063,8 +61031,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 1.19,
-      "precioReferencia": 5.95,
+      "precio": 0.79,
+      "precioReferencia": 3.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -61568,7 +61536,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Sérum y ampollas",
-      "imagen": "https://prod-mercadona.imgix.net/images/417a335e2cf9e49c883ec654f7eedb29.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/417a335e2cf9e49c883ec654f7eedb29.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/67596/serum-facial-acido-hialuronico-ceramidas-deliplus-hidrata-tipo-piel-frasco",
       "disponible": true
     },
@@ -63504,7 +63472,7 @@
       "pesoAproximado": true,
       "sección": "Cereales y galletas",
       "subcategoria": "Galletas surtidas",
-      "imagen": "https://prod-mercadona.imgix.net/images/9e54b56b77df48a29e0cd5e7409ce81c.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/9e54b56b77df48a29e0cd5e7409ce81c.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14587/surtido-pastas-artesanas-hacendado-caja",
       "disponible": true
     },
@@ -64466,22 +64434,6 @@
       "subcategoria": "Coloración hombre",
       "imagen": "https://prod-mercadona.imgix.net/images/ab5922489a0a9e760fb7afdcf51e7d1d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/73319/tinte-cabello-hombre-5-castano-natural-deliplus-0-amoniaco-colorcor-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "67818",
-      "nombre": "Tinto de verano limón Casón Histórico",
-      "precio": 1.15,
-      "precioReferencia": 0.767,
-      "formato": "Botella",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Tinto de verano y sangría",
-      "imagen": "https://prod-mercadona.imgix.net/images/22ae664014b85ab3abce742da6e75d44.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/67818/tinto-verano-limon-cason-historico-botella",
       "disponible": true
     },
     {
@@ -66807,8 +66759,8 @@
     {
       "productoId": "67875",
       "nombre": "Turrón de chocolate crujiente Hacendado",
-      "precio": 2.25,
-      "precioReferencia": 9,
+      "precio": 1.95,
+      "precioReferencia": 7.8,
       "formato": "Tableta",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -67575,8 +67527,8 @@
     {
       "productoId": "28400",
       "nombre": "Vermouth blanco Martini",
-      "precio": 11.65,
-      "precioReferencia": 11.65,
+      "precio": 11,
+      "precioReferencia": 11,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -67607,8 +67559,8 @@
     {
       "productoId": "28401",
       "nombre": "Vermouth rojo Martini",
-      "precio": 11.65,
-      "precioReferencia": 11.65,
+      "precio": 11,
+      "precioReferencia": 11,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
