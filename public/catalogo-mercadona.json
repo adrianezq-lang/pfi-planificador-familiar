@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-13T13:08:01.330Z",
+  "actualizado": "2026-11-14T12:12:27.888Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4366,
+  "totalProductos": 4362,
   "productos": [
     {
       "productoId": "40339",
@@ -3701,6 +3701,22 @@
       "disponible": true
     },
     {
+      "productoId": "34123",
+      "nombre": "Anís en grano Hacendado",
+      "precio": 2,
+      "precioReferencia": 40,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.05,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Aceite, especias y salsas",
+      "subcategoria": "Otras especias",
+      "imagen": "https://prod-mercadona.imgix.net/images/8a0d0e5176f9c1a26fcd7cb0e7c2af49.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/34123/anis-grano-hacendado-bote",
+      "disponible": true
+    },
+    {
       "productoId": "28356",
       "nombre": "Aperitivo Aperol",
       "precio": 13.9,
@@ -4743,8 +4759,8 @@
     {
       "productoId": "81204.1",
       "nombre": "Bacalao a rodajas",
-      "precio": 27.97,
-      "precioReferencia": 12.95,
+      "precio": 25.81,
+      "precioReferencia": 11.95,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 2.16,
@@ -4759,8 +4775,8 @@
     {
       "productoId": "81204.2",
       "nombre": "Bacalao abierto en libro sin cabeza y sin espina",
-      "precio": 27.97,
-      "precioReferencia": 12.95,
+      "precio": 25.81,
+      "precioReferencia": 11.95,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 2.16,
@@ -4807,8 +4823,8 @@
     {
       "productoId": "81204.3",
       "nombre": "Bacalao media pieza a rodajas",
-      "precio": 13.99,
-      "precioReferencia": 12.95,
+      "precio": 12.91,
+      "precioReferencia": 11.95,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.08,
@@ -4823,8 +4839,8 @@
     {
       "productoId": "81204.4",
       "nombre": "Bacalao media pieza abierto en libro sin cabeza y sin espina",
-      "precio": 13.99,
-      "precioReferencia": 12.95,
+      "precio": 12.91,
+      "precioReferencia": 11.95,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.08,
@@ -5490,6 +5506,22 @@
       "subcategoria": "Barra de pan",
       "imagen": "https://prod-mercadona.imgix.net/images/f65821a5e0f5740c1c80636f7238b394.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/83194.1/barra-pan-chapata",
+      "disponible": true
+    },
+    {
+      "productoId": "17914.1",
+      "nombre": "Barra de pan espiga",
+      "precio": 0.78,
+      "precioReferencia": 2.6,
+      "formato": "ud.",
+      "unidadesTotales": 1,
+      "tamañoUnidad": 0.3,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Barra de pan",
+      "imagen": "https://prod-mercadona.imgix.net/images/3bc8582bf4cfd906fb98d1848a5b304a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17914.1/barra-pan-espiga",
       "disponible": true
     },
     {
@@ -12408,7 +12440,7 @@
       "productoId": "18762",
       "nombre": "Caña de lomo cebo ibérico Félix de Múrtiga La Hacienda",
       "precio": 28,
-      "precioReferencia": 57.143,
+      "precioReferencia": 40,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,
@@ -15573,22 +15605,6 @@
       "disponible": true
     },
     {
-      "productoId": "44281",
-      "nombre": "Champú Liss Frizz Control Deliplus cabello rebelde",
-      "precio": 1.9,
-      "precioReferencia": 0.475,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.4,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado del cabello",
-      "subcategoria": "Champú",
-      "imagen": "https://prod-mercadona.imgix.net/images/4edd85d00a29e75ebf49a43b992f658b.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/44281/champu-liss-frizz-control-deliplus-cabello-rebelde-con-vitamina-queratina-bote",
-      "disponible": true
-    },
-    {
       "productoId": "44335",
       "nombre": "Champú Natural Deliplus todo tipo de cabello",
       "precio": 1.9,
@@ -17810,22 +17826,6 @@
       "subcategoria": "Insecticida eléctrico y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/54faffd5abb528bb51cd99acdcecb42c.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52423/colgador-antipolillas-ropa-limpia-bosque-verde-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "43484",
-      "nombre": "Colgador WC Azul limpieza activa Bosque Verde",
-      "precio": 1.25,
-      "precioReferencia": 15.625,
-      "formato": "Paquete",
-      "unidadesTotales": 2,
-      "tamañoUnidad": 0.08,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Limpieza y hogar",
-      "subcategoria": "Limpieza baño y WC",
-      "imagen": "https://prod-mercadona.imgix.net/images/da7803a87e1a2a18588249dc80366124.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/43484/colgador-wc-azul-limpieza-activa-bosque-verde-triple-accion-paquete",
       "disponible": true
     },
     {
@@ -21890,22 +21890,6 @@
       "subcategoria": "Crema de cara",
       "imagen": "https://prod-mercadona.imgix.net/images/62730a78ad353f5afd79e663511ca17d.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/46870/crema-facial-noche-textura-rica-regen-skin-deliplus-piel-normal-seca-muy-seca-tarro",
-      "disponible": true
-    },
-    {
-      "productoId": "12848",
-      "nombre": "Crema facial nutritiva redensificadora Prevent Age Skin Green Caviar y colágeno",
-      "precio": 5,
-      "precioReferencia": 10,
-      "formato": "Tarro",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.05,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Crema de cara",
-      "imagen": "https://prod-mercadona.imgix.net/images/d6c93417e2b106c307ad8fc41d8de885.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/12848/crema-facial-nutritiva-redensificadora-green-caviar-colageno-prevent-age-ski-deliplus-piel-normal-seca-tarro",
       "disponible": true
     },
     {
@@ -32805,22 +32789,6 @@
       "disponible": true
     },
     {
-      "productoId": "64013",
-      "nombre": "Helado hielo con limón Hacendado",
-      "precio": 2.1,
-      "precioReferencia": 2.8,
-      "formato": "Caja",
-      "unidadesTotales": 10,
-      "tamañoUnidad": 0.75,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Granizados y helados de hielo",
-      "imagen": "https://prod-mercadona.imgix.net/images/950edb07bf805dee7fa6f520cfea3eb7.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64013/helado-limon-hacendado-caja",
-      "disponible": true
-    },
-    {
       "productoId": "64179",
       "nombre": "Helado hielo sorbete con horchata Hacendado",
       "precio": 2.3,
@@ -37287,8 +37255,8 @@
     {
       "productoId": "28724",
       "nombre": "Licor de hierbas Jägermeister",
-      "precio": 15.25,
-      "precioReferencia": 21.786,
+      "precio": 15.1,
+      "precioReferencia": 21.572,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.7,
@@ -38274,22 +38242,6 @@
       "subcategoria": "Crema corporal",
       "imagen": "https://prod-mercadona.imgix.net/images/f2aa4ba592fed8cceb6154848651d6e5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52797/locion-corporal-repara-deliplus-urea-10-dexpantenol-piel-muy-seca-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "11507",
-      "nombre": "Lomo cerdo 96% asado al horno La Carloteña con finas hierbas lonchas",
-      "precio": 2.5,
-      "precioReferencia": 20,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.125,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Pavo y otros",
-      "imagen": "https://prod-mercadona.imgix.net/images/1ad85ae3023b7f755f0e9dfbc5d03fdb.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/11507/lomo-asado-carlotena-lonchas-paquete",
       "disponible": true
     },
     {
@@ -39682,22 +39634,6 @@
       "subcategoria": "Cítricos",
       "imagen": "https://prod-mercadona.imgix.net/images/7fde4546900f0fbd38e02be6cc4ea6ed.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3238/mandarina-pieza",
-      "disponible": true
-    },
-    {
-      "productoId": "5503",
-      "nombre": "Mandarina",
-      "precio": 1.95,
-      "precioReferencia": 1.95,
-      "formato": "Malla",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fruta y verdura",
-      "subcategoria": "Cítricos",
-      "imagen": "https://prod-mercadona.imgix.net/images/efa3524806e6e2ec9b467a8214a726ab.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/5503/mandarina-malla",
       "disponible": true
     },
     {
@@ -41138,22 +41074,6 @@
       "subcategoria": "Cejas",
       "imagen": "https://prod-mercadona.imgix.net/images/b7913f0cc16962e7b279e0a2e802d7bc.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21932/mascara-cejas-deliplus-02-marron-medio",
-      "disponible": true
-    },
-    {
-      "productoId": "21930",
-      "nombre": "Máscara de cejas Fixing Gel Deliplus transparente",
-      "precio": 4.25,
-      "precioReferencia": 4.25,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.005,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Cejas",
-      "imagen": "https://prod-mercadona.imgix.net/images/8f9820cce8273766542fa0382a5b47d0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/21930/mascara-cejas-fixing-gel-deliplus-transparente",
       "disponible": true
     },
     {
@@ -53189,6 +53109,22 @@
       "disponible": true
     },
     {
+      "productoId": "17603",
+      "nombre": "Porciones de chocolate con leche classic Hacendado extrafino",
+      "precio": 2.25,
+      "precioReferencia": 11.25,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Azúcar, caramelos y chocolate",
+      "subcategoria": "Chocolate con leche",
+      "imagen": "https://prod-mercadona.imgix.net/images/9e0abe9537fde193c1dad30518e5dfd9.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17603/porciones-chocolate-con-leche-classic-hacendado-extrafino-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "12495",
       "nombre": "Porciones de chocolate negro 72% cacao extrafino Hacendado",
       "precio": 3.25,
@@ -55333,19 +55269,19 @@
       "disponible": true
     },
     {
-      "productoId": "50613",
+      "productoId": "17946",
       "nombre": "Queso gorgonzola de vaca Hacendado",
-      "precio": 2.09,
-      "precioReferencia": 12.3,
+      "precio": 2.4,
+      "precioReferencia": 12,
       "formato": "Pieza",
       "unidadesTotales": 0,
-      "tamañoUnidad": 0.17,
+      "tamañoUnidad": 0.2,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso especialidades",
-      "imagen": "https://prod-mercadona.imgix.net/images/351bb005af78cbd5d4cbae3adc36ba24.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/50613/queso-gorgonzola-vaca-hacendado-pieza",
+      "imagen": "https://prod-mercadona.imgix.net/images/b7055e4b0acc9c8487377962bbdbae2a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17946/queso-gorgonzola-vaca-hacendado-pieza",
       "disponible": true
     },
     {
@@ -56320,7 +56256,7 @@
       "pesoAproximado": true,
       "sección": "Arroz, legumbres y pasta",
       "subcategoria": "Arroz",
-      "imagen": "https://prod-mercadona.imgix.net/images/5f96e6f16b3a5d30f2fd7135e3d1f74e.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5f96e6f16b3a5d30f2fd7135e3d1f74e.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9430/quinoa-hacendado-paquete",
       "disponible": true
     },
@@ -61015,8 +60951,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 0.79,
-      "precioReferencia": 3.95,
+      "precio": 0.99,
+      "precioReferencia": 4.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -61031,8 +60967,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 0.79,
-      "precioReferencia": 3.95,
+      "precio": 0.99,
+      "precioReferencia": 4.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -61554,22 +61490,6 @@
       "subcategoria": "Sérum y ampollas",
       "imagen": "https://prod-mercadona.imgix.net/images/0ca856da265a5ce8ad51e7dc0fa7eeb9.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21599/serum-facial-iluminador-deliplus-con-15-vitamina-c-anti-ox-bote",
-      "disponible": true
-    },
-    {
-      "productoId": "18657",
-      "nombre": "Sérum facial PDRN & Colágeno K-Skin efecto lifting",
-      "precio": 7,
-      "precioReferencia": 20,
-      "formato": "Caja",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.035,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado facial y corporal",
-      "subcategoria": "Sérum y ampollas",
-      "imagen": "https://prod-mercadona.imgix.net/images/612915ab782c09d2a2c678348d8cb416.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18657/serum-facial-k-skin-efecto-lifting-deliplus-con-pdrn-colageno-caja",
       "disponible": true
     },
     {
@@ -67762,6 +67682,22 @@
       "subcategoria": "Rioja y otras denominaciones",
       "imagen": "https://prod-mercadona.imgix.net/images/df7832fa0e148731a08e10be0d007c6a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/16819/vino-blanco-do-somontano-atardecer-chardonnay-botella",
+      "disponible": true
+    },
+    {
+      "productoId": "11559",
+      "nombre": "Vino blanco Chardonnay Barril Nº7",
+      "precio": 7.5,
+      "precioReferencia": 10,
+      "formato": "Botella",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.75,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Bodega",
+      "subcategoria": "Rioja y otras denominaciones",
+      "imagen": "https://prod-mercadona.imgix.net/images/8e900548d5c69e56a5c68304c25ce8cb.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/11559/vino-blanco-chardonnay-barril-no7-botella",
       "disponible": true
     },
     {
