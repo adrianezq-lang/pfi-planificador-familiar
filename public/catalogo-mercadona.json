@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-14T12:12:27.888Z",
+  "actualizado": "2026-11-15T12:45:33.752Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4362,
+  "totalProductos": 4359,
   "productos": [
     {
       "productoId": "40339",
@@ -5525,19 +5525,19 @@
       "disponible": true
     },
     {
-      "productoId": "86610.2",
+      "productoId": "17914.2",
       "nombre": "Barra de pan espiga rebanado",
-      "precio": 1.05,
-      "precioReferencia": 2.625,
+      "precio": 0.78,
+      "precioReferencia": 2.6,
       "formato": "ud.",
       "unidadesTotales": 1,
-      "tamañoUnidad": 0.4,
+      "tamañoUnidad": 0.3,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Pan rebanado",
-      "imagen": "https://prod-mercadona.imgix.net/images/206048f5888d401fc1680a7b676be85b.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/86610.2/barra-pan-espiga-rebanado",
+      "imagen": "https://prod-mercadona.imgix.net/images/c5a9f71eb3908a5b65abe3d9ec5c65b8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17914.2/barra-pan-espiga-rebanado",
       "disponible": true
     },
     {
@@ -21317,22 +21317,6 @@
       "disponible": true
     },
     {
-      "productoId": "14930",
-      "nombre": "Crema de calabacín Hacendado",
-      "precio": 1,
-      "precioReferencia": 2,
-      "formato": "Brik",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.5,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Conservas, caldos y cremas",
-      "subcategoria": "Cremas y puré",
-      "imagen": "https://prod-mercadona.imgix.net/images/21e1acdab6e7f290087759fa1f7eef1d.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/14930/crema-calabacin-hacendado-brick",
-      "disponible": true
-    },
-    {
       "productoId": "35870",
       "nombre": "Crema de calabacín Hacendado",
       "precio": 1.7,
@@ -32530,22 +32514,6 @@
       "subcategoria": "Harina",
       "imagen": "https://prod-mercadona.imgix.net/images/c5359da64c7dfe2b653cdb01b6085bee.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/29180/harina-semolosa-trigo-hacendado-especial-fritos-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "23280",
-      "nombre": "Helado barrita sabor cacahuete Hacendado con salsa de caramelo salado",
-      "precio": 3.3,
-      "precioReferencia": 11,
-      "formato": "Caja",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Otros Helados",
-      "imagen": "https://prod-mercadona.imgix.net/images/0b6216764054f0d10fe9c8e1e66b3fe5.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/23280/helado-barrita-sabor-cacahuete-hacendado-con-cobertura-chocolate-con-leche-caja",
       "disponible": true
     },
     {
@@ -45218,22 +45186,6 @@
       "subcategoria": "Sombra de ojos",
       "imagen": "https://prod-mercadona.imgix.net/images/a70c3b01d6b817de4b0e9129da09bcfe.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/12089/paleta-sombras-ojos-deliplus-09-borgonas",
-      "disponible": true
-    },
-    {
-      "productoId": "12091",
-      "nombre": "Paleta sombras de ojos Deliplus 11 verdes",
-      "precio": 4,
-      "precioReferencia": 4,
-      "formato": "ud.",
-      "unidadesTotales": 1,
-      "tamañoUnidad": 0.004,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Maquillaje",
-      "subcategoria": "Sombra de ojos",
-      "imagen": "https://prod-mercadona.imgix.net/images/9cd506c6adf65a099ff6e1a3816275e6.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/12091/paleta-sombras-ojos-deliplus-11-verdes",
       "disponible": true
     },
     {
