@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-11-15T12:47:00.289Z",
+  "actualizado": "2026-11-16T13:41:40.843Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 61,
@@ -101,7 +101,7 @@
       "ingrediente": "Calabacín",
       "productoId": "69338",
       "nombreComercial": "Calabacín verde",
-      "precio": 0.66,
+      "precio": 0.89,
       "puntuacion": 10000
     },
     {
@@ -115,7 +115,7 @@
       "ingrediente": "Pimiento tricolor",
       "productoId": "69495",
       "nombreComercial": "Pimientos tricolor",
-      "precio": 2.11,
+      "precio": 2.38,
       "puntuacion": 10000
     },
     {
