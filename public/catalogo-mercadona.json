@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-16T13:40:23.815Z",
+  "actualizado": "2026-11-17T14:25:05.683Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4364,
+  "totalProductos": 4368,
   "productos": [
     {
       "productoId": "40339",
@@ -3989,6 +3989,22 @@
       "disponible": true
     },
     {
+      "productoId": "19816",
+      "nombre": "Aroma agua de azahar Hacendado",
+      "precio": 2.05,
+      "precioReferencia": 13.667,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.15,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Levadura y preparado repostería",
+      "imagen": "https://prod-mercadona.imgix.net/images/50a36d297fd5623c16c1b5f67e942bd4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/19816/aroma-agua-azahar-hacendado-bote",
+      "disponible": true
+    },
+    {
       "productoId": "32524",
       "nombre": "Aroma de vainilla Hacendado",
       "precio": 2,
@@ -4815,7 +4831,7 @@
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Marisco y pescado",
-      "subcategoria": "Bacalao",
+      "subcategoria": "Otros",
       "imagen": "https://prod-mercadona.imgix.net/images/ca53c73b6afd0d72635caaec9e3e3420.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/87211/bacalao-punto-sal-descongelado-con-agua-anadida-bandeja",
       "disponible": true
@@ -5952,7 +5968,7 @@
       "pesoAproximado": true,
       "sección": "Cereales y galletas",
       "subcategoria": "Barritas de cereales",
-      "imagen": "https://prod-mercadona.imgix.net/images/683a1de51d7829b9998c29261d364ccf.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/683a1de51d7829b9998c29261d364ccf.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/73249/barritas-cereales-hacendado-con-chocolate-blanco-caja",
       "disponible": true
     },
@@ -5984,7 +6000,7 @@
       "pesoAproximado": true,
       "sección": "Cereales y galletas",
       "subcategoria": "Barritas de cereales",
-      "imagen": "https://prod-mercadona.imgix.net/images/55ba625ed8baee3f6cf50363a463fe9f.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/55ba625ed8baee3f6cf50363a463fe9f.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52493/barritas-cereales-con-frutos-secos-hacendado-caja",
       "disponible": true
     },
@@ -6560,7 +6576,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Bebidas vegetales",
-      "imagen": "https://prod-mercadona.imgix.net/images/e4a083b607ffb5a2235cadc434a932d0.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e4a083b607ffb5a2235cadc434a932d0.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15647/bebida-almendras-hacendado-pack-6",
       "disponible": true
     },
@@ -6576,7 +6592,7 @@
       "pesoAproximado": true,
       "sección": "Huevos, leche y mantequilla",
       "subcategoria": "Bebidas vegetales",
-      "imagen": "https://prod-mercadona.imgix.net/images/e6d5007275dab302b4705da8a5db1382.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e4e2107ae01b2e0f294c50055ccd460e.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15648/bebida-almendras-hacendado-brick",
       "disponible": true
     },
@@ -7591,8 +7607,8 @@
     {
       "productoId": "29605",
       "nombre": "Bebida isotónica limón Aquarius",
-      "precio": 7.44,
-      "precioReferencia": 2.819,
+      "precio": 7.92,
+      "precioReferencia": 3,
       "formato": "Pack-8",
       "unidadesTotales": 8,
       "tamañoUnidad": 2.64,
@@ -7607,8 +7623,8 @@
     {
       "productoId": "29625",
       "nombre": "Bebida isotónica limón Aquarius",
-      "precio": 0.99,
-      "precioReferencia": 3,
+      "precio": 1.05,
+      "precioReferencia": 3.182,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -7671,8 +7687,8 @@
     {
       "productoId": "29604",
       "nombre": "Bebida isotónica naranja Aquarius",
-      "precio": 7.44,
-      "precioReferencia": 2.819,
+      "precio": 7.92,
+      "precioReferencia": 3,
       "formato": "Pack-8",
       "unidadesTotales": 8,
       "tamañoUnidad": 2.64,
@@ -7687,8 +7703,8 @@
     {
       "productoId": "29624",
       "nombre": "Bebida isotónica naranja Aquarius",
-      "precio": 0.99,
-      "precioReferencia": 3,
+      "precio": 1.05,
+      "precioReferencia": 3.182,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -12469,22 +12485,6 @@
       "disponible": true
     },
     {
-      "productoId": "13861",
-      "nombre": "Cápsulas Cola de caballo Deliplus",
-      "precio": 3.85,
-      "precioReferencia": 0.129,
-      "formato": "Caja",
-      "unidadesTotales": 30,
-      "tamañoUnidad": 0.01635,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Fitoterapia y parafarmacia",
-      "subcategoria": "Fitoterapia",
-      "imagen": "https://prod-mercadona.imgix.net/images/90348a62757950642debb3e4be3db505.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/13861/capsulas-cola-caballo-deliplus-elaborado-base-especies-vegetales-caja",
-      "disponible": true
-    },
-    {
       "productoId": "35943",
       "nombre": "Cápsulas Colagen Antiox piel Deliplus",
       "precio": 4.95,
@@ -14064,7 +14064,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Cerveza botella y botellín",
-      "imagen": "https://prod-mercadona.imgix.net/images/823913a81628141e77c72df7d7ac94e0.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/823913a81628141e77c72df7d7ac94e0.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/26999/cerveza-00-sin-alcohol-estrella-galicia",
       "disponible": true
     },
@@ -14487,8 +14487,8 @@
     {
       "productoId": "27137",
       "nombre": "Cerveza doble malta Voll-Damm",
-      "precio": 0.89,
-      "precioReferencia": 2.697,
+      "precio": 1.04,
+      "precioReferencia": 3.152,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -14599,8 +14599,8 @@
     {
       "productoId": "28078",
       "nombre": "Cerveza especial Keler",
-      "precio": 9.6,
-      "precioReferencia": 2.425,
+      "precio": 7.8,
+      "precioReferencia": 1.97,
       "formato": "latas",
       "unidadesTotales": 12,
       "tamañoUnidad": 3.96,
@@ -14615,8 +14615,8 @@
     {
       "productoId": "27981",
       "nombre": "Cerveza especial Keler",
-      "precio": 0.84,
-      "precioReferencia": 2.546,
+      "precio": 0.68,
+      "precioReferencia": 2.061,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -14887,8 +14887,8 @@
     {
       "productoId": "27679",
       "nombre": "Cerveza Heineken",
-      "precio": 6.96,
-      "precioReferencia": 2.637,
+      "precio": 5.12,
+      "precioReferencia": 1.94,
       "formato": "Pack-8",
       "unidadesTotales": 8,
       "tamañoUnidad": 2.64,
@@ -14903,8 +14903,8 @@
     {
       "productoId": "27100",
       "nombre": "Cerveza Heineken",
-      "precio": 0.88,
-      "precioReferencia": 2.667,
+      "precio": 0.68,
+      "precioReferencia": 2.061,
       "formato": "Lata",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -21408,7 +21408,7 @@
       "pesoAproximado": true,
       "sección": "Cuidado facial y corporal",
       "subcategoria": "Crema manos",
-      "imagen": "https://prod-mercadona.imgix.net/images/a788dd5c17c96b576f9f0b5505717eb8.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/b8e91f8fab7965357d46dcb24f90e5a8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18162/crema-manos-hidratante-con-aloe-vera-acido-hialuronico-deliplus-bote",
       "disponible": true
     },
@@ -21458,6 +21458,22 @@
       "subcategoria": "Crema manos",
       "imagen": "https://prod-mercadona.imgix.net/images/f042115d017338f63e2a3f7ff22dc197.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35100/crema-manos-reparadora-deliplus-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "18384",
+      "nombre": "Crema de manos reparadora Deliplus glicerina, pantenol y vitamina E",
+      "precio": 1.3,
+      "precioReferencia": 1.734,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.075,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Crema manos",
+      "imagen": "https://prod-mercadona.imgix.net/images/7e7a11b32527e92de90078799614a691.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18384/crema-manos-reparadora-deliplus-glicerina-pantenol-vitamina-bote",
       "disponible": true
     },
     {
@@ -22496,7 +22512,7 @@
       "pesoAproximado": true,
       "sección": "Postres y yogures",
       "subcategoria": "Yogures y postres infantiles",
-      "imagen": "https://prod-mercadona.imgix.net/images/16ae45680e6f0ef82e7562c2e65bb7d5.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/16ae45680e6f0ef82e7562c2e65bb7d5.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/68125/danonino-sabor-fresa-platano-danone-pack-6",
       "disponible": true
     },
@@ -31760,7 +31776,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Golosinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/f587501fdab756ba5fa25c63ed47c83a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/7b00f04daa453b96fb92d3deab1b26b5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18334/golosinas-rellenas-bolas-navidad-trolli-jingle-balls-paquete",
       "disponible": true
     },
@@ -33381,6 +33397,22 @@
       "disponible": true
     },
     {
+      "productoId": "87102",
+      "nombre": "Huevo hilado",
+      "precio": 3.6,
+      "precioReferencia": 36,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.1,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Huevos, leche y mantequilla",
+      "subcategoria": "Huevos",
+      "imagen": "https://prod-mercadona.imgix.net/images/734371eff6088c8f6c13a6f50738a9b1.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/87102/huevo-hilado-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "12421",
       "nombre": "Huevo sorpresa de chocolate Hacendado",
       "precio": 1.65,
@@ -34770,6 +34802,22 @@
       "subcategoria": "Otras especias",
       "imagen": "https://prod-mercadona.imgix.net/images/660b9d830317ff63daa0a5a5cfe4cdb2.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/34149/jengibre-molido-hacendado-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "69889",
+      "nombre": "Judía verde plana",
+      "precio": 3.75,
+      "precioReferencia": 5,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.75,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Fruta y verdura",
+      "subcategoria": "Otras verduras y hortalizas",
+      "imagen": "https://prod-mercadona.imgix.net/images/6fe3bd1734dacc3f8751577ed526b7ab.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/69889/judia-verde-plana-bandeja",
       "disponible": true
     },
     {
@@ -38242,6 +38290,22 @@
       "subcategoria": "Crema corporal",
       "imagen": "https://prod-mercadona.imgix.net/images/f2aa4ba592fed8cceb6154848651d6e5.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52797/locion-corporal-repara-deliplus-urea-10-dexpantenol-piel-muy-seca-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "11507",
+      "nombre": "Lomo cerdo 96% asado al horno La Carloteña con finas hierbas lonchas",
+      "precio": 2.5,
+      "precioReferencia": 20,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.125,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Pavo y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/1ad85ae3023b7f755f0e9dfbc5d03fdb.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/11507/lomo-asado-carlotena-lonchas-paquete",
       "disponible": true
     },
     {
@@ -44032,7 +44096,7 @@
       "pesoAproximado": true,
       "sección": "Cereales y galletas",
       "subcategoria": "Cereales integrales y muesli",
-      "imagen": "https://prod-mercadona.imgix.net/images/3d93c78bdee2295299fbdca9332e7439.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/3d93c78bdee2295299fbdca9332e7439.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9355/muesli-crunchy-hacendado-con-chocolate-15-chocolate-paquete",
       "disponible": true
     },
@@ -50640,7 +50704,7 @@
       "pesoAproximado": true,
       "sección": "Congelados",
       "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/35717a955c21c85a542e620751272e5b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/35717a955c21c85a542e620751272e5b.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/4073/pierna-lechal-entera-congelada-pieza",
       "disponible": true
     },
@@ -52640,7 +52704,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Cubiertos, vajilla y mantel",
-      "imagen": "https://prod-mercadona.imgix.net/images/74e5011e0473a5334475519fbcc3d207.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/05709bf13818ab7f90de1c848d53743b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23188/plato-postre-biodegradable-bosque-verde-175-cm-paquete",
       "disponible": true
     },
@@ -57040,7 +57104,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Herméticos y moldes",
-      "imagen": "https://prod-mercadona.imgix.net/images/57ee53cfb96d0d6ef3209f84223590fe.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/1f21d7956b5aa794c08d9eaf3d5b9754.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/48005/recipiente-plastico-redondo-240-ml-bosque-verde-con-rosca-paquete",
       "disponible": true
     },
@@ -57520,7 +57584,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Cola clásica",
-      "imagen": "https://prod-mercadona.imgix.net/images/92e3d15bba5076195b64d69619d97f0d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/92e3d15bba5076195b64d69619d97f0d.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21713/refresco-cola-hacendado-lata",
       "disponible": true
     },
@@ -57760,7 +57824,7 @@
       "pesoAproximado": true,
       "sección": "Agua y refrescos",
       "subcategoria": "Naranja",
-      "imagen": "https://prod-mercadona.imgix.net/images/ec3e94308c014b341c1812f74be57f5a.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/ec3e94308c014b341c1812f74be57f5a.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21720/refresco-naranja-hacendado-fresh-gas-lata",
       "disponible": true
     },
@@ -59024,7 +59088,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Ron",
-      "imagen": "https://prod-mercadona.imgix.net/images/173328360545e9dd7886a059eace4cd3.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/173328360545e9dd7886a059eace4cd3.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/28757/ron-dominicano-anejo-ron-barcelo-botella",
       "disponible": true
     },
@@ -60983,8 +61047,8 @@
     {
       "productoId": "81100.2",
       "nombre": "Sardina limpia sin cabeza",
-      "precio": 0.99,
-      "precioReferencia": 4.95,
+      "precio": 1.39,
+      "precioReferencia": 6.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -60999,8 +61063,8 @@
     {
       "productoId": "81100.1",
       "nombre": "Sardina sin limpiar",
-      "precio": 0.99,
-      "precioReferencia": 4.95,
+      "precio": 1.39,
+      "precioReferencia": 6.95,
       "formato": "Granel",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -66679,8 +66743,8 @@
     {
       "productoId": "36012",
       "nombre": "Turrón de chocolate con leche y cacahuete Hacendado con miel y caramelo troceado",
-      "precio": 2,
-      "precioReferencia": 8,
+      "precio": 1.85,
+      "precioReferencia": 7.4,
       "formato": "Tableta",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -66855,8 +66919,8 @@
     {
       "productoId": "15848",
       "nombre": "Turrón duro de almendras Hacendado 0% azúcares añadidos",
-      "precio": 3,
-      "precioReferencia": 15,
+      "precio": 2.9,
+      "precioReferencia": 14.5,
       "formato": "Tableta",
       "unidadesTotales": 2,
       "tamañoUnidad": 0.2,
@@ -67024,7 +67088,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Cubiertos, vajilla y mantel",
-      "imagen": "https://prod-mercadona.imgix.net/images/2e160ea1eb91c926dfdef9b5142379c9.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d20f66b09f4a22eb3c9f0ce0c7e3a693.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/15968/vasos-grandes-plastico-bosque-verde-reutilizables-multiusos-550-ml-paquete",
       "disponible": true
     },
@@ -67040,7 +67104,7 @@
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Cubiertos, vajilla y mantel",
-      "imagen": "https://prod-mercadona.imgix.net/images/9caa5f6908b2ebbca44090698b1e1721.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/e89f46a3c2b1aa6b339992ac982c128f.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/22496/vasos-medianos-plastico-bosque-verde-reutilizables-400-ml-paquete",
       "disponible": true
     },
@@ -67856,7 +67920,7 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Vinos semidulces",
-      "imagen": "https://prod-mercadona.imgix.net/images/4a970739f40ed8173b14c81d4fd93a7d.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/4a970739f40ed8173b14c81d4fd93a7d.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/24077/vino-blanco-semidulce-verdejo-finca-malcriada-botella",
       "disponible": true
     },
