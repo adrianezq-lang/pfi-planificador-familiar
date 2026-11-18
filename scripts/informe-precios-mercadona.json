@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-11-17T14:26:12.703Z",
+  "actualizado": "2026-11-18T14:00:46.289Z",
   "codigoPostal": "48950",
   "almacen": "4293",
   "totalObjetivos": 61,
@@ -150,14 +150,14 @@
       "ingrediente": "Pollo para arroz",
       "productoId": "3724",
       "nombreComercial": "Pechugas enteras de pollo",
-      "precio": 4.19,
+      "precio": 4.38,
       "puntuacion": 10000
     },
     {
       "ingrediente": "Pechugas de pollo",
       "productoId": "3724",
       "nombreComercial": "Pechugas enteras de pollo",
-      "precio": 4.19,
+      "precio": 4.38,
       "puntuacion": 10000
     },
     {
