@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-18T13:59:30.567Z",
+  "actualizado": "2026-11-19T14:27:08.468Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4373,
+  "totalProductos": 4371,
   "productos": [
     {
       "productoId": "40339",
@@ -4791,8 +4791,8 @@
     {
       "productoId": "81204.1",
       "nombre": "Bacalao a rodajas",
-      "precio": 25.81,
-      "precioReferencia": 11.95,
+      "precio": 27.97,
+      "precioReferencia": 12.95,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 2.16,
@@ -4807,8 +4807,8 @@
     {
       "productoId": "81204.2",
       "nombre": "Bacalao abierto en libro sin cabeza y sin espina",
-      "precio": 25.81,
-      "precioReferencia": 11.95,
+      "precio": 27.97,
+      "precioReferencia": 12.95,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 2.16,
@@ -4855,8 +4855,8 @@
     {
       "productoId": "81204.3",
       "nombre": "Bacalao media pieza a rodajas",
-      "precio": 12.91,
-      "precioReferencia": 11.95,
+      "precio": 13.99,
+      "precioReferencia": 12.95,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.08,
@@ -4871,8 +4871,8 @@
     {
       "productoId": "81204.4",
       "nombre": "Bacalao media pieza abierto en libro sin cabeza y sin espina",
-      "precio": 12.91,
-      "precioReferencia": 11.95,
+      "precio": 13.99,
+      "precioReferencia": 12.95,
       "formato": "1/2 Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.08,
@@ -8631,8 +8631,8 @@
     {
       "productoId": "17713",
       "nombre": "Berlina rellena de crema de galleta con cobertura blanca y trozos de galleta",
-      "precio": 1.25,
-      "precioReferencia": 12.5,
+      "precio": 1,
+      "precioReferencia": 10,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.1,
@@ -10546,6 +10546,22 @@
       "subcategoria": "Embutido",
       "imagen": "https://prod-mercadona.imgix.net/images/725678a552c6bc61ff7fc8ead5003d80.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/6044/butifarra-fresca-bandeja",
+      "disponible": true
+    },
+    {
+      "productoId": "18681",
+      "nombre": "Cabecero de lomo Coppa Hacendado",
+      "precio": 2.95,
+      "precioReferencia": 25.653,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.115,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Lomo y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/4a6612095a08e83772b78155800cc7c2.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18681/cabecero-lomo-coppa-hacendado-finas-lonchas-paquete",
       "disponible": true
     },
     {
@@ -13746,22 +13762,6 @@
       "subcategoria": "Cereales integrales y muesli",
       "imagen": "https://prod-mercadona.imgix.net/images/2fd7905a5c3825481029c3588a8be900.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52751/cereales-avena-crunchy-hacendado-cacao-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "9532",
-      "nombre": "Cereales Cereal Mix Hacendado 0% azúcares añadidos",
-      "precio": 2.4,
-      "precioReferencia": 6.4,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.375,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cereales y galletas",
-      "subcategoria": "Cereales integrales y muesli",
-      "imagen": "https://prod-mercadona.imgix.net/images/db82637b4d7ecad929dfe2008794371f.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9532/cereales-cereal-mix-hacendado-0-azucares-anadidos-paquete",
       "disponible": true
     },
     {
@@ -21413,6 +21413,22 @@
       "disponible": true
     },
     {
+      "productoId": "10449",
+      "nombre": "Crema de leche para café Campina",
+      "precio": 1.4,
+      "precioReferencia": 7,
+      "formato": "Paquete",
+      "unidadesTotales": 20,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Huevos, leche y mantequilla",
+      "subcategoria": "Leche condensada y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/d60fe3bcdd22baf485111a85653587d3.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/10449/crema-leche-cafe-campina-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "11628",
       "nombre": "Crema de lentejas Hacendado",
       "precio": 1.7,
@@ -21591,8 +21607,8 @@
     {
       "productoId": "51181",
       "nombre": "Crema de queso camembert Hacendado",
-      "precio": 1.8,
-      "precioReferencia": 12,
+      "precio": 1.75,
+      "precioReferencia": 11.667,
       "formato": "Tarrina",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.15,
@@ -21607,8 +21623,8 @@
     {
       "productoId": "22780",
       "nombre": "Crema de queso viejo tostado mezcla Hacendado",
-      "precio": 1.74,
-      "precioReferencia": 11.6,
+      "precio": 1.75,
+      "precioReferencia": 11.667,
       "formato": "Tarrina",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.15,
@@ -22935,8 +22951,8 @@
     {
       "productoId": "73999",
       "nombre": "Dentífrico Max Fresh Colgate sabor menta fresca",
-      "precio": 2.85,
-      "precioReferencia": 2.85,
+      "precio": 2.25,
+      "precioReferencia": 2.25,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.1,
@@ -23063,8 +23079,8 @@
     {
       "productoId": "79593",
       "nombre": "Dentífrico Total original Colgate",
-      "precio": 2.45,
-      "precioReferencia": 3.267,
+      "precio": 2.9,
+      "precioReferencia": 3.867,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.075,
@@ -23447,8 +23463,8 @@
     {
       "productoId": "35964",
       "nombre": "Desodorante original Dove antitranspirante",
-      "precio": 3.15,
-      "precioReferencia": 1.575,
+      "precio": 3.75,
+      "precioReferencia": 1.875,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -23623,8 +23639,8 @@
     {
       "productoId": "46016",
       "nombre": "Desodorante roll-on Dry impact Nivea Men antitranspirante",
-      "precio": 2.1,
-      "precioReferencia": 4.2,
+      "precio": 2.5,
+      "precioReferencia": 5,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -23655,8 +23671,8 @@
     {
       "productoId": "46029",
       "nombre": "Desodorante roll-on Invisible Black & White Nivea antitranspirante",
-      "precio": 2.1,
-      "precioReferencia": 4.2,
+      "precio": 2.5,
+      "precioReferencia": 5,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -23671,8 +23687,8 @@
     {
       "productoId": "46030",
       "nombre": "Desodorante roll-on Invisible Black & White Nivea Men antitranspirante",
-      "precio": 2.1,
-      "precioReferencia": 4.2,
+      "precio": 2.5,
+      "precioReferencia": 5,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -23719,8 +23735,8 @@
     {
       "productoId": "35965",
       "nombre": "Desodorante roll-on original Dove antitranspirante",
-      "precio": 2.15,
-      "precioReferencia": 4.3,
+      "precio": 2.65,
+      "precioReferencia": 5.3,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -25927,8 +25943,8 @@
     {
       "productoId": "23066",
       "nombre": "Enjuague bucal cuidado total Listerine menta intensa",
-      "precio": 3.95,
-      "precioReferencia": 0.79,
+      "precio": 5.15,
+      "precioReferencia": 1.03,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.5,
@@ -25943,8 +25959,8 @@
     {
       "productoId": "23067",
       "nombre": "Enjuague bucal dientes y encías Listerine menta intensa",
-      "precio": 3.95,
-      "precioReferencia": 0.79,
+      "precio": 5.15,
+      "precioReferencia": 1.03,
       "formato": "Botella",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.5,
@@ -31922,22 +31938,6 @@
       "subcategoria": "Otras frutas",
       "imagen": "https://prod-mercadona.imgix.net/images/e51fbd5638b241e5e21e7af11b8f03b7.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/3915/granada-pieza",
-      "disponible": true
-    },
-    {
-      "productoId": "64128",
-      "nombre": "Granizado de café Hacendado",
-      "precio": 3.15,
-      "precioReferencia": 2.625,
-      "formato": "ud.",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 1.2,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Granizados y helados de hielo",
-      "imagen": "https://prod-mercadona.imgix.net/images/cb77eda62d183d48cff5132168bc930e.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64128/granizado-cafe-hacendado-pack-6",
       "disponible": true
     },
     {
@@ -38325,6 +38325,22 @@
       "disponible": true
     },
     {
+      "productoId": "11507",
+      "nombre": "Lomo cerdo 96% asado al horno La Carloteña con finas hierbas lonchas",
+      "precio": 2.5,
+      "precioReferencia": 20,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.125,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Pavo y otros",
+      "imagen": "https://prod-mercadona.imgix.net/images/1ad85ae3023b7f755f0e9dfbc5d03fdb.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/11507/lomo-asado-carlotena-lonchas-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "22428",
       "nombre": "Lomo cerdo 98% Florencia La Carloteña asado al horno lonchas",
       "precio": 2.5,
@@ -42544,7 +42560,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Mermelada",
-      "imagen": "https://prod-mercadona.imgix.net/images/1cb0e04e2c01974816092f738b1e4f00.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/751d487b333df0cbed1c5ddc696a8cb6.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/35932/mermelada-arandanos-hacendado-tarro",
       "disponible": true
     },
@@ -43664,7 +43680,7 @@
       "pesoAproximado": true,
       "sección": "Fruta y verdura",
       "subcategoria": "Otras frutas",
-      "imagen": "https://prod-mercadona.imgix.net/images/46b3eda6e89530b3f91913dac37af457.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/46b3eda6e89530b3f91913dac37af457.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/14379/moras-bandeja",
       "disponible": true
     },
@@ -44146,22 +44162,6 @@
       "subcategoria": "Cereales integrales y muesli",
       "imagen": "https://prod-mercadona.imgix.net/images/5b1898618dab16dce87e9a35cdaa44d8.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9357/muesli-crunchy-hacendado-con-frutos-secos-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "24563",
-      "nombre": "Muesli Crunchy Hacendado con legumbres",
-      "precio": 2.65,
-      "precioReferencia": 6.625,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.4,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cereales y galletas",
-      "subcategoria": "Cereales integrales y muesli",
-      "imagen": "https://prod-mercadona.imgix.net/images/c7100254bee972b4ba4a5733326cac5b.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/24563/muesli-crunchy-hacendado-con-legumbres-paquete",
       "disponible": true
     },
     {
@@ -50453,22 +50453,6 @@
       "disponible": true
     },
     {
-      "productoId": "68029",
-      "nombre": "Petit Nesquik Nestlé",
-      "precio": 1.85,
-      "precioReferencia": 5.139,
-      "formato": "Pack-6",
-      "unidadesTotales": 6,
-      "tamañoUnidad": 0.36,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Postres y yogures",
-      "subcategoria": "Yogures y postres infantiles",
-      "imagen": "https://prod-mercadona.imgix.net/images/1a4df2400855982477f38c22ad14dc3c.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/68029/petit-nesquik-nestle-pack-6",
-      "disponible": true
-    },
-    {
       "productoId": "19847",
       "nombre": "Petit sabor fresa Hacendado",
       "precio": 0.85,
@@ -52629,19 +52613,19 @@
       "disponible": true
     },
     {
-      "productoId": "44404",
-      "nombre": "Planchado fácil Bosque Verde",
-      "precio": 2.2,
-      "precioReferencia": 2.934,
+      "productoId": "24557",
+      "nombre": "Planchado fácil Bosque Verde perfumado",
+      "precio": 1.5,
+      "precioReferencia": 3,
       "formato": "Botella",
       "unidadesTotales": 0,
-      "tamañoUnidad": 0.75,
+      "tamañoUnidad": 0.5,
       "formatoUnidad": "l",
       "pesoAproximado": true,
       "sección": "Limpieza y hogar",
       "subcategoria": "Planchado",
-      "imagen": "https://prod-mercadona.imgix.net/images/d1ef88df67282223ca7f07085a0d5413.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/44404/planchado-facil-bosque-verde-con-pistola-botella",
+      "imagen": "https://prod-mercadona.imgix.net/images/f4ced858fbfd2007c4f90c1380b7bab8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/24557/planchado-facil-bosque-verde-perfumado-con-pistola-botella",
       "disponible": true
     },
     {
@@ -53255,8 +53239,8 @@
     {
       "productoId": "87240",
       "nombre": "Porciones de merluza",
-      "precio": 9.43,
-      "precioReferencia": 26.95,
+      "precio": 9.8,
+      "precioReferencia": 28,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.35,
@@ -54839,8 +54823,8 @@
     {
       "productoId": "50619",
       "nombre": "Queso brie marcillat de vaca Plaisir de Roy",
-      "precio": 1.65,
-      "precioReferencia": 8.25,
+      "precio": 1.75,
+      "precioReferencia": 8.75,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -54855,8 +54839,8 @@
     {
       "productoId": "51621",
       "nombre": "Queso camembert de vaca Marcillat",
-      "precio": 2,
-      "precioReferencia": 8.334,
+      "precio": 2.1,
+      "precioReferencia": 8.75,
       "formato": "Caja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.24,
@@ -55495,8 +55479,8 @@
     {
       "productoId": "50459",
       "nombre": "Queso lonchas edam de vaca Holland Corona",
-      "precio": 2,
-      "precioReferencia": 6.667,
+      "precio": 2.05,
+      "precioReferencia": 6.834,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.3,
@@ -55575,8 +55559,8 @@
     {
       "productoId": "50654",
       "nombre": "Queso lonchas gouda de vaca Hacendado",
-      "precio": 1.95,
-      "precioReferencia": 6.5,
+      "precio": 2.05,
+      "precioReferencia": 6.834,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.3,
@@ -55682,22 +55666,6 @@
       "subcategoria": "Queso curado",
       "imagen": "https://prod-mercadona.imgix.net/images/d7d1a59f7b20e93e6081316b2036329b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/50300/queso-madurado-oveja-beunde-do-idiazabal-pieza",
-      "disponible": true
-    },
-    {
-      "productoId": "50939",
-      "nombre": "Queso mezcla semicurado Hacendado",
-      "precio": 18,
-      "precioReferencia": 6,
-      "formato": "Pieza",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 3,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Charcutería y quesos",
-      "subcategoria": "Queso semicurado",
-      "imagen": "https://prod-mercadona.imgix.net/images/85642f18cb9630aeaa314514a4a7bf09.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/50939/queso-mezcla-semicurado-hacendado-pieza",
       "disponible": true
     },
     {
@@ -56039,8 +56007,8 @@
     {
       "productoId": "50478",
       "nombre": "Queso tierno gouda de vaca Hacendado",
-      "precio": 3.3,
-      "precioReferencia": 7.334,
+      "precio": 3.4,
+      "precioReferencia": 7.556,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.45,
@@ -56055,8 +56023,8 @@
     {
       "productoId": "50480",
       "nombre": "Queso tierno maasdam de vaca Holland Corona",
-      "precio": 3.3,
-      "precioReferencia": 8.25,
+      "precio": 3.4,
+      "precioReferencia": 8.5,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.4,
