@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-21T13:29:46.186Z",
+  "actualizado": "2026-11-22T13:22:07.329Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4369,
+  "totalProductos": 4367,
   "productos": [
     {
       "productoId": "40339",
@@ -6098,22 +6098,6 @@
       "subcategoria": "Pájaro",
       "imagen": "https://prod-mercadona.imgix.net/images/dd343c75df218a9df5ee874d4278bfbf.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/38111/barritas-fruta-miel-canarios-natura-caja",
-      "disponible": true
-    },
-    {
-      "productoId": "38145",
-      "nombre": "Barritas de fruta y miel para periquitos Natura",
-      "precio": 2.3,
-      "precioReferencia": 25.556,
-      "formato": "Caja",
-      "unidadesTotales": 3,
-      "tamañoUnidad": 0.09,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Pájaro",
-      "imagen": "https://prod-mercadona.imgix.net/images/6da035abb410607af8753a8f6d3a7603.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/38145/barritas-fruta-miel-periquitos-natura-caja",
       "disponible": true
     },
     {
@@ -42096,7 +42080,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pavo y otras aves",
-      "imagen": "https://prod-mercadona.imgix.net/images/5253c1ab65adc6f29e8671ff7125708b.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/79f45fcebafcf8cfd8fe07777196f0fe.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17556/magret-pato-pieza",
       "disponible": true
     },
@@ -62210,22 +62194,6 @@
       "subcategoria": "Queso tierno",
       "imagen": "https://prod-mercadona.imgix.net/images/ec36a5940e8d66756ef40258781861d1.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18440/snack-queso-madurado-vaca-hacendado-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "12996",
-      "nombre": "Snack frito Binkies sabor queso Hacendado",
-      "precio": 1,
-      "precioReferencia": 12.5,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.08,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Aperitivos",
-      "subcategoria": "Snacks",
-      "imagen": "https://prod-mercadona.imgix.net/images/3d664c9fbf0f61f7c0c172b379ac99b0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/12996/snack-frito-binkies-sabor-queso-hacendado-paquete",
       "disponible": true
     },
     {
