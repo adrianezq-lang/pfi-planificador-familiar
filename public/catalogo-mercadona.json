@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-24T15:54:17.877Z",
+  "actualizado": "2026-11-25T15:38:55.821Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4394,
+  "totalProductos": 4396,
   "productos": [
     {
       "productoId": "40339",
@@ -256,7 +256,7 @@
       "pesoAproximado": true,
       "sección": "Panadería y pastelería",
       "subcategoria": "Pan de bocadillo",
-      "imagen": "https://prod-mercadona.imgix.net/images/38fef33e878636abeda72b238c49a142.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/38fef33e878636abeda72b238c49a142.jpeg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/83292/6-panes-pulguitas-sin-aditivos-pack-6",
       "disponible": true
     },
@@ -4736,7 +4736,7 @@
       "pesoAproximado": true,
       "sección": "Azúcar, caramelos y chocolate",
       "subcategoria": "Azúcar",
-      "imagen": "https://prod-mercadona.imgix.net/images/782bc97fd2960e24b4505e25b384a2d4.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/d4d149e50a08ff20835228b416a0484b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/19897/azucar-blanco-hacendado-paquete",
       "disponible": true
     },
@@ -8023,8 +8023,8 @@
     {
       "productoId": "20941",
       "nombre": "Bebida láctea de fresa Danacol 0% azúcares añadidos 0% MG",
-      "precio": 5.45,
-      "precioReferencia": 5.45,
+      "precio": 5.9,
+      "precioReferencia": 5.9,
       "formato": "mini botellas",
       "unidadesTotales": 10,
       "tamañoUnidad": 1,
@@ -8167,8 +8167,8 @@
     {
       "productoId": "20738",
       "nombre": "Bebida láctea natural Actimel",
-      "precio": 4.95,
-      "precioReferencia": 4.125,
+      "precio": 5.99,
+      "precioReferencia": 4.992,
       "formato": "mini botellas",
       "unidadesTotales": 12,
       "tamañoUnidad": 1.2,
@@ -8183,8 +8183,8 @@
     {
       "productoId": "20709",
       "nombre": "Bebida láctea natural Actimel 0% MG 0% azúcares añadidos",
-      "precio": 4.95,
-      "precioReferencia": 4.125,
+      "precio": 5.99,
+      "precioReferencia": 4.992,
       "formato": "mini botellas",
       "unidadesTotales": 12,
       "tamañoUnidad": 1.2,
@@ -8247,8 +8247,8 @@
     {
       "productoId": "20940",
       "nombre": "Bebida láctea natural Danacol 0% azúcares añadidos 0% MG",
-      "precio": 5.45,
-      "precioReferencia": 5.45,
+      "precio": 5.9,
+      "precioReferencia": 5.9,
       "formato": "mini botellas",
       "unidadesTotales": 10,
       "tamañoUnidad": 1,
@@ -14519,8 +14519,8 @@
     {
       "productoId": "52853",
       "nombre": "Cerveza de trigo Paulaner",
-      "precio": 7.74,
-      "precioReferencia": 3.91,
+      "precio": 8.1,
+      "precioReferencia": 4.091,
       "formato": "Pack-6",
       "unidadesTotales": 6,
       "tamañoUnidad": 1.98,
@@ -14535,8 +14535,8 @@
     {
       "productoId": "52854",
       "nombre": "Cerveza de trigo Paulaner",
-      "precio": 1.39,
-      "precioReferencia": 4.213,
+      "precio": 1.35,
+      "precioReferencia": 4.091,
       "formato": "Botellín",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.33,
@@ -27317,22 +27317,6 @@
       "disponible": true
     },
     {
-      "productoId": "9973",
-      "nombre": "Espuma cabello Xtra Forte Deliplus fijación 4",
-      "precio": 1.85,
-      "precioReferencia": 0.617,
-      "formato": "Bote",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.3,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Cuidado del cabello",
-      "subcategoria": "Espuma y laca",
-      "imagen": "https://prod-mercadona.imgix.net/images/c847f94da8673900542804758648ed15.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/9973/espuma-cabello-xtra-forte-deliplus-fijacion-4-bote",
-      "disponible": true
-    },
-    {
       "productoId": "35610",
       "nombre": "Espuma de afeitar piel sensible Gillette con aloe vera",
       "precio": 2.15,
@@ -32885,22 +32869,6 @@
       "disponible": true
     },
     {
-      "productoId": "64414",
-      "nombre": "Helado de leche merengada Hacendado",
-      "precio": 2.95,
-      "precioReferencia": 2.95,
-      "formato": "Tarrina",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 1,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Tarrinas",
-      "imagen": "https://prod-mercadona.imgix.net/images/2412af59c3c31bb85eda3fa94f048e21.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/64414/helado-leche-merengada-hacendado-tarrina",
-      "disponible": true
-    },
-    {
       "productoId": "64445",
       "nombre": "Helado de turrón Hacendado",
       "precio": 3.25,
@@ -34613,6 +34581,22 @@
       "disponible": true
     },
     {
+      "productoId": "21536",
+      "nombre": "Jamón de bellota ibérico 100% La Hacienda del ibérico",
+      "precio": 275,
+      "precioReferencia": 39.286,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 6.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Jamón serrano",
+      "imagen": "https://prod-mercadona.imgix.net/images/cfa25e9e23130cd26182a80f3dcc0968.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21536/jamon-bellota-iberico-100-hacienda-iberico-pieza",
+      "disponible": true
+    },
+    {
       "productoId": "8566",
       "nombre": "Jamón de cebo ibérico 50% La Hacienda del Ibérico",
       "precio": 153,
@@ -34706,6 +34690,22 @@
       "subcategoria": "Pavo y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/b7691fb2718bc66ad695bb0454823efe.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/56619/jamon-pavo-hacendado-finas-lonchas-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "59028",
+      "nombre": "Jamón de Trevélez Antonio Álvarez lonchas extra finas",
+      "precio": 3.8,
+      "precioReferencia": 31.667,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.12,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Jamón serrano",
+      "imagen": "https://prod-mercadona.imgix.net/images/5513997f44d87852326a373071baec5b.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/59028/jamon-trevelez-antonio-alvarez-lonchas-extra-finas-paquete",
       "disponible": true
     },
     {
@@ -42304,7 +42304,7 @@
       "pesoAproximado": true,
       "sección": "Carne",
       "subcategoria": "Pavo y otras aves",
-      "imagen": "https://prod-mercadona.imgix.net/images/79f45fcebafcf8cfd8fe07777196f0fe.jpg?fit=crop&h=300&w=300",
+      "imagen": "https://prod-mercadona.imgix.net/images/5253c1ab65adc6f29e8671ff7125708b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/17556/magret-pato-pieza",
       "disponible": true
     },
@@ -45506,6 +45506,22 @@
       "subcategoria": "Jamón serrano",
       "imagen": "https://prod-mercadona.imgix.net/images/08b26cb262625ec4073ce6a5daf80175.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/86404/paleta-curada-lonchas-paletas-marpa-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "86906",
+      "nombre": "Paleta de bellota ibérica 50% La Hacienda del ibérico",
+      "precio": 100,
+      "precioReferencia": 25,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 4.5,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Jamón serrano",
+      "imagen": "https://prod-mercadona.imgix.net/images/45f30ef872fdfad6be5f3eeab50e9cf4.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/86906/paleta-bellota-iberica-50-hacienda-iberico-pieza",
       "disponible": true
     },
     {
@@ -54613,6 +54629,38 @@
       "disponible": true
     },
     {
+      "productoId": "2228",
+      "nombre": "Preparado solomillo de cerdo marinado congelado",
+      "precio": 6.24,
+      "precioReferencia": 7.8,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.8,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Congelados",
+      "subcategoria": "Carne",
+      "imagen": "https://prod-mercadona.imgix.net/images/ca9de27c3cc48047eb795200ae5f5a5f.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/2228/solomillo-cerdo-marinado-congelado-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "25353",
+      "nombre": "Preparado solomillo de pavo marinado congelado",
+      "precio": 2.73,
+      "precioReferencia": 7.8,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.35,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Congelados",
+      "subcategoria": "Carne",
+      "imagen": "https://prod-mercadona.imgix.net/images/134b36b88ca0f81fd392ce8dc434f3aa.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/25353/solomillo-pavo-marinado-congelado-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "5840",
       "nombre": "Presa de bellota ibérica La Hacienda del Ibérico",
       "precio": 29.4,
@@ -56322,6 +56370,22 @@
       "subcategoria": "Queso tierno",
       "imagen": "https://prod-mercadona.imgix.net/images/82bed1f7916ed6b6cefbd53fd44cd326.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/50915/queso-tierno-bajo-sal-mezcla-hacendado-pieza",
+      "disponible": true
+    },
+    {
+      "productoId": "50935",
+      "nombre": "Queso tierno de vaca Hacendado",
+      "precio": 6,
+      "precioReferencia": 5.715,
+      "formato": "Pieza",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.05,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Charcutería y quesos",
+      "subcategoria": "Queso tierno",
+      "imagen": "https://prod-mercadona.imgix.net/images/6321f051781cee8452a9a4437ddef8df.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/50935/queso-tierno-vaca-hacendado-pieza",
       "disponible": true
     },
     {
@@ -62773,22 +62837,6 @@
       "disponible": true
     },
     {
-      "productoId": "2228",
-      "nombre": "Solomillo de cerdo marinado congelado",
-      "precio": 6.24,
-      "precioReferencia": 7.8,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.8,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/ca9de27c3cc48047eb795200ae5f5a5f.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/2228/solomillo-cerdo-marinado-congelado-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "9995",
       "nombre": "Solomillo de pavo",
       "precio": 4.8,
@@ -62802,22 +62850,6 @@
       "subcategoria": "Pavo y otras aves",
       "imagen": "https://prod-mercadona.imgix.net/images/7dec8c680db2281af94262095695fc04.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/9995/solomillo-pavo-paquete",
-      "disponible": true
-    },
-    {
-      "productoId": "25353",
-      "nombre": "Solomillo de pavo marinado congelado",
-      "precio": 3.12,
-      "precioReferencia": 7.8,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.4,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Congelados",
-      "subcategoria": "Carne",
-      "imagen": "https://prod-mercadona.imgix.net/images/134b36b88ca0f81fd392ce8dc434f3aa.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/25353/solomillo-pavo-marinado-congelado-paquete",
       "disponible": true
     },
     {
