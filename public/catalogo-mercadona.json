@@ -1,8 +1,8 @@
 {
-  "actualizado": "2026-11-25T15:38:55.821Z",
+  "actualizado": "2026-11-26T15:18:19.905Z",
   "codigoPostal": "48950",
   "almacen": "4293",
-  "totalProductos": 4396,
+  "totalProductos": 4408,
   "productos": [
     {
       "productoId": "40339",
@@ -626,6 +626,22 @@
       "subcategoria": "Aceite de oliva",
       "imagen": "https://prod-mercadona.imgix.net/images/efb4b2c1a0e2cb8d9d522a815c295fa0.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/4718/aceite-oliva-virgen-extra-hacendado-spray",
+      "disponible": true
+    },
+    {
+      "productoId": "14727",
+      "nombre": "Aceite de oliva virgen extra Hacendado",
+      "precio": 17.5,
+      "precioReferencia": 3.5,
+      "formato": "Garrafa",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 5,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Aceite, especias y salsas",
+      "subcategoria": "Aceite de oliva",
+      "imagen": "https://prod-mercadona.imgix.net/images/87b9a9f905ba0b8816243cf02f5f58af.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/14727/aceite-oliva-virgen-extra-hacendado-garrafa",
       "disponible": true
     },
     {
@@ -2455,8 +2471,8 @@
     {
       "productoId": "11957",
       "nombre": "Albóndigas de vacuno",
-      "precio": 6,
-      "precioReferencia": 14.286,
+      "precio": 5.8,
+      "precioReferencia": 13.81,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.42,
@@ -6133,22 +6149,6 @@
       "disponible": true
     },
     {
-      "productoId": "38111",
-      "nombre": "Barritas de fruta y miel para canarios Natura",
-      "precio": 2.3,
-      "precioReferencia": 25.556,
-      "formato": "Caja",
-      "unidadesTotales": 3,
-      "tamañoUnidad": 0.09,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Mascotas",
-      "subcategoria": "Pájaro",
-      "imagen": "https://prod-mercadona.imgix.net/images/dd343c75df218a9df5ee874d4278bfbf.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/38111/barritas-fruta-miel-canarios-natura-caja",
-      "disponible": true
-    },
-    {
       "productoId": "14133",
       "nombre": "Barritas de galleta bañadas en chocolate con leche Chips Ahoy",
       "precio": 1.5,
@@ -7415,8 +7415,8 @@
     {
       "productoId": "24547",
       "nombre": "Bebida energética Red Bull",
-      "precio": 8,
-      "precioReferencia": 4,
+      "precio": 10.64,
+      "precioReferencia": 5.32,
       "formato": "latas",
       "unidadesTotales": 8,
       "tamañoUnidad": 2,
@@ -8983,8 +8983,8 @@
     {
       "productoId": "23476",
       "nombre": "Bífidus natural edulcorado probióticos Activia 0% MG 0% azúcares añadidos",
-      "precio": 3.99,
-      "precioReferencia": 4.157,
+      "precio": 3.3,
+      "precioReferencia": 3.438,
       "formato": "ud.",
       "unidadesTotales": 8,
       "tamañoUnidad": 0.96,
@@ -8999,8 +8999,8 @@
     {
       "productoId": "23477",
       "nombre": "Bífidus natural probióticos Activia 0% MG  0% azúcares añadidos",
-      "precio": 3.99,
-      "precioReferencia": 4.157,
+      "precio": 3.3,
+      "precioReferencia": 3.438,
       "formato": "ud.",
       "unidadesTotales": 8,
       "tamañoUnidad": 0.96,
@@ -10023,8 +10023,8 @@
     {
       "productoId": "17620",
       "nombre": "Bomba de carrillada vacuno con bechamel",
-      "precio": 3,
-      "precioReferencia": 11.765,
+      "precio": 3.2,
+      "precioReferencia": 12.55,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.255,
@@ -10178,6 +10178,38 @@
       "subcategoria": "Bonito",
       "imagen": "https://prod-mercadona.imgix.net/images/10b3b536abf3bacd07e04a6b3ddd9724.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/18108/bonito-norte-escabeche-hacendado-lata",
+      "disponible": true
+    },
+    {
+      "productoId": "81661.2",
+      "nombre": "Boquerón limpio sin cabeza",
+      "precio": 1.79,
+      "precioReferencia": 8.95,
+      "formato": "Granel",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Boquerón",
+      "imagen": "https://prod-mercadona.imgix.net/images/b55f89c3aefe2502e390182d9f47657a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81661.2/boqueron-limpio-sin-cabeza-sin-tripa-granel",
+      "disponible": true
+    },
+    {
+      "productoId": "81661.1",
+      "nombre": "Boquerón sin limpiar",
+      "precio": 1.79,
+      "precioReferencia": 8.95,
+      "formato": "Granel",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Boquerón",
+      "imagen": "https://prod-mercadona.imgix.net/images/1d2cb161f810c273ec84e45691b07e6d.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81661.1/boqueron-sin-limpiar-granel",
       "disponible": true
     },
     {
@@ -12423,8 +12455,8 @@
     {
       "productoId": "24267",
       "nombre": "Camarón boreal cocido y pelado Royal Greenland ultracongelado",
-      "precio": 4.75,
-      "precioReferencia": 23.75,
+      "precio": 4.5,
+      "precioReferencia": 22.5,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -17991,8 +18023,8 @@
     {
       "productoId": "35926",
       "nombre": "Colgador WC Power Activ Pino Bref",
-      "precio": 2.95,
-      "precioReferencia": 29.5,
+      "precio": 2.45,
+      "precioReferencia": 24.5,
       "formato": "Paquete",
       "unidadesTotales": 2,
       "tamañoUnidad": 0.1,
@@ -19861,6 +19893,22 @@
       "disponible": true
     },
     {
+      "productoId": "21535",
+      "nombre": "Comida perro con pollo, ternera, frutas y verduras adulto Compy",
+      "precio": 10.85,
+      "precioReferencia": 1.085,
+      "formato": "Saco",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 10,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación seca",
+      "imagen": "https://prod-mercadona.imgix.net/images/d6b048f1a995053c30e6395b919d8509.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21535/comida-perro-adulto-compy-con-pollo-ternera-frutas-verduras-razas-medianas-grandes-saco",
+      "disponible": true
+    },
+    {
       "productoId": "15972",
       "nombre": "Comida perro con pollo, ternera, frutas y verduras adulto Compy",
       "precio": 6,
@@ -21063,8 +21111,8 @@
     {
       "productoId": "2679",
       "nombre": "Costillar de lechón congelado",
-      "precio": 7.52,
-      "precioReferencia": 9.9,
+      "precio": 6.76,
+      "precioReferencia": 8.9,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.76,
@@ -22807,8 +22855,8 @@
     {
       "productoId": "62503",
       "nombre": "Delicias del mar de surimi Hacendado",
-      "precio": 2,
-      "precioReferencia": 8,
+      "precio": 1.9,
+      "precioReferencia": 7.6,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -23127,8 +23175,8 @@
     {
       "productoId": "13913",
       "nombre": "Dentífrico Pro-Expert Oral-B sabor menta especiada",
-      "precio": 2.85,
-      "precioReferencia": 3.8,
+      "precio": 2.5,
+      "precioReferencia": 3.334,
       "formato": "Tubo",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.075,
@@ -23383,8 +23431,8 @@
     {
       "productoId": "44399",
       "nombre": "Desodorante cobalt dry Rexona Men antitranspirante",
-      "precio": 2.9,
-      "precioReferencia": 1.45,
+      "precio": 2.25,
+      "precioReferencia": 1.125,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -23527,8 +23575,8 @@
     {
       "productoId": "44398",
       "nombre": "Desodorante invisible black + white Rexona antimanchas",
-      "precio": 2.9,
-      "precioReferencia": 1.45,
+      "precio": 2.25,
+      "precioReferencia": 1.125,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -23559,8 +23607,8 @@
     {
       "productoId": "44400",
       "nombre": "Desodorante invisible ice fresh Rexona Men antitranspirante y antimanchas",
-      "precio": 2.9,
-      "precioReferencia": 1.45,
+      "precio": 2.25,
+      "precioReferencia": 1.125,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -23607,8 +23655,8 @@
     {
       "productoId": "35964",
       "nombre": "Desodorante original Dove antitranspirante",
-      "precio": 3.75,
-      "precioReferencia": 1.875,
+      "precio": 3.4,
+      "precioReferencia": 1.7,
       "formato": "Spray",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -23879,8 +23927,8 @@
     {
       "productoId": "35965",
       "nombre": "Desodorante roll-on original Dove antitranspirante",
-      "precio": 2.65,
-      "precioReferencia": 5.3,
+      "precio": 2.15,
+      "precioReferencia": 4.3,
       "formato": "Envase",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.05,
@@ -25415,8 +25463,8 @@
     {
       "productoId": "17688",
       "nombre": "Eau de toilette hombre Faris Aqua Royale",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
+      "precio": 6.5,
+      "precioReferencia": 3.25,
       "formato": "Frasco",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -25479,8 +25527,8 @@
     {
       "productoId": "21766",
       "nombre": "Eau de toilette hombre Vitae Aqua Royale",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
+      "precio": 6.5,
+      "precioReferencia": 3.25,
       "formato": "Frasco",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -25495,8 +25543,8 @@
     {
       "productoId": "21765",
       "nombre": "Eau de toilette hombre Woods Aqua Royale",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
+      "precio": 6.5,
+      "precioReferencia": 3.25,
       "formato": "Frasco",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -25543,8 +25591,8 @@
     {
       "productoId": "21764",
       "nombre": "Eau de toilette mujer Amber Aqua Royale",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
+      "precio": 6.5,
+      "precioReferencia": 3.25,
       "formato": "Frasco",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -25607,8 +25655,8 @@
     {
       "productoId": "21763",
       "nombre": "Eau de toilette mujer Verdant Aqua Royale",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
+      "precio": 6.5,
+      "precioReferencia": 3.25,
       "formato": "Frasco",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -25639,8 +25687,8 @@
     {
       "productoId": "17687",
       "nombre": "Eau de toilette mujer Wonder Aqua Royale",
-      "precio": 7.5,
-      "precioReferencia": 3.75,
+      "precio": 6.5,
+      "precioReferencia": 3.25,
       "formato": "Frasco",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.2,
@@ -27285,6 +27333,22 @@
       "disponible": true
     },
     {
+      "productoId": "17993",
+      "nombre": "Espuma cabello Ondas Curly Deliplus fijación 3",
+      "precio": 1.55,
+      "precioReferencia": 0.62,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.25,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado del cabello",
+      "subcategoria": "Espuma y laca",
+      "imagen": "https://prod-mercadona.imgix.net/images/f93694e28026a72d53450c6739494792.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17993/espuma-cabello-ondas-curly-deliplus-fijacion-3-bote",
+      "disponible": true
+    },
+    {
       "productoId": "17724",
       "nombre": "Espuma cabello rizos definidos Pantene fijación 5",
       "precio": 5,
@@ -27314,6 +27378,38 @@
       "subcategoria": "Espuma y laca",
       "imagen": "https://prod-mercadona.imgix.net/images/94a89d266bf85a77dca9224ad7a252ce.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23764/espuma-cabello-rizos-descarados-giorgi-fijacion-4-spray",
+      "disponible": true
+    },
+    {
+      "productoId": "17994",
+      "nombre": "Espuma cabello Volum Deliplus fijación 2",
+      "precio": 1.55,
+      "precioReferencia": 0.62,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.25,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado del cabello",
+      "subcategoria": "Espuma y laca",
+      "imagen": "https://prod-mercadona.imgix.net/images/d6b846037b5ab1faa7edf25010ce691b.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17994/espuma-cabello-volum-deliplus-fijacion-2-bote",
+      "disponible": true
+    },
+    {
+      "productoId": "17992",
+      "nombre": "Espuma cabello Xtra Forte Deliplus fijación 4",
+      "precio": 1.55,
+      "precioReferencia": 0.62,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.25,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Cuidado del cabello",
+      "subcategoria": "Espuma y laca",
+      "imagen": "https://prod-mercadona.imgix.net/images/f2de4bd20a106da72f1c0fac793fe814.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/17992/espuma-cabello-xtra-forte-deliplus-fijacion-4-bote",
       "disponible": true
     },
     {
@@ -27879,8 +27975,8 @@
     {
       "productoId": "87163",
       "nombre": "Filete de rodaballo",
-      "precio": 8.25,
-      "precioReferencia": 33,
+      "precio": 8,
+      "precioReferencia": 32,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -27895,8 +27991,8 @@
     {
       "productoId": "87208",
       "nombre": "Filete de salmón",
-      "precio": 17.85,
-      "precioReferencia": 21,
+      "precio": 17,
+      "precioReferencia": 20,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.85,
@@ -29605,22 +29701,6 @@
       "disponible": true
     },
     {
-      "productoId": "17928",
-      "nombre": "Galletas Choco Bom Gullón con chips de chocolate recubiertas de chocolate blanco",
-      "precio": 1,
-      "precioReferencia": 10,
-      "formato": "Paquete",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.1,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Cereales y galletas",
-      "subcategoria": "Con chocolate y rellenas",
-      "imagen": "https://prod-mercadona.imgix.net/images/a9933678188109d2ae67077f56ddf6f0.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/17928/galletas-choco-bom-gullon-con-chips-chocolate-recubiertas-chocolate-blanco-paquete",
-      "disponible": true
-    },
-    {
       "productoId": "14641",
       "nombre": "Galletas Choco leche con chocolatina Hacendado",
       "precio": 1.35,
@@ -30327,8 +30407,8 @@
     {
       "productoId": "24260",
       "nombre": "Gambón grande congelado",
-      "precio": 19.9,
-      "precioReferencia": 9.95,
+      "precio": 18,
+      "precioReferencia": 9,
       "formato": "Caja",
       "unidadesTotales": 0,
       "tamañoUnidad": 2,
@@ -35589,10 +35669,10 @@
       "disponible": true
     },
     {
-      "productoId": "7895",
+      "productoId": "21404",
       "nombre": "Lágrimas hidratantes para los ojos Deliplus con hialuronato sódico 0,2%",
-      "precio": 5.7,
-      "precioReferencia": 0.19,
+      "precio": 5.4,
+      "precioReferencia": 0.18,
       "formato": "Caja",
       "unidadesTotales": 30,
       "tamañoUnidad": 1,
@@ -35600,8 +35680,8 @@
       "pesoAproximado": true,
       "sección": "Fitoterapia y parafarmacia",
       "subcategoria": "Botiquín",
-      "imagen": "https://prod-mercadona.imgix.net/images/047156c118c7ba89a713eecb169de26e.jpeg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/7895/lagrimas-hidratantes-ojos-deliplus-con-hialuronato-sodico-02-sin-conservantes-caja",
+      "imagen": "https://prod-mercadona.imgix.net/images/30bbe7133cf94cbf6dd7044061693acc.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/21404/lagrimas-hidratantes-ojos-deliplus-con-hialuronato-sodico-02-sin-conservantes-caja",
       "disponible": true
     },
     {
@@ -35639,8 +35719,8 @@
     {
       "productoId": "63144",
       "nombre": "Langostino caballitos rebozados Hacendado ultracongelados",
-      "precio": 3.25,
-      "precioReferencia": 10.834,
+      "precio": 3.15,
+      "precioReferencia": 10.5,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.3,
@@ -35685,6 +35765,22 @@
       "disponible": true
     },
     {
+      "productoId": "30096",
+      "nombre": "Langostino cocido",
+      "precio": 8.9,
+      "precioReferencia": 8.9,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Marisco",
+      "imagen": "https://prod-mercadona.imgix.net/images/5ff0e3ecbe8a83365f7f979034f289d2.jpeg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/30096/langostino-cocido-bandeja",
+      "disponible": true
+    },
+    {
       "productoId": "24477",
       "nombre": "Langostino cocido y pelado Hacendado ultracongelado",
       "precio": 5,
@@ -35703,8 +35799,8 @@
     {
       "productoId": "24282",
       "nombre": "Langostino crudo Hacendado ultracongelado",
-      "precio": 11.5,
-      "precioReferencia": 11.5,
+      "precio": 10.9,
+      "precioReferencia": 10.9,
       "formato": "Caja",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -35991,8 +36087,8 @@
     {
       "productoId": "86379",
       "nombre": "Lavavajillas Total Somat en gel 5 en 1",
-      "precio": 3.95,
-      "precioReferencia": 0.124,
+      "precio": 4.95,
+      "precioReferencia": 0.155,
       "formato": "Botella",
       "unidadesTotales": 32,
       "tamañoUnidad": 0.576,
@@ -38902,7 +38998,7 @@
     },
     {
       "productoId": "18822",
-      "nombre": "Lote facial mujer Deliplus tratamiento intensivo de jalea real y colágeno",
+      "nombre": "Lote facial mujer Deliplus tratamiento intensivo de jalea real, NAD+ y colágeno",
       "precio": 7.5,
       "precioReferencia": 7.5,
       "formato": "Caja",
@@ -39015,8 +39111,8 @@
     {
       "productoId": "18183",
       "nombre": "Lote hombre Faris Aqua Royale",
-      "precio": 9,
-      "precioReferencia": 9,
+      "precio": 8,
+      "precioReferencia": 8,
       "formato": "Caja",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -39303,8 +39399,8 @@
     {
       "productoId": "18176",
       "nombre": "Lote mujer Wonder Aqua Royale",
-      "precio": 9,
-      "precioReferencia": 9,
+      "precio": 8,
+      "precioReferencia": 8,
       "formato": "Caja",
       "unidadesTotales": 0,
       "tamañoUnidad": 1,
@@ -40050,22 +40146,6 @@
       "subcategoria": "Polvorones y mazapanes",
       "imagen": "https://prod-mercadona.imgix.net/images/a4b5f82672876fc27f70494b55455885.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/85709/mantecado-cacao-muralla",
-      "disponible": true
-    },
-    {
-      "productoId": "85845",
-      "nombre": "Mantecado de cacao sin gluten La Muralla",
-      "precio": 0.22,
-      "precioReferencia": 5.5,
-      "formato": "Envase",
-      "unidadesTotales": 0,
-      "tamañoUnidad": 0.04,
-      "formatoUnidad": "kg",
-      "pesoAproximado": true,
-      "sección": "Panadería y pastelería",
-      "subcategoria": "Polvorones y mazapanes",
-      "imagen": "https://prod-mercadona.imgix.net/images/ba2b8c7f775d87bbfa96a8085ba743db.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/85845/mantecado-cacao-sin-gluten-muralla",
       "disponible": true
     },
     {
@@ -41269,6 +41349,22 @@
       "disponible": true
     },
     {
+      "productoId": "18825",
+      "nombre": "Masa fresca pizza de cereales y semillas Hacendado",
+      "precio": 2.5,
+      "precioReferencia": 4.465,
+      "formato": "ud.",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 0.56,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Pizzas y platos preparados",
+      "subcategoria": "Base de pizza",
+      "imagen": "https://prod-mercadona.imgix.net/images/c4ccde37f9881a4238874579a92d593e.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18825/masa-fresca-pizza-cereales-semillas-hacendado",
+      "disponible": true
+    },
+    {
       "productoId": "13985",
       "nombre": "Masa fresca pizza Hacendado",
       "precio": 2.2,
@@ -41669,6 +41765,22 @@
       "disponible": true
     },
     {
+      "productoId": "18750",
+      "nombre": "Mascarilla facial Navideña Cookie Mask Deliplus con extracto de cacao",
+      "precio": 2,
+      "precioReferencia": 2,
+      "formato": "Paquete",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1,
+      "formatoUnidad": "ud",
+      "pesoAproximado": true,
+      "sección": "Cuidado facial y corporal",
+      "subcategoria": "Limpieza de cara",
+      "imagen": "https://prod-mercadona.imgix.net/images/de103906e862b0e5000cbcfd5288dce8.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18750/mascarilla-facial-navidena-cookie-mask-deliplus-con-extracto-cacao-tamano-xs-paquete",
+      "disponible": true
+    },
+    {
       "productoId": "20359",
       "nombre": "Mascarilla facial peeling carbón Montagne Jeunesse",
       "precio": 1.85,
@@ -42055,8 +42167,8 @@
     {
       "productoId": "35840",
       "nombre": "Mayonesa Hellmann's",
-      "precio": 2.95,
-      "precioReferencia": 6.556,
+      "precio": 2.65,
+      "precioReferencia": 5.889,
       "formato": "Tarro",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.45,
@@ -44583,8 +44695,8 @@
     {
       "productoId": "62501",
       "nombre": "Muslitos de surimi Hacendado ultracongelados",
-      "precio": 2.75,
-      "precioReferencia": 6.112,
+      "precio": 2.65,
+      "precioReferencia": 5.889,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.45,
@@ -45799,8 +45911,8 @@
     {
       "productoId": "62502",
       "nombre": "Palitos de surimi Hacendado",
-      "precio": 2,
-      "precioReferencia": 4.348,
+      "precio": 1.9,
+      "precioReferencia": 4.131,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.46,
@@ -48791,8 +48903,8 @@
     {
       "productoId": "87775",
       "nombre": "Patas de pulpo cocido",
-      "precio": 10.5,
-      "precioReferencia": 42,
+      "precio": 10.25,
+      "precioReferencia": 41,
       "formato": "Bandeja",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.25,
@@ -49554,6 +49666,22 @@
       "subcategoria": "Paté",
       "imagen": "https://prod-mercadona.imgix.net/images/91214b6fc7bf43e1ab576f6f73316c2a.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/23596/pate-pollo-asado-hacendado-tarro",
+      "disponible": true
+    },
+    {
+      "productoId": "16554",
+      "nombre": "Paté de pollo perro adulto Delikuit",
+      "precio": 2.1,
+      "precioReferencia": 1.75,
+      "formato": "Bote",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 1.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Mascotas",
+      "subcategoria": "Alimentación húmeda",
+      "imagen": "https://prod-mercadona.imgix.net/images/9f75b65c6b0f073a8f72545f451dc708.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/16554/pate-perro-adulto-delikuit-con-pollo-bote",
       "disponible": true
     },
     {
@@ -52023,8 +52151,8 @@
     {
       "productoId": "3076",
       "nombre": "Piña",
-      "precio": 3.95,
-      "precioReferencia": 2,
+      "precio": 3.75,
+      "precioReferencia": 1.9,
       "formato": "Pieza",
       "unidadesTotales": 0,
       "tamañoUnidad": 1.974,
@@ -53442,6 +53570,22 @@
       "subcategoria": "Polvos",
       "imagen": "https://prod-mercadona.imgix.net/images/4414d3b170a3989903e4bb5a59373d00.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/21638/polvo-suelto-translucido-deliplus-con-acido-hialuronico-contiene-esponja",
+      "disponible": true
+    },
+    {
+      "productoId": "85708",
+      "nombre": "Polvorón de almendra La Muralla",
+      "precio": 0.25,
+      "precioReferencia": 5.5,
+      "formato": "Envase",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.045,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Panadería y pastelería",
+      "subcategoria": "Polvorones y mazapanes",
+      "imagen": "https://prod-mercadona.imgix.net/images/00958814b61cb861ce6291f5be119108.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/85708/polvoron-almendra-muralla",
       "disponible": true
     },
     {
@@ -55077,6 +55221,22 @@
       "disponible": true
     },
     {
+      "productoId": "82850",
+      "nombre": "Pulpo cocido",
+      "precio": 12.6,
+      "precioReferencia": 36,
+      "formato": "Bandeja",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.35,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Sepia, pulpo y calamar",
+      "imagen": "https://prod-mercadona.imgix.net/images/d2a36c315f1961f0da0d42b75cf3bd25.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/82850/pulpo-cocido-bandeja",
+      "disponible": true
+    },
+    {
       "productoId": "24401",
       "nombre": "Pulpo crudo grande Hacendado congelado",
       "precio": 65.04,
@@ -55221,19 +55381,19 @@
       "disponible": true
     },
     {
-      "productoId": "51621",
-      "nombre": "Queso camembert de vaca Marcillat",
-      "precio": 2.1,
-      "precioReferencia": 8.75,
+      "productoId": "24052",
+      "nombre": "Queso camembert de vaca Hacendado",
+      "precio": 2,
+      "precioReferencia": 8,
       "formato": "Caja",
       "unidadesTotales": 0,
-      "tamañoUnidad": 0.24,
+      "tamañoUnidad": 0.25,
       "formatoUnidad": "kg",
       "pesoAproximado": true,
       "sección": "Charcutería y quesos",
       "subcategoria": "Queso especialidades",
-      "imagen": "https://prod-mercadona.imgix.net/images/f0a656c1468da1084f89081ef070c1bd.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/51621/queso-camembert-vaca-marcillat-caja",
+      "imagen": "https://prod-mercadona.imgix.net/images/5e089594fbd42407fdc5f12fca49acde.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/24052/queso-camembert-vaca-hacendado-caja",
       "disponible": true
     },
     {
@@ -56855,8 +57015,8 @@
     {
       "productoId": "63161",
       "nombre": "Rabas empanadas Hacendado ultracongeladas",
-      "precio": 4.05,
-      "precioReferencia": 8.1,
+      "precio": 3.9,
+      "precioReferencia": 7.8,
       "formato": "Paquete",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.5,
@@ -61031,8 +61191,8 @@
     {
       "productoId": "35839",
       "nombre": "Salsa Original Ligeresa",
-      "precio": 2.5,
-      "precioReferencia": 5.883,
+      "precio": 2.15,
+      "precioReferencia": 5.059,
       "formato": "Tarro",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.425,
@@ -61426,6 +61586,38 @@
       "subcategoria": "Insecticida eléctrico y otros",
       "imagen": "https://prod-mercadona.imgix.net/images/ff94badd7959f672946c3c482eba8e9b.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/52468/bolsitas-antipolillas-ropa-limpia-bosque-verde-paquete",
+      "disponible": true
+    },
+    {
+      "productoId": "81100.2",
+      "nombre": "Sardina limpia sin cabeza",
+      "precio": 1.19,
+      "precioReferencia": 5.95,
+      "formato": "Granel",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Sardina",
+      "imagen": "https://prod-mercadona.imgix.net/images/2b65dea09c00f7ea0a265455ce20ff1a.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81100.2/sardina-limpia-sin-cabeza-sin-tripa-granel",
+      "disponible": true
+    },
+    {
+      "productoId": "81100.1",
+      "nombre": "Sardina sin limpiar",
+      "precio": 1.19,
+      "precioReferencia": 5.95,
+      "formato": "Granel",
+      "unidadesTotales": 0,
+      "tamañoUnidad": 0.2,
+      "formatoUnidad": "kg",
+      "pesoAproximado": true,
+      "sección": "Marisco y pescado",
+      "subcategoria": "Sardina",
+      "imagen": "https://prod-mercadona.imgix.net/images/5b92b803a7932c1cd2ece3e80d11a853.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/81100.1/sardina-sin-limpiar-granel",
       "disponible": true
     },
     {
@@ -63159,8 +63351,8 @@
     {
       "productoId": "13969",
       "nombre": "Sorbete corporal Posidonia Deliplus",
-      "precio": 2.9,
-      "precioReferencia": 0.967,
+      "precio": 1.9,
+      "precioReferencia": 0.634,
       "formato": "Tarro",
       "unidadesTotales": 0,
       "tamañoUnidad": 0.3,
@@ -64837,22 +65029,6 @@
       "disponible": true
     },
     {
-      "productoId": "18698",
-      "nombre": "Tinto de verano limón Don Simón",
-      "precio": 2.5,
-      "precioReferencia": 0.834,
-      "formato": "botellas",
-      "unidadesTotales": 2,
-      "tamañoUnidad": 3,
-      "formatoUnidad": "l",
-      "pesoAproximado": true,
-      "sección": "Bodega",
-      "subcategoria": "Tinto de verano y sangría",
-      "imagen": "https://prod-mercadona.imgix.net/images/c5b2eed9caa8d7eef5b33a0aaf9f8698.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18698/tinto-verano-limon-don-simon",
-      "disponible": true
-    },
-    {
       "productoId": "66747",
       "nombre": "Tinto de verano limón Don Simón",
       "precio": 1.5,
@@ -64869,8 +65045,8 @@
       "disponible": true
     },
     {
-      "productoId": "18699",
-      "nombre": "Tinto de verano sin alcohol limón Don Simón",
+      "productoId": "18698",
+      "nombre": "Tinto de verano limón Don Simón",
       "precio": 2.5,
       "precioReferencia": 0.834,
       "formato": "botellas",
@@ -64880,8 +65056,8 @@
       "pesoAproximado": true,
       "sección": "Bodega",
       "subcategoria": "Tinto de verano y sangría",
-      "imagen": "https://prod-mercadona.imgix.net/images/4158b67ecaf01c389afdeb8617824b22.jpg?fit=crop&h=300&w=300",
-      "url": "https://tienda.mercadona.es/product/18699/tinto-verano-sin-alcohol-limon-don-simon",
+      "imagen": "https://prod-mercadona.imgix.net/images/c5b2eed9caa8d7eef5b33a0aaf9f8698.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18698/tinto-verano-limon-don-simon",
       "disponible": true
     },
     {
@@ -64898,6 +65074,22 @@
       "subcategoria": "Tinto de verano y sangría",
       "imagen": "https://prod-mercadona.imgix.net/images/3a87cbc85e13a3bd2126ea70ba6c80b4.jpg?fit=crop&h=300&w=300",
       "url": "https://tienda.mercadona.es/product/66746/tinto-verano-00-sin-alcohol-limon-don-simon-botella",
+      "disponible": true
+    },
+    {
+      "productoId": "18699",
+      "nombre": "Tinto de verano sin alcohol limón Don Simón",
+      "precio": 2.5,
+      "precioReferencia": 0.834,
+      "formato": "botellas",
+      "unidadesTotales": 2,
+      "tamañoUnidad": 3,
+      "formatoUnidad": "l",
+      "pesoAproximado": true,
+      "sección": "Bodega",
+      "subcategoria": "Tinto de verano y sangría",
+      "imagen": "https://prod-mercadona.imgix.net/images/4158b67ecaf01c389afdeb8617824b22.jpg?fit=crop&h=300&w=300",
+      "url": "https://tienda.mercadona.es/product/18699/tinto-verano-sin-alcohol-limon-don-simon",
       "disponible": true
     },
     {
@@ -69655,8 +69847,8 @@
     {
       "productoId": "20260",
       "nombre": "Yogur natural Danone",
-      "precio": 1.99,
-      "precioReferencia": 2.073,
+      "precio": 1.7,
+      "precioReferencia": 1.771,
       "formato": "Pack-8",
       "unidadesTotales": 8,
       "tamañoUnidad": 0.96,
